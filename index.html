@@ -32,6 +32,7 @@
   --card-3: #4ade80;
   --card-4: #f472b6;
   --card-5: #a07dd4;
+  --card-6: #f87171;
 }
 
 [data-theme="light"] {
@@ -58,6 +59,7 @@
   --card-3: #16a34a;
   --card-4: #be185d;
   --card-5: #6d28d9;
+  --card-6: #dc2626;
 }
 
 * {
@@ -366,6 +368,10 @@ body::after {
   --card-accent: var(--card-5);
 }
 
+.card[data-accent="6"] {
+  --card-accent: var(--card-6);
+}
+
 .card-number {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
@@ -468,6 +474,39 @@ body::after {
   color: var(--accent);
 }
 
+/* ── Editorial polish: entrance animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.masthead { animation: fadeUp 0.6s ease-out both; }
+.section-label { animation: fadeIn 0.5s ease-out both; animation-delay: 0.2s; }
+.grid { animation: fadeUp 0.5s ease-out both; animation-delay: 0.3s; }
+
+.card {
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  background: var(--surface-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.colophon { animation: fadeIn 0.5s ease-out both; animation-delay: 0.5s; }
+
+/* ── Focus ring for keyboard nav ── */
+.card:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: -2px;
+}
+
 @media (max-width: 768px) {
   .theme-toggle {
     top: 1rem;
@@ -532,7 +571,7 @@ body::after {
   <div class="masthead-meta">
     <span id="currentDate"></span>
     <div class="sep"></div>
-    <span>5 Tools</span>
+    <span>6 Tools</span>
     <div class="sep"></div>
     <span class="status-dot">All Systems Go</span>
   </div>
@@ -586,7 +625,7 @@ body::after {
   </h2>
 </div>
 
-<div class="grid grid--three">
+<div class="grid">
   <a href="spotify-tracker.html" class="card" data-accent="3">
     <div class="card-number">03</div>
     <div class="card-title">Playlist Tracker</div>
@@ -601,12 +640,33 @@ body::after {
     <div class="card-footer"><span class="card-tag">Reference</span><span class="card-arrow">&nearr;</span></div>
     <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="12" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="36" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="32" y2="10" stroke="currentColor" stroke-width="1"/><line x1="12" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/><line x1="36" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/></svg>
   </a>
+</div>
+
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 2L11.5 7H6.5L9 2Z" fill="currentColor" opacity="0.4"/>
+      <circle cx="9" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <circle cx="9" cy="12" r="1.5" fill="currentColor" opacity="0.4"/>
+    </svg>
+    Intelligence &amp; Systems
+  </h2>
+</div>
+
+<div class="grid">
   <a href="chatgpt-intelligence.html" class="card" data-accent="5">
     <div class="card-number">05</div>
     <div class="card-title">AI Intelligence</div>
     <p class="card-desc">1,578 conversations across ChatGPT &amp; Claude &mdash; skills, patterns, warnings, and a merged diagnosis.</p>
     <div class="card-footer"><span class="card-tag">Analysis</span><span class="card-arrow">&nearr;</span></div>
     <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="24" cy="18" r="14" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M14 18 C14 12, 24 6, 24 18 S34 24, 34 18" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="24" cy="18" r="3" fill="currentColor" opacity="0.4"/></svg>
+  </a>
+  <a href="color-bible.html" class="card" data-accent="6">
+    <div class="card-number">06</div>
+    <div class="card-title">The Color Bible</div>
+    <p class="card-desc">Universal 5-color system for your entire digital life. One color, one meaning, everywhere. No exceptions.</p>
+    <div class="card-footer"><span class="card-tag">System</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="10" cy="18" r="6" fill="currentColor" opacity="0.25"/><circle cx="20" cy="18" r="6" fill="currentColor" opacity="0.2"/><circle cx="30" cy="18" r="6" fill="currentColor" opacity="0.15"/><circle cx="40" cy="18" r="6" fill="currentColor" opacity="0.1"/><circle cx="24" cy="18" r="2" fill="currentColor" opacity="0.6"/></svg>
   </a>
 </div>
 
@@ -640,6 +700,5 @@ function toggleTheme() {
   }
 })();
 </script>
-
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dbda7015af983d9',t:'MTc3MzQzMjMxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

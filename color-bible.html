@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Color Bible — Universal Digital Color System</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface-2: #1c2333;
+    --surface-3: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --red: #f85149;
+    --orange: #d29922;
+    --green: #3fb950;
+    --blue: #58a6ff;
+    --purple: #bc8cff;
+    --gray: #8b949e;
+    --yellow: #e3b341;
+    --pink: #f778ba;
+    --cyan: #39d2c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 32px; }
+
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 48px; }
+  .header h1 {
+    font-size: 38px; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--red), var(--orange), var(--green), var(--blue), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .header .subtitle { font-size: 16px; color: var(--text-muted); max-width: 750px; }
+  .header .meta { margin-top: 16px; font-size: 13px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .version-badge {
+    display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    background: linear-gradient(135deg, var(--red), var(--purple)); color: #fff; margin-left: 8px; vertical-align: middle;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  h2 { font-size: 24px; font-weight: 800; margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--blue); display: block; }
+  h3 { font-size: 18px; font-weight: 700; margin: 32px 0 12px; color: var(--blue); }
+  h4 { font-size: 14px; font-weight: 600; margin: 24px 0 8px; color: var(--purple); text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 14px; }
+  .muted { color: var(--text-muted); }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+  strong { font-weight: 700; }
+
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin-bottom: 48px; }
+  .toc h3 { margin-top: 0; color: var(--text); font-size: 18px; }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 28px; margin-top: 14px; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 14px; line-height: 2.1; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .num { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-right: 8px; }
+
+  .callout { border-radius: 10px; padding: 18px 22px; margin: 22px 0; border-left: 4px solid; }
+  .callout-red { background: rgba(248,81,73,0.08); border-color: var(--red); }
+  .callout-orange { background: rgba(210,153,34,0.08); border-color: var(--orange); }
+  .callout-green { background: rgba(63,185,80,0.08); border-color: var(--green); }
+  .callout-blue { background: rgba(88,166,255,0.08); border-color: var(--blue); }
+  .callout-purple { background: rgba(188,140,255,0.08); border-color: var(--purple); }
+  .callout-gray { background: rgba(139,148,158,0.08); border-color: var(--gray); }
+  .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+  .callout-red .callout-title { color: var(--red); }
+  .callout-orange .callout-title { color: var(--orange); }
+  .callout-green .callout-title { color: var(--green); }
+  .callout-blue .callout-title { color: var(--blue); }
+  .callout-purple .callout-title { color: var(--purple); }
+  .callout-gray .callout-title { color: var(--gray); }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 28px; font-size: 14px; }
+  th { background: var(--surface-2); color: var(--text-muted); font-weight: 600; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(88,166,255,0.04); }
+
+  .color-hero { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin: 28px 0 40px; }
+  .color-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 20px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .color-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  }
+  .color-card.c-red::before { background: var(--red); }
+  .color-card.c-orange::before { background: var(--orange); }
+  .color-card.c-green::before { background: var(--green); }
+  .color-card.c-blue::before { background: var(--blue); }
+  .color-card.c-purple::before { background: var(--purple); }
+  .color-dot { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 12px; }
+  .color-card .label { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+  .color-card .meaning { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .color-card .shortcut { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--bg); padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  .color-card .universal { font-size: 11px; color: var(--text-muted); margin-top: 10px; font-style: italic; }
+
+  .killed { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .killed-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; position: relative; }
+  .killed-card::after { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--red); opacity: 0.4; }
+  .killed-card .old-name { font-weight: 700; font-size: 15px; opacity: 0.5; text-decoration: line-through; }
+  .killed-card .reason { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+  .killed-card .absorbed { font-size: 12px; color: var(--green); margin-top: 6px; font-weight: 500; }
+
+  .layer-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin: 24px 0; }
+  .layer-section h3 { margin-top: 0; }
+
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; margin: 1px 3px; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+  .tag-red { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+  .tag-orange { background: rgba(210,153,34,0.15); color: var(--orange); border: 1px solid rgba(210,153,34,0.3); }
+  .tag-green { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-blue { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .tag-purple { background: rgba(188,140,255,0.15); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
+  .tag-gray { background: rgba(139,148,158,0.15); color: var(--gray); border: 1px solid rgba(139,148,158,0.3); }
+  .tag-none { background: rgba(139,148,158,0.08); color: var(--text-muted); border: 1px solid rgba(139,148,158,0.2); }
+
+  .principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .principle { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .principle .number { font-size: 28px; font-weight: 900; color: var(--blue); margin-bottom: 6px; }
+  .principle .title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .principle .desc { font-size: 13px; color: var(--text-muted); }
+
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+  .comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .comp-card.old { border-color: rgba(248,81,73,0.3); }
+  .comp-card.new { border-color: rgba(63,185,80,0.3); }
+  .comp-card h4 { margin-top: 0; }
+
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .platform-card .name { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .platform-card .support { font-size: 13px; margin-bottom: 8px; }
+  .platform-card .detail { font-size: 13px; color: var(--text-muted); }
+
+  .example-row { display: grid; grid-template-columns: 1fr 2fr 2fr; gap: 0; margin: 2px 0; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; align-items: center; }
+  .example-row:hover { background: rgba(88,166,255,0.04); }
+  .example-header { background: var(--surface-2); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); border-radius: 8px 8px 0 0; }
+
+  .checklist { list-style: none; margin: 16px 0; }
+  .checklist li { padding: 10px 0 10px 32px; position: relative; border-bottom: 1px solid rgba(48,54,61,0.5); font-size: 14px; }
+  .checklist li::before { content: ''; position: absolute; left: 0; top: 13px; width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; }
+
+  hr.section-break { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
+
+  .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text-muted); }
+
+  @media print {
+    body { background: #fff; color: #111; font-size: 12px; }
+    .container { max-width: 100%; padding: 20px; }
+    .header h1 { background: none; -webkit-text-fill-color: #111; }
+    .callout, .layer-section, .color-card, .platform-card, .principle, .comp-card, .killed-card { background: #f5f5f5; border-color: #ccc; }
+    h2 { border-color: #333; }
+    a { color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>The Color Bible <span class="version-badge">V1 Final</span></h1>
+  <p class="subtitle">A universal 5-color system for Gary's entire digital life. One color, one meaning, everywhere. No exceptions.</p>
+  <p class="meta">Generated: 2026-03-13 &nbsp;|&nbsp; Supersedes: Blindspot_Tag_Assessment V1–V3, Blindspot_Taxonomy V1–V5 &nbsp;|&nbsp; Status: Definitive</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>Contents</h3>
+  <div class="toc-grid">
+    <div>
+      <a href="#diagnosis"><span class="num">01</span> The Diagnosis: Why Your V3 System Stalled</a><br>
+      <a href="#principles"><span class="num">02</span> Four Design Principles</a><br>
+      <a href="#five-colors"><span class="num">03</span> The Five Colors (and Only Five)</a><br>
+      <a href="#killed"><span class="num">04</span> What Got Killed and Why</a><br>
+      <a href="#layers"><span class="num">05</span> The New 3-Layer Taxonomy</a><br>
+    </div>
+    <div>
+      <a href="#blindspot"><span class="num">06</span> The Blindspot Question</a><br>
+      <a href="#hashtags"><span class="num">07</span> The Hashtag (#) Question</a><br>
+      <a href="#platforms"><span class="num">08</span> Cross-Platform Color Map</a><br>
+      <a href="#tags-master"><span class="num">09</span> Master Tag List (Ready to Create)</a><br>
+      <a href="#implementation"><span class="num">10</span> Implementation Playbook</a><br>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 01 DIAGNOSIS -->
+<!-- ============================================================ -->
+<h2 id="diagnosis">01 — The Diagnosis: Why Your V3 System Stalled</h2>
+
+<p>Your V3 taxonomy was technically correct but practically unusable. Here's why it never fully activated:</p>
+
+<div class="callout callout-red">
+  <div class="callout-title">Problem 1: Color Collision</div>
+  You were using the same colors for two unrelated purposes. <strong>Red</strong> meant "Active" on files but "Health" on folders. <strong>Orange</strong> meant "In Progress" on files but "Work" on folders. <strong>Green</strong> meant "Done" on files but "Academia" on folders. When you see a red dot in Finder, your brain has to context-switch: "Is this urgent, or is this medical?" That cognitive tax killed the whole system. Colors must mean one thing, everywhere, always.
+</div>
+
+<div class="callout callout-orange">
+  <div class="callout-title">Problem 2: Seven Is Too Many</div>
+  Seven status colors exceeds working memory. You had Red, Orange, Yellow, Green, Blue, Purple, Gray — each with a distinct meaning. Research shows 4–6 categories is the sweet spot for instant color recognition without lookup. You were above the ceiling.
+</div>
+
+<div class="callout callout-blue">
+  <div class="callout-title">Problem 3: Four Layers = Tagging Paralysis</div>
+  Every file needed up to 4 tags (Status + Project + Type + Topic). That's a 20-second decision per file. At 100 files, that's 33 minutes of pure tagging. You'll never do that. The system needs to work with 1 tag per file as the default, 2 as the max for most files.
+</div>
+
+<div class="callout callout-purple">
+  <div class="callout-title">Problem 4: Tags That Only Live in Finder</div>
+  Finder tags don't exist on Google Drive. Your V3 system assumed everything lived on iCloud/APFS. But a significant chunk of your production work (Blindspot scripts, branding guides, research docs) lives on Google Drive. Any system that ignores Drive is incomplete.
+</div>
+
+<!-- ============================================================ -->
+<!-- 02 PRINCIPLES -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="principles">02 — Four Design Principles</h2>
+
+<div class="principle-grid">
+  <div class="principle">
+    <div class="number">01</div>
+    <div class="title">One Color, One Meaning, Everywhere</div>
+    <div class="desc">If Red means "needs attention" on your Mac, it means "needs attention" on your iPhone, your iPad, your Google Drive folder colors, your Notion tags, your calendar. No exceptions. No context-switching.</div>
+  </div>
+  <div class="principle">
+    <div class="number">02</div>
+    <div class="title">Five Colors Maximum</div>
+    <div class="desc">The human brain groups colors into 5–6 categories before confusion sets in. We use exactly 5 of macOS's 7 available tag colors. The other 2 (Yellow, Gray) get retired. Any additional tags are text-only, no color.</div>
+  </div>
+  <div class="principle">
+    <div class="number">03</div>
+    <div class="title">One Tag Is the Default</div>
+    <div class="desc">Most files get exactly 1 tag: a status color. Active production files get 2 (status + project). Nobody ever needs more than 2. If you're applying 3+ tags, something is wrong with your system, not your file.</div>
+  </div>
+  <div class="principle">
+    <div class="number">04</div>
+    <div class="title">No Tag = Unprocessed</div>
+    <div class="desc">A file with zero tags is your inbox. Hazel catches these. You don't need a blue "Inbox" tag — the absence of any tag IS the inbox state. This eliminates one color from your system entirely.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 03 THE FIVE COLORS -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="five-colors">03 — The Five Colors (and Only Five)</h2>
+
+<p>These are the only five colors that mean anything in your digital life. Memorize them once. Apply them everywhere.</p>
+
+<div class="color-hero">
+  <div class="color-card c-red">
+    <div class="color-dot" style="background: var(--red);"></div>
+    <div class="label" style="color: var(--red);">Hot</div>
+    <div class="meaning">Needs attention now</div>
+    <div class="shortcut">Ctrl-1</div>
+    <div class="universal">Fire. Stop sign. Alert. You see red, you act.</div>
+  </div>
+  <div class="color-card c-orange">
+    <div class="color-dot" style="background: var(--orange);"></div>
+    <div class="label" style="color: var(--orange);">In Flight</div>
+    <div class="meaning">Started, not finished</div>
+    <div class="shortcut">Ctrl-2</div>
+    <div class="universal">Caution tape. Construction zone. Mid-process.</div>
+  </div>
+  <div class="color-card c-green">
+    <div class="color-dot" style="background: var(--green);"></div>
+    <div class="label" style="color: var(--green);">Done</div>
+    <div class="meaning">Complete, shipped, resolved</div>
+    <div class="shortcut">Ctrl-3</div>
+    <div class="universal">Green light. Checkmark. Safe. Finished.</div>
+  </div>
+  <div class="color-card c-blue">
+    <div class="color-dot" style="background: var(--blue);"></div>
+    <div class="label" style="color: var(--blue);">Waiting</div>
+    <div class="meaning">Blocked on someone/something else</div>
+    <div class="shortcut">Ctrl-4</div>
+    <div class="universal">Cool. Calm. Patient. Out of your hands.</div>
+  </div>
+  <div class="color-card c-purple">
+    <div class="color-dot" style="background: var(--purple);"></div>
+    <div class="label" style="color: var(--purple);">Reference</div>
+    <div class="meaning">Evergreen. Consult repeatedly.</div>
+    <div class="shortcut">Ctrl-5</div>
+    <div class="universal">Royal. Rare. Preserved. A file you'll re-open 10+ times.</div>
+  </div>
+</div>
+
+<div class="callout callout-green">
+  <div class="callout-title">The No-Tag State</div>
+  <p>A file or folder with <strong>no color tag</strong> means <strong>unprocessed</strong>. It hasn't been triaged yet. Hazel watches for these. Your weekly sweep catches these. This replaces the old Blue "Inbox" tag — saving you one color and one decision. If it has no dot, it needs sorting.</p>
+</div>
+
+<div class="callout callout-gray">
+  <div class="callout-title">The Archive State</div>
+  <p>The old Gray "Archive" tag is gone. Archived files get <strong>no color tag</strong> — they've been moved to their final resting place (Blindvault, completed folder, etc.). Their physical location IS their archive status. You don't need a color to say "this is old." The folder it's in says that.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 04 KILLED -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="killed">04 — What Got Killed and Why</h2>
+
+<div class="killed">
+  <div class="killed-card">
+    <div class="old-name" style="color: var(--yellow);">Yellow — Paused / Waiting</div>
+    <div class="reason">Merged into <strong>Blue (Waiting)</strong> and <strong>Orange (In Flight)</strong>. "Paused" is either "I'm blocked on someone" (Blue) or "I stopped working on it" (remove Red, leave Orange). Yellow added no unique state.</div>
+    <div class="absorbed">Absorbed by: Blue (Waiting) + Orange (In Flight)</div>
+  </div>
+  <div class="killed-card">
+    <div class="old-name" style="color: var(--gray);">Gray — Archive</div>
+    <div class="reason">Replaced by physical location. If a file is in <code>Blindvault/Archive/</code> or a <code>_Completed/</code> subfolder, it's archived. Gray added visual noise without information.</div>
+    <div class="absorbed">Absorbed by: Folder structure (no tag needed)</div>
+  </div>
+</div>
+
+<div class="callout callout-blue">
+  <div class="callout-title">Why Not Kill Blue Instead?</div>
+  <p>The V3 system used Blue for "Inbox" (unprocessed). This Bible uses "no tag" for inbox. So why keep Blue? Because <strong>Waiting</strong> is a genuinely distinct state from "not started" or "in progress." A legal document sent to Albania for notarization, a video waiting for client feedback, a tax form pending accountant review — these are real blockers that need their own color so you know: <em>don't touch this, it's out of your hands.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 05 NEW TAXONOMY -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="layers">05 — The New 3-Layer Taxonomy</h2>
+
+<p>Down from 4 layers to 3. Content Type (Layer 3 in V3) is eliminated — it's redundant with file extensions and folder location. A .pdf in <code>Financial/</code> doesn't need a <code>t:Financial</code> tag. That's double-bookkeeping.</p>
+
+<div class="layer-section">
+  <h3>Layer 1 — Status (Color Tags)</h3>
+  <p class="muted">One per file. This is the only layer that uses color. Applied via Ctrl-1 through Ctrl-5.</p>
+  <table>
+    <tr><th>Tag Name</th><th>Color</th><th>Shortcut</th><th>Meaning</th><th>When to Apply</th></tr>
+    <tr><td><span class="tag tag-red">Hot</span></td><td style="color:var(--red)">Red</td><td><code>Ctrl-1</code></td><td>Needs attention now</td><td>Files you touched today or need to act on this week</td></tr>
+    <tr><td><span class="tag tag-orange">In Flight</span></td><td style="color:var(--orange)">Orange</td><td><code>Ctrl-2</code></td><td>Work in progress</td><td>Drafts, partial edits, ongoing research, parked-but-returning</td></tr>
+    <tr><td><span class="tag tag-green">Done</span></td><td style="color:var(--green)">Green</td><td><code>Ctrl-3</code></td><td>Completed</td><td>Shipped episodes, filed paperwork, published articles</td></tr>
+    <tr><td><span class="tag tag-blue">Waiting</span></td><td style="color:var(--blue)">Blue</td><td><code>Ctrl-4</code></td><td>Blocked externally</td><td>Legal reviews, client feedback, government processing</td></tr>
+    <tr><td><span class="tag tag-purple">Reference</span></td><td style="color:var(--purple)">Purple</td><td><code>Ctrl-5</code></td><td>Evergreen resource</td><td>Style guides, templates, business plans, checklists, key research</td></tr>
+  </table>
+  <p class="muted"><strong>No tag</strong> = Unprocessed / needs triage. <strong>Green files</strong> in active folders should eventually be moved to their permanent home or have their tag removed.</p>
+</div>
+
+<div class="layer-section">
+  <h3>Layer 2 — Project (Text Tags, No Color)</h3>
+  <p class="muted">Optional. One per file when needed. Uses <code>p:</code> prefix. No color assigned — these are text-only Finder tags.</p>
+  <table>
+    <tr><th>Tag</th><th>Scope</th></tr>
+    <tr><td><span class="tag tag-none">p:Blindspot</span></td><td>Channel-wide: branding, strategy, templates, channel art</td></tr>
+    <tr><td><span class="tag tag-none">p:EP01</span></td><td>Episode 1: Soviet Revenge — scripts, research, assets</td></tr>
+    <tr><td><span class="tag tag-none">p:EP02</span></td><td>Episode 2: Right-Wing Socialism</td></tr>
+    <tr><td><span class="tag tag-none">p:EP03</span> through <span class="tag tag-none">p:EP07</span></td><td>Future episodes (create as needed)</td></tr>
+    <tr><td><span class="tag tag-none">p:Substack</span></td><td>Newsletter drafts, subscriber data, cross-posts</td></tr>
+    <tr><td><span class="tag tag-none">p:Spotify</span></td><td>Playlist data, CSV exports, tracker, cover art</td></tr>
+    <tr><td><span class="tag tag-none">p:Studio</span></td><td>Equipment docs, camera settings, Stream Deck, lighting</td></tr>
+    <tr><td><span class="tag tag-none">p:Albania</span></td><td>Legal, property, Power of Attorney, government filings</td></tr>
+    <tr><td><span class="tag tag-none">p:Accenture</span></td><td>Current employment (own files only, not shared)</td></tr>
+  </table>
+  <p class="muted"><strong>When to use:</strong> Only when a file could live in multiple folders or when you want Smart Folder aggregation across locations. Most files in <code>Documents/Financial/</code> don't need a project tag — their folder IS the project. Use project tags for files that cross boundaries.</p>
+</div>
+
+<div class="layer-section">
+  <h3>Layer 3 — Topic (Text Tags, No Color)</h3>
+  <p class="muted">Optional. For cross-cutting themes that span multiple projects. Uses <code>#</code> prefix. Apply sparingly.</p>
+  <table>
+    <tr><th>Tag</th><th>Covers</th></tr>
+    <tr><td><span class="tag tag-none">#Politics</span></td><td>US political analysis, institutional critique, hypocrisy</td></tr>
+    <tr><td><span class="tag tag-none">#History</span></td><td>WWII, French Revolution, Cold War, historical parallels</td></tr>
+    <tr><td><span class="tag tag-none">#Economics</span></td><td>Housing, inequality, BlackRock, tariffs, wealth gaps</td></tr>
+    <tr><td><span class="tag tag-none">#Geopolitics</span></td><td>EU, Albania, NATO, Middle East, foreign policy</td></tr>
+    <tr><td><span class="tag tag-none">#Media</span></td><td>Press criticism, algorithms, attention economy, platform power</td></tr>
+    <tr><td><span class="tag tag-none">#Health</span></td><td>Medical records, ACC, vet records (Francis)</td></tr>
+    <tr><td><span class="tag tag-none">#Production</span></td><td>Camera, editing, DaVinci, SLog3, audio, studio workflow</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- 06 THE BLINDSPOT QUESTION -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="blindspot">06 — The Blindspot Question</h2>
+
+<p><strong>Q: Should "The Blindspot" be a color tag, no tag, or a tag with no color?</strong></p>
+
+<p><strong>A: Text-only tag, no color.</strong> Here's the logic:</p>
+
+<p>The Blindspot is a <strong>project</strong>, not a <strong>status</strong>. It doesn't tell you what to do with a file — it tells you what the file belongs to. Colors are reserved exclusively for status (what action is needed). Projects get the <code>p:</code> prefix with no color.</p>
+
+<p>The tag <span class="tag tag-none">p:Blindspot</span> exists for one purpose: Smart Folder aggregation. It lets you create a Finder Smart Folder that pulls every Blindspot-related file regardless of where it physically lives — scripts in <code>The Blindspot/</code>, research in <code>Books/</code>, assets on the Blindvault, whatever. Without the tag, you'd have to manually check 4 locations.</p>
+
+<div class="callout callout-purple">
+  <div class="callout-title">When to NOT Tag Something p:Blindspot</div>
+  <p>If a file already lives inside <code>Documents/The Blindspot/</code> or a subfolder, you probably don't need the tag. The folder IS the project membership. Use <span class="tag tag-none">p:Blindspot</span> only for files that live <strong>outside</strong> the Blindspot folder tree but serve the project — e.g., a reference book in <code>Books/Barbara Tuchman/</code> that you're using for EP01 research.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 07 HASHTAGS -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="hashtags">07 — The Hashtag (#) Question</h2>
+
+<p><strong>Q: What's the point of using # in topic tags?</strong></p>
+
+<p><strong>A: Three functions, all practical:</strong></p>
+
+<p><strong>1. Namespace collision prevention.</strong> Without prefixes, "Health" the topic tag and "Health" the folder name are indistinguishable in Finder's tag autocomplete. <code>#Health</code> is unambiguous — it's always a topic, never a folder, never a project. Same logic applies to <code>p:</code> for projects.</p>
+
+<p><strong>2. Spotlight precision.</strong> Searching <code>tag:#Politics</code> in Spotlight returns only files tagged with the topic. Searching just "Politics" returns every file with "politics" in the filename or content — thousands of false positives.</p>
+
+<p><strong>3. Visual scanning.</strong> When you look at a file's tags in Finder's info panel, the prefix tells you the tag type at a glance:</p>
+
+<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
+  <span class="tag tag-red">Hot</span> <span class="tag tag-none">p:EP01</span> <span class="tag tag-none">#History</span>
+  <br><br>
+  <span style="color: var(--text-muted); font-size: 12px;">Reading left to right: "This is active, belongs to Episode 1, covers a historical topic."</span>
+  <br><span style="color: var(--text-muted); font-size: 12px;">3 tags, 2 seconds to parse, zero ambiguity.</span>
+</div>
+
+<div class="callout callout-orange">
+  <div class="callout-title">When to Use Topic Tags</div>
+  <p>Topic tags are the <strong>least important</strong> layer. Most files never need one. Use them only when a file serves multiple projects and you want to find it by theme later. A script for EP01 about Soviet revenge doesn't need <code>#History</code> — it's already in the EP01 folder. But a standalone research PDF about WWII retribution patterns that informs EP01, EP03, and a Substack draft? That gets <code>#History</code>.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 08 CROSS-PLATFORM -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="platforms">08 — Cross-Platform Color Map</h2>
+
+<p>Here's how the 5 colors translate across every platform you use. The meaning never changes — only the implementation differs.</p>
+
+<div class="platform-grid">
+  <div class="platform-card">
+    <div class="name">macOS Finder</div>
+    <div class="support" style="color: var(--green);">Full native support</div>
+    <div class="detail">Finder tags with 7 built-in colors. You use 5 (Red, Orange, Green, Blue, Purple). Yellow and Gray are deactivated — remove them from Finder Preferences > Tags favorites bar so they don't clutter autocomplete. Custom text tags (p: and #) with no color work natively.</div>
+  </div>
+  <div class="platform-card">
+    <div class="name">iOS / iPadOS Files App</div>
+    <div class="support" style="color: var(--green);">Full iCloud sync</div>
+    <div class="detail">Tags sync via iCloud. Same 5 colors visible in Files app. Can apply and filter by tag. Works on iPhone 16 Pro and iPad mini.</div>
+  </div>
+  <div class="platform-card">
+    <div class="name">Google Drive</div>
+    <div class="support" style="color: var(--orange);">Folder colors only (personal accounts)</div>
+    <div class="detail">No file-level tags. Use <strong>folder colors</strong> to mirror the system: Red folder = Hot/Active project, Orange = In Progress, Green = Done, Blue = Waiting, Purple = Reference. Apply via right-click > Change color. Not as granular as Finder, but keeps the mental model consistent.</div>
+  </div>
+  <div class="platform-card">
+    <div class="name">Notion / Obsidian / Notes</div>
+    <div class="support" style="color: var(--blue);">Manual enforcement</div>
+    <div class="detail">Use the same 5-color system for status labels, database property colors, or tag colors. Red = Hot, Orange = In Flight, etc. Most tools let you customize tag/label colors. Match them.</div>
+  </div>
+  <div class="platform-card">
+    <div class="name">The Blindvault (External APFS)</div>
+    <div class="support" style="color: var(--green);">Full native support</div>
+    <div class="detail">APFS supports Finder tags natively. Same behavior as iCloud Drive. Tags applied on Mac Studio persist. Tags do NOT sync via iCloud (local disk), but since Blindvault is only accessed from Mac Studio, this is fine.</div>
+  </div>
+  <div class="platform-card">
+    <div class="name">Calendar (Apple/Google)</div>
+    <div class="support" style="color: var(--blue);">Color categories</div>
+    <div class="detail">Map calendar colors to the system where applicable. Deadlines = Red. Ongoing projects = Orange. Completed milestones = Green. Waiting/pending = Blue.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 09 MASTER TAG LIST -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="tags-master">09 — Master Tag List (Ready to Create)</h2>
+
+<p>Below is every tag you need to create in Finder Preferences. This is the complete list — nothing more, nothing less. Create these once, then start tagging.</p>
+
+<h3>Status Tags (5 tags, with color)</h3>
+<table>
+  <tr><th>#</th><th>Tag Name</th><th>Finder Color</th><th>Shortcut</th><th>Smart Folder?</th></tr>
+  <tr><td>1</td><td><span class="tag tag-red">Hot</span></td><td>Red</td><td>Ctrl-1</td><td>Yes — "All Hot Files"</td></tr>
+  <tr><td>2</td><td><span class="tag tag-orange">In Flight</span></td><td>Orange</td><td>Ctrl-2</td><td>Yes — "All In Flight"</td></tr>
+  <tr><td>3</td><td><span class="tag tag-green">Done</span></td><td>Green</td><td>Ctrl-3</td><td>Optional</td></tr>
+  <tr><td>4</td><td><span class="tag tag-blue">Waiting</span></td><td>Blue</td><td>Ctrl-4</td><td>Yes — "Blocked Items"</td></tr>
+  <tr><td>5</td><td><span class="tag tag-purple">Reference</span></td><td>Purple</td><td>Ctrl-5</td><td>Yes — "Reference Library"</td></tr>
+</table>
+
+<h3>Project Tags (9+ tags, no color)</h3>
+<table>
+  <tr><th>Tag Name</th><th>Scope</th></tr>
+  <tr><td><span class="tag tag-none">p:Blindspot</span></td><td>Channel-wide assets, branding, strategy</td></tr>
+  <tr><td><span class="tag tag-none">p:EP01</span></td><td>Soviet Revenge</td></tr>
+  <tr><td><span class="tag tag-none">p:EP02</span></td><td>Right-Wing Socialism</td></tr>
+  <tr><td><span class="tag tag-none">p:EP03</span> – <span class="tag tag-none">p:EP07</span></td><td>Future episodes (create on demand)</td></tr>
+  <tr><td><span class="tag tag-none">p:Substack</span></td><td>Newsletter</td></tr>
+  <tr><td><span class="tag tag-none">p:Spotify</span></td><td>Playlist tracking</td></tr>
+  <tr><td><span class="tag tag-none">p:Studio</span></td><td>Equipment, camera, gear</td></tr>
+  <tr><td><span class="tag tag-none">p:Albania</span></td><td>Legal, property, government</td></tr>
+  <tr><td><span class="tag tag-none">p:Accenture</span></td><td>Employment (own files only)</td></tr>
+</table>
+
+<h3>Topic Tags (7 tags, no color)</h3>
+<table>
+  <tr><th>Tag Name</th><th>Cross-Project Theme</th></tr>
+  <tr><td><span class="tag tag-none">#Politics</span></td><td>US politics, institutional critique</td></tr>
+  <tr><td><span class="tag tag-none">#History</span></td><td>WWII, Cold War, French Revolution, parallels</td></tr>
+  <tr><td><span class="tag tag-none">#Economics</span></td><td>Housing, inequality, tariffs, wealth</td></tr>
+  <tr><td><span class="tag tag-none">#Geopolitics</span></td><td>EU, Albania, NATO, foreign policy</td></tr>
+  <tr><td><span class="tag tag-none">#Media</span></td><td>Press, algorithms, attention economy</td></tr>
+  <tr><td><span class="tag tag-none">#Health</span></td><td>Medical, ACC, Francis</td></tr>
+  <tr><td><span class="tag tag-none">#Production</span></td><td>Camera, editing, audio, DaVinci, studio</td></tr>
+</table>
+
+<div class="callout callout-green">
+  <div class="callout-title">Total Tag Count: 21</div>
+  <p>5 status (colored) + 9 project (text) + 7 topic (text) = <strong>21 tags</strong>. This is your complete universe. The V3 system had 33+ tags including granular type tags and episode-specific sub-tags. You cut 36% and lost zero functionality because folder structure + file extensions already encode what the type tags were trying to say.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- 10 IMPLEMENTATION -->
+<!-- ============================================================ -->
+<hr class="section-break">
+<h2 id="implementation">10 — Implementation Playbook</h2>
+
+<h3>Session 0: Setup (15 minutes)</h3>
+<ul class="checklist">
+  <li>Open <strong>Finder > Settings > Tags</strong>. Remove Yellow and Gray from the favorites bar.</li>
+  <li>Rename the 5 remaining default color tags: Red → "Hot", Orange → "In Flight", Green → "Done", Blue → "Waiting", Purple → "Reference".</li>
+  <li>Verify shortcuts: Ctrl-1 through Ctrl-5 should map to your 5 status tags in order.</li>
+  <li>Create all 9 project tags (<code>p:Blindspot</code>, <code>p:EP01</code>, etc.) — do NOT assign a color.</li>
+  <li>Create all 7 topic tags (<code>#Politics</code>, <code>#History</code>, etc.) — do NOT assign a color.</li>
+  <li>Remove any old tags from V3 that no longer exist (Active, In Progress, Paused, Inbox, Archive, all <code>t:</code> type tags).</li>
+  <li>Remove color labels from Document folders (Health, Work, Academia, etc.) — colors are for files, not folders.</li>
+</ul>
+
+<h3>Session 1: Hot Files First (30 minutes)</h3>
+<ul class="checklist">
+  <li>Open <code>Documents/The Blindspot/</code>. Tag every file you're actively working on as <span class="tag tag-red">Hot</span>.</li>
+  <li>Tag works-in-progress as <span class="tag tag-orange">In Flight</span>.</li>
+  <li>Tag completed, shipped files as <span class="tag tag-green">Done</span>.</li>
+  <li>Tag anything waiting on external input as <span class="tag tag-blue">Waiting</span>.</li>
+  <li>Tag templates, style guides, checklists as <span class="tag tag-purple">Reference</span>.</li>
+  <li>Skip project/topic tags for now. Status first.</li>
+</ul>
+
+<h3>Session 2: Documents Root + Financial + Government (45 minutes)</h3>
+<ul class="checklist">
+  <li>Tag everything in <code>Financial/</code>, <code>Government/</code>, <code>Health/</code> — most will be <span class="tag tag-purple">Reference</span> or <span class="tag tag-green">Done</span>.</li>
+  <li>Tag active legal matters (Albania POA, immigration) as <span class="tag tag-blue">Waiting</span> or <span class="tag tag-red">Hot</span>.</li>
+  <li>Rename any UUID-named files sitting at the Documents root.</li>
+</ul>
+
+<h3>Session 3: Google Drive Folder Colors (15 minutes)</h3>
+<ul class="checklist">
+  <li>In Google Drive, right-click each active project folder > Change Color to match the system.</li>
+  <li>Active project folders (Blindspot Production, Pulse) = Red.</li>
+  <li>Archive/completed folders = no color or default gray.</li>
+  <li>Reference folders (templates, guides) = Purple if available, otherwise default.</li>
+</ul>
+
+<h3>Session 4: Hazel + Smart Folders (30 minutes)</h3>
+<ul class="checklist">
+  <li>Create Smart Folders: "All Hot Files" (tag = Hot), "All In Flight" (tag = In Flight), "All Waiting" (tag = Waiting), "Reference Library" (tag = Reference).</li>
+  <li>Configure Hazel: Downloads files older than 14 days with no tags → move to <code>_Unsorted/</code> folder.</li>
+  <li>Configure Hazel: Screenshots older than 30 days with no tags → Trash.</li>
+</ul>
+
+<div class="callout callout-red">
+  <div class="callout-title">The One Rule That Makes This Work</div>
+  <p>Every time you save a file, take 2 seconds to press Ctrl-1 through Ctrl-5. That's it. The entire system lives or dies on this one micro-habit. If you do it, the system maintains itself. If you don't, no taxonomy in the world will save you.</p>
+</div>
+
+<div class="footer">
+  The Color Bible V1 &nbsp;|&nbsp; Generated for Gary Elbasani &nbsp;|&nbsp; 2026-03-13 &nbsp;|&nbsp; Supersedes all prior tag assessment documents
+</div>
+
+</div>
+</body>
+</html>
