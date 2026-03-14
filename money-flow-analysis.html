@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Did the Money Go? — Oct 2025 – Feb 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── UNIFIED DESIGN TOKENS ─── */
+[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border: #2a3a5c;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #d4a052;
+  --accent-dim: rgba(212, 160, 82, 0.10);
+  --accent-glow: rgba(212, 160, 82, 0.25);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --green: #4ade80;
+  --green-dim: rgba(74, 222, 128, 0.12);
+  --amber: #fbbf24;
+  --amber-dim: rgba(251, 191, 36, 0.12);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96, 165, 250, 0.12);
+  --purple: #a78bfa;
+  --cyan: #22d3ee;
+  --pink: #f472b6;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  --code-bg: #0e1525;
+}
+
+[data-theme="light"] {
+  --bg: #f0f4f8;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #e8edf4;
+  --border: #c8d3e0;
+  --border-subtle: #dce3ed;
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent: #b8862d;
+  --accent-dim: rgba(184, 134, 45, 0.08);
+  --accent-glow: rgba(184, 134, 45, 0.18);
+  --red: #dc2626;
+  --red-dim: rgba(220, 38, 38, 0.08);
+  --green: #16a34a;
+  --green-dim: rgba(22, 163, 74, 0.08);
+  --amber: #ca8a04;
+  --amber-dim: rgba(202, 138, 4, 0.08);
+  --blue: #2563eb;
+  --blue-dim: rgba(37, 99, 235, 0.08);
+  --purple: #7c3aed;
+  --cyan: #0891b2;
+  --pink: #db2777;
+  --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  --code-bg: #eef2f7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── TOPNAV ─── */
+.topnav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 14px 36px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topnav-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.2s;
+}
+
+.topnav-back:hover {
+  opacity: 0.7;
+}
+
+.topnav-title {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.theme-toggle {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* ─── CONTAINER & LAYOUT ─── */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 36px 64px;
+}
+
+/* ─── HEADER ─── */
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeIn 0.6s ease;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--text), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header .subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── SECTION ─── */
+.section {
+  margin-bottom: 40px;
+  animation: slideUp 0.5s ease both;
+}
+
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.2s; }
+.section:nth-child(4) { animation-delay: 0.3s; }
+.section:nth-child(5) { animation-delay: 0.4s; }
+.section:nth-child(6) { animation-delay: 0.5s; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow);
+}
+
+/* ─── VERDICT ─── */
+.verdict-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.verdict-card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 18px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.verdict-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.verdict-card .label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.verdict-card .value {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.verdict-card .sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── WATERFALL ─── */
+.waterfall {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 220px;
+  padding: 16px 0 32px;
+  position: relative;
+}
+
+.wf-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.wf-bar {
+  width: 100%;
+  max-width: 80px;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s;
+  position: relative;
+  min-height: 2px;
+}
+
+.wf-bar:hover {
+  filter: brightness(1.3);
+}
+
+.wf-val {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.wf-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 8px;
+  position: absolute;
+  bottom: -28px;
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── INTEREST EROSION ─── */
+.erosion-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.erosion-row:last-child {
+  border-bottom: none;
+}
+
+.erosion-name {
+  flex: 0 0 160px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.erosion-bars {
+  flex: 1;
+  display: flex;
+  gap: 2px;
+  height: 22px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.erosion-paid {
+  background: var(--green);
+  opacity: 0.7;
+  border-radius: 4px 0 0 4px;
+  transition: width 0.5s ease;
+}
+
+.erosion-interest {
+  background: var(--red);
+  opacity: 0.8;
+  transition: width 0.5s ease;
+}
+
+.erosion-new {
+  background: var(--accent);
+  opacity: 0.6;
+  transition: width 0.5s ease;
+}
+
+.erosion-vals {
+  flex: 0 0 200px;
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.erosion-vals span {
+  white-space: nowrap;
+}
+
+/* ─── CC BALANCE TABLE ─── */
+.bal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.bal-table th {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.bal-table th:first-child {
+  text-align: left;
+}
+
+.bal-table td {
+  padding: 10px 12px;
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.bal-table td:first-child {
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.bal-table tr:last-child td {
+  border-bottom: none;
+  font-weight: 700;
+  background: var(--surface-2);
+}
+
+.bal-table .pos {
+  color: var(--red);
+}
+
+.bal-table .neg {
+  color: var(--green);
+}
+
+/* ─── MONTHLY TIMELINE ─── */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.tl-card {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+.tl-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.tl-month {
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.tl-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 3px 0;
+}
+
+.tl-row .tl-label {
+  color: var(--text-muted);
+}
+
+/* ─── CALLOUT ─── */
+.callout {
+  background: var(--accent-dim);
+  border: 1px solid rgba(212, 160, 82, 0.2);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 12px;
+}
+
+.callout-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.callout p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+.callout strong {
+  color: var(--accent);
+}
+
+.callout .stat {
+  color: var(--red);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+/* ─── LEGEND ─── */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* ─── FOOTER ─── */
+.colophon {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3rem 36px 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.colophon a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.colophon a:hover {
+  color: var(--accent);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .verdict-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+  .erosion-vals { flex: 0 0 140px; }
+  .topnav { padding: 12px 24px; }
+  .container { padding: 24px 24px 64px; }
+  .colophon { padding: 2rem 24px 3rem; flex-direction: column; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="topnav-back">&larr; Command Center</a>
+  <span class="topnav-title">Cash Flow Analysis</span>
+  <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+</nav>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Where Did the Money Go?</h1>
+    <div class="subtitle">Venmo Inflows &rarr; Credit Cards &rarr; Interest Erosion &nbsp;|&nbsp; Oct 2025 &ndash; Feb 2026</div>
+  </div>
+
+  <!-- ═══ 1. TOP-LINE VERDICT ═══ -->
+  <div class="section">
+    <div class="section-label">The Verdict</div>
+    <div class="verdict-grid">
+      <div class="verdict-card">
+        <div class="label">Venmo Received</div>
+        <div class="value" style="color:var(--green)">$10,100</div>
+        <div class="sub">22 cashouts</div>
+      </div>
+      <div class="verdict-card">
+        <div class="label">Paid to Cards</div>
+        <div class="value" style="color:var(--blue)">$9,251</div>
+        <div class="sub">60 payments, 7 cards</div>
+      </div>
+      <div class="verdict-card">
+        <div class="label">Eaten by Interest</div>
+        <div class="value" style="color:var(--red)">$1,683</div>
+        <div class="sub">18.2% of payments</div>
+      </div>
+      <div class="verdict-card">
+        <div class="label">Actual Debt Reduction</div>
+        <div class="value" style="color:var(--accent)">$1,396</div>
+        <div class="sub">15.1% of payments</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Why Only ~$800 in Checking?</div>
+      <p>You received <strong>$10,760</strong> total (Venmo + other). You paid out <strong>$12,055</strong> &mdash; sending <strong>$9,251</strong> to credit cards and <strong>$2,803</strong> to living expenses (utilities, food delivery, PayPal transfers). That&rsquo;s a <span class="stat">&minus;$1,294</span> net drain on your checking account.</p>
+      <p>Meanwhile, your credit card balances only dropped <span class="stat">$1,396</span> despite $9,251 in payments because <strong>$1,683 was consumed by interest</strong> and you added approximately <strong>$6,172 in new charges</strong> across your cards during the same period.</p>
+    </div>
+  </div>
+
+  <!-- ═══ 2. CHECKING WATERFALL ═══ -->
+  <div class="section">
+    <div class="section-label">Checking Account Waterfall</div>
+    <div class="card">
+      <div id="waterfall" class="waterfall"></div>
+    </div>
+  </div>
+
+  <!-- ═══ 3. WHERE CC PAYMENTS WENT ═══ -->
+  <div class="section">
+    <div class="section-label">$9,251 Paid to Cards &mdash; Where Did It Actually Go?</div>
+    <div class="card">
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Principal Reduction</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Interest Charges</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Offset by New Charges</div>
+      </div>
+      <div id="erosion"></div>
+    </div>
+  </div>
+
+  <!-- ═══ 4. PER-CARD BALANCE TABLE ═══ -->
+  <div class="section">
+    <div class="section-label">Card-by-Card: Oct 2025 vs Feb 2026</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="bal-table" id="balTable"></table>
+    </div>
+  </div>
+
+  <!-- ═══ 5. MONTHLY TIMELINE ═══ -->
+  <div class="section">
+    <div class="section-label">Month-by-Month Interest Burn</div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <!-- ═══ 6. BOTTOM LINE ═══ -->
+  <div class="section">
+    <div class="section-label">If You Remember Nothing Else</div>
+    <div class="callout" style="background:var(--blue-dim); border-color:rgba(96,165,250,0.2);">
+      <p><strong style="color:var(--blue)">1.</strong> Of every dollar you pay to cards, <span class="stat">~18&cent;</span> goes straight to interest &mdash; not principal. At current balances, you&rsquo;re burning <strong>$337/month</strong> just to stand still.</p>
+      <p><strong style="color:var(--blue)">2.</strong> Your checking drained by <span class="stat">$1,294</span> because total outflows exceeded inflows. The Venmo payments are real, but they&rsquo;re being split between CC payments AND ~$2,800/month in living costs.</p>
+      <p><strong style="color:var(--blue)">3.</strong> New spending on cards (~<span class="stat">$6,172</span>) nearly wiped out what your payments reduced. The Apple Card and Capital One 0623 both <em>increased</em> in balance despite regular payments &mdash; that&rsquo;s new charges outpacing paydowns.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="colophon">
+  <span>Gary&rsquo;s Command Center &copy; 2026</span>
+  <a href="index.html">ChaosConsole</a>
+</footer>
+
+<script>
+// ═══ THEME TOGGLE ═══
+function toggleTheme() {
+  const html = document.documentElement;
+  const currentTheme = html.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme-preference', newTheme);
+  updateThemeIcon();
+}
+
+function updateThemeIcon() {
+  const theme = document.documentElement.getAttribute('data-theme');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+// Load saved theme preference
+(function() {
+  const saved = localStorage.getItem('theme-preference');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+  updateThemeIcon();
+})();
+
+const fmt = v => '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+const fmt2 = v => '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+
+// ═══ WATERFALL ═══
+(function() {
+  const steps = [
+    { label: 'Starting\nBalance', value: 2094, type: 'neutral', note: 'Oct 1 est.' },
+    { label: 'Venmo\nCashouts', value: 10100, type: 'in' },
+    { label: 'Other\nIncome', value: 660, type: 'in' },
+    { label: 'CC\nPayments', value: -9251, type: 'out' },
+    { label: 'Utilities\n& Bills', value: -1272, type: 'out' },
+    { label: 'Food\nDelivery', value: -319, type: 'out' },
+    { label: 'PayPal &\nTransfers', value: -1061, type: 'out' },
+    { label: 'Other\nSpending', value: -151, type: 'out' },
+    { label: 'Ending\nBalance', value: 800, type: 'result' },
+  ];
+
+  const el = document.getElementById('waterfall');
+  const maxAbs = Math.max(...steps.map(s => Math.abs(s.value)));
+  const maxH = 170;
+
+  el.innerHTML = steps.map((s, i) => {
+    const h = (Math.abs(s.value) / maxAbs) * maxH;
+    let color;
+    if (s.type === 'in') color = 'var(--green)';
+    else if (s.type === 'out') color = 'var(--red)';
+    else if (s.type === 'result') color = s.value >= 0 ? 'var(--accent)' : 'var(--red)';
+    else color = 'var(--blue)';
+
+    const sign = s.value >= 0 ? '' : '&minus;';
+    return `<div class="wf-bar-wrap">
+      <div class="wf-val" style="color:${color}">${sign}${fmt(s.value)}</div>
+      <div class="wf-bar" style="height:${Math.max(h, 4)}px;background:${color};opacity:${s.type === 'result' ? 1 : 0.7}" title="${s.note || ''}"></div>
+      <div class="wf-label">${s.label.replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }).join('');
+})();
+
+// ═══ INTEREST EROSION ═══
+(function() {
+  const cards = [
+    { name: 'Apple Card', paid: 4496, interest: 606, balChange: -580 },
+    { name: 'Amazon Store Card', paid: 2656, interest: 527, balChange: -1431 },
+    { name: 'Citi Simplicity', paid: 691, interest: 351, balChange: +52 },
+    { name: 'Chase', paid: 787, interest: 0, balChange: 0 },
+    { name: 'Capital One (both)', paid: 240, interest: 182, balChange: +895 },
+    { name: 'PayPal Credit', paid: 237, interest: 11, balChange: -330 },
+    { name: 'Discover/Other', paid: 145, interest: 6, balChange: -3 },
+  ];
+
+  const maxPaid = Math.max(...cards.map(c => c.paid));
+  const el = document.getElementById('erosion');
+
+  el.innerHTML = cards.map(c => {
+    const total = c.paid;
+    const intPct = (c.interest / total) * 100;
+    // New charges = paid - interest - balance_reduction
+    const principalReduction = Math.max(0, -c.balChange);
+    const newCharges = Math.max(0, c.paid - c.interest - principalReduction);
+    const newPct = (newCharges / total) * 100;
+    const principalPct = 100 - intPct - newPct;
+    const barW = (total / maxPaid) * 100;
+
+    return `<div class="erosion-row">
+      <div class="erosion-name">${c.name}</div>
+      <div class="erosion-bars" style="width:${barW}%">
+        <div class="erosion-paid" style="width:${principalPct}%"></div>
+        <div class="erosion-interest" style="width:${intPct}%"></div>
+        ${newPct > 0 ? `<div class="erosion-new" style="width:${newPct}%"></div>` : ''}
+      </div>
+      <div class="erosion-vals">
+        <span style="color:var(--text)">Paid: ${fmt(c.paid)}</span>
+        <span style="color:var(--red)">Int: ${fmt(c.interest)}</span>
+        <span style="color:${c.balChange > 0 ? 'var(--red)' : 'var(--green)'}">Bal: ${c.balChange >= 0 ? '+' : '&minus;'}${fmt(c.balChange)}</span>
+      </div>
+    </div>`;
+  }).join('');
+})();
+
+// ═══ BALANCE TABLE ═══
+(function() {
+  const rows = [
+    { name: 'Apple Card', oct: 5847, feb: 5267, int: 606, apr: '25.49%' },
+    { name: 'Amazon Store Card', oct: 4567, feb: 3136, int: 527, apr: '29.49%' },
+    { name: 'Citi Simplicity', oct: 2897, feb: 2950, int: 351, apr: '28.24%' },
+    { name: 'Capital One 0623', oct: 556, feb: 1433, int: 101, apr: '28.24%' },
+    { name: 'Capital One 4540', oct: 658, feb: 676, int: 81, apr: '27.49%' },
+    { name: 'PayPal Credit', oct: 330, feb: 0, int: 11, apr: '29.89%' },
+    { name: 'Ralphs Credit Card', oct: 3, feb: 0, int: 6, apr: '31.24%' },
+  ];
+
+  const totOct = rows.reduce((s,r) => s+r.oct, 0);
+  const totFeb = rows.reduce((s,r) => s+r.feb, 0);
+  const totInt = rows.reduce((s,r) => s+r.int, 0);
+
+  const tbl = document.getElementById('balTable');
+  tbl.innerHTML = `<thead><tr>
+    <th>Account</th><th>APR</th><th>Oct &rsquo;25</th><th>Feb &rsquo;26</th><th>Change</th><th>Interest</th>
+  </tr></thead><tbody>${rows.map(r => {
+    const delta = r.feb - r.oct;
+    return `<tr>
+      <td>${r.name}</td>
+      <td style="color:var(--text-muted)">${r.apr}</td>
+      <td>${fmt(r.oct)}</td>
+      <td>${fmt(r.feb)}</td>
+      <td class="${delta > 0 ? 'pos' : 'neg'}">${delta >= 0 ? '+' : '&minus;'}${fmt(delta)}</td>
+      <td style="color:var(--red)">${fmt(r.int)}</td>
+    </tr>`;
+  }).join('')}
+  <tr>
+    <td>TOTAL</td>
+    <td></td>
+    <td>${fmt(totOct)}</td>
+    <td>${fmt(totFeb)}</td>
+    <td class="${totFeb-totOct > 0 ? 'pos' : 'neg'}">${totFeb-totOct >= 0 ? '+' : '&minus;'}${fmt(totFeb-totOct)}</td>
+    <td style="color:var(--red)">${fmt(totInt)}</td>
+  </tr></tbody>`;
+})();
+
+// ═══ MONTHLY TIMELINE ═══
+(function() {
+  const months = [
+    { m: 'Oct 25', venmo: 350, ccPaid: 1515, interest: 351, living: 466 },
+    { m: 'Nov 25', venmo: 695, ccPaid: 638, interest: 346, living: 188 },
+    { m: 'Dec 25', venmo: 3893, ccPaid: 3161, interest: 343, living: 903 },
+    { m: 'Jan 26', venmo: 2531, ccPaid: 2175, interest: 340, living: 707 },
+    { m: 'Feb 26', venmo: 2631, ccPaid: 1763, interest: 302, living: 538 },
+  ];
+
+  document.getElementById('timeline').innerHTML = months.map(m => {
+    const net = m.venmo - m.ccPaid - m.living;
+    return `<div class="tl-card">
+      <div class="tl-month">${m.m}</div>
+      <div class="tl-row"><span class="tl-label">Venmo In</span><span style="color:var(--green)">${fmt(m.venmo)}</span></div>
+      <div class="tl-row"><span class="tl-label">CC Payments</span><span style="color:var(--blue)">&minus;${fmt(m.ccPaid)}</span></div>
+      <div class="tl-row"><span class="tl-label">Interest</span><span style="color:var(--red)">&minus;${fmt(m.interest)}</span></div>
+      <div class="tl-row"><span class="tl-label">Living</span><span style="color:var(--text-muted)">&minus;${fmt(m.living)}</span></div>
+      <div class="tl-row" style="border-top:1px solid var(--border-subtle);padding-top:6px;margin-top:4px"><span class="tl-label">Net</span><span style="color:${net >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:600">${net >= 0 ? '+' : '&minus;'}${fmt(net)}</span></div>
+    </div>`;
+  }).join('');
+})();
+</script>
+
+</body>
+</html>

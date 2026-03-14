@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary's Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border: #2a3a5c;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #d4a052;
+  --accent-dim: rgba(212, 160, 82, 0.10);
+  --accent-glow: rgba(212, 160, 82, 0.25);
+  --red: #f87171;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --purple: #a07dd4;
+  --pink: #f472b6;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  --card-1: #d4a052;
+  --card-2: #52b4d4;
+  --card-3: #4ade80;
+  --card-4: #f472b6;
+  --card-5: #a07dd4;
+}
+
+[data-theme="light"] {
+  --bg: #f0f4f8;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #e8edf4;
+  --border: #c8d3e0;
+  --border-subtle: #dce3ed;
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent: #b8862d;
+  --accent-dim: rgba(184, 134, 45, 0.08);
+  --accent-glow: rgba(184, 134, 45, 0.18);
+  --red: #dc2626;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --purple: #7c3aed;
+  --pink: #db2777;
+  --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  --card-1: #b8862d;
+  --card-2: #3b9fb8;
+  --card-3: #16a34a;
+  --card-4: #be185d;
+  --card-5: #6d28d9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+}
+
+.theme-toggle:hover {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.masthead {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 4.5rem 2rem 1rem;
+  position: relative;
+}
+
+.masthead-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.masthead-meta span {
+  white-space: nowrap;
+}
+
+.masthead-meta .sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.status-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px rgba(74, 222, 128, 0.2);
+  }
+}
+
+.masthead h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+}
+
+.masthead .tagline {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.masthead-deco {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  width: 80px;
+  height: 80px;
+  opacity: 0.06;
+  color: var(--text);
+}
+
+.rule {
+  max-width: 1080px;
+  margin: 1.5rem auto 0;
+  padding: 0 2rem;
+}
+
+.rule hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-glow), transparent 80%);
+}
+
+.section-label {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  color: var(--text);
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.grid--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  background: var(--surface);
+  padding: 2rem 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background 0.25s ease;
+  cursor: pointer;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--card-accent);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+  height: 3px;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-accent) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 0.06;
+}
+
+.card:hover {
+  background: var(--surface-2);
+}
+
+.card:hover .card-number {
+  color: var(--card-accent);
+}
+
+.card:hover .card-title {
+  color: var(--text);
+}
+
+.card:hover .card-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.card:hover .card-tag {
+  border-color: var(--card-accent);
+  color: var(--card-accent);
+  background: var(--accent-dim);
+}
+
+.card[data-accent="1"] {
+  --card-accent: var(--card-1);
+}
+
+.card[data-accent="2"] {
+  --card-accent: var(--card-2);
+}
+
+.card[data-accent="3"] {
+  --card-accent: var(--card-3);
+}
+
+.card[data-accent="4"] {
+  --card-accent: var(--card-4);
+}
+
+.card[data-accent="5"] {
+  --card-accent: var(--card-5);
+}
+
+.card-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  transition: color 0.25s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+  transition: color 0.25s ease;
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+}
+
+.card-desc {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  flex-grow: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  transition: all 0.25s ease;
+}
+
+.card-arrow {
+  font-size: 0.85rem;
+  color: var(--card-accent);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: all 0.25s ease;
+}
+
+.card-deco {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  opacity: 0.04;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  color: var(--text);
+}
+
+.card:hover .card-deco {
+  opacity: 0.08;
+}
+
+.colophon {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.colophon a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.colophon a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .masthead {
+    padding: 3rem 1.25rem 0.75rem;
+  }
+
+  .masthead h1 {
+    font-size: 2.4rem;
+  }
+
+  .masthead-deco {
+    display: none;
+  }
+
+  .rule, .section-label {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .grid, .grid--three {
+    grid-template-columns: 1fr;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    padding: 0;
+  }
+
+  .card {
+    padding: 1.5rem 1.25rem;
+    min-height: 160px;
+  }
+
+  .card-deco {
+    display: none;
+  }
+
+  .colophon {
+    padding: 2rem 1.25rem 3rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid--three {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+
+<header class="masthead">
+  <div class="masthead-meta">
+    <span id="currentDate"></span>
+    <div class="sep"></div>
+    <span>5 Tools</span>
+    <div class="sep"></div>
+    <span class="status-dot">All Systems Go</span>
+  </div>
+  <h1>Command<br>Center</h1>
+  <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
+  <svg class="masthead-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="40" cy="40" r="24" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+    <line x1="40" y1="0" x2="40" y2="80" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+    <line x1="0" y1="40" x2="80" y2="40" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+  </svg>
+</header>
+
+<div class="rule"><hr></div>
+
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="3" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="1" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="11" y="10" width="3.5" height="2.5" rx="0.5" fill="currentColor" opacity="0.4"/>
+    </svg>
+    Financial Tools
+  </h2>
+</div>
+
+<div class="grid">
+  <a href="financial-consolidation.html" class="card" data-accent="1">
+    <div class="card-number">01</div>
+    <div class="card-title">The Ledger</div>
+    <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
+    <div class="card-footer"><span class="card-tag">Finance</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="2" y="20" width="8" height="16" fill="currentColor"/><rect x="14" y="10" width="8" height="26" fill="currentColor"/><rect x="26" y="4" width="8" height="32" fill="currentColor"/><rect x="38" y="14" width="8" height="22" fill="currentColor"/></svg>
+  </a>
+  <a href="money-flow-analysis.html" class="card" data-accent="2">
+    <div class="card-number">02</div>
+    <div class="card-title">Where Did the Money Go?</div>
+    <p class="card-desc">Oct 2025 &ndash; Feb 2026 cash flow breakdown. Income vs. spend analysis with category drilldowns.</p>
+    <div class="card-footer"><span class="card-tag">Cash Flow</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><path d="M4 28 C12 28, 16 8, 24 8 S36 28, 44 28" stroke="currentColor" stroke-width="2" fill="none"/><path d="M4 18 C12 18, 16 30, 24 30 S36 12, 44 12" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.5"/><circle cx="24" cy="8" r="2.5" fill="currentColor" opacity="0.4"/></svg>
+  </a>
+</div>
+
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
+      <polyline points="9,4 9,9 13,11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Personal Trackers
+  </h2>
+</div>
+
+<div class="grid grid--three">
+  <a href="spotify-tracker.html" class="card" data-accent="3">
+    <div class="card-number">03</div>
+    <div class="card-title">Playlist Tracker</div>
+    <p class="card-desc">15 playlists tracked since Apr 2024. Growth trends, heatmaps, and delta analysis across your Spotify library.</p>
+    <div class="card-footer"><span class="card-tag">Music</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="4" y="12" width="3" height="12" rx="1.5" fill="currentColor"/><rect x="11" y="6" width="3" height="24" rx="1.5" fill="currentColor"/><rect x="18" y="10" width="3" height="16" rx="1.5" fill="currentColor"/><rect x="25" y="3" width="3" height="30" rx="1.5" fill="currentColor"/><rect x="32" y="8" width="3" height="20" rx="1.5" fill="currentColor"/><rect x="39" y="13" width="3" height="10" rx="1.5" fill="currentColor"/></svg>
+  </a>
+  <a href="digital-ecosystem.html" class="card" data-accent="4">
+    <div class="card-number">04</div>
+    <div class="card-title">Digital Ecosystem Refresh</div>
+    <p class="card-desc">V10 &mdash; Systems maintenance guide. File organization, cleanup status, and upkeep workflows.</p>
+    <div class="card-footer"><span class="card-tag">Reference</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="12" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="36" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="32" y2="10" stroke="currentColor" stroke-width="1"/><line x1="12" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/><line x1="36" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/></svg>
+  </a>
+  <a href="notes.html" class="card" data-accent="5">
+    <div class="card-number">05</div>
+    <div class="card-title">Quick Notes &amp; Links</div>
+    <p class="card-desc">Scratch pad for important links, reference data, and anything that doesn't fit elsewhere.</p>
+    <div class="card-footer"><span class="card-tag">Reference</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><line x1="4" y1="8" x2="36" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="16" x2="28" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="24" x2="20" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="42" cy="8" r="2" fill="currentColor" opacity="0.5"/></svg>
+  </a>
+</div>
+
+<footer class="colophon">
+  <span>Gary's Command Center &copy; 2026</span>
+  <a href="#">ChaosConsole</a>
+</footer>
+
+<script>
+const now = new Date();
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+
+// Theme toggle functionality
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.querySelector('#themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+}
+
+// Initialize theme
+(function() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.querySelector('#themeToggle');
+  if (btn) {
+    btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+    btn.addEventListener('click', toggleTheme);
+  }
+})();
+</script>
+
+</body>
+</html>

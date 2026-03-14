@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE LEDGER — Personal Finance Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+[data-theme="dark"] {
+  --bg-deep: #0b0f1a;
+  --bg-card: #151d2e;
+  --bg-card-hover: #1c2640;
+  --bg-input: #101828;
+  --border: #2a3a5c;
+  --border-focus: #d4a052;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --accent-blue: #60a5fa;
+  --accent-cyan: #22d3ee;
+  --accent-green: #4ade80;
+  --accent-red: #f87171;
+  --accent-amber: #fbbf24;
+  --accent-purple: #a78bfa;
+  --accent-orange: #fb923c;
+  --negative: #f87171;
+  --positive: #4ade80;
+  --accent: #d4a052;
+  --accent-dim: rgba(212,160,82,0.10);
+  --accent-glow: rgba(212,160,82,0.25);
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  --gradient-debt: linear-gradient(135deg, #f87171 0%, #fb923c 100%);
+  --gradient-interest: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
+  --gradient-progress: linear-gradient(135deg, #4ade80 0%, #22d3ee 100%);
+}
+
+[data-theme="light"] {
+  --bg-deep: #f0f4f8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #e8edf4;
+  --bg-input: #ffffff;
+  --border: #c8d3e0;
+  --border-focus: #b8862d;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-dim: #64748b;
+  --accent-blue: #2563eb;
+  --accent-cyan: #0891b2;
+  --accent-green: #16a34a;
+  --accent-red: #dc2626;
+  --accent-amber: #d97706;
+  --accent-purple: #7c3aed;
+  --accent-orange: #ea580c;
+  --negative: #dc2626;
+  --positive: #16a34a;
+  --accent: #b8862d;
+  --accent-dim: rgba(184, 134, 45, 0.08);
+  --accent-glow: rgba(184, 134, 45, 0.18);
+  --bg: #f0f4f8;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #e8edf4;
+  --border-subtle: #dce3ed;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  --gradient-debt: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+  --gradient-interest: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+  --gradient-progress: linear-gradient(135deg, #16a34a 0%, #0891b2 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* Background texture */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 0%, rgba(74, 158, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Topnav */
+.topnav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 14px 36px;
+  border-bottom: 1px solid var(--border-subtle, var(--border));
+  background: var(--bg-elevated, var(--bg-input));
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.topnav-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+.topnav-back:hover { opacity: 0.7; }
+.topnav-title {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.theme-toggle {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.app { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; padding: 24px; }
+
+/* Header */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.header-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+}
+.header-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.header-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Navigation */
+.nav-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-card);
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.nav-tab {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text-primary); background: var(--bg-input); }
+.nav-tab.active {
+  color: var(--text-primary);
+  background: var(--bg-input);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* View container */
+.view { display: none; }
+.view.active { display: block; }
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.kpi-card.debt::before { background: var(--gradient-debt); }
+.kpi-card.interest::before { background: var(--gradient-interest); }
+.kpi-card.progress::before { background: var(--gradient-progress); }
+.kpi-card.neutral::before { background: linear-gradient(135deg, var(--accent-amber), var(--accent-orange)); }
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.kpi-delta.up { color: var(--negative); background: rgba(248, 113, 113, 0.1); }
+.kpi-delta.down { color: var(--positive); background: rgba(52, 211, 153, 0.1); }
+
+/* Chart containers */
+.chart-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.chart-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.chart-controls {
+  display: flex;
+  gap: 6px;
+}
+.chart-btn {
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chart-btn:hover, .chart-btn.active {
+  background: var(--accent-blue);
+  color: #fff;
+  border-color: var(--accent-blue);
+}
+.chart-wrap { position: relative; height: 320px; }
+
+/* Data tables */
+.table-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.table-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.table-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+.table-scroll {
+  overflow-x: auto;
+  position: relative;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  padding: 12px 14px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+thead th:first-child { text-align: left; position: sticky; left: 0; z-index: 3; min-width: 180px; }
+tbody td {
+  padding: 10px 14px;
+  text-align: right;
+  border-bottom: 1px solid rgba(35, 39, 51, 0.5);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+tbody td:first-child {
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: var(--text-primary);
+  position: sticky;
+  left: 0;
+  background: var(--bg-card);
+  z-index: 2;
+  font-size: 13px;
+}
+tbody tr:hover td { background: var(--bg-card-hover); }
+tbody tr:hover td:first-child { background: var(--bg-card-hover); }
+tbody tr.total-row td {
+  font-weight: 700;
+  color: var(--text-primary);
+  border-top: 2px solid var(--border);
+  font-size: 13px;
+}
+tbody tr.delta-row td {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+td.positive { color: var(--positive) !important; }
+td.negative { color: var(--negative) !important; }
+td.zero { color: var(--text-dim) !important; }
+td.empty { color: transparent; }
+
+/* Account color dots */
+.acct-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.acct-name {
+  display: flex;
+  align-items: center;
+}
+
+/* Badge for APR */
+.apr-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(248, 113, 113, 0.1);
+  color: var(--accent-red);
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+/* Interest breakdown bars */
+.bar-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mini-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--accent-purple);
+  opacity: 0.7;
+  min-width: 2px;
+  transition: width 0.3s;
+}
+
+/* Timeline slider */
+.timeline-container {
+  padding: 0 20px 20px;
+}
+.timeline-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+}
+.timeline-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(74, 158, 255, 0.4);
+}
+.timeline-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 8px;
+}
+
+/* Heatmap styles */
+.heatmap-cell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Edit modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.modal p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+}
+.form-input {
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus { border-color: var(--accent-blue); }
+.form-select {
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+.form-select:focus { border-color: var(--accent-blue); }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+.btn {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.btn-primary {
+  background: var(--accent-blue);
+  color: #fff;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--bg-input); }
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Sparkline */
+.sparkline-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+.sparkline { height: 32px; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-green);
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--accent-green);
+  font-weight: 500;
+  z-index: 200;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* Period indicator */
+.period-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 6px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+/* Two column layout */
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 1100px) { .split-grid { grid-template-columns: 1fr; } }
+
+/* Card stack for interest */
+.interest-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  transition: all 0.15s;
+}
+.interest-card:hover { border-color: var(--border-focus); }
+.interest-name {
+  font-weight: 500;
+  font-size: 14px;
+}
+.interest-apr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.interest-amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 600;
+}
+.interest-bar-wrap {
+  flex: 1;
+  max-width: 200px;
+  margin: 0 20px;
+}
+.interest-bar-bg {
+  height: 6px;
+  background: var(--bg-input);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.interest-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--gradient-interest);
+  transition: width 0.5s ease;
+}
+
+/* Pulse animation for active debt */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.active-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: pulse-dot 2s infinite;
+  margin-right: 6px;
+}
+.inactive-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  margin-right: 6px;
+  opacity: 0.3;
+}
+
+/* Export button */
+.export-btn {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.export-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+/* Stagger animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeUp 0.4s ease forwards;
+  opacity: 0;
+}
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+.delay-5 { animation-delay: 0.25s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app { padding: 16px; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .nav-tabs { overflow-x: auto; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* ==================== CHECKING VIEW ==================== */
+.chk-controls {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  margin-bottom: 16px;
+}
+.chk-search {
+  flex: 1; min-width: 200px; padding: 8px 14px;
+  background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 13px;
+  outline: none; transition: border-color 0.2s;
+}
+.chk-search:focus { border-color: var(--accent-blue); }
+.chk-search::placeholder { color: var(--text-dim); }
+
+.chk-select {
+  padding: 8px 12px; background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif;
+  font-size: 13px; cursor: pointer; outline: none;
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555d73'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+}
+.chk-select:focus { border-color: var(--accent-blue); }
+
+.chk-pills {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+}
+.chk-pill {
+  padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500;
+  background: var(--bg-input); border: 1px solid var(--border); color: var(--text-secondary);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+}
+.chk-pill:hover { border-color: var(--accent-blue); color: var(--text-primary); }
+.chk-pill.active { background: rgba(74,158,255,0.15); border-color: var(--accent-blue); color: var(--accent-blue); }
+
+.chk-table-wrap {
+  overflow-x: auto; border-radius: 10px; border: 1px solid var(--border);
+  max-height: 500px; overflow-y: auto;
+}
+.chk-table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.chk-table thead th {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--bg-card); padding: 10px 12px;
+  text-align: left; font-weight: 600; color: var(--text-secondary);
+  border-bottom: 2px solid var(--border); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+  user-select: none;
+}
+.chk-table thead th:hover { color: var(--accent-blue); }
+.chk-table thead th .sort-arrow { margin-left: 4px; font-size: 9px; }
+.chk-table tbody tr { border-bottom: 1px solid rgba(35,39,51,0.6); transition: background 0.15s; }
+.chk-table tbody tr:hover { background: var(--bg-card-hover); }
+.chk-table td { padding: 8px 12px; white-space: nowrap; }
+.chk-table td.desc-cell { white-space: normal; max-width: 320px; overflow: hidden; text-overflow: ellipsis; }
+.chk-table .debit { color: var(--accent-red); }
+.chk-table .credit { color: var(--accent-green); }
+
+.cat-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.5px;
+}
+
+.chk-kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+.chk-charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
+.chk-summary-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+.payee-bar-wrap {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.payee-bar-label { min-width: 160px; color: var(--text-secondary); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.payee-bar { height: 18px; border-radius: 3px; transition: width 0.4s ease; min-width: 2px; }
+.payee-bar-amt { min-width: 80px; font-size: 11px; color: var(--text-dim); }
+
+@media (max-width: 1100px) {
+  .chk-kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .chk-charts-row { grid-template-columns: 1fr; }
+  .chk-summary-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .chk-kpi-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* Footer */
+.colophon {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3rem 36px 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+}
+.colophon a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.colophon a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="topnav-back">&larr; Command Center</a>
+  <span class="topnav-title">The Ledger</span>
+  <button class="theme-toggle" onclick="toggleTheme()"></button>
+</nav>
+
+<div class="app">
+  <!-- Back to Dashboard -->
+  <div style="padding:12px 24px;"><a href="index.html" style="color:#8a8a8a;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;"onmouseover="this.style.color='#f5a623'"onmouseout="this.style.color='#8a8a8a'">&larr; Dashboard</a></div>
+  <!-- Header -->
+  <div class="header animate-in">
+    <div>
+      <div class="header-title">THE LEDGER</div>
+      <div class="header-sub">Personal Finance Dashboard — Updated <span id="lastUpdated"></span></div>
+    </div>
+    <div class="header-right">
+      <button class="export-btn" onclick="exportData()">⬇ Export JSON</button>
+      <button class="btn btn-primary btn-sm btn-icon" onclick="openAddModal()">
+        <span style="font-size:16px;line-height:1;">+</span> Add Entry
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-tabs animate-in delay-1">
+    <button class="nav-tab active" data-view="overview" onclick="switchView('overview',this)">Overview</button>
+    <button class="nav-tab" data-view="balances" onclick="switchView('balances',this)">Balances</button>
+    <button class="nav-tab" data-view="interest" onclick="switchView('interest',this)">Interest</button>
+    <button class="nav-tab" data-view="accounts" onclick="switchView('accounts',this)">Accounts</button>
+    <button class="nav-tab" data-view="checking" onclick="switchView('checking',this)">Checking</button>
+    <button class="nav-tab" data-view="applecard" onclick="switchView('applecard',this)">Apple Card</button>
+    <button class="nav-tab" data-view="citichecking" onclick="switchView('citichecking',this)">Citi Checking</button>
+  </div>
+
+  <!-- OVERVIEW VIEW -->
+  <div class="view active" id="view-overview">
+    <div class="kpi-row">
+      <div class="kpi-card debt animate-in delay-1">
+        <div class="kpi-label">Current Total Debt</div>
+        <div class="kpi-value" id="kpi-total-debt">—</div>
+        <div class="kpi-delta" id="kpi-debt-delta"></div>
+      </div>
+      <div class="kpi-card interest animate-in delay-2">
+        <div class="kpi-label">Last Month Interest</div>
+        <div class="kpi-value" id="kpi-interest">—</div>
+        <div class="kpi-delta" id="kpi-interest-delta"></div>
+      </div>
+      <div class="kpi-card progress animate-in delay-3">
+        <div class="kpi-label">Peak Debt Reduction</div>
+        <div class="kpi-value" id="kpi-reduction">—</div>
+        <div class="kpi-delta down" id="kpi-reduction-pct"></div>
+      </div>
+      <div class="kpi-card neutral animate-in delay-4">
+        <div class="kpi-label">Active Accounts</div>
+        <div class="kpi-value" id="kpi-active">—</div>
+        <div class="kpi-delta" id="kpi-accounts-note" style="background:rgba(251,191,36,0.1);color:var(--accent-amber)"></div>
+      </div>
+    </div>
+
+    <div class="chart-section animate-in delay-3">
+      <div class="chart-header">
+        <div class="chart-title">Total Debt Over Time</div>
+        <div class="chart-controls">
+          <button class="chart-btn" onclick="setDebtRange('all')">ALL</button>
+          <button class="chart-btn active" onclick="setDebtRange('2y')">2Y</button>
+          <button class="chart-btn" onclick="setDebtRange('1y')">1Y</button>
+          <button class="chart-btn" onclick="setDebtRange('6m')">6M</button>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="debtChart"></canvas></div>
+    </div>
+
+    <div class="split-grid">
+      <div class="chart-section animate-in delay-4">
+        <div class="chart-header">
+          <div class="chart-title">Monthly Interest Charges</div>
+        </div>
+        <div class="chart-wrap" style="height:260px"><canvas id="interestChart"></canvas></div>
+      </div>
+      <div class="chart-section animate-in delay-5">
+        <div class="chart-header">
+          <div class="chart-title">Debt Composition — Current</div>
+        </div>
+        <div class="chart-wrap" style="height:260px"><canvas id="compositionChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BALANCES VIEW -->
+  <div class="view" id="view-balances">
+    <div class="table-section animate-in delay-1">
+      <div class="table-header-bar">
+        <div class="table-title">Credit Cards & Loan Balances</div>
+        <div class="chart-controls">
+          <button class="chart-btn active" onclick="setBalanceCols('recent')">Recent 12mo</button>
+          <button class="chart-btn" onclick="setBalanceCols('all')">All Data</button>
+        </div>
+      </div>
+      <div class="table-scroll" id="balancesTableWrap" style="max-height:70vh;overflow:auto;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEREST VIEW -->
+  <div class="view" id="view-interest">
+    <div class="kpi-row">
+      <div class="kpi-card interest animate-in delay-1">
+        <div class="kpi-label">Total Interest Paid (2025–26)</div>
+        <div class="kpi-value" id="kpi-total-interest-sum">—</div>
+      </div>
+      <div class="kpi-card debt animate-in delay-2">
+        <div class="kpi-label">Highest Interest Account</div>
+        <div class="kpi-value" id="kpi-highest-interest" style="font-size:20px">—</div>
+      </div>
+      <div class="kpi-card progress animate-in delay-3">
+        <div class="kpi-label">Interest Trend</div>
+        <div class="kpi-value" id="kpi-interest-trend">—</div>
+      </div>
+    </div>
+
+    <div class="table-section animate-in delay-2">
+      <div class="table-header-bar">
+        <div class="table-title">Interest Charges 2025–2026</div>
+      </div>
+      <div class="table-scroll" id="interestTableWrap" style="max-height:60vh;overflow:auto;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <div class="chart-section animate-in delay-3">
+      <div class="chart-header">
+        <div class="chart-title">Interest by Account — Stacked</div>
+      </div>
+      <div class="chart-wrap" style="height:300px"><canvas id="interestStackChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ACCOUNTS VIEW -->
+  <div class="view" id="view-accounts">
+    <div class="chart-section animate-in delay-1" style="padding:20px">
+      <div class="chart-title" style="margin-bottom:16px">Account Status & APR</div>
+      <div id="accountCards"></div>
+    </div>
+  </div>
+
+  <!-- ==================== CHECKING VIEW ==================== -->
+  <div class="view" id="view-checking">
+    <!-- KPIs -->
+    <div class="chk-kpi-row animate-in">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Out</div>
+        <div class="kpi-value" id="chk-kpi-out" style="color:var(--accent-red)">—</div>
+        <div class="kpi-delta" id="chk-kpi-out-sub"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total In</div>
+        <div class="kpi-value" id="chk-kpi-in" style="color:var(--accent-green)">—</div>
+        <div class="kpi-delta" id="chk-kpi-in-sub"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Net Flow</div>
+        <div class="kpi-value" id="chk-kpi-net">—</div>
+        <div class="kpi-delta" id="chk-kpi-net-sub"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">CC Payments</div>
+        <div class="kpi-value" id="chk-kpi-cc" style="color:var(--accent-purple)">—</div>
+        <div class="kpi-delta" id="chk-kpi-cc-sub"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Transactions</div>
+        <div class="kpi-value" id="chk-kpi-count">—</div>
+        <div class="kpi-delta" id="chk-kpi-count-sub"></div>
+      </div>
+    </div>
+
+    <!-- Charts (pure CSS – no Chart.js) -->
+    <div class="chk-charts-row animate-in delay-1">
+      <div class="chart-section" style="padding:16px">
+        <div class="chart-title">Monthly Cash Flow</div>
+        <div id="chkFlowChart" style="display:flex;align-items:flex-end;gap:3px;height:200px;padding-top:8px;overflow-x:auto"></div>
+      </div>
+      <div class="chart-section" style="padding:16px">
+        <div class="chart-title">Spending by Category</div>
+        <div id="chkCatChart" style="display:flex;flex-direction:column;gap:6px;padding-top:8px"></div>
+      </div>
+    </div>
+
+    <!-- Top Payees -->
+    <div class="chk-summary-row animate-in delay-2">
+      <div class="chart-section" style="padding:16px">
+        <div class="chart-title" style="margin-bottom:12px">Top Outflows (by Payee)</div>
+        <div id="chkTopPayees"></div>
+      </div>
+      <div class="chart-section" style="padding:16px">
+        <div class="chart-title" style="margin-bottom:12px">Top Inflows (by Source)</div>
+        <div id="chkTopInflows"></div>
+      </div>
+    </div>
+
+    <!-- Filters + Table -->
+    <div class="chart-section animate-in delay-3" style="padding:16px">
+      <div class="chart-title" style="margin-bottom:12px">Transaction Log</div>
+      <div class="chk-controls">
+        <input type="text" class="chk-search" id="chkSearch" placeholder="Search descriptions…" oninput="chkPage=1;renderChkTable()">
+        <select class="chk-select" id="chkCatFilter" onchange="chkPage=1;renderChkTable()">
+          <option value="ALL">All Categories</option>
+        </select>
+        <select class="chk-select" id="chkDirFilter" onchange="chkPage=1;renderChkTable()">
+          <option value="ALL">All Directions</option>
+          <option value="debit">Debits Only</option>
+          <option value="credit">Credits Only</option>
+        </select>
+        <select class="chk-select" id="chkMonthFilter" onchange="chkPage=1;renderChkTable()">
+          <option value="ALL">All Months</option>
+        </select>
+        <select class="chk-select" id="chkPayeeFilter" onchange="chkPage=1;renderChkTable()">
+          <option value="ALL">All Payees</option>
+        </select>
+      </div>
+      <div class="chk-pills" id="chkCatPills"></div>
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace" id="chkFilterStatus">531 transactions</div>
+      <div class="chk-table-wrap">
+        <table class="chk-table">
+          <thead><tr>
+            <th onclick="sortChk('date')">Date <span class="sort-arrow" id="sort-date">▼</span></th>
+            <th onclick="sortChk('desc')">Description <span class="sort-arrow" id="sort-desc"></span></th>
+            <th onclick="sortChk('payee')">Payee <span class="sort-arrow" id="sort-payee"></span></th>
+            <th onclick="sortChk('category')">Category <span class="sort-arrow" id="sort-category"></span></th>
+            <th onclick="sortChk('debit')" style="text-align:right">Debit <span class="sort-arrow" id="sort-debit"></span></th>
+            <th onclick="sortChk('credit')" style="text-align:right">Credit <span class="sort-arrow" id="sort-credit"></span></th>
+          </tr></thead>
+          <tbody id="chkTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLE CARD VIEW -->
+<div class="view" id="view-applecard" style="padding:0;margin:-20px -20px 0;height:calc(100vh - 80px);">
+  <iframe src="apple_card_dashboard.html" style="width:100%;height:100%;border:none;border-radius:0;"></iframe>
+</div>
+
+<!-- CITI CHECKING VIEW -->
+<div class="view" id="view-citichecking" style="padding:0;margin:-20px -20px 0;height:calc(100vh - 80px);">
+  <iframe src="citi_checking_dashboard.html" style="width:100%;height:100%;border:none;border-radius:0;"></iframe>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">Add Monthly Entry</h2>
+    <p>Record a new balance or interest charge for reconciliation.</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-select" id="entryType" onchange="onEntryTypeChange()">
+          <option value="balance">Balance</option>
+          <option value="interest">Interest Charge</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="month" class="form-input" id="entryDate">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Account</label>
+        <select class="form-select" id="entryAccount"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Amount ($)</label>
+        <input type="number" step="0.01" class="form-input" id="entryAmount" placeholder="0.00">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEntry()">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== DATA ====================
+const ACCOUNT_COLORS = {
+  'Chase Hyatt': '#f59e0b',
+  'Citi Double Cash': '#06b6d4',
+  'Lending Club': '#8b5cf6',
+  'Chase United': '#3b82f6',
+  'Bank of America 9522': '#ef4444',
+  'Bank of America 2766': '#f97316',
+  'AMEX Blue': '#0ea5e9',
+  'Bank of America 9493': '#e11d48',
+  'SoFi Loan': '#14b8a6',
+  'Ralphs Credit Card': '#a855f7',
+  'PayPal Cashback': '#6366f1',
+  'PayPal Credit': '#8b5cf6',
+  'Amazon Store Card': '#f59e0b',
+  'Venmo Credit': '#3b82f6',
+  'Citi Simplicity': '#06b6d4',
+  'Capital One 4540': '#ef4444',
+  'Capital One 0623': '#f97316',
+  'Apple Card': '#e2e8f0',
+  'Upstart Loan': '#10b981',
+};
+
+// Balances data: dates and per-account values
+const balanceDates = ["Nov 18","Dec 18","Jan 19","Feb 19","Mar 19","Apr 19","May 19","Jun 19","Jul 19","Aug 19","Sep 19","Oct 19","Nov 19","Dec 19","Jan 20","Feb 20","Mar 20","Apr 20","May 20","Jun 20","Jul 20","Aug 20","Sep 20","Oct 20","Nov 20","Dec 20","Jan 21","Feb 21","Mar 21","Apr 21","May 21","Oct 22","Nov 22","Dec 22","Jan 23","Feb 23","Mar 23","Apr 23","May 23","Jun 23","Jul 23","Aug 23","Sep 23","Oct 23","Nov 23","Dec 23","Jan 24","Feb 24","Mar 24","Apr 24","May 24","Jun 24","Jul 24","Aug 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"];
+
+const balanceAccounts = [
+  {name:'Chase Hyatt', apr:null, data:[null,null,null,null,0,0,7313.04,7406.3,7316.49,7183.19,7163.13,7084.74,92.83,1114.51,963.1,0,0,95,104.17,104.7,0,0,0,0,579.26,3346.7,1682.22,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Citi Double Cash', apr:null, data:[0,0,0,0,391.12,717.69,0,0,0,0,0,0,0,0,0,0,307.87,269.89,1.17,103,173.82,299.48,2.59,3.09,3.59,4.09,4.59,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Lending Club', apr:null, data:[null,null,null,null,null,null,38129.36,37164.05,36192.16,35213.63,34228.42,33236.49,29237.79,28211.8,27178.8,26138.76,25091.62,24037.33,22975.84,21907.11,20831.09,19747.72,18664.35,17580.98,16497.61,15414.24,14330.87,13247.5,12164.13,11080.76,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Chase United', apr:null, data:[10570.89,9463,11462.4,10662.61,10802.98,10653.91,12.66,2044.95,6501.47,8094.3,7252.29,7173.42,7103.41,0,0,0,2392.98,5369.36,10216.01,13348.6,15122.85,18210.4,19755.03,19875.71,20318.82,19924.23,20180.06,20197.79,20475.07,20794.03,21108.14,21108.14,4590,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Bank of America 9522', apr:null, data:[5035.33,5109.35,4721.84,4293.7,3992.42,226.79,364.7,345.63,375.61,1314.54,3604.32,4438.36,4467.28,4628.49,4706.31,5316.7,5967.64,5916.99,5997.38,6081.64,6164.36,6107.85,5539.07,5503.3,5451.38,5395.48,5344.34,5291.63,5232.33,5187.36,5187.36,5187.36,5484.6,5484.6,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Bank of America 2766', apr:null, data:[null,null,null,null,null,null,0,0,0,0,0,0,404.36,13623.25,14990.35,15168.66,14869.04,15015.88,14679.88,14799.39,14799.39,14999.93,14850.93,14850.93,14889.93,14928.93,14967.93,15006.93,15045.93,15317.46,15579.66,15579.66,11500,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'AMEX Blue', apr:null, data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Bank of America 9493', apr:null, data:[9589.19,7073.45,6780.33,6436.51,6358.73,6262.94,486.57,1657.75,1600.08,2943.33,2923.2,3696.75,5420.61,6780.54,7462.63,8568.22,8753.47,8914.46,8909.21,9030.13,9091.97,9156.79,8062.13,8011.09,8149.39,8445.18,8374.86,8524.61,8197.58,8126.34,8042.22,7792.68,7792.68,7792.68,7792.68,5195.12,2597.56,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'SoFi Loan', apr:null, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,28906.56,27790.48,26674.4,25558.32,24608.05,23231.19,22060.64,20890.09,19665.35,18440.61,17215.87,16023,14830.13,13637.26,12444.39,11251.52,9587.64,7923.76,0,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+  {name:'Ralphs Credit Card', apr:31.24, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,239.96,320.36,493.03,0,117.84,448,306.13,331.57,290.87,2.96,62.01,0,1.51,0,null]},
+  {name:'PayPal Cashback', apr:30.99, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1375.86,1765.43,1773.53,177.92,459.02,1177.28,1751.32,1771.47,41.06,22,0,0,0,null,null]},
+  {name:'PayPal Credit', apr:29.89, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,329.88,496.57,11.7,94.66,0,null]},
+  {name:'Amazon Store Card', apr:29.49, data:[1867.61,1947,1772.01,1854.47,1928.66,2139.52,608.54,1407.6,1448.24,2214.6,2620.16,2136.79,144.74,701.18,2594.3,3018.73,3481.29,3363.84,3883.68,2813.46,2349.8,2412.5,1598.06,2560.16,3973.06,4062.33,4811.34,4888.36,5348.34,5488.71,5486.71,4740.5,29.3,742,480.33,0,407.55,626.16,817.69,1249.3,1293.91,1479.63,1774.72,2440.72,2641.6,2811.93,3972.55,4387.8,4333.04,4321.21,4232.27,4337.75,4513.29,4451.4,4451.49,4882.09,5291.08,5731.85,5821.99,5988.22,5852.1,5773.69,5468.34,5351.76,4867.66,4687.66,4891.56,4567.16,4506.5,4454.95,3554.49,3136.06,3078.58]},
+  {name:'Venmo Credit', apr:31.49, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,332.2,118.16,56.16,92.44,518.78,771.57,790.86,508.02,831.41,96.14,57.14,0,0,null,null,null,null,null,null,null,null,null]},
+  {name:'Citi Simplicity', apr:28.24, data:[null,null,null,null,null,null,null,null,null,null,0,0,4760,4923,4849,4776,4704,4633,4564,4496,4429,4429,4363,4298,4234,4170,4107,4045,3984,3924,3865,3200,3200,0,1073,0,861.35,1349.83,1358.42,1322.18,2091.48,723.77,1831.13,739.53,719.32,886.17,1576.21,2454.36,2558.4,2919.32,2894.24,2881.76,2840.41,2823.29,3101.18,3067.56,3045.76,3004.53,2975.51,2951.92,3027.61,3001.4,2977.94,2942.54,2910.34,2889.98,2851.15,2897.26,2934.88,2745.69,2830.63,2949.56,null]},
+  {name:'Capital One 4540', apr:27.49, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,932.87,1965.85,1956.34,1946.83,1937.32,1912.32,1887.32,1862.32,1837.32,1812.32,1833.91,1815.34,1798,1778.79,1731.28,1713.08,1962.38,null,0,0,255.38,337.2,394.37,662.67,657.93,679.42,680.27,676.75,676.3,null]},
+  {name:'Capital One 0623', apr:28.24, data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108.63,279.93,325.23,282.16,312.88,261.05,0,0,0,0,0,0,0,0,0,0,0,0,254.64,843.8,926.68,917.79,907.22,899.85,890.58,882.8,873.12,914.37,906.18,897,889.05,880.15,872.73,863.74,968.41,42.55,288.13,6.14,35.37,56.52,392.81,479,556.43,585.67,606.73,1271.27,1433.22,null]},
+  {name:'Apple Card', apr:25.49, data:[0,0,0,0,0,0,0,0,0,0,287.68,704.29,514.3,714.3,2195.04,3931.35,5334.92,5413.67,6115.32,5933.15,3719.96,3493.73,5730.96,5318.05,5971.98,5828.73,5824.54,5884.96,6093.69,6026.79,6026.79,5061.19,74.14,200.85,1954.21,2276.61,2269.05,1820.83,2348.08,3299.38,2902.83,2819.87,3299.76,3903.27,4083.55,4084.82,3848.71,2161.82,2668.26,3695.76,3963.66,5662.62,4761.42,5698.17,4324.04,4464.28,5203.31,5603.45,5743.85,5743.68,5789.61,5754.47,5734.18,6039,6106,6135,5721.16,5846.81,5934.43,5643.15,5824.9,5267.14,null]},
+  {name:'Upstart Loan', apr:null, data:[9376.11,9035.41,8683.93,8336.28,7982.13,7627.52,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
+];
+
+const totalDebt = [36439.13,32628.21,33420.51,31583.57,31456.04,27628.37,46914.87,50026.28,53434.05,56963.59,58079.2,58470.84,52145.32,60697.07,64939.53,66918.42,70902.83,73029.42,77446.66,78617.18,76682.24,78857.4,78566.12,78001.31,80069.02,81628.54,79907.68,77412.01,76823.23,76258.33,65556.93,62669.53,61577.28,42010.61,37974.62,33030.05,30743.56,27028.01,26584.83,26760.95,25953.57,23463.88,24121.48,24294.03,25084.25,24303.2,24706.48,23100.04,21959.51,21637.95,13835.29,15924.77,14959.97,15769.11,14681.49,15619.76,16970.66,19350.52,19711.98,20712.58,14985.93,15451.69,15811.88,16681.5,16380.76,14831.75,14630.5,14917.48,15137.47,14144,14252.7,13462.28,13404.8];
+
+const debtDelta = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2089.48,-964.8,809.14,-1087.62,938.27,1350.9,2379.86,361.46,1000.6,-5726.65,465.76,360.19,869.62,-300.74,-1549.01,-201.25,286.98,219.99,-993.47,108.7,-790.42,-57.48];
+
+// Interest data
+const interestDates = ["Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"];
+
+const interestAccounts = [
+  {name:'Ralphs Credit Card', apr:31.24, sum:13.52, data:[6.31,0,0,0,7.21,8.11,8.08,8.3,2.96,2.14,2.14,1.51,0,0,null]},
+  {name:'PayPal Cashback', apr:29.89, sum:414.6, data:[73.68,71.1,19.06,14.37,41.39,65.31,75.15,41.06,2,0,0,11.17,0,0,null]},
+  {name:'Amazon Store Card', apr:29.49, sum:1656.83, data:[108.6,105.21,124.82,126.14,135.61,131.32,130.9,0,203.9,119.58,116.32,110.41,99.54,81.57,62.91]},
+  {name:'Venmo Credit', apr:31.49, sum:48.56, data:[17.16,12.74,14.66,2,0,2,0,null,null,null,null,null,null,null,null]},
+  {name:'Citi Simplicity', apr:28.24, sum:997.94, data:[72.09,78.5,66.42,70.21,76.75,71.35,68.15,76.79,66.96,68.75,76.54,64.3,72.6,68.53,null]},
+  {name:'Capital One 4540', apr:27.49, sum:171.14, data:[21,20.49,12.55,0,6.14,0,6.83,10.9,12.04,18.43,15.72,16.35,16.13,14.56,null]},
+  {name:'Capital One 0623', apr:28.24, sum:211.44, data:[42.8,39,15,0,0,0.12,1.04,6.17,6.18,16,13.24,14.42,28.01,29.46,null]},
+  {name:'Apple Card', apr:25.49, sum:1621.34, data:[0,116,127.45,121.71,131.96,130,126.82,135.86,125.95,125.92,122.34,125.12,124.21,108,null]},
+];
+
+const totalInterest = [341.64,443.04,379.96,334.43,399.06,408.21,416.97,279.08,419.99,350.82,346.3,343.28,340.49,302.12,62.91];
+const interestDelta = [null,101.4,-63.08,-45.53,64.63,9.15,8.76,-137.89,140.91,-69.17,-4.52,-3.02,-2.79,-38.37,-239.21];
+
+// ==================== STATE ====================
+let currentView = 'overview';
+let debtChartInstance = null;
+let interestChartInstance = null;
+let compositionChartInstance = null;
+let interestStackChartInstance = null;
+let balanceColMode = 'recent';
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  
+  // Set default date for entry
+  const now = new Date();
+  document.getElementById('entryDate').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  
+  // Populate account dropdown
+  populateAccountDropdown();
+  
+  loadUserData();
+  updateKPIs();
+  renderDebtChart('2y');
+  renderInterestChart();
+  renderCompositionChart();
+  renderBalancesTable();
+  renderInterestTable();
+  renderInterestStackChart();
+  renderAccountCards();
+});
+
+// ==================== NAVIGATION ====================
+function switchView(view, btn) {
+  currentView = view;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(`view-${view}`).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+// ==================== KPIs ====================
+function updateKPIs() {
+  const latest = totalDebt[totalDebt.length - 1];
+  const prev = totalDebt[totalDebt.length - 2];
+  const peak = Math.max(...totalDebt);
+  const delta = latest - prev;
+  
+  document.getElementById('kpi-total-debt').textContent = fmt(latest);
+  const deltaEl = document.getElementById('kpi-debt-delta');
+  deltaEl.textContent = `${delta > 0 ? '▲' : '▼'} ${fmt(Math.abs(delta))} vs prev`;
+  deltaEl.className = `kpi-delta ${delta > 0 ? 'up' : 'down'}`;
+  
+  const latestInt = totalInterest[totalInterest.length - 1];
+  const prevInt = totalInterest[totalInterest.length - 2];
+  const intDelta = latestInt - prevInt;
+  document.getElementById('kpi-interest').textContent = fmt(latestInt);
+  const intDeltaEl = document.getElementById('kpi-interest-delta');
+  intDeltaEl.textContent = `${intDelta > 0 ? '▲' : '▼'} ${fmt(Math.abs(intDelta))} vs prev`;
+  intDeltaEl.className = `kpi-delta ${intDelta > 0 ? 'up' : 'down'}`;
+  
+  const reduction = peak - latest;
+  document.getElementById('kpi-reduction').textContent = fmt(reduction);
+  document.getElementById('kpi-reduction-pct').textContent = `▼ ${((reduction/peak)*100).toFixed(1)}% from $${(peak/1000).toFixed(1)}K peak`;
+  
+  // Count active accounts (last data point > 0)
+  const activeCount = balanceAccounts.filter(a => {
+    for (let i = a.data.length - 1; i >= 0; i--) {
+      if (a.data[i] !== null) return a.data[i] > 0;
+    }
+    return false;
+  }).length;
+  document.getElementById('kpi-active').textContent = activeCount;
+  document.getElementById('kpi-accounts-note').textContent = `of ${balanceAccounts.length} total`;
+  
+  // Interest view KPIs
+  const intSum = totalInterest.reduce((s, v) => s + v, 0);
+  document.getElementById('kpi-total-interest-sum').textContent = fmt(intSum);
+  
+  const highestInt = [...interestAccounts].sort((a, b) => b.sum - a.sum)[0];
+  document.getElementById('kpi-highest-interest').textContent = `${highestInt.name} — ${fmt(highestInt.sum)}`;
+  
+  const recentInts = totalInterest.slice(-3);
+  const intTrend = recentInts[2] < recentInts[0] ? '↘ Declining' : '↗ Rising';
+  document.getElementById('kpi-interest-trend').textContent = intTrend;
+  document.getElementById('kpi-interest-trend').style.color = recentInts[2] < recentInts[0] ? 'var(--positive)' : 'var(--negative)';
+}
+
+// ==================== CHARTS ====================
+function renderDebtChart(range) {
+  if (debtChartInstance) debtChartInstance.destroy();
+  
+  let labels = [...balanceDates];
+  let data = [...totalDebt];
+  
+  if (range === '6m') { labels = labels.slice(-6); data = data.slice(-6); }
+  else if (range === '1y') { labels = labels.slice(-12); data = data.slice(-12); }
+  else if (range === '2y') { labels = labels.slice(-24); data = data.slice(-24); }
+  
+  const ctx = document.getElementById('debtChart').getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+  gradient.addColorStop(0, 'rgba(74, 158, 255, 0.15)');
+  gradient.addColorStop(1, 'rgba(74, 158, 255, 0)');
+  
+  debtChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        borderColor: '#4a9eff',
+        backgroundColor: gradient,
+        fill: true,
+        tension: 0.3,
+        pointRadius: data.length > 30 ? 0 : 3,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#4a9eff',
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1d27',
+          titleColor: '#e8eaf0',
+          bodyColor: '#8890a4',
+          borderColor: '#232733',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            label: ctx => `Total Debt: ${fmt(ctx.parsed.y)}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(35,39,51,0.5)' },
+          ticks: { color: '#555d73', font: { family: 'JetBrains Mono', size: 10 }, maxTicksLimit: 12 }
+        },
+        y: {
+          grid: { color: 'rgba(35,39,51,0.5)' },
+          ticks: { color: '#555d73', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'K' }
+        }
+      }
+    }
+  });
+}
+
+function setDebtRange(range) {
+  document.querySelectorAll('.chart-controls .chart-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderDebtChart(range);
+}
+
+function renderInterestChart() {
+  if (interestChartInstance) interestChartInstance.destroy();
+  const ctx = document.getElementById('interestChart').getContext('2d');
+  
+  interestChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: interestDates,
+      datasets: [{
+        data: totalInterest,
+        backgroundColor: totalInterest.map((v, i) => {
+          const d = interestDelta[i];
+          if (d === null) return 'rgba(167, 139, 250, 0.6)';
+          return d <= 0 ? 'rgba(52, 211, 153, 0.6)' : 'rgba(248, 113, 113, 0.6)';
+        }),
+        borderColor: totalInterest.map((v, i) => {
+          const d = interestDelta[i];
+          if (d === null) return 'rgba(167, 139, 250, 0.8)';
+          return d <= 0 ? 'rgba(52, 211, 153, 0.8)' : 'rgba(248, 113, 113, 0.8)';
+        }),
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1d27',
+          callbacks: { label: ctx => `Interest: ${fmt(ctx.parsed.y)}` }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#555d73', font: { family: 'JetBrains Mono', size: 10 } } },
+        y: { grid: { color: 'rgba(35,39,51,0.5)' }, ticks: { color: '#555d73', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '$' + v } }
+      }
+    }
+  });
+}
+
+function renderCompositionChart() {
+  if (compositionChartInstance) compositionChartInstance.destroy();
+  
+  // Get latest non-null values for each active account
+  const active = [];
+  balanceAccounts.forEach(acct => {
+    let latestVal = null;
+    for (let i = acct.data.length - 1; i >= 0; i--) {
+      if (acct.data[i] !== null && acct.data[i] > 0) { latestVal = acct.data[i]; break; }
+    }
+    if (latestVal) active.push({ name: acct.name, value: latestVal });
+  });
+  active.sort((a, b) => b.value - a.value);
+  
+  const ctx = document.getElementById('compositionChart').getContext('2d');
+  const colors = active.map(a => ACCOUNT_COLORS[a.name] || '#6b7280');
+  
+  compositionChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: active.map(a => a.name),
+      datasets: [{
+        data: active.map(a => a.value),
+        backgroundColor: colors.map(c => c + 'cc'),
+        borderColor: colors,
+        borderWidth: 2,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: {
+            color: '#8890a4',
+            font: { family: 'Inter', size: 11 },
+            padding: 8,
+            usePointStyle: true,
+            pointStyleWidth: 8,
+          }
+        },
+        tooltip: {
+          backgroundColor: '#1a1d27',
+          callbacks: { label: ctx => `${ctx.label}: ${fmt(ctx.parsed)}` }
+        }
+      }
+    }
+  });
+}
+
+function renderInterestStackChart() {
+  if (interestStackChartInstance) interestStackChartInstance.destroy();
+  const ctx = document.getElementById('interestStackChart').getContext('2d');
+  
+  const colors = ['#a855f7','#6366f1','#f59e0b','#3b82f6','#06b6d4','#ef4444','#f97316','#e2e8f0'];
+  
+  interestStackChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: interestDates,
+      datasets: interestAccounts.map((acct, i) => ({
+        label: acct.name,
+        data: acct.data.map(v => v === null ? 0 : v),
+        backgroundColor: colors[i] + '99',
+        borderColor: colors[i],
+        borderWidth: 1,
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: '#8890a4', font: { family: 'Inter', size: 11 }, padding: 12, usePointStyle: true }
+        },
+        tooltip: { backgroundColor: '#1a1d27', callbacks: { label: ctx => `${ctx.dataset.label}: ${fmt(ctx.parsed.y)}` } }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { color: '#555d73', font: { family: 'JetBrains Mono', size: 10 } } },
+        y: { stacked: true, grid: { color: 'rgba(35,39,51,0.5)' }, ticks: { color: '#555d73', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '$' + v } }
+      }
+    }
+  });
+}
+
+// ==================== TABLES ====================
+function renderBalancesTable() {
+  const startIdx = balanceColMode === 'recent' ? Math.max(0, balanceDates.length - 14) : 0;
+  const dates = balanceDates.slice(startIdx);
+  
+  let html = '<table><thead><tr><th>Account</th>';
+  dates.forEach(d => html += `<th>${d}</th>`);
+  html += '</tr></thead><tbody>';
+  
+  balanceAccounts.forEach(acct => {
+    const slice = acct.data.slice(startIdx);
+    const isActive = slice.some(v => v !== null && v > 0);
+    const hasData = slice.some(v => v !== null);
+    if (!hasData && balanceColMode === 'recent') return;
+    
+    html += '<tr>';
+    html += `<td><div class="acct-name"><span class="${isActive ? 'active-indicator' : 'inactive-indicator'}"></span>${acct.name}`;
+    if (acct.apr) html += `<span class="apr-badge">${acct.apr}%</span>`;
+    html += '</div></td>';
+    slice.forEach(v => {
+      if (v === null) html += '<td class="empty">—</td>';
+      else if (v === 0) html += '<td class="zero">$0</td>';
+      else html += `<td>${fmtShort(v)}</td>`;
+    });
+    html += '</tr>';
+  });
+  
+  // Total row
+  const totSlice = totalDebt.slice(startIdx);
+  html += '<tr class="total-row"><td>TOTAL DEBT</td>';
+  totSlice.forEach(v => html += `<td>${fmtShort(v)}</td>`);
+  html += '</tr>';
+  
+  // Delta row
+  const dSlice = debtDelta.slice(startIdx);
+  html += '<tr class="delta-row"><td>Δ CHANGE</td>';
+  dSlice.forEach(v => {
+    if (v === null) html += '<td>—</td>';
+    else {
+      const cls = v > 0 ? 'negative' : v < 0 ? 'positive' : '';
+      html += `<td class="${cls}">${v > 0 ? '+' : ''}${fmtShort(v)}</td>`;
+    }
+  });
+  html += '</tr>';
+  
+  html += '</tbody></table>';
+  document.getElementById('balancesTableWrap').innerHTML = html;
+}
+
+function setBalanceCols(mode) {
+  balanceColMode = mode;
+  document.querySelectorAll('#view-balances .chart-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderBalancesTable();
+}
+
+function renderInterestTable() {
+  let html = '<table><thead><tr><th>Account</th><th>APR</th><th>Total</th>';
+  interestDates.forEach(d => html += `<th>${d}</th>`);
+  html += '</tr></thead><tbody>';
+  
+  interestAccounts.forEach(acct => {
+    const maxVal = Math.max(...acct.data.filter(v => v !== null));
+    html += `<tr><td>${acct.name}</td>`;
+    html += `<td style="color:var(--accent-red)">${acct.apr}%</td>`;
+    html += `<td style="font-weight:600;color:var(--text-primary)">${fmtShort(acct.sum)}</td>`;
+    acct.data.forEach(v => {
+      if (v === null) html += '<td class="empty">—</td>';
+      else if (v === 0) html += '<td class="zero">$0</td>';
+      else {
+        const intensity = Math.min(1, v / (maxVal || 1));
+        const bg = `rgba(167, 139, 250, ${intensity * 0.2})`;
+        html += `<td style="background:${bg}">${fmtShort(v)}</td>`;
+      }
+    });
+    html += '</tr>';
+  });
+  
+  // Total
+  html += '<tr class="total-row"><td>TOTAL</td><td></td>';
+  const intSum = totalInterest.reduce((s, v) => s + v, 0);
+  html += `<td>${fmtShort(intSum)}</td>`;
+  totalInterest.forEach(v => html += `<td>${fmtShort(v)}</td>`);
+  html += '</tr>';
+  
+  // Delta
+  html += '<tr class="delta-row"><td>Δ CHANGE</td><td></td><td></td>';
+  interestDelta.forEach(v => {
+    if (v === null) html += '<td>—</td>';
+    else {
+      const cls = v > 0 ? 'negative' : v < 0 ? 'positive' : '';
+      html += `<td class="${cls}">${v > 0 ? '+' : ''}${fmtShort(v)}</td>`;
+    }
+  });
+  html += '</tr>';
+  
+  html += '</tbody></table>';
+  document.getElementById('interestTableWrap').innerHTML = html;
+}
+
+// ==================== ACCOUNT CARDS ====================
+function renderAccountCards() {
+  const container = document.getElementById('accountCards');
+  let html = '';
+  
+  const sorted = [...balanceAccounts].map(acct => {
+    let latestVal = null;
+    for (let i = acct.data.length - 1; i >= 0; i--) {
+      if (acct.data[i] !== null) { latestVal = acct.data[i]; break; }
+    }
+    return { ...acct, latest: latestVal || 0 };
+  }).sort((a, b) => b.latest - a.latest);
+  
+  sorted.forEach(acct => {
+    const color = ACCOUNT_COLORS[acct.name] || '#6b7280';
+    const isActive = acct.latest > 0;
+    const maxBalance = Math.max(...acct.data.filter(v => v !== null && v > 0), 1);
+    const pct = Math.min(100, (acct.latest / maxBalance) * 100);
+    
+    html += `
+    <div class="interest-card">
+      <div style="min-width:200px">
+        <div class="interest-name">
+          <span class="acct-dot" style="background:${color}"></span>
+          <span class="${isActive ? 'active-indicator' : 'inactive-indicator'}"></span>
+          ${acct.name}
+        </div>
+        <div class="interest-apr">${acct.apr ? acct.apr + '% APR' : 'N/A'}</div>
+      </div>
+      <div class="interest-bar-wrap">
+        <div class="interest-bar-bg">
+          <div class="interest-bar-fill" style="width:${pct}%;background:${color}"></div>
+        </div>
+      </div>
+      <div class="interest-amount" style="color:${isActive ? 'var(--text-primary)' : 'var(--text-dim)'}">
+        ${acct.latest > 0 ? fmt(acct.latest) : 'PAID OFF'}
+      </div>
+    </div>`;
+  });
+  
+  container.innerHTML = html;
+}
+
+// ==================== MODAL & DATA ENTRY ====================
+function populateAccountDropdown() {
+  const sel = document.getElementById('entryAccount');
+  sel.innerHTML = '';
+  const allNames = [...new Set([...balanceAccounts.map(a => a.name), ...interestAccounts.map(a => a.name)])];
+  allNames.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
+}
+
+function openAddModal() {
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+function onEntryTypeChange() {
+  // Could filter accounts by type if needed
+}
+
+function saveEntry() {
+  const type = document.getElementById('entryType').value;
+  const date = document.getElementById('entryDate').value;
+  const account = document.getElementById('entryAccount').value;
+  const amount = parseFloat(document.getElementById('entryAmount').value);
+  
+  if (!date || !account || isNaN(amount)) {
+    showToast('Please fill all fields.', true);
+    return;
+  }
+  
+  // Store in localStorage
+  const entries = JSON.parse(localStorage.getItem('ledger_entries') || '[]');
+  entries.push({ type, date, account, amount, timestamp: Date.now() });
+  localStorage.setItem('ledger_entries', JSON.stringify(entries));
+  
+  closeModal();
+  document.getElementById('entryAmount').value = '';
+  showToast(`Saved: ${account} — ${fmt(amount)} for ${date}`);
+}
+
+function loadUserData() {
+  // Load any user-added entries and merge with data
+  const entries = JSON.parse(localStorage.getItem('ledger_entries') || '[]');
+  // For now, just indicate they exist
+  if (entries.length > 0) {
+    console.log(`${entries.length} user entries loaded.`);
+  }
+}
+
+function exportData() {
+  const payload = {
+    exported: new Date().toISOString(),
+    balances: { dates: balanceDates, accounts: balanceAccounts, totalDebt, debtDelta },
+    interest: { dates: interestDates, accounts: interestAccounts, totalInterest, interestDelta },
+    userEntries: JSON.parse(localStorage.getItem('ledger_entries') || '[]'),
+  };
+  
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ledger-export-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  showToast('Data exported successfully.');
+}
+
+// ==================== UTILS ====================
+function fmt(n) {
+  if (n === null || n === undefined) return '—';
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function fmtShort(n) {
+  if (n === null || n === undefined) return '—';
+  if (Math.abs(n) >= 10000) return '$' + (n/1000).toFixed(1) + 'K';
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = isError ? 'var(--accent-red)' : 'var(--accent-green)';
+  t.style.color = isError ? 'var(--accent-red)' : 'var(--accent-green)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+// ==================== CHECKING ACCOUNT DATA & ENGINE ====================
+const chkRaw = [{"date":"02-24-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":490},{"date":"02-24-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"02-24-2026","desc":"PAYPAL INST XFER 1048485817768 : ACH Electronic Debit","debit":22.96,"credit":0},{"date":"02-24-2026","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":6.68},{"date":"02-23-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":680},{"date":"02-23-2026","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":160,"credit":0},{"date":"02-19-2026","desc":"LADWP WEB PAY 2022107513 : ACH Electronic Debit","debit":345.98,"credit":0},{"date":"02-18-2026","desc":"CAPITAL ONE CRCARDPMT CA05023FEE7AD6D : ACH Electronic Debit","debit":25,"credit":0},{"date":"02-17-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":491},{"date":"02-17-2026","desc":"ALP*TelephoneSales Shanghai CHN26044 : Mobile Purchase Sign Based 02/10 12:25p #0239","debit":7.22,"credit":0},{"date":"02-17-2026","desc":"ALP*TelephoneSales Shanghai CHN26044 : Foreign Transaction Fee","debit":0.22,"credit":0},{"date":"02-11-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"02-10-2026","desc":"PAYPAL INST XFER OMEEZEY23 : ACH Electronic Debit","debit":60,"credit":0},{"date":"02-10-2026","desc":"CAPITAL ONE CRCARDPMT CA0115287B9BA34 : ACH Electronic Debit","debit":40,"credit":0},{"date":"02-09-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":484},{"date":"02-09-2026","desc":"AMAZON CORP SYF PAYMNT 604578111059745 : ACH Electronic Debit","debit":400,"credit":0},{"date":"02-09-2026","desc":"CITI AUTOPAY PAYMENT 271929290850287 1 : ACH Electronic Debit","debit":100.6,"credit":0},{"date":"02-06-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":486},{"date":"02-06-2026","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 26 : Mobile Purchase Sign Based 02/04 11:39p #0239","debit":120,"credit":0},{"date":"02-06-2026","desc":"OMAR BROWN : Zelle Credit PAY ID:BACrajump27w ORG ID:BAC","debit":0,"credit":80},{"date":"02-06-2026","desc":"PAYPAL INST XFER OMEEZEY23 : ACH Electronic Debit","debit":80,"credit":0},{"date":"02-04-2026","desc":"SoCalGas PAID SCGC 1247994001 : ACH Electronic Debit","debit":18.08,"credit":0},{"date":"02-02-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":300,"credit":0},{"date":"02-02-2026","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":10.41},{"date":"01-30-2026","desc":"PAYPAL INST XFER 1047934858787 : ACH Electronic Debit","debit":163.6,"credit":0},{"date":"01-30-2026","desc":"VENMO *FLORA HOSE 8558124430 NY 26029 : Debit Card Purchase 01/28 08:18p #0239","debit":52,"credit":0},{"date":"01-29-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":487},{"date":"01-29-2026","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":94.66,"credit":0},{"date":"01-26-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":480},{"date":"01-26-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":326.14,"credit":0},{"date":"01-26-2026","desc":"OMAR BROWN : Zelle Credit PAY ID:BACob4b3p8qk ORG ID:BAC","debit":0,"credit":80},{"date":"01-23-2026","desc":"PAYPAL INST XFER OMEEZEY23 : ACH Electronic Debit","debit":80,"credit":0},{"date":"01-22-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":200,"credit":0},{"date":"01-22-2026","desc":"VENMO PAYMENT 1047751059392 : ACH Electronic Debit","debit":17.84,"credit":0},{"date":"01-21-2026","desc":"AMAZON CORP SYF PAYMNT 604578111059745 : ACH Electronic Debit","debit":500,"credit":0},{"date":"01-20-2026","desc":"CAPITAL ONE CRCARDPMT CA03C6D0A748917 : ACH Electronic Debit","debit":25,"credit":0},{"date":"01-16-2026","desc":"IAT PAYPAL MAURO PONZIANI : ACH Electronic Debit","debit":19.23,"credit":0},{"date":"01-15-2026","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":20.15},{"date":"01-14-2026","desc":"TREMENDOUS PAYOUT : ACH Electronic Credit","debit":0,"credit":442.94},{"date":"01-13-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":300,"credit":0},{"date":"01-12-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":498},{"date":"01-12-2026","desc":"PAYPAL INST XFER 1047508075306 : ACH Electronic Debit","debit":128.02,"credit":0},{"date":"01-12-2026","desc":"TARGET DEBIT CRD ACH TRAN 912003199843007 : ACH Electronic Debit","debit":10.94,"credit":0},{"date":"01-12-2026","desc":"IAT PAYPAL DOMINIK KANDRAVY : ACH Electronic Debit","debit":6.19,"credit":0},{"date":"01-09-2026","desc":"TARGET DEBIT CRD ACH TRAN 912003199843008 : ACH Electronic Debit","debit":86.65,"credit":0},{"date":"01-09-2026","desc":"CAPITAL ONE CRCARDPMT CA0912EB7A848C5 : ACH Electronic Debit","debit":25,"credit":0},{"date":"01-08-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":366},{"date":"01-07-2026","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"01-07-2026","desc":"CITI AUTOPAY PAYMENT 271902513510031 1 : ACH Electronic Debit","debit":91.3,"credit":0},{"date":"01-07-2026","desc":"SoCalGas PAID SCGC 1247994001 : ACH Electronic Debit","debit":16.42,"credit":0},{"date":"01-05-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":350},{"date":"01-05-2026","desc":"SYNCHRONY BANK SYF-PAYLTR 609768400672324 : ACH Electronic Debit","debit":0.08,"credit":0},{"date":"01-02-2026","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":350},{"date":"01-02-2026","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":60,"credit":0},{"date":"12-31-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":500,"credit":0},{"date":"12-31-2025","desc":"SYNCHRONY BANK SYF-PAYLTR 609768400672324 : ACH Electronic Debit","debit":6.02,"credit":0},{"date":"12-30-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":300,"credit":0},{"date":"12-30-2025","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 25 : Mobile Purchase Sign Based 12/28 07:17a #0239","debit":150,"credit":0},{"date":"12-29-2025","desc":"AMAZON CORP SYF PAYMNT 604578111059745 : ACH Electronic Debit","debit":500,"credit":0},{"date":"12-29-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":34.83,"credit":0},{"date":"12-29-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":31.8,"credit":0},{"date":"12-29-2025","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":12.78},{"date":"12-29-2025","desc":"ALP*Programming Shanghai CHN25359 : Mobile Purchase Sign Based 12/23 02:55a #0239","debit":7.11,"credit":0},{"date":"12-29-2025","desc":"ALP*Programming Shanghai CHN25359 : Foreign Transaction Fee","debit":0.21,"credit":0},{"date":"12-26-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":585},{"date":"12-26-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":29.49,"credit":0},{"date":"12-24-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":30.57,"credit":0},{"date":"12-23-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":32.13,"credit":0},{"date":"12-22-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":485},{"date":"12-19-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":401},{"date":"12-18-2025","desc":"LADWP WEB PAY 2022107513 : ACH Electronic Debit","debit":398.24,"credit":0},{"date":"12-17-2025","desc":"CAPITAL ONE CRCARDPMT CA0BCB1CCDC3EC6 : ACH Electronic Debit","debit":25,"credit":0},{"date":"12-15-2025","desc":"AMAZON CORP SYF PAYMNT 604578111059745 : ACH Electronic Debit","debit":500,"credit":0},{"date":"12-12-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":440},{"date":"12-12-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":222.5,"credit":0},{"date":"12-12-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":1.51,"credit":0},{"date":"12-10-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":432},{"date":"12-09-2025","desc":"PAYPAL INST XFER 1046783283731 : ACH Electronic Debit","debit":496.57,"credit":0},{"date":"12-09-2025","desc":"CAPITAL ONE CRCARDPMT CA0412349078D11 : ACH Electronic Debit","debit":25,"credit":0},{"date":"12-09-2025","desc":"D6535 LIME*PAYOFF LN5R SAN FRANCISCO CA 25 : Mobile Purchase Sign Based 12/05 07:56p #0239","debit":3.07,"credit":0},{"date":"12-08-2025","desc":"CITI AUTOPAY PAYMENT 271873994510037 1 : ACH Electronic Debit","debit":105.54,"credit":0},{"date":"12-08-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":19,"credit":0},{"date":"12-05-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":385},{"date":"12-05-2025","desc":"Transfer to MasterCard 10:10p #0239 ONLINE Reference # 000086","debit":200,"credit":0},{"date":"12-05-2025","desc":"SYNCHRONY BANK SYF-PAYLTR 609768400672324 : ACH Electronic Debit","debit":144,"credit":0},{"date":"12-05-2025","desc":"SYNCHRONY BANK SYF-PAYLTR 609768400672324 : ACH Electronic Debit","debit":77.78,"credit":0},{"date":"12-05-2025","desc":"SoCalGas PAID SCGC 1247994001 : ACH Electronic Debit","debit":15.67,"credit":0},{"date":"12-02-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":381},{"date":"12-02-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":103.01,"credit":0},{"date":"12-01-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":784},{"date":"12-01-2025","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 25 : Mobile Purchase Sign Based 11/26 01:33a #0239","debit":180,"credit":0},{"date":"12-01-2025","desc":"AMZ_STORECRD_PMT PAYMENT 604578111059745 : ACH Electronic Debit","debit":162,"credit":0},{"date":"11-25-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":224.5,"credit":0},{"date":"11-24-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":395},{"date":"11-24-2025","desc":"ALP*OtherRetail Shanghai CHN25325 : Debit Card Purchase 11/20 05:01a #0239","debit":7.03,"credit":0},{"date":"11-24-2025","desc":"ALP*OtherRetail Shanghai CHN25325 : Foreign Transaction Fee","debit":0.21,"credit":0},{"date":"11-18-2025","desc":"VENMO *FLORA HOSE 8558124430 NY 25320 : Debit Card Purchase 11/16 12:40a #0239","debit":52,"credit":0},{"date":"11-17-2025","desc":"CAPITAL ONE CRCARDPMT CA020FC13720D76 : ACH Electronic Debit","debit":25,"credit":0},{"date":"11-14-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":56.99,"credit":0},{"date":"11-12-2025","desc":"PAYPAL INST XFER 1046118454119 : ACH Electronic Debit","debit":30,"credit":0},{"date":"11-10-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":300},{"date":"11-10-2025","desc":"CAPITAL ONE CRCARDPMT CA04A87519D4AB4 : ACH Electronic Debit","debit":25,"credit":0},{"date":"11-07-2025","desc":"CITI AUTOPAY PAYMENT 271848969740070 1 : ACH Electronic Debit","debit":97.75,"credit":0},{"date":"11-04-2025","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 25 : Mobile Purchase Sign Based 11/02 08:40a #0239","debit":150,"credit":0},{"date":"10-31-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":300,"credit":0},{"date":"10-31-2025","desc":"SoCalGas PAID SCGC 1247994001 : ACH Electronic Debit","debit":12.31,"credit":0},{"date":"10-30-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":40,"credit":0},{"date":"10-29-2025","desc":"AMZ_STORECRD_PMT PAYMENT 604578111059745 : ACH Electronic Debit","debit":166,"credit":0},{"date":"10-24-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":350},{"date":"10-22-2025","desc":"VENMO *FLORA HOSE 8558124430 NY 25294 : Debit Card Purchase 10/21 12:54a #0239","debit":52,"credit":0},{"date":"10-20-2025","desc":"CAPITAL ONE CRCARDPMT CA0350AFCE4ED6B : ACH Electronic Debit","debit":25,"credit":0},{"date":"10-16-2025","desc":"LADWP WEB PAY 2022107513 : ACH Electronic Debit","debit":446.22,"credit":0},{"date":"10-16-2025","desc":"ALP*GameArcades Shanghai CHN25288 : Debit Card Purchase 10/13 09:40p #0239","debit":7.01,"credit":0},{"date":"10-16-2025","desc":"ALP*GameArcades Shanghai CHN25288 : Foreign Transaction Fee","debit":0.21,"credit":0},{"date":"10-14-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":222.5,"credit":0},{"date":"10-10-2025","desc":"Monthly Service Fee","debit":15,"credit":0},{"date":"10-09-2025","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":5.07},{"date":"10-07-2025","desc":"CITI AUTOPAY PAYMENT 271822128340053 1 : ACH Electronic Debit","debit":95.96,"credit":0},{"date":"10-03-2025","desc":"AMAZON CORP SYF PAYMNT 604578111059745 : ACH Electronic Debit","debit":200,"credit":0},{"date":"10-03-2025","desc":"PAYPAL INST XFER LEMONSQUEEZ : ACH Electronic Debit","debit":9.99,"credit":0},{"date":"10-02-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":6.03,"credit":0},{"date":"10-02-2025","desc":"SoCalGas PAID SCGC 1247994001 : ACH Electronic Debit","debit":3.57,"credit":0},{"date":"10-02-2025","desc":"PAYPAL TRANSFER : ACH Electronic Credit","debit":0,"credit":2.16},{"date":"10-01-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"09-30-2025","desc":"AMZ_STORECRD_PMT PAYMENT 604578111059745 : ACH Electronic Debit","debit":253,"credit":0},{"date":"09-30-2025","desc":"PAYPAL INST XFER 1045177385375 : ACH Electronic Debit","debit":5,"credit":0},{"date":"09-29-2025","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":160,"credit":0},{"date":"09-24-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":33.85,"credit":0},{"date":"09-23-2025","desc":"VENMO *FLORA HOSE 8558124430 NY 25264 : Debit Card Purchase 09/21 12:23a #0239","debit":52,"credit":0},{"date":"09-22-2025","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":17.35},{"date":"09-18-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":100,"credit":0},{"date":"09-18-2025","desc":"CAPITAL ONE CRCARDPMT 442XT6D0026EM2I : ACH Electronic Debit","debit":25,"credit":0},{"date":"09-18-2025","desc":"CAPITAL ONE CRCARDPMT 442XV8HHLI5EXNE : ACH Electronic Debit","debit":25,"credit":0},{"date":"09-16-2025","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":160,"credit":0},{"date":"09-15-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"09-15-2025","desc":"ALP*GameArcades Shanghai CHN25255 : Debit Card Purchase 09/10 10:56p #0239","debit":7.02,"credit":0},{"date":"09-15-2025","desc":"ALP*GameArcades Shanghai CHN25255 : Foreign Transaction Fee","debit":0.21,"credit":0},{"date":"09-11-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":88.58,"credit":0},{"date":"09-11-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":2.96,"credit":0},{"date":"09-08-2025","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":160,"credit":0},{"date":"09-08-2025","desc":"CITI AUTOPAY PAYMENT 271795349980026 1 : ACH Electronic Debit","debit":105.79,"credit":0},{"date":"09-03-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":198,"credit":0},{"date":"09-03-2025","desc":"VENMO *ANTHONY JASSO 8558124430 NY 25243 : Debit Card Purchase 08/30 02:24a #0239","debit":75,"credit":0},{"date":"09-03-2025","desc":"VENMO PAYMENT 1044578044606 : ACH Electronic Debit","debit":15,"credit":0},{"date":"09-02-2025","desc":"PAYPAL INST XFER UBER : ACH Electronic Debit","debit":11.98,"credit":0},{"date":"08-27-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.15,"credit":0},{"date":"08-27-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.15,"credit":0},{"date":"08-26-2025","desc":"AFFIRM INC AFFIRM PAY 3881430 : ACH Electronic Debit","debit":378.78,"credit":0},{"date":"08-26-2025","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":160,"credit":0},{"date":"08-26-2025","desc":"AFFIRM INC AFFIRM PAY 3881431 : ACH Electronic Debit","debit":66.48,"credit":0},{"date":"08-26-2025","desc":"PAYPAL INST XFER LIME PASS LN5R : ACH Electronic Debit","debit":6.57,"credit":0},{"date":"08-26-2025","desc":"PAYPAL INST XFER INSTANTINK : ACH Electronic Debit","debit":6.03,"credit":0},{"date":"08-22-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":22.72,"credit":0},{"date":"08-22-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":5.33,"credit":0},{"date":"08-22-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":1.78,"credit":0},{"date":"08-22-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":1.19,"credit":0},{"date":"08-21-2025","desc":"AFFIRM INC AFFIRM PAY 2278276 : ACH Electronic Debit","debit":39.09,"credit":0},{"date":"08-20-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":8.35,"credit":0},{"date":"08-19-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":1698.09,"credit":0},{"date":"08-19-2025","desc":"VENMO *FLORA HOSE 8558124430 NY 25230 : Debit Card Purchase 08/17 11:35p #0239","debit":80,"credit":0},{"date":"08-19-2025","desc":"CAPITAL ONE CRCARDPMT 43WEB1H6042PYVU : ACH Electronic Debit","debit":25,"credit":0},{"date":"08-19-2025","desc":"PAYPAL INST XFER 1044268903177 : ACH Electronic Debit","debit":5,"credit":0},{"date":"08-18-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"08-18-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":363.23,"credit":0},{"date":"08-18-2025","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":80,"credit":0},{"date":"08-18-2025","desc":"PAYPAL INST XFER UBERMRFRANCO : ACH Electronic Debit","debit":80,"credit":0},{"date":"08-18-2025","desc":"AFFIRM INC AFFIRM PAY 1120888 : ACH Electronic Debit","debit":53.16,"credit":0},{"date":"08-18-2025","desc":"Incoming Wire Transfer Fee - INCOMING WIREFEE","debit":15,"credit":0},{"date":"08-18-2025","desc":"IAT PAYPAL PADDLE.COM MARKET LIMITED : ACH Electronic Debit","debit":4,"credit":0},{"date":"08-15-2025","desc":"Incoming Wire Transfer WIRE FROM ELBASANI EVA","debit":0,"credit":8000},{"date":"08-15-2025","desc":"LADWP WEB PAY 2022107513 : ACH Electronic Debit","debit":589.53,"credit":0},{"date":"08-12-2025","desc":"CAPITAL ONE CRCARDPMT 43UX39RDEPA0E2I : ACH Electronic Debit","debit":25,"credit":0},{"date":"08-12-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.74,"credit":0},{"date":"08-11-2025","desc":"VENMO CASHOUT : ACH Electronic Credit","debit":0,"credit":250},{"date":"08-11-2025","desc":"AMZ_STORECRD_PMT PAYMENT 604578111059745 : ACH Electronic Debit","debit":180,"credit":0},{"date":"08-11-2025","desc":"Monthly Service Fee","debit":15,"credit":0},{"date":"08-11-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":5.37,"credit":0},{"date":"08-08-2025","desc":"ALP*GameArcades Shanghai CHN25219 : Mobile Purchase Sign Based 08/05 04:53a #0239","debit":6.97,"credit":0},{"date":"08-08-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":5.33,"credit":0},{"date":"08-08-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":2.37,"credit":0},{"date":"08-08-2025","desc":"Foreign Transaction Fee ALP*GameArcadesShanghaiCHN25219","debit":0.21,"credit":0},{"date":"08-07-2025","desc":"CITI AUTOPAY PAYMENT 271769416200030 1 : ACH Electronic Debit","debit":97.15,"credit":0},{"date":"08-06-2025","desc":"PAYPAL INST XFER 1043994969487 : ACH Electronic Debit","debit":5,"credit":0},{"date":"08-05-2025","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 25 : Mobile Purchase Sign Based 08/03 01:18a #0239","debit":25,"credit":0},{"date":"08-04-2025","desc":"Zelle Credit PAY ID:CTIdTcQzv20v ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":100},{"date":"08-04-2025","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 25 : Mobile Purchase Sign Based 07/31 06:56a #0239","debit":100,"credit":0},{"date":"08-04-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":5.33,"credit":0},{"date":"08-04-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":1.79,"credit":0},{"date":"08-04-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":1.78,"credit":0},{"date":"07-28-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":49,"credit":0},{"date":"07-28-2025","desc":"PAYPAL INST XFER INSTANTINK : ACH Electronic Debit","debit":6.03,"credit":0},{"date":"07-28-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.74,"credit":0},{"date":"07-24-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":80,"credit":0},{"date":"07-24-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":30.18,"credit":0},{"date":"07-24-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":3,"credit":0},{"date":"07-23-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":2.37,"credit":0},{"date":"07-23-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":2.37,"credit":0},{"date":"07-22-2025","desc":"D6535 APPLE CASH SENT MONEY CUPERTINO CA 25 : Mobile Purchase Sign Based 07/19 08:37a #0239","debit":100,"credit":0},{"date":"07-22-2025","desc":"Zelle Debit PAY ID:CTIolcUasA5b ORG ID:WFC NAME:STELLAR TRAI","debit":94,"credit":0},{"date":"07-22-2025","desc":"PAYPAL INST XFER UBER : ACH Electronic Debit","debit":14.97,"credit":0},{"date":"07-22-2025","desc":"PAYPAL INST XFER UBER : ACH Electronic Debit","debit":12.9,"credit":0},{"date":"07-22-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.74,"credit":0},{"date":"07-21-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":100,"credit":0},{"date":"07-21-2025","desc":"APPLE GS SAVINGS TRANSFER 910191373309 : ACH Electronic Credit","debit":0,"credit":59.93},{"date":"07-21-2025","desc":"AFFIRM INC AFFIRM PAY 400005 : ACH Electronic Debit","debit":39.09,"credit":0},{"date":"07-21-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":20.19,"credit":0},{"date":"07-21-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":6.52,"credit":0},{"date":"07-18-2025","desc":"AFFIRM INC AFFIRM PAY 9275543 : ACH Electronic Debit","debit":53.16,"credit":0},{"date":"07-18-2025","desc":"CAPITAL ONE CRCARDPMT 43PUOUT45HWO8UY : ACH Electronic Debit","debit":25,"credit":0},{"date":"07-17-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":100,"credit":0},{"date":"07-16-2025","desc":"IAT PAYPAL PADDLE.COM MARKET LIMITED : ACH Electronic Debit","debit":4,"credit":0},{"date":"07-15-2025","desc":"PAYPAL INST XFER PPCR CC REPAYME : ACH Electronic Debit","debit":55,"credit":0},{"date":"07-11-2025","desc":"CAPITAL ONE ONLINE PMT CA0BA248F03C470 : ACH Electronic Debit","debit":120,"credit":0},{"date":"07-11-2025","desc":"CAPITAL ONE CRCARDPMT 43ODN3LCFYJSGFU : ACH Electronic Debit","debit":25,"credit":0},{"date":"07-11-2025","desc":"PAYPAL TRANSFER : ACH Electronic Credit","debit":0,"credit":9.08},{"date":"07-10-2025","desc":"D6535 WAYMO 8442613753 CA 25 : Mobile Purchase Sign Based 07/08 05:03a #0239","debit":10.71,"credit":0},{"date":"07-10-2025","desc":"D6535 WAYMO 8442613753 CA 25 : Mobile Purchase Sign Based 07/08 03:43a #0239","debit":10.67,"credit":0},{"date":"07-10-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.74,"credit":0},{"date":"07-10-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":4.15,"credit":0},{"date":"07-10-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":1.79,"credit":0},{"date":"07-10-2025","desc":"PAYPAL INST XFER LIME RIDE LN5R : ACH Electronic Debit","debit":1.78,"credit":0},{"date":"07-07-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":1000,"credit":0},{"date":"07-07-2025","desc":"AMAZON CORP SYF PAYMNT 604578111059745 : ACH Electronic Debit","debit":615,"credit":0},{"date":"07-07-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":300,"credit":0},{"date":"07-07-2025","desc":"CITI AUTOPAY PAYMENT 271740899020002 1 : ACH Electronic Debit","debit":100.35,"credit":0},{"date":"07-03-2025","desc":"PAYPAL RETRY PYMT UBER EATS : ACH Electronic Debit","debit":30.61,"credit":0},{"date":"07-03-2025","desc":"PAYPAL RETRY PYMT UBER EATS : ACH Electronic Debit","debit":26.69,"credit":0},{"date":"07-03-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":25.76,"credit":0},{"date":"07-03-2025","desc":"PAYPAL RETRY PYMT UBER EATS : ACH Electronic Debit","debit":23,"credit":0},{"date":"07-03-2025","desc":"Incoming Wire Transfer Fee - INCOMING WIREFEE","debit":15,"credit":0},{"date":"07-03-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":2,"credit":0},{"date":"07-02-2025","desc":"Incoming Wire Transfer WIRE FROM ELBASANI EVA","debit":0,"credit":3000},{"date":"07-02-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":500,"credit":0},{"date":"07-02-2025","desc":"ALP*Programming Shanghai CHN25182 : Debit Card Purchase 06/30 06:05a #0239","debit":6.97,"credit":0},{"date":"07-02-2025","desc":"Foreign Transaction Fee ALP*ProgrammingShanghaiCHN25182","debit":0.21,"credit":0},{"date":"07-01-2025","desc":"PAYPAL RETRY PYMT BLUEHOSTCOM : ACH Electronic Debit","debit":43.83,"credit":0},{"date":"06-30-2025","desc":"APPLECARD GSBANK PAYMENT 2069759 : ACH Electronic Debit","debit":400,"credit":0},{"date":"06-30-2025","desc":"Zelle Debit PAY ID:CTIw7948lG5a ORG ID:WFC NAME:STELLAR TRAI","debit":148,"credit":0},{"date":"06-30-2025","desc":"CARDMEMBER SERV WEB PYMT ***********8312 : ACH Electronic Debit","debit":49,"credit":0},{"date":"06-27-2025","desc":"PAYPAL TRANSFER : ACH Electronic Credit","debit":0,"credit":1470},{"date":"06-27-2025","desc":"Returned Insufficient Funds - ACH Txn","debit":0,"credit":30.61},{"date":"06-27-2025","desc":"Returned Insufficient Funds - ACH Txn","debit":0,"credit":26.69},{"date":"06-27-2025","desc":"Returned Insufficient Funds - ACH Txn","debit":0,"credit":23},{"date":"06-27-2025","desc":"PAYPAL INST XFER UBER : ACH Electronic Debit","debit":12.68,"credit":0},{"date":"06-26-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":30.61,"credit":0},{"date":"06-26-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":26.69,"credit":0},{"date":"06-26-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":23,"credit":0},{"date":"06-26-2025","desc":"PAYPAL INST XFER INSTANTINK : ACH Electronic Debit","debit":6.03,"credit":0},{"date":"06-25-2025","desc":"Returned Insufficient Funds - ACH Txn","debit":0,"credit":43.83},{"date":"06-25-2025","desc":"PAYPAL INST XFER LIME PASS LN5R : ACH Electronic Debit","debit":6.57,"credit":0},{"date":"06-24-2025","desc":"PAYPAL INST XFER BLUEHOSTCOM : ACH Electronic Debit","debit":43.83,"credit":0},{"date":"06-24-2025","desc":"PAYPAL TRANSFER : ACH Electronic Credit","debit":0,"credit":16.55},{"date":"06-24-2025","desc":"SoCalGas PAID SCGC : ACH Electronic Debit","debit":0,"credit":0},{"date":"06-23-2025","desc":"PAYPAL INST XFER LIME PASS LN5R : ACH Electronic Debit","debit":9.32,"credit":0},{"date":"06-23-2025","desc":"PAYPAL INST XFER LIME PASS LN5R : ACH Electronic Debit","debit":9.32,"credit":0},{"date":"06-23-2025","desc":"VENMO REPAYMENT 1042983681351 : ACH Electronic Debit","debit":2,"credit":0},{"date":"06-18-2025","desc":"Returned Insufficient Funds - ACH Txn","debit":0,"credit":221.56},{"date":"06-18-2025","desc":"PAYPAL INST XFER UBER EATS : ACH Electronic Debit","debit":36.26,"credit":0},{"date":"06-18-2025","desc":"CAPITAL ONE CRCARDPMT 43JIRJUHEV7XYAI : ACH Electronic Debit","debit":25,"credit":0},{"date":"06-18-2025","desc":"PAYPAL TRANSFER : ACH Electronic Credit","debit":0,"credit":15.2},{"date":"06-17-2025","desc":"ACH Electronic Debit - LADWPWEB PAY 2022107513","debit":221.56,"credit":0},{"date":"06-16-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":36,"credit":0},{"date":"06-16-2025","desc":"ACH Electronic Credit APPLE CASH BANK XFERGeraldElbasan","debit":0,"credit":3.15},{"date":"06-11-2025","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 43I1OAKF8KKQDYY","debit":6.14,"credit":0},{"date":"06-10-2025","desc":"Cash Withdrawal 08:34p #0239 Non Citi ATM HOLLYWOOD HI-382637LOS ANGELES","debit":43.75,"credit":0},{"date":"06-09-2025","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":274.35,"credit":0},{"date":"06-09-2025","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271716713500237 1","debit":106.75,"credit":0},{"date":"06-06-2025","desc":"Zelle Credit PAY ID:CTIj6h5r3e1a ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":300},{"date":"06-04-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":100,"credit":0},{"date":"06-03-2025","desc":"Debit Card Purchase 06/01 10:43p #0239 SQ *EL CID Los Angeles CA 25153","debit":18.55,"credit":0},{"date":"06-03-2025","desc":"ACH Electronic Credit APPLE GS SAVINGS TRANSFER 910191373309","debit":0,"credit":12.71},{"date":"05-28-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":48,"credit":0},{"date":"05-28-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":11.31,"credit":0},{"date":"05-28-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":9.59,"credit":0},{"date":"05-27-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER AARONJL86","debit":150,"credit":0},{"date":"05-22-2025","desc":"Mobile Purchase Sign Based 05/20 10:53a #0239 D6535 WAYMO8442613753CA 25","debit":27.86,"credit":0},{"date":"05-22-2025","desc":"Mobile Purchase Sign Based 05/20 07:49a #0239 D6535 WAYMO8442613753CA 25","debit":19.18,"credit":0},{"date":"05-22-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1042348898286","debit":16.14,"credit":0},{"date":"05-21-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":300,"credit":0},{"date":"05-21-2025","desc":"Mobile Purchase Sign Based 05/19 02:33a #0239 D6535 UBER *EATS 8005928996CA 25","debit":48.17,"credit":0},{"date":"05-21-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1042316500394","debit":41,"credit":0},{"date":"05-20-2025","desc":"Cash Withdrawal 12:12a #0239 Non Citi ATM HOLLYWOOD HI-384043LOS ANGELES","debit":83.75,"credit":0},{"date":"05-20-2025","desc":"Mobile Purchase Sign Based 05/18 07:12a #0239 D6535 WAYMO8442613753CA 25","debit":21.4,"credit":0},{"date":"05-20-2025","desc":"Mobile Purchase Sign Based 05/17 09:42a #0239 D6535 WAYMO8442613753CA 25","debit":19.39,"credit":0},{"date":"05-19-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER AARONJL86","debit":90,"credit":0},{"date":"05-14-2025","desc":"ACH Electronic Debit - CAPITAL ONEONLINE PMT 43C5ZMYSQ0HCPIY","debit":313.13,"credit":0},{"date":"05-14-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":29,"credit":0},{"date":"05-14-2025","desc":"Mobile Purchase Sign Based 05/11 09:05a #0239 ALP*OtherRetailShanghaiCHN25133","debit":6.91,"credit":0},{"date":"05-14-2025","desc":"Foreign Transaction Fee ALP*OtherRetailShanghaiCHN25133","debit":0.21,"credit":0},{"date":"05-13-2025","desc":"Mobile Purchase Sign Based 05/10 #0239 D6535 LIME*PAYOFF LN5R SAN FRANCISCO CA 25","debit":17.78,"credit":0},{"date":"05-12-2025","desc":"ACH Electronic Credit VENMOCASHOUT","debit":0,"credit":1600},{"date":"05-12-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":300,"credit":0},{"date":"05-09-2025","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":319.43,"credit":0},{"date":"05-07-2025","desc":"Zelle Credit PAY ID:CTIqcUHakkuG ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":328},{"date":"05-07-2025","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271689924850009 1","debit":100.21,"credit":0},{"date":"05-05-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":200,"credit":0},{"date":"05-05-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":180,"credit":0},{"date":"05-05-2025","desc":"ACH Electronic Credit APPLE GS SAVINGS TRANSFER 910191373309","debit":0,"credit":55.55},{"date":"05-05-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":48,"credit":0},{"date":"05-02-2025","desc":"ACH Electronic Debit - VENMOPAYMENT 1041919614493","debit":460,"credit":0},{"date":"05-02-2025","desc":"Mobile Purchase PIN Based D6535 RALPHS #0 1233 N. LA B WEST HOLLYWOOCAUS07","debit":85.36,"credit":0},{"date":"04-30-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":300,"credit":0},{"date":"04-28-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":40,"credit":0},{"date":"04-24-2025","desc":"Zelle Credit PAY ID:CTIkl4wd5ax5 ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":400},{"date":"04-23-2025","desc":"Cash Withdrawal 02:11p #0239 Non Citi ATM EFTLos Angeles","debit":86,"credit":0},{"date":"04-22-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1041685658441","debit":41,"credit":0},{"date":"04-22-2025","desc":"ACH Electronic Debit - VENMOPAYMENT 1041691523815","debit":20,"credit":0},{"date":"04-18-2025","desc":"ACH Electronic Debit - CAPITAL ONEMOBILE PMT 4361DI8CDVRECPM","debit":15.03,"credit":0},{"date":"04-17-2025","desc":"ACH Electronic Debit - LADWPWEB PAY 2022107513","debit":183.67,"credit":0},{"date":"04-17-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER AARONJL86","debit":160,"credit":0},{"date":"04-15-2025","desc":"Debit Card Purchase 04/12 05:00p #0239 EA SALON HOLLYWOOD CA 25103","debit":36,"credit":0},{"date":"04-15-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":29,"credit":0},{"date":"04-14-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER AARONJL86","debit":25,"credit":0},{"date":"04-10-2025","desc":"Monthly Service Fee","debit":15,"credit":0},{"date":"04-10-2025","desc":"Fee for Non-Citibank ATM use","debit":2.5,"credit":0},{"date":"04-09-2025","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":356.57,"credit":0},{"date":"04-08-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":700,"credit":0},{"date":"04-07-2025","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271662298450107 1","debit":96.42,"credit":0},{"date":"04-03-2025","desc":"ACH Electronic Debit - WISEMAN-SR WEB PMTS J7XJ9J","debit":2732.83,"credit":0},{"date":"04-03-2025","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":650},{"date":"04-03-2025","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":15.61,"credit":0},{"date":"04-02-2025","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":700},{"date":"04-01-2025","desc":"Zelle Credit PAY ID:CTINqz2Bnjzl ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":2000},{"date":"03-31-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":400.81,"credit":0},{"date":"03-31-2025","desc":"ACH Electronic Credit VENMOCASHOUT","debit":0,"credit":92.56},{"date":"03-26-2025","desc":"Mobile Purchase Sign Based 03/24 02:37p #0239 D8857 MoonPay 3028 DelawareNY 25","debit":78,"credit":0},{"date":"03-26-2025","desc":"Mobile Purchase Sign Based 03/24 03:00p #0239 D8857 MoonPay 4391 DelawareNY 25","debit":22,"credit":0},{"date":"03-25-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":200,"credit":0},{"date":"03-25-2025","desc":"ACH Electronic Debit - VENMOVENMOCRYP 1041097806896","debit":75.99,"credit":0},{"date":"03-25-2025","desc":"ACH Electronic Debit - VENMOVENMOCRYP 1041098082615","debit":16.99,"credit":0},{"date":"03-24-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER AARONJL86","debit":150,"credit":0},{"date":"03-24-2025","desc":"Cash Withdrawal 03/22 08:55p #0239 Non Citi ATM P384043LOS ANGELES","debit":103.75,"credit":0},{"date":"03-21-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1041000932235","debit":41,"credit":0},{"date":"03-20-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1040997041608","debit":766.79,"credit":0},{"date":"03-18-2025","desc":"ACH Electronic Debit - CAPITAL ONEMOBILE PMT 42ZX0SVT88WOMAI","debit":59,"credit":0},{"date":"03-18-2025","desc":"ACH Electronic Debit - CAPITAL ONEMOBILE PMT 42ZX0U9WCIVMUYI","debit":42.55,"credit":0},{"date":"03-14-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":600,"credit":0},{"date":"03-14-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER AARONJL86","debit":100,"credit":0},{"date":"03-11-2025","desc":"Debit Card Purchase 03/07 08:59p #0239 EA SALON HOLLYWOOD CA 25067","debit":36,"credit":0},{"date":"03-11-2025","desc":"Debit Card Purchase 03/07 06:47p #0239 CCBill.com*OnlyFansFort Lauderda FL 25069","debit":12.99,"credit":0},{"date":"03-10-2025","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":345.7,"credit":0},{"date":"03-05-2025","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":14.98,"credit":0},{"date":"03-04-2025","desc":"ACH Electronic Debit - CAPITAL ONEMOBILE PMT 42WXZKTK6QJUX96","debit":1903.38,"credit":0},{"date":"03-04-2025","desc":"ACH Electronic Debit - CAPITAL ONEMOBILE PMT 42WXZLOW938NBCQ","debit":938.41,"credit":0},{"date":"03-04-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":400,"credit":0},{"date":"03-04-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":180,"credit":0},{"date":"02-28-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":1623,"credit":0},{"date":"02-28-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":303.03,"credit":0},{"date":"02-28-2025","desc":"ACH Electronic Debit - TARGET -1884West HollywooCA","debit":55.61,"credit":0},{"date":"02-28-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":40,"credit":0},{"date":"02-28-2025","desc":"Incoming Wire Transfer Fee - INCOMING WIREFEE","debit":15,"credit":0},{"date":"02-27-2025","desc":"Incoming Wire Transfer WIRE FROM ELBASANI EVA","debit":0,"credit":10000},{"date":"02-27-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":300,"credit":0},{"date":"02-27-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":75,"credit":0},{"date":"02-25-2025","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":1500},{"date":"02-25-2025","desc":"Transfer to MasterCard 05:07p #0239 ONLINE Reference # 006093","debit":300,"credit":0},{"date":"02-25-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER TOMOFUN LLC","debit":6.99,"credit":0},{"date":"02-24-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":200,"credit":0},{"date":"02-24-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":200,"credit":0},{"date":"02-24-2025","desc":"Cash Withdrawal 12:04a #0239 Non Citi ATM P384043LOS ANGELES","debit":103.75,"credit":0},{"date":"02-24-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":100,"credit":0},{"date":"02-21-2025","desc":"Zelle Credit PAY ID:CTInrKV5wqMr ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":750},{"date":"02-21-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":130,"credit":0},{"date":"02-21-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1040396126973","debit":41,"credit":0},{"date":"02-19-2025","desc":"ACH Electronic Debit - LADWPWEB PAY 2022107513","debit":190.54,"credit":0},{"date":"02-19-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":100,"credit":0},{"date":"02-18-2025","desc":"ACH Electronic Credit APPLE GS SAVINGS TRANSFER 910191373309","debit":0,"credit":143},{"date":"02-18-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":100,"credit":0},{"date":"02-18-2025","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 42U75JBNMMJTCD6","debit":59,"credit":0},{"date":"02-18-2025","desc":"ACH Electronic Debit - VENMOPAYMENT 1040337464388","debit":44.99,"credit":0},{"date":"02-14-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":63,"credit":0},{"date":"02-13-2025","desc":"Zelle Credit PAY ID:CTIq3w6jsnjk ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":500},{"date":"02-13-2025","desc":"Cash Withdrawal 08:06p #0239 Non Citi ATM BANCOMER S.A.CIUDAD DE ME","debit":288.58,"credit":0},{"date":"02-13-2025","desc":"Foreign Transaction Fee BANCOMER S.A.CIUDAD DE MEXMX051","debit":8.66,"credit":0},{"date":"02-13-2025","desc":"Debit Card Purchase 02/12 07:47a #0239 STARBUCKS APT AMB P8 CMX MEX25043","debit":1.34,"credit":0},{"date":"02-13-2025","desc":"Foreign Transaction Fee STARBUCKS APT AMB P8 CMX MEX25043","debit":0.04,"credit":0},{"date":"02-11-2025","desc":"Debit Card Purchase 02/07 08:58p #0239 EA SALON HOLLYWOOD CA 25039","debit":41,"credit":0},{"date":"02-11-2025","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 42SPYHCZ9BSW8XM","debit":29,"credit":0},{"date":"02-11-2025","desc":"Debit Card Purchase 02/07 09:41a #0239 CCBill.com*OnlyFansFort Lauderda FL 25041","debit":6,"credit":0},{"date":"02-10-2025","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":345.76,"credit":0},{"date":"02-10-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":100,"credit":0},{"date":"02-07-2025","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271613081350019 1","debit":102.09,"credit":0},{"date":"02-05-2025","desc":"ACH Electronic Debit - WISEMAN-SR WEB PMTS RFLPYH","debit":2700,"credit":0},{"date":"02-05-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":400,"credit":0},{"date":"02-04-2025","desc":"Zelle Credit PAY ID:CTIHPBecuKH1 ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":2700},{"date":"02-04-2025","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":27.31,"credit":0},{"date":"02-04-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":8.47,"credit":0},{"date":"02-03-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":100,"credit":0},{"date":"02-03-2025","desc":"DEBIT CARD TRANSFER CREDIT Varo Bank CA USDraper UTUS06065","debit":0,"credit":30},{"date":"02-03-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":20.08,"credit":0},{"date":"02-03-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":18.49,"credit":0},{"date":"02-03-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":10.16,"credit":0},{"date":"01-31-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER SPLICE","debit":12.99,"credit":0},{"date":"01-30-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":100,"credit":0},{"date":"01-29-2025","desc":"Cash Withdrawal 01/28 11:43p #0239 Non Citi ATM EFTLos Angeles","debit":96,"credit":0},{"date":"01-29-2025","desc":"ACH Electronic Debit - VENMOPAYMENT 1039910310270","debit":30,"credit":0},{"date":"01-28-2025","desc":"Debit Card Purchase 01/24 06:55p #0239 CASH APP*GARY ELBASANI Oakland CA 25025","debit":30,"credit":0},{"date":"01-24-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":600,"credit":0},{"date":"01-24-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":43.05,"credit":0},{"date":"01-23-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":140,"credit":0},{"date":"01-22-2025","desc":"Debit Card Purchase 01/17 04:27a #0239 CCBill.com*OnlyFansFort Lauderda FL 25020","debit":10,"credit":0},{"date":"01-21-2025","desc":"ACH Electronic Debit - VENMOREPAYMENT 1039714196913","debit":300,"credit":0},{"date":"01-21-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":100,"credit":0},{"date":"01-17-2025","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 42NNMNWUE6EXUJE","debit":61,"credit":0},{"date":"01-14-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER PPCR CC REPAYME","debit":29,"credit":0},{"date":"01-14-2025","desc":"ACH Electronic Debit - VENMOPAYMENT 1039597382912","debit":7,"credit":0},{"date":"01-14-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER","debit":0.67,"credit":0},{"date":"01-13-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":200,"credit":0},{"date":"01-13-2025","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 42M6D6RTT6T75MI","debit":30,"credit":0},{"date":"01-13-2025","desc":"ACH Electronic Credit VENMOCASHOUT","debit":0,"credit":13.33},{"date":"01-09-2025","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":319.86,"credit":0},{"date":"01-09-2025","desc":"ACH Electronic Debit - ST OF CA DMV INTERNET 72218999250108","debit":2,"credit":0},{"date":"01-07-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":815,"credit":0},{"date":"01-07-2025","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271586287580083 1","debit":101.11,"credit":0},{"date":"01-07-2025","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":19,"credit":0},{"date":"01-06-2025","desc":"Zelle Credit PAY ID:CTIzpHeaaqOI ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":500},{"date":"01-06-2025","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":320.36,"credit":0},{"date":"01-06-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":100,"credit":0},{"date":"01-06-2025","desc":"Cash Withdrawal 01/05 11:40p #0239 Non Citi ATM EFTLos Angeles","debit":96,"credit":0},{"date":"01-06-2025","desc":"Debit Card Purchase 12/30 11:54a #0239 CCBill.com*OnlyFansFort Lauderda FL 25003","debit":7.5,"credit":0},{"date":"01-06-2025","desc":"Mobile Purchase Sign Based 01/01 05:02a #0239 D8857 LIME*RIDE LN5R SAN FRANCISCO CA 25","debit":4.47,"credit":0},{"date":"01-03-2025","desc":"ACH Electronic Debit - WISEMAN-SR WEB PMTS XN9XQH","debit":2730,"credit":0},{"date":"01-02-2025","desc":"Zelle Credit PAY ID:CTI1wCtIhudp ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":5000},{"date":"01-02-2025","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":1300},{"date":"01-02-2025","desc":"Zelle Credit PAY ID:CTIiQ05tyefk ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":1200},{"date":"01-02-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":200,"credit":0},{"date":"01-02-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":200,"credit":0},{"date":"01-02-2025","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":185,"credit":0},{"date":"01-02-2025","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":140,"credit":0},{"date":"01-02-2025","desc":"ACH Electronic Debit - VENMOPAYMENT 1039313665415","debit":40.85,"credit":0},{"date":"12-31-2024","desc":"ACH Electronic Debit - www.samharris.or WWW.SAMHAR ST-L7J9G3P8K8X9","debit":69.99,"credit":0},{"date":"12-31-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER UBER EATS","debit":38.52,"credit":0},{"date":"12-31-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1039293165147","debit":36.11,"credit":0},{"date":"12-31-2024","desc":"Instant Payment Credit STRIPE INC. 20241231121000248P1BZWFC24504526280 REMT N","debit":0,"credit":0.01},{"date":"12-30-2024","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":325},{"date":"12-30-2024","desc":"ACH Electronic Debit - CARDMEMBER SERVWEB PYMT ***********8312","debit":100,"credit":0},{"date":"12-26-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":200,"credit":0},{"date":"12-23-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER MASTERCLASS","debit":110,"credit":0},{"date":"12-20-2024","desc":"Debit Card Purchase 12/16 11:20a #0239 CCBill.com*OnlyFansFort Lauderda FL 24354","debit":9.99,"credit":0},{"date":"12-18-2024","desc":"ACH Electronic Debit - LADWPWEB PAY 2022107513","debit":180.54,"credit":0},{"date":"12-18-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3YRBB4YR7R9RYZE","debit":61,"credit":0},{"date":"12-16-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":400,"credit":0},{"date":"12-11-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3YPTZHX2ABTKFNE","debit":29,"credit":0},{"date":"12-10-2024","desc":"Cash Withdrawal 05:14p #0239 Non Citi ATM EFTLos Angeles","debit":96,"credit":0},{"date":"12-09-2024","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":253.45,"credit":0},{"date":"12-09-2024","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271559509870020 1","debit":112.34,"credit":0},{"date":"12-05-2024","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":19.71,"credit":0},{"date":"12-04-2024","desc":"Debit Card Purchase 11/30 01:37a #0239 VHLV-LODGING LAS VEGAS NV 24338","debit":121.84,"credit":0},{"date":"12-02-2024","desc":"Cash Withdrawal 12:23a #0239 Non Citi ATM P384043LOS ANGELES","debit":103.75,"credit":0},{"date":"11-29-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER OMEEZEY","debit":50,"credit":0},{"date":"11-27-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":100,"credit":0},{"date":"11-27-2024","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":50},{"date":"11-27-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER OMEEZEY","debit":50,"credit":0},{"date":"11-27-2024","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":47.01},{"date":"11-27-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TOMOFUN LLC","debit":20.97,"credit":0},{"date":"11-25-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":1000,"credit":0},{"date":"11-21-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":140,"credit":0},{"date":"11-20-2024","desc":"Mobile Purchase Sign Based 11/18 11:06a #0239 D8857 APPLE CASH SENT MONEY877-233-8552CA 24","debit":150,"credit":0},{"date":"11-20-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER OMEEZEY","debit":50,"credit":0},{"date":"11-19-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3YKZBG8SK6MU47U","debit":63,"credit":0},{"date":"11-19-2024","desc":"Debit Card Purchase 11/16 11:29a #0239 SNIFFIES 3022654101WA 24322","debit":15.99,"credit":0},{"date":"11-19-2024","desc":"Debit Card Purchase 11/14 11:12a #0239 CCBill.com*OnlyFansFort Lauderda FL 24322","debit":6,"credit":0},{"date":"11-18-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1038279483311","debit":90,"credit":0},{"date":"11-18-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1038255885717","debit":24.99,"credit":0},{"date":"11-18-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1038256249212","debit":23.71,"credit":0},{"date":"11-12-2024","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":252.72,"credit":0},{"date":"11-12-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":40,"credit":0},{"date":"11-12-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3YJI5DYXH4ZIO1M","debit":30,"credit":0},{"date":"11-12-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER LIME RIDE LN5R","debit":10.38,"credit":0},{"date":"11-07-2024","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271533616350026 1","debit":104.14,"credit":0},{"date":"11-07-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":90,"credit":0},{"date":"11-07-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1038053852361","debit":40,"credit":0},{"date":"11-04-2024","desc":"Zelle Credit PAY ID:BACry3hjr971 ORG ID:BAC NAME:MARYANA SANA","debit":0,"credit":500},{"date":"11-04-2024","desc":"Zelle Credit PAY ID:JPM99aqhk4pf ORG ID:JPM NAME:ARARAT GRIGO","debit":0,"credit":200},{"date":"11-04-2024","desc":"Debit Card Purchase 10/28 10:52p #0239 CCBill.com*OnlyFans888-5969279 CA 24306","debit":12.5,"credit":0},{"date":"11-04-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER LIME RIDE LN5R","debit":8.02,"credit":0},{"date":"11-01-2024","desc":"Debit Card Purchase 10/28 06:07p #0239 CCBill.com*OnlyFans888-5969279 CA 24305","debit":14.99,"credit":0},{"date":"10-31-2024","desc":"ACH Electronic Debit - VENMOREPAYMENT 1037896167181","debit":200,"credit":0},{"date":"10-31-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":200,"credit":0},{"date":"10-31-2024","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":12.71,"credit":0},{"date":"10-28-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":900,"credit":0},{"date":"10-28-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1037836478083","debit":20.67,"credit":0},{"date":"10-25-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":180,"credit":0},{"date":"10-24-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":1000,"credit":0},{"date":"10-22-2024","desc":"ACH Electronic Credit VENMOCASHOUT","debit":0,"credit":966.68},{"date":"10-18-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3YEFV27SJHG40D6","debit":63,"credit":0},{"date":"10-18-2024","desc":"Debit Card Purchase 10/16 11:29a #0239 SNIFFIES 3022654101WA 24291","debit":15.99,"credit":0},{"date":"10-16-2024","desc":"ACH Electronic Debit - LADWPWEB PAY 2022107513","debit":212.91,"credit":0},{"date":"10-15-2024","desc":"Cash Withdrawal 10/13 10:34p #0239 ATM 7040 SUNSET BLVD #AHOLLYWOODCAUS051","debit":60,"credit":0},{"date":"10-11-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3YCYM8JVAWYQCSA","debit":30,"credit":0},{"date":"10-09-2024","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":260.21,"credit":0},{"date":"10-07-2024","desc":"ACH Electronic Debit - CITI AUTOPAY PAYMENT 271505028620271 1","debit":106.76,"credit":0},{"date":"10-07-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":30,"credit":0},{"date":"10-07-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER LATIMES SUB","debit":1,"credit":0},{"date":"10-04-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":90,"credit":0},{"date":"10-03-2024","desc":"ACH Electronic Debit - WISEMAN-SR WEB PMTS 35306H","debit":2730,"credit":0},{"date":"10-02-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1037301563256","debit":29.81,"credit":0},{"date":"10-02-2024","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":14.8,"credit":0},{"date":"10-01-2024","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":2700},{"date":"10-01-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":1000,"credit":0},{"date":"10-01-2024","desc":"ACH Electronic Credit Money NetworkUI Deposit","debit":0,"credit":450},{"date":"10-01-2024","desc":"Debit Card Purchase 09/27 05:25p #0239 EA SALON HOLLYWOOD CA 24272","debit":32,"credit":0},{"date":"10-01-2024","desc":"Debit Card Purchase 09/28 05:06p #0239 CCBill.com*OnlyFans888-5969279 CA 24274","debit":14.99,"credit":0},{"date":"10-01-2024","desc":"Debit Card Purchase 09/28 10:10p #0239 CCBill.com*OnlyFans888-5969279 CA 24274","debit":6.25,"credit":0},{"date":"09-26-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":1200,"credit":0},{"date":"09-20-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER UBERMRFRANCO","debit":80,"credit":0},{"date":"09-20-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":50,"credit":0},{"date":"09-19-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":140,"credit":0},{"date":"09-18-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":1000,"credit":0},{"date":"09-18-2024","desc":"ACH Electronic Debit - VENMOREPAYMENT 1036994552120","debit":647.44,"credit":0},{"date":"09-18-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3Y83SWRDM7DJ7Q2","debit":64,"credit":0},{"date":"09-18-2024","desc":"Incoming Wire Transfer Fee - INCOMING WIREFEE","debit":15,"credit":0},{"date":"09-17-2024","desc":"Incoming Wire Transfer WIRE FROM ELBASANI EVA","debit":0,"credit":10000},{"date":"09-17-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":100,"credit":0},{"date":"09-16-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":100,"credit":0},{"date":"09-16-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1036944647327","debit":35,"credit":0},{"date":"09-13-2024","desc":"ACH Electronic Debit - VENMOPAYMENT 1036894843399","debit":37.9,"credit":0},{"date":"09-11-2024","desc":"ACH Electronic Debit - CAPITAL ONECRCARDPMT 3Y6MPO6VI6WR8SA","debit":31,"credit":0},{"date":"09-09-2024","desc":"ACH Electronic Debit - AMZ_STORECRD_PMT PAYMENT 604578111059745","debit":245.48,"credit":0},{"date":"09-09-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":140,"credit":0},{"date":"09-09-2024","desc":"Cash Withdrawal 05:45p #0239 ATM 7040 SUNSET BLVD #AHOLLYWOODCAUS051","debit":60,"credit":0},{"date":"09-05-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":300,"credit":0},{"date":"09-04-2024","desc":"Mobile Purchase Sign Based 08/31 08:06a #0239 D8857 APPLE CASH SENT MONEY877-233-8552CA 24","debit":40,"credit":0},{"date":"09-04-2024","desc":"Debit Card Purchase 08/30 09:50p #0239 EA SALON HOLLYWOOD CA 24244","debit":32,"credit":0},{"date":"09-03-2024","desc":"ACH Electronic Debit - WISEMAN-SR WEB PMTS SR400H","debit":2730,"credit":0},{"date":"09-03-2024","desc":"ACH Electronic Credit PAYPAL TRANSFER","debit":0,"credit":1400},{"date":"09-03-2024","desc":"Zelle Credit PAY ID:CTIdvcw3zvlv ORG ID:CTI NAME:STEPHEN AVRO","debit":0,"credit":1300},{"date":"09-03-2024","desc":"Transfer to MasterCard 08/31 11:23p #0239 ONLINE Reference # 007330","debit":105.56,"credit":0},{"date":"09-03-2024","desc":"ACH Electronic Debit - PAYPAL INST XFER TEAGUERYAN625","debit":70,"credit":0},{"date":"08-30-2024","desc":"ACH Electronic Debit - SO CAL GAS PAID SCGC 1247994001","debit":11.2,"credit":0},{"date":"08-28-2024","desc":"ACH Electronic Debit - APPLECARD GSBANK PAYMENT 2069759","debit":500,"credit":0}];
+
+// Classify each transaction
+function classifyTxn(d) {
+  const D = d.toUpperCase();
+  // Credit Card Payments
+  if (/APPLECARD|APPLE GS|GSBANK/.test(D) && !/SAVINGS/.test(D) && !/CASH/.test(D)) return { cat: 'CC Payment', payee: 'Apple Card' };
+  if (/CAPITAL ONE/.test(D)) return { cat: 'CC Payment', payee: 'Capital One' };
+  if (/CITI AUTOPAY/.test(D)) return { cat: 'CC Payment', payee: 'Citi' };
+  if (/AMAZON CORP|AMZ_STORECRD/.test(D)) return { cat: 'CC Payment', payee: 'Amazon Store Card' };
+  if (/CARDMEMBER SERV/.test(D)) return { cat: 'CC Payment', payee: 'Cardmember (BOA)' };
+  if (/SYNCHRONY/.test(D)) return { cat: 'CC Payment', payee: 'Synchrony' };
+  if (/TRANSFER TO MASTERCARD/.test(D)) return { cat: 'CC Payment', payee: 'Mastercard' };
+  if (/PPCR CC REPAYME/.test(D)) return { cat: 'CC Payment', payee: 'PayPal Credit' };
+  // Loan Payments
+  if (/AFFIRM/.test(D)) return { cat: 'Loan Payment', payee: 'Affirm' };
+  if (/WISEMAN/.test(D)) return { cat: 'Housing', payee: 'Rent' };
+  // Utilities
+  if (/LADWP/.test(D)) return { cat: 'Utilities', payee: 'LADWP' };
+  if (/SOCALGAS|SO CAL GAS|SCGC/.test(D)) return { cat: 'Utilities', payee: 'SoCalGas' };
+  // Income sources
+  if (/VENMO CASHOUT|VENMOCASHOUT/.test(D)) return { cat: 'Income', payee: 'Venmo' };
+  if (/WIRE FROM/.test(D)) return { cat: 'Income', payee: 'Wire (Family)' };
+  if (/ZELLE CREDIT|Zelle Credit/.test(D)) return { cat: 'Income', payee: extractZelleName(d) };
+  if (/PAYPAL TRANSFER|PAYPAL TRANSFER/.test(D) && !/INST XFER/.test(D)) return { cat: 'Income', payee: 'PayPal' };
+  if (/TREMENDOUS/.test(D)) return { cat: 'Income', payee: 'Tremendous' };
+  if (/APPLE GS SAVINGS|SAVINGS TRANSFER/.test(D)) return { cat: 'Income', payee: 'Apple Savings' };
+  if (/STRIPE/.test(D)) return { cat: 'Income', payee: 'Stripe' };
+  if (/MONEY NETWORK/.test(D)) return { cat: 'Income', payee: 'Money Network' };
+  if (/VARO BANK/.test(D)) return { cat: 'Income', payee: 'Varo Bank' };
+  if (/RETURNED INSUFFICIENT/.test(D)) return { cat: 'Income', payee: 'NSF Reversal' };
+  if (/APPLE CASH BANK XFER/.test(D)) return { cat: 'Income', payee: 'Apple Cash' };
+  // P2P / People
+  if (/UBERMRFRANCO/.test(D)) return { cat: 'P2P Transfer', payee: 'UberMrFranco' };
+  if (/OMEEZEY/.test(D)) return { cat: 'P2P Transfer', payee: 'Omeezey' };
+  if (/TEAGUE/.test(D)) return { cat: 'P2P Transfer', payee: 'TeagueRyan' };
+  if (/AARONJL86/.test(D)) return { cat: 'P2P Transfer', payee: 'AaronJL86' };
+  if (/PONZIANI/.test(D)) return { cat: 'P2P Transfer', payee: 'M. Ponziani' };
+  if (/KANDRAVY/.test(D)) return { cat: 'P2P Transfer', payee: 'D. Kandravy' };
+  if (/FLORA HOSE/.test(D)) return { cat: 'P2P Transfer', payee: 'Flora Hose' };
+  if (/ANTHONY JASSO/.test(D)) return { cat: 'P2P Transfer', payee: 'A. Jasso' };
+  if (/OMAR BROWN/.test(D)) return { cat: 'Income', payee: 'Omar Brown' };
+  if (/ZELLE DEBIT|Zelle Debit/.test(D)) return { cat: 'P2P Transfer', payee: extractZelleName(d) };
+  if (/VENMO.*REPAY|VENMOREPAY/.test(D)) return { cat: 'CC Payment', payee: 'Venmo Credit' };
+  if (/VENMOCRYP/.test(D)) return { cat: 'Other', payee: 'Venmo Crypto' };
+  if (/VENMOPAYMENT|VENMO PAYMENT/.test(D)) return { cat: 'P2P Transfer', payee: 'Venmo' };
+  if (/APPLE CASH SENT|APPLE CASH SENT MONEY/.test(D)) return { cat: 'P2P Transfer', payee: 'Apple Cash' };
+  // Transport
+  if (/UBER EATS|UBER \*EATS/.test(D)) return { cat: 'Food Delivery', payee: 'Uber Eats' };
+  if (/UBER/.test(D) && !/UBER EATS/.test(D) && !/UBERMR/.test(D)) return { cat: 'Transport', payee: 'Uber' };
+  if (/WAYMO/.test(D)) return { cat: 'Transport', payee: 'Waymo' };
+  if (/LIME/.test(D)) return { cat: 'Transport', payee: 'Lime' };
+  // Shopping
+  if (/TARGET/.test(D)) return { cat: 'Shopping', payee: 'Target' };
+  if (/RALPHS/.test(D)) return { cat: 'Groceries', payee: 'Ralphs' };
+  if (/ALP\*/.test(D) && !/Foreign Transaction/.test(D)) return { cat: 'Shopping', payee: 'AliExpress' };
+  if (/MOONPAY/.test(D)) return { cat: 'Other', payee: 'MoonPay (Crypto)' };
+  if (/CASH APP/.test(D)) return { cat: 'P2P Transfer', payee: 'Cash App' };
+  // Services
+  if (/EA SALON/.test(D)) return { cat: 'Personal Care', payee: 'EA Salon' };
+  if (/EL CID/.test(D)) return { cat: 'Dining', payee: 'El Cid' };
+  if (/STARBUCKS/.test(D)) return { cat: 'Dining', payee: 'Starbucks' };
+  if (/VHLV.*LODGING/.test(D)) return { cat: 'Travel', payee: 'Vegas Hotel' };
+  // Subscriptions
+  if (/ONLYFANS|CCBILL/.test(D)) return { cat: 'Subscriptions', payee: 'OnlyFans' };
+  if (/SNIFFIES/.test(D)) return { cat: 'Subscriptions', payee: 'Sniffies' };
+  if (/SAMHARRIS|SAM HARRIS/.test(D)) return { cat: 'Subscriptions', payee: 'Sam Harris' };
+  if (/MASTERCLASS/.test(D)) return { cat: 'Subscriptions', payee: 'MasterClass' };
+  if (/SPLICE/.test(D)) return { cat: 'Subscriptions', payee: 'Splice' };
+  if (/PADDLE/.test(D)) return { cat: 'Subscriptions', payee: 'Paddle (Software)' };
+  if (/INSTANTINK/.test(D)) return { cat: 'Subscriptions', payee: 'HP Instant Ink' };
+  if (/BLUEHOSTCOM/.test(D)) return { cat: 'Subscriptions', payee: 'Bluehost' };
+  if (/TOMOFUN/.test(D)) return { cat: 'Subscriptions', payee: 'Furbo (Tomofun)' };
+  if (/LATIMES/.test(D)) return { cat: 'Subscriptions', payee: 'LA Times' };
+  if (/LEMONSQUEEZ/.test(D)) return { cat: 'Subscriptions', payee: 'LemonSqueezy' };
+  // Fees
+  if (/WIRE.*FEE|INCOMING WIREFEE/.test(D)) return { cat: 'Fees', payee: 'Wire Fee' };
+  if (/MONTHLY SERVICE FEE/.test(D)) return { cat: 'Fees', payee: 'Bank Fee' };
+  if (/FOREIGN TRANSACTION FEE|Foreign Transaction Fee/.test(D)) return { cat: 'Fees', payee: 'FX Fee' };
+  if (/FEE FOR NON-CITIBANK/.test(D)) return { cat: 'Fees', payee: 'ATM Fee' };
+  // ATM
+  if (/CASH WITHDRAWAL|ATM/.test(D) && !/FEE/.test(D)) return { cat: 'ATM / Cash', payee: 'ATM' };
+  // Government
+  if (/DMV/.test(D)) return { cat: 'Government', payee: 'CA DMV' };
+  // PayPal fallback
+  if (/PAYPAL INST XFER/.test(D)) return { cat: 'P2P Transfer', payee: 'PayPal' };
+  return { cat: 'Other', payee: 'Unknown' };
+}
+
+function extractZelleName(desc) {
+  const m = desc.match(/NAME:([A-Z\s]+)/i);
+  if (m) {
+    const parts = m[1].trim().split(/\s+/);
+    if (parts.length >= 2) return parts.map(p => p.charAt(0) + p.slice(1).toLowerCase()).join(' ');
+    return parts[0].charAt(0) + parts[0].slice(1).toLowerCase();
+  }
+  return 'Zelle';
+}
+
+// Parse and enrich transactions
+const chkTxns = chkRaw.map(r => {
+  const p = r.date.split('-');
+  const dateObj = new Date(parseInt(p[2]), parseInt(p[0])-1, parseInt(p[1]));
+  const { cat, payee } = classifyTxn(r.desc);
+  const monthKey = `${p[2]}-${p[0]}`;
+  return { ...r, dateObj, cat, payee, monthKey };
+}).sort((a,b) => b.dateObj - a.dateObj);
+
+// Category colors
+const CAT_COLORS = {
+  'CC Payment': '#a78bfa', 'Housing': '#f87171', 'Utilities': '#fb923c',
+  'P2P Transfer': '#4a9eff', 'Income': '#34d399', 'Loan Payment': '#f472b6',
+  'Transport': '#22d3ee', 'Food Delivery': '#fbbf24', 'Shopping': '#818cf8',
+  'Subscriptions': '#c084fc', 'Personal Care': '#f9a8d4', 'Fees': '#6b7280',
+  'ATM / Cash': '#94a3b8', 'Groceries': '#86efac', 'Dining': '#fdba74',
+  'Travel': '#67e8f9', 'Government': '#9ca3af', 'Other': '#475569'
+};
+
+let chkSortKey = 'date';
+let chkSortDir = -1; // -1 = desc
+let chkFlowChartObj = null;
+let chkPage = 1;
+const CHK_PAGE_SIZE = 50;
+
+function initChecking() {
+  // Populate filter dropdowns
+  const cats = [...new Set(chkTxns.map(t => t.cat))].sort();
+  const months = [...new Set(chkTxns.map(t => t.monthKey))].sort().reverse();
+  const payees = [...new Set(chkTxns.map(t => t.payee))].sort();
+
+  const catSel = document.getElementById('chkCatFilter');
+  catSel.innerHTML = '<option value="ALL">All Categories</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+
+  const monthSel = document.getElementById('chkMonthFilter');
+  monthSel.innerHTML = '<option value="ALL">All Months</option>' + months.map(m => {
+    const [y,mo] = m.split('-');
+    const label = new Date(y, parseInt(mo)-1).toLocaleDateString('en-US', {month:'short', year:'numeric'});
+    return `<option value="${m}">${label}</option>`;
+  }).join('');
+
+  const payeeSel = document.getElementById('chkPayeeFilter');
+  payeeSel.innerHTML = '<option value="ALL">All Payees</option>' + payees.map(p => `<option value="${p}">${p}</option>`).join('');
+
+  // Category pills
+  const pillsEl = document.getElementById('chkCatPills');
+  pillsEl.innerHTML = cats.map(c => {
+    const color = CAT_COLORS[c] || '#6b7280';
+    return `<button class="chk-pill" data-cat="${c}" onclick="toggleCatPill(this)" style="border-color:${color}40;color:${color}">${c}</button>`;
+  }).join('');
+
+  updateChkKPIs();
+  renderChkFlowChart();
+  renderChkCatChart();
+  renderChkTopPayees();
+  renderChkTable();
+}
+
+function updateChkKPIs() {
+  const totalOut = chkTxns.reduce((s,t) => s + t.debit, 0);
+  const totalIn = chkTxns.reduce((s,t) => s + t.credit, 0);
+  const net = totalIn - totalOut;
+  const ccPmts = chkTxns.filter(t => t.cat === 'CC Payment').reduce((s,t) => s + t.debit, 0);
+
+  document.getElementById('chk-kpi-out').textContent = fmt(totalOut);
+  document.getElementById('chk-kpi-out-sub').textContent = `${chkTxns.filter(t=>t.debit>0).length} debits`;
+  document.getElementById('chk-kpi-in').textContent = fmt(totalIn);
+  document.getElementById('chk-kpi-in-sub').textContent = `${chkTxns.filter(t=>t.credit>0).length} credits`;
+  document.getElementById('chk-kpi-net').textContent = fmt(Math.abs(net));
+  const netEl = document.getElementById('chk-kpi-net');
+  netEl.style.color = net >= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+  document.getElementById('chk-kpi-net-sub').textContent = net >= 0 ? '▲ surplus' : '▼ deficit';
+  document.getElementById('chk-kpi-net-sub').className = `kpi-delta ${net >= 0 ? 'down' : 'up'}`;
+  document.getElementById('chk-kpi-cc').textContent = fmt(ccPmts);
+  const ccPct = totalOut > 0 ? ((ccPmts / totalOut) * 100).toFixed(0) : 0;
+  document.getElementById('chk-kpi-cc-sub').textContent = `${ccPct}% of outflows`;
+  document.getElementById('chk-kpi-count').textContent = chkTxns.length;
+  document.getElementById('chk-kpi-count-sub').textContent = `Aug 2024 – Feb 2026`;
+}
+
+function renderChkFlowChart() {
+  const monthMap = {};
+  chkTxns.forEach(t => {
+    if (!monthMap[t.monthKey]) monthMap[t.monthKey] = { d: 0, c: 0 };
+    monthMap[t.monthKey].d += t.debit;
+    monthMap[t.monthKey].c += t.credit;
+  });
+  const months = Object.keys(monthMap).sort();
+  const maxVal = Math.max(...months.map(m => Math.max(monthMap[m].d, monthMap[m].c)));
+
+  document.getElementById('chkFlowChart').innerHTML = months.map(m => {
+    const [y, mo] = m.split('-');
+    const label = new Date(y, parseInt(mo) - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+    const dPct = maxVal > 0 ? (monthMap[m].d / maxVal) * 100 : 0;
+    const cPct = maxVal > 0 ? (monthMap[m].c / maxVal) * 100 : 0;
+    return `<div style="flex:1;min-width:28px;display:flex;flex-direction:column;align-items:center;gap:2px" title="${label}: Out $${monthMap[m].d.toFixed(0)} / In $${monthMap[m].c.toFixed(0)}">
+      <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:170px">
+        <div style="flex:1;background:rgba(248,113,113,0.7);border-radius:2px 2px 0 0;height:${dPct}%;min-height:${monthMap[m].d > 0 ? 2 : 0}px;transition:height 0.3s"></div>
+        <div style="flex:1;background:rgba(52,211,153,0.7);border-radius:2px 2px 0 0;height:${cPct}%;min-height:${monthMap[m].c > 0 ? 2 : 0}px;transition:height 0.3s"></div>
+      </div>
+      <div style="font-size:8px;color:#555d73;font-family:'JetBrains Mono',monospace;white-space:nowrap">${label}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderChkCatChart() {
+  const catTotals = {};
+  chkTxns.filter(t => t.debit > 0 && t.cat !== 'Income').forEach(t => {
+    catTotals[t.cat] = (catTotals[t.cat] || 0) + t.debit;
+  });
+  const sorted = Object.entries(catTotals).sort((a,b) => b[1] - a[1]);
+  const grandTotal = sorted.reduce((s, e) => s + e[1], 0);
+  const maxVal = sorted[0]?.[1] || 1;
+
+  document.getElementById('chkCatChart').innerHTML = sorted.map(([cat, amt]) => {
+    const color = CAT_COLORS[cat] || '#475569';
+    const pct = ((amt / grandTotal) * 100).toFixed(1);
+    const barPct = (amt / maxVal) * 100;
+    return `<div style="display:flex;align-items:center;gap:8px" title="${cat}: ${fmt(amt)} (${pct}%)">
+      <span style="flex:0 0 100px;font-size:10px;color:#8890a4;font-family:'JetBrains Mono',monospace;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cat}</span>
+      <div style="flex:1;height:14px;background:#1a1d27;border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${barPct}%;background:${color};border-radius:3px;transition:width 0.3s"></div>
+      </div>
+      <span style="flex:0 0 55px;font-size:10px;color:#8890a4;font-family:'JetBrains Mono',monospace;text-align:right">${fmtShort(amt)}</span>
+      <span style="flex:0 0 35px;font-size:9px;color:#555d73;font-family:'JetBrains Mono',monospace;text-align:right">${pct}%</span>
+    </div>`;
+  }).join('');
+}
+
+function renderChkTopPayees() {
+  // Top outflows
+  const outMap = {};
+  chkTxns.filter(t => t.debit > 0).forEach(t => { outMap[t.payee] = (outMap[t.payee] || 0) + t.debit; });
+  const topOut = Object.entries(outMap).sort((a,b) => b[1] - a[1]).slice(0, 10);
+  const maxOut = topOut[0]?.[1] || 1;
+  document.getElementById('chkTopPayees').innerHTML = topOut.map(([name, amt]) => {
+    const pct = (amt / maxOut) * 100;
+    const cat = chkTxns.find(t => t.payee === name)?.cat || 'Other';
+    const color = CAT_COLORS[cat] || '#6b7280';
+    return `<div class="payee-bar-wrap"><span class="payee-bar-label" style="font-size:11px">${name}</span><div style="flex:1"><div class="payee-bar" style="width:${pct}%;background:${color}"></div></div><span class="payee-bar-amt">${fmtShort(amt)}</span></div>`;
+  }).join('');
+
+  // Top inflows
+  const inMap = {};
+  chkTxns.filter(t => t.credit > 0).forEach(t => { inMap[t.payee] = (inMap[t.payee] || 0) + t.credit; });
+  const topIn = Object.entries(inMap).sort((a,b) => b[1] - a[1]).slice(0, 10);
+  const maxIn = topIn[0]?.[1] || 1;
+  document.getElementById('chkTopInflows').innerHTML = topIn.map(([name, amt]) => {
+    const pct = (amt / maxIn) * 100;
+    return `<div class="payee-bar-wrap"><span class="payee-bar-label" style="font-size:11px">${name}</span><div style="flex:1"><div class="payee-bar" style="width:${pct}%;background:var(--accent-green)"></div></div><span class="payee-bar-amt">${fmtShort(amt)}</span></div>`;
+  }).join('');
+}
+
+function getFilteredChk() {
+  const search = document.getElementById('chkSearch').value.toLowerCase();
+  const catFilter = document.getElementById('chkCatFilter').value;
+  const dirFilter = document.getElementById('chkDirFilter').value;
+  const monthFilter = document.getElementById('chkMonthFilter').value;
+  const payeeFilter = document.getElementById('chkPayeeFilter').value;
+
+  // Check pill filters
+  const activePills = [...document.querySelectorAll('.chk-pill.active')].map(p => p.dataset.cat);
+
+  return chkTxns.filter(t => {
+    if (search && !t.desc.toLowerCase().includes(search) && !t.payee.toLowerCase().includes(search) && !t.cat.toLowerCase().includes(search)) return false;
+    if (catFilter !== 'ALL' && t.cat !== catFilter) return false;
+    if (dirFilter === 'debit' && t.debit === 0) return false;
+    if (dirFilter === 'credit' && t.credit === 0) return false;
+    if (monthFilter !== 'ALL' && t.monthKey !== monthFilter) return false;
+    if (payeeFilter !== 'ALL' && t.payee !== payeeFilter) return false;
+    if (activePills.length > 0 && !activePills.includes(t.cat)) return false;
+    return true;
+  });
+}
+
+function renderChkTable() {
+  let filtered = getFilteredChk();
+
+  // Sort
+  filtered.sort((a,b) => {
+    let va, vb;
+    switch(chkSortKey) {
+      case 'date': va = a.dateObj; vb = b.dateObj; break;
+      case 'desc': va = a.desc.toLowerCase(); vb = b.desc.toLowerCase(); break;
+      case 'payee': va = a.payee.toLowerCase(); vb = b.payee.toLowerCase(); break;
+      case 'category': va = a.cat.toLowerCase(); vb = b.cat.toLowerCase(); break;
+      case 'debit': va = a.debit; vb = b.debit; break;
+      case 'credit': va = a.credit; vb = b.credit; break;
+      default: va = a.dateObj; vb = b.dateObj;
+    }
+    if (va < vb) return -1 * chkSortDir;
+    if (va > vb) return 1 * chkSortDir;
+    return 0;
+  });
+
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filtered.length / CHK_PAGE_SIZE));
+  if (chkPage > totalPages) chkPage = totalPages;
+  const start = (chkPage - 1) * CHK_PAGE_SIZE;
+  const pageItems = filtered.slice(start, start + CHK_PAGE_SIZE);
+
+  // Update filter status
+  document.getElementById('chkFilterStatus').textContent = `${filtered.length} transaction${filtered.length!==1?'s':''} — ${fmt(filtered.reduce((s,t)=>s+t.debit,0))} out / ${fmt(filtered.reduce((s,t)=>s+t.credit,0))} in`;
+
+  const tbody = document.getElementById('chkTableBody');
+  tbody.innerHTML = pageItems.map(t => {
+    const color = CAT_COLORS[t.cat] || '#6b7280';
+    const dateStr = t.dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+    return `<tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)">${dateStr}</td>
+      <td class="desc-cell" style="font-size:11px" title="${t.desc}">${t.desc.length > 55 ? t.desc.substring(0,55)+'…' : t.desc}</td>
+      <td style="font-size:11px;font-weight:500">${t.payee}</td>
+      <td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;background:${color}20;color:${color};border:1px solid ${color}30">${t.cat}</span></td>
+      <td class="debit" style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px">${t.debit > 0 ? fmt(t.debit) : ''}</td>
+      <td class="credit" style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px">${t.credit > 0 ? fmt(t.credit) : ''}</td>
+    </tr>`;
+  }).join('');
+
+  // Pagination controls
+  let pagEl = document.getElementById('chkPagination');
+  if (!pagEl) {
+    pagEl = document.createElement('div');
+    pagEl.id = 'chkPagination';
+    pagEl.style.cssText = 'display:flex;justify-content:center;align-items:center;gap:12px;padding:12px 0;font-family:"JetBrains Mono",monospace;font-size:11px;color:#8890a4';
+    document.getElementById('chkTableBody').closest('table').parentNode.appendChild(pagEl);
+  }
+  if (totalPages > 1) {
+    pagEl.innerHTML = `<button onclick="chkPage=1;renderChkTable()" style="padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:pointer;font-size:10px" ${chkPage===1?'disabled style="opacity:0.3;padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:default;font-size:10px"':''}>«</button>
+      <button onclick="chkPage=Math.max(1,chkPage-1);renderChkTable()" style="padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:pointer;font-size:10px" ${chkPage===1?'disabled style="opacity:0.3;padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:default;font-size:10px"':''}>‹</button>
+      <span>Page ${chkPage} of ${totalPages}</span>
+      <button onclick="chkPage=Math.min(${totalPages},chkPage+1);renderChkTable()" style="padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:pointer;font-size:10px" ${chkPage===totalPages?'disabled style="opacity:0.3;padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:default;font-size:10px"':''}>›</button>
+      <button onclick="chkPage=${totalPages};renderChkTable()" style="padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:pointer;font-size:10px" ${chkPage===totalPages?'disabled style="opacity:0.3;padding:4px 8px;background:#232733;border:1px solid #2d3348;border-radius:4px;color:#8890a4;cursor:default;font-size:10px"':''}>»</button>`;
+  } else {
+    pagEl.innerHTML = '';
+  }
+
+  // Update sort arrows
+  ['date','desc','payee','category','debit','credit'].forEach(k => {
+    const el = document.getElementById(`sort-${k}`);
+    if (el) el.textContent = chkSortKey === k ? (chkSortDir === 1 ? '▲' : '▼') : '';
+  });
+}
+
+function sortChk(key) {
+  if (chkSortKey === key) {
+    chkSortDir *= -1;
+  } else {
+    chkSortKey = key;
+    chkSortDir = key === 'date' ? -1 : 1;
+  }
+  chkPage = 1;
+  renderChkTable();
+}
+
+function toggleCatPill(el) {
+  el.classList.toggle('active');
+  chkPage = 1;
+  renderChkTable();
+}
+
+// Initialize checking on tab switch (lazy load)
+let chkInitialized = false;
+const origSwitchView = switchView;
+switchView = function(view, btn) {
+  origSwitchView(view, btn);
+  if (view === 'checking' && !chkInitialized) {
+    chkInitialized = true;
+    setTimeout(initChecking, 50);
+  }
+};
+</script>
+
+<footer class="colophon">
+  <span>Gary's Command Center &copy; 2026</span>
+  <a href="index.html">ChaosConsole</a>
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+}
+(function() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.querySelector('.theme-toggle');
+  if (btn) btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+})();
+</script>
+</body>
+</html>

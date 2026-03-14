@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Ecosystem — V9 · Systems Maintenance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --transition-speed: 0.35s; }
+
+        [data-theme="dark"] {
+            --bg: #0b0f1a; --bg-elevated: #101828; --surface: #151d2e; --surface-2: #1c2640; --surface-3: #243050;
+            --border: #2a3a5c; --border-subtle: #1e2d4a; --text: #e2e8f0; --text-secondary: #94a3b8; --text-muted: #64748b;
+            --accent: #d4a052; --accent-dim: rgba(212,160,82,0.12); --accent-glow: rgba(212,160,82,0.25);
+            --red: #f87171; --red-dim: rgba(248,113,113,0.12);
+            --orange: #fb923c; --orange-dim: rgba(251,146,60,0.12);
+            --yellow: #fbbf24; --yellow-dim: rgba(251,191,36,0.12);
+            --green: #4ade80; --green-dim: rgba(74,222,128,0.12);
+            --blue: #60a5fa; --blue-dim: rgba(96,165,250,0.12);
+            --purple: #a78bfa; --purple-dim: rgba(167,139,250,0.12);
+            --pink: #f472b6; --pink-dim: rgba(244,114,182,0.12);
+            --cyan: #22d3ee; --cyan-dim: rgba(34,211,238,0.12);
+            --gray: #64748b;
+            --shadow: 0 2px 12px rgba(0,0,0,0.6); --shadow-lg: 0 8px 32px rgba(0,0,0,0.7);
+            --toggle-bg: #1c2640; --code-bg: #0e1525;
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f4f8; --bg-elevated: #ffffff; --surface: #ffffff; --surface-2: #e8edf4; --surface-3: #dce3ed;
+            --border: #c8d3e0; --border-subtle: #d8e0ea; --text: #0f172a; --text-secondary: #334155; --text-muted: #64748b;
+            --accent: #b8862d; --accent-dim: rgba(184,134,45,0.08); --accent-glow: rgba(184,134,45,0.18);
+            --red: #dc2626; --red-dim: rgba(220,38,38,0.08);
+            --orange: #ea580c; --orange-dim: rgba(234,88,12,0.08);
+            --yellow: #ca8a04; --yellow-dim: rgba(202,138,4,0.08);
+            --green: #16a34a; --green-dim: rgba(22,163,74,0.08);
+            --blue: #2563eb; --blue-dim: rgba(37,99,235,0.08);
+            --purple: #7c3aed; --purple-dim: rgba(124,58,237,0.08);
+            --pink: #db2777; --pink-dim: rgba(219,39,119,0.08);
+            --cyan: #0891b2; --cyan-dim: rgba(8,145,178,0.08);
+            --gray: #64748b;
+            --shadow: 0 2px 12px rgba(15,23,42,0.06); --shadow-lg: 0 8px 32px rgba(15,23,42,0.10);
+            --toggle-bg: #e8edf4; --code-bg: #eef2f7;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.75;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .theme-toggle {
+            position: fixed; top: 24px; right: 24px; z-index: 999;
+            width: 52px; height: 52px; border-radius: 50%;
+            border: 2px solid var(--border); background: var(--surface);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); transform: scale(1.08); }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 48px 36px 80px; }
+
+        .header { padding-bottom: 48px; margin-bottom: 56px; border-bottom: 2px solid var(--border-subtle); position: relative; }
+        .header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 120px; height: 2px; background: var(--accent); }
+        .header h1 { font-family: 'Inter', sans-serif; font-size: 40px; font-weight: 400; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 12px; color: var(--text); }
+        .header h1 .accent-word { color: var(--accent); }
+        .version-badge {
+            display: inline-block; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            background: var(--accent-dim); color: var(--accent);
+            padding: 4px 14px; border-radius: 6px; margin-bottom: 16px;
+        }
+        .subtitle { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; color: var(--text-secondary); max-width: 720px; line-height: 1.7; }
+
+        /* STATUS BANNER */
+        .status-banner {
+            background: var(--green-dim); border: 1px solid var(--green); border-radius: 12px;
+            padding: 20px 28px; margin-bottom: 48px; display: flex; align-items: center; gap: 16px;
+        }
+        .status-banner .icon { font-size: 28px; flex-shrink: 0; }
+        .status-banner .text { font-size: 14px; color: var(--text); }
+        .status-banner .text strong { color: var(--green); }
+
+        /* SECTION */
+        .section { margin-bottom: 56px; }
+        .section-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 24px; padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .section-header .icon { font-size: 22px; }
+        .section-header h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
+        .section-header .tag {
+            font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 1px;
+            padding: 3px 10px; border-radius: 5px;
+            margin-left: auto;
+        }
+
+        /* CARDS */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .card {
+            background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 14px;
+            padding: 24px; transition: all 0.25s ease;
+        }
+        .card:hover { border-color: var(--border); box-shadow: var(--shadow); }
+        .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .card p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+        .card .frequency {
+            font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 1px;
+            padding: 3px 10px; border-radius: 5px; display: inline-block; margin-top: 12px;
+        }
+
+        /* CHECKLIST */
+        .checklist { list-style: none; }
+        .checklist li {
+            padding: 14px 18px; border-bottom: 1px solid var(--border-subtle);
+            display: flex; align-items: flex-start; gap: 12px;
+            font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .checklist .check { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; }
+        .checklist .check-box {
+            width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: transparent; transition: all 0.2s;
+        }
+        .checklist li.done .check-box { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+        .checklist li.done { color: var(--text-muted); text-decoration: line-through; opacity: 0.6; }
+        .checklist .detail {
+            font-family: 'JetBrains Mono', monospace; font-size: 11px;
+            color: var(--text-muted); display: block; margin-top: 2px;
+        }
+
+        /* METRIC STRIP */
+        .metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; }
+        .metric-card {
+            background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px;
+            padding: 20px; text-align: center;
+        }
+        .metric-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 6px; }
+        .metric-card .value { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+        .metric-card .note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+        /* ALERT BOX */
+        .alert-box {
+            border-radius: 12px; padding: 20px 24px; margin-bottom: 16px;
+            display: flex; align-items: flex-start; gap: 14px;
+            font-size: 13px; line-height: 1.6;
+        }
+        .alert-box .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+        .alert-box.info { background: var(--blue-dim); border: 1px solid var(--blue); color: var(--text); }
+        .alert-box.warn { background: var(--yellow-dim); border: 1px solid var(--yellow); color: var(--text); }
+        .alert-box.success { background: var(--green-dim); border: 1px solid var(--green); color: var(--text); }
+        .alert-box.danger { background: var(--red-dim); border: 1px solid var(--red); color: var(--text); }
+
+        /* TIMELINE */
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+            width: 2px; background: var(--border-subtle);
+        }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -24px; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--surface-2); border: 2px solid var(--accent);
+        }
+        .timeline-item.completed::before { background: var(--green); border-color: var(--green); }
+        .timeline-item .tl-label {
+            font-family: 'JetBrains Mono', monospace; font-size: 11px;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+        }
+        .timeline-item .tl-title { font-size: 15px; font-weight: 600; color: var(--text); }
+        .timeline-item .tl-desc { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+        /* TABLE */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
+        .data-table th {
+            font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted);
+            padding: 10px 14px; text-align: left; border-bottom: 2px solid var(--border-subtle);
+        }
+        .data-table td {
+            padding: 12px 14px; border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary); vertical-align: top;
+        }
+        .data-table tr:hover td { background: var(--accent-dim); }
+        .data-table .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border-subtle);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 12px; color: var(--text-muted);
+        }
+        .footer code {
+            font-family: 'JetBrains Mono', monospace; font-size: 11px;
+            background: var(--code-bg); padding: 2px 8px; border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 24px 18px 60px; }
+            .header h1 { font-size: 28px; }
+            .metric-strip { grid-template-columns: repeat(2, 1fr); }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggleBtn" title="Toggle theme">
+        <span id="themeIcon">☀️</span>
+    </button>
+
+    <div style="max-width:1080px;margin:0 auto;padding:12px 24px;"><a href="index.html" style="color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;"onmouseover="this.style.color='var(--accent)'"onmouseout="this.style.color='var(--text-muted)'">&larr; Command Center</a></div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="version-badge">V9 — MARCH 2026</div>
+            <h1>Digital <span class="accent-word">Ecosystem</span></h1>
+            <p class="subtitle">
+                Systems maintenance guide. The heavy cleanup is done — this document now tracks
+                the habits, routines, and checkpoints that keep the workspace clean going forward.
+            </p>
+        </div>
+
+        <!-- STATUS BANNER -->
+        <div class="status-banner">
+            <div class="icon">✅</div>
+            <div class="text">
+                <strong>Cleanup phase complete.</strong> Nine sessions of file triage, folder restructuring,
+                and digital consolidation wrapped. This document has shifted from a cleanup tracker to a
+                <strong>maintenance playbook</strong>.
+            </div>
+        </div>
+
+        <!-- CURRENT STATE METRICS -->
+        <div class="metric-strip">
+            <div class="metric-card">
+                <div class="label">Documents Root</div>
+                <div class="value" style="color: var(--green);">0</div>
+                <div class="note">loose files</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Downloads</div>
+                <div class="value" style="color: var(--green);">1</div>
+                <div class="note">item remaining</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Cleanup Sessions</div>
+                <div class="value" style="color: var(--accent);">9</div>
+                <div class="note">V0 — V9</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Phase</div>
+                <div class="value" style="color: var(--purple); font-size: 20px;">MAINTAIN</div>
+                <div class="note">since Mar 2026</div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECTION: MAINTENANCE ROUTINES              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🔄</span>
+                <h2>Maintenance Routines</h2>
+                <span class="tag" style="background: var(--accent-dim); color: var(--accent);">Core Habits</span>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📥 Downloads Triage</h3>
+                    <p>
+                        Check ~/Downloads for accumulated files. Sort into the appropriate
+                        Documents/ subfolder or delete. Goal: keep Downloads at ≤3 items at all times.
+                        If a file doesn't have an obvious home, it goes to <code style="font-family:'JetBrains Mono';font-size:12px;background:var(--code-bg);padding:1px 6px;border-radius:3px;">Personal/Reference/</code>.
+                    </p>
+                    <span class="frequency" style="background: var(--green-dim); color: var(--green);">Weekly</span>
+                </div>
+                <div class="card">
+                    <h3>📂 Documents Root Scan</h3>
+                    <p>
+                        Verify nothing has accumulated at the ~/Documents/ root level. All user files
+                        belong in a subfolder. Zero tolerance — sort immediately or flag for next session.
+                    </p>
+                    <span class="frequency" style="background: var(--green-dim); color: var(--green);">Weekly</span>
+                </div>
+                <div class="card">
+                    <h3>🏦 Financial Statement Intake</h3>
+                    <p>
+                        When new bank/credit card statements arrive, download PDFs to the correct
+                        <code style="font-family:'JetBrains Mono';font-size:12px;background:var(--code-bg);padding:1px 6px;border-radius:3px;">Financial/[Account] Statements/</code> folder.
+                        Update financial-consolidation.html with latest balances. Verify interest tracking.
+                    </p>
+                    <span class="frequency" style="background: var(--blue-dim); color: var(--blue);">Monthly</span>
+                </div>
+                <div class="card">
+                    <h3>🎵 Spotify Tracker Update</h3>
+                    <p>
+                        Pull follower counts from the public Spotify profile. Enter data via the
+                        tracker's "Add Month" modal. Cross-check against the profile page — some
+                        playlists may not render in web scrapes (use the app for verification).
+                    </p>
+                    <span class="frequency" style="background: var(--blue-dim); color: var(--blue);">Monthly</span>
+                </div>
+                <div class="card">
+                    <h3>🔍 Dashboard Integrity Check</h3>
+                    <p>
+                        Load chaosconsole.com and verify all 5 pages render correctly.
+                        Check that the local ~/Documents/Website/gary-dashboard/ copies match production.
+                        Note any 0-byte files or sync anomalies — iCloud can silently corrupt.
+                    </p>
+                    <span class="frequency" style="background: var(--purple-dim); color: var(--purple);">Quarterly</span>
+                </div>
+                <div class="card">
+                    <h3>🗑️ Duplicate & Stale Purge</h3>
+                    <p>
+                        Scan for duplicate files (especially "(1)" copies in Downloads or Documents).
+                        Review Financial/Tests or temp folders for leftover experiments. Delete with
+                        prejudice — if it hasn't been touched in 90 days and isn't a statement, it goes.
+                    </p>
+                    <span class="frequency" style="background: var(--purple-dim); color: var(--purple);">Quarterly</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECTION: FOLDER TAXONOMY                   -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🗂️</span>
+                <h2>Folder Taxonomy</h2>
+                <span class="tag" style="background: var(--yellow-dim); color: var(--yellow);">Reference</span>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">
+                The canonical folder structure under ~/Documents/. When in doubt about where a file goes,
+                consult this map. New top-level folders should be rare — exhaust existing categories first.
+            </p>
+
+            <table class="data-table">
+                <thead>
+                    <tr><th>Folder</th><th>Contents</th><th>Cadence</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="mono">Financial/</td><td>Bank & credit card statements, organized by account subfolder</td><td>Monthly intake</td></tr>
+                    <tr><td class="mono">Government/</td><td>Tax returns, ID documents, legal filings</td><td>As needed</td></tr>
+                    <tr><td class="mono">Government/Legal/</td><td>Power of attorney, contracts, notarized docs</td><td>Rare</td></tr>
+                    <tr><td class="mono">Insurance/</td><td>Policy documents, claims, correspondence</td><td>Annual review</td></tr>
+                    <tr><td class="mono">Medical/</td><td>Health records, lab results, prescriptions</td><td>As needed</td></tr>
+                    <tr><td class="mono">Personal/</td><td>Miscellaneous personal files, receipts</td><td>Periodic</td></tr>
+                    <tr><td class="mono">Personal/Reference/</td><td>Guides, custom instructions, reference material</td><td>Catch-all</td></tr>
+                    <tr><td class="mono">Website/</td><td>chaosconsole.com source files, tracker backups</td><td>Per update</td></tr>
+                    <tr><td class="mono">Website/gary-dashboard/</td><td>Production dashboard HTML files (5 pages)</td><td>Monthly</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECTION: KNOWN RISKS & WATCHPOINTS         -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">⚠️</span>
+                <h2>Known Risks & Watchpoints</h2>
+                <span class="tag" style="background: var(--red-dim); color: var(--red);">Attention</span>
+            </div>
+
+            <div class="alert-box danger">
+                <span class="alert-icon">🔴</span>
+                <div>
+                    <strong>iCloud Sync / 0-Byte File Risk</strong><br>
+                    HTML files in iCloud-synced folders can silently become 0 bytes during extended sessions
+                    or when tools operate on cached content. Always verify file sizes after editing.
+                    The V9 session lost all 5 dashboard files this way. Mitigation: keep a separate local
+                    backup outside iCloud, or verify with <code style="font-family:'JetBrains Mono';font-size:11px;background:var(--code-bg);padding:1px 5px;border-radius:3px;">ls -la</code> after every write.
+                </div>
+            </div>
+
+            <div class="alert-box warn">
+                <span class="alert-icon">🟡</span>
+                <div>
+                    <strong>financial-consolidation.html Recovery</strong><br>
+                    This file is auth-protected on chaosconsole.com and was lost in the V9 0-byte incident.
+                    It needs to be recovered from a browser session (save page source while logged in)
+                    or rebuilt from statement data. Until resolved, the financial tracker is offline.
+                </div>
+            </div>
+
+            <div class="alert-box info">
+                <span class="alert-icon">🔵</span>
+                <div>
+                    <strong>Spotify Tracker localStorage Dependency</strong><br>
+                    The tracker uses localStorage for persistence. Clearing browser data wipes all custom entries.
+                    The DEFAULT_DATA in the HTML source is the true baseline — manual month additions
+                    via the modal only persist in localStorage. Keep the source file up to date.
+                </div>
+            </div>
+
+            <div class="alert-box info">
+                <span class="alert-icon">🔵</span>
+                <div>
+                    <strong>Hidden Playlists in Web Scrapes</strong><br>
+                    Spotify's web profile doesn't always render all public playlists. Five playlists
+                    (Afterglow, Broadway, Masterpiece, Vertigo, Broken) sometimes don't appear.
+                    Verify counts in the Spotify desktop/mobile app when web data is incomplete.
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECTION: UPKEEP CHECKLIST (NEXT SESSION)   -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">📋</span>
+                <h2>Next Session Checklist</h2>
+                <span class="tag" style="background: var(--orange-dim); color: var(--orange);">V10 Prep</span>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 14px; overflow: hidden;">
+                <ul class="checklist">
+                    <li>
+                        <div class="check"><div class="check-box">✓</div></div>
+                        <div>Recover or rebuild financial-consolidation.html
+                            <span class="detail">Auth-protected on live site. Save source from browser or reconstruct from statements.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check"><div class="check-box">✓</div></div>
+                        <div>Sync workspace files to ~/Documents/Website/gary-dashboard/
+                            <span class="detail">Ensure local backup matches production. Verify no 0-byte files.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check"><div class="check-box">✓</div></div>
+                        <div>Sort ChatGPT_Custom_Instruction_Gary.md from ~/Downloads
+                            <span class="detail">Move to Personal/Reference/ or delete if outdated.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check"><div class="check-box">✓</div></div>
+                        <div>April financial statement intake
+                            <span class="detail">Download new statements, update financial-consolidation.html balances.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check"><div class="check-box">✓</div></div>
+                        <div>April Spotify tracker update
+                            <span class="detail">Pull follower counts, add "Apr 26" data point via tracker modal.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECTION: CLEANUP HISTORY (COLLAPSED)       -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">📜</span>
+                <h2>Version History</h2>
+                <span class="tag" style="background: var(--gray); color: #fff;">Archive</span>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="tl-label">V0 — Oct 2025</div>
+                    <div class="tl-title">Initial Assessment</div>
+                    <div class="tl-desc">Catalogued 215+ files across Documents, Downloads, Desktop. Established folder taxonomy.</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="tl-label">V1–V3 — Oct–Nov 2025</div>
+                    <div class="tl-title">Financial Consolidation</div>
+                    <div class="tl-desc">Organized bank statements into account subfolders. Built financial-consolidation.html tracker.</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="tl-label">V4–V5 — Nov–Dec 2025</div>
+                    <div class="tl-title">Government & Medical Sort</div>
+                    <div class="tl-desc">Tax docs, insurance, medical records into proper subfolders. Legal documents separated.</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="tl-label">V6–V7 — Jan–Feb 2026</div>
+                    <div class="tl-title">Downloads Deep Clean</div>
+                    <div class="tl-desc">Cleared 100+ items from Downloads. Duplicates purged. Desktop zeroed out.</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="tl-label">V8 — Feb 2026</div>
+                    <div class="tl-title">Spring Refresh</div>
+                    <div class="tl-desc">Tag system exploration, remaining stragglers sorted. Documents root cleared to 0.</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="tl-label">V9 — Mar 2026</div>
+                    <div class="tl-title">Systems Maintenance Transition</div>
+                    <div class="tl-desc">Final cleanup pass. Shifted this document from task tracker to maintenance guide. Recovered from iCloud 0-byte incident.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <span>Digital Ecosystem · <code>V9</code> · Systems Maintenance</span>
+            <span>Last updated: Mar 11, 2026</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Robust theme toggle — uses addEventListener (not inline onclick)
+            // and null-safe element access so it survives future iterations.
+            var STORAGE_KEY = 'ecosystem-theme';
+
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                var icon = document.getElementById('themeIcon');
+                if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+                try { localStorage.setItem(STORAGE_KEY, theme); } catch(e) {}
+            }
+
+            // Restore saved preference immediately
+            try {
+                var saved = localStorage.getItem(STORAGE_KEY);
+                if (saved === 'light' || saved === 'dark') applyTheme(saved);
+            } catch(e) {}
+
+            // Bind click via addEventListener (resilient to inline attr stripping)
+            function bindToggle() {
+                var btn = document.getElementById('themeToggleBtn');
+                if (!btn) btn = document.querySelector('.theme-toggle');
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        var current = document.documentElement.getAttribute('data-theme') || 'dark';
+                        applyTheme(current === 'dark' ? 'light' : 'dark');
+                    });
+                }
+            }
+
+            // Bind immediately if DOM ready, otherwise wait
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', bindToggle);
+            } else {
+                bindToggle();
+            }
+        })();
+    </script>
+</body>
+</html>

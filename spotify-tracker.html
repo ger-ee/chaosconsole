@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Tracker — curated by gary.</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        [data-theme="dark"] {
+          --bg: #0b0f1a;
+          --bg-elevated: #101828;
+          --surface: #151d2e;
+          --surface-2: #1c2640;
+          --border: #2a3a5c;
+          --border-subtle: #1e2d4a;
+          --text: #e2e8f0;
+          --text-secondary: #94a3b8;
+          --text-muted: #64748b;
+          --accent: #d4a052;
+          --accent-dim: rgba(212, 160, 82, 0.10);
+          --accent-glow: rgba(212, 160, 82, 0.25);
+          --neon-pink: #ff2d55;
+          --neon-blue: #0af;
+          --neon-green: #39ff14;
+          --neon-purple: #bf5fff;
+          --neon-yellow: #ffe600;
+          --neon-orange: #ff9500;
+          --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+          --bg: #f0f4f8;
+          --bg-elevated: #ffffff;
+          --surface: #ffffff;
+          --surface-2: #e8edf4;
+          --border: #c8d3e0;
+          --border-subtle: #dce3ed;
+          --text: #0f172a;
+          --text-secondary: #334155;
+          --text-muted: #64748b;
+          --accent: #b8862d;
+          --accent-dim: rgba(184, 134, 45, 0.08);
+          --accent-glow: rgba(184, 134, 45, 0.18);
+          --neon-pink: #d4265a;
+          --neon-blue: #0077cc;
+          --neon-green: #16a34a;
+          --neon-purple: #7c3aed;
+          --neon-yellow: #ca8a04;
+          --neon-orange: #ea580c;
+          --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container { max-width: 1440px; margin: 0 auto; padding: 40px 32px; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 32px;
+        }
+        .header h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .header-right { display: flex; gap: 12px; align-items: center; }
+        .total-badge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 20px;
+            text-align: right;
+        }
+        .total-badge .label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .total-badge .value {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--neon-gold);
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(255, 45, 120, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 45, 120, 0.4);
+        }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+        }
+
+        .summary-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .summary-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .summary-card .sc-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .summary-card .sc-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .summary-card .sc-detail {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            margin-top: 6px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .stat-card:hover, .stat-card.active {
+            background: var(--surface-2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .stat-card.active::after { opacity: 1; }
+        .stat-card .sc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+        .stat-card .name {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .stat-card .momentum-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+        .stat-card .followers {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .stat-card .delta-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+            align-items: center;
+        }
+        .stat-card .delta-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .delta-pill.gain { background: var(--gain-bg); color: var(--gain); }
+        .delta-pill.loss { background: var(--loss-bg); color: var(--loss); }
+        .delta-pill.flat { background: var(--flat-bg); color: var(--flat); }
+        .stat-card .delta-label { font-size: 0.65rem; color: var(--text-muted); }
+        .stat-card .sparkline-container { margin-top: 10px; height: 32px; }
+
+        .chart-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .chart-controls { display: flex; gap: 8px; }
+        .chart-controls button {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chart-controls button:hover, .chart-controls button.active {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        .chart-canvas-wrap { position: relative; height: 400px; }
+        .chart-canvas-wrap.short { height: 320px; }
+
+        .heatmap-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+        .heatmap-wrap { overflow-x: auto; padding-bottom: 8px; }
+        .heatmap { display: grid; gap: 2px; min-width: fit-content; }
+        .hm-row { display: contents; }
+        .hm-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 6px 12px 6px 0;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            min-width: 130px;
+            position: sticky;
+            left: 0;
+            background: var(--surface);
+            z-index: 2;
+        }
+        .hm-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 4px 2px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .hm-cell {
+            width: 48px;
+            height: 32px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            cursor: default;
+            position: relative;
+        }
+        .hm-cell:hover {
+            transform: scale(1.25);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .hm-cell[data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a2e;
+            color: var(--text-primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+            z-index: 20;
+        }
+        .heatmap-legend {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            justify-content: flex-end;
+        }
+        .heatmap-legend .hl-block { width: 28px; height: 12px; border-radius: 2px; }
+        .heatmap-legend span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        .movers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .movers-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+        }
+        .movers-panel .mp-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .movers-panel .mp-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+        .mover-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(30, 30, 53, 0.4);
+        }
+        .mover-item:last-child { border-bottom: none; }
+        .mover-item .mi-name { font-size: 0.82rem; font-weight: 600; }
+        .mover-item .mi-stats { display: flex; gap: 12px; align-items: center; }
+        .mover-item .mi-abs {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .mover-item .mi-pct {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            min-width: 56px;
+            text-align: center;
+        }
+
+        .table-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        .table-section table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .table-section th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 12px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+        }
+        .table-section th:first-child { text-align: left; min-width: 140px; }
+        .table-section td {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            padding: 8px 12px;
+            text-align: right;
+            border-bottom: 1px solid rgba(30, 30, 53, 0.5);
+            color: var(--text-secondary);
+        }
+        .table-section td:first-child {
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .table-section tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 15, 26, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal .modal-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .modal-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(30, 30, 53, 0.5);
+        }
+        .modal-field label { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+        .modal-field .mf-right { display: flex; align-items: center; gap: 10px; }
+        .modal-field .mf-prev {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .modal-field input {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            width: 80px;
+            text-align: right;
+            padding: 8px 12px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .modal-field input:focus { border-color: var(--neon-blue); }
+        .modal-field .mf-delta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            min-width: 48px;
+            text-align: right;
+        }
+        .month-selector { display: flex; gap: 12px; margin-bottom: 20px; }
+        .month-selector select, .month-selector input[type="number"] {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            outline: none;
+            flex: 1;
+        }
+        .modal-actions { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .container { padding: 20px 16px; }
+            .header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .header h1 { font-size: 2.2rem; }
+            .stats-row { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .summary-strip { grid-template-columns: repeat(2, 1fr); }
+            .movers-grid { grid-template-columns: 1fr; }
+            .chart-canvas-wrap { height: 300px; }
+        }
+
+        .topnav {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 14px 36px;
+          border-bottom: 1px solid var(--border-subtle);
+          background: var(--bg-elevated);
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .topnav-back {
+          color: var(--accent);
+          text-decoration: none;
+          font-size: 0.85rem;
+          font-weight: 600;
+          transition: opacity 0.2s ease;
+        }
+        .topnav-back:hover { opacity: 0.7; }
+        .topnav-title {
+          color: var(--text-muted);
+          font-size: 0.8rem;
+          font-family: 'JetBrains Mono', monospace;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+        .theme-toggle {
+          margin-left: auto;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 1.5px solid var(--border);
+          background: var(--surface);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+          border-color: var(--accent);
+          box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .colophon {
+          max-width: 1080px;
+          margin: 0 auto;
+          padding: 3rem 36px 4rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.65rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          border-top: 1px solid var(--border-subtle);
+          margin-top: 4rem;
+        }
+        .colophon a {
+          color: var(--text-secondary);
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+        .colophon a:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <nav class="topnav">
+      <a href="index.html" class="topnav-back">&larr; Command Center</a>
+      <span class="topnav-title">Playlist Tracker</span>
+      <button class="theme-toggle" onclick="toggleTheme()"></button>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>PLAYLIST TRACKER</h1>
+                <div class="subtitle">curated by gary.</div>
+            </div>
+            <div class="header-right">
+                <div class="total-badge">
+                    <div class="label">Total Followers</div>
+                    <div class="value" id="totalFollowers">&mdash;</div>
+                </div>
+                <button class="btn btn-primary" onclick="openModal()">+ Add Month</button>
+            </div>
+        </div>
+
+        <div class="summary-strip" id="summaryStrip"></div>
+        <div class="stats-row" id="statsRow"></div>
+        <div class="movers-grid" id="moversGrid"></div>
+
+        <div class="chart-section">
+            <div class="chart-header">
+                <div class="section-title">FOLLOWER GROWTH</div>
+                <div class="chart-controls">
+                    <button onclick="setView('all')" class="active" id="btn-all">All</button>
+                    <button onclick="setView('6m')" id="btn-6m">6M</button>
+                    <button onclick="setView('12m')" id="btn-12m">12M</button>
+                    <button onclick="setView('top5')" id="btn-top5">Top 5</button>
+                </div>
+            </div>
+            <div class="chart-canvas-wrap"><canvas id="mainChart"></canvas></div>
+        </div>
+
+        <div class="chart-section">
+            <div class="chart-header">
+                <div class="section-title">MONTH-OVER-MONTH CHANGE</div>
+                <div class="chart-controls">
+                    <button onclick="setDeltaMode('abs')" class="active" id="btn-delta-abs">Absolute</button>
+                    <button onclick="setDeltaMode('pct')" id="btn-delta-pct">% Change</button>
+                </div>
+            </div>
+            <div class="chart-canvas-wrap short"><canvas id="deltaChart"></canvas></div>
+        </div>
+
+        <div class="heatmap-section">
+            <div class="chart-header">
+                <div class="section-title">DELTA HEATMAP</div>
+                <div class="chart-controls">
+                    <button onclick="setHeatmapMode('abs')" class="active" id="btn-hm-abs">Absolute</button>
+                    <button onclick="setHeatmapMode('pct')" id="btn-hm-pct">% Change</button>
+                </div>
+            </div>
+            <div class="heatmap-wrap"><div class="heatmap" id="heatmap"></div></div>
+            <div class="heatmap-legend" id="heatmapLegend"></div>
+        </div>
+
+        <div class="table-section">
+            <div class="chart-header" style="margin-bottom:16px;">
+                <div class="section-title">RAW DATA</div>
+                <button class="btn btn-secondary" onclick="exportCSV()">Export CSV</button>
+            </div>
+            <div style="overflow-x:auto;"><table id="dataTable"></table></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2>ADD MONTHLY DATA</h2>
+            <div class="modal-subtitle">Enter follower counts &mdash; deltas shown live as you type</div>
+            <div class="month-selector">
+                <select id="monthSelect">
+                    <option value="Jan">January</option><option value="Feb">February</option>
+                    <option value="Mar">March</option><option value="Apr">April</option>
+                    <option value="May">May</option><option value="Jun">June</option>
+                    <option value="Jul">July</option><option value="Aug">August</option>
+                    <option value="Sep">September</option><option value="Oct">October</option>
+                    <option value="Nov">November</option><option value="Dec">December</option>
+                </select>
+                <input type="number" id="yearSelect" min="2024" max="2030" value="2026" placeholder="Year">
+            </div>
+            <div id="modalFields"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveMonth()">Save &amp; Update</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="colophon">
+      <span>Gary's Command Center &copy; 2026</span>
+      <a href="index.html">ChaosConsole</a>
+    </footer>
+
+    <script>
+    const COLORS = [
+        '#ff2d78','#00c8ff','#ff6b35','#00e88a','#a855f7',
+        '#14d4b8','#fbbf24','#ef4444','#6366f1','#22d3ee',
+        '#fb7185','#a3e635','#f59e0b','#38bdf8','#c084fc','#e879f9'
+    ];
+
+    // ─── V9 DEFAULT DATA — 15 playlists, 22 months (Apr 24 → Mar 26) ───
+    const DEFAULT_DATA = {
+        months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"],
+        playlists: {
+            "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509],
+            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,160],
+            "Guide to Indie":   [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,111],
+            "Ancora":           [21,28,28,28,30,31,31,31,33,32,33,36,34,34,35,36,37,37,37,37,38,38],
+            "Thirst":           [24,26,26,28,28,28,28,30,30,31,32,32,32,32,32,32,32,32,32,32,33,33],
+            "Potpourri":        [3,5,5,7,8,8,9,10,24,26,27,29,27,27,28,32,30,30,30,30,31,31],
+            "Cloudbuster":      [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26],
+            "Broken":           [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,19],
+            "run":              [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16],
+            "Oddities":         [5,13,14,13,13,13,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14],
+            "Orpheus":          [0,0,0,0,0,0,0,0,0,1,2,3,2,2,4,7,9,9,9,9,10,10],
+            "Afterglow":        [7,8,8,8,9,9,9,10,10,10,10,10,10,10,9,9,9,9,9,9,9,9],
+            "Vertigo":          [0,0,0,0,0,0,0,0,0,2,2,3,6,6,6,6,6,6,6,6,6,6],
+            "Masterpiece":      [4,4,4,4,4,4,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6],
+            "Broadway":         [3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5]
+        }
+    };
+
+    let data = loadData();
+    let mainChart = null;
+    let deltaChart = null;
+    let currentView = 'all';
+    let deltaMode = 'abs';
+    let heatmapMode = 'abs';
+    let selectedPlaylists = new Set(Object.keys(data.playlists));
+
+    function loadData() {
+        try {
+            const saved = localStorage.getItem('spotify-tracker-v2');
+            if (saved) return JSON.parse(saved);
+        } catch(e) {}
+        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+    function saveData() { localStorage.setItem('spotify-tracker-v2', JSON.stringify(data)); }
+
+    function getColor(name) {
+        const idx = Object.keys(data.playlists).indexOf(name);
+        return COLORS[idx % COLORS.length];
+    }
+    function getDelta(name, idx) {
+        const vals = data.playlists[name];
+        if (idx <= 0) return 0;
+        return vals[idx] - vals[idx - 1];
+    }
+    function getPctChange(name, idx) {
+        const vals = data.playlists[name];
+        if (idx <= 0 || vals[idx - 1] === 0) return 0;
+        return ((vals[idx] - vals[idx - 1]) / vals[idx - 1]) * 100;
+    }
+    function getMomentum(name) {
+        const vals = data.playlists[name];
+        if (vals.length < 4) return 'new';
+        const last3 = vals.slice(-3);
+        const prev3 = vals.slice(-6, -3);
+        if (prev3.length < 3) return 'new';
+        const recentAvgDelta = (last3[2] - last3[0]) / 2;
+        const prevAvgDelta = (prev3[2] - prev3[0]) / 2;
+        if (recentAvgDelta > 0.5 && recentAvgDelta > prevAvgDelta) return 'accelerating';
+        if (recentAvgDelta > 0.3) return 'growing';
+        if (recentAvgDelta < -0.3) return 'declining';
+        return 'stable';
+    }
+    function momentumLabel(m) {
+        const map = {
+            'accelerating': { text: '\u{1F525} HOT', bg: '#00e88a22', color: '#00e88a' },
+            'growing': { text: '\u2197 GROWING', bg: '#00c8ff18', color: '#00c8ff' },
+            'stable': { text: '\u2014 STABLE', bg: '#55536a18', color: '#55536a' },
+            'declining': { text: '\u2198 COOLING', bg: '#ff446618', color: '#ff4466' },
+            'new': { text: '\u2726 NEW', bg: '#a855f718', color: '#a855f7' }
+        };
+        return map[m] || map['stable'];
+    }
+
+    function createSparkline(container, values, color) {
+        const canvas = document.createElement('canvas');
+        canvas.width = container.clientWidth || 180;
+        canvas.height = 32;
+        canvas.style.width = '100%';
+        canvas.style.height = '32px';
+        container.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width, h = canvas.height;
+        const max = Math.max(...values, 1);
+        const min = Math.min(...values);
+        const range = max - min || 1;
+        const step = w / (values.length - 1 || 1);
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, color + '30');
+        grad.addColorStop(1, color + '00');
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        values.forEach((v, i) => {
+            const x = i * step;
+            const y = h - ((v - min) / range) * (h - 4) - 2;
+            ctx.lineTo(x, y);
+        });
+        ctx.lineTo(w, h);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.beginPath();
+        values.forEach((v, i) => {
+            const x = i * step;
+            const y = h - ((v - min) / range) * (h - 4) - 2;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        const lastX = (values.length - 1) * step;
+        const lastY = h - ((values[values.length - 1] - min) / range) * (h - 4) - 2;
+        ctx.beginPath();
+        ctx.arc(lastX, lastY, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    function renderSummary() {
+        const names = Object.keys(data.playlists);
+        const L = data.months.length - 1;
+        const totalNow = names.reduce((s, n) => s + data.playlists[n][L], 0);
+        const totalPrev = L > 0 ? names.reduce((s, n) => s + data.playlists[n][L - 1], 0) : totalNow;
+        const totalDelta = totalNow - totalPrev;
+        const totalStart = names.reduce((s, n) => s + data.playlists[n][0], 0);
+        const totalGrowthAll = totalNow - totalStart;
+        let growing = 0, declining = 0, flat = 0;
+        names.forEach(n => { const d = getDelta(n, L); if (d > 0) growing++; else if (d < 0) declining++; else flat++; });
+        let bestName = '', bestPct = -Infinity;
+        names.forEach(n => {
+            const vals = data.playlists[n]; const start = vals[0]; const end = vals[L];
+            if (end >= 5 && start > 0) { const pct = ((end - start) / start) * 100; if (pct > bestPct) { bestPct = pct; bestName = n; } }
+        });
+        const strip = document.getElementById('summaryStrip');
+        strip.innerHTML = `
+        <div class="summary-card"><div class="sc-label">Net Change This Month</div><div class="sc-value" style="color:${totalDelta >= 0 ? 'var(--gain)' : 'var(--loss)'}">${totalDelta >= 0 ? '+' : ''}${totalDelta}</div><div class="sc-detail" style="color:var(--text-muted)">${data.months[L - 1] || '\u2014'} \u2192 ${data.months[L]}</div></div>
+        <div class="summary-card"><div class="sc-label">Total Growth (All Time)</div><div class="sc-value" style="color:var(--neon-blue)">+${totalGrowthAll.toLocaleString()}</div><div class="sc-detail" style="color:var(--text-muted)">${totalStart.toLocaleString()} \u2192 ${totalNow.toLocaleString()}</div></div>
+        <div class="summary-card"><div class="sc-label">This Month's Movement</div><div class="sc-value" style="color:var(--text-primary); font-size:1.6rem;"><span style="color:var(--gain)">${growing}\u2191</span>&nbsp;<span style="color:var(--flat)">${flat}\u2014</span>&nbsp;<span style="color:var(--loss)">${declining}\u2193</span></div><div class="sc-detail" style="color:var(--text-muted)">of ${names.length} playlists</div></div>
+        <div class="summary-card"><div class="sc-label">Best Performer (All Time)</div><div class="sc-value" style="color:${getColor(bestName)}; font-size:1.4rem;">${bestName || '\u2014'}</div><div class="sc-detail" style="color:var(--text-muted)">${bestPct !== -Infinity ? '+' + bestPct.toFixed(0) + '% since ' + data.months[0] : '\u2014'}</div></div>`;
+        document.getElementById('totalFollowers').textContent = totalNow.toLocaleString();
+    }
+
+    function renderStatCards() {
+        const row = document.getElementById('statsRow');
+        row.innerHTML = '';
+        const names = Object.keys(data.playlists);
+        const L = data.months.length - 1;
+        const sorted = [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
+        sorted.forEach(name => {
+            const values = data.playlists[name];
+            const current = values[L];
+            const prev = L > 0 ? values[L - 1] : current;
+            const diff = current - prev;
+            const color = getColor(name);
+            const mom = getMomentum(name);
+            const momStyle = momentumLabel(mom);
+            const threeMonthAgo = L >= 3 ? values[L - 3] : values[0];
+            const diff3 = current - threeMonthAgo;
+            const card = document.createElement('div');
+            card.className = 'stat-card' + (selectedPlaylists.has(name) ? ' active' : '');
+            card.innerHTML = `
+            <style>.stat-card[data-n="${CSS.escape(name)}"]::after{background:${color};}</style>
+            <div class="sc-top"><div class="name">${name}</div><div class="momentum-badge" style="background:${momStyle.bg};color:${momStyle.color}">${momStyle.text}</div></div>
+            <div class="followers" style="color:${color}">${current.toLocaleString()}</div>
+            <div class="delta-row">
+                <div class="delta-pill ${diff > 0 ? 'gain' : diff < 0 ? 'loss' : 'flat'}">${diff > 0 ? '\u25B2' : diff < 0 ? '\u25BC' : '\u2014'}\u2009${Math.abs(diff)}\u2009<span class="delta-label">1m</span></div>
+                <div class="delta-pill ${diff3 > 0 ? 'gain' : diff3 < 0 ? 'loss' : 'flat'}">${diff3 > 0 ? '\u25B2' : diff3 < 0 ? '\u25BC' : '\u2014'}\u2009${Math.abs(diff3)}\u2009<span class="delta-label">3m</span></div>
+            </div>
+            <div class="sparkline-container"></div>`;
+            card.setAttribute('data-n', name);
+            card.addEventListener('click', () => {
+                if (selectedPlaylists.has(name) && selectedPlaylists.size === 1) return;
+                if (selectedPlaylists.size === names.length) { selectedPlaylists = new Set([name]); }
+                else if (selectedPlaylists.has(name)) { selectedPlaylists.delete(name); }
+                else { selectedPlaylists.add(name); }
+                updateAll();
+            });
+            card.addEventListener('dblclick', () => { selectedPlaylists = new Set(names); updateAll(); });
+            row.appendChild(card);
+            requestAnimationFrame(() => { const sc = card.querySelector('.sparkline-container'); createSparkline(sc, values, color); });
+        });
+    }
+
+    function renderMovers() {
+        const grid = document.getElementById('moversGrid');
+        const names = Object.keys(data.playlists);
+        const L = data.months.length - 1;
+        const deltas = names.map(n => {
+            const vals = data.playlists[n]; const d = getDelta(n, L);
+            const pct = vals[L - 1] > 0 ? ((d / vals[L - 1]) * 100) : (d > 0 ? 100 : 0);
+            return { name: n, delta: d, pct, current: vals[L] };
+        });
+        const gainers = [...deltas].filter(d => d.delta > 0).sort((a, b) => b.delta - a.delta);
+        const losers = [...deltas].filter(d => d.delta < 0).sort((a, b) => a.delta - b.delta);
+        const stagnant = deltas.filter(d => d.delta === 0);
+        let html = `<div class="movers-panel"><div class="mp-header"><div class="mp-icon" style="background:var(--gain-bg);color:var(--gain);font-size:1rem;">\u25B2</div><div class="section-title" style="font-size:1.1rem;">GAINERS</div></div>`;
+        if (gainers.length === 0) html += `<div style="color:var(--text-muted);font-size:0.8rem;">No gainers this month</div>`;
+        gainers.forEach(g => { html += `<div class="mover-item"><div class="mi-name" style="color:${getColor(g.name)}">${g.name}</div><div class="mi-stats"><div class="mi-abs" style="color:var(--gain)">+${g.delta}</div><div class="mi-pct" style="background:var(--gain-bg);color:var(--gain)">+${g.pct.toFixed(1)}%</div></div></div>`; });
+        html += '</div>';
+        html += `<div class="movers-panel"><div class="mp-header"><div class="mp-icon" style="background:var(--loss-bg);color:var(--loss);font-size:1rem;">\u25BC</div><div class="section-title" style="font-size:1.1rem;">DECLINERS & FLAT</div></div>`;
+        if (losers.length === 0 && stagnant.length === 0) html += `<div style="color:var(--text-muted);font-size:0.8rem;">Everything's up</div>`;
+        losers.forEach(g => { html += `<div class="mover-item"><div class="mi-name" style="color:${getColor(g.name)}">${g.name}</div><div class="mi-stats"><div class="mi-abs" style="color:var(--loss)">${g.delta}</div><div class="mi-pct" style="background:var(--loss-bg);color:var(--loss)">${g.pct.toFixed(1)}%</div></div></div>`; });
+        stagnant.forEach(g => { html += `<div class="mover-item"><div class="mi-name" style="color:${getColor(g.name)}">${g.name}</div><div class="mi-stats"><div class="mi-abs" style="color:var(--flat)">0</div><div class="mi-pct" style="background:var(--flat-bg);color:var(--flat)">FLAT</div></div></div>`; });
+        html += '</div>';
+        grid.innerHTML = html;
+    }
+
+    function renderMainChart() {
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        if (mainChart) mainChart.destroy();
+        let labels = [...data.months];
+        const names = Object.keys(data.playlists);
+        let startIdx = 0;
+        if (currentView === '6m') startIdx = Math.max(0, labels.length - 6);
+        if (currentView === '12m') startIdx = Math.max(0, labels.length - 12);
+        labels = labels.slice(startIdx);
+        let visibleNames = [...selectedPlaylists];
+        if (currentView === 'top5') { const L = data.months.length - 1; visibleNames = [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]).slice(0, 5); }
+        const datasets = [];
+        visibleNames.forEach(name => {
+            if (!data.playlists[name]) return;
+            const values = data.playlists[name].slice(startIdx);
+            const color = getColor(name);
+            datasets.push({ label: name, data: values, borderColor: color, backgroundColor: color + '15', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 6, pointBackgroundColor: color, pointBorderColor: 'transparent', tension: 0.35, fill: false });
+        });
+        mainChart = new Chart(ctx, { type: 'line', data: { labels, datasets }, options: {
+            responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+            plugins: { legend: { display: true, position: 'bottom', labels: { color: '#8a88a0', font: { family: "'DM Sans'", size: 11 }, boxWidth: 12, boxHeight: 2, padding: 16 } },
+            tooltip: { backgroundColor: '#141420ee', titleColor: '#e8e6f0', bodyColor: '#8a88a0', titleFont: { family: "'DM Sans'", weight: '700', size: 13 }, bodyFont: { family: "'JetBrains Mono'", size: 12 }, borderColor: '#1e1e35', borderWidth: 1, cornerRadius: 10, padding: 14,
+                callbacks: { label: ctx => { const idx = ctx.dataIndex + (currentView === '6m' ? Math.max(0, data.months.length - 6) : currentView === '12m' ? Math.max(0, data.months.length - 12) : 0); const d = idx > 0 ? data.playlists[ctx.dataset.label][idx] - data.playlists[ctx.dataset.label][idx - 1] : 0; const arrow = d > 0 ? ' \u25B2' + d : d < 0 ? ' \u25BC' + Math.abs(d) : ''; return ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}${arrow}`; } } } },
+            scales: { x: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 10 } } }, y: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 10 } } } },
+            animation: { duration: 800, easing: 'easeOutQuart' }
+        }});
+    }
+
+    function renderDeltaChart() {
+        const ctx = document.getElementById('deltaChart').getContext('2d');
+        if (deltaChart) deltaChart.destroy();
+        const names = Object.keys(data.playlists);
+        const L = data.months.length - 1;
+        const sorted = [...names].sort((a, b) => { const da = deltaMode === 'abs' ? getDelta(a, L) : getPctChange(a, L); const db = deltaMode === 'abs' ? getDelta(b, L) : getPctChange(b, L); return db - da; });
+        const values = sorted.map(n => deltaMode === 'abs' ? getDelta(n, L) : +getPctChange(n, L).toFixed(1));
+        const colors = values.map(v => v > 0 ? '#00e88a' : v < 0 ? '#ff4466' : '#55536a');
+        const bgColors = values.map(v => v > 0 ? '#00e88a30' : v < 0 ? '#ff446630' : '#55536a20');
+        deltaChart = new Chart(ctx, { type: 'bar', data: { labels: sorted, datasets: [{ data: values, backgroundColor: bgColors, borderColor: colors, borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] }, options: {
+            responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+            plugins: { legend: { display: false }, tooltip: { backgroundColor: '#141420ee', titleColor: '#e8e6f0', bodyColor: '#8a88a0', titleFont: { family: "'DM Sans'", weight: '700' }, bodyFont: { family: "'JetBrains Mono'", size: 12 }, borderColor: '#1e1e35', borderWidth: 1, cornerRadius: 10, padding: 12, callbacks: { label: ctx => deltaMode === 'abs' ? ` ${ctx.parsed.x > 0 ? '+' : ''}${ctx.parsed.x} followers` : ` ${ctx.parsed.x > 0 ? '+' : ''}${ctx.parsed.x}%` } } },
+            scales: { x: { grid: { color: '#1e1e3515' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 10 }, callback: v => deltaMode === 'pct' ? v + '%' : v } }, y: { grid: { display: false }, ticks: { color: '#8a88a0', font: { family: "'DM Sans'", size: 11, weight: '600' } } } },
+            animation: { duration: 600, easing: 'easeOutQuart' }
+        }});
+    }
+
+    function renderHeatmap() {
+        const hm = document.getElementById('heatmap');
+        const names = Object.keys(data.playlists);
+        const months = data.months;
+        const L = months.length;
+        const sorted = [...names].sort((a, b) => data.playlists[b][L - 1] - data.playlists[a][L - 1]);
+        let allDeltas = [];
+        sorted.forEach(name => { for (let i = 1; i < L; i++) { const v = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i); if (isFinite(v)) allDeltas.push(v); } });
+        const maxD = Math.max(...allDeltas.map(Math.abs), 1);
+        function cellColor(val) {
+            if (val === 0) return { bg: '#1a1a2e', text: '#55536a' };
+            const intensity = Math.min(Math.abs(val) / maxD, 1);
+            if (val > 0) return { bg: `rgba(0, 232, 138, ${(intensity * 0.5 + 0.08).toFixed(2)})`, text: intensity > 0.3 ? '#d0ffe8' : '#00e88a' };
+            else return { bg: `rgba(255, 68, 102, ${(intensity * 0.5 + 0.08).toFixed(2)})`, text: intensity > 0.3 ? '#ffd0d8' : '#ff4466' };
+        }
+        hm.style.gridTemplateColumns = `130px repeat(${L - 1}, 48px)`;
+        let html = '<div class="hm-row"><div class="hm-label"></div>';
+        for (let i = 1; i < L; i++) html += `<div class="hm-header">${months[i]}</div>`;
+        html += '</div>';
+        sorted.forEach(name => {
+            html += `<div class="hm-row"><div class="hm-label" style="color:${getColor(name)}">${name}</div>`;
+            for (let i = 1; i < L; i++) {
+                const raw = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i);
+                const display = heatmapMode === 'pct' ? (isFinite(raw) ? raw.toFixed(0) + '%' : '\u2014') : (raw > 0 ? '+' + raw : raw);
+                const { bg, text } = cellColor(isFinite(raw) ? raw : 0);
+                const tooltip = `${name}: ${data.playlists[name][i - 1]} \u2192 ${data.playlists[name][i]} (${raw > 0 ? '+' : ''}${heatmapMode === 'pct' ? raw.toFixed(1) + '%' : raw})`;
+                html += `<div class="hm-cell" style="background:${bg};color:${text}" data-tooltip="${tooltip}">${display}</div>`;
+            }
+            html += '</div>';
+        });
+        hm.innerHTML = html;
+        const legend = document.getElementById('heatmapLegend');
+        const steps = 7;
+        let legendHtml = '<span>decline</span>';
+        for (let i = 0; i < steps; i++) { const val = -maxD + (2 * maxD * i / (steps - 1)); const { bg } = cellColor(val); legendHtml += `<div class="hl-block" style="background:${bg}"></div>`; }
+        legendHtml += '<span>growth</span>';
+        legend.innerHTML = legendHtml;
+    }
+
+    function renderTable() {
+        const table = document.getElementById('dataTable');
+        const names = Object.keys(data.playlists);
+        const L = data.months.length - 1;
+        let html = '<thead><tr><th>Playlist</th>';
+        data.months.forEach(m => { html += `<th>${m}</th>`; });
+        html += '</tr></thead><tbody>';
+        const sorted = [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
+        sorted.forEach(name => {
+            const color = getColor(name);
+            html += `<tr><td style="color:${color}">${name}</td>`;
+            data.playlists[name].forEach((v, i) => { const d = i > 0 ? v - data.playlists[name][i - 1] : 0; const bg = d > 0 ? 'rgba(0,232,138,0.06)' : d < 0 ? 'rgba(255,68,102,0.06)' : ''; html += `<td style="background:${bg}">${v}</td>`; });
+            html += '</tr>';
+        });
+        html += '</tbody>';
+        table.innerHTML = html;
+    }
+
+    function setView(view) {
+        currentView = view;
+        document.querySelectorAll('.chart-controls button[id^="btn-"]').forEach(b => { if (['btn-all','btn-6m','btn-12m','btn-top5'].includes(b.id)) b.classList.remove('active'); });
+        document.getElementById('btn-' + view)?.classList.add('active');
+        renderMainChart();
+    }
+    function setDeltaMode(mode) { deltaMode = mode; document.getElementById('btn-delta-abs').classList.toggle('active', mode === 'abs'); document.getElementById('btn-delta-pct').classList.toggle('active', mode === 'pct'); renderDeltaChart(); }
+    function setHeatmapMode(mode) { heatmapMode = mode; document.getElementById('btn-hm-abs').classList.toggle('active', mode === 'abs'); document.getElementById('btn-hm-pct').classList.toggle('active', mode === 'pct'); renderHeatmap(); }
+
+    function openModal() {
+        const modal = document.getElementById('modal');
+        const fields = document.getElementById('modalFields');
+        const names = Object.keys(data.playlists);
+        fields.innerHTML = '';
+        names.forEach(name => {
+            const lastVal = data.playlists[name][data.playlists[name].length - 1];
+            const color = getColor(name);
+            fields.innerHTML += `<div class="modal-field"><label style="color:${color}">${name}</label><div class="mf-right"><div class="mf-prev">was ${lastVal}</div><input type="number" min="0" value="${lastVal}" data-playlist="${name}" data-prev="${lastVal}" oninput="updateModalDelta(this)"><div class="mf-delta" data-delta-for="${name}" style="color:var(--flat)">\u2014</div></div></div>`;
+        });
+        const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const lastMonth = data.months[data.months.length - 1];
+        const parts = lastMonth.split(' ');
+        const mIdx = monthNames.indexOf(parts[0]);
+        const yr = parseInt('20' + parts[1]);
+        const nextM = (mIdx + 1) % 12;
+        const nextY = mIdx === 11 ? yr + 1 : yr;
+        document.getElementById('monthSelect').value = monthNames[nextM];
+        document.getElementById('yearSelect').value = nextY;
+        modal.classList.add('open');
+    }
+    function updateModalDelta(input) {
+        const name = input.dataset.playlist;
+        const prev = parseInt(input.dataset.prev);
+        const curr = parseInt(input.value) || 0;
+        const diff = curr - prev;
+        const el = document.querySelector(`[data-delta-for="${name}"]`);
+        if (diff > 0) { el.style.color = 'var(--gain)'; el.textContent = '+' + diff; }
+        else if (diff < 0) { el.style.color = 'var(--loss)'; el.textContent = '' + diff; }
+        else { el.style.color = 'var(--flat)'; el.textContent = '\u2014'; }
+    }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); }
+    function saveMonth() {
+        const month = document.getElementById('monthSelect').value;
+        const year = document.getElementById('yearSelect').value.toString().slice(-2);
+        const label = `${month} ${year}`;
+        const existingIdx = data.months.indexOf(label);
+        document.querySelectorAll('#modalFields input').forEach(input => {
+            const name = input.dataset.playlist;
+            const val = parseInt(input.value) || 0;
+            if (existingIdx >= 0) data.playlists[name][existingIdx] = val;
+            else data.playlists[name].push(val);
+        });
+        if (existingIdx < 0) data.months.push(label);
+        saveData(); closeModal(); updateAll();
+    }
+
+    function exportCSV() {
+        const names = Object.keys(data.playlists);
+        let csv = ',' + data.months.join(',') + '\n';
+        names.forEach(name => { csv += name + ',' + data.playlists[name].join(',') + '\n'; });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'playlist-tracker-' + new Date().toISOString().split('T')[0] + '.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+
+    function updateAll() { renderSummary(); renderStatCards(); renderMovers(); renderMainChart(); renderDeltaChart(); renderHeatmap(); renderTable(); }
+    document.addEventListener('DOMContentLoaded', updateAll);
+    document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    }
+    (function() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      const btn = document.querySelector('.theme-toggle');
+      if (btn) btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    })();
+    </script>
+</body>
+</html>

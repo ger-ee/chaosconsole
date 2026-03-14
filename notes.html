@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Notes & Links - Gary's Command Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Dark theme tokens */
+    [data-theme="dark"] {
+      --bg: #0b0f1a;
+      --bg-elevated: #101828;
+      --surface: #151d2e;
+      --surface-2: #1c2640;
+      --border: #2a3a5c;
+      --border-subtle: #1e2d4a;
+      --text: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #d4a052;
+      --accent-dim: rgba(212, 160, 82, 0.10);
+      --accent-glow: rgba(212, 160, 82, 0.25);
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Light theme tokens */
+    [data-theme="light"] {
+      --bg: #f0f4f8;
+      --bg-elevated: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #e8edf4;
+      --border: #c8d3e0;
+      --border-subtle: #dce3ed;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --accent: #b8862d;
+      --accent-dim: rgba(184, 134, 45, 0.08);
+      --accent-glow: rgba(184, 134, 45, 0.18);
+      --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Topnav */
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 14px 36px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .topnav-back {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+
+    .topnav-back:hover {
+      opacity: 0.7;
+    }
+
+    .topnav-title {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .theme-toggle {
+      margin-left: auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    /* Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 36px;
+    }
+
+    /* Page header */
+    .page-header {
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* Card container */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-subtle);
+      box-shadow: var(--shadow);
+    }
+
+    /* Bookmarks section */
+    .bookmarks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .bookmark-item {
+      padding: 0.75rem;
+      background: var(--surface-2);
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .bookmark-item:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+    }
+
+    .bookmark-placeholder {
+      padding: 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Quick reference section */
+    .reference-content {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .reference-placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Textarea-style notes */
+    .notes-textarea {
+      width: 100%;
+      min-height: 180px;
+      padding: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      resize: vertical;
+      line-height: 1.5;
+      transition: all 0.2s ease;
+    }
+
+    .notes-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .notes-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* Colophon */
+    .colophon {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 3rem 36px 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 4rem;
+    }
+
+    .colophon a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .colophon a:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .container {
+        padding: 2rem 20px;
+      }
+
+      .page-header h1 {
+        font-size: 24px;
+      }
+
+      .topnav {
+        padding: 12px 20px;
+        gap: 0.75rem;
+      }
+
+      .bookmarks-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .colophon {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 2rem 20px 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topnav">
+    <a href="index.html" class="topnav-back">&larr; Command Center</a>
+    <span class="topnav-title">Quick Notes</span>
+    <button class="theme-toggle" onclick="toggleTheme()"></button>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Quick Notes & Links</h1>
+      <p>Scratch pad for important links, reference data, and anything that doesn't fit elsewhere.</p>
+    </div>
+
+    <!-- Bookmarks Section -->
+    <div>
+      <span class="section-label">Bookmarks</span>
+      <div class="card">
+        <div class="bookmarks-grid">
+          <div class="bookmark-item">Add your bookmarks here</div>
+          <div class="bookmark-item">Useful reference links</div>
+          <div class="bookmark-item">Quick access resources</div>
+          <div class="bookmark-item">Frequently visited</div>
+        </div>
+        <div class="bookmark-placeholder" style="margin-top: 1rem;">
+          Edit these items or add new bookmarks as needed.
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Reference Section -->
+    <div>
+      <span class="section-label">Quick Reference</span>
+      <div class="card">
+        <div class="reference-content">
+          <div class="reference-placeholder">
+            API Keys | Account Numbers | Reference Data<br>
+            <br>
+            Add reference information here. Keep it concise and organized.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overflow Notes Section -->
+    <div>
+      <span class="section-label">Overflow Notes</span>
+      <div class="card">
+        <textarea class="notes-textarea" placeholder="Anything that doesn't fit the other categories..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <footer class="colophon">
+    <span>Gary's Command Center &copy; 2026</span>
+    <a href="index.html">ChaosConsole</a>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    }
+
+    (function() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      const btn = document.querySelector('.theme-toggle');
+      if (btn) btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    })();
+  </script>
+</body>
+</html>
