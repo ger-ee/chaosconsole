@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI INTELLIGENCE — Gary's Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CHAOSCONSOLE DESIGN SYSTEM — EXACT MATCH
+   ═══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg-deep: #0b0f1a;
+  --bg-card: #151d2e;
+  --bg-card-hover: #1c2640;
+  --bg-input: #101828;
+  --border: #2a3a5c;
+  --border-subtle: #1e2d4a;
+  --border-focus: #d4a052;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --accent: #d4a052;
+  --accent-dim: rgba(212,160,82,0.10);
+  --accent-glow: rgba(212,160,82,0.25);
+  --accent-blue: #60a5fa;
+  --accent-cyan: #22d3ee;
+  --accent-green: #4ade80;
+  --accent-red: #f87171;
+  --accent-amber: #fbbf24;
+  --accent-purple: #a78bfa;
+  --accent-orange: #fb923c;
+  --accent-pink: #f472b6;
+  --negative: #f87171;
+  --positive: #4ade80;
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+[data-theme="light"] {
+  --bg-deep: #f0f4f8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #e8edf4;
+  --bg-input: #ffffff;
+  --border: #c8d3e0;
+  --border-subtle: #dce3ed;
+  --border-focus: #b8862d;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-dim: #64748b;
+  --accent: #b8862d;
+  --accent-dim: rgba(184,134,45,0.08);
+  --accent-glow: rgba(184,134,45,0.18);
+  --accent-blue: #2563eb;
+  --accent-cyan: #0891b2;
+  --accent-green: #16a34a;
+  --accent-red: #dc2626;
+  --accent-amber: #d97706;
+  --accent-purple: #7c3aed;
+  --accent-orange: #ea580c;
+  --accent-pink: #db2777;
+  --negative: #dc2626;
+  --positive: #16a34a;
+  --bg: #f0f4f8;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #e8edf4;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --shadow: 0 2px 12px rgba(15,23,42,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(74,158,255,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(167,139,250,0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ═══ TOPNAV ═══ */
+.topnav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 14px 36px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.topnav-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+.topnav-back:hover { opacity: 0.7; }
+.topnav-title {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.theme-toggle {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* ═══ APP CONTAINER ═══ */
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ═══ SECTION SELECTOR (Top-level ChatGPT / Claude / Merged) ═══ */
+.section-selector {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+.section-btn {
+  flex: 1;
+  padding: 18px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  text-align: center;
+}
+.section-btn:not(:last-child) { border-right: 1px solid var(--border); }
+.section-btn:hover { color: var(--text-primary); background: var(--bg-input); }
+.section-btn.active {
+  color: var(--text-primary);
+  background: var(--bg-input);
+}
+.section-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+}
+.section-btn[data-section="chatgpt"].active::after { background: var(--accent-purple); }
+.section-btn[data-section="claude"].active::after { background: var(--accent-cyan); }
+.section-btn[data-section="merged"].active::after { background: var(--accent); }
+.section-btn .btn-sub {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-dim);
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+
+/* ═══ HEADER ═══ */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.header-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+.header-title.purple { color: var(--accent-purple); }
+.header-title.cyan { color: var(--accent-cyan); }
+.header-title.gold { color: var(--accent); }
+.header-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ═══ KPI ROW ═══ */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s ease;
+}
+.kpi-card:hover { background: var(--bg-card-hover); }
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.kpi-card.purple::before { background: linear-gradient(135deg, var(--accent-purple), #818cf8); }
+.kpi-card.blue::before { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); }
+.kpi-card.cyan::before { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); }
+.kpi-card.green::before { background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan)); }
+.kpi-card.amber::before { background: linear-gradient(135deg, var(--accent-amber), var(--accent-orange)); }
+.kpi-card.pink::before { background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple)); }
+.kpi-card.gold::before { background: linear-gradient(135deg, var(--accent), var(--accent-amber)); }
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--text-dim);
+  background: var(--accent-dim);
+}
+
+/* ═══ NAV TABS ═══ */
+.nav-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-card);
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 28px;
+  overflow-x: auto;
+}
+.nav-tab {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text-primary); background: var(--bg-input); }
+.nav-tab.active {
+  color: var(--text-primary);
+  background: var(--bg-input);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+/* ═══ SECTION HEADERS ═══ */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 32px 0 16px;
+}
+.section-header h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ═══ CHART SECTION ═══ */
+.chart-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.chart-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.chart-subtitle {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ═══ TIMELINE BARS ═══ */
+.timeline-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 180px;
+  padding-top: 10px;
+}
+.t-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+.t-bar {
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  transition: height 0.5s ease, filter 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+.t-bar.gpt { background: linear-gradient(180deg, var(--accent-purple), #4338ca); }
+.t-bar.claude { background: linear-gradient(180deg, var(--accent-cyan), #0e7490); }
+.t-bar.merged-gpt { background: linear-gradient(180deg, var(--accent-purple), #4338ca); }
+.t-bar.merged-claude { background: linear-gradient(180deg, var(--accent-cyan), #0e7490); margin-top: 1px; }
+.t-bar:hover { filter: brightness(1.4); }
+.t-bar .tip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  z-index: 10;
+  color: var(--text-primary);
+  box-shadow: var(--shadow);
+}
+.t-bar:hover .tip { display: block; }
+.t-label {
+  font-size: 9px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  transform: rotate(-45deg);
+  transform-origin: top center;
+  white-space: nowrap;
+}
+
+/* Stacked bar container for merged view */
+.t-stack { display: flex; flex-direction: column; width: 100%; align-items: stretch; }
+
+/* ═══ CATEGORY CARDS ═══ */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.cat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s, border-color 0.2s;
+}
+.cat-card:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--cat-color, var(--accent-purple));
+}
+.cat-card .cat-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cat-color, var(--accent-purple));
+  margin-bottom: 4px;
+}
+.cat-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.cat-card p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ═══ SKILL BARS ═══ */
+.skill-bars { display: flex; flex-direction: column; gap: 12px; }
+.skill-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 50px;
+  align-items: center;
+  gap: 12px;
+}
+.skill-name {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-secondary);
+}
+.skill-track {
+  height: 24px;
+  background: var(--bg-input);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1s ease;
+}
+.skill-ct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ═══ INSIGHT CARDS ═══ */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: background 0.2s;
+}
+.insight-card:hover { background: var(--bg-card-hover); }
+.insight-card.strength { border-top: 3px solid var(--accent-green); }
+.insight-card.warning { border-top: 3px solid var(--accent-amber); }
+.insight-card.danger { border-top: 3px solid var(--accent-red); }
+.insight-card.info { border-top: 3px solid var(--accent-cyan); }
+.insight-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 10px;
+}
+.insight-badge.strength { background: rgba(74,222,128,0.1); color: var(--accent-green); }
+.insight-badge.warning { background: rgba(251,191,36,0.1); color: var(--accent-amber); }
+.insight-badge.danger { background: rgba(248,113,113,0.1); color: var(--accent-red); }
+.insight-badge.info { background: rgba(34,211,238,0.1); color: var(--accent-cyan); }
+.insight-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.insight-card p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ═══ PRIORITY / EXPORT CARDS ═══ */
+.priority-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.priority-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.priority-card.essential { border-left: 4px solid var(--accent-green); }
+.priority-card.valuable { border-left: 4px solid var(--accent-amber); }
+.priority-card.skip { border-left: 4px solid var(--accent-red); }
+.priority-card h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.priority-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+.priority-card ul { list-style: none; margin-top: 10px; }
+.priority-card li {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 3px 0 3px 16px;
+  position: relative;
+}
+.priority-card li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* ═══ FEATURE BOX ═══ */
+.feature-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.feature-box h3 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.feature-box h3.purple { color: var(--accent-purple); }
+.feature-box h3.cyan { color: var(--accent-cyan); }
+.feature-box h3.gold { color: var(--accent); }
+.feature-box p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ═══ TAKEAWAY BOX ═══ */
+.takeaway {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.takeaway p {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.takeaway p:last-child { margin-bottom: 0; }
+.takeaway strong.g { color: var(--accent-green); }
+.takeaway strong.a { color: var(--accent-amber); }
+.takeaway strong.r { color: var(--accent-red); }
+
+/* ═══ COMPARISON TABLE ═══ */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-size: 13px;
+}
+.comp-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 2px solid var(--border);
+}
+.comp-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+.comp-table td:first-child { color: var(--text-primary); font-weight: 500; }
+.comp-table .val-purple { color: var(--accent-purple); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.comp-table .val-cyan { color: var(--accent-cyan); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.comp-table tr:hover td { background: var(--bg-card-hover); }
+
+/* ═══ FOOTER ═══ */
+.colophon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .topnav { padding: 12px 16px; }
+  .app { padding: 16px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .kpi-value { font-size: 22px; }
+  .skill-row { grid-template-columns: 1fr; gap: 4px; }
+  .skill-name { text-align: left; }
+  .skill-ct { display: none; }
+  .t-label { font-size: 7px; }
+  .cat-grid, .insight-grid, .priority-grid { grid-template-columns: 1fr; }
+  .nav-tabs { overflow-x: auto; }
+  .section-btn { padding: 14px 12px; font-size: 12px; }
+  .comp-table { font-size: 11px; }
+  .comp-table th, .comp-table td { padding: 8px 10px; }
+}
+
+/* ═══ ANIMATION ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.kpi-card, .cat-card, .insight-card, .priority-card, .chart-section, .feature-box, .takeaway {
+  animation: fadeUp 0.4s ease-in-out both;
+}
+.kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card:nth-child(2) { animation-delay: 0.1s; }
+.kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.kpi-card:nth-child(4) { animation-delay: 0.2s; }
+.kpi-card:nth-child(5) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+
+<!-- TOPNAV -->
+<nav class="topnav">
+  <a href="index.html" class="topnav-back">&larr; Command Center</a>
+  <span class="topnav-title">AI Intelligence</span>
+  <button class="theme-toggle" id="themeToggle">&#9728;&#65039;</button>
+</nav>
+
+<div class="app">
+
+  <!-- ═══════════════════════════════════════
+       TOP-LEVEL SECTION SELECTOR
+       ═══════════════════════════════════════ -->
+  <div class="section-selector">
+    <button class="section-btn active" data-section="chatgpt" onclick="showSection('chatgpt')">
+      ChatGPT
+      <span class="btn-sub">1,474 convos &middot; 21 months</span>
+    </button>
+    <button class="section-btn" data-section="claude" onclick="showSection('claude')">
+      Claude
+      <span class="btn-sub">104 convos &middot; 6 months</span>
+    </button>
+    <button class="section-btn" data-section="merged" onclick="showSection('merged')">
+      Merged Intelligence
+      <span class="btn-sub">1,578 convos &middot; The Full Picture</span>
+    </button>
+  </div>
+
+
+  <!-- ╔═══════════════════════════════════════╗
+       ║  SECTION 1: CHATGPT                   ║
+       ╚═══════════════════════════════════════╝ -->
+  <div class="section-panel active" id="section-chatgpt">
+
+    <div class="header">
+      <div>
+        <div class="header-title purple">ChatGPT Intelligence Report</div>
+        <div class="header-sub">1,474 conversations &middot; Jul 2024 &ndash; Mar 2026 &middot; 356K words analyzed</div>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card purple">
+        <div class="kpi-label">Total Convos</div>
+        <div class="kpi-value">1,474</div>
+        <div class="kpi-delta">21 months of data</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Substantive</div>
+        <div class="kpi-value">1,101</div>
+        <div class="kpi-delta">75% signal rate</div>
+      </div>
+      <div class="kpi-card pink">
+        <div class="kpi-label">Image-Gen Filtered</div>
+        <div class="kpi-value">373</div>
+        <div class="kpi-delta">25% noise removed</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Words Written</div>
+        <div class="kpi-value">356K</div>
+        <div class="kpi-delta">~17K/month avg</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-label">Voice Chats</div>
+        <div class="kpi-value">91</div>
+        <div class="kpi-delta">6% of total</div>
+      </div>
+    </div>
+
+    <div class="nav-tabs" id="gpt-tabs">
+      <button class="nav-tab active" onclick="showView('gpt','overview',this)">Overview</button>
+      <button class="nav-tab" onclick="showView('gpt','skills',this)">Skill Map</button>
+      <button class="nav-tab" onclick="showView('gpt','strengths',this)">Strengths</button>
+      <button class="nav-tab" onclick="showView('gpt','warnings',this)">Warnings</button>
+      <button class="nav-tab" onclick="showView('gpt','export',this)">Export Guide</button>
+      <button class="nav-tab" onclick="showView('gpt','blindspot',this)">The Blindspot</button>
+    </div>
+
+    <!-- GPT: OVERVIEW -->
+    <div class="view active" id="gpt-overview">
+      <div class="chart-section">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Monthly Activity</div>
+            <div class="chart-subtitle">Conversation volume over time. Peak: June 2025 (106 conversations).</div>
+          </div>
+        </div>
+        <div class="timeline-chart">
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:6.6%"><div class="tip">Jul 24: 7</div></div><div class="t-label">Jul 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:12.3%"><div class="tip">Aug 24: 13</div></div><div class="t-label">Aug 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:42.5%"><div class="tip">Sep 24: 45</div></div><div class="t-label">Sep 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:50.9%"><div class="tip">Oct 24: 54</div></div><div class="t-label">Oct 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:62.3%"><div class="tip">Nov 24: 66</div></div><div class="t-label">Nov 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:37.7%"><div class="tip">Dec 24: 40</div></div><div class="t-label">Dec 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:40.6%"><div class="tip">Jan 25: 43</div></div><div class="t-label">Jan 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:46.2%"><div class="tip">Feb 25: 49</div></div><div class="t-label">Feb 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:55.7%"><div class="tip">Mar 25: 59</div></div><div class="t-label">Mar 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:62.3%"><div class="tip">Apr 25: 66</div></div><div class="t-label">Apr 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:40.6%"><div class="tip">May 25: 43</div></div><div class="t-label">May 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:100%"><div class="tip">Jun 25: 106</div></div><div class="t-label">Jun 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:50.9%"><div class="tip">Jul 25: 54</div></div><div class="t-label">Jul 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:54.7%"><div class="tip">Aug 25: 58</div></div><div class="t-label">Aug 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:84.9%"><div class="tip">Sep 25: 90</div></div><div class="t-label">Sep 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:78.3%"><div class="tip">Oct 25: 83</div></div><div class="t-label">Oct 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:69.8%"><div class="tip">Nov 25: 74</div></div><div class="t-label">Nov 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:48.1%"><div class="tip">Dec 25: 51</div></div><div class="t-label">Dec 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:48.1%"><div class="tip">Jan 26: 51</div></div><div class="t-label">Jan 26</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:30.2%"><div class="tip">Feb 26: 32</div></div><div class="t-label">Feb 26</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:16%"><div class="tip">Mar 26: 17</div></div><div class="t-label">Mar 26</div></div>
+        </div>
+      </div>
+
+      <div class="section-header"><h3>Topic Distribution</h3></div>
+      <div class="cat-grid">
+        <div class="cat-card" style="--cat-color: var(--accent-purple);"><div class="cat-count">351</div><h4>Utility / Misc</h4><p>One-off queries, quick lookups, translations, calculations. The long tail of daily AI usage.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-pink);"><div class="cat-count">155</div><h4>Media &amp; Culture</h4><p>Film analysis, YouTube strategy, podcast research, George Carlin transcript study, Letterboxd reviews.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-cyan);"><div class="cat-count">127</div><h4>Personal Life</h4><p>LA-to-Tirana move, apartment ops, cat care, dating dynamics, insurance disputes.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-amber);"><div class="cat-count">126</div><h4>Politics &amp; History</h4><p>WWII Eastern Front deep-dives, Soviet revenge narratives, political commentary, propaganda studies.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-orange);"><div class="cat-count">113</div><h4>Creative Writing</h4><p>Script editing, style blending, tone development, podcast scripts, film reviews. You rewrite obsessively.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-green);"><div class="cat-count">65</div><h4>Career / Tech</h4><p>AWS architecture, Python scripting, cloud infrastructure, automation, API design.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-blue);"><div class="cat-count">65</div><h4>Written Comms</h4><p>Email crafting, complaint letters, closure messages, formal responses. 3&ndash;5 drafts before settling.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-red);"><div class="cat-count">48</div><h4>Career / General</h4><p>Resume tailoring, PM interview prep, job applications, LinkedIn optimization, salary negotiation.</p></div>
+      </div>
+    </div>
+
+    <!-- GPT: SKILL MAP -->
+    <div class="view" id="gpt-skills">
+      <div class="chart-section">
+        <div class="chart-header"><div><div class="chart-title">Skill Map</div><div class="chart-subtitle">Measured by conversation depth and frequency. Bars = relative engagement.</div></div></div>
+        <div class="skill-bars">
+          <div class="skill-row"><div class="skill-name">Scriptwriting</div><div class="skill-track"><div class="skill-fill" style="width:100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));"></div></div><div class="skill-ct">205</div></div>
+          <div class="skill-row"><div class="skill-name">Emotional IQ</div><div class="skill-track"><div class="skill-fill" style="width:77%; background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));"></div></div><div class="skill-ct">157</div></div>
+          <div class="skill-row"><div class="skill-name">Brand Building</div><div class="skill-track"><div class="skill-fill" style="width:32%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple));"></div></div><div class="skill-ct">66</div></div>
+          <div class="skill-row"><div class="skill-name">History Research</div><div class="skill-track"><div class="skill-fill" style="width:30%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));"></div></div><div class="skill-ct">62</div></div>
+          <div class="skill-row"><div class="skill-name">Political Analysis</div><div class="skill-track"><div class="skill-fill" style="width:28%; background: linear-gradient(90deg, var(--accent-amber), var(--accent-orange));"></div></div><div class="skill-ct">58</div></div>
+          <div class="skill-row"><div class="skill-name">Cloud / DevOps</div><div class="skill-track"><div class="skill-fill" style="width:28%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div></div><div class="skill-ct">58</div></div>
+          <div class="skill-row"><div class="skill-name">Debate / Rhetoric</div><div class="skill-track"><div class="skill-fill" style="width:16%; background: linear-gradient(90deg, var(--accent-orange), var(--accent-amber));"></div></div><div class="skill-ct">32</div></div>
+          <div class="skill-row"><div class="skill-name">Product Mgmt</div><div class="skill-track"><div class="skill-fill" style="width:11%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));"></div></div><div class="skill-ct">22</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GPT: STRENGTHS -->
+    <div class="view" id="gpt-strengths">
+      <div class="section-header"><h3>Where You Excel</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Narrative Architecture</h4><p>You don't just write scripts. You engineer narrative structures. The way you blend styles from multiple source texts, request specific tonal shifts, and calibrate reading levels shows someone who understands story at a structural level. Your 118K-character script editing session is evidence of genuine craft discipline.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Cross-Domain Synthesis</h4><p>You pull threads between history, psychology, film, and politics and weave them into single narratives. The "revenge" thread alone crosses WWII military history, neuroscience, moral philosophy, and cinema. Most people can't hold that many frameworks simultaneously. This is your intellectual signature.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Relentless Iteration</h4><p>You rewrite. Constantly. You'll send 5 versions of an email, 3 versions of a script intro, iterate on style until it's right. This is rare. Most people accept the first AI output. You treat AI as a writing partner, not a vending machine.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Primary Source Instinct</h4><p>The Tannenberg memoir translation. The Operation Citadel source summaries. The George Carlin transcript study. You go to the primary material, not the Wikipedia summary. This is what separates compelling content from regurgitated takes.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Multilingual Advantage</h4><p>Albanian, Italian, German, English. You translate primary sources, navigate cultural contexts, and think across linguistic boundaries. For a history/politics YouTube channel, this is a genuine competitive moat.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Directive Prompting Style</h4><p>2,604 directive prompts vs. 350 collaborative ones. You know what you want and you tell the AI exactly how to deliver it. This is advanced AI usage most people never develop.</p></div>
+      </div>
+    </div>
+
+    <!-- GPT: WARNINGS -->
+    <div class="view" id="gpt-warnings">
+      <div class="section-header"><h3>Persistent Issues</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card danger"><div class="insight-badge danger">Critical</div><h4>The Blindspot is Perpetually Pre-Launch</h4><p>16 conversations about branding, 32 about revenge narrative, 200+ script sessions, website planning, Gantt charts, DAW comparisons, Twitch strategy. Across 20 months, the pattern is preparation without publication. Shipping beats polishing.</p></div>
+        <div class="insight-card danger"><div class="insight-badge danger">Critical</div><h4>PM Career Path Abandoned Mid-Sprint</h4><p>March 2025: intense burst of PM certification quizzes, Agile methodology study, Scrum deep-dives. Then it stops. The career pivot was studied thoroughly but the follow-through evaporated.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Emotional Processing Through AI</h4><p>ACT therapy sessions, relationship closure drafts, confidence-building programs. 157 conversations with emotional content. AI is useful for structuring thoughts, but this volume suggests it's sometimes substituting for human support.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Scope Expansion Without Completion</h4><p>Competitor analysis leads to market report, leads to branding discussion, leads to website plan, leads to Gantt chart. Each step is well-executed individually. Cumulative effect: ever-expanding scope that never contracts into a shipped deliverable.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Voice Confidence Gap</h4><p>You explicitly asked for accent coaching and debate coaching. ESL self-consciousness affecting political discussions. Written scripts are strong. Vocal delivery confidence needs sustained investment.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Over-Reliance on Image Generation</h4><p>373 conversations (25% of all activity) were playlist covers and logo iterations. Consider whether image generation is displacement activity.</p></div>
+      </div>
+    </div>
+
+    <!-- GPT: EXPORT GUIDE -->
+    <div class="view" id="gpt-export">
+      <div class="section-header"><h3>What to Export to Claude</h3></div>
+      <div class="priority-grid">
+        <div class="priority-card essential"><div class="insight-badge strength">Essential</div><h4>Blindspot Scripts &amp; Research</h4><p>Every script draft, the revenge narrative framework, the Tannenberg translation, Operation Citadel summaries.</p><ul><li>Script Review and Editing (118K chars)</li><li>All "Soviet Revenge" conversations (32)</li><li>Operation Citadel / Tannenberg / Berlin 1945</li><li>Competitor analysis of YouTube commentators</li></ul></div>
+        <div class="priority-card essential"><div class="insight-badge strength">Essential</div><h4>Writing Style &amp; Preferences</h4><p>The conversations where you explicitly defined your voice. These teach Claude how you think and write.</p><ul><li>Style change request sessions</li><li>Cat Quotes collection (your humor DNA)</li><li>George Carlin transcript study</li><li>Letterboxd review voice</li></ul></div>
+        <div class="priority-card essential"><div class="insight-badge strength">Essential</div><h4>Personal Context &amp; Life Ops</h4><p>Not nostalgia. These show how you approach real problems: structured, thorough, iterative.</p><ul><li>Moving Checklist (LA to Tirana)</li><li>Credit card dispute handling</li><li>Package theft action plan</li></ul></div>
+        <div class="priority-card valuable"><div class="insight-badge warning">Valuable</div><h4>Career &amp; Tech Context</h4><p>PM certification work, AWS architecture, resume iterations. Worth importing if continuing these paths.</p></div>
+        <div class="priority-card valuable"><div class="insight-badge warning">Valuable</div><h4>Self-Improvement Conversations</h4><p>ACT therapy sessions, confidence building, debate coaching. Import selectively for growth context.</p></div>
+        <div class="priority-card skip"><div class="insight-badge danger">Skip</div><h4>Image Generation &amp; One-Off Queries</h4><p>373 playlist covers, logo iterations, quick calculations, one-sentence lookups. Zero long-term value. This is the fat.</p></div>
+      </div>
+    </div>
+
+    <!-- GPT: THE BLINDSPOT -->
+    <div class="view" id="gpt-blindspot">
+      <div class="feature-box"><h3 class="purple">The Blindspot</h3><p>Your most persistent creative project. A YouTube channel concept focused on history, politics, and the narratives people miss. 329 conversations across ChatGPT dedicated to developing this.</p></div>
+      <div class="cat-grid">
+        <div class="cat-card" style="--cat-color: var(--accent-purple);"><h4>Content Pipeline</h4><p>Script development for WWII Eastern Front episodes, Soviet revenge narratives, political commentary. Documentary-grade research base with primary source translations.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-pink);"><h4>Brand Architecture</h4><p>TheBlindspot.tv website, logo iterations, intro visuals, Twitch integration, monetization strategy. Every angle covered in preparation.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-amber);"><h4>The "Revenge" Thread</h4><p>32 conversations dedicated to revenge as a historical, psychological, and narrative concept. Soviet revenge in Berlin 1945. Revenge in film. The science of revenge. This is your signature lens.</p></div>
+      </div>
+    </div>
+
+  </div><!-- /section-chatgpt -->
+
+
+  <!-- ╔═══════════════════════════════════════╗
+       ║  SECTION 2: CLAUDE                     ║
+       ╚═══════════════════════════════════════╝ -->
+  <div class="section-panel" id="section-claude">
+
+    <div class="header">
+      <div>
+        <div class="header-title cyan">Claude Intelligence Report</div>
+        <div class="header-sub">104 conversations &middot; Nov 2024 &ndash; Mar 2026 &middot; 27K words &middot; 3 projects &middot; 67 memories</div>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card cyan">
+        <div class="kpi-label">Total Convos</div>
+        <div class="kpi-value">104</div>
+        <div class="kpi-delta">6 active months</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Total Messages</div>
+        <div class="kpi-value">814</div>
+        <div class="kpi-delta">7.8 avg/convo</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Words Written</div>
+        <div class="kpi-value">27K</div>
+        <div class="kpi-delta">~4.5K/month</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-label">Code Sessions</div>
+        <div class="kpi-value">49</div>
+        <div class="kpi-delta">47% of convos</div>
+      </div>
+      <div class="kpi-card pink">
+        <div class="kpi-label">File Uploads</div>
+        <div class="kpi-value">43</div>
+        <div class="kpi-delta">41% of convos</div>
+      </div>
+    </div>
+
+    <div class="nav-tabs" id="claude-tabs">
+      <button class="nav-tab active" onclick="showView('claude','overview',this)">Overview</button>
+      <button class="nav-tab" onclick="showView('claude','patterns',this)">Patterns</button>
+      <button class="nav-tab" onclick="showView('claude','strengths',this)">Strengths</button>
+      <button class="nav-tab" onclick="showView('claude','warnings',this)">Warnings</button>
+      <button class="nav-tab" onclick="showView('claude','identity',this)">Identity Map</button>
+    </div>
+
+    <!-- CLAUDE: OVERVIEW -->
+    <div class="view active" id="claude-overview">
+      <div class="chart-section">
+        <div class="chart-header"><div><div class="chart-title">Monthly Activity</div><div class="chart-subtitle">Usage ramp: scattered early adoption, then heavy daily use from Nov 2025 onward. Peak: Feb 2026 (30 convos).</div></div></div>
+        <div class="timeline-chart">
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:10%"><div class="tip">Nov 24: 3</div></div><div class="t-label">Nov 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:3.3%"><div class="tip">May 25: 1</div></div><div class="t-label">May 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:13.3%"><div class="tip">Jun 25: 4</div></div><div class="t-label">Jun 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:43.3%"><div class="tip">Nov 25: 13</div></div><div class="t-label">Nov 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:70%"><div class="tip">Dec 25: 21</div></div><div class="t-label">Dec 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:50%"><div class="tip">Jan 26: 15</div></div><div class="t-label">Jan 26</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:100%"><div class="tip">Feb 26: 30</div></div><div class="t-label">Feb 26</div></div>
+          <div class="t-bar-wrap"><div class="t-bar claude" style="height:56.7%"><div class="tip">Mar 26: 17</div></div><div class="t-label">Mar 26</div></div>
+        </div>
+      </div>
+
+      <div class="section-header"><h3>Topic Distribution</h3></div>
+      <div class="cat-grid">
+        <div class="cat-card" style="--cat-color: var(--accent-cyan);"><div class="cat-count">32</div><h4>The Blindspot</h4><p>Episode strategy, topic selection, first video planning, bio rewrites, YouTube growth research, system prompt engineering, website builds via Claude Code.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-purple);"><div class="cat-count">19</div><h4>Utility / Other</h4><p>Quick queries, file operations, unnamed explorations, Francis the cat's kidney health, astrology research.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-green);"><div class="cat-count">9</div><h4>Digital Ecosystem</h4><p>Spring Digital Revamp V6&ndash;V10, iPhone app organization, ChaosConsole dashboards, theme exploration, Gemini data export.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-blue);"><div class="cat-count">8</div><h4>Tech / Setup</h4><p>Sony Alpha 7IV lenses, monitor upgrades, Apple Health data extraction, website automation, Claude Code sessions.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-amber);"><div class="cat-count">7</div><h4>Research / Geopolitics</h4><p>Right-wing hypocrisy analysis, Stalin in Albania, French Revolution, attention economies, enshittification debate.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-pink);"><div class="cat-count">7</div><h4>Film &amp; Reviews</h4><p>Roma Citt&agrave; Aperta, Paul Thomas Anderson reviews, movie recommendations, Letterboxd voice development.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-orange);"><div class="cat-count">6</div><h4>Music / Playlists</h4><p>Spotify follower growth strategy, Reddit promotion, playlist tracker dashboard, Monday's Mixtape branding.</p></div>
+        <div class="cat-card" style="--cat-color: var(--accent-red);"><div class="cat-count">5</div><h4>Emotional Processing</h4><p>ACT therapy session, self-medication &amp; ADHD exploration, apology letter to friend, ACC cancer research, ADHD reminder design.</p></div>
+      </div>
+    </div>
+
+    <!-- CLAUDE: PATTERNS -->
+    <div class="view" id="claude-patterns">
+      <div class="section-header"><h3>How You Use Claude vs. ChatGPT</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Builder Mode, Not Browser Mode</h4><p>47% of Claude conversations produce code. Only 34% on ChatGPT. You use Claude as a construction tool &mdash; dashboards, trackers, HTML artifacts, website deployments. ChatGPT was your thinking partner. Claude is your build partner.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Deeper Trust, Fewer Words</h4><p>27K words across 104 convos vs. 356K across 1,101 on ChatGPT. But your Claude conversations carry more weight per message. You front-load context, give precise instructions, and expect execution. Less exploration, more delegation.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Zero Slop</h4><p>Not a single image-generation session. No playlist cover iterations. No logo tweaking. Every Claude conversation has substantive intent. You came to Claude already knowing what AI is for &mdash; and what it isn't.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Migration Underway</h4><p>ChatGPT usage dropped from 83 convos/month (Oct 2025) to 17 (Mar 2026). Claude went from 0 to 30/month in the same window. You're not using both equally &mdash; you're transferring. The crossover happened in Feb 2026.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Emotional Conversations Go Deeper Here</h4><p>The ACT therapy session (20 messages exploring your father's letter and coming out). The apology to Charles (24 messages crafting voice-authentic emotional writing). The self-medication conversation (24 messages on ADHD/OCD/depression). Claude got the conversations that require trust and nuance.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>System Architect Emerging</h4><p>ChaosConsole, Spring Digital Revamp, Spotify Tracker, Finance Dashboard, Thinking Engine. You're not just asking questions anymore &mdash; you're building an interconnected personal operating system. Claude became the infrastructure layer.</p></div>
+      </div>
+    </div>
+
+    <!-- CLAUDE: STRENGTHS -->
+    <div class="view" id="claude-strengths">
+      <div class="section-header"><h3>What Claude Reveals About You</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Prompt Engineering at Pro Level</h4><p>The Blindspot project prompt is 2,800+ words of structured instructions with deliverable menus, workflow tags, success metrics, and quick commands. The Letterboxd project prompt reverse-engineers a voice profile with anti-AI-detection constraints. You don't use AI &mdash; you program it.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Emotional Self-Awareness Under Pressure</h4><p>"I don't know exactly why what I need from him." "What comes up is a lack of response." "I'm kicking the can down the road, to be honest." The ACT therapy session shows someone who can articulate internal states with precision even while actively struggling. That's rare and valuable.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Voice Authenticity Radar</h4><p>"The em-dashes and the typical structure feels very much like AI has either written it." "It lacks my voice. It lacks that tone that makes me, Geri." You can detect and reject AI-sounding output at a granular level. This is the instinct that makes your writing better than most AI-assisted content.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Systems Thinking Applied to Life</h4><p>Reminder system redesigned for ADHD. Finance dashboard consolidated. Digital ecosystem versioned like software (V6, V7, V10). iPhone apps reorganized for cognitive load. You treat your own life as a system to be optimized, and you apply engineering discipline to it.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Cinematic Emotional Intelligence</h4><p>The Charles apology letter crystallized because of Joachim Trier's "Sentimental Value" and a Labbi Siffre track. You process emotion through film and music, then channel it into action. That's not procrastination &mdash; that's how your creative engine actually works.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Research-to-Action Pipeline</h4><p>ACC cancer follow-up protocol built from a single conversation. Power of Attorney for Albanian property drafted and processed. Divorce filing steps mapped. When the stakes are real, you don't get stuck. The execution gap is creative-project-specific, not a universal trait.</p></div>
+      </div>
+    </div>
+
+    <!-- CLAUDE: WARNINGS -->
+    <div class="view" id="claude-warnings">
+      <div class="section-header"><h3>What Claude Confirms</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card danger"><div class="insight-badge danger">Confirmed</div><h4>The Launch Paralysis is Real</h4><p>"I just need to get going instead of waiting so long to publish something." Then: "1-2 weeks?? I'm talking more of a turnaround time of starting now and finishing recording by tomorrow." Then: "Nothing." (when asked what was accomplished). This conversation from Nov 2025 shows the full cycle: urgency &rarr; ambition &rarr; paralysis. The exact same pattern from ChatGPT, replicated on Claude.</p></div>
+        <div class="insight-card danger"><div class="insight-badge danger">Confirmed</div><h4>ADHD is the Throughline</h4><p>ADHD-friendly reminder systems. Self-medication with Vyvanse. Executive function collapse in 2023 leading to job loss. "I think of something, start it, and while multitasking I'll forget even why I started." "The mere notification lingering in my lock screen has made me give little importance." This isn't a productivity problem. It's a neurological one, and it's unmanaged.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Deepened</div><h4>The Father Letter is Unresolved</h4><p>A full ACT therapy session exploring your father's letter about your coming out, his failure to be present during cancer, and his selective apology. You landed on: "I shouldn't respond. I'm not ready." That was January 2026. The summer meeting in Albania is approaching. This will surface again whether you initiate it or not.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Deepened</div><h4>Financial Precarity Compounds Everything</h4><p>Unemployed. New credit card charges offsetting payments. Interest eroding debt payoff. Divorce filing pending. The finance dashboard you built quantifies it: inflows are outpaced by outflows. Financial stress is the ambient pressure making everything else harder to execute.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">New</div><h4>Tool Proliferation as Avoidance</h4><p>ChaosConsole. Thinking Engine. Spotify Tracker. Finance Dashboard. Digital Ecosystem V10. Reminder system redesign. iPhone app reorganization. Each tool is well-built. But building the tooling to make the thing is not making the thing. The Blindspot doesn't need another dashboard. It needs a publish date.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">New</div><h4>Platform Hopping Without Consolidation</h4><p>ChatGPT &rarr; Claude &rarr; Gemini data export inquiry. Three AI platforms, same conversations, same unresolved patterns. The tool is never the bottleneck. You already know this. You said it yourself: "I have bits of passions and desires which I have not been able to put together in a cogent way."</p></div>
+      </div>
+    </div>
+
+    <!-- CLAUDE: IDENTITY MAP -->
+    <div class="view" id="claude-identity">
+      <div class="feature-box"><h3 class="cyan">Identity Map</h3><p>What Claude's memory system has synthesized about you across 104 conversations, 3 projects, and 67 stored memories.</p></div>
+      <div class="insight-grid">
+        <div class="insight-card strength"><div class="insight-badge strength">Core Identity</div><h4>Albanian-American Outsider Analyst</h4><p>Moved to the US ~12 years ago. Albanian, Italian, German, English. Cancer survivor. The outsider perspective isn't a liability &mdash; it's the editorial angle. You see American systems from outside them, which is exactly what "The Blindspot" is built to do.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Creative DNA</div><h4>Carlin + Hitchens + Stewart + Mencken</h4><p>These are your cited creative touchstones. Dry, incisive, occasionally savage. No fluff. Receipts first, opinions earned. That's not an aspiration &mdash; that's already how you prompt, how you write, how you reject AI slop.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Tension</div><h4>Perfectionism vs. Paralysis</h4><p>"Momentum Over Polish" was identified as a framework. You named it yourself. And then continued polishing. The tension isn't between quality and speed. It's between knowing the right answer and being unable to act on it. That gap is where the ADHD, the financial stress, and the creative ambition collide.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Creative DNA</div><h4>Film as Emotional Operating System</h4><p>Thematic monthly film watching. Letterboxd as creative outlet. Trier films as emotional catalysts. "Hearing Labbi Siffre at the end of a film about emotional unavailability felt like some kind of sign." Film isn't a hobby. It's how you process the world.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Core Identity</div><h4>The Curator</h4><p>8+ years of Monday's Mixtape. 15 tracked playlists. Letterboxd reviews with a cultivated voice. Readwise Reader tagging system. You don't just consume &mdash; you organize, annotate, and present. Curation is a core skill that maps directly to documentary production.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Tension</div><h4>Private Ambition, Public Hesitation</h4><p>You build elaborate systems privately (dashboards, scripts, prompts) but hesitate at the publish button. Voice confidence gap. Accent self-consciousness. The written work is polished and ready. The gap is between private excellence and public exposure.</p></div>
+      </div>
+    </div>
+
+  </div><!-- /section-claude -->
+
+
+  <!-- ╔═══════════════════════════════════════╗
+       ║  SECTION 3: MERGED INTELLIGENCE        ║
+       ╚═══════════════════════════════════════╝ -->
+  <div class="section-panel" id="section-merged">
+
+    <div class="header">
+      <div>
+        <div class="header-title gold">Merged Intelligence</div>
+        <div class="header-sub">1,578 conversations &middot; Jul 2024 &ndash; Mar 2026 &middot; 383K words &middot; Two AI platforms, one person</div>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card gold">
+        <div class="kpi-label">Total Convos</div>
+        <div class="kpi-value">1,578</div>
+        <div class="kpi-delta">ChatGPT + Claude</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-label">ChatGPT</div>
+        <div class="kpi-value">1,474</div>
+        <div class="kpi-delta">93% of volume</div>
+      </div>
+      <div class="kpi-card cyan">
+        <div class="kpi-label">Claude</div>
+        <div class="kpi-value">104</div>
+        <div class="kpi-delta">7% &mdash; rising fast</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Total Words</div>
+        <div class="kpi-value">383K</div>
+        <div class="kpi-delta">~2 novels' worth</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-label">Blindspot Convos</div>
+        <div class="kpi-value">361</div>
+        <div class="kpi-delta">23% of everything</div>
+      </div>
+    </div>
+
+    <div class="nav-tabs" id="merged-tabs">
+      <button class="nav-tab active" onclick="showView('merged','timeline',this)">Timeline</button>
+      <button class="nav-tab" onclick="showView('merged','sidebyside',this)">Side by Side</button>
+      <button class="nav-tab" onclick="showView('merged','diagnosis',this)">The Diagnosis</button>
+      <button class="nav-tab" onclick="showView('merged','prescription',this)">The Prescription</button>
+    </div>
+
+    <!-- MERGED: TIMELINE -->
+    <div class="view active" id="merged-timeline">
+      <div class="chart-section">
+        <div class="chart-header"><div><div class="chart-title">Combined Timeline</div><div class="chart-subtitle">Purple = ChatGPT. Cyan = Claude. The migration is visible from Nov 2025.</div></div></div>
+        <div class="timeline-chart">
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:6.2%"><div class="tip">Jul 24: GPT 7</div></div><div class="t-label">Jul 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:11.5%"><div class="tip">Aug 24: GPT 13</div></div><div class="t-label">Aug 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:39.8%"><div class="tip">Sep 24: GPT 45</div></div><div class="t-label">Sep 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:47.8%"><div class="tip">Oct 24: GPT 54</div></div><div class="t-label">Oct 24</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:61.1%"><div class="t-bar merged-gpt" style="height:95.7%"><div class="tip">Nov 24: GPT 66 + Claude 3</div></div><div class="t-bar merged-claude" style="height:4.3%"></div></div><div class="t-label">Nov 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:35.4%"><div class="tip">Dec 24: GPT 40</div></div><div class="t-label">Dec 24</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:38.1%"><div class="tip">Jan 25: GPT 43</div></div><div class="t-label">Jan 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:43.4%"><div class="tip">Feb 25: GPT 49</div></div><div class="t-label">Feb 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:52.2%"><div class="tip">Mar 25: GPT 59</div></div><div class="t-label">Mar 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:58.4%"><div class="tip">Apr 25: GPT 66</div></div><div class="t-label">Apr 25</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:38.9%"><div class="t-bar merged-gpt" style="height:97.7%"><div class="tip">May 25: GPT 43 + Claude 1</div></div><div class="t-bar merged-claude" style="height:2.3%"></div></div><div class="t-label">May 25</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:97.3%"><div class="t-bar merged-gpt" style="height:96.4%"><div class="tip">Jun 25: GPT 106 + Claude 4</div></div><div class="t-bar merged-claude" style="height:3.6%"></div></div><div class="t-label">Jun 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:47.8%"><div class="tip">Jul 25: GPT 54</div></div><div class="t-label">Jul 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:51.3%"><div class="tip">Aug 25: GPT 58</div></div><div class="t-label">Aug 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:79.6%"><div class="tip">Sep 25: GPT 90</div></div><div class="t-label">Sep 25</div></div>
+          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:73.5%"><div class="tip">Oct 25: GPT 83</div></div><div class="t-label">Oct 25</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:77%"><div class="t-bar merged-gpt" style="height:85.1%"><div class="tip">Nov 25: GPT 74 + Claude 13</div></div><div class="t-bar merged-claude" style="height:14.9%"></div></div><div class="t-label">Nov 25</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:63.7%"><div class="t-bar merged-gpt" style="height:70.8%"><div class="tip">Dec 25: GPT 51 + Claude 21</div></div><div class="t-bar merged-claude" style="height:29.2%"></div></div><div class="t-label">Dec 25</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:58.4%"><div class="t-bar merged-gpt" style="height:77.3%"><div class="tip">Jan 26: GPT 51 + Claude 15</div></div><div class="t-bar merged-claude" style="height:22.7%"></div></div><div class="t-label">Jan 26</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:54.9%"><div class="t-bar merged-gpt" style="height:51.6%"><div class="tip">Feb 26: GPT 32 + Claude 30</div></div><div class="t-bar merged-claude" style="height:48.4%"></div></div><div class="t-label">Feb 26</div></div>
+          <div class="t-bar-wrap"><div class="t-stack" style="height:30.1%"><div class="t-bar merged-gpt" style="height:50%"><div class="tip">Mar 26: GPT 17 + Claude 17</div></div><div class="t-bar merged-claude" style="height:50%"></div></div><div class="t-label">Mar 26</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MERGED: SIDE BY SIDE -->
+    <div class="view" id="merged-sidebyside">
+      <div class="chart-section">
+        <div class="chart-header"><div><div class="chart-title">Platform Comparison</div><div class="chart-subtitle">How the same person uses two different AI tools.</div></div></div>
+        <table class="comp-table">
+          <thead><tr><th>Metric</th><th>ChatGPT</th><th>Claude</th></tr></thead>
+          <tbody>
+            <tr><td>Total conversations</td><td class="val-purple">1,474</td><td class="val-cyan">104</td></tr>
+            <tr><td>Months active</td><td class="val-purple">21</td><td class="val-cyan">6</td></tr>
+            <tr><td>Words written (user)</td><td class="val-purple">~356,000</td><td class="val-cyan">~27,000</td></tr>
+            <tr><td>Avg words/month</td><td class="val-purple">~17,000</td><td class="val-cyan">~4,500</td></tr>
+            <tr><td>Avg messages/convo</td><td class="val-purple">17.1</td><td class="val-cyan">7.8</td></tr>
+            <tr><td>Deep convos (10+ msgs)</td><td class="val-purple">46.5%</td><td class="val-cyan">26.0%</td></tr>
+            <tr><td>Code involvement</td><td class="val-purple">33.6%</td><td class="val-cyan">47.1%</td></tr>
+            <tr><td>Image generation</td><td class="val-purple">25.3%</td><td class="val-cyan">0%</td></tr>
+            <tr><td>Blindspot conversations</td><td class="val-purple">329</td><td class="val-cyan">32</td></tr>
+            <tr><td>Emotional processing</td><td class="val-purple">157</td><td class="val-cyan">5 (but deeper)</td></tr>
+            <tr><td>Primary use</td><td class="val-purple">Thinking partner</td><td class="val-cyan">Build partner</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-header"><h3>The Migration Story</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card info"><div class="insight-badge info">Observation</div><h4>February 2026: The Crossover</h4><p>ChatGPT: 32 conversations. Claude: 30. For the first time, usage is nearly equal. By March, they're tied at 17 each. The transition isn't a switch &mdash; it's a gradient, and you're past the midpoint.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Observation</div><h4>Different Tools, Different Trust</h4><p>ChatGPT got the volume: brainstorms, quick queries, image generation, casual exploration. Claude got the weight: ACT therapy about your father, the cancer protocol, the friend apology letter, the financial dashboard. You give Claude the things that matter.</p></div>
+        <div class="insight-card info"><div class="insight-badge info">Observation</div><h4>From Consumer to Builder</h4><p>ChatGPT usage was 75% consumption (asking questions, getting answers). Claude usage is 47% construction (building dashboards, deploying websites, creating systems). You evolved from AI user to AI operator. Claude was the catalyst for that shift.</p></div>
+      </div>
+    </div>
+
+    <!-- MERGED: THE DIAGNOSIS -->
+    <div class="view" id="merged-diagnosis">
+      <div class="feature-box"><h3 class="gold">The Diagnosis</h3><p>1,578 conversations across two platforms, 21 months, 383,000 words. Here is what the data says about what keeps you from achieving more.</p></div>
+
+      <div class="insight-grid">
+        <div class="insight-card danger"><div class="insight-badge danger">Root Cause #1</div><h4>Unmanaged ADHD is the Invisible Tax</h4><p>Executive function collapse caused job loss in 2023. Self-medication with Vyvanse (40mg, from a GP, not a specialist). Reminder systems redesigned multiple times. "I think of something, start it, and while multitasking I'll forget even why I started." You've diagnosed this yourself across both platforms. You've built coping tools. You haven't secured sustained professional treatment. Every other problem in this list is amplified by this one.</p></div>
+        <div class="insight-card danger"><div class="insight-badge danger">Root Cause #2</div><h4>Perfectionism Weaponized Against Yourself</h4><p>"Momentum Over Polish" &mdash; you named the framework. Then built more frameworks instead of shipping. 200+ script sessions, 32 revenge narrative conversations, 16 branding conversations, 373 cover image iterations, website versions V6 through V10. The pattern isn't laziness. It's a nervous system that equates publishing with exposure, and exposure with vulnerability. The same vulnerability your father's letter forces you to confront.</p></div>
+        <div class="insight-card danger"><div class="insight-badge danger">Root Cause #3</div><h4>Financial Stress Creates a Survival Loop</h4><p>Unemployed. Credit card interest eroding payments. Divorce pending. No stable health insurance for ADHD treatment. This creates a paradox: you need The Blindspot to generate income, but financial anxiety makes creative risk-taking harder, which delays The Blindspot, which extends the financial pressure. The loop is self-reinforcing.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Amplifier</div><h4>Private Excellence, Public Silence</h4><p>Your private work is exceptional. The system prompts are professional-grade. The scripts are sharp. The dashboards are polished. The Letterboxd voice is distinctive. The research is primary-source-driven. None of it is public. The gap between what you've built in private and what the world has seen is enormous. Accent self-consciousness, ESL anxiety, and the coming-out history all feed a pattern where being seen feels unsafe.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Amplifier</div><h4>Tool-Building as Sophisticated Procrastination</h4><p>ChaosConsole, Thinking Engine, Spotify Tracker, Finance Dashboard, Digital Ecosystem V10, ADHD reminder redesign, iPhone app reorganization, Gemini data analysis, this very intelligence report. Each system is genuinely useful. Each system also delays the one output that matters: a published video. You build the cockpit instruments instead of taking off.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Amplifier</div><h4>Emotional Backlog Consuming Bandwidth</h4><p>Father's unresolved letter. Friend Charles's months of silence. Cancer survivorship without follow-up protocol. Divorce logistics. Immigration-related identity tensions. Each unresolved emotional thread occupies cognitive RAM. For someone with ADHD, cognitive RAM is already scarce. The emotional backlog isn't separate from the productivity problem. It IS the productivity problem.</p></div>
+      </div>
+    </div>
+
+    <!-- MERGED: THE PRESCRIPTION -->
+    <div class="view" id="merged-prescription">
+      <div class="section-header"><h3>The Prescription</h3></div>
+      <div class="insight-grid">
+        <div class="insight-card strength"><div class="insight-badge strength">Priority 1</div><h4>Get ADHD Properly Managed</h4><p>Not self-medicated. Not a GP prescription. A psychiatrist who specializes in adult ADHD, with proper titration, therapy support, and executive function coaching. Check Covered CA / Blue Shield enrollment status. This unlocks everything else. Without it, every other prescription here is fighting against your own neurochemistry.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Priority 2</div><h4>Publish One Imperfect Video</h4><p>Not the 45-minute revenge documentary. A 6-8 minute commentary on a topic you can research in one day. Use the Jon Stewart monologue format you've already drafted. Record it in one take with your Sony Alpha 7IV. Edit it in one session. Upload it. The first video's job is not to be good. Its job is to exist.</p></div>
+        <div class="insight-card strength"><div class="insight-badge strength">Priority 3</div><h4>Write the Short Letter to Your Father</h4><p>You already decided in the ACT session: acknowledge receipt, say you'll talk in the summer. Send the bridge note. It doesn't need to be the long letter. It needs to not be silence. Silence is the thing that hurt you when he did it. Don't replicate the pattern.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Priority 4</div><h4>Freeze the Tool-Building</h4><p>ChaosConsole is done. The dashboards work. The Spotify tracker exists. No new systems until the first video is published. Every hour spent building a new tool is an hour not spent on the only deliverable that changes your trajectory.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Priority 4</div><h4>Consolidate to One AI Platform</h4><p>You're already migrating to Claude. Complete it. Stop splitting context across ChatGPT, Claude, and Gemini. One platform, one memory, one coherent thread. The intelligence you need is already here. What's missing isn't more data &mdash; it's concentrated action.</p></div>
+        <div class="insight-card warning"><div class="insight-badge warning">Priority 5</div><h4>Resolve the Financial Floor</h4><p>Even a part-time or contract role buys time and reduces the ambient anxiety that chokes creative output. Your PM skills, cloud architecture knowledge, and systematic thinking are immediately employable. The Blindspot doesn't have to be the income source. It has to be the creative outlet while something else covers rent.</p></div>
+      </div>
+
+      <div class="section-header"><h3>If You Remember Nothing Else</h3></div>
+      <div class="takeaway">
+        <p><strong class="g">1.</strong> You have written <strong>383,000 words</strong> across two AI platforms in 21 months. You have built dashboards, scripts, system prompts, research archives, and an entire personal operating system. <strong>The capability is not in question.</strong> You are not lacking in talent, discipline, or ideas.</p>
+        <p><strong class="a">2.</strong> What keeps you from achieving more is a <strong>three-way collision</strong>: unmanaged ADHD consuming executive function, financial precarity creating survival-mode thinking, and a deep-rooted fear of public exposure rooted in a lifetime of being told your authentic self was something to hide. These three forces create a loop where preparation feels productive but publication feels dangerous.</p>
+        <p><strong class="r">3.</strong> The next action is not another analysis, not another dashboard, not another conversation with an AI. It is <strong>one phone call to a psychiatrist</strong>, <strong>one imperfect video uploaded</strong>, and <strong>one short letter sent</strong>. Three actions. Everything else is noise.</p>
+      </div>
+    </div>
+
+  </div><!-- /section-merged -->
+
+
+  <!-- FOOTER -->
+  <footer class="colophon">
+    <span>Gary's Command Center &copy; 2026</span>
+    <span>Analysis by Claude &middot; March 2026</span>
+  </footer>
+
+</div>
+
+<script>
+// Section switching
+function showSection(id) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.querySelector('.section-btn[data-section="' + id + '"]').classList.add('active');
+}
+
+// Tab switching within sections
+function showView(prefix, id, btn) {
+  var panel = btn.closest('.section-panel');
+  panel.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+  panel.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById(prefix + '-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Theme toggle
+function toggleTheme() {
+  var html = document.documentElement;
+  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.querySelector('#themeToggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+}
+
+(function() {
+  var saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  var btn = document.querySelector('#themeToggle');
+  if (btn) {
+    btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    btn.addEventListener('click', toggleTheme);
+  }
+})();
+</script>
+
+</body>
+</html>
