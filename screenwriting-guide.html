@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenwriting Guide — Gary's Command Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --font-inter: "Inter", sans-serif;
+            --font-syncopate: "Syncopate", sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0b0f1a;
+            --bg-elevated: #101828;
+            --surface: #151d2e;
+            --surface-2: #1c2640;
+            --border: #2a3a5c;
+            --border-subtle: #1e2d4a;
+            --text: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #d4a052;
+            --accent-dim: rgba(212, 160, 82, 0.10);
+            --accent-glow: rgba(212, 160, 82, 0.25);
+            --red: #f87171;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --purple: #a07dd4;
+            --pink: #f472b6;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f4f8;
+            --bg-elevated: #ffffff;
+            --surface: #ffffff;
+            --surface-2: #e8edf4;
+            --border: #c8d3e0;
+            --border-subtle: #dce3ed;
+            --text: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --accent: #b8862d;
+            --accent-dim: rgba(184, 134, 45, 0.08);
+            --accent-glow: rgba(184, 134, 45, 0.18);
+            --red: #dc2626;
+            --green: #16a34a;
+            --blue: #2563eb;
+            --purple: #7c3aed;
+            --pink: #db2777;
+            --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--blue), var(--purple));
+            z-index: 1000;
+            transition: width 0.2s ease;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background-color: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 100;
+            padding: 2rem 0;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+
+        .sidebar-header h1 {
+            font-family: var(--font-syncopate);
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-nav {
+            padding: 0 0.75rem;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section-title {
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            color: var(--text);
+            background-color: var(--surface-2);
+            border-left-color: var(--accent);
+        }
+
+        .sidebar-link.phase-1 { --phase-color: #e74c5a; }
+        .sidebar-link.phase-2 { --phase-color: #3b82f6; }
+        .sidebar-link.phase-3 { --phase-color: #8b5cf6; }
+        .sidebar-link.phase-4 { --phase-color: #f59e0b; }
+        .sidebar-link.phase-5 { --phase-color: #334155; }
+        .sidebar-link.phase-6 { --phase-color: #ec4899; }
+        .sidebar-link.phase-7 { --phase-color: #14b8a6; }
+        .sidebar-link.phase-8 { --phase-color: #f97316; }
+
+        .sidebar-link.active {
+            border-left-color: var(--phase-color);
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 200;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2rem;
+            max-width: 1000px;
+        }
+
+        .back-nav {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.25rem;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-nav:hover {
+            background-color: var(--surface-2);
+            border-color: var(--accent);
+        }
+
+        .title-section {
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .title-section h1 {
+            font-family: var(--font-syncopate);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 150;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--surface-2);
+            border-color: var(--accent);
+        }
+
+        /* Phase Headers */
+        .phase {
+            margin-bottom: 4rem;
+        }
+
+        .phase-header {
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 4px solid var(--phase-color);
+        }
+
+        .phase-header h2 {
+            font-family: var(--font-syncopate);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-number {
+            display: inline-block;
+            background-color: var(--phase-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* Subchapter Headers */
+        .subchapter {
+            margin-bottom: 2.5rem;
+        }
+
+        .subchapter-header {
+            margin-bottom: 1rem;
+        }
+
+        .subchapter-header h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .sub-subchapter {
+            margin: 1.5rem 0;
+            margin-left: 1rem;
+        }
+
+        .sub-subchapter h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--border);
+        }
+
+        /* Content */
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            border-radius: 4px;
+            background-color: var(--surface);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+        }
+
+        .callout ul, .callout ol {
+            margin-bottom: 0;
+        }
+
+        .exercise {
+            border-left-color: #e74c5a;
+            background-color: rgba(231, 76, 90, 0.08);
+        }
+
+        .exercise .callout-title {
+            color: #e74c5a;
+        }
+
+        .pro-tip {
+            border-left-color: #4ade80;
+            background-color: rgba(74, 222, 128, 0.08);
+        }
+
+        .pro-tip .callout-title {
+            color: #4ade80;
+        }
+
+        .pitfall {
+            border-left-color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+
+        .pitfall .callout-title {
+            color: #f59e0b;
+        }
+
+        .community {
+            border-left-color: #fbbf24;
+            background-color: rgba(251, 191, 36, 0.08);
+        }
+
+        .community .callout-title {
+            color: #fbbf24;
+        }
+
+        .blockquote {
+            border-left-color: var(--accent);
+            background-color: var(--accent-dim);
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent);
+            font-style: italic;
+            color: var(--text-secondary);
+            border-radius: 4px;
+        }
+
+        .blockquote p {
+            margin-bottom: 0;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--surface-2);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 50;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--surface-2);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                max-width: 260px;
+                box-shadow: var(--shadow);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem 1rem;
+            }
+
+            .title-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .phase-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .subchapter-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .theme-toggle {
+                top: 0.75rem;
+                right: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .title-section {
+                margin-bottom: 2rem;
+            }
+
+            .title-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .subchapter-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .phase-header h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="progress-bar"></div>
+    <button class="menu-toggle">☰</button>
+    <button class="theme-toggle">🌙 Dark</button>
+
+    <div class="page-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Contents</h1>
+                <p>68-Page Study Guide</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Navigation</div>
+                    <a href="#top" class="sidebar-link">← Back to Top</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 1: Foundations</div>
+                    <a href="#phase-1" class="sidebar-link phase-1">Phase 1</a>
+                    <a href="#1-1" class="sidebar-link">1.1 What Makes a Story Work</a>
+                    <a href="#1-2" class="sidebar-link">1.2 Narrative Structure</a>
+                    <a href="#1-3" class="sidebar-link">1.3 Character Creation</a>
+                    <a href="#1-4" class="sidebar-link">1.4 Conflict and Stakes</a>
+                    <a href="#1-5" class="sidebar-link">1.5 Theme vs. Plot</a>
+                    <a href="#1-6" class="sidebar-link">1.6 Visual Storytelling</a>
+                    <a href="#1-7" class="sidebar-link">1.7 Screenplay Formatting</a>
+                    <a href="#1-8" class="sidebar-link">1.8 Emotional Core</a>
+                    <a href="#1-9" class="sidebar-link">1.9 World-Building</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 2: Fundamentals</div>
+                    <a href="#phase-2" class="sidebar-link phase-2">Phase 2</a>
+                    <a href="#2-1" class="sidebar-link">2.1 Three-Act Structure</a>
+                    <a href="#2-2" class="sidebar-link">2.2 Scene Design</a>
+                    <a href="#2-3" class="sidebar-link">2.3 Dialogue</a>
+                    <a href="#2-4" class="sidebar-link">2.4 Subtext</a>
+                    <a href="#2-5" class="sidebar-link">2.5 Character Arcs</a>
+                    <a href="#2-6" class="sidebar-link">2.6 Beat Sheets</a>
+                    <a href="#2-7" class="sidebar-link">2.7 Loglines</a>
+                    <a href="#2-8" class="sidebar-link">2.8 Short Films</a>
+                    <a href="#2-9" class="sidebar-link">2.9 Action Lines</a>
+                    <a href="#2-10" class="sidebar-link">2.10 Opening</a>
+                    <a href="#2-11" class="sidebar-link">2.11 Reading Scripts</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 3: Advanced</div>
+                    <a href="#phase-3" class="sidebar-link phase-3">Phase 3</a>
+                    <a href="#3-1" class="sidebar-link">3.1 Alternative Structures</a>
+                    <a href="#3-2" class="sidebar-link">3.2 Genre Conventions</a>
+                    <a href="#3-3" class="sidebar-link">3.3 Ensemble Casts</a>
+                    <a href="#3-4" class="sidebar-link">3.4 Nonlinear Storytelling</a>
+                    <a href="#3-5" class="sidebar-link">3.5 Tension and Pacing</a>
+                    <a href="#3-6" class="sidebar-link">3.6 Rewriting</a>
+                    <a href="#3-7" class="sidebar-link">3.7 TV vs. Film</a>
+                    <a href="#3-8" class="sidebar-link">3.8 Writing Comedy</a>
+                    <a href="#3-9" class="sidebar-link">3.9 Writing Horror</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 4: Production</div>
+                    <a href="#phase-4" class="sidebar-link phase-4">Phase 4</a>
+                    <a href="#4-1" class="sidebar-link">4.1 Scripts to Films</a>
+                    <a href="#4-2" class="sidebar-link">4.2 Production Roles</a>
+                    <a href="#4-3" class="sidebar-link">4.3 Pre-Production</a>
+                    <a href="#4-4" class="sidebar-link">4.4 Budgeting</a>
+                    <a href="#4-5" class="sidebar-link">4.5 Casting</a>
+                    <a href="#4-6" class="sidebar-link">4.6 Location Scouting</a>
+                    <a href="#4-7" class="sidebar-link">4.7 Micro-Budget</a>
+                    <a href="#4-8" class="sidebar-link">4.8 Director-Writer</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 5: Directing</div>
+                    <a href="#phase-5" class="sidebar-link phase-5">Phase 5</a>
+                    <a href="#5-1" class="sidebar-link">5.1 Blocking and Staging</a>
+                    <a href="#5-2" class="sidebar-link">5.2 Shot Composition</a>
+                    <a href="#5-3" class="sidebar-link">5.3 Camera Movement</a>
+                    <a href="#5-4" class="sidebar-link">5.4 Working with Actors</a>
+                    <a href="#5-5" class="sidebar-link">5.5 Visual Motifs</a>
+                    <a href="#5-6" class="sidebar-link">5.6 Storyboarding</a>
+                    <a href="#5-7" class="sidebar-link">5.7 Coverage</a>
+                    <a href="#5-8" class="sidebar-link">5.8 Language of Editing</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 6: Post-Production</div>
+                    <a href="#phase-6" class="sidebar-link phase-6">Phase 6</a>
+                    <a href="#6-1" class="sidebar-link">6.1 Lighting</a>
+                    <a href="#6-2" class="sidebar-link">6.2 Lens Selection</a>
+                    <a href="#6-3" class="sidebar-link">6.3 Editing Rhythms</a>
+                    <a href="#6-4" class="sidebar-link">6.4 Sound Design</a>
+                    <a href="#6-5" class="sidebar-link">6.5 Color Grading</a>
+                    <a href="#6-6" class="sidebar-link">6.6 Audio Post</a>
+                    <a href="#6-7" class="sidebar-link">6.7 Visual Effects</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 7: Industry</div>
+                    <a href="#phase-7" class="sidebar-link phase-7">Phase 7</a>
+                    <a href="#7-1" class="sidebar-link">7.1 Film Financing</a>
+                    <a href="#7-2" class="sidebar-link">7.2 Film Festivals</a>
+                    <a href="#7-3" class="sidebar-link">7.3 Agents and Managers</a>
+                    <a href="#7-4" class="sidebar-link">7.4 Pitching</a>
+                    <a href="#7-5" class="sidebar-link">7.5 Writers' Rooms</a>
+                    <a href="#7-6" class="sidebar-link">7.6 Streaming Landscape</a>
+                    <a href="#7-7" class="sidebar-link">7.7 Copyright and IP</a>
+                    <a href="#7-8" class="sidebar-link">7.8 Career Building</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Phase 8: Projects</div>
+                    <a href="#phase-8" class="sidebar-link phase-8">Phase 8</a>
+                    <a href="#8-1" class="sidebar-link">8.1 Write a Scene</a>
+                    <a href="#8-2" class="sidebar-link">8.2 Rewrite Bad Scene</a>
+                    <a href="#8-3" class="sidebar-link">8.3 Adapt Short Story</a>
+                    <a href="#8-4" class="sidebar-link">8.4 Short Film Script</a>
+                    <a href="#8-5" class="sidebar-link">8.5 TV Pilot</a>
+                    <a href="#8-6" class="sidebar-link">8.6 Additional Exercises</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="top">
+            <a href="index.html" class="back-nav">← Command Center</a>
+
+            <div class="title-section">
+                <h1>Screenwriting & Film Production</h1>
+                <p>A Complete Study Guide — From Blank Page to Final Cut</p>
+            </div>
+
+            <!-- PHASE 1 -->
+            <section class="phase" id="phase-1">
+                <div class="phase-header" style="--phase-color: #e74c5a;">
+                    <span class="phase-number">PHASE 1</span>
+                    <h2>Foundations of Storytelling</h2>
+                </div>
+
+                <article class="subchapter" id="1-1">
+                    <div class="subchapter-header">
+                        <h3>1.1 What Makes a Story Work</h3>
+                    </div>
+                    <p>Every story that works -- from a cave painting to a Netflix series -- does the same thing: it creates a question the audience needs answered, then withholds the answer long enough to generate tension. That is the irreducible mechanism. Everything else -- character, theme, spectacle -- is in service of that engine.</p>
+                    <p>Robert McKee, in <em>Story</em>, puts it this way: a story is a series of events that are linked by causation and driven by a character's desire. Remove causation and you have a sequence of events. Remove desire and you have a documentary.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Three Engines of Engagement:</h4>
+                        <ul>
+                            <li><strong>Dramatic Question:</strong> Will Michael Corleone become his father? Will Andy Dufresne escape? The audience must have a question they are desperate to see resolved.</li>
+                            <li><strong>Stakes:</strong> The answer to the question must matter. If the character can walk away unharmed, there is no story. Stakes can be life-or-death, emotional, moral, or existential.</li>
+                            <li><strong>Uncertainty:</strong> The outcome must be in doubt. If the audience knows how it ends, they check out.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Why Stories Fail:</h4>
+                        <p>Most beginner screenplays fail not because of bad dialogue or poor formatting, but because they violate one of these three principles. The most common failure mode: a script where things happen but nothing is at stake.</p>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>r/Screenwriting users consistently identify 'no stakes' as the number-one problem in amateur scripts: "If your protagonist can just leave, your story is broken. They have to be trapped -- by circumstance, obsession, or moral obligation."</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Aristotle's Framework (Still Relevant):</h4>
+                        <p>In the <em>Poetics</em> (~335 BCE), Aristotle identified six elements of drama, ranked by importance: Plot, Character, Theme (Thought), Diction, Song (Music/Sound), and Spectacle. Twenty-four centuries later, this hierarchy still holds.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Identify the Engine</div>
+                        <p>Pick three films you love. For each, write one sentence answering: What is the dramatic question? What are the stakes? Where does the uncertainty come from?</p>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"Storytelling is joke-telling. It's knowing your punchline, your ending, knowing that everything you're saying, from the first sentence to the last, is leading to a singular goal." -- Andrew Stanton, TED Talk (2012)</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-2">
+                    <div class="subchapter-header">
+                        <h3>1.2 Narrative Structure Fundamentals</h3>
+                    </div>
+                    <p>Structure is not a formula -- it is an observation about how audiences process stories. Humans expect escalation. They expect causation. They expect transformation.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Universal Shape:</h4>
+                        <p>Kurt Vonnegut famously mapped stories as curves on a graph where the x-axis is time and the y-axis is the protagonist's fortune (good to bad). Most stories follow a small number of shapes:</p>
+                        <ul>
+                            <li><strong>Rags to Riches:</strong> Steady rise. (Cinderella, Rocky)</li>
+                            <li><strong>Riches to Rags:</strong> Steady decline. (Requiem for a Dream, Scarface)</li>
+                            <li><strong>Man in a Hole:</strong> Fall then rise. (Die Hard, The Martian)</li>
+                            <li><strong>Icarus:</strong> Rise then fall. (Goodfellas, The Social Network)</li>
+                            <li><strong>Cinderella:</strong> Rise, fall, rise. (Star Wars, It's a Wonderful Life)</li>
+                            <li><strong>Oedipus:</strong> Fall, rise, fall. (Chinatown, No Country for Old Men)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Beginning, Middle, End -- But Not Equally:</h4>
+                        <p>Syd Field, in <em>Screenplay</em> (1979), codified the paradigm that most Hollywood films follow: Act I (Setup, ~25%), Act II (Confrontation, ~50%), Act III (Resolution, ~25%). Act II is twice as long because that is where the real work of the story happens.</p>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>If your second act sags, it almost always means your protagonist does not have enough obstacles, or the obstacles do not escalate.</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>The Sequence Approach:</h4>
+                        <p>Before Syd Field, screenwriting was often taught using the sequence method. A two-hour film has roughly eight 12-15 minute sequences, each functioning as a mini-story with its own tension and resolution.</p>
+                        <ul>
+                            <li>Sequence 1: Status quo and inciting incident.</li>
+                            <li>Sequence 2: The protagonist responds, enters new territory.</li>
+                            <li>Sequence 3: First major obstacle. Subplot introduced.</li>
+                            <li>Sequence 4: Midpoint -- a twist or revelation that changes everything.</li>
+                            <li>Sequence 5: Consequences of the midpoint. Rising complications.</li>
+                            <li>Sequence 6: Things fall apart. Apparent defeat.</li>
+                            <li>Sequence 7: New plan. Final push.</li>
+                            <li>Sequence 8: Climax and resolution.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Map the Sequences</div>
+                        <p>Watch a film with a clear three-act structure (The Fugitive, Alien, or Parasite work well). Pause every 12-15 minutes and note what question was raised and answered in that block.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-3">
+                    <div class="subchapter-header">
+                        <h3>1.3 Character Creation</h3>
+                    </div>
+                    <p>Plot is what happens. Character is who it happens to -- and more importantly, who is changed by it.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Character Hierarchy:</h4>
+                        <ul>
+                            <li><strong>Protagonist:</strong> Must want something (conscious desire), need something (unconscious need), and be tested by the gap between the two.</li>
+                            <li><strong>Antagonist:</strong> Not a villain -- an opposing force. The strongest antagonists believe they are right.</li>
+                            <li><strong>Supporting characters:</strong> Exist to illuminate aspects of the protagonist.</li>
+                            <li><strong>Functional characters:</strong> Servers, taxi drivers, the voice on the phone. They move the plot but do not need backstories.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Want vs. Need:</h4>
+                        <p>The protagonist's want is their conscious goal. The need is the internal truth they must accept for real growth. In <em>The Godfather</em>, Michael wants to stay out of the family business (want). He needs to confront the fact that he is more like his father than he admits (need).</p>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"When people define themselves, they are actually revealing what they are not. That's the gap. The gap between what people appear to be and who they really are -- that's where drama lives." -- Robert McKee, <em>Story</em></p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Building Characters That Feel Real:</h4>
+                        <ul>
+                            <li><strong>Contradiction:</strong> Real people are contradictory. A ruthless CEO who is gentle with animals. A pacifist with a violent temper.</li>
+                            <li><strong>Specificity:</strong> Characters become real through specific details. 'She's tough' is a note. 'She laughs at bad news and goes quiet when things go well' is a character.</li>
+                            <li><strong>Backstory as iceberg:</strong> You need to know 10x more about your character than will ever appear on screen.</li>
+                            <li><strong>Pressure reveals character:</strong> True character is revealed under pressure, not in comfort.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>"Every character thinks they are the hero of their own story. If you cannot write a version of the script from the antagonist's POV where they are justified, your antagonist is too thin."</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Character Contradiction Sheet</div>
+                        <p>For your protagonist, list five adjectives that describe them. Now list the opposite of each adjective. Find at least two contradictions that could coexist.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-4">
+                    <div class="subchapter-header">
+                        <h3>1.4 Conflict and Stakes</h3>
+                    </div>
+                    <p>Conflict is the engine of drama. Without conflict, you have a report. There are three layers of conflict:</p>
+                    <ul>
+                        <li><strong>External conflict:</strong> Character vs. world. Physical obstacles, antagonists, ticking clocks.</li>
+                        <li><strong>Interpersonal conflict:</strong> Character vs. character. Disagreements, betrayals, competing desires.</li>
+                        <li><strong>Internal conflict:</strong> Character vs. self. Fear, guilt, contradiction. This is the invisible layer -- what the story is really about.</li>
+                    </ul>
+
+                    <div class="sub-subchapter">
+                        <h4>Escalating Stakes:</h4>
+                        <p>Stakes must escalate or the audience habituates. In <em>Die Hard</em>, the progression is: personal survival -> wife's survival -> building full of hostages -> national security implications.</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>The Ticking Clock:</h4>
+                        <p>One of the most reliable tools for maintaining tension is temporal pressure. When the audience knows there is a deadline, every scene carries urgency.</p>
+                    </div>
+
+                    <div class="callout pitfall">
+                        <div class="callout-title">Common Pitfall</div>
+                        <p>Stakes without specificity are meaningless. 'The world will end' is actually less tense than 'her daughter will miss the recital.' Ground your stakes in specific, personal consequences.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Stake Escalation Map</div>
+                        <p>For a story idea, list five progressively higher stakes. Start personal and small, and end at the highest possible stakes for your genre.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-5">
+                    <div class="subchapter-header">
+                        <h3>1.5 Theme vs. Plot</h3>
+                    </div>
+                    <p>Plot is what happens. Theme is what the story means. They are not the same thing, but in a great screenplay they are inseparable.</p>
+                    <p>Theme is not a message. It is not a lesson. It is a question the film explores. <em>The Godfather</em> does not say 'crime is bad.' It asks: what is the cost of power?</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Finding Your Theme:</h4>
+                        <ul>
+                            <li><strong>Theme emerges from character:</strong> What does your protagonist need to learn?</li>
+                            <li><strong>Theme is expressed through opposition:</strong> The antagonist often represents the counter-argument.</li>
+                            <li><strong>Theme unifies subplots:</strong> Every subplot should explore the theme from a different angle.</li>
+                        </ul>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"What is the movie about? No, I don't mean the plot. Every movie is about something beyond its plot. If you can't tell me what your script is about in a single thematic sentence, you don't know what you're writing yet." -- Billy Wilder (attributed)</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Theme Statement</div>
+                        <p>For a film you admire, write one sentence that captures the theme (not the plot). Example: <em>Parasite</em> -- "Class structures are architecturally enforced and cannot be escaped through imitation."</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-6">
+                    <div class="subchapter-header">
+                        <h3>1.6 Visual Storytelling</h3>
+                    </div>
+                    <p>Film is a visual medium. The most common note given to beginning screenwriters is: 'Show, don't tell.'</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Principle of Visual Subtext:</h4>
+                        <p>In <em>The Godfather</em>, when Michael returns from Sicily, he enters through a dark doorway, his face half in shadow. In <em>Parasite</em>, the Kim family literally ascends stairs to reach the Park house and descends to return home. The vertical geography is the theme.</p>
+                        <ul>
+                            <li><strong>Objects carry meaning:</strong> The spinning top in <em>Inception</em>. The red coat in <em>Schindler's List</em>.</li>
+                            <li><strong>Space encodes power:</strong> Who occupies the center of the frame? Who is pushed to the margins?</li>
+                            <li><strong>Action reveals character:</strong> What a character does always trumps what they say.</li>
+                            <li><strong>Environment as psychology:</strong> Production design is not decoration.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>When writing a screenplay, look for every line of dialogue that tells the audience how a character feels. Ask: can I replace this with an action, an object, or a visual? If yes, cut the dialogue.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Silent Scene</div>
+                        <p>Write a 2-page scene with zero dialogue where the audience learns: (a) the character's emotional state, (b) their relationship to another character, and (c) what they want.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-7">
+                    <div class="subchapter-header">
+                        <h3>1.7 Basic Screenplay Formatting</h3>
+                    </div>
+                    <p>Formatting is not creativity's enemy -- it is its container. Industry-standard formatting exists for a practical reason: one page of properly formatted screenplay equals roughly one minute of screen time.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Six Core Elements:</h4>
+                        <ul>
+                            <li><strong>Scene heading (slug line):</strong> INT. or EXT., location, time of day. Always caps. Example: INT. DETECTIVE'S OFFICE - NIGHT</li>
+                            <li><strong>Action lines:</strong> Present tense, visual, lean. Describe only what the camera sees and the microphone hears.</li>
+                            <li><strong>Character name:</strong> Centered, all caps, appears above dialogue.</li>
+                            <li><strong>Dialogue:</strong> Centered below the character name. No 'he said' tags.</li>
+                            <li><strong>Parenthetical:</strong> Brief direction within dialogue (sparingly). Overusing parentheticals is a mark of inexperience.</li>
+                            <li><strong>Transition:</strong> CUT TO:, FADE TO:, etc. Used sparingly in modern scripts.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Technical Specs:</h4>
+                        <ul>
+                            <li>Font: 12-point Courier (or Courier Prime).</li>
+                            <li>Margins: 1.5 inches left, 1 inch right, 1 inch top and bottom.</li>
+                            <li>Page length: Approximately 55-60 lines per page.</li>
+                            <li>One page = approximately one minute of screen time.</li>
+                            <li>Feature length: 90-120 pages. Comedies run shorter (90-100). Dramas run longer (100-120).</li>
+                            <li>Software: Final Draft (industry standard), WriterSolo (free), Highland 2, Fade In, Arc Studio Pro.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'Nobody will reject your script because you used Fade In instead of Final Draft. But they will reject it if your formatting is wrong, your action lines are walls of text, or your script is 145 pages.'</p>
+                    </div>
+
+                    <div class="callout pitfall">
+                        <div class="callout-title">Common Pitfall</div>
+                        <p>Do not direct on the page. Avoid 'The CAMERA PANS across...' or 'We see...' unless you are also directing the film.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Format a Scene</div>
+                        <p>Take a scene from your favorite film and transcribe it into proper screenplay format using free software.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-8">
+                    <div class="subchapter-header">
+                        <h3>1.8 The Emotional Core</h3>
+                    </div>
+                    <p>Every great story has an emotional core -- a primal feeling the audience experiences throughout the film. It is not the theme (which is intellectual) but the visceral sensation the story generates.</p>
+                    <ul>
+                        <li><em>Jaws:</em> Dread.</li>
+                        <li><em>Up:</em> Loss.</li>
+                        <li><em>Whiplash:</em> Obsession.</li>
+                        <li><em>Moonlight:</em> Yearning.</li>
+                        <li><em>Get Out:</em> Paranoia.</li>
+                        <li><em>Parasite:</em> Envy.</li>
+                    </ul>
+
+                    <div class="blockquote">
+                        <p>"All good stories are about the same thing: the problem of the human heart in conflict with itself." -- William Faulkner, Nobel Prize speech (1950)</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Emotional Core Identification</div>
+                        <p>Watch three films from different genres. After each, write one word that captures the dominant emotion.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="1-9">
+                    <div class="subchapter-header">
+                        <h3>1.9 World-Building for Film</h3>
+                    </div>
+                    <p>Every film creates a world -- even a contemporary drama set in a recognizable city. The world has rules (physical, social, moral) that the audience learns in the first ten minutes.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Types of World Rules:</h4>
+                        <ul>
+                            <li><strong>Physical rules:</strong> In <em>John Wick</em>, a gold coin buys anything. In <em>The Matrix</em>, the laws of physics can be bent.</li>
+                            <li><strong>Social rules:</strong> In <em>Parasite</em>, the rich and poor occupy literally different elevations.</li>
+                            <li><strong>Moral rules:</strong> In <em>No Country for Old Men</em>, violence is random and unrewarded.</li>
+                            <li><strong>Tonal rules:</strong> In a Wes Anderson film, everything is symmetrical and slightly absurd.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'World-building is not just for sci-fi and fantasy. Every script has a world. If your world is generic, your story will be generic.'</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: World Rules Sheet</div>
+                        <p>For your story idea, list five rules that govern the world.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PHASE 2 -->
+            <section class="phase" id="phase-2">
+                <div class="phase-header" style="--phase-color: #3b82f6;">
+                    <span class="phase-number">PHASE 2</span>
+                    <h2>Screenwriting Fundamentals</h2>
+                </div>
+
+                <article class="subchapter" id="2-1">
+                    <div class="subchapter-header">
+                        <h3>2.1 Three-Act Structure</h3>
+                    </div>
+                    <p>Three-act structure is not a rule. It is a description of how most successful films are organized. The three acts correspond to three dramatic movements: setup, confrontation, and resolution.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Act I: Setup (Pages 1-25)</h4>
+                        <p>The first act has one job: make the audience care about a character and their problem. By page 10-12, the inciting incident must occur. By page 25, the protagonist must make a decision that commits them to the journey (the 'Break into Two').</p>
+                        <ul>
+                            <li>Opening image: Sets tone, genre, and world.</li>
+                            <li>Setup (pp. 1-10): Establish the protagonist, their world, and what is missing or broken.</li>
+                            <li>Inciting incident (pp. 10-12): The event that changes everything.</li>
+                            <li>Debate (pp. 12-25): The protagonist resists the call.</li>
+                            <li>Break into Two (p. 25): The protagonist commits.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Act II: Confrontation (Pages 25-85)</h4>
+                        <p>Act II is where most scripts die. It is 60 pages of the protagonist pursuing their goal against escalating opposition. The key structural tool is the midpoint (around page 55).</p>
+                        <ul>
+                            <li>B-Story (p. 30): A secondary storyline that explores the theme from a different angle.</li>
+                            <li>Fun and Games (pp. 30-55): The 'promise of the premise.'</li>
+                            <li>Midpoint (p. 55): A false victory or false defeat that raises the stakes.</li>
+                            <li>Bad Guys Close In (pp. 55-75): External pressures mount. Internal flaws surface.</li>
+                            <li>All Is Lost (p. 75): The lowest point. A 'whiff of death.'</li>
+                            <li>Dark Night of the Soul (pp. 75-85): The protagonist processes the failure.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Act III: Resolution (Pages 85-110)</h4>
+                        <p>The final act is the synthesis. The protagonist applies what they have learned and confronts the antagonist in a climax that resolves the central dramatic question.</p>
+                        <ul>
+                            <li>Break into Three (p. 85): A new plan emerges.</li>
+                            <li>Finale (pp. 85-110): The climax. All threads converge.</li>
+                            <li>Final image: The visual bookend.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>Blake Snyder's page counts assume a 110-page script. Adjust proportionally for shorter or longer scripts. The ratios matter more than the exact page numbers: roughly 25% / 50% / 25%.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-2">
+                    <div class="subchapter-header">
+                        <h3>2.2 Scene Design</h3>
+                    </div>
+                    <p>A scene is the basic unit of drama. Every scene must do at least one of three things: advance the plot, reveal character, or explore the theme. The best scenes do all three simultaneously.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Anatomy of a Scene:</h4>
+                        <ul>
+                            <li><strong>Objective:</strong> What does the protagonist want in this scene?</li>
+                            <li><strong>Obstacle:</strong> What prevents them from getting it?</li>
+                            <li><strong>Outcome:</strong> Does the character get what they want? The answer should usually be 'no' or 'yes, but...'</li>
+                            <li><strong>Turn:</strong> How has the situation changed by the end of the scene?</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Scene Construction Techniques:</h4>
+                        <ul>
+                            <li><strong>Enter late, leave early:</strong> Start the scene as close to the conflict as possible.</li>
+                            <li><strong>Scene-level beats:</strong> Within a scene, the power dynamic shifts moment to moment.</li>
+                            <li><strong>Compression:</strong> Scenes should be shorter than you think. Most scenes in produced scripts run 1-3 pages.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'My test for every scene -- cover up the dialogue and read only the action lines. If I can still tell what the scene is about and feel the tension, it works.'</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Scene Autopsy</div>
+                        <p>Pick a scene from a film you admire. Write down: (1) What does the protagonist want? (2) What is the obstacle? (3) What is the outcome? (4) What changed?</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-3">
+                    <div class="subchapter-header">
+                        <h3>2.3 Dialogue</h3>
+                    </div>
+                    <p>Good dialogue is not realistic speech. It is compressed, purposeful, and revealing. Real conversation is full of filler, repetition, and dead ends. Screen dialogue strips all of that away.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Principles of Screen Dialogue:</h4>
+                        <ul>
+                            <li><strong>Every character sounds different:</strong> Cover the character names and read the dialogue. If you cannot tell who is speaking, the voices are not distinct enough.</li>
+                            <li><strong>Dialogue is action:</strong> Characters do not speak to share information. They speak to get something, avoid something, or control something.</li>
+                            <li><strong>Exposition is poison:</strong> 'As you know, we've been partners for ten years...' is the hallmark of amateur writing.</li>
+                            <li><strong>Less is more:</strong> The tightest dialogue often comes from cutting a speech in half.</li>
+                            <li><strong>Silence is dialogue:</strong> What a character does not say is often more powerful than what they do say.</li>
+                        </ul>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"If you can remove a line of dialogue and the scene still works, you must remove it."</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Dialogue to Study:</h4>
+                        <ul>
+                            <li><strong>Aaron Sorkin:</strong> Rapid-fire, overlapping, intellectually dense.</li>
+                            <li><strong>The Coen Brothers:</strong> Dialogue that sounds simple but is loaded with subtext.</li>
+                            <li><strong>Quentin Tarantino:</strong> Long, meandering conversations that build tension precisely because they seem casual.</li>
+                            <li><strong>Greta Gerwig:</strong> Naturalistic, emotionally precise, characters who talk past each other.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Dialogue Restriction</div>
+                        <p>Write a 2-page scene between two characters who want different things. Rules: (1) Neither character can directly state what they want. (2) No speech longer than two lines. (3) At least three beats of silence or non-verbal action.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-4">
+                    <div class="subchapter-header">
+                        <h3>2.4 Subtext</h3>
+                    </div>
+                    <p>Subtext is the gap between what characters say and what they mean. It is the single most important skill in screenwriting.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>How Subtext Works:</h4>
+                        <p>Consider this exchange from <em>Casablanca</em>: ILSA says "Can I tell you a story, Rick?" RICK responds "Does it got a wow finish?" On the surface, they are discussing a story. In subtext, they are negotiating their entire relationship.</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Generating Subtext:</h4>
+                        <ul>
+                            <li><strong>Give characters a reason to hide:</strong> Shame, fear, propriety, power dynamics.</li>
+                            <li><strong>Put characters in public:</strong> People speak differently when others are listening.</li>
+                            <li><strong>Use displacement:</strong> Characters talk about something small to avoid talking about something big.</li>
+                            <li><strong>Contradiction between word and action:</strong> A character says 'I'm happy for you' while crushing a napkin under the table.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Subtext Translation</div>
+                        <p>Write a scene where a father tells his adult daughter he is proud of her -- without using the word 'proud,' 'love,' or any direct expression of emotion.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-5">
+                    <div class="subchapter-header">
+                        <h3>2.5 Character Arcs</h3>
+                    </div>
+                    <p>A character arc is the internal transformation a character undergoes over the course of the story.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Three Types of Arcs:</h4>
+                        <ul>
+                            <li><strong>Positive arc (transformation):</strong> The protagonist starts with a flaw or false belief and overcomes it. (Luke Skywalker, Will Hunting, Marlin in Finding Nemo.)</li>
+                            <li><strong>Negative arc (corruption/fall):</strong> The protagonist starts with potential and succumbs to a flaw. (Michael Corleone, Walter White, Macbeth.)</li>
+                            <li><strong>Flat arc (steadfast):</strong> The protagonist does not change -- instead, they change the world around them. (James Bond, Indiana Jones, Atticus Finch.)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Engineering the Arc:</h4>
+                        <p>The arc is engineered through three elements: a lie the character believes at the start, a series of events that challenge that lie, and a truth they accept (or reject) at the climax.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Arc Blueprint</div>
+                        <p>For your protagonist, write: (1) The lie they believe in Scene 1. (2) Three events that challenge this lie. (3) The moment they confront the truth. (4) Whether they accept or reject it.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-6">
+                    <div class="subchapter-header">
+                        <h3>2.6 Beat Sheets</h3>
+                    </div>
+                    <p>A beat sheet is a pre-writing tool that maps the major plot points of your screenplay before you write it.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Save the Cat Beat Sheet (Blake Snyder):</h4>
+                        <p>The most widely used beat sheet in Hollywood. Snyder's 15 beats subdivide three-act structure into specific, timed moments:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Beat</th>
+                                    <th>Page</th>
+                                    <th>Function</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Opening Image</td>
+                                    <td>1</td>
+                                    <td>Visual snapshot of the 'before' world</td>
+                                </tr>
+                                <tr>
+                                    <td>Theme Stated</td>
+                                    <td>5</td>
+                                    <td>A character states the theme (often disguised)</td>
+                                </tr>
+                                <tr>
+                                    <td>Set-Up</td>
+                                    <td>1-10</td>
+                                    <td>Introduce protagonist, world, stakes, tone</td>
+                                </tr>
+                                <tr>
+                                    <td>Catalyst</td>
+                                    <td>12</td>
+                                    <td>The inciting incident</td>
+                                </tr>
+                                <tr>
+                                    <td>Debate</td>
+                                    <td>12-25</td>
+                                    <td>Protagonist resists the call</td>
+                                </tr>
+                                <tr>
+                                    <td>Break into Two</td>
+                                    <td>25</td>
+                                    <td>Protagonist commits -- enters Act II</td>
+                                </tr>
+                                <tr>
+                                    <td>B Story</td>
+                                    <td>30</td>
+                                    <td>Secondary storyline begins (often love interest)</td>
+                                </tr>
+                                <tr>
+                                    <td>Fun and Games</td>
+                                    <td>30-55</td>
+                                    <td>The 'promise of the premise' delivered</td>
+                                </tr>
+                                <tr>
+                                    <td>Midpoint</td>
+                                    <td>55</td>
+                                    <td>False victory or false defeat; stakes raised</td>
+                                </tr>
+                                <tr>
+                                    <td>Bad Guys Close In</td>
+                                    <td>55-75</td>
+                                    <td>Opposition escalates, allies falter</td>
+                                </tr>
+                                <tr>
+                                    <td>All Is Lost</td>
+                                    <td>75</td>
+                                    <td>Lowest point; 'whiff of death'</td>
+                                </tr>
+                                <tr>
+                                    <td>Dark Night of the Soul</td>
+                                    <td>75-85</td>
+                                    <td>Protagonist processes failure</td>
+                                </tr>
+                                <tr>
+                                    <td>Break into Three</td>
+                                    <td>85</td>
+                                    <td>New plan emerges from A + B story synthesis</td>
+                                </tr>
+                                <tr>
+                                    <td>Finale</td>
+                                    <td>85-110</td>
+                                    <td>Climax: protagonist applies lessons learned</td>
+                                </tr>
+                                <tr>
+                                    <td>Final Image</td>
+                                    <td>110</td>
+                                    <td>Visual snapshot of the 'after' world</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-7">
+                    <div class="subchapter-header">
+                        <h3>2.7 Loglines and Premises</h3>
+                    </div>
+                    <p>A logline is a one or two sentence summary of your screenplay. It is the single most important marketing tool a screenwriter has.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Logline Formula:</h4>
+                        <p>When [inciting incident] happens to [protagonist with a flaw], they must [goal] before [stakes/deadline], but [obstacle/antagonist] stands in their way.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="2-8">
+                    <div class="subchapter-header">
+                        <h3>2.8 Writing a Short Film Script</h3>
+                    </div>
+                    <p>Short films are not compressed features. They are their own form. A great short film has one idea executed perfectly.</p>
+                    <ul>
+                        <li>One central conflict, one protagonist, one location if possible.</li>
+                        <li>Length: 5-15 minutes (5-15 pages) is the sweet spot for festivals.</li>
+                        <li>End on impact: The ending of a short film carries disproportionate weight.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="2-9">
+                    <div class="subchapter-header">
+                        <h3>2.9 Writing Action Lines</h3>
+                    </div>
+                    <p>Action lines are where most amateur scripts fail. They are either too long, too vague, or too directing-oriented.</p>
+                    <ul>
+                        <li>Maximum 4 lines per paragraph. Break longer descriptions into multiple paragraphs.</li>
+                        <li>Use specific verbs. Not 'walks' but 'limps,' 'struts,' 'shuffles.'</li>
+                        <li>Write in present tense. Always.</li>
+                        <li>Only describe what can be seen and heard.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="2-10">
+                    <div class="subchapter-header">
+                        <h3>2.10 The Power of the Opening</h3>
+                    </div>
+                    <p>You have 10 pages. Readers, producers, agents -- they will decide whether to continue within the first 10 pages.</p>
+                    <ul>
+                        <li>Establish tone immediately. The first scene is a contract with the audience.</li>
+                        <li>Create a question. The audience should need to know what happens next.</li>
+                        <li>Introduce the protagonist in action, making a choice that reveals character.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="2-11">
+                    <div class="subchapter-header">
+                        <h3>2.11 How to Read a Screenplay</h3>
+                    </div>
+                    <p>Reading produced screenplays is the fastest way to improve your craft.</p>
+                    <ul>
+                        <li>Read actively: Note structure, scene lengths, dialogue density.</li>
+                        <li>Compare script to film: What changed? What was cut? What was added?</li>
+                        <li>Count pages: How many pages before the inciting incident? Before Act II?</li>
+                        <li>Resources: SimplyScripts, The Script Lab, IMSDB, Academy Nicholl Library.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <!-- PHASE 3 -->
+            <section class="phase" id="phase-3">
+                <div class="phase-header" style="--phase-color: #8b5cf6;">
+                    <span class="phase-number">PHASE 3</span>
+                    <h2>Advanced Screenwriting</h2>
+                </div>
+
+                <article class="subchapter" id="3-1">
+                    <div class="subchapter-header">
+                        <h3>3.1 Alternative Narrative Structures</h3>
+                    </div>
+                    <p>Three-act structure is not the only way to tell a story. Many of the most acclaimed films of the last 30 years use alternative approaches:</p>
+                    <ul>
+                        <li><strong>Nonlinear/fractured timeline:</strong> Pulp Fiction, Memento, Arrival</li>
+                        <li><strong>Episodic/vignette:</strong> Slacker, Babel, Cloud Atlas</li>
+                        <li><strong>Circular:</strong> Groundhog Day, Edge of Tomorrow</li>
+                        <li><strong>Parallel narratives:</strong> The Hours, Crash, Magnolia</li>
+                        <li><strong>Real-time:</strong> 12 Angry Men, Rope, Before Sunset</li>
+                        <li><strong>Reverse chronology:</strong> Memento, Irreversible, Betrayal</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="3-2">
+                    <div class="subchapter-header">
+                        <h3>3.2 Genre Conventions</h3>
+                    </div>
+                    <p>Every genre has obligations -- scenes the audience expects. A horror film must have scares. A comedy must have laughs. A romance must have the "all is lost" breakup moment. Understanding genre conventions is not about following formulas; it is about knowing what you are choosing to subvert.</p>
+                </article>
+
+                <article class="subchapter" id="3-3">
+                    <div class="subchapter-header">
+                        <h3>3.3 Ensemble Casts</h3>
+                    </div>
+                    <p>Ensemble screenwriting requires a different architectural approach. There is no single protagonist; instead, multiple characters share screen time, each with their own arc.</p>
+                    <ul>
+                        <li>Each character needs a distinct want, need, and obstacle.</li>
+                        <li>Find the thematic thread that connects all stories.</li>
+                        <li>Use structural rhymes: mirror scenes between different characters.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="3-4">
+                    <div class="subchapter-header">
+                        <h3>3.4 Nonlinear Storytelling</h3>
+                    </div>
+                    <p>Nonlinear storytelling rearranges chronology for emotional effect. The key principle: every structural choice must serve the story emotionally. If the film works just as well in chronological order, the nonlinearity is a gimmick.</p>
+                </article>
+
+                <article class="subchapter" id="3-5">
+                    <div class="subchapter-header">
+                        <h3>3.5 Writing Tension and Pacing</h3>
+                    </div>
+                    <p>Tension is the audience's feeling that something important is about to happen. Pacing is the rhythm at which information is revealed.</p>
+                    <ul>
+                        <li><strong>Dramatic irony:</strong> The audience knows something the character doesn't. This is the most powerful tension tool.</li>
+                        <li><strong>Suspense vs. surprise:</strong> Hitchcock's bomb under the table analogy. Surprise is 10 seconds of shock. Suspense is 10 minutes of dread.</li>
+                        <li><strong>Vary scene length:</strong> If every scene is the same length, the rhythm becomes monotonous.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="3-6">
+                    <div class="subchapter-header">
+                        <h3>3.6 Rewriting and Script Editing</h3>
+                    </div>
+                    <p>Writing is rewriting. The first draft is just raw material.</p>
+                    <ul>
+                        <li><strong>Structural pass:</strong> Does the architecture work? Are the act breaks in the right place?</li>
+                        <li><strong>Character pass:</strong> Does each character have a distinct voice? Is the arc complete?</li>
+                        <li><strong>Dialogue pass:</strong> Cut every line that can be cut. Tighten every speech.</li>
+                        <li><strong>Action line pass:</strong> Compress. Eliminate directing language. Make it visual.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="3-7">
+                    <div class="subchapter-header">
+                        <h3>3.7 Writing for Television vs. Film</h3>
+                    </div>
+                    <p>Television is a writer's medium. Film is a director's medium.</p>
+                    <ul>
+                        <li>TV structure: cold open, teaser, 4-5 act breaks (for network), or no act breaks (streaming).</li>
+                        <li>TV pilot: Must introduce world, characters, and engine while telling a complete story.</li>
+                        <li>Episode engine: What makes this show capable of producing 100 episodes?</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="3-8">
+                    <div class="subchapter-header">
+                        <h3>3.8 Writing Comedy</h3>
+                    </div>
+                    <p>Comedy is structure with a punchline. The principles of drama still apply; you just add the element of surprise.</p>
+                    <ul>
+                        <li>Comedy = tragedy + time (or distance).</li>
+                        <li>The Rule of Three: setup, reinforcement, subversion.</li>
+                        <li>Comic characters take themselves seriously. The comedy comes from the gap between their self-image and reality.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="3-9">
+                    <div class="subchapter-header">
+                        <h3>3.9 Writing Horror</h3>
+                    </div>
+                    <p>Horror exploits the gap between what the audience fears and what they know.</p>
+                    <ul>
+                        <li>Restrict information. The audience should always know less than they want to.</li>
+                        <li>Use the environment as an antagonist.</li>
+                        <li>Practical fear is more effective than supernatural fear for most audiences.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <!-- PHASE 4 -->
+            <section class="phase" id="phase-4">
+                <div class="phase-header" style="--phase-color: #f59e0b;">
+                    <span class="phase-number">PHASE 4</span>
+                    <h2>Film Production Basics</h2>
+                </div>
+
+                <article class="subchapter" id="4-1">
+                    <div class="subchapter-header">
+                        <h3>4.1 How Scripts Become Films</h3>
+                    </div>
+                    <p>The journey from script to screen follows a pipeline: Development -> Pre-Production -> Production -> Post-Production -> Distribution.</p>
+                </article>
+
+                <article class="subchapter" id="4-2">
+                    <div class="subchapter-header">
+                        <h3>4.2 Roles in a Film Production</h3>
+                    </div>
+                    <p>Key roles: Director, Producer, Cinematographer (DP), Production Designer, Editor, Sound Designer, Composer, Line Producer, 1st AD, Script Supervisor, Gaffer, Key Grip.</p>
+                </article>
+
+                <article class="subchapter" id="4-3">
+                    <div class="subchapter-header">
+                        <h3>4.3 Pre-Production Workflow</h3>
+                    </div>
+                    <p>Pre-production is where films are actually made. Production is where they are captured.</p>
+                    <ul>
+                        <li>Script breakdown: Go through the script page by page and identify every element needed.</li>
+                        <li>Shooting schedule: Organize scenes by location, cast availability, and time of day.</li>
+                        <li>Shot list: The director's plan for how each scene will be filmed.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="4-4">
+                    <div class="subchapter-header">
+                        <h3>4.4 Budgeting and Scheduling</h3>
+                    </div>
+                    <ul>
+                        <li>Above-the-line: Writer, director, producers, principal cast. Creative costs.</li>
+                        <li>Below-the-line: Crew, equipment, locations, post-production. Execution costs.</li>
+                        <li>The budget determines the creative boundaries. Know yours before you start.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="4-5">
+                    <div class="subchapter-header">
+                        <h3>4.5 Casting</h3>
+                    </div>
+                    <p>Casting is the single most important decision a director makes. The right actor makes directing easy. The wrong actor makes it impossible.</p>
+                    <ul>
+                        <li>Chemistry reads are essential for any relationship-based story.</li>
+                        <li>Cast for emotional truth, not physical resemblance to your mental image.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="4-6">
+                    <div class="subchapter-header">
+                        <h3>4.6 Location Scouting</h3>
+                    </div>
+                    <p>Every location is a production design choice and a logistical challenge.</p>
+                    <ul>
+                        <li>Consider: light quality, sound environment, power access, permits, parking, crew access.</li>
+                        <li>Scout at the same time of day you plan to shoot.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="4-7">
+                    <div class="subchapter-header">
+                        <h3>4.7 Working with a Micro-Budget</h3>
+                    </div>
+                    <p>Micro-budget filmmaking ($0-$25K) requires creative constraints:</p>
+                    <ul>
+                        <li>Write for what you have: locations you can access, actors you know, equipment you own.</li>
+                        <li>Fewer locations = less time moving = more time shooting.</li>
+                        <li>Sound is more important than picture. Budget for a good sound recordist.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="4-8">
+                    <div class="subchapter-header">
+                        <h3>4.8 The Director-Writer Relationship</h3>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>What Directors Look For in a Script:</h4>
+                        <ul>
+                            <li>Actable moments: Scenes where actors can do their best work.</li>
+                            <li>Visual opportunities: Moments that can be expressed through image rather than dialogue.</li>
+                            <li>A clear spine: The director needs to understand the emotional through-line instantly.</li>
+                            <li>Room to interpret: The best scripts leave space for the director's contribution.</li>
+                            <li>Producibility: Directors assess feasibility while reading.</li>
+                        </ul>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"A great screenplay is a blueprint, not a building. The director, actors, DP, and editor construct the building. If the blueprint is rigid, the building is dead. If the blueprint is flexible, the building breathes." -- Alexander Payne (paraphrased)</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PHASE 5 -->
+            <section class="phase" id="phase-5">
+                <div class="phase-header" style="--phase-color: #334155;">
+                    <span class="phase-number">PHASE 5</span>
+                    <h2>Directing & Visual Language</h2>
+                </div>
+
+                <article class="subchapter" id="5-1">
+                    <div class="subchapter-header">
+                        <h3>5.1 Blocking and Staging</h3>
+                    </div>
+                    <p>Blocking is the arrangement and movement of actors within the frame. Staging is how the director uses the physical space to express the scene's emotional dynamics.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Blocking as Storytelling:</h4>
+                        <ul>
+                            <li>Proximity = intimacy. Distance = emotional distance.</li>
+                            <li>Height = power. The character who is standing dominates the one who is sitting.</li>
+                            <li>Barriers encode conflict. A desk between two characters formalizes the relationship.</li>
+                            <li>Movement = intention. Characters who move toward something want it.</li>
+                        </ul>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"Blocking is writing with bodies. Every time an actor moves, it should mean something." -- Sidney Lumet, <em>Making Movies</em></p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Staging Patterns:</h4>
+                        <p>Triangle staging, walk-and-talk, the reveal, containment.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Block a Scene Three Ways</div>
+                        <p>Take a two-person dialogue scene. Block it three ways: (1) Both seated, facing each other. (2) One standing, one seated. (3) Both moving through a space.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="5-2">
+                    <div class="subchapter-header">
+                        <h3>5.2 Shot Composition</h3>
+                    </div>
+                    <p>Composition is how elements are arranged within the frame. It is the visual equivalent of sentence structure.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Core Composition Principles:</h4>
+                        <p>Rule of thirds, leading lines, headroom and lead room, depth, symmetry, negative space.</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Shot Sizes:</h4>
+                        <ul>
+                            <li>Extreme wide shot (EWS), Wide shot (WS), Medium shot (MS), Medium close-up (MCU), Close-up (CU), Extreme close-up (ECU).</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>The general rule: the closer the shot, the more emotional weight it carries. Save close-ups for moments that matter.</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Films to Study for Composition:</h4>
+                        <p>There Will Be Blood, In the Mood for Love, The Grand Budapest Hotel, Children of Men, Blade Runner 2049.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="5-3">
+                    <div class="subchapter-header">
+                        <h3>5.3 Camera Movement</h3>
+                    </div>
+                    <p>Camera movement is not decoration. Every pan, tilt, dolly, and crane should have a dramatic purpose.</p>
+                    <ul>
+                        <li>Pan, Tilt, Dolly/Track, Crane/Jib, Steadicam/Gimbal, Handheld, Zoom.</li>
+                    </ul>
+
+                    <div class="sub-subchapter">
+                        <h4>When to Move, When to Hold:</h4>
+                        <p>A common mistake is constant camera movement. The most powerful camera movements come after stillness.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Movement Motivation</div>
+                        <p>Watch the opening 10 minutes of a film with notable camera work. Each time the camera moves, write down: (1) What the movement is. (2) Why it moves at that moment. (3) What information the movement reveals.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="5-4">
+                    <div class="subchapter-header">
+                        <h3>5.4 Working with Actors</h3>
+                    </div>
+                    <p>The director's most important relationship is with the actors.</p>
+                    <ul>
+                        <li>Direct through verbs, not adjectives: 'Be sadder' is useless. 'Try to convince her to stay' gives the actor something to play.</li>
+                        <li>Create a safe space. Minimize public criticism. Give notes privately.</li>
+                        <li>The 'as if' technique: Give actors an analogous emotional situation.</li>
+                        <li>Physical direction first: Give actors physical tasks -- pour a drink, fold laundry, pack a bag.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="5-5">
+                    <div class="subchapter-header">
+                        <h3>5.5 Visual Motifs</h3>
+                    </div>
+                    <p>A visual motif is a recurring image, color, shape, or composition that carries thematic meaning.</p>
+                    <ul>
+                        <li>Color motifs: In The Sixth Sense, red marks anything connected to the supernatural.</li>
+                        <li>Object motifs: The spinning top in Inception. The orange in The Godfather.</li>
+                        <li>Compositional motifs: Kubrick's one-point perspective.</li>
+                        <li>Mirror motifs, framing motifs.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="5-6">
+                    <div class="subchapter-header">
+                        <h3>5.6 Storyboarding</h3>
+                    </div>
+                    <p>A storyboard is a visual plan of the film, drawn shot by shot.</p>
+                    <ul>
+                        <li>You do not need to draw well. Stick figures with arrows indicating movement are sufficient.</li>
+                        <li>Digital tools: Storyboarder (free, by Wonder Unit), ShotPro, FrameForge.</li>
+                    </ul>
+                </article>
+
+                <article class="subchapter" id="5-7">
+                    <div class="subchapter-header">
+                        <h3>5.7 Coverage and Master Shots</h3>
+                    </div>
+                    <p>Coverage is the practice of shooting a scene from multiple angles and shot sizes so that the editor has options.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Standard Coverage Pattern:</h4>
+                        <ol>
+                            <li>Master shot</li>
+                            <li>Over-the-shoulder shots</li>
+                            <li>Close-ups</li>
+                            <li>Inserts</li>
+                            <li>Reaction shots</li>
+                        </ol>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>The One-Shot Scene:</h4>
+                        <p>A scene shot in a single unbroken take. Famous examples: Goodfellas (Copacabana), Children of Men (car ambush), 1917 (entire film), Birdman (entire film).</p>
+                    </div>
+
+                    <div class="callout pitfall">
+                        <div class="callout-title">Common Pitfall</div>
+                        <p>Long takes require extensive rehearsal, precise choreography, and technical mastery.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="5-8">
+                    <div class="subchapter-header">
+                        <h3>5.8 The Language of Editing (For Directors)</h3>
+                    </div>
+                    <p>The eye trace, matching action, performance overlap, cutaways save scenes, let the camera run.</p>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Edit Before You Shoot</div>
+                        <p>Before filming a scene, write a paper edit: a sequence of shots, in order, that you imagine will be the final edit.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PHASE 6 -->
+            <section class="phase" id="phase-6">
+                <div class="phase-header" style="--phase-color: #ec4899;">
+                    <span class="phase-number">PHASE 6</span>
+                    <h2>Cinematography & Editing</h2>
+                </div>
+
+                <article class="subchapter" id="6-1">
+                    <div class="subchapter-header">
+                        <h3>6.1 Lighting Fundamentals</h3>
+                    </div>
+                    <p>Light is the cinematographer's primary tool. It creates mood, directs attention, reveals or conceals.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Three-Point Lighting:</h4>
+                        <ul>
+                            <li>Key light: The primary light source. Placed at 45 degrees for standard dramatic lighting.</li>
+                            <li>Fill light: Fills in the shadows. High fill = comedy. Low fill = drama, noir.</li>
+                            <li>Back light (rim/hair light): Separates the subject from the background.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Lighting Styles:</h4>
+                        <ul>
+                            <li>High-key lighting: Bright, even, low contrast. Comedies, musicals.</li>
+                            <li>Low-key lighting: High contrast, deep shadows. Film noir, horror, thrillers.</li>
+                            <li>Natural/available light: Using existing light sources.</li>
+                            <li>Motivated lighting: Every light source has a visible justification in the scene.</li>
+                            <li>Chiaroscuro: Extreme contrast between light and dark. Borrowed from Renaissance painting.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Color Temperature:</h4>
+                        <p>Light has color, measured in Kelvin (K). Warm light (~2700-3200K) is orange/amber. Cool light (~5600-6500K) is blue/white.</p>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>Your book collection includes 'The Five C's of Cinematography' and 'Digital Cinematography and Directing.'</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: One-Light Exercise</div>
+                        <p>Using a single light source, photograph or film a face from five different angles: front, 45 degrees, 90 degrees (split lighting), from below, from above.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="6-2">
+                    <div class="subchapter-header">
+                        <h3>6.2 Lens Selection</h3>
+                    </div>
+                    <p>The lens is not a neutral window -- it shapes how the audience perceives space, distance, and character.</p>
+                    <ul>
+                        <li>Wide-angle (14-35mm): Exaggerates depth and perspective.</li>
+                        <li>Normal (40-60mm): Approximates human vision.</li>
+                        <li>Telephoto (85-200mm+): Compresses depth.</li>
+                    </ul>
+
+                    <div class="sub-subchapter">
+                        <h4>Depth of Field:</h4>
+                        <p>Shallow DOF isolates subjects and creates intimacy. Deep DOF emphasizes environment.</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Lens Experiment</div>
+                        <p>Shoot the same scene at three focal lengths. Note how the spatial relationships change.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="6-3">
+                    <div class="subchapter-header">
+                        <h3>6.3 Editing Rhythms</h3>
+                    </div>
+                    <p>Editing is the invisible art. The editor controls time, attention, emotion, and pacing.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Fundamental Editing Principles:</h4>
+                        <p>Cut on action, match cut, shot/reverse shot, the 180-degree rule, J-cut and L-cut, pace through cut length.</p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>The Kuleshov Effect:</h4>
+                        <p>In the 1920s, Soviet filmmaker Lev Kuleshov demonstrated that the meaning of a shot is determined by the shot that precedes and follows it. This is the foundational principle of editing.</p>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"The ideal cut -- the one that should be invisible -- is motivated by the audience's desire to see something, just before they are consciously aware of wanting to see it." -- Walter Murch, <em>In the Blink of an Eye</em></p>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Software:</h4>
+                        <ul>
+                            <li>DaVinci Resolve: Free. Industry-standard color grading plus full editing.</li>
+                            <li>Adobe Premiere Pro: Subscription-based. Industry standard for broadcast.</li>
+                            <li>Final Cut Pro: Mac only. Fast, magnetic timeline.</li>
+                            <li>Avid Media Composer: The legacy standard for feature films and television.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Re-Edit a Scene</div>
+                        <p>Download a scene from a film. Re-edit the scene with a different rhythm.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="6-4">
+                    <div class="subchapter-header">
+                        <h3>6.4 Sound Design</h3>
+                    </div>
+                    <p>Sound is half the film. This is not hyperbole.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Layers of Film Sound:</h4>
+                        <p>Dialogue, ambient sound (room tone), Foley, sound effects (SFX), music/score, silence.</p>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'The number one thing that separates professional-looking films from amateur ones is not the camera. It is the sound.'</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="6-5">
+                    <div class="subchapter-header">
+                        <h3>6.5 Color Grading</h3>
+                    </div>
+                    <p>Color grading is the process of adjusting and enhancing the color of the film in post-production.</p>
+                    <ul>
+                        <li>Color correction vs. color grading: Correction makes footage look natural. Grading is the creative step.</li>
+                        <li>Warm vs. cool, desaturation, high saturation, monochromatic palettes.</li>
+                        <li>DaVinci Resolve is the industry standard. Free version includes professional-grade tools.</li>
+                        <li>LUTs (Look-Up Tables): Pre-built color transforms.</li>
+                    </ul>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Color Story</div>
+                        <p>Take 5 screenshots from a single film (one from each act/section). Analyze: what is the dominant color in each? How does the color palette shift across the film?</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="6-6">
+                    <div class="subchapter-header">
+                        <h3>6.6 Audio Post-Production</h3>
+                    </div>
+                    <p>The audio post pipeline is as complex as the visual post pipeline.</p>
+                    <ul>
+                        <li>Dialogue editing, ADR, Foley recording, sound effects editing, music composition/licensing, mixing.</li>
+                    </ul>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>For micro-budget films, iZotope RX is the most valuable audio tool you can own. The $130 Elements version handles most problems.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="6-7">
+                    <div class="subchapter-header">
+                        <h3>6.7 Visual Effects on a Budget</h3>
+                    </div>
+                    <p>You do not need a Marvel budget to use visual effects.</p>
+                    <ul>
+                        <li>Screen replacement, wire/rig removal, sky replacement, muzzle flashes and blood, set extensions.</li>
+                    </ul>
+
+                    <div class="sub-subchapter">
+                        <h4>Free/Affordable VFX Software:</h4>
+                        <ul>
+                            <li>DaVinci Resolve Fusion (free), Blender (free), HitFilm Express (free), After Effects ($23/month).</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Invisible VFX</div>
+                        <p>Shoot a 30-second scene and add one invisible visual effect.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PHASE 7 -->
+            <section class="phase" id="phase-7">
+                <div class="phase-header" style="--phase-color: #14b8a6;">
+                    <span class="phase-number">PHASE 7</span>
+                    <h2>Industry Knowledge</h2>
+                </div>
+
+                <article class="subchapter" id="7-1">
+                    <div class="subchapter-header">
+                        <h3>7.1 How Films Get Financed</h3>
+                    </div>
+                    <p>No money, no movie. Understanding financing is not optional.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Financing Models:</h4>
+                        <ul>
+                            <li>Studio financing ($20M to $300M+), independent financing (multiple sources), self-financing (Kickstarter, Indiegogo), grants and fellowships (Sundance, Film Independent, Tribeca), presale/distribution deals, equity investors.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>The Package:</h4>
+                        <p>In industry terms, a 'package' is: script + director + cast + sometimes a DP or producer with a track record.</p>
+                    </div>
+
+                    <div class="callout pitfall">
+                        <div class="callout-title">Common Pitfall</div>
+                        <p>Be cautious of 'producers' who ask you to pay for script coverage, development fees, or 'script registration.' Legitimate producers do not charge writers.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-2">
+                    <div class="subchapter-header">
+                        <h3>7.2 Film Festivals</h3>
+                    </div>
+                    <p>Festivals are the launchpad for independent films and emerging filmmakers.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>The Festival Tiers:</h4>
+                        <ul>
+                            <li><strong>Tier 1 (career-making):</strong> Sundance, Cannes, Venice, Berlin, Toronto (TIFF), Telluride.</li>
+                            <li><strong>Tier 2 (significant):</strong> SXSW, Tribeca, Locarno, Rotterdam, New York Film Festival, London Film Festival.</li>
+                            <li><strong>Tier 3 (career-building):</strong> Regional and genre festivals -- Fantastic Fest, Clermont-Ferrand (shorts), Palm Springs ShortFest.</li>
+                            <li><strong>Screenwriting competitions:</strong> Nicholl Fellowship (the most prestigious -- run by the Academy), Austin Film Festival, PAGE International.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Festival Strategy:</h4>
+                        <ul>
+                            <li>Submit to the highest-tier festival first. Most require a premiere.</li>
+                            <li>Budget for submission fees: $25-$75 per festival. Target 10-20, not 100.</li>
+                            <li>Have a publicist or press kit ready before the festival.</li>
+                            <li>Attend in person. Networking is as valuable as the screening.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-3">
+                    <div class="subchapter-header">
+                        <h3>7.3 Agents and Managers</h3>
+                    </div>
+                    <ul>
+                        <li>Agent: Negotiates deals, submits scripts to buyers. 10% commission. Major agencies: CAA, WME, UTA, ICM, Verve, APA.</li>
+                        <li>Manager: Develops your career, gives creative notes. 10-15% commission.</li>
+                        <li>Entertainment lawyer: Reviews contracts. Hourly or 5% commission.</li>
+                    </ul>
+
+                    <div class="sub-subchapter">
+                        <h4>How to Get Representation:</h4>
+                        <ul>
+                            <li>Write an exceptional script. No shortcut.</li>
+                            <li>Win or place in major competitions (Nicholl, Austin, PAGE).</li>
+                            <li>Get a referral from someone the agent trusts.</li>
+                            <li>Query selectively. A personalized query outperforms a mass email.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'Do not query agents until you have at least two polished scripts and ideally three. One script is a lottery ticket. A body of work is a career.'</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-4">
+                    <div class="subchapter-header">
+                        <h3>7.4 Pitching Projects</h3>
+                    </div>
+                    <p>A pitch is an oral presentation of your project to a buyer. It is a performance.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Anatomy of a Pitch:</h4>
+                        <ul>
+                            <li>The hook (30 seconds): Your logline or a provocative question.</li>
+                            <li>The world (1-2 minutes): Set the stage. Genre, tone, visual style.</li>
+                            <li>The characters (2-3 minutes): Who is the protagonist? What do they want?</li>
+                            <li>The story (5-8 minutes): Walk through the three acts. Hit the major beats.</li>
+                            <li>The close (1 minute): Why this story, why now, why you?</li>
+                        </ul>
+                    </div>
+
+                    <div class="blockquote">
+                        <p>"Nobody pitches ideas. Everybody pitches execution. The idea is the logline. The pitch is the proof that you can execute it." -- Pilar Alessandra, <em>On the Page</em> podcast</p>
+                    </div>
+
+                    <div class="callout exercise">
+                        <div class="callout-title">Exercise: Elevator Pitch</div>
+                        <p>Prepare a 60-second pitch for a project. Practice until you can deliver it without notes.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-5">
+                    <div class="subchapter-header">
+                        <h3>7.5 Writers' Rooms</h3>
+                    </div>
+                    <p>Television is a writers' medium, and the writers' room is where television is made.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>How a Writers' Room Works:</h4>
+                        <ul>
+                            <li>The showrunner: The head writer and executive producer.</li>
+                            <li>Room hierarchy: Staff writer, story editor, executive story editor, co-producer, producer, supervising producer, co-executive producer, executive producer.</li>
+                            <li>Breaking story: The room collectively 'breaks' each episode on a whiteboard.</li>
+                            <li>The mini-room: A newer model where a small group of writers (3-6) breaks the season before production begins.</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Getting Into a Room:</h4>
+                        <ul>
+                            <li>Write a spec pilot that demonstrates your voice.</li>
+                            <li>Write a spec episode of an existing show.</li>
+                            <li>Apply to writing fellowships: Disney/ABC Writing Program, Warner Bros. TV Writers' Workshop, NBC Writers on the Verge, Sundance Episodic Lab.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-6">
+                    <div class="subchapter-header">
+                        <h3>7.6 The Modern Streaming Landscape</h3>
+                    </div>
+                    <p>The entertainment industry is in a period of rapid structural change.</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Key Dynamics (2024-2026):</h4>
+                        <ul>
+                            <li>Consolidation: Streamers are cutting back. Budgets are tightening.</li>
+                            <li>Profitability focus: Fewer risky bets on unproven creators.</li>
+                            <li>Theatrical revival: Certain genres (horror, event films, prestige dramas) perform well theatrically.</li>
+                            <li>International content: Non-English-language content has broken through globally.</li>
+                            <li>AI disruption: Generative AI is entering the creative pipeline. The 2023 WGA and SAG-AFTRA strikes established important guardrails.</li>
+                            <li>The indie path: For emerging filmmakers, the path increasingly runs through micro-budget features and festival premieres.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>The industry rewards two things: a distinctive voice and commercial viability. A spec script should showcase your voice; a pitch should demonstrate that you understand the market.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-7">
+                    <div class="subchapter-header">
+                        <h3>7.7 Copyright, Intellectual Property, and the WGA</h3>
+                    </div>
+                    <ul>
+                        <li>Your screenplay is copyrighted the moment you write it.</li>
+                        <li>Registration with the US Copyright Office ($45-65) strengthens your position.</li>
+                        <li>WGA registration is not copyright registration.</li>
+                        <li>Ideas are not copyrightable. Only the specific expression is protected.</li>
+                        <li>Work for hire: If you are hired to write a screenplay, the studio owns the copyright.</li>
+                    </ul>
+
+                    <div class="sub-subchapter">
+                        <h4>The Writers Guild of America (WGA):</h4>
+                        <ul>
+                            <li>The WGA is the union that represents television and film writers in the US.</li>
+                            <li>WGA minimum for a screenplay sale (low budget, under $5M): approximately $80,000 (2024 rates). Over $5M: approximately $150,000.</li>
+                            <li>The 2023 WGA strike established important protections around AI-generated content, minimum staffing, and streaming residuals.</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>Before signing any contract, have an entertainment lawyer review it. The $300-500 for a contract review can save tens of thousands of dollars.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="7-8">
+                    <div class="subchapter-header">
+                        <h3>7.8 Building a Screenwriting Career in 2025-2026</h3>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>The Modern Career Ladder:</h4>
+                        <ol>
+                            <li>Build a body of work (3-5 polished scripts).</li>
+                            <li>Get validation (competitions, fellowships).</li>
+                            <li>Get representation (manager first, then agent).</li>
+                            <li>Take meetings (general meetings with producers/executives).</li>
+                            <li>Get hired (sell a spec, get hired to rewrite, or get staffed on a TV show).</li>
+                            <li>Stay hired (deliver on time, be easy to work with, generate ideas consistently).</li>
+                        </ol>
+                    </div>
+
+                    <div class="sub-subchapter">
+                        <h4>Alternative Paths:</h4>
+                        <p>Writer-director, content creation (YouTube, podcasts, social media), international markets, playwriting and theater.</p>
+                    </div>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'It took me eight years, four scripts, two competitions, one fellowship, and 47 general meetings to get my first paid writing job. The people who make it are not the most talented -- they are the ones who did not quit.'</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PHASE 8 -->
+            <section class="phase" id="phase-8">
+                <div class="phase-header" style="--phase-color: #f97316;">
+                    <span class="phase-number">PHASE 8</span>
+                    <h2>Practical Projects & Exercises</h2>
+                </div>
+
+                <article class="subchapter" id="8-1">
+                    <div class="subchapter-header">
+                        <h3>8.1 Project: Write a 1-Page Scene</h3>
+                    </div>
+                    <p><strong>Estimated time:</strong> 2-4 hours. Write a single-page scene that establishes a character, reveals a want, introduces an obstacle, and ends on a turn.</p>
+                    <ul>
+                        <li>Constraints: One location. One or two characters. No more than 5 lines of dialogue. The final line must change the meaning of everything before it.</li>
+                        <li>Evaluation: Is the character's want clear? Is there an obstacle? Does the scene turn?</li>
+                    </ul>
+
+                    <div class="callout pitfall">
+                        <div class="callout-title">Common Pitfall</div>
+                        <p>Writing a 'moment' instead of a scene. A scene has an engine. Moments are static.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="8-2">
+                    <div class="subchapter-header">
+                        <h3>8.2 Project: Rewrite a Bad Scene</h3>
+                    </div>
+                    <p><strong>Estimated time:</strong> 3-5 hours. Find a scene in a produced film that does not work. Diagnose the problem and rewrite the scene.</p>
+
+                    <div class="callout pro-tip">
+                        <div class="callout-title">Pro Tip</div>
+                        <p>Good candidates: exposition-heavy scenes in otherwise strong films. The council scene in The Lord of the Rings. The 'midichlorians' scene in The Phantom Menace.</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="8-3">
+                    <div class="subchapter-header">
+                        <h3>8.3 Project: Adapt a Short Story</h3>
+                    </div>
+                    <p><strong>Estimated time:</strong> 1-2 weeks. Select a short story (5-20 pages of prose) and adapt it into a short film screenplay (10-20 pages).</p>
+
+                    <div class="sub-subchapter">
+                        <h4>Recommended Stories:</h4>
+                        <ul>
+                            <li>'Hills Like White Elephants' by Ernest Hemingway -- subtext exercise.</li>
+                            <li>'The Lottery' by Shirley Jackson -- visual storytelling and escalating dread.</li>
+                            <li>'Cathedral' by Raymond Carver -- character transformation through a single encounter.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="8-4">
+                    <div class="subchapter-header">
+                        <h3>8.4 Project: Write a Short Film Script</h3>
+                    </div>
+                    <p><strong>Estimated time:</strong> 2-4 weeks. Write an original short film screenplay of 10-15 pages.</p>
+                </article>
+
+                <article class="subchapter" id="8-5">
+                    <div class="subchapter-header">
+                        <h3>8.5 Project: Develop a Pilot Episode</h3>
+                    </div>
+                    <p><strong>Estimated time:</strong> 4-8 weeks. Develop a complete pilot package for an original television series.</p>
+                    <ul>
+                        <li>Deliverables: Series bible (3-5 pages), character breakdowns (1-2 pages each), pilot outline (3-5 pages), pilot script (30 pages for half-hour, 55-65 pages for hour).</li>
+                    </ul>
+
+                    <div class="callout community">
+                        <div class="callout-title">From the Community</div>
+                        <p>'When I read a pilot, I ask three questions within the first 10 pages: Do I like this world? Do I want to spend time with these characters? Can I see 100 episodes?'</p>
+                    </div>
+                </article>
+
+                <article class="subchapter" id="8-6">
+                    <div class="subchapter-header">
+                        <h3>8.6 Additional Exercises</h3>
+                    </div>
+                    <p>Organized by skill area: dialogue exercises (The Eavesdrop Exercise, Character Voice Isolation, The Interrogation Scene), structure exercises (The 60-Second Film, Midpoint Reversal, The Ticking Clock), visual storytelling exercises (The Photo Prompt, Object-Driven Scene, Environmental Storytelling), genre exercises (Genre Swap, The Genre Obligation), rewriting exercises.</p>
+                </article>
+            </section>
+
+            <div style="margin-top: 4rem; padding: 2rem; background-color: var(--surface); border-radius: 4px; border: 1px solid var(--border); text-align: center;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    End of Screenwriting Guide. Complete all 68 pages of study material.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <button class="back-to-top">↑</button>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+
+        function updateThemeButton(theme) {
+            themeToggle.textContent = theme === 'dark' ? '🌙 Dark' : '☀️ Light';
+        }
+
+        // Mobile menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // Active link highlighting
+        const links = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('[id^="phase-"], [id^="1-"], [id^="2-"], [id^="3-"], [id^="4-"], [id^="5-"], [id^="6-"], [id^="7-"], [id^="8-"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            updateProgressBar();
+            updateBackToTop();
+        });
+
+        // Progress bar
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        }
+
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+
+        function updateBackToTop() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        }
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initialize
+        updateProgressBar();
+        updateBackToTop();
+    </script>
+</body>
+</html>
