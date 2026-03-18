@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gary's Command Center</title>
+<title>Chaos Console</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -34,6 +34,7 @@
   --card-5: #a07dd4;
   --card-6: #f87171;
   --card-7: #e74c5a;
+  --card-8: #22d3ee;
 }
 
 [data-theme="light"] {
@@ -62,6 +63,7 @@
   --card-5: #6d28d9;
   --card-6: #dc2626;
   --card-7: #c0392b;
+  --card-8: #0891b2;
 }
 
 * {
@@ -379,6 +381,69 @@ body::after {
   --card-accent: var(--card-7);
 }
 
+.card[data-accent="8"] {
+  --card-accent: var(--card-8);
+}
+
+/* Password overlay for protected cards */
+.card-protected {
+  position: relative;
+}
+.card-protected .card-lock-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+.card-protected .card-lock-overlay svg {
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+  color: var(--text);
+}
+.card-protected .card-lock-overlay input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  text-align: center;
+  width: 140px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.card-protected .card-lock-overlay input:focus {
+  border-color: var(--accent);
+}
+.card-protected .card-lock-overlay input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+.card-protected .card-lock-overlay .lock-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+.card-protected .card-lock-overlay .lock-error {
+  font-size: 0.6rem;
+  color: var(--red);
+  height: 0.8rem;
+}
+.card-protected.unlocked .card-lock-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .card-number {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
@@ -578,11 +643,11 @@ body::after {
   <div class="masthead-meta">
     <span id="currentDate"></span>
     <div class="sep"></div>
-    <span>7 Tools</span>
+    <span>8 Tools</span>
     <div class="sep"></div>
     <span class="status-dot">All Systems Go</span>
   </div>
-  <h1>Command Center</h1>
+  <h1>Chaos Console</h1>
   <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
   <svg class="masthead-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
@@ -606,14 +671,26 @@ body::after {
 </div>
 
 <div class="grid">
-  <a href="financial-consolidation.html" class="card" data-accent="1">
+  <a href="financial-consolidation.html" class="card card-protected" data-accent="1" onclick="return checkCardUnlock(this)">
+    <div class="card-lock-overlay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+      <span class="lock-label">Protected</span>
+      <input type="password" placeholder="Enter password" onkeydown="handleCardPassword(event, this)" onclick="event.preventDefault(); event.stopPropagation();">
+      <span class="lock-error"></span>
+    </div>
     <div class="card-number">01</div>
     <div class="card-title">The Ledger</div>
     <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
     <div class="card-footer"><span class="card-tag">Finance</span><span class="card-arrow">&nearr;</span></div>
     <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="2" y="20" width="8" height="16" fill="currentColor"/><rect x="14" y="10" width="8" height="26" fill="currentColor"/><rect x="26" y="4" width="8" height="32" fill="currentColor"/><rect x="38" y="14" width="8" height="22" fill="currentColor"/></svg>
   </a>
-  <a href="money-flow-analysis.html" class="card" data-accent="2">
+  <a href="money-flow-analysis.html" class="card card-protected" data-accent="2" onclick="return checkCardUnlock(this)">
+    <div class="card-lock-overlay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+      <span class="lock-label">Protected</span>
+      <input type="password" placeholder="Enter password" onkeydown="handleCardPassword(event, this)" onclick="event.preventDefault(); event.stopPropagation();">
+      <span class="lock-error"></span>
+    </div>
     <div class="card-number">02</div>
     <div class="card-title">Where Did the Money Go?</div>
     <p class="card-desc">Oct 2025 &ndash; Feb 2026 cash flow breakdown. Income vs. spend analysis with category drilldowns.</p>
@@ -700,8 +777,28 @@ body::after {
   </a>
 </div>
 
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 3C6.5 3 4.5 5 4.5 7.5c0 3.5 4.5 7.5 4.5 7.5s4.5-4 4.5-7.5C13.5 5 11.5 3 9 3z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <path d="M9 6v3M7.5 7.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Health &amp; Wellness
+  </h2>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr;">
+  <a href="wellness.html" class="card" data-accent="8">
+    <div class="card-number">08</div>
+    <div class="card-title">Wellness Analysis</div>
+    <p class="card-desc">188 days of ring tracker data &mdash; heart rate corridors, sleep architecture, HRV recovery trends, and daily step tracking.</p>
+    <div class="card-footer"><span class="card-tag">Health</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><path d="M2 20 L8 20 L12 8 L16 28 L20 14 L24 22 L28 10 L32 26 L36 16 L40 20 L46 20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><circle cx="16" cy="28" r="2" fill="currentColor" opacity="0.3"/><circle cx="28" cy="10" r="2" fill="currentColor" opacity="0.3"/></svg>
+  </a>
+</div>
+
 <footer class="colophon">
-  <span>Gary's Command Center &copy; 2026</span>
+  <span>Chaos Console &copy; 2026</span>
   <a href="#">ChaosConsole</a>
 </footer>
 
@@ -729,6 +826,43 @@ function toggleTheme() {
     btn.addEventListener('click', toggleTheme);
   }
 })();
+
+// Password protection for financial cards
+const CARD_PW_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // SHA-256 of 'password'
+const ACTUAL_PW = 'chaos$2026';
+
+function checkCardUnlock(card) {
+  if (card.classList.contains('unlocked')) return true;
+  return false;
+}
+
+async function handleCardPassword(event, input) {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  event.stopPropagation();
+  const card = input.closest('.card-protected');
+  const errorEl = card.querySelector('.lock-error');
+
+  if (input.value === ACTUAL_PW) {
+    card.classList.add('unlocked');
+    // Also unlock the other financial card
+    document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
+    sessionStorage.setItem('fin_unlocked', '1');
+  } else {
+    errorEl.textContent = 'Wrong password';
+    input.value = '';
+    input.style.borderColor = 'var(--red)';
+    setTimeout(() => {
+      errorEl.textContent = '';
+      input.style.borderColor = '';
+    }, 2000);
+  }
+}
+
+// Check if already unlocked this session
+if (sessionStorage.getItem('fin_unlocked') === '1') {
+  document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
+}
 </script>
 </body>
 </html>
