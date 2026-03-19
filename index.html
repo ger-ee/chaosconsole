@@ -685,7 +685,7 @@ body::after {
 .pulse-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
@@ -706,6 +706,11 @@ body::after {
   color: var(--text);
   transition: background 0.25s ease;
   position: relative;
+}
+
+/* 4th card spans full width as bottom row */
+.pulse-card:last-child {
+  grid-column: 1 / -1;
 }
 
 .pulse-card-hero::before {
@@ -1080,6 +1085,9 @@ async function handleCardPassword(event, input) {
 if (sessionStorage.getItem('fin_unlocked') === '1') {
   document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
 }
+
+// konami
+(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;document.querySelector('.masthead h1').style.transition='all 0.6s ease';document.querySelector('.masthead h1').textContent='CHAOS IS A LADDER';document.querySelector('.masthead h1').style.background='linear-gradient(90deg, var(--accent), var(--red), var(--accent))';document.querySelector('.masthead h1').style.webkitBackgroundClip='text';document.querySelector('.masthead h1').style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='— Littlefinger was right about one thing.';setTimeout(function(){document.querySelector('.masthead h1').textContent='Chaos Console';document.querySelector('.masthead h1').style.background='none';document.querySelector('.masthead h1').style.webkitTextFillColor='var(--text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
 
 // ── Daily Pulse loader ──
 (function() {
