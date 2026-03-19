@@ -633,6 +633,207 @@ body::after {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ── Daily Pulse ── */
+.pulse-section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  animation: fadeUp 0.5s ease-out both;
+  animation-delay: 0.15s;
+}
+
+.pulse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-top: 2.5rem;
+}
+
+.pulse-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.pulse-header h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin-left: 1rem;
+}
+
+.pulse-header .pulse-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-left: 1rem;
+}
+
+.pulse-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pulse-card-hero {
+  grid-row: 1 / 3;
+  grid-column: 1;
+  background: var(--surface);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.25s ease;
+  position: relative;
+}
+
+.pulse-card-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.pulse-card-hero:hover::before { opacity: 1; height: 3px; }
+.pulse-card-hero:hover { background: var(--surface-2); }
+
+.pulse-card-hero .pulse-topic {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.pulse-card-hero .pulse-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.pulse-card-hero .pulse-summary {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.pulse-card-hero .pulse-source,
+.pulse-card .pulse-source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse-card-hero .pulse-source::before,
+.pulse-card .pulse-source::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pulse-card {
+  background: var(--surface);
+  padding: 1.4rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.25s ease;
+  position: relative;
+}
+
+.pulse-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pulse-card:hover::before { opacity: 0.5; }
+.pulse-card:hover { background: var(--surface-2); }
+
+.pulse-card .pulse-topic {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.pulse-card .pulse-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+}
+
+.pulse-card .pulse-summary {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.pulse-card .pulse-source { margin-top: 0.6rem; }
+
+@media (max-width: 768px) {
+  .pulse-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .pulse-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .pulse-card-hero {
+    grid-row: auto;
+    grid-column: auto;
+    min-height: 200px;
+  }
+}
 </style>
 </head>
 <body>
@@ -658,6 +859,22 @@ body::after {
 </header>
 
 <div class="rule"><hr></div>
+
+<!-- ★ DAILY PULSE ★ -->
+<div class="pulse-section" id="dailyPulse">
+  <div class="pulse-header">
+    <h2>
+      <svg class="section-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M2 9 L5 9 L7 4 L9 14 L11 6 L13 12 L15 9 L17 9"/>
+      </svg>
+      Daily Pulse
+    </h2>
+    <span class="pulse-date" id="pulseDate"></span>
+  </div>
+  <div class="pulse-grid" id="pulseGrid">
+    <!-- Populated by JS from pulse.json -->
+  </div>
+</div>
 
 <div class="section-label">
   <h2>
@@ -863,6 +1080,46 @@ async function handleCardPassword(event, input) {
 if (sessionStorage.getItem('fin_unlocked') === '1') {
   document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
 }
+
+// ── Daily Pulse loader ──
+(function() {
+  async function loadPulse() {
+    let data;
+    try {
+      const res = await fetch('pulse.json?v=' + Date.now());
+      if (res.ok) data = await res.json();
+    } catch (e) {}
+
+    if (!data || !data.articles) {
+      document.getElementById('dailyPulse').style.display = 'none';
+      return;
+    }
+
+    const dateEl = document.getElementById('pulseDate');
+    const d = new Date(data.date + 'T12:00:00');
+    dateEl.textContent = d.toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const grid = document.getElementById('pulseGrid');
+    grid.innerHTML = '';
+    data.articles.forEach(article => {
+      const isHero = article.type === 'hero';
+      const card = document.createElement('a');
+      card.href = article.url;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.className = isHero ? 'pulse-card-hero' : 'pulse-card';
+      card.innerHTML =
+        '<div class="pulse-topic">' + article.topic + '</div>' +
+        '<div class="pulse-title">' + article.title + '</div>' +
+        '<div class="pulse-summary">' + article.summary + '</div>' +
+        '<div class="pulse-source">' + article.source + '</div>';
+      grid.appendChild(card);
+    });
+  }
+  loadPulse();
+})();
 </script>
 </body>
 </html>
