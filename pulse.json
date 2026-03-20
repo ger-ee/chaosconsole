@@ -1,37 +1,37 @@
 {
-  "date": "2026-03-19",
+  "date": "2026-03-20",
   "articles": [
     {
       "type": "hero",
-      "topic": "YouTube Pipeline",
-      "title": "AI Is Cutting 60-80% of Editing Time — Here's the 5-Stage Script Pipeline Replacing Manual Workflows",
-      "summary": "The scripting phase is where most creators hemorrhage hours. A new 5-stage AI pipeline compresses 2-3 hours of writing into roughly 10 minutes, with automatic footage planning built into the output. The entire production chain — from ideation to upload — is being restructured around automation.",
-      "source": "Thinkpeak AI",
-      "url": "https://thinkpeak.ai/youtube-automations-2026-guide/"
+      "topic": "Deep-Dive / The Blindspot",
+      "title": "Seven Investigative Story Templates You Can Steal and Run Anywhere in the World",
+      "summary": "GIJN compiled a field guide of underreported story archetypes -- pension fund black holes, land seizures masked as development, femicide data gaps -- that replicate across borders with disturbing consistency. The real utility here: each template comes with sourcing strategies, FOI angles, and cross-border collaboration tips that turn a local hunch into a publishable investigation.",
+      "source": "Global Investigative Journalism Network",
+      "url": "https://gijn.org/stories/underreported-story-ideas-that-can-be-replicated-around-the-world/"
     },
     {
       "type": "secondary",
-      "topic": "ADHD Scope Control",
-      "title": "Body Doubling + Digital Bouncers: The 2026 Focus Stack for Neurodivergent Creators",
-      "summary": "Virtual body doubling meets browser allowlisting in a combined strategy that leverages accountability and digital friction. Pair it with NOW/SOON/LATER task triaging for a system that actually sticks.",
-      "source": "Envision ADHD",
-      "url": "https://www.envisionadhd.com/single-post/boost-focus-in-2026-adhd-friendly-productivity-hacks-that-actually-stick"
+      "topic": "History Presentation",
+      "title": "The Netflix Data Says Emotional Documentaries Win by 2.3x -- Here's How to Structure One",
+      "summary": "A breakdown of what separates forgettable history docs from ones people actually finish: non-linear timelines, conflict-first structure borrowed from feature films, and the Ken Burns insight that \"not knowing how something turns out\" matters more than the facts themselves.",
+      "source": "OC Movie Reviews",
+      "url": "https://ocmoviereviews.com/what-makes-a-documentary-film-compelling-storytelling-in-2026/"
     },
     {
       "type": "secondary",
       "topic": "On-Camera Presence",
-      "title": "Why Your Nervousness Reads as Enthusiasm — And 4 Other Camera Truths for 2026",
-      "summary": "With AI-generated video fatigue setting in, audiences are craving real, unpredictable human energy. Your imperfections are your edge now, not your liability.",
-      "source": "Adintors",
-      "url": "https://adintors.com/blogs/on-camera-presence-tips-for-creators-that-matters-in-2026"
+      "title": "Your Audience Can't See Your Nerves -- But They Can See Your Energy",
+      "summary": "Jon Youshaei's framework for camera confidence boils down to one counterintuitive move: reframe anxiety as excitement, because your body can't tell the difference. Practical tactics include the sticky-note-on-the-lens trick for eye contact and pre-record pump-up songs to replace missing co-host energy.",
+      "source": "Thinkific",
+      "url": "https://www.thinkific.com/blog/how-to-be-confident-on-camera-tips-from-jon-youshaei/"
     },
     {
       "type": "secondary",
-      "topic": "History Storytelling",
-      "title": "In Medias Res and the False Start: Two Narrative Weapons for Making History Feel Urgent",
-      "summary": "Drop your audience into the middle of a historical crisis, then rewind. Or set up the obvious story, then shatter the expectation. Stanford research confirms: stories beat facts for retention every time.",
-      "source": "VideoScribe",
-      "url": "https://blog.videoscribe.co/8-classic-storytelling-techniques-for-engaging-presentations"
+      "topic": "Creator Writing Skills",
+      "title": "The 2026 AI Script Stack That Lets Non-Native Speakers Write Like They Grew Up in Brooklyn",
+      "summary": "A ranked comparison of AI script generators -- Subscribr, Jasper, Writesonic, vidIQ -- evaluated specifically for multilingual creators who draft in English but think in another language. The move: use AI for structure and idiom, then polish voice manually.",
+      "source": "Awisee",
+      "url": "https://awisee.com/blog/ai-youtube-script-generators/"
     }
   ]
 }
