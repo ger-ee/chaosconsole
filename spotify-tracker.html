@@ -209,6 +209,17 @@
             position: relative;
             overflow: hidden;
         }
+        .stat-card-cover {
+            position: absolute;
+            inset: 0;
+            opacity: 0.08;
+            z-index: 0;
+            border-radius: 14px;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .stat-card:hover .stat-card-cover { opacity: 0.15; }
+        .stat-card .sc-top, .stat-card .followers, .stat-card .delta-row, .stat-card .sparkline-container { position: relative; z-index: 1; }
         .stat-card::after {
             content: '';
             position: absolute;
@@ -673,8 +684,8 @@
             </div>
             <div class="header-right">
                 <div class="total-badge">
-                    <div class="label">Total Followers</div>
-                    <div class="value" id="totalFollowers">&mdash;</div>
+                    <div class="label">Last Updated</div>
+                    <div class="value" style="font-size:1.2rem;" id="totalFollowers">Mar 2026</div>
                 </div>
                 <button class="btn btn-primary" onclick="openModal()">+ Add Month</button>
             </div>
@@ -683,6 +694,11 @@
         <div class="summary-strip" id="summaryStrip"></div>
         <div class="stats-row" id="statsRow"></div>
         <div class="movers-grid" id="moversGrid"></div>
+
+        <div class="insights-section" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:40px;">
+            <div class="section-title" style="margin-bottom:20px;">INSIGHTS</div>
+            <div id="insightsContent" style="font-size:0.9rem;line-height:1.8;color:var(--text-secondary);"></div>
+        </div>
 
         <div class="chart-section">
             <div class="chart-header">
@@ -764,18 +780,36 @@
         '#fb7185','#a3e635','#f59e0b','#38bdf8','#c084fc','#e879f9'
     ];
 
+    const COVERS = {
+        "Monday's Mixtape": "covers/mondays-mixtape.png",
+        "Groove": "covers/groove.jpg",
+        "Guide to Indie": "covers/guide-to-indie.jpg",
+        "Ancora": "covers/ancora.jpg",
+        "Potpourri": "covers/potpourri.png",
+        "Cloudbuster": "covers/cloudbuster.png",
+        "Broken": "covers/brivido.png",
+        "run": "covers/run.jpg",
+        "Oddities": "covers/oddities.jpg",
+        "Orpheus": "covers/tingull.jpg",
+        "Afterglow": "covers/mariposa.png",
+        "Thirst": "covers/top-played.jpg",
+        "Vertigo": "covers/mariposa.png",
+        "Masterpiece": "covers/mariposa.png",
+        "Broadway": "covers/top-played.jpg"
+    };
+
     // ─── V9 DEFAULT DATA — 15 playlists, 22 months (Apr 24 → Mar 26) ───
     const DEFAULT_DATA = {
         months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"],
         playlists: {
             "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509],
-            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,160],
-            "Guide to Indie":   [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,111],
+            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168],
+            "Guide to Indie":   [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,110],
             "Ancora":           [21,28,28,28,30,31,31,31,33,32,33,36,34,34,35,36,37,37,37,37,38,38],
             "Thirst":           [24,26,26,28,28,28,28,30,30,31,32,32,32,32,32,32,32,32,32,32,33,33],
             "Potpourri":        [3,5,5,7,8,8,9,10,24,26,27,29,27,27,28,32,30,30,30,30,31,31],
             "Cloudbuster":      [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26],
-            "Broken":           [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,19],
+            "Broken":           [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,20],
             "run":              [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16],
             "Oddities":         [5,13,14,13,13,13,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14],
             "Orpheus":          [0,0,0,0,0,0,0,0,0,1,2,3,2,2,4,7,9,9,9,9,10,10],
@@ -906,7 +940,7 @@
         <div class="summary-card"><div class="sc-label">Total Growth (All Time)</div><div class="sc-value" style="color:var(--neon-blue)">+${totalGrowthAll.toLocaleString()}</div><div class="sc-detail" style="color:var(--text-muted)">${totalStart.toLocaleString()} \u2192 ${totalNow.toLocaleString()}</div></div>
         <div class="summary-card"><div class="sc-label">This Month's Movement</div><div class="sc-value" style="color:var(--text-primary); font-size:1.6rem;"><span style="color:var(--gain)">${growing}\u2191</span>&nbsp;<span style="color:var(--flat)">${flat}\u2014</span>&nbsp;<span style="color:var(--loss)">${declining}\u2193</span></div><div class="sc-detail" style="color:var(--text-muted)">of ${names.length} playlists</div></div>
         <div class="summary-card"><div class="sc-label">Best Performer (All Time)</div><div class="sc-value" style="color:${getColor(bestName)}; font-size:1.4rem;">${bestName || '\u2014'}</div><div class="sc-detail" style="color:var(--text-muted)">${bestPct !== -Infinity ? '+' + bestPct.toFixed(0) + '% since ' + data.months[0] : '\u2014'}</div></div>`;
-        document.getElementById('totalFollowers').textContent = totalNow.toLocaleString();
+        document.getElementById('totalFollowers').textContent = data.months[L];
     }
 
     function renderStatCards() {
@@ -927,8 +961,11 @@
             const diff3 = current - threeMonthAgo;
             const card = document.createElement('div');
             card.className = 'stat-card' + (selectedPlaylists.has(name) ? ' active' : '');
+            const coverUrl = COVERS[name] || '';
+            const coverBg = coverUrl ? `background-image:url('${coverUrl}');background-size:cover;background-position:center;` : '';
             card.innerHTML = `
             <style>.stat-card[data-n="${CSS.escape(name)}"]::after{background:${color};}</style>
+            ${coverUrl ? `<div class="stat-card-cover" style="${coverBg}"></div>` : ''}
             <div class="sc-top"><div class="name">${name}</div><div class="momentum-badge" style="background:${momStyle.bg};color:${momStyle.color}">${momStyle.text}</div></div>
             <div class="followers" style="color:${color}">${current.toLocaleString()}</div>
             <div class="delta-row">
@@ -1141,7 +1178,82 @@
         const a = document.createElement('a'); a.href = url; a.download = 'playlist-tracker-' + new Date().toISOString().split('T')[0] + '.csv'; a.click(); URL.revokeObjectURL(url);
     }
 
-    function updateAll() { renderSummary(); renderStatCards(); renderMovers(); renderMainChart(); renderDeltaChart(); renderHeatmap(); renderTable(); }
+    function renderInsights() {
+        const names = Object.keys(data.playlists);
+        const L = data.months.length - 1;
+        const insights = [];
+
+        // Best performer all-time by % growth (min 5 followers to qualify)
+        let bestPctName = '', bestPctVal = -Infinity;
+        names.forEach(n => {
+            const v = data.playlists[n];
+            const start = v.find(x => x > 0);
+            const startIdx = v.indexOf(start);
+            if (start && start >= 3 && v[L] >= 5) {
+                const pct = ((v[L] - start) / start) * 100;
+                if (pct > bestPctVal) { bestPctVal = pct; bestPctName = n; }
+            }
+        });
+        if (bestPctName) {
+            const v = data.playlists[bestPctName];
+            const start = v.find(x => x > 0);
+            insights.push(`<span style="color:${getColor(bestPctName)};font-weight:700;">${bestPctName}</span> is the all-time growth king at <strong>+${bestPctVal.toFixed(0)}%</strong> (${start} \u2192 ${v[L]}). It crossed the inflection point in late 2024 and hasn't looked back.`);
+        }
+
+        // Monday's Mixtape dominance
+        const mm = data.playlists["Monday's Mixtape"];
+        if (mm) {
+            const share = ((mm[L] / names.reduce((s,n) => s + data.playlists[n][L], 0)) * 100).toFixed(0);
+            insights.push(`<span style="color:${getColor("Monday's Mixtape")};font-weight:700;">Monday's Mixtape</span> commands <strong>${share}%</strong> of all followers at <strong>${mm[L]}</strong>. It's been the flagship since day one and the only playlist to breach 500.`);
+        }
+
+        // Fastest recent mover (last 3 months)
+        let fastName = '', fastDelta = 0;
+        names.forEach(n => {
+            const v = data.playlists[n];
+            if (L >= 3) {
+                const d = v[L] - v[L - 3];
+                if (d > fastDelta) { fastDelta = d; fastName = n; }
+            }
+        });
+        if (fastName && fastDelta > 0) {
+            insights.push(`<span style="color:${getColor(fastName)};font-weight:700;">${fastName}</span> is the hottest mover over the last 3 months with <strong>+${fastDelta}</strong> new followers. That's momentum worth watching.`);
+        }
+
+        // Breakout playlist (started at 0, now meaningful)
+        const breakouts = names.filter(n => {
+            const v = data.playlists[n];
+            return v[0] === 0 && v[L] >= 10;
+        }).sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
+        if (breakouts.length > 0) {
+            const bo = breakouts[0];
+            const v = data.playlists[bo];
+            const firstMonth = data.months[v.findIndex(x => x > 0)];
+            insights.push(`<span style="color:${getColor(bo)};font-weight:700;">${bo}</span> didn't exist before <strong>${firstMonth}</strong> and now sits at <strong>${v[L]}</strong> followers. Best proof that new playlists can find an audience from a standing start.`);
+        }
+
+        // Plateaus (stable for 6+ months)
+        const plateaus = names.filter(n => {
+            const v = data.playlists[n];
+            if (L < 6) return false;
+            const recent = v.slice(-6);
+            return Math.max(...recent) - Math.min(...recent) <= 1 && v[L] >= 5;
+        });
+        if (plateaus.length > 0) {
+            insights.push(`<strong>${plateaus.length} playlist${plateaus.length > 1 ? 's' : ''}</strong> (${plateaus.map(n => `<span style="color:${getColor(n)}">${n}</span>`).join(', ')}) ${plateaus.length > 1 ? 'have' : 'has'} been flat for 6+ months. Either the niche is saturated or the algorithmic boost has faded. Worth revisiting cover art, descriptions, or fresh adds.`);
+        }
+
+        // Groove's resurgence
+        const gr = data.playlists["Groove"];
+        if (gr && L >= 1 && gr[L] - gr[L-1] > 5) {
+            insights.push(`<span style="color:${getColor("Groove")};font-weight:700;">Groove</span> just spiked <strong>+${gr[L] - gr[L-1]}</strong> in a single month \u2014 the biggest single-month jump it's had since the Jan\u201325 era. Something caught the algorithm's attention.`);
+        }
+
+        const el = document.getElementById('insightsContent');
+        el.innerHTML = insights.map(i => `<p style="margin-bottom:12px;padding-left:14px;border-left:2px solid var(--border);">${i}</p>`).join('');
+    }
+
+    function updateAll() { renderSummary(); renderStatCards(); renderMovers(); renderInsights(); renderMainChart(); renderDeltaChart(); renderHeatmap(); renderTable(); }
     document.addEventListener('DOMContentLoaded', updateAll);
     document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
