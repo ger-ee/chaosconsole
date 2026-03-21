@@ -1,37 +1,37 @@
 {
-  "date": "2026-03-20",
+  "date": "2026-03-21",
   "articles": [
     {
       "type": "hero",
-      "topic": "Deep-Dive / The Blindspot",
-      "title": "Seven Investigative Story Templates You Can Steal and Run Anywhere in the World",
-      "summary": "GIJN compiled a field guide of underreported story archetypes -- pension fund black holes, land seizures masked as development, femicide data gaps -- that replicate across borders with disturbing consistency. The real utility here: each template comes with sourcing strategies, FOI angles, and cross-border collaboration tips that turn a local hunch into a publishable investigation.",
-      "source": "Global Investigative Journalism Network",
-      "url": "https://gijn.org/stories/underreported-story-ideas-that-can-be-replicated-around-the-world/"
+      "topic": "News Curation",
+      "title": "RSS Is Back From the Dead -- and It Might Be the Only Sane Way to Read News in 2026",
+      "summary": "While AI aggregators race to score and rank your reality, web-based RSS readers are quietly offering the thing no algorithm can: a feed you actually chose. FeedBucket's 2026 roundup cuts through the noise with five readers built for people who want signal without surveillance. The real insight: the best news product in 2026 is defined by what it leaves out.",
+      "source": "FeedBucket",
+      "url": "https://www.feedbucket.com/2026/02/18/the-best-web-based-rss-readers-of-2026-reclaim-your-feed/"
     },
     {
       "type": "secondary",
-      "topic": "History Presentation",
-      "title": "The Netflix Data Says Emotional Documentaries Win by 2.3x -- Here's How to Structure One",
-      "summary": "A breakdown of what separates forgettable history docs from ones people actually finish: non-linear timelines, conflict-first structure borrowed from feature films, and the Ken Burns insight that \"not knowing how something turns out\" matters more than the facts themselves.",
-      "source": "OC Movie Reviews",
-      "url": "https://ocmoviereviews.com/what-makes-a-documentary-film-compelling-storytelling-in-2026/"
+      "topic": "YouTube Pipeline",
+      "title": "The Solo Creator With a $150/Month AI Stack Is Outpacing Your Entire Production Team",
+      "summary": "ProductionHub maps the real industry shift: AI isn't replacing crews overnight, but solo operators wiring together Make, Runway, and ElevenLabs are publishing 20 videos a day while studios are still in their kickoff call. The algorithm can't tell the difference.",
+      "source": "ProductionHub",
+      "url": "https://www.productionhub.com/blog/post/will-ai-replace-film-video-production-jobs-in-2026-inside-the-real-industry-shift"
     },
     {
       "type": "secondary",
-      "topic": "On-Camera Presence",
-      "title": "Your Audience Can't See Your Nerves -- But They Can See Your Energy",
-      "summary": "Jon Youshaei's framework for camera confidence boils down to one counterintuitive move: reframe anxiety as excitement, because your body can't tell the difference. Practical tactics include the sticky-note-on-the-lens trick for eye contact and pre-record pump-up songs to replace missing co-host energy.",
-      "source": "Thinkific",
-      "url": "https://www.thinkific.com/blog/how-to-be-confident-on-camera-tips-from-jon-youshaei/"
+      "topic": "ADHD Scope Control",
+      "title": "A Therapist Reviewed Sunsama for ADHD -- The Overcommitment Warning Is the Whole Point",
+      "summary": "A Saskatchewan ADHD therapist breaks down why Sunsama's gentle nudge when you plan past 5-6 hours of focused work is more therapeutically valuable than any productivity hack. Most ADHD brains plan for 10+ hours; the research says 3-4 is realistic.",
+      "source": "SaskADHD",
+      "url": "https://saskadhd.com/sunsama-review-a-therapists-take-on-the-daily-planner-that-actually-works-with-your-brain/"
     },
     {
       "type": "secondary",
-      "topic": "Creator Writing Skills",
-      "title": "The 2026 AI Script Stack That Lets Non-Native Speakers Write Like They Grew Up in Brooklyn",
-      "summary": "A ranked comparison of AI script generators -- Subscribr, Jasper, Writesonic, vidIQ -- evaluated specifically for multilingual creators who draft in English but think in another language. The move: use AI for structure and idiom, then polish voice manually.",
-      "source": "Awisee",
-      "url": "https://awisee.com/blog/ai-youtube-script-generators/"
+      "topic": "The Blindspot",
+      "title": "Project Censored Turns 50 -- Here Are the Stories Corporate Media Buried This Year",
+      "summary": "The 2026 list leads with ICE soliciting social media surveillance contracts to identify critics, then threads through tech-enabled union busting at Amazon, privatized homeless camp sweeps, and the near-total absence of working-class Americans in state legislatures.",
+      "source": "Shepherd Express",
+      "url": "https://shepherdexpress.com/news/features/project-censoreds-list-of-buried-stories-for-2026/"
     }
   ]
 }
