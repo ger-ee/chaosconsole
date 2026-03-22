@@ -1,37 +1,37 @@
 {
-  "date": "2026-03-21",
+  "date": "2026-03-22",
   "articles": [
     {
       "type": "hero",
+      "topic": "History Presentation",
+      "title": "The Documentary Trick That Makes Any History Feel Personal",
+      "summary": "The best history docs don't lecture -- they smuggle universal themes inside one person's story. Filmmakers behind Grizzly Man, Icarus, and My Octopus Teacher all used the same structural move: anchor a massive subject in a single obsessive protagonist, then let cinematography and editing rhythm carry the emotional weight. The technique works just as well for a 10-minute YouTube essay as a feature film.",
+      "source": "Lightworks",
+      "url": "https://lwks.com/blog/crafting-relatable-documentaries-by-using-personal-stories"
+    },
+    {
+      "type": "secondary",
+      "topic": "On-Camera Presence",
+      "title": "Audiences Are Rejecting Polished AI Slop -- Here's What They Want Instead",
+      "summary": "Data from early 2026 shows viewers now punish over-produced, generic content and reward creators who lean into personality and unscripted energy. Hook in the first 5-7 seconds, vary your camera angles (3+ changes = 28% higher retention), and treat comments like conversations, not metrics.",
+      "source": "JXT Group",
+      "url": "https://www.jxtgroup.com/how-youtube-creators-can-make-2026-their-best-year-yet-data-driven-insights-winning-strategies/"
+    },
+    {
+      "type": "secondary",
+      "topic": "Creator English Skills",
+      "title": "Your Accent Is a Feature, Not a Bug: English for Non-Native Creators",
+      "summary": "A practical vocabulary and scripting guide built specifically for influencers whose first language isn't English. Key move: stop chasing perfect pronunciation and start nailing hooks, CTAs, and brand-pitch phrasing instead.",
+      "source": "EnglishLesson.com",
+      "url": "https://www.englishlesson.com/english-for-content-creators-and-influencers/"
+    },
+    {
+      "type": "secondary",
       "topic": "News Curation",
-      "title": "RSS Is Back From the Dead -- and It Might Be the Only Sane Way to Read News in 2026",
-      "summary": "While AI aggregators race to score and rank your reality, web-based RSS readers are quietly offering the thing no algorithm can: a feed you actually chose. FeedBucket's 2026 roundup cuts through the noise with five readers built for people who want signal without surveillance. The real insight: the best news product in 2026 is defined by what it leaves out.",
-      "source": "FeedBucket",
-      "url": "https://www.feedbucket.com/2026/02/18/the-best-web-based-rss-readers-of-2026-reclaim-your-feed/"
-    },
-    {
-      "type": "secondary",
-      "topic": "YouTube Pipeline",
-      "title": "The Solo Creator With a $150/Month AI Stack Is Outpacing Your Entire Production Team",
-      "summary": "ProductionHub maps the real industry shift: AI isn't replacing crews overnight, but solo operators wiring together Make, Runway, and ElevenLabs are publishing 20 videos a day while studios are still in their kickoff call. The algorithm can't tell the difference.",
-      "source": "ProductionHub",
-      "url": "https://www.productionhub.com/blog/post/will-ai-replace-film-video-production-jobs-in-2026-inside-the-real-industry-shift"
-    },
-    {
-      "type": "secondary",
-      "topic": "ADHD Scope Control",
-      "title": "A Therapist Reviewed Sunsama for ADHD -- The Overcommitment Warning Is the Whole Point",
-      "summary": "A Saskatchewan ADHD therapist breaks down why Sunsama's gentle nudge when you plan past 5-6 hours of focused work is more therapeutically valuable than any productivity hack. Most ADHD brains plan for 10+ hours; the research says 3-4 is realistic.",
-      "source": "SaskADHD",
-      "url": "https://saskadhd.com/sunsama-review-a-therapists-take-on-the-daily-planner-that-actually-works-with-your-brain/"
-    },
-    {
-      "type": "secondary",
-      "topic": "The Blindspot",
-      "title": "Project Censored Turns 50 -- Here Are the Stories Corporate Media Buried This Year",
-      "summary": "The 2026 list leads with ICE soliciting social media surveillance contracts to identify critics, then threads through tech-enabled union busting at Amazon, privatized homeless camp sweeps, and the near-total absence of working-class Americans in state legislatures.",
-      "source": "Shepherd Express",
-      "url": "https://shepherdexpress.com/news/features/project-censoreds-list-of-buried-stories-for-2026/"
+      "title": "10 Curation Strategies That Cut Information Noise by 80%",
+      "summary": "Information doubles every 72 hours and 69% of knowledge workers are stressed by the firehose. This guide lays out a 3-folder triage system, quarterly source audits, and AI-powered newsletter digests that compress 10 subscriptions into one daily read.",
+      "source": "Readless",
+      "url": "https://www.readless.app/blog/content-curation-strategies-2026"
     }
   ]
 }
