@@ -6,64 +6,64 @@
 <title>Chaos Console</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 [data-theme="dark"] {
-  --bg: #0a0a0a;
-  --bg-elevated: #111111;
-  --surface: #161616;
-  --surface-2: #1e1e1e;
-  --border: #2a2a2a;
-  --border-subtle: #1f1f1f;
-  --text: #f0f0f0;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
-  --primary: #0077BC;
-  --primary-dim: rgba(0, 119, 188, 0.12);
-  --primary-glow: rgba(0, 119, 188, 0.25);
-  --secondary: #009866;
-  --secondary-dim: rgba(0, 152, 102, 0.12);
-  --success: #16A34A;
-  --warning: #D97706;
-  --danger: #DC2626;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-  --card-1: #0077BC;
-  --card-2: #009866;
-  --card-3: #16A34A;
-  --card-4: #D97706;
-  --card-5: #0077BC;
-  --card-6: #DC2626;
-  --card-7: #D97706;
-  --card-8: #009866;
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border: #2a3a5c;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #d4a052;
+  --accent-dim: rgba(212, 160, 82, 0.10);
+  --accent-glow: rgba(212, 160, 82, 0.25);
+  --red: #f87171;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --purple: #a07dd4;
+  --pink: #f472b6;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  --card-1: #d4a052;
+  --card-2: #52b4d4;
+  --card-3: #4ade80;
+  --card-4: #f472b6;
+  --card-5: #a07dd4;
+  --card-6: #f87171;
+  --card-7: #e74c5a;
+  --card-8: #22d3ee;
 }
 
 [data-theme="light"] {
-  --bg: #f5f5f5;
+  --bg: #f0f4f8;
   --bg-elevated: #ffffff;
   --surface: #ffffff;
-  --surface-2: #ebebeb;
-  --border: #d4d4d4;
-  --border-subtle: #e0e0e0;
-  --text: #111827;
-  --text-secondary: #374151;
-  --text-muted: #6B7280;
-  --primary: #005a8f;
-  --primary-dim: rgba(0, 90, 143, 0.08);
-  --primary-glow: rgba(0, 90, 143, 0.18);
-  --secondary: #007a53;
-  --secondary-dim: rgba(0, 122, 83, 0.08);
-  --success: #15803D;
-  --warning: #B45309;
-  --danger: #B91C1C;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  --card-1: #005a8f;
-  --card-2: #007a53;
-  --card-3: #15803D;
-  --card-4: #B45309;
-  --card-5: #005a8f;
-  --card-6: #B91C1C;
-  --card-7: #B45309;
-  --card-8: #007a53;
+  --surface-2: #e8edf4;
+  --border: #c8d3e0;
+  --border-subtle: #dce3ed;
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent: #b8862d;
+  --accent-dim: rgba(184, 134, 45, 0.08);
+  --accent-glow: rgba(184, 134, 45, 0.18);
+  --red: #dc2626;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --purple: #7c3aed;
+  --pink: #db2777;
+  --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  --card-1: #b8862d;
+  --card-2: #3b9fb8;
+  --card-3: #16a34a;
+  --card-4: #be185d;
+  --card-5: #6d28d9;
+  --card-6: #dc2626;
+  --card-7: #c0392b;
+  --card-8: #0891b2;
 }
 
 * {
@@ -83,44 +83,59 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Theme toggle */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 .theme-toggle {
   position: fixed;
   top: 2rem;
   right: 2rem;
-  width: 52px;
-  height: 52px;
-  border-radius: 4px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--surface);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   color: var(--text);
   font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   z-index: 1000;
   box-shadow: var(--shadow);
 }
 
 .theme-toggle:hover {
   background: var(--surface-2);
-  border-color: var(--primary);
+  border-color: var(--accent);
+  transform: scale(1.05);
 }
 
 .theme-toggle:active {
   transform: scale(0.95);
 }
 
-/* Masthead */
 .masthead {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 5rem 2rem 2rem;
+  padding: 4.5rem 2rem 1rem;
+  position: relative;
 }
 
 .masthead-meta {
@@ -128,116 +143,137 @@ body {
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
 
+.masthead-meta span {
+  white-space: nowrap;
+}
+
 .masthead-meta .sep {
-  width: 4px;
-  height: 4px;
-  background: var(--primary);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
   flex-shrink: 0;
 }
 
 .status-dot {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .status-dot::before {
   content: '';
-  width: 8px;
-  height: 8px;
-  background: var(--success);
-  box-shadow: 0 0 12px rgba(22, 163, 74, 0.5);
-  animation: statusPulse 2.5s ease-in-out infinite;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+  animation: pulse 2.5s ease-in-out infinite;
 }
 
-@keyframes statusPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px rgba(74, 222, 128, 0.2);
+  }
 }
 
 .masthead h1 {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
+  font-family: 'Syncopate', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  white-space: nowrap;
+  font-weight: 900;
+  letter-spacing: -0.035em;
   line-height: 1.0;
   color: var(--text);
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
+  margin-bottom: 0.6rem;
 }
 
 .masthead .tagline {
-  font-size: 1.1rem;
-  color: var(--text-muted);
+  font-size: 1rem;
+  color: var(--text-secondary);
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
 }
 
-/* Rule divider */
+.masthead-deco {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  width: 80px;
+  height: 80px;
+  opacity: 0.06;
+  color: var(--text);
+}
+
 .rule {
   max-width: 1080px;
-  margin: 1rem auto 0;
+  margin: 1.5rem auto 0;
   padding: 0 2rem;
 }
 
 .rule hr {
   border: none;
-  height: 3px;
-  background: var(--primary);
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-glow), transparent 80%);
 }
 
-/* Section labels */
 .section-label {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 3rem 2rem 1.25rem;
+  padding: 2.5rem 2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .section-label h2 {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--primary);
+  letter-spacing: 0.14em;
+  color: var(--accent);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .section-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--primary);
-  opacity: 0.8;
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  color: var(--text);
 }
 
 .section-label::after {
   content: '';
-  display: block;
-  height: 2px;
+  flex: 1;
+  height: 1px;
   background: var(--border);
-  margin-top: 0.75rem;
 }
 
-/* Card grid */
 .grid {
   max-width: 1080px;
   margin: 0 auto;
   padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
+  gap: 1px;
   background: var(--border);
-  border: 2px solid var(--border);
-  border-radius: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   overflow: hidden;
 }
 
@@ -245,18 +281,17 @@ body {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* Cards */
 .card {
   background: var(--surface);
-  padding: 2rem 2rem;
+  padding: 2rem 1.75rem;
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: background 0.2s ease;
+  transition: background 0.25s ease;
   cursor: pointer;
-  min-height: 240px;
+  min-height: 220px;
   overflow: hidden;
 }
 
@@ -265,15 +300,34 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
-  height: 100%;
+  right: 0;
+  height: 2px;
   background: var(--card-accent);
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  opacity: 0.35;
+  transition: opacity 0.3s ease, height 0.3s ease;
 }
 
 .card:hover::before {
   opacity: 1;
+  height: 3px;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-accent) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 0.06;
 }
 
 .card:hover {
@@ -284,6 +338,10 @@ body {
   color: var(--card-accent);
 }
 
+.card:hover .card-title {
+  color: var(--text);
+}
+
 .card:hover .card-arrow {
   opacity: 1;
   transform: translate(0, 0);
@@ -292,47 +350,71 @@ body {
 .card:hover .card-tag {
   border-color: var(--card-accent);
   color: var(--card-accent);
+  background: var(--accent-dim);
 }
 
-.card[data-accent="1"] { --card-accent: var(--card-1); }
-.card[data-accent="2"] { --card-accent: var(--card-2); }
-.card[data-accent="3"] { --card-accent: var(--card-3); }
-.card[data-accent="4"] { --card-accent: var(--card-4); }
-.card[data-accent="5"] { --card-accent: var(--card-5); }
-.card[data-accent="6"] { --card-accent: var(--card-6); }
-.card[data-accent="7"] { --card-accent: var(--card-7); }
-.card[data-accent="8"] { --card-accent: var(--card-8); }
+.card[data-accent="1"] {
+  --card-accent: var(--card-1);
+}
+
+.card[data-accent="2"] {
+  --card-accent: var(--card-2);
+}
+
+.card[data-accent="3"] {
+  --card-accent: var(--card-3);
+}
+
+.card[data-accent="4"] {
+  --card-accent: var(--card-4);
+}
+
+.card[data-accent="5"] {
+  --card-accent: var(--card-5);
+}
+
+.card[data-accent="6"] {
+  --card-accent: var(--card-6);
+}
+
+.card[data-accent="7"] {
+  --card-accent: var(--card-7);
+}
+
+.card[data-accent="8"] {
+  --card-accent: var(--card-8);
+}
 
 
 .card-number {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 1.25rem;
-  transition: color 0.2s ease;
+  transition: color 0.25s ease;
   position: relative;
   z-index: 1;
 }
 
 .card-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 0.75rem;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+  transition: color 0.25s ease;
   position: relative;
   z-index: 1;
   color: var(--text);
-  text-transform: uppercase;
 }
 
 .card-desc {
-  font-size: 0.85rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.55;
   color: var(--text-secondary);
   flex-grow: 1;
   position: relative;
@@ -343,7 +425,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
   position: relative;
   z-index: 1;
 }
@@ -353,20 +435,20 @@ body {
   font-size: 0.6rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: var(--text-muted);
-  border: 2px solid var(--border);
-  padding: 0.3rem 0.65rem;
-  border-radius: 0;
-  transition: all 0.2s ease;
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  transition: all 0.25s ease;
 }
 
 .card-arrow {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--card-accent);
   opacity: 0;
   transform: translate(-4px, 4px);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .card-deco {
@@ -380,20 +462,18 @@ body {
 }
 
 .card:hover .card-deco {
-  opacity: 0.1;
+  opacity: 0.08;
 }
 
-/* Footer */
 .colophon {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 4rem 2rem 5rem;
+  padding: 3rem 2rem 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
@@ -405,35 +485,102 @@ body {
 }
 
 .colophon a:hover {
-  color: var(--primary);
+  color: var(--accent);
 }
 
-/* Animation */
+/* ── Editorial polish: entrance animations ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.masthead, .grid, .section-label, .colophon {
-  animation: fadeUp 0.4s ease-out both;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .masthead { padding: 3.5rem 1.25rem 1.5rem; }
-  .masthead h1 { font-size: 2rem; }
-  .grid { grid-template-columns: 1fr; padding: 0 1.25rem; }
-  .grid--three { grid-template-columns: 1fr; }
-  .section-label { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .rule { padding: 0 1.25rem; }
-  .colophon { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .card { min-height: 180px; }
+.masthead { animation: fadeUp 0.6s ease-out both; }
+.section-label { animation: fadeIn 0.5s ease-out both; animation-delay: 0.2s; }
+.grid { animation: fadeUp 0.5s ease-out both; animation-delay: 0.3s; }
+
+.card {
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease;
 }
+
+.card:hover {
+  background: var(--surface-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.colophon { animation: fadeIn 0.5s ease-out both; animation-delay: 0.5s; }
+
+/* ── Focus ring for keyboard nav ── */
+.card:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: -2px;
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .masthead {
+    padding: 3rem 1.25rem 0.75rem;
+  }
+
+  .masthead h1 {
+    font-size: 2.4rem;
+  }
+
+  .masthead-deco {
+    display: none;
+  }
+
+  .rule, .section-label {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .grid, .grid--three {
+    grid-template-columns: 1fr;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    padding: 0;
+  }
+
+  .card {
+    padding: 1.5rem 1.25rem;
+    min-height: 160px;
+  }
+
+  .card-deco {
+    display: none;
+  }
+
+  .colophon {
+    padding: 2rem 1.25rem 3rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid--three {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;&#65039;</button>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
 
 <header class="masthead">
   <div class="masthead-meta">
@@ -445,6 +592,12 @@ body {
   </div>
   <h1>Chaos Console</h1>
   <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
+  <svg class="masthead-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="40" cy="40" r="24" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+    <line x1="40" y1="0" x2="40" y2="80" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+    <line x1="0" y1="40" x2="80" y2="40" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+  </svg>
 </header>
 
 <div class="rule"><hr></div>
@@ -452,8 +605,8 @@ body {
 <div class="section-label">
   <h2>
     <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="3" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
-      <line x1="1" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="1" y="3" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="1" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="1.2"/>
       <rect x="11" y="10" width="3.5" height="2.5" rx="0.5" fill="currentColor" opacity="0.4"/>
     </svg>
     Financial Tools
@@ -473,8 +626,8 @@ body {
 <div class="section-label">
   <h2>
     <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.5"/>
-      <polyline points="9,4 9,9 13,11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
+      <polyline points="9,4 9,9 13,11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     Personal Trackers
   </h2>
@@ -501,7 +654,7 @@ body {
   <h2>
     <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M9 2L11.5 7H6.5L9 2Z" fill="currentColor" opacity="0.4"/>
-      <circle cx="9" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+      <circle cx="9" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
       <circle cx="9" cy="12" r="1.5" fill="currentColor" opacity="0.4"/>
     </svg>
     Intelligence &amp; Systems
@@ -525,11 +678,12 @@ body {
   </a>
 </div>
 
+
 <div class="section-label">
   <h2>
     <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 2h8l4 4v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-      <polyline points="11,2 11,6 15,6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+      <path d="M3 2h8l4 4v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <polyline points="11,2 11,6 15,6" stroke="currentColor" stroke-width="1.2" fill="none"/>
       <line x1="5" y1="10" x2="13" y2="10" stroke="currentColor" stroke-width="1" opacity="0.5"/>
       <line x1="5" y1="13" x2="11" y2="13" stroke="currentColor" stroke-width="1" opacity="0.5"/>
     </svg>
@@ -550,8 +704,8 @@ body {
 <div class="section-label">
   <h2>
     <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9 3C6.5 3 4.5 5 4.5 7.5c0 3.5 4.5 7.5 4.5 7.5s4.5-4 4.5-7.5C13.5 5 11.5 3 9 3z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-      <path d="M9 6v3M7.5 7.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M9 3C6.5 3 4.5 5 4.5 7.5c0 3.5 4.5 7.5 4.5 7.5s4.5-4 4.5-7.5C13.5 5 11.5 3 9 3z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <path d="M9 6v3M7.5 7.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
     </svg>
     Health &amp; Wellness
   </h2>
@@ -577,27 +731,29 @@ const now = new Date();
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
 
-// Theme toggle
+// Theme toggle functionality
 function toggleTheme() {
   const html = document.documentElement;
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
-  document.querySelector('#themeToggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+  document.querySelector('#themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
 }
 
+// Initialize theme
 (function() {
   const saved = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
   const btn = document.querySelector('#themeToggle');
   if (btn) {
-    btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    btn.textContent = saved === 'dark' ? '☀️' : '🌙';
     btn.addEventListener('click', toggleTheme);
   }
 })();
 
 // konami
-(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;document.querySelector('.masthead h1').style.transition='all 0.6s ease';document.querySelector('.masthead h1').textContent='CHAOS IS A LADDER';document.querySelector('.masthead h1').style.background='linear-gradient(90deg, var(--primary), var(--danger), var(--primary))';document.querySelector('.masthead h1').style.webkitBackgroundClip='text';document.querySelector('.masthead h1').style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='\u2014 Littlefinger was right about one thing.';setTimeout(function(){document.querySelector('.masthead h1').textContent='CHAOS CONSOLE';document.querySelector('.masthead h1').style.background='none';document.querySelector('.masthead h1').style.webkitTextFillColor='var(--text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
+(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;document.querySelector('.masthead h1').style.transition='all 0.6s ease';document.querySelector('.masthead h1').textContent='CHAOS IS A LADDER';document.querySelector('.masthead h1').style.background='linear-gradient(90deg, var(--accent), var(--red), var(--accent))';document.querySelector('.masthead h1').style.webkitBackgroundClip='text';document.querySelector('.masthead h1').style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='— Littlefinger was right about one thing.';setTimeout(function(){document.querySelector('.masthead h1').textContent='Chaos Console';document.querySelector('.masthead h1').style.background='none';document.querySelector('.masthead h1').style.webkitTextFillColor='var(--text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
+
 </script>
 </body>
 </html>
