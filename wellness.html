@@ -7,24 +7,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg: #0a0a0f;
-  --surface: #111118;
-  --surface2: #1a1a24;
-  --border: #2a2a3a;
-  --text: #e4e4ef;
-  --text-dim: #8888a0;
-  --accent: #e94560;
-  --accent2: #6c63ff;
-  --accent3: #00d4aa;
-  --accent4: #ffa726;
-  --accent5: #42a5f5;
-  --deep: #7c4dff;
-  --rem: #ff6b9d;
-  --light: #4dd0e1;
-  --awake: #ff8a65;
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1e1e1e;
+  --border: #2a2a2a;
+  --text: #f0f0f0;
+  --text-dim: #666666;
+  --accent: #0077BC;
+  --accent2: #009866;
+  --accent3: #16A34A;
+  --accent4: #D97706;
+  --accent5: #0077BC;
+  --deep: #009866;
+  --rem: #DC2626;
+  --light: #0077BC;
+  --awake: #D97706;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,8 +51,8 @@ header {
 }
 
 header h1 {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.4rem; font-weight: 700;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.6rem; font-weight: 400; text-transform: uppercase;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
@@ -81,7 +81,7 @@ header .breadcrumb a { color: var(--accent); text-decoration: none; }
 .score-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 1.2rem 1rem;
   text-align: center;
   position: relative;
@@ -135,7 +135,7 @@ header .breadcrumb a { color: var(--accent); text-decoration: none; }
 .chart-panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.5rem;
   position: relative;
 }
@@ -177,7 +177,7 @@ footer a { color: var(--accent); text-decoration: none; }
 
 <header>
   <h1>Wellness Analysis</h1>
-  <span class="breadcrumb"><a href="#">chaosconsole.com</a> / wellness</span>
+  <span class="breadcrumb"><a href="index.html">CHAOS CONSOLE</a> / wellness</span>
   <span class="date-range">Sep 11, 2025 — Mar 17, 2026 &nbsp;|&nbsp; 188 days tracked</span>
 </header>
 

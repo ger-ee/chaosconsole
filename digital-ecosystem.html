@@ -6,14 +6,14 @@
     <title>Digital Ecosystem — V9 · Systems Maintenance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --transition-speed: 0.35s; }
 
         [data-theme="dark"] {
-            --bg: #0b0f1a; --bg-elevated: #101828; --surface: #151d2e; --surface-2: #1c2640; --surface-3: #243050;
-            --border: #2a3a5c; --border-subtle: #1e2d4a; --text: #e2e8f0; --text-secondary: #94a3b8; --text-muted: #64748b;
-            --accent: #d4a052; --accent-dim: rgba(212,160,82,0.12); --accent-glow: rgba(212,160,82,0.25);
+            --bg: #0a0a0a; --bg-elevated: #111111; --surface: #161616; --surface-2: #1e1e1e; --surface-3: #252525;
+            --border: #2a2a2a; --border-subtle: #1f1f1f; --text: #f0f0f0; --text-secondary: #a0a0a0; --text-muted: #666666;
+            --accent: #0077BC; --accent-dim: rgba(0,119,188,0.12); --accent-glow: rgba(0,119,188,0.25);
             --red: #f87171; --red-dim: rgba(248,113,113,0.12);
             --orange: #fb923c; --orange-dim: rgba(251,146,60,0.12);
             --yellow: #fbbf24; --yellow-dim: rgba(251,191,36,0.12);
@@ -22,15 +22,15 @@
             --purple: #a78bfa; --purple-dim: rgba(167,139,250,0.12);
             --pink: #f472b6; --pink-dim: rgba(244,114,182,0.12);
             --cyan: #22d3ee; --cyan-dim: rgba(34,211,238,0.12);
-            --gray: #64748b;
+            --gray: #666666;
             --shadow: 0 2px 12px rgba(0,0,0,0.6); --shadow-lg: 0 8px 32px rgba(0,0,0,0.7);
-            --toggle-bg: #1c2640; --code-bg: #0e1525;
+            --toggle-bg: #1e1e1e; --code-bg: #0e1525;
         }
 
         [data-theme="light"] {
-            --bg: #f0f4f8; --bg-elevated: #ffffff; --surface: #ffffff; --surface-2: #e8edf4; --surface-3: #dce3ed;
-            --border: #c8d3e0; --border-subtle: #d8e0ea; --text: #0f172a; --text-secondary: #334155; --text-muted: #64748b;
-            --accent: #b8862d; --accent-dim: rgba(184,134,45,0.08); --accent-glow: rgba(184,134,45,0.18);
+            --bg: #f5f5f5; --bg-elevated: #ffffff; --surface: #ffffff; --surface-2: #ebebeb; --surface-3: #e0e0e0;
+            --border: #d4d4d4; --border-subtle: #d8e0ea; --text: #0f172a; --text-secondary: #334155; --text-muted: #666666;
+            --accent: #005a8f; --accent-dim: rgba(0,90,143,0.08); --accent-glow: rgba(0,90,143,0.18);
             --red: #dc2626; --red-dim: rgba(220,38,38,0.08);
             --orange: #ea580c; --orange-dim: rgba(234,88,12,0.08);
             --yellow: #ca8a04; --yellow-dim: rgba(202,138,4,0.08);
@@ -39,9 +39,9 @@
             --purple: #7c3aed; --purple-dim: rgba(124,58,237,0.08);
             --pink: #db2777; --pink-dim: rgba(219,39,119,0.08);
             --cyan: #0891b2; --cyan-dim: rgba(8,145,178,0.08);
-            --gray: #64748b;
+            --gray: #666666;
             --shadow: 0 2px 12px rgba(15,23,42,0.06); --shadow-lg: 0 8px 32px rgba(15,23,42,0.10);
-            --toggle-bg: #e8edf4; --code-bg: #eef2f7;
+            --toggle-bg: #ebebeb; --code-bg: #eef2f7;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,19 +68,19 @@
 
         .header { padding-bottom: 48px; margin-bottom: 56px; border-bottom: 2px solid var(--border-subtle); position: relative; }
         .header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 120px; height: 2px; background: var(--accent); }
-        .header h1 { font-family: 'Inter', sans-serif; font-size: 40px; font-weight: 400; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 12px; color: var(--text); }
+        .header h1 { font-family: 'Archivo Black', sans-serif; font-size: 40px; font-weight: 400; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 12px; color: var(--text); }
         .header h1 .accent-word { color: var(--accent); }
         .version-badge {
             display: inline-block; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
             letter-spacing: 1.5px; text-transform: uppercase;
             background: var(--accent-dim); color: var(--accent);
-            padding: 4px 14px; border-radius: 6px; margin-bottom: 16px;
+            padding: 4px 14px; border-radius: 2px; margin-bottom: 16px;
         }
         .subtitle { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; color: var(--text-secondary); max-width: 720px; line-height: 1.7; }
 
         /* STATUS BANNER */
         .status-banner {
-            background: var(--green-dim); border: 1px solid var(--green); border-radius: 12px;
+            background: var(--green-dim); border: 1px solid var(--green); border-radius: 4px;
             padding: 20px 28px; margin-bottom: 48px; display: flex; align-items: center; gap: 16px;
         }
         .status-banner .icon { font-size: 28px; flex-shrink: 0; }
@@ -142,7 +142,7 @@
         /* METRIC STRIP */
         .metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; }
         .metric-card {
-            background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px;
+            background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 4px;
             padding: 20px; text-align: center;
         }
         .metric-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 6px; }
@@ -151,7 +151,7 @@
 
         /* ALERT BOX */
         .alert-box {
-            border-radius: 12px; padding: 20px 24px; margin-bottom: 16px;
+            border-radius: 4px; padding: 20px 24px; margin-bottom: 16px;
             display: flex; align-items: flex-start; gap: 14px;
             font-size: 13px; line-height: 1.6;
         }
@@ -219,7 +219,7 @@
         <span id="themeIcon">☀️</span>
     </button>
 
-    <div style="max-width:1080px;margin:0 auto;padding:12px 24px;"><a href="index.html" style="color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;"onmouseover="this.style.color='var(--accent)'"onmouseout="this.style.color='var(--text-muted)'">&larr; Command Center</a></div>
+    <div style="max-width:1080px;margin:0 auto;padding:12px 24px;"><a href="index.html" style="color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;"onmouseover="this.style.color='var(--accent)'"onmouseout="this.style.color='var(--text-muted)'">&larr; CHAOS CONSOLE</a></div>
 
     <div class="container">
         <!-- HEADER -->
