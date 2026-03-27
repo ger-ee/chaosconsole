@@ -303,63 +303,6 @@ body {
 .card[data-accent="7"] { --card-accent: var(--card-7); }
 .card[data-accent="8"] { --card-accent: var(--card-8); }
 
-/* Password overlay for protected cards */
-.card-protected { position: relative; }
-.card-protected .card-lock-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--surface);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  gap: 0.75rem;
-  transition: opacity 0.3s ease;
-}
-.card-protected .card-lock-overlay svg {
-  width: 28px;
-  height: 28px;
-  opacity: 0.35;
-  color: var(--text);
-}
-.card-protected .card-lock-overlay input {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  background: var(--bg);
-  border: 2px solid var(--border);
-  color: var(--text);
-  padding: 0.5rem 0.85rem;
-  border-radius: 0;
-  text-align: center;
-  width: 160px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.card-protected .card-lock-overlay input:focus {
-  border-color: var(--primary);
-}
-.card-protected .card-lock-overlay input::placeholder {
-  color: var(--text-muted);
-  font-size: 0.7rem;
-}
-.card-protected .card-lock-overlay .lock-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--text-muted);
-}
-.card-protected .card-lock-overlay .lock-error {
-  font-size: 0.65rem;
-  color: var(--danger);
-  height: 0.85rem;
-  font-weight: 600;
-}
-.card-protected.unlocked .card-lock-overlay {
-  opacity: 0;
-  pointer-events: none;
-}
 
 .card-number {
   font-family: 'JetBrains Mono', monospace;
@@ -518,13 +461,7 @@ body {
 </div>
 
 <div class="grid">
-  <a href="financial-consolidation.html" class="card card-protected" data-accent="1" onclick="return checkCardUnlock(this)">
-    <div class="card-lock-overlay">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
-      <span class="lock-label">Protected</span>
-      <input type="password" placeholder="Enter password" onkeydown="handleCardPassword(event, this)" onclick="event.preventDefault(); event.stopPropagation();">
-      <span class="lock-error"></span>
-    </div>
+  <a href="financial-consolidation.html" class="card" data-accent="1">
     <div class="card-number">01</div>
     <div class="card-title">The Ledger</div>
     <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
@@ -658,40 +595,6 @@ function toggleTheme() {
     btn.addEventListener('click', toggleTheme);
   }
 })();
-
-// Password protection for financial cards
-const ACTUAL_PW = 'chaos$2026';
-
-function checkCardUnlock(card) {
-  if (card.classList.contains('unlocked')) return true;
-  return false;
-}
-
-async function handleCardPassword(event, input) {
-  if (event.key !== 'Enter') return;
-  event.preventDefault();
-  event.stopPropagation();
-  const card = input.closest('.card-protected');
-  const errorEl = card.querySelector('.lock-error');
-
-  if (input.value === ACTUAL_PW) {
-    card.classList.add('unlocked');
-    document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
-    sessionStorage.setItem('fin_unlocked', '1');
-  } else {
-    errorEl.textContent = 'Wrong password';
-    input.value = '';
-    input.style.borderColor = 'var(--danger)';
-    setTimeout(() => {
-      errorEl.textContent = '';
-      input.style.borderColor = '';
-    }, 2000);
-  }
-}
-
-if (sessionStorage.getItem('fin_unlocked') === '1') {
-  document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
-}
 
 // konami
 (function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;document.querySelector('.masthead h1').style.transition='all 0.6s ease';document.querySelector('.masthead h1').textContent='CHAOS IS A LADDER';document.querySelector('.masthead h1').style.background='linear-gradient(90deg, var(--primary), var(--danger), var(--primary))';document.querySelector('.masthead h1').style.webkitBackgroundClip='text';document.querySelector('.masthead h1').style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='\u2014 Littlefinger was right about one thing.';setTimeout(function(){document.querySelector('.masthead h1').textContent='CHAOS CONSOLE';document.querySelector('.masthead h1').style.background='none';document.querySelector('.masthead h1').style.webkitTextFillColor='var(--text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
