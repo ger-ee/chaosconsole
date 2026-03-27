@@ -6,405 +6,549 @@
 <title>Chaos Console</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ── */
-:root {
-  --font-display: 'Archivo Black', sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --radius: 0;
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
-  --space-4xl: 96px;
-  --max-w: 1120px;
-}
-
 [data-theme="dark"] {
-  --bg: #111111;
-  --bg-alt: #1a1a1a;
-  --surface: #222222;
-  --surface-hover: #2a2a2a;
-  --border: #333333;
-  --text: #f5f5f5;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
-  --primary: #0077BC;
-  --secondary: #009866;
-  --accent: #0077BC;
-  --danger: #DC2626;
-  --warning: #D97706;
-  --success: #16A34A;
-  --hero-bg: #0077BC;
-  --hero-text: #ffffff;
-  --section-dark: #111111;
-  --section-light: #1a1a1a;
-  --card-border: #333333;
-  --card-bg: #1a1a1a;
-  --card-bg-hover: #222222;
-  --toggle-bg: #222222;
-  --toggle-border: #444444;
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border: #2a3a5c;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #d4a052;
+  --accent-dim: rgba(212, 160, 82, 0.10);
+  --accent-glow: rgba(212, 160, 82, 0.25);
+  --red: #f87171;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --purple: #a07dd4;
+  --pink: #f472b6;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  --card-1: #d4a052;
+  --card-2: #52b4d4;
+  --card-3: #4ade80;
+  --card-4: #f472b6;
+  --card-5: #a07dd4;
+  --card-6: #f87171;
+  --card-7: #e74c5a;
+  --card-8: #22d3ee;
 }
 
 [data-theme="light"] {
-  --bg: #ffffff;
-  --bg-alt: #f5f5f5;
+  --bg: #f0f4f8;
+  --bg-elevated: #ffffff;
   --surface: #ffffff;
-  --surface-hover: #f0f0f0;
-  --border: #e0e0e0;
-  --text: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
-  --primary: #0077BC;
-  --secondary: #009866;
-  --accent: #0077BC;
-  --danger: #DC2626;
-  --warning: #D97706;
-  --success: #16A34A;
-  --hero-bg: #0077BC;
-  --hero-text: #ffffff;
-  --section-dark: #111827;
-  --section-light: #f5f5f5;
-  --card-border: #e0e0e0;
-  --card-bg: #ffffff;
-  --card-bg-hover: #f5f5f5;
-  --toggle-bg: #ffffff;
-  --toggle-border: #d1d5db;
+  --surface-2: #e8edf4;
+  --border: #c8d3e0;
+  --border-subtle: #dce3ed;
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent: #b8862d;
+  --accent-dim: rgba(184, 134, 45, 0.08);
+  --accent-glow: rgba(184, 134, 45, 0.18);
+  --red: #dc2626;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --purple: #7c3aed;
+  --pink: #db2777;
+  --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  --card-1: #b8862d;
+  --card-2: #3b9fb8;
+  --card-3: #16a34a;
+  --card-4: #be185d;
+  --card-5: #6d28d9;
+  --card-6: #dc2626;
+  --card-7: #c0392b;
+  --card-8: #0891b2;
 }
 
-/* ── RESET ── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font-family: var(--font-body);
+  font-family: 'Inter', -apple-system, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-a { color: inherit; text-decoration: none; }
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 9999;
+}
 
-/* ── THEME TOGGLE ── */
 .theme-toggle {
   position: fixed;
-  top: var(--space-lg);
-  right: var(--space-lg);
+  top: 2rem;
+  right: 2rem;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--toggle-bg);
-  border: 2px solid var(--toggle-border);
+  background: var(--surface);
+  border: 1px solid var(--border);
   color: var(--text);
   font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   z-index: 1000;
+  box-shadow: var(--shadow);
 }
+
 .theme-toggle:hover {
-  border-color: var(--primary);
-  transform: scale(1.08);
+  background: var(--surface-2);
+  border-color: var(--accent);
+  transform: scale(1.05);
 }
 
-/* ══════════════════════════════════════════
-   HERO BLOCK -- Full-width, commanding
-   ══════════════════════════════════════════ */
-.hero {
-  background: var(--hero-bg);
-  color: var(--hero-text);
-  padding: var(--space-4xl) var(--space-xl) var(--space-3xl);
-  position: relative;
-  overflow: hidden;
+.theme-toggle:active {
+  transform: scale(0.95);
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.04) 100%);
-  pointer-events: none;
-}
-
-.hero-inner {
-  max-width: var(--max-w);
+.masthead {
+  max-width: 1080px;
   margin: 0 auto;
+  padding: 4.5rem 2rem 1rem;
   position: relative;
-  z-index: 1;
 }
 
-.hero-meta {
+.masthead-meta {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.8;
+  color: var(--text-secondary);
 }
 
-.hero-meta .sep {
-  width: 4px;
-  height: 4px;
+.masthead-meta span {
+  white-space: nowrap;
+}
+
+.masthead-meta .sep {
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
-  background: currentColor;
-  opacity: 0.5;
+  background: var(--text-muted);
+  flex-shrink: 0;
 }
 
 .status-dot {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .status-dot::before {
   content: '';
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 12px rgba(74, 222, 128, 0.6);
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
   animation: pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px rgba(74, 222, 128, 0.2);
+  }
 }
 
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  margin-bottom: var(--space-md);
+.masthead h1 {
+  font-family: 'Syncopate', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  white-space: nowrap;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  color: var(--text);
+  margin-bottom: 0.6rem;
 }
 
-.hero .tagline {
-  font-size: 1.15rem;
+.masthead .tagline {
+  font-size: 1rem;
+  color: var(--text-secondary);
   font-weight: 400;
-  opacity: 0.75;
-  max-width: 480px;
-  line-height: 1.5;
-}
-
-.hero-stripe {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: var(--bg);
-}
-
-/* ══════════════════════════════════════════
-   SECTIONS -- Alternating dark/light blocks
-   ══════════════════════════════════════════ */
-.section {
-  padding: var(--space-3xl) var(--space-xl);
-}
-
-.section--dark {
-  background: var(--section-dark);
-  color: var(--text);
-}
-
-.section--light {
-  background: var(--section-light);
-  color: var(--text);
-}
-
-.section-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-}
-
-/* Section Header */
-.section-header {
-  margin-bottom: var(--space-xl);
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-md);
-}
-
-.section-number {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  line-height: 1;
-  color: var(--primary);
-  opacity: 0.25;
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  text-transform: uppercase;
   letter-spacing: -0.01em;
-  line-height: 1.1;
 }
 
-.section-rule {
-  width: 60px;
-  height: 4px;
-  background: var(--primary);
-  margin-top: var(--space-sm);
+.masthead-deco {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  width: 80px;
+  height: 80px;
+  opacity: 0.06;
+  color: var(--text);
+}
+
+.rule {
+  max-width: 1080px;
+  margin: 1.5rem auto 0;
+  padding: 0 2rem;
+}
+
+.rule hr {
   border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-glow), transparent 80%);
 }
 
-/* ══════════════════════════════════════════
-   CARDS -- Bold, blocky, high contrast
-   ══════════════════════════════════════════ */
-.cards {
+.section-label {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  color: var(--text);
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
   display: grid;
-  gap: 2px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.cards--2 { grid-template-columns: repeat(2, 1fr); }
-.cards--1 { grid-template-columns: 1fr; }
+.grid--three {
+  grid-template-columns: repeat(3, 1fr);
+}
 
 .card {
-  background: var(--card-bg);
-  border: 2px solid var(--card-border);
-  padding: var(--space-xl) var(--space-lg);
+  background: var(--surface);
+  padding: 2rem 1.75rem;
+  text-decoration: none;
+  color: inherit;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: all 0.2s ease;
-  min-height: 200px;
+  transition: background 0.25s ease;
+  cursor: pointer;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--card-accent);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+  height: 3px;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-accent) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 0.06;
 }
 
 .card:hover {
-  background: var(--card-bg-hover);
-  border-color: var(--primary);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: var(--surface-2);
 }
 
-.card:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 2px;
-}
-
-.card-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--primary);
-  margin-bottom: var(--space-md);
-}
-
-.card-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  text-transform: uppercase;
-  line-height: 1.15;
-  margin-bottom: var(--space-sm);
-  transition: color 0.2s ease;
+.card:hover .card-number {
+  color: var(--card-accent);
 }
 
 .card:hover .card-title {
-  color: var(--primary);
+  color: var(--text);
+}
+
+.card:hover .card-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.card:hover .card-tag {
+  border-color: var(--card-accent);
+  color: var(--card-accent);
+  background: var(--accent-dim);
+}
+
+.card[data-accent="1"] {
+  --card-accent: var(--card-1);
+}
+
+.card[data-accent="2"] {
+  --card-accent: var(--card-2);
+}
+
+.card[data-accent="3"] {
+  --card-accent: var(--card-3);
+}
+
+.card[data-accent="4"] {
+  --card-accent: var(--card-4);
+}
+
+.card[data-accent="5"] {
+  --card-accent: var(--card-5);
+}
+
+.card[data-accent="6"] {
+  --card-accent: var(--card-6);
+}
+
+.card[data-accent="7"] {
+  --card-accent: var(--card-7);
+}
+
+.card[data-accent="8"] {
+  --card-accent: var(--card-8);
+}
+
+/* Password overlay for protected cards */
+.card-protected {
+  position: relative;
+}
+.card-protected .card-lock-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+.card-protected .card-lock-overlay svg {
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+  color: var(--text);
+}
+.card-protected .card-lock-overlay input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  text-align: center;
+  width: 140px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.card-protected .card-lock-overlay input:focus {
+  border-color: var(--accent);
+}
+.card-protected .card-lock-overlay input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+.card-protected .card-lock-overlay .lock-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+.card-protected .card-lock-overlay .lock-error {
+  font-size: 0.6rem;
+  color: var(--red);
+  height: 0.8rem;
+}
+.card-protected.unlocked .card-lock-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  transition: color 0.25s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+  transition: color 0.25s ease;
+  position: relative;
+  z-index: 1;
+  color: var(--text);
 }
 
 .card-desc {
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.55;
   color: var(--text-secondary);
   flex-grow: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .card-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: var(--space-lg);
+  margin-top: 1.25rem;
+  position: relative;
+  z-index: 1;
 }
 
 .card-tag {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-muted);
   border: 1px solid var(--border);
-  padding: 6px 12px;
-}
-
-.card:hover .card-tag {
-  border-color: var(--primary);
-  color: var(--primary);
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  transition: all 0.25s ease;
 }
 
 .card-arrow {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--primary);
+  font-size: 0.85rem;
+  color: var(--card-accent);
   opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.2s ease;
+  transform: translate(-4px, 4px);
+  transition: all 0.25s ease;
 }
 
-.card:hover .card-arrow {
-  opacity: 1;
-  transform: translateX(0);
+.card-deco {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  opacity: 0.04;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  color: var(--text);
 }
 
-/* ══════════════════════════════════════════
-   FOOTER -- Minimal, strong
-   ══════════════════════════════════════════ */
-.footer {
-  background: var(--section-dark);
-  border-top: 2px solid var(--border);
-  padding: var(--space-xl) var(--space-xl);
+.card:hover .card-deco {
+  opacity: 0.08;
 }
 
-.footer-inner {
-  max-width: var(--max-w);
+.colophon {
+  max-width: 1080px;
   margin: 0 auto;
+  padding: 3rem 2rem 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-.footer a {
+.colophon a {
   color: var(--text-secondary);
+  text-decoration: none;
   transition: color 0.2s;
 }
 
-.footer a:hover {
-  color: var(--primary);
+.colophon a:hover {
+  color: var(--accent);
 }
 
-/* ══════════════════════════════════════════
-   ANIMATIONS
-   ══════════════════════════════════════════ */
+/* ── Editorial polish: entrance animations ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -413,206 +557,458 @@ a { color: inherit; text-decoration: none; }
   to { opacity: 1; }
 }
 
-.hero { animation: fadeUp 0.5s ease-out both; }
-.section { animation: fadeIn 0.4s ease-out both; }
-.section:nth-child(2) { animation-delay: 0.1s; }
-.section:nth-child(3) { animation-delay: 0.15s; }
-.section:nth-child(4) { animation-delay: 0.2s; }
-.section:nth-child(5) { animation-delay: 0.25s; }
-.section:nth-child(6) { animation-delay: 0.3s; }
+.masthead { animation: fadeUp 0.6s ease-out both; }
+.section-label { animation: fadeIn 0.5s ease-out both; animation-delay: 0.2s; }
+.grid { animation: fadeUp 0.5s ease-out both; animation-delay: 0.3s; }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE
-   ══════════════════════════════════════════ */
+.card {
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  background: var(--surface-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.colophon { animation: fadeIn 0.5s ease-out both; animation-delay: 0.5s; }
+
+/* ── Focus ring for keyboard nav ── */
+.card:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: -2px;
+}
+
 @media (max-width: 768px) {
   .theme-toggle {
-    top: var(--space-md);
-    right: var(--space-md);
+    top: 1rem;
+    right: 1rem;
     width: 44px;
     height: 44px;
+    font-size: 1.1rem;
   }
 
-  .hero {
-    padding: var(--space-3xl) var(--space-md) var(--space-2xl);
+  .masthead {
+    padding: 3rem 1.25rem 0.75rem;
   }
 
-  .hero h1 {
-    font-size: clamp(2.2rem, 10vw, 3.5rem);
+  .masthead h1 {
+    font-size: 2.4rem;
   }
 
-  .section {
-    padding: var(--space-2xl) var(--space-md);
-  }
-
-  .cards--2 {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: var(--space-lg) var(--space-md);
-    min-height: 160px;
-  }
-
-  .section-number {
+  .masthead-deco {
     display: none;
   }
 
-  .footer-inner {
+  .rule, .section-label {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .grid, .grid--three {
+    grid-template-columns: 1fr;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    padding: 0;
+  }
+
+  .card {
+    padding: 1.5rem 1.25rem;
+    min-height: 160px;
+  }
+
+  .card-deco {
+    display: none;
+  }
+
+  .colophon {
+    padding: 2rem 1.25rem 3rem;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: 0.5rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .hero h1 {
-    font-size: 3.5rem;
+  .grid--three {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Daily Pulse ── */
+.pulse-section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  animation: fadeUp 0.5s ease-out both;
+  animation-delay: 0.15s;
+}
+
+.pulse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-top: 2.5rem;
+}
+
+.pulse-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.pulse-header h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin-left: 1rem;
+}
+
+.pulse-header .pulse-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-left: 1rem;
+}
+
+.pulse-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pulse-card-hero {
+  grid-row: 1 / 3;
+  grid-column: 1;
+  background: var(--surface);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.25s ease;
+  position: relative;
+}
+
+/* 4th card spans full width as bottom row */
+.pulse-card:last-child {
+  grid-column: 1 / -1;
+}
+
+.pulse-card-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.pulse-card-hero:hover::before { opacity: 1; height: 3px; }
+.pulse-card-hero:hover { background: var(--surface-2); }
+
+.pulse-card-hero .pulse-topic {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.pulse-card-hero .pulse-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.pulse-card-hero .pulse-summary {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.pulse-card-hero .pulse-source,
+.pulse-card .pulse-source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse-card-hero .pulse-source::before,
+.pulse-card .pulse-source::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pulse-card {
+  background: var(--surface);
+  padding: 1.4rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.25s ease;
+  position: relative;
+}
+
+.pulse-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pulse-card:hover::before { opacity: 0.5; }
+.pulse-card:hover { background: var(--surface-2); }
+
+.pulse-card .pulse-topic {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.pulse-card .pulse-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+}
+
+.pulse-card .pulse-summary {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.pulse-card .pulse-source { margin-top: 0.6rem; }
+
+@media (max-width: 768px) {
+  .pulse-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .pulse-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .pulse-card-hero {
+    grid-row: auto;
+    grid-column: auto;
+    min-height: 200px;
   }
 }
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
 
-<!-- ════════ HERO ════════ -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-meta">
-      <span id="currentDate"></span>
-      <div class="sep"></div>
-      <span>8 Tools</span>
-      <div class="sep"></div>
-      <span class="status-dot">All Systems Go</span>
-    </div>
-    <h1>Chaos<br>Console</h1>
-    <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
+<header class="masthead">
+  <div class="masthead-meta">
+    <span id="currentDate"></span>
+    <div class="sep"></div>
+    <span>8 Tools</span>
+    <div class="sep"></div>
+    <span class="status-dot">All Systems Go</span>
   </div>
-  <div class="hero-stripe"></div>
-</section>
+  <h1>Chaos Console</h1>
+  <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
+  <svg class="masthead-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="40" cy="40" r="24" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+    <line x1="40" y1="0" x2="40" y2="80" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+    <line x1="0" y1="40" x2="80" y2="40" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+  </svg>
+</header>
 
-<!-- ════════ FINANCIAL TOOLS ════════ -->
-<section class="section section--light">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-number">01</span>
-      <div>
-        <h2 class="section-title">Financial Tools</h2>
-        <hr class="section-rule">
-      </div>
-    </div>
-    <div class="cards cards--1">
-      <a href="financial-consolidation.html" class="card">
-        <div class="card-label">01 &mdash; Finance</div>
-        <div class="card-title">The Ledger</div>
-        <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
-        <div class="card-footer"><span class="card-tag">Finance</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-    </div>
-  </div>
-</section>
+<div class="rule"><hr></div>
 
-<!-- ════════ PERSONAL TRACKERS ════════ -->
-<section class="section section--dark">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-number">02</span>
-      <div>
-        <h2 class="section-title">Personal Trackers</h2>
-        <hr class="section-rule">
-      </div>
-    </div>
-    <div class="cards cards--2">
-      <a href="spotify-tracker.html" class="card">
-        <div class="card-label">03 &mdash; Music</div>
-        <div class="card-title">Playlist Tracker</div>
-        <p class="card-desc">15 playlists tracked since Apr 2024. Growth trends, heatmaps, and delta analysis across your Spotify library.</p>
-        <div class="card-footer"><span class="card-tag">Music</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-      <a href="digital-ecosystem.html" class="card">
-        <div class="card-label">04 &mdash; Reference</div>
-        <div class="card-title">Digital Ecosystem Refresh</div>
-        <p class="card-desc">V10 &mdash; Systems maintenance guide. File organization, cleanup status, and upkeep workflows.</p>
-        <div class="card-footer"><span class="card-tag">Reference</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-    </div>
+<!-- ★ DAILY PULSE ★ -->
+<div class="pulse-section" id="dailyPulse">
+  <div class="pulse-header">
+    <h2>
+      <svg class="section-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M2 9 L5 9 L7 4 L9 14 L11 6 L13 12 L15 9 L17 9"/>
+      </svg>
+      Daily Pulse
+    </h2>
+    <span class="pulse-date" id="pulseDate"></span>
   </div>
-</section>
+  <div class="pulse-grid" id="pulseGrid">
+    <!-- Populated by JS from pulse.json -->
+  </div>
+</div>
 
-<!-- ════════ INTELLIGENCE & SYSTEMS ════════ -->
-<section class="section section--light">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-number">03</span>
-      <div>
-        <h2 class="section-title">Intelligence &amp; Systems</h2>
-        <hr class="section-rule">
-      </div>
-    </div>
-    <div class="cards cards--2">
-      <a href="chatgpt-intelligence.html" class="card">
-        <div class="card-label">05 &mdash; Analysis</div>
-        <div class="card-title">AI Intelligence</div>
-        <p class="card-desc">1,578 conversations across ChatGPT &amp; Claude &mdash; skills, patterns, warnings, and a merged diagnosis.</p>
-        <div class="card-footer"><span class="card-tag">Analysis</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-      <a href="color-bible.html" class="card">
-        <div class="card-label">06 &mdash; System</div>
-        <div class="card-title">The Color Bible</div>
-        <p class="card-desc">Universal 5-color system for your entire digital life. One color, one meaning, everywhere. No exceptions.</p>
-        <div class="card-footer"><span class="card-tag">System</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-    </div>
-  </div>
-</section>
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="3" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="1" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="11" y="10" width="3.5" height="2.5" rx="0.5" fill="currentColor" opacity="0.4"/>
+    </svg>
+    Financial Tools
+  </h2>
+</div>
 
-<!-- ════════ CREATIVE & CRAFT ════════ -->
-<section class="section section--dark">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-number">04</span>
-      <div>
-        <h2 class="section-title">Creative &amp; Craft</h2>
-        <hr class="section-rule">
-      </div>
+<div class="grid">
+  <a href="financial-consolidation.html" class="card card-protected" data-accent="1" onclick="return checkCardUnlock(this)">
+    <div class="card-lock-overlay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+      <span class="lock-label">Protected</span>
+      <input type="password" placeholder="Enter password" onkeydown="handleCardPassword(event, this)" onclick="event.preventDefault(); event.stopPropagation();">
+      <span class="lock-error"></span>
     </div>
-    <div class="cards cards--1">
-      <a href="screenwriting-guide.html" class="card">
-        <div class="card-label">07 &mdash; Study Guide</div>
-        <div class="card-title">Screenwriting &amp; Film Production</div>
-        <p class="card-desc">Complete 8-phase study guide &mdash; from blank page to final cut. Storytelling, structure, directing, cinematography, and industry knowledge.</p>
-        <div class="card-footer"><span class="card-tag">Study Guide</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-    </div>
-  </div>
-</section>
+    <div class="card-number">01</div>
+    <div class="card-title">The Ledger</div>
+    <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
+    <div class="card-footer"><span class="card-tag">Finance</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="2" y="20" width="8" height="16" fill="currentColor"/><rect x="14" y="10" width="8" height="26" fill="currentColor"/><rect x="26" y="4" width="8" height="32" fill="currentColor"/><rect x="38" y="14" width="8" height="22" fill="currentColor"/></svg>
+  </a>
+</div>
 
-<!-- ════════ HEALTH & WELLNESS ════════ -->
-<section class="section section--light">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-number">05</span>
-      <div>
-        <h2 class="section-title">Health &amp; Wellness</h2>
-        <hr class="section-rule">
-      </div>
-    </div>
-    <div class="cards cards--1">
-      <a href="wellness.html" class="card">
-        <div class="card-label">08 &mdash; Health</div>
-        <div class="card-title">Wellness Analysis</div>
-        <p class="card-desc">188 days of ring tracker data &mdash; heart rate corridors, sleep architecture, HRV recovery trends, and daily step tracking.</p>
-        <div class="card-footer"><span class="card-tag">Health</span><span class="card-arrow">&rarr;</span></div>
-      </a>
-    </div>
-  </div>
-</section>
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
+      <polyline points="9,4 9,9 13,11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Personal Trackers
+  </h2>
+</div>
 
-<!-- ════════ FOOTER ════════ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <span>Chaos Console &copy; 2026</span>
-    <a href="#">ChaosConsole</a>
-  </div>
+<div class="grid">
+  <a href="spotify-tracker.html" class="card" data-accent="3">
+    <div class="card-number">03</div>
+    <div class="card-title">Playlist Tracker</div>
+    <p class="card-desc">15 playlists tracked since Apr 2024. Growth trends, heatmaps, and delta analysis across your Spotify library.</p>
+    <div class="card-footer"><span class="card-tag">Music</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="4" y="12" width="3" height="12" rx="1.5" fill="currentColor"/><rect x="11" y="6" width="3" height="24" rx="1.5" fill="currentColor"/><rect x="18" y="10" width="3" height="16" rx="1.5" fill="currentColor"/><rect x="25" y="3" width="3" height="30" rx="1.5" fill="currentColor"/><rect x="32" y="8" width="3" height="20" rx="1.5" fill="currentColor"/><rect x="39" y="13" width="3" height="10" rx="1.5" fill="currentColor"/></svg>
+  </a>
+  <a href="digital-ecosystem.html" class="card" data-accent="4">
+    <div class="card-number">04</div>
+    <div class="card-title">Digital Ecosystem Refresh</div>
+    <p class="card-desc">V10 &mdash; Systems maintenance guide. File organization, cleanup status, and upkeep workflows.</p>
+    <div class="card-footer"><span class="card-tag">Reference</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="12" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="36" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="32" y2="10" stroke="currentColor" stroke-width="1"/><line x1="12" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/><line x1="36" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/></svg>
+  </a>
+</div>
+
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 2L11.5 7H6.5L9 2Z" fill="currentColor" opacity="0.4"/>
+      <circle cx="9" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <circle cx="9" cy="12" r="1.5" fill="currentColor" opacity="0.4"/>
+    </svg>
+    Intelligence &amp; Systems
+  </h2>
+</div>
+
+<div class="grid">
+  <a href="chatgpt-intelligence.html" class="card" data-accent="5">
+    <div class="card-number">05</div>
+    <div class="card-title">AI Intelligence</div>
+    <p class="card-desc">1,578 conversations across ChatGPT &amp; Claude &mdash; skills, patterns, warnings, and a merged diagnosis.</p>
+    <div class="card-footer"><span class="card-tag">Analysis</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="24" cy="18" r="14" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M14 18 C14 12, 24 6, 24 18 S34 24, 34 18" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="24" cy="18" r="3" fill="currentColor" opacity="0.4"/></svg>
+  </a>
+  <a href="color-bible.html" class="card" data-accent="6">
+    <div class="card-number">06</div>
+    <div class="card-title">The Color Bible</div>
+    <p class="card-desc">Universal 5-color system for your entire digital life. One color, one meaning, everywhere. No exceptions.</p>
+    <div class="card-footer"><span class="card-tag">System</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="10" cy="18" r="6" fill="currentColor" opacity="0.25"/><circle cx="20" cy="18" r="6" fill="currentColor" opacity="0.2"/><circle cx="30" cy="18" r="6" fill="currentColor" opacity="0.15"/><circle cx="40" cy="18" r="6" fill="currentColor" opacity="0.1"/><circle cx="24" cy="18" r="2" fill="currentColor" opacity="0.6"/></svg>
+  </a>
+</div>
+
+
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 2h8l4 4v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <polyline points="11,2 11,6 15,6" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <line x1="5" y1="10" x2="13" y2="10" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <line x1="5" y1="13" x2="11" y2="13" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    </svg>
+    Creative &amp; Craft
+  </h2>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr;">
+  <a href="screenwriting-guide.html" class="card" data-accent="7">
+    <div class="card-number">07</div>
+    <div class="card-title">Screenwriting &amp; Film Production</div>
+    <p class="card-desc">Complete 8-phase study guide &mdash; from blank page to final cut. Storytelling, structure, directing, cinematography, and industry knowledge.</p>
+    <div class="card-footer"><span class="card-tag">Study Guide</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="6" y="2" width="24" height="32" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="10" y1="8" x2="26" y2="8" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="10" y1="12" x2="26" y2="12" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="10" y1="16" x2="22" y2="16" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="10" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="10" y1="24" x2="20" y2="24" stroke="currentColor" stroke-width="1" opacity="0.3"/><path d="M34 8 L42 8 L42 30 L18 30 L18 34" stroke="currentColor" stroke-width="1" opacity="0.2" fill="none"/></svg>
+  </a>
+</div>
+
+<div class="section-label">
+  <h2>
+    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 3C6.5 3 4.5 5 4.5 7.5c0 3.5 4.5 7.5 4.5 7.5s4.5-4 4.5-7.5C13.5 5 11.5 3 9 3z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <path d="M9 6v3M7.5 7.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Health &amp; Wellness
+  </h2>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr;">
+  <a href="wellness.html" class="card" data-accent="8">
+    <div class="card-number">08</div>
+    <div class="card-title">Wellness Analysis</div>
+    <p class="card-desc">188 days of ring tracker data &mdash; heart rate corridors, sleep architecture, HRV recovery trends, and daily step tracking.</p>
+    <div class="card-footer"><span class="card-tag">Health</span><span class="card-arrow">&nearr;</span></div>
+    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><path d="M2 20 L8 20 L12 8 L16 28 L20 14 L24 22 L28 10 L32 26 L36 16 L40 20 L46 20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><circle cx="16" cy="28" r="2" fill="currentColor" opacity="0.3"/><circle cx="28" cy="10" r="2" fill="currentColor" opacity="0.3"/></svg>
+  </a>
+</div>
+
+<footer class="colophon">
+  <span>Chaos Console &copy; 2026</span>
+  <a href="#">ChaosConsole</a>
 </footer>
 
 <script>
@@ -620,29 +1016,105 @@ const now = new Date();
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
 
-// Theme toggle
+// Theme toggle functionality
 function toggleTheme() {
   const html = document.documentElement;
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
-  updateToggleIcon(next);
+  document.querySelector('#themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
 }
 
-function updateToggleIcon(theme) {
-  const btn = document.getElementById('themeToggle');
-  if (btn) btn.textContent = theme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-}
-
+// Initialize theme
 (function() {
   const saved = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
-  updateToggleIcon(saved);
-  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  const btn = document.querySelector('#themeToggle');
+  if (btn) {
+    btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+    btn.addEventListener('click', toggleTheme);
+  }
 })();
 
+// Password protection for financial cards
+const CARD_PW_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // SHA-256 of 'password'
+const ACTUAL_PW = 'chaos$2026';
+
+function checkCardUnlock(card) {
+  if (card.classList.contains('unlocked')) return true;
+  return false;
+}
+
+async function handleCardPassword(event, input) {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  event.stopPropagation();
+  const card = input.closest('.card-protected');
+  const errorEl = card.querySelector('.lock-error');
+
+  if (input.value === ACTUAL_PW) {
+    card.classList.add('unlocked');
+    // Also unlock the other financial card
+    document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
+    sessionStorage.setItem('fin_unlocked', '1');
+  } else {
+    errorEl.textContent = 'Wrong password';
+    input.value = '';
+    input.style.borderColor = 'var(--red)';
+    setTimeout(() => {
+      errorEl.textContent = '';
+      input.style.borderColor = '';
+    }, 2000);
+  }
+}
+
+// Check if already unlocked this session
+if (sessionStorage.getItem('fin_unlocked') === '1') {
+  document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
+}
+
 // konami
-(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;var h=document.querySelector('.hero h1');h.style.transition='all 0.6s ease';h.innerHTML='CHAOS IS<br>A LADDER';h.style.background='linear-gradient(90deg, #D97706, #DC2626, #D97706)';h.style.webkitBackgroundClip='text';h.style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='\u2014 Littlefinger was right about one thing.';setTimeout(function(){h.innerHTML='CHAOS<br>CONSOLE';h.style.background='none';h.style.webkitTextFillColor='var(--hero-text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
+(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;document.querySelector('.masthead h1').style.transition='all 0.6s ease';document.querySelector('.masthead h1').textContent='CHAOS IS A LADDER';document.querySelector('.masthead h1').style.background='linear-gradient(90deg, var(--accent), var(--red), var(--accent))';document.querySelector('.masthead h1').style.webkitBackgroundClip='text';document.querySelector('.masthead h1').style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='— Littlefinger was right about one thing.';setTimeout(function(){document.querySelector('.masthead h1').textContent='Chaos Console';document.querySelector('.masthead h1').style.background='none';document.querySelector('.masthead h1').style.webkitTextFillColor='var(--text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
+
+// ── Daily Pulse loader ──
+(function() {
+  async function loadPulse() {
+    let data;
+    try {
+      const res = await fetch('pulse.json?v=' + Date.now());
+      if (res.ok) data = await res.json();
+    } catch (e) {}
+
+    if (!data || !data.articles) {
+      document.getElementById('dailyPulse').style.display = 'none';
+      return;
+    }
+
+    const dateEl = document.getElementById('pulseDate');
+    const d = new Date(data.date + 'T12:00:00');
+    dateEl.textContent = d.toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const grid = document.getElementById('pulseGrid');
+    grid.innerHTML = '';
+    data.articles.forEach(article => {
+      const isHero = article.type === 'hero';
+      const card = document.createElement('a');
+      card.href = article.url;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.className = isHero ? 'pulse-card-hero' : 'pulse-card';
+      card.innerHTML =
+        '<div class="pulse-topic">' + article.topic + '</div>' +
+        '<div class="pulse-title">' + article.title + '</div>' +
+        '<div class="pulse-summary">' + article.summary + '</div>' +
+        '<div class="pulse-source">' + article.source + '</div>';
+      grid.appendChild(card);
+    });
+  }
+  loadPulse();
+})();
 </script>
 </body>
 </html>
