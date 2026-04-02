@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>THE LEDGER — Personal Finance Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 [data-theme="dark"] {
-  --bg-deep: #0a0a0a;
-  --bg-card: #161616;
-  --bg-card-hover: #1e1e1e;
-  --bg-input: #111111;
-  --border: #2a2a2a;
-  --border-focus: #0077BC;
-  --text-primary: #f0f0f0;
-  --text-secondary: #a0a0a0;
-  --text-dim: #666666;
+  --bg-deep: #0b0f1a;
+  --bg-card: #151d2e;
+  --bg-card-hover: #1c2640;
+  --bg-input: #101828;
+  --border: #2a3a5c;
+  --border-focus: #d4a052;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
   --accent-blue: #60a5fa;
   --accent-cyan: #22d3ee;
   --accent-green: #4ade80;
@@ -26,16 +26,16 @@
   --accent-orange: #fb923c;
   --negative: #f87171;
   --positive: #4ade80;
-  --accent: #0077BC;
-  --accent-dim: rgba(0,119,188,0.10);
-  --accent-glow: rgba(0,119,188,0.25);
-  --bg: #0a0a0a;
-  --bg-elevated: #111111;
-  --surface: #161616;
-  --surface-2: #1e1e1e;
-  --border-subtle: #1f1f1f;
-  --text: #f0f0f0;
-  --text-muted: #666666;
+  --accent: #d4a052;
+  --accent-dim: rgba(212,160,82,0.10);
+  --accent-glow: rgba(212,160,82,0.25);
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   --gradient-debt: linear-gradient(135deg, #f87171 0%, #fb923c 100%);
   --gradient-interest: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
@@ -43,15 +43,15 @@
 }
 
 [data-theme="light"] {
-  --bg-deep: #f5f5f5;
+  --bg-deep: #f0f4f8;
   --bg-card: #ffffff;
-  --bg-card-hover: #ebebeb;
+  --bg-card-hover: #e8edf4;
   --bg-input: #ffffff;
-  --border: #d4d4d4;
-  --border-focus: #005a8f;
+  --border: #c8d3e0;
+  --border-focus: #b8862d;
   --text-primary: #0f172a;
   --text-secondary: #334155;
-  --text-dim: #666666;
+  --text-dim: #64748b;
   --accent-blue: #2563eb;
   --accent-cyan: #0891b2;
   --accent-green: #16a34a;
@@ -61,16 +61,16 @@
   --accent-orange: #ea580c;
   --negative: #dc2626;
   --positive: #16a34a;
-  --accent: #005a8f;
-  --accent-dim: rgba(0, 90, 143, 0.08);
-  --accent-glow: rgba(0, 90, 143, 0.18);
-  --bg: #f5f5f5;
+  --accent: #b8862d;
+  --accent-dim: rgba(184, 134, 45, 0.08);
+  --accent-glow: rgba(184, 134, 45, 0.18);
+  --bg: #f0f4f8;
   --bg-elevated: #ffffff;
   --surface: #ffffff;
-  --surface-2: #ebebeb;
-  --border-subtle: #e0e0e0;
+  --surface-2: #e8edf4;
+  --border-subtle: #dce3ed;
   --text: #0f172a;
-  --text-muted: #666666;
+  --text-muted: #64748b;
   --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
   --gradient-debt: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
   --gradient-interest: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
@@ -130,7 +130,7 @@ body::before {
 .topnav-title {
   color: var(--text-dim);
   font-size: 0.8rem;
-  font-family: 'Archivo Black', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -191,18 +191,18 @@ body::before {
   gap: 2px;
   background: var(--bg-card);
   padding: 3px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   margin-bottom: 28px;
 }
 .nav-tab {
   padding: 10px 20px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text-secondary);
   background: transparent;
   border: none;
-  border-radius: 2px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
   font-family: 'Inter', sans-serif;
@@ -229,7 +229,7 @@ body::before {
 .kpi-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 12px;
   padding: 20px;
   position: relative;
   overflow: hidden;
@@ -276,7 +276,7 @@ body::before {
 .chart-section {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 12px;
   padding: 24px;
   margin-bottom: 24px;
 }
@@ -302,7 +302,7 @@ body::before {
   background: var(--bg-input);
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  border-radius: 2px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -317,7 +317,7 @@ body::before {
 .table-section {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 12px;
   overflow: hidden;
   margin-bottom: 24px;
 }
@@ -528,7 +528,7 @@ td.empty { color: transparent; }
   padding: 10px 14px;
   background: var(--bg-input);
   border: 1px solid var(--border);
-  border-radius: 2px;
+  border-radius: 8px;
   color: var(--text-primary);
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
@@ -540,7 +540,7 @@ td.empty { color: transparent; }
   padding: 10px 14px;
   background: var(--bg-input);
   border: 1px solid var(--border);
-  border-radius: 2px;
+  border-radius: 8px;
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   font-size: 14px;
@@ -558,7 +558,7 @@ td.empty { color: transparent; }
   padding: 10px 20px;
   font-size: 13px;
   font-weight: 600;
-  border-radius: 2px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
@@ -599,7 +599,7 @@ td.empty { color: transparent; }
   background: var(--bg-card);
   border: 1px solid var(--accent-green);
   padding: 14px 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 13px;
   color: var(--accent-green);
   font-weight: 500;
@@ -617,7 +617,7 @@ td.empty { color: transparent; }
   padding: 6px 14px;
   background: var(--bg-input);
   border: 1px solid var(--border);
-  border-radius: 2px;
+  border-radius: 8px;
   color: var(--text-secondary);
 }
 
@@ -633,7 +633,7 @@ td.empty { color: transparent; }
 .interest-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 12px;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
@@ -706,7 +706,7 @@ td.empty { color: transparent; }
   background: var(--bg-input);
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  border-radius: 2px;
+  border-radius: 8px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: all 0.15s;
@@ -744,7 +744,7 @@ td.empty { color: transparent; }
 }
 .chk-search {
   flex: 1; min-width: 200px; padding: 8px 14px;
-  background: var(--bg-input); border: 1px solid var(--border); border-radius: 2px;
+  background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px;
   color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 13px;
   outline: none; transition: border-color 0.2s;
 }
@@ -753,7 +753,7 @@ td.empty { color: transparent; }
 
 .chk-select {
   padding: 8px 12px; background: var(--bg-input); border: 1px solid var(--border);
-  border-radius: 2px; color: var(--text-primary); font-family: 'Inter', sans-serif;
+  border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif;
   font-size: 13px; cursor: pointer; outline: none;
   -webkit-appearance: none; appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555d73'/%3E%3C/svg%3E");
@@ -774,7 +774,7 @@ td.empty { color: transparent; }
 .chk-pill.active { background: rgba(74,158,255,0.15); border-color: var(--accent-blue); color: var(--accent-blue); }
 
 .chk-table-wrap {
-  overflow-x: auto; border-radius: 4px; border: 1px solid var(--border);
+  overflow-x: auto; border-radius: 10px; border: 1px solid var(--border);
   max-height: 500px; overflow-y: auto;
 }
 .chk-table {
@@ -850,14 +850,14 @@ td.empty { color: transparent; }
 <body>
 
 <nav class="topnav">
-  <a href="index.html" class="topnav-back">&larr; CHAOS CONSOLE</a>
+  <a href="index.html" class="topnav-back">&larr; Command Center</a>
   <span class="topnav-title">The Ledger</span>
   <button class="theme-toggle" onclick="toggleTheme()"></button>
 </nav>
 
 <div class="app">
   <!-- Back to Dashboard -->
-  <div style="padding:12px 24px;"><a href="index.html" style="color:#8a8a8a;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;"onmouseover="this.style.color='#f5a623'"onmouseout="this.style.color='#8a8a8a'">&larr; CHAOS CONSOLE</a></div>
+  <div style="padding:12px 24px;"><a href="index.html" style="color:#8a8a8a;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;"onmouseover="this.style.color='#f5a623'"onmouseout="this.style.color='#8a8a8a'">&larr; Dashboard</a></div>
   <!-- Header -->
   <div class="header animate-in">
     <div>
@@ -1155,7 +1155,7 @@ const ACCOUNT_COLORS = {
   'Citi Simplicity': '#06b6d4',
   'Capital One 4540': '#ef4444',
   'Capital One 0623': '#f97316',
-  'Apple Card': '#f0f0f0',
+  'Apple Card': '#e2e8f0',
   'Upstart Loan': '#10b981',
 };
 
@@ -1178,15 +1178,15 @@ const balanceAccounts = [
   {name:'Amazon Store Card', apr:29.49, data:[1867.61,1947,1772.01,1854.47,1928.66,2139.52,608.54,1407.6,1448.24,2214.6,2620.16,2136.79,144.74,701.18,2594.3,3018.73,3481.29,3363.84,3883.68,2813.46,2349.8,2412.5,1598.06,2560.16,3973.06,4062.33,4811.34,4888.36,5348.34,5488.71,5486.71,4740.5,29.3,742,480.33,0,407.55,626.16,817.69,1249.3,1293.91,1479.63,1774.72,2440.72,2641.6,2811.93,3972.55,4387.8,4333.04,4321.21,4232.27,4337.75,4513.29,4451.4,4451.49,4882.09,5291.08,5731.85,5821.99,5988.22,5852.1,5773.69,5468.34,5351.76,4867.66,4687.66,4891.56,4567.16,4506.5,4454.95,3554.49,3136.06,3078.58]},
   {name:'Venmo Credit', apr:31.49, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,332.2,118.16,56.16,92.44,518.78,771.57,790.86,508.02,831.41,96.14,57.14,0,0,null,null,null,null,null,null,null,null,null]},
   {name:'Citi Simplicity', apr:28.24, data:[null,null,null,null,null,null,null,null,null,null,0,0,4760,4923,4849,4776,4704,4633,4564,4496,4429,4429,4363,4298,4234,4170,4107,4045,3984,3924,3865,3200,3200,0,1073,0,861.35,1349.83,1358.42,1322.18,2091.48,723.77,1831.13,739.53,719.32,886.17,1576.21,2454.36,2558.4,2919.32,2894.24,2881.76,2840.41,2823.29,3101.18,3067.56,3045.76,3004.53,2975.51,2951.92,3027.61,3001.4,2977.94,2942.54,2910.34,2889.98,2851.15,2897.26,2934.88,2745.69,2830.63,2949.56,2916.22]},
-  {name:'Capital One 4540', apr:27.49, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,932.87,1965.85,1956.34,1946.83,1937.32,1912.32,1887.32,1862.32,1837.32,1812.32,1833.91,1815.34,1798,1778.79,1731.28,1713.08,1962.38,null,0,0,255.38,337.2,394.37,662.67,657.93,679.42,680.27,676.75,676.3,null]},
+  {name:'Capital One 4540', apr:27.49, data:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,932.87,1965.85,1956.34,1946.83,1937.32,1912.32,1887.32,1862.32,1837.32,1812.32,1833.91,1815.34,1798,1778.79,1731.28,1713.08,1962.38,null,0,0,255.38,337.2,394.37,662.67,657.93,679.42,680.27,676.75,676.3,677.35]},
   {name:'Capital One 0623', apr:28.24, data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108.63,279.93,325.23,282.16,312.88,261.05,0,0,0,0,0,0,0,0,0,0,0,0,254.64,843.8,926.68,917.79,907.22,899.85,890.58,882.8,873.12,914.37,906.18,897,889.05,880.15,872.73,863.74,968.41,42.55,288.13,6.14,35.37,56.52,392.81,479,556.43,585.67,606.73,1271.27,1433.22,1934.08]},
-  {name:'Apple Card', apr:25.49, data:[0,0,0,0,0,0,0,0,0,0,287.68,704.29,514.3,714.3,2195.04,3931.35,5334.92,5413.67,6115.32,5933.15,3719.96,3493.73,5730.96,5318.05,5971.98,5828.73,5824.54,5884.96,6093.69,6026.79,6026.79,5061.19,74.14,200.85,1954.21,2276.61,2269.05,1820.83,2348.08,3299.38,2902.83,2819.87,3299.76,3903.27,4083.55,4084.82,3848.71,2161.82,2668.26,3695.76,3963.66,5662.62,4761.42,5698.17,4324.04,4464.28,5203.31,5603.45,5743.85,5743.68,5789.61,5754.47,5734.18,6039,6106,6135,5721.16,5846.81,5934.43,5643.15,5824.9,5267.14,null]},
+  {name:'Apple Card', apr:25.49, data:[0,0,0,0,0,0,0,0,0,0,287.68,704.29,514.3,714.3,2195.04,3931.35,5334.92,5413.67,6115.32,5933.15,3719.96,3493.73,5730.96,5318.05,5971.98,5828.73,5824.54,5884.96,6093.69,6026.79,6026.79,5061.19,74.14,200.85,1954.21,2276.61,2269.05,1820.83,2348.08,3299.38,2902.83,2819.87,3299.76,3903.27,4083.55,4084.82,3848.71,2161.82,2668.26,3695.76,3963.66,5662.62,4761.42,5698.17,4324.04,4464.28,5203.31,5603.45,5743.85,5743.68,5789.61,5754.47,5734.18,6039,6106,6135,5721.16,5846.81,5934.43,5643.15,5824.9,5267.14,5445.70]},
   {name:'Upstart Loan', apr:null, data:[9376.11,9035.41,8683.93,8336.28,7982.13,7627.52,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},
 ];
 
-const totalDebt = [36439.13,32628.21,33420.51,31583.57,31456.04,27628.37,46914.87,50026.28,53434.05,56963.59,58079.2,58470.84,52145.32,60697.07,64939.53,66918.42,70902.83,73029.42,77446.66,78617.18,76682.24,78857.4,78566.12,78001.31,80069.02,81628.54,79907.68,77412.01,76823.23,76258.33,65556.93,62669.53,61577.28,42010.61,37974.62,33030.05,30743.56,27028.01,26584.83,26760.95,25953.57,23463.88,24121.48,24294.03,25084.25,24303.2,24706.48,23100.04,21959.51,21637.95,13835.29,15924.77,14959.97,15769.11,14681.49,15619.76,16970.66,19350.52,19711.98,20712.58,14985.93,15451.69,15811.88,16681.5,16380.76,14831.75,14630.5,14917.48,15137.47,14144,14252.7,13462.28,13404.8];
+const totalDebt = [36439.13,32628.21,33420.51,31583.57,31456.04,27628.37,46914.87,50026.28,53434.05,56963.59,58079.2,58470.84,52145.32,60697.07,64939.53,66918.42,70902.83,73029.42,77446.66,78617.18,76682.24,78857.4,78566.12,78001.31,80069.02,81628.54,79907.68,77412.01,76823.23,76258.33,65556.93,62669.53,61577.28,42010.61,37974.62,33030.05,30743.56,27028.01,26584.83,26760.95,25953.57,23463.88,24121.48,24294.03,25084.25,24303.2,24706.48,23100.04,21959.51,21637.95,13835.29,15924.77,14959.97,15769.11,14681.49,15619.76,16970.66,19350.52,19711.98,20712.58,14985.93,15451.69,15811.88,16681.5,16380.76,14831.75,14630.5,14917.48,15137.47,14144,14252.7,13462.28,14112.98];
 
-const debtDelta = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2089.48,-964.8,809.14,-1087.62,938.27,1350.9,2379.86,361.46,1000.6,-5726.65,465.76,360.19,869.62,-300.74,-1549.01,-201.25,286.98,219.99,-993.47,108.7,-790.42,-57.48];
+const debtDelta = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2089.48,-964.8,809.14,-1087.62,938.27,1350.9,2379.86,361.46,1000.6,-5726.65,465.76,360.19,869.62,-300.74,-1549.01,-201.25,286.98,219.99,-993.47,108.7,-790.42,650.70];
 
 // Interest data
 const interestDates = ["Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"];
@@ -1197,13 +1197,13 @@ const interestAccounts = [
   {name:'Amazon Store Card', apr:29.49, sum:1656.83, data:[108.6,105.21,124.82,126.14,135.61,131.32,130.9,0,203.9,119.58,116.32,110.41,99.54,81.57,62.91]},
   {name:'Venmo Credit', apr:31.49, sum:48.56, data:[17.16,12.74,14.66,2,0,2,0,null,null,null,null,null,null,null,null]},
   {name:'Citi Simplicity', apr:28.24, sum:1062.13, data:[72.09,78.5,66.42,70.21,76.75,71.35,68.15,76.79,66.96,68.75,76.54,64.3,72.6,68.53,64.19]},
-  {name:'Capital One 4540', apr:27.49, sum:171.14, data:[21,20.49,12.55,0,6.14,0,6.83,10.9,12.04,18.43,15.72,16.35,16.13,14.56,null]},
+  {name:'Capital One 4540', apr:27.49, sum:187.20, data:[21,20.49,12.55,0,6.14,0,6.83,10.9,12.04,18.43,15.72,16.35,16.13,14.56,16.06]},
   {name:'Capital One 0623', apr:28.24, sum:252.14, data:[42.8,39,15,0,0,0.12,1.04,6.17,6.18,16,13.24,14.42,28.01,29.46,40.70]},
-  {name:'Apple Card', apr:25.49, sum:1621.34, data:[0,116,127.45,121.71,131.96,130,126.82,135.86,125.95,125.92,122.34,125.12,124.21,108,null]},
+  {name:'Apple Card', apr:25.49, sum:1740.63, data:[0,116,127.45,121.71,131.96,130,126.82,135.86,125.95,125.92,122.34,125.12,124.21,108,119.29]},
 ];
 
-const totalInterest = [341.64,443.04,379.96,334.43,399.06,408.21,416.97,279.08,419.99,350.82,346.3,343.28,340.49,302.12,62.91];
-const interestDelta = [null,101.4,-63.08,-45.53,64.63,9.15,8.76,-137.89,140.91,-69.17,-4.52,-3.02,-2.79,-38.37,-239.21];
+const totalInterest = [341.64,443.04,379.96,334.43,399.06,408.21,416.97,279.08,419.99,350.82,346.3,343.28,340.49,302.12,303.15];
+const interestDelta = [null,101.4,-63.08,-45.53,64.63,9.15,8.76,-137.89,140.91,-69.17,-4.52,-3.02,-2.79,-38.37,1.03];
 
 // ==================== STATE ====================
 let currentView = 'overview';
@@ -1459,7 +1459,7 @@ function renderInterestStackChart() {
   if (interestStackChartInstance) interestStackChartInstance.destroy();
   const ctx = document.getElementById('interestStackChart').getContext('2d');
   
-  const colors = ['#a855f7','#6366f1','#f59e0b','#3b82f6','#06b6d4','#ef4444','#f97316','#f0f0f0'];
+  const colors = ['#a855f7','#6366f1','#f59e0b','#3b82f6','#06b6d4','#ef4444','#f97316','#e2e8f0'];
   
   interestStackChartInstance = new Chart(ctx, {
     type: 'bar',
@@ -1846,7 +1846,7 @@ const CAT_COLORS = {
   'P2P Transfer': '#4a9eff', 'Income': '#34d399', 'Loan Payment': '#f472b6',
   'Transport': '#22d3ee', 'Food Delivery': '#fbbf24', 'Shopping': '#818cf8',
   'Subscriptions': '#c084fc', 'Personal Care': '#f9a8d4', 'Fees': '#6b7280',
-  'ATM / Cash': '#a0a0a0', 'Groceries': '#86efac', 'Dining': '#fdba74',
+  'ATM / Cash': '#94a3b8', 'Groceries': '#86efac', 'Dining': '#fdba74',
   'Travel': '#67e8f9', 'Government': '#9ca3af', 'Other': '#475569'
 };
 
