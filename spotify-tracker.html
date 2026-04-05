@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         [data-theme="dark"] {
-          --bg: #0a0a0a;
-          --bg-elevated: #111111;
-          --surface: #161616;
-          --surface-2: #1e1e1e;
-          --border: #2a2a2a;
-          --border-subtle: #1f1f1f;
+          --bg: #0b0f1a;
+          --bg-elevated: #101828;
+          --surface: #151d2e;
+          --surface-2: #1c2640;
+          --border: #2a3a5c;
+          --border-subtle: #1e2d4a;
           --text: #f0f0f0;
           --text-secondary: #a0a0a0;
           --text-muted: #666666;
@@ -685,7 +685,7 @@
             <div class="header-right">
                 <div class="total-badge">
                     <div class="label">Last Updated</div>
-                    <div class="value" style="font-size:1.2rem;" id="totalFollowers">Mar 2026</div>
+                    <div class="value" style="font-size:1.2rem;" id="totalFollowers">Apr 2026</div>
                 </div>
                 <button class="btn btn-primary" onclick="openModal()">+ Add Month</button>
             </div>
@@ -798,25 +798,25 @@
         "Broadway": "covers/top-played.jpg"
     };
 
-    // ─── V9 DEFAULT DATA — 15 playlists, 22 months (Apr 24 → Mar 26) ───
+    // ─── V10 DEFAULT DATA — 15 playlists, 23 months (Apr 24 → Apr 26) ───
     const DEFAULT_DATA = {
-        months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"],
+        months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26"],
         playlists: {
-            "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509],
-            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168],
-            "Guide to Indie":   [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,110],
-            "Ancora":           [21,28,28,28,30,31,31,31,33,32,33,36,34,34,35,36,37,37,37,37,38,38],
-            "Thirst":           [24,26,26,28,28,28,28,30,30,31,32,32,32,32,32,32,32,32,32,32,33,33],
-            "Potpourri":        [3,5,5,7,8,8,9,10,24,26,27,29,27,27,28,32,30,30,30,30,31,31],
-            "Cloudbuster":      [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26],
-            "Broken":           [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,20],
-            "run":              [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16],
-            "Oddities":         [5,13,14,13,13,13,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14],
-            "Orpheus":          [0,0,0,0,0,0,0,0,0,1,2,3,2,2,4,7,9,9,9,9,10,10],
-            "Afterglow":        [7,8,8,8,9,9,9,10,10,10,10,10,10,10,9,9,9,9,9,9,9,9],
-            "Vertigo":          [0,0,0,0,0,0,0,0,0,2,2,3,6,6,6,6,6,6,6,6,6,6],
-            "Masterpiece":      [4,4,4,4,4,4,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6],
-            "Broadway":         [3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5]
+            "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509,509],
+            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168,175],
+            "Guide to Indie":   [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,110,110],
+            "Ancora":           [21,28,28,28,30,31,31,31,33,32,33,36,34,34,35,36,37,37,37,37,38,38,38],
+            "Thirst":           [24,26,26,28,28,28,28,30,30,31,32,32,32,32,32,32,32,32,32,32,33,33,33],
+            "Potpourri":        [3,5,5,7,8,8,9,10,24,26,27,29,27,27,28,32,30,30,30,30,31,31,31],
+            "Cloudbuster":      [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26,26],
+            "Broken":           [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,20,21],
+            "run":              [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,16],
+            "Oddities":         [5,13,14,13,13,13,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,14],
+            "Orpheus":          [0,0,0,0,0,0,0,0,0,1,2,3,2,2,4,7,9,9,9,9,10,10,10],
+            "Afterglow":        [7,8,8,8,9,9,9,10,10,10,10,10,10,10,9,9,9,9,9,9,9,9,9],
+            "Vertigo":          [0,0,0,0,0,0,0,0,0,2,2,3,6,6,6,6,6,6,6,6,6,6,6],
+            "Masterpiece":      [4,4,4,4,4,4,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],
+            "Broadway":         [3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5]
         }
     };
 
@@ -830,12 +830,12 @@
 
     function loadData() {
         try {
-            const saved = localStorage.getItem('spotify-tracker-v2');
+            const saved = localStorage.getItem('spotify-tracker-v3');
             if (saved) return JSON.parse(saved);
         } catch(e) {}
         return JSON.parse(JSON.stringify(DEFAULT_DATA));
     }
-    function saveData() { localStorage.setItem('spotify-tracker-v2', JSON.stringify(data)); }
+    function saveData() { localStorage.setItem('spotify-tracker-v3', JSON.stringify(data)); }
 
     function getColor(name) {
         const idx = Object.keys(data.playlists).indexOf(name);
