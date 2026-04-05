@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blindspot · Channel Setup Binder · Chaos Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f1a;
+  --bg-elevated: #101828;
+  --surface: #151d2e;
+  --surface-2: #1c2640;
+  --border: #2a3a5c;
+  --border-subtle: #1e2d4a;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #d4a052;
+  --accent-dim: rgba(212, 160, 82, 0.10);
+  --accent-glow: rgba(212, 160, 82, 0.25);
+  --red: #f87171;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --purple: #a07dd4;
+  --pink: #f472b6;
+  --signal-red: #e74c5a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 140px; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reading progress bar */
+.progress-wrap {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px; background: rgba(255,255,255,0.04); z-index: 100;
+}
+.progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--signal-red));
+  transition: width 0.1s ease;
+}
+
+/* Sticky header + part nav */
+header.sticky {
+  position: sticky; top: 3px; z-index: 90;
+  background: rgba(11,15,26,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-top {
+  max-width: 1100px; margin: 0 auto; padding: 14px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.back-link {
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--accent); }
+.title-mini {
+  font-family: 'Syncopate', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.14em; color: var(--text-muted);
+}
+.title-mini strong { color: var(--accent); }
+.part-tabs {
+  max-width: 1100px; margin: 0 auto; padding: 0 32px 10px;
+  display: flex; gap: 4px; overflow-x: auto;
+}
+.part-tab {
+  flex: 0 0 auto; padding: 8px 14px; border-radius: 6px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--text-secondary); background: transparent;
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: all 0.2s;
+}
+.part-tab:hover { color: var(--text); background: var(--surface); }
+.part-tab.active {
+  color: var(--accent); background: var(--accent-dim);
+  border-color: var(--accent-glow);
+}
+
+/* Hero */
+.hero {
+  max-width: 1100px; margin: 0 auto; padding: 80px 32px 40px;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.18em; color: var(--signal-red);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Syncopate', sans-serif; font-weight: 700;
+  font-size: clamp(38px, 6vw, 68px); letter-spacing: 0.01em;
+  line-height: 1.05; margin-bottom: 16px;
+}
+.hero h1 .dot { color: var(--signal-red); }
+.hero-sub {
+  font-size: 18px; color: var(--text-secondary); max-width: 680px;
+  margin-bottom: 32px; line-height: 1.55;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  padding: 20px 24px; background: var(--surface); border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+}
+.meta-item .meta-label {
+  font-size: 10px; letter-spacing: 0.14em; color: var(--text-muted);
+  text-transform: uppercase; font-weight: 600;
+}
+.meta-item .meta-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px; color: var(--text); font-weight: 500; margin-top: 2px;
+}
+
+/* Page container */
+main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 120px; }
+
+/* Part dividers */
+.part-divider {
+  margin: 60px 0 32px; padding: 32px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
+  border: 1px solid var(--border-subtle); position: relative; overflow: hidden;
+}
+.part-divider::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+  background: var(--accent);
+}
+.part-divider.part-ii::before { background: var(--blue); }
+.part-divider.part-iii::before { background: var(--signal-red); }
+.part-label {
+  font-family: 'Syncopate', sans-serif; font-size: 11px;
+  letter-spacing: 0.18em; color: var(--accent); font-weight: 700;
+}
+.part-divider.part-ii .part-label { color: var(--blue); }
+.part-divider.part-iii .part-label { color: var(--signal-red); }
+.part-divider h2 {
+  font-size: 32px; font-weight: 800; margin: 6px 0 10px;
+  letter-spacing: -0.01em;
+}
+.part-divider p { color: var(--text-secondary); font-size: 15px; max-width: 720px; }
+.part-toc {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px; margin-top: 20px;
+}
+.part-toc a {
+  padding: 10px 14px; background: rgba(255,255,255,0.02); border-radius: 6px;
+  border: 1px solid var(--border-subtle); color: var(--text-secondary);
+  text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 10px;
+  transition: all 0.2s;
+}
+.part-toc a:hover { color: var(--text); border-color: var(--accent-glow); background: var(--accent-dim); }
+.part-toc .ch-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-muted); min-width: 28px;
+}
+
+/* Chapter */
+.chapter { margin-bottom: 56px; scroll-margin-top: 140px; }
+.chapter-head { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 18px; }
+.chapter-badge {
+  flex: 0 0 auto; width: 56px; height: 56px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+}
+.chapter-head-text { flex: 1; }
+.chapter-kicker {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 2px;
+}
+.chapter-head h3 {
+  font-size: 26px; font-weight: 700; letter-spacing: -0.01em;
+  line-height: 1.2; margin-bottom: 8px;
+}
+.chapter-thesis {
+  font-style: italic; color: var(--accent); font-size: 15px;
+  padding: 10px 0 10px 16px; border-left: 2px solid var(--accent);
+  margin: 12px 0 18px;
+}
+.chapter-body p { color: var(--text-secondary); margin-bottom: 14px; font-size: 15px; }
+
+/* Callouts — ADHD-friendly boxes */
+.callout {
+  padding: 16px 20px; border-radius: 10px; margin: 18px 0;
+  border: 1px solid; display: flex; gap: 14px;
+}
+.callout-icon { flex: 0 0 auto; margin-top: 2px; }
+.callout-body { flex: 1; }
+.callout-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.callout-body ul { list-style: none; padding: 0; }
+.callout-body li {
+  color: var(--text-secondary); font-size: 14px; padding: 4px 0 4px 18px;
+  position: relative;
+}
+.callout-body li::before {
+  content: '▸'; position: absolute; left: 0; color: currentColor; opacity: 0.5;
+}
+.callout-body p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+
+.c-rule { background: rgba(96, 165, 250, 0.06); border-color: rgba(96, 165, 250, 0.25); }
+.c-rule .callout-title, .c-rule .callout-icon { color: var(--blue); }
+.c-warn { background: rgba(248, 113, 113, 0.06); border-color: rgba(248, 113, 113, 0.28); }
+.c-warn .callout-title, .c-warn .callout-icon { color: var(--red); }
+.c-tip { background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.22); }
+.c-tip .callout-title, .c-tip .callout-icon { color: var(--green); }
+.c-prev { background: rgba(160, 125, 212, 0.06); border-color: rgba(160, 125, 212, 0.28); }
+.c-prev .callout-title, .c-prev .callout-icon { color: var(--purple); }
+.c-prev a { color: var(--purple); text-decoration: none; font-weight: 600; border-bottom: 1px dashed currentColor; }
+.c-prev a:hover { color: #b99ae0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 16px 0 20px; border-radius: 10px; border: 1px solid var(--border-subtle); }
+table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 14px; }
+th {
+  text-align: left; padding: 12px 16px; background: var(--surface-2);
+  color: var(--accent); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--border);
+}
+td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); font-weight: 600; }
+
+/* Inline links */
+.chapter-body a, .callout-body a, td a {
+  color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent-glow);
+  transition: all 0.15s;
+}
+.chapter-body a:hover, .callout-body a:hover, td a:hover {
+  color: #e8b96a; border-bottom-color: var(--accent);
+}
+a[data-ext]::after {
+  content: '↗'; font-size: 10px; opacity: 0.6; margin-left: 2px; vertical-align: super;
+}
+
+/* Section subheads inside chapters */
+.sub-h {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--signal-red);
+  margin: 22px 0 10px;
+}
+
+/* Key takeaway strip */
+.takeaway {
+  background: var(--accent-dim); border-left: 3px solid var(--accent);
+  padding: 12px 16px; margin: 14px 0 4px; border-radius: 0 8px 8px 0;
+  font-size: 14px; color: var(--text);
+}
+.takeaway strong { color: var(--accent); font-weight: 700; }
+
+/* Blueprint hero table */
+.blueprint {
+  margin: 24px 0 40px; padding: 24px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border-subtle);
+}
+.blueprint h4 {
+  font-family: 'Syncopate', sans-serif; font-size: 11px;
+  letter-spacing: 0.14em; color: var(--accent); margin-bottom: 16px;
+}
+
+/* Back-to-top */
+.to-top {
+  position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
+  border-radius: 50%; background: var(--accent); color: #0b0f1a;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; font-size: 20px; font-weight: 700;
+  box-shadow: 0 4px 20px rgba(212,160,82,0.35); opacity: 0;
+  transform: translateY(20px); transition: all 0.25s; z-index: 80;
+}
+.to-top.visible { opacity: 1; transform: translateY(0); }
+
+/* Footer */
+footer.page-foot {
+  max-width: 1100px; margin: 0 auto; padding: 40px 32px 80px;
+  border-top: 1px solid var(--border-subtle); color: var(--text-muted);
+  font-size: 12px; font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 720px) {
+  .hero { padding: 56px 20px 30px; }
+  main { padding: 24px 20px 80px; }
+  .nav-top { padding: 12px 20px; }
+  .part-tabs { padding: 0 20px 10px; }
+  .chapter-badge { width: 44px; height: 44px; }
+  .chapter-head h3 { font-size: 21px; }
+  .hero-meta { gap: 16px; }
+  .part-divider { padding: 22px; }
+  .part-divider h2 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="sticky">
+  <div class="nav-top">
+    <a href="index.html" class="back-link">← Chaos Console</a>
+    <div class="title-mini">THE <strong>BLINDSPOT</strong> · CHANNEL SETUP BINDER</div>
+  </div>
+  <div class="part-tabs" id="partTabs">
+    <a href="#part-1" class="part-tab active" data-part="part-1">Part I · Architecture</a>
+    <a href="#part-2" class="part-tab" data-part="part-2">Part II · Production</a>
+    <a href="#part-3" class="part-tab" data-part="part-3">Part III · Publish & Revenue</a>
+    <a href="#blueprint" class="part-tab">Blueprint</a>
+    <a href="#appendix" class="part-tab">Appendix</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">March 2026 · Channel Operating Manual</div>
+  <h1>The Blindspot<span class="dot">.</span></h1>
+  <p class="hero-sub">A redesigned operating manual for channel positioning, research, production, publishing, legal safety, and monetization. 211 working PDFs and 481 source pages condensed into one standardized playbook for the actual YouTube setup.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-label">Compiled From</div><div class="meta-value">211 PDFs</div></div>
+    <div class="meta-item"><div class="meta-label">Source Pages</div><div class="meta-value">481</div></div>
+    <div class="meta-item"><div class="meta-label">Unique Refs</div><div class="meta-value">206</div></div>
+    <div class="meta-item"><div class="meta-label">Chapters</div><div class="meta-value">14</div></div>
+    <div class="meta-item"><div class="meta-label">Version</div><div class="meta-value">v4 · Mar 2026</div></div>
+  </div>
+</section>
+
+<main>
+
+<!-- ============ BLUEPRINT ============ -->
+<div class="blueprint" id="blueprint">
+  <h4>Default Operating Blueprint</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Primary Output</th><th>Default Rule</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Positioning</strong></td><td>One-sentence channel promise</td><td>Use one lane for at least 30 uploads before expanding. → <a href="#ch-1">Ch 1</a></td></tr>
+        <tr><td><strong>Development</strong></td><td>Seed, thumbnail, cold open</td><td>Validate the idea with packaging before scripting the full essay. → <a href="#ch-3">Ch 3</a></td></tr>
+        <tr><td><strong>Production</strong></td><td>Repeatable A7 IV talking-head + archival workflow</td><td>Lock one camera preset, one lighting diagram, one grade baseline. → <a href="#ch-7">Ch 7</a></td></tr>
+        <tr><td><strong>Publishing</strong></td><td>Title, thumbnail, metadata, pinned comment, end screen</td><td>Treat packaging as part of the film, not post-production admin. → <a href="#ch-10">Ch 10</a></td></tr>
+        <tr><td><strong>Optimization</strong></td><td>24/48/72-hour decisions</td><td>Change only what the data says is weak: packaging, opening seconds, or routing. → <a href="#ch-11">Ch 11</a></td></tr>
+        <tr><td><strong>Revenue</strong></td><td>Parallel YPP + direct support stack</td><td>Don't wait for ads before testing memberships, tips, micro-products, and licensing. → <a href="#ch-13">Ch 13</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ PART I ============ -->
+<div class="part-divider" id="part-1">
+  <div class="part-label">PART I</div>
+  <h2>Channel Architecture</h2>
+  <p>Positioning, format design, research systems, and brand rules. One editorial promise linking history, power, propaganda, and media systems — treated as a repeatable format library instead of a pile of unrelated projects.</p>
+  <div class="part-toc">
+    <a href="#ch-1"><span class="ch-num">Ch 1</span> Position Around A Single Promise</a>
+    <a href="#ch-2"><span class="ch-num">Ch 2</span> Standardize The Brand</a>
+    <a href="#ch-3"><span class="ch-num">Ch 3</span> Build A Content Engine</a>
+    <a href="#ch-4"><span class="ch-num">Ch 4</span> Research For Series, Not Chaos</a>
+  </div>
+</div>
+
+<!-- CHAPTER 1 -->
+<section class="chapter" id="ch-1">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 01 · POSITIONING</div>
+      <h3>Position The Blindspot Around A Single Promise</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Your edge isn't "history" in general. It's hidden mechanism — the part of a familiar story viewers think they understand, but don't.</div>
+  <div class="chapter-body">
+    <p>Most history channels fail because they confuse knowledge with narrative. The Blindspot shouldn't act like a lecture archive — it should act like a documentary channel that reveals how power edits reality through propaganda, institutions, media systems, and the stories people inherit without examining.</p>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Lock The Lane</div>
+        <ul>
+          <li>Political and Cold War history is the backbone — not one option among many.</li>
+          <li>The recurring hook is <strong>mechanism</strong>: how a policy, institution, media loop, or covert action actually worked.</li>
+          <li>Use present-day parallels as payoff, not as a replacement for archival depth.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Avoid These Failure Modes</div>
+        <ul>
+          <li>Broad survey videos that try to "cover everything."</li>
+          <li>Academic framing that delays the dramatic question.</li>
+          <li>One-off ideas with no sequel path or series logic.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub-h">Recommended Content Pillars</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pillar</th><th>Why It Exists</th><th>Example Angle</th></tr></thead>
+      <tbody>
+        <tr><td>Archival power stories</td><td>Builds authority &amp; distinctiveness</td><td><a href="https://en.wikipedia.org/wiki/Operation_Trust" data-ext>Operation Trust</a>: the fake resistance the Soviets built to trap their enemies</td></tr>
+        <tr><td>Mechanism explainers</td><td>Turns complex systems into reusable format pieces</td><td>How feedback loops replaced gatekeepers in modern media</td></tr>
+        <tr><td>Counter-narrative history</td><td>Creates curiosity &amp; debate</td><td>The Cold War lie everyone still believes</td></tr>
+        <tr><td>Analysis of media &amp; myth</td><td>Connects history to today's viewer behavior</td><td>Why a famous war movie gets the central event wrong</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Default Editorial Rule Set</div>
+        <ul>
+          <li>Stay inside one lane for the first 30 uploads before branching into adjacent experiments.</li>
+          <li>Aim for 70–80% evergreen history/mechanism pieces, 20–30% timely essays or response videos.</li>
+          <li>End videos with a next-question or next-episode tease so the channel trains viewers to continue, not just finish.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> promise a hidden mechanism, not a history lesson. The mechanism is the format.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="chapter" id="ch-2">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 02 · BRAND</div>
+      <h3>Standardize The Brand Before You Design Another Thumbnail</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Consistency is restraint. Build one recognisable system, then repeat it until it becomes unmistakable.</div>
+  <div class="chapter-body">
+    <div class="callout c-prev">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9M3 12l3-3M3 12l3 3"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Previously</div>
+        <p>In <a href="#ch-1">Ch 1</a> we locked the lane (mechanism, not survey). Now we lock the look so every upload reads as the same channel at a glance.</p>
+      </div>
+    </div>
+    <p>Stop redesigning the channel from scratch. The Blindspot runs on a fixed identity system: <strong style="color:#000;background:#e2e8f0;padding:0 6px;border-radius:3px">black</strong>, <strong style="color:#0b0f1a;background:#f5ead0;padding:0 6px;border-radius:3px">cream</strong>, and <strong style="color:#fff;background:var(--signal-red);padding:0 6px;border-radius:3px">signal red</strong>. Keep the red circle/target motif, and build every title card, thumbnail, and promo from the same grid.</p>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Recommended Direction</div>
+        <ul>
+          <li>Primary look: investigative minimalism.</li>
+          <li>Accent layer: declassified dossier details, stamps, archive IDs, restrained paper textures.</li>
+          <li>Keep visuals colder and cleaner than a generic "history channel" sepia look.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Non-Negotiables</div>
+        <ul>
+          <li>One focal image.</li>
+          <li>Two to four words max on the thumbnail when text is needed.</li>
+          <li>The red circle/highlight should reveal the blindspot, not decorate empty space.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub-h">Brand System Defaults</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Element</th><th>Default</th><th>Why It Stays Fixed</th></tr></thead>
+      <tbody>
+        <tr><td>Palette</td><td>Black, cream, signal red</td><td>Channel reads as serious, forensic, immediately identifiable</td></tr>
+        <tr><td>Type hierarchy</td><td>Condensed uppercase hooks; readable serif body</td><td>Headlines cut through on mobile; long-form feels editorial</td></tr>
+        <tr><td>Thumbnail templates</td><td>Face + hook, document pin, symbolic impact</td><td>Each template maps to a traffic source — no guessing each time</td></tr>
+        <tr><td>Channel home</td><td>Trailer, Start Here playlist, flagship series rows, Shorts row</td><td>New viewers need a guided entry point the moment they land</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Channel Page Setup</div>
+        <ul>
+          <li>Trailer for new viewers: 45–60 seconds, thesis first, then three proof clips.</li>
+          <li>Featured video for returning viewers: latest flagship documentary or strongest evergreen essay.</li>
+          <li>Top playlist row: <strong>Start Here</strong>. Then place series rows by editorial pillar, not upload date.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> the red circle does one job — point at the blindspot. Don't decorate.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 3 -->
+<section class="chapter" id="ch-3">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6m11-11h-6M7 12H1m16.24-7.24l-4.24 4.24M9 15l-4.24 4.24m14.48 0L15 15M9 9L4.76 4.76"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 03 · CONTENT ENGINE</div>
+      <h3>Build A Content Engine, Not A Single Upload</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Every long-form episode should create search traffic, suggested traffic, and short-form discovery at the same time.</div>
+  <div class="chapter-body">
+    <p>Turn every documentary into a content factory. The flagship earns authority. The tactical explainer picks up search traffic. Shorts and quote clips keep the algorithm warm and give you low-risk places to test hooks before you sink hours into a larger cut.</p>
+    <div class="sub-h">Recommended Format Stack</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Format</th><th>Runtime</th><th>Job To Do</th><th>Production Rule</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Flagship documentary</strong></td><td>15–25 min</td><td>Authority, subscriptions, deep watch time</td><td>One or two per month; each becomes the source for 6–10 clips</td></tr>
+        <tr><td><strong>Tactical explainer</strong></td><td>6–10 min</td><td>Search capture, faster topic turnaround</td><td>Weekly when possible; thesis clear in the first sentence</td></tr>
+        <tr><td><strong>Shorts / Reels</strong></td><td>30–60 sec</td><td>Discovery &amp; topic validation</td><td>Pull 3+ clips from every long-form script or rough cut</td></tr>
+        <tr><td><strong>Quote / fact clips</strong></td><td>&lt;30 sec</td><td>Social spread &amp; audience memory</td><td>One contrarian claim, one fact, one visual, one question</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Validate The Idea Before Scripting</div>
+        <ul>
+          <li>Draft two or three thumbnail concepts first.</li>
+          <li>Write a working title in six words or fewer if possible.</li>
+          <li>If the idea can't package cleanly, the concept is weak before the script is even written.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Stress-Test The Opening</div>
+        <ul>
+          <li>Cut the first 20–40 seconds as a standalone trailer.</li>
+          <li>Use a thesis-plus-proof opening: claim in 0–3 sec, proof visuals by 0–5.</li>
+          <li>If the cold open doesn't work in isolation, fix the structure before editing the rest.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Default Clip Extraction List (Per Documentary)</div>
+        <ul>
+          <li>Two strong quotes.</li>
+          <li>One contrarian claim.</li>
+          <li>One overlooked historical fact.</li>
+          <li>One "most people do not know this" moment.</li>
+          <li>One short visual payoff or receipt shot.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> if it can't package, don't script it.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="chapter" id="ch-4">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 04 · RESEARCH</div>
+      <h3>Research For Series, Not For Chaos</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Use a low-fatigue intake system, one-page seeds, and beat maps so every topic moves from signal to episode without turning into a permanent research project.</div>
+  <div class="chapter-body">
+    <p>You don't need more tabs, feeds, or open loops. You need a small signal stack, a clear episode filter, and a seed document that forces each idea to justify itself before it becomes a full production.</p>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Low-Fatigue Intake System</div>
+        <ul>
+          <li><strong>Layer 1:</strong> raw signal from <a href="https://www.reuters.com/" data-ext>Reuters</a>, <a href="https://apnews.com/" data-ext>AP</a>, <a href="https://www.ft.com/" data-ext>Financial Times</a>, and one counter-narrative source.</li>
+          <li><strong>Layer 2:</strong> context from think tanks and backgrounders 2–3x per week.</li>
+          <li><strong>Layer 3:</strong> primary archives, <a href="https://www.foia.gov/" data-ext>FOIA</a> releases, diaries, and academic papers — only for the stories that survive.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Three-Question Filter</div>
+        <ul>
+          <li>Does this have a mechanism?</li>
+          <li>Does it change or clarify a timeline?</li>
+          <li>Does it connect to an existing editorial thread?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub-h">Blindspot-Ready Seed Document</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Field</th><th>What To Write</th></tr></thead>
+      <tbody>
+        <tr><td><strong>What happened</strong></td><td>One paragraph on the event or document release</td></tr>
+        <tr><td><strong>Why now</strong></td><td>Why this matters to present-day viewers or the current media environment</td></tr>
+        <tr><td><strong>Mechanism</strong></td><td>The system, process, or incentive that explains the event</td></tr>
+        <tr><td><strong>Counter-argument</strong></td><td>The strongest serious objection or alternate reading</td></tr>
+        <tr><td><strong>Visual proof</strong></td><td>Archive, memo, map, diary, footage, or data visual you can actually show</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Best Immediate Episode Candidates</div>
+        <ul>
+          <li><strong>Operation Denver:</strong> the KGB AIDS disinformation campaign and the telegram that launched it.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Kim_Philby" data-ext>Philby's</a> confession:</strong> newly surfaced MI5 materials on class loyalty and institutional blindness.</li>
+          <li><strong>Operation Trust:</strong> a fake anti-Bolshevik network built to control opposition through deception.</li>
+          <li><strong>Legibility vs reality:</strong> how propaganda, editing, and algorithms simplify the world into usable myths.</li>
+        </ul>
+      </div>
+    </div>
+    <p>Once a seed survives, build a <em>beat map</em> before you chase more research. Timecode ranges, narration capsules, visual treatment, design notes, and music cues will do more to prevent post-production chaos than another dozen browser tabs.</p>
+    <div class="takeaway"><strong>If you remember one thing:</strong> seed &gt; beat map &gt; research. Not the other way around.</div>
+  </div>
+</section>
+
+<!-- ============ PART II ============ -->
+<div class="part-divider part-ii" id="part-2">
+  <div class="part-label">PART II</div>
+  <h2>Performance &amp; Production</h2>
+  <p>On-camera delivery, studio defaults, editing discipline, and finishing standards. Lock one baseline. Standardize the A7 IV, teleprompter, grade, loudness, and export chain. Separate structure from polish.</p>
+  <div class="part-toc">
+    <a href="#ch-5"><span class="ch-num">Ch 5</span> On-Camera Baseline</a>
+    <a href="#ch-6"><span class="ch-num">Ch 6</span> Voice, Deliberate Not Written</a>
+    <a href="#ch-7"><span class="ch-num">Ch 7</span> Sony A7 IV Studio Baseline</a>
+    <a href="#ch-8"><span class="ch-num">Ch 8</span> Structure Before Polish</a>
+    <a href="#ch-9"><span class="ch-num">Ch 9</span> Finish Cold, Clear, Sourced</a>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<section class="chapter" id="ch-5">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4V8z"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 05 · ON-CAMERA</div>
+      <h3>Run One On-Camera Baseline Until It Becomes Boring</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Authority comes from mechanical control: posture, eye line, ending pitch, silence, and gesture economy.</div>
+  <div class="chapter-body">
+    <p>This isn't a personality makeover. It's a daily technical drill. Remove drift: body sway, bobble-head movement, rising sentence endings, approval smiles, wandering hands, and needless take-to-take variation.</p>
+    <div class="sub-h">Daily Authority Reset</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Control Point</th><th>Time</th><th>Pass Condition</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Posture</strong></td><td>2 min</td><td>Torso planted; shoulders level; no visible comfort sway</td></tr>
+        <tr><td><strong>Head control</strong></td><td>1 min</td><td>No nodding or tilting while speaking through the sentence</td></tr>
+        <tr><td><strong>Tone &amp; finish</strong></td><td>2–3 min</td><td>Final words land lower and slower instead of lifting like questions</td></tr>
+        <tr><td><strong>Pace &amp; silence</strong></td><td>2 min</td><td>Every sentence gets a full beat of silence; no rushing through turns</td></tr>
+        <tr><td><strong>Expression &amp; gesture</strong></td><td>1–2 min</td><td>One expression shift per idea; hands leave and return to one anchor</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Default Shipping Rule</div>
+        <ul>
+          <li>Use the <strong>80% baseline protocol</strong>: one baseline shot, one energy level, one framing standard.</li>
+          <li>Do not invent a fresh performance method on upload day.</li>
+          <li>Film short English or explainer clips between major shoots to keep the baseline alive.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6m11-11h-6M7 12H1"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Review On Playback</div>
+        <ul>
+          <li>Did the body move for comfort or only between ideas?</li>
+          <li>Did the eyes stay on the lens or drift to the script edges?</li>
+          <li>Did line endings land with authority?</li>
+          <li>Was every gesture tied to meaning instead of anxiety?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> authority = boredom with your own baseline.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 6 -->
+<section class="chapter" id="ch-6">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 06 · VOICE</div>
+      <h3>Make The Voice Sound Deliberate, Not Written</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Clarity wins over accent masking. Pace, phrasing, and caption discipline matter more than trying to sound like someone else.</div>
+  <div class="chapter-body">
+    <div class="callout c-prev">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9M3 12l3-3M3 12l3 3"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Previously</div>
+        <p>In <a href="#ch-5">Ch 5</a> you locked the body. Now lock the breath. Same principle: one baseline, one cadence, maintained daily.</p>
+      </div>
+    </div>
+    <p>Use <strong>contrast, not speed</strong>. Build with longer lines, pause long enough for the thought to land, then hit the clincher with precision. For teleprompter work, chunk lines into breath-sized phrases and let the eyes scan gently instead of darting at the glass.</p>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Teleprompter Cadence Defaults</div>
+        <ul>
+          <li>Chunk lines into 6–10 word phrases.</li>
+          <li>Aim for 110–130 WPM on documentary narration.</li>
+          <li>Mark anchor, contrast, and release words in every sentence.</li>
+          <li>Use left–center–right micro-dwells with the eyes while keeping the head still.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Voice Drills That Actually Transfer</div>
+        <ul>
+          <li>Burst → silence → payoff for tension.</li>
+          <li>Claim → evidence → clincher for arguments.</li>
+          <li>Over-enunciate practice plus 1.25× playback QA for clarity.</li>
+          <li>End long lines with downward pitch unless the line is a real question.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub-h">Bilingual Clarity Checklist</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Area</th><th>Default</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Captions</strong></td><td>Upload separate source-language and English SRTs instead of relying on auto-translate</td></tr>
+        <tr><td><strong>Caption timing</strong></td><td>Cues roughly 1.33–6.0 sec, 1–2 lines, readable at 120–160 WPM</td></tr>
+        <tr><td><strong>Language QA</strong></td><td>AI for first-pass transcription, then native proof pass for hooks, idiom, names, and dates</td></tr>
+        <tr><td><strong>Final review</strong></td><td>Play key sections at 1.25×; if meaning blurs, rewrite or re-record</td></tr>
+      </tbody>
+    </table></div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> pause is the instrument. Speed is a confession.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 7 -->
+<section class="chapter" id="ch-7">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 07 · CAMERA</div>
+      <h3>Lock The Sony A7 IV Studio Baseline</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">A stable camera preset beats endless tweaks. Your talking-head setup should be repeatable enough to shoot across days without visible drift.</div>
+  <div class="chapter-body">
+    <p>Treat the <a href="https://electronics.sony.com/imaging/interchangeable-lens-cameras/full-frame/p/ilce7m4-b" data-ext>Sony A7 IV</a> as a locked system. Use S-Log3 only if you are willing to keep the exposure rules fixed. Use one shutter rule, one white-balance method, and one teleprompter-lighting layout so your talking-head footage matches without drama.</p>
+    <div class="sub-h">Talking-Head Camera Preset</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Setting</th><th>Default</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Picture profile</strong></td><td>PP8 / S-Gamut3.Cine / S-Log3</td></tr>
+        <tr><td><strong>ISO</strong></td><td>800 base; move to ~3200 only when light truly requires it</td></tr>
+        <tr><td><strong>Shutter</strong></td><td>1/50 for 24p or 1/60 for 30p; variable shutter only to kill flicker</td></tr>
+        <tr><td><strong>Aperture / focal</strong></td><td>f/2.8–f/4 at roughly 50–85 mm for the standard hero head</td></tr>
+        <tr><td><strong>Autofocus</strong></td><td>AF-C with Face/Eye priority and a centered custom zone</td></tr>
+        <tr><td><strong>Monitoring</strong></td><td>Gamma Display Assist or technical Rec.709 preview while recording log</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Teleprompter Fixes</div>
+        <ul>
+          <li>Dim the prompter before raising camera ISO.</li>
+          <li>Use anti-flicker and land on a clean shutter value when the screen bands.</li>
+          <li>Map AWB lock, or better: custom white balance off a real card under the actual lights.</li>
+          <li>Focus with the beamsplitter glass in place — don't assume naked-lens focus will hold.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Lighting Diagram</div>
+        <ul>
+          <li>Large soft key at ~45° and slightly above eye line.</li>
+          <li>Gentle fill at about a 2:1 to 3:1 ratio.</li>
+          <li>Subtle rim or hair light for separation.</li>
+          <li>Background 1–2 stops darker than the face, with one practical if needed.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">60-Second Pre-Roll Ritual</div>
+        <ul>
+          <li>Record one minute at final settings.</li>
+          <li>Wave a white card through the frame to catch exposure and color shifts.</li>
+          <li>Check the prompter for glare, reflections, and banding.</li>
+          <li>Speak one loud sentence to verify audio peaks before the real take.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> log footage needs locked rules, or it turns into color chaos.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 8 -->
+<section class="chapter" id="ch-8">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 08 · EDIT</div>
+      <h3>Separate Structure From Polish In The Edit</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Your edit should move through clear stages: paper edit, stringout, selects, rough cut, sequence lock.</div>
+  <div class="chapter-body">
+    <p>Long-form creators stall because they solve story and polish at the same time. That guarantees endless timeline drift. Lock the structure in text or on a stringout first, then move into a second pass where you only improve what already has a job.</p>
+    <div class="sub-h">Edit Pipeline</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Stage</th><th>Deliverable</th><th>Stop Condition</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Paper edit</strong></td><td>Transcript reordered into argument form</td><td>You can read the full story without touching the NLE</td></tr>
+        <tr><td><strong>Stringout / selects</strong></td><td>Topic-based idea library</td><td>Best lines and clips are obvious without hunting</td></tr>
+        <tr><td><strong>Rough cut</strong></td><td>Messy but complete sequence</td><td>Every beat exists, even if the polish is weak</td></tr>
+        <tr><td><strong>Sequence lock</strong></td><td>Sections pushed to ~80% final</td><td>Only clarity and major pacing fixes allowed after a section locks</td></tr>
+        <tr><td><strong>Polish</strong></td><td>Graphics, b-roll swaps, sound sweetening, color</td><td>You're improving a finished structure, not redesigning it</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Finish Discipline</div>
+        <ul>
+          <li>Duplicate the sequence before major structural passes — keep a stable fallback.</li>
+          <li>Lock sections after two serious revisits. Reopening = avoiding the ending.</li>
+          <li>Use 30–75 minute focus blocks with a prewritten finish condition, not open-ended sessions.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">What To Test Early</div>
+        <ul>
+          <li>Cold open as a trailer for the rest of the video.</li>
+          <li>One highly related end-screen target.</li>
+          <li>Hook retention at 0–30 seconds — before you spend time on micro-polish.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> lock the skeleton before you buy new clothes.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 9 -->
+<section class="chapter" id="ch-9">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 09 · FINISH</div>
+      <h3>Finish With A Cold, Clear Look And Verifiable Source Trail</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">The Blindspot should look like disciplined editorial evidence: cool, clean, legible, and sourced.</div>
+  <div class="chapter-body">
+    <p>A good Blindspot finish isn't a heavy "look." It's a controlled delivery package. Convert S-Log3 to Rec.709 cleanly, then add a restrained cold-ink treatment. Keep skin believable, add texture sparingly, hit modern loudness targets, and make the archival chain visible enough that viewers can trace what they're seeing.</p>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Finish Standards</div>
+        <ul>
+          <li><strong>Grade:</strong> technical log-to-Rec.709 first, then cool contrast and paper-like restraint.</li>
+          <li><strong>Audio:</strong> aim around <a href="https://support.google.com/youtube/answer/6364458" data-ext>−14 LUFS integrated</a> with true peaks near −1 dBTP.</li>
+          <li><strong>Delivery:</strong> edited SRT, chapters, source footer, end screens, and archive IDs before export.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Source Integrity Standards</div>
+        <ul>
+          <li>Keep compact on-screen source stamps for stills and clips.</li>
+          <li>Save proof screenshots of archive catalog pages with IDs visible.</li>
+          <li>Publish full links, dates, and translation notes in the description or companion notes.</li>
+          <li>Archive the original master and attach or publish a <a href="https://c2pa.org/" data-ext>C2PA</a> manifest when practical.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub-h">Finish Checklist</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Deliverable</th><th>Minimum Standard</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Master file</strong></td><td>High-quality MP4 or MOV archived with checksum or manifest info</td></tr>
+        <tr><td><strong>Upload file</strong></td><td>4K or high-quality SDR export with clean chapter points and end screens</td></tr>
+        <tr><td><strong>Captions</strong></td><td>Hand-corrected SRT, not auto-only captions</td></tr>
+        <tr><td><strong>Description footer</strong></td><td>Numbered sources with timestamps, archive IDs, rights notes where needed</td></tr>
+        <tr><td><strong>Archival assets</strong></td><td>March 2026 micro-packs for textures and archive beds as accents, not clutter</td></tr>
+      </tbody>
+    </table></div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> the grade is evidence. Restraint reads as credibility.</div>
+  </div>
+</section>
+
+<!-- ============ PART III ============ -->
+<div class="part-divider part-iii" id="part-3">
+  <div class="part-label">PART III</div>
+  <h2>Publishing, Risk &amp; Revenue</h2>
+  <p>Packaging, the first 72 hours, legal guardrails, monetization, and operating cadence. Treat titles, thumbnails, metadata, and pinned comments as part of the editorial product. Let early data say whether to change packaging, the opening, or nothing at all.</p>
+  <div class="part-toc">
+    <a href="#ch-10"><span class="ch-num">Ch 10</span> Package For Browse/Suggested/Search</a>
+    <a href="#ch-11"><span class="ch-num">Ch 11</span> First 72 Hours As A Test</a>
+    <a href="#ch-12"><span class="ch-num">Ch 12</span> Fair Use As Production Design</a>
+    <a href="#ch-13"><span class="ch-num">Ch 13</span> Revenue In Two Tracks</a>
+    <a href="#ch-14"><span class="ch-num">Ch 14</span> 90-Day Cadence</a>
+  </div>
+</div>
+
+<!-- CHAPTER 10 -->
+<section class="chapter" id="ch-10">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 10 · PACKAGING</div>
+      <h3>Package For Browse, Suggested, And Search On Purpose</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Different traffic surfaces reward different visual and title choices. Build for the surface you want instead of designing generically.</div>
+  <div class="chapter-body">
+    <p>A good Blindspot package is brutally specific. Search wants clarity. Suggested wants an emotional or conceptual hook. Browse wants a bold shape that survives at living-room or mobile glance size. The package should tell you which traffic source it's trying to win before the video is even published.</p>
+    <div class="sub-h">Thumbnail Logic By Traffic Source</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Surface</th><th>Visual Default</th><th>Title Behavior</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Search</strong></td><td>Clear keyword banner, small portrait or single object</td><td>Front-load core entity or event in the first 40–60 characters</td></tr>
+        <tr><td><strong>Suggested</strong></td><td>Tight face or document plus one charged phrase</td><td>Pair topic with a curiosity gap or reversal</td></tr>
+        <tr><td><strong>Browse / Home</strong></td><td>Single strong symbol or face; minimal text</td><td>One promise, one tension, one high-contrast idea</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Title Patterns That Fit The Blindspot</div>
+        <ul>
+          <li><strong>Myth break:</strong> The Cold War lie everyone still believes.</li>
+          <li><strong>Hidden incentive:</strong> Why governments wanted this war.</li>
+          <li><strong>Timeline reveal:</strong> The 72 hours that changed the front.</li>
+          <li><strong>X vs reality:</strong> What actually happened in Y.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Metadata Defaults</div>
+        <ul>
+          <li>Write the promise in the first line of the description.</li>
+          <li>Add chapters that read like search queries, not vague labels.</li>
+          <li>Set one pinned comment with chapters, a next-watch link, and one discussion question.</li>
+          <li>Upload an edited SRT before public release.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> pick a traffic surface before you design. Then design for only that one.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 11 -->
+<section class="chapter" id="ch-11">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 11 · LAUNCH</div>
+      <h3>Manage The First 72 Hours Like A Controlled Test</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">The platform widens distribution only after small early cohorts click and stay. Diagnose the weak point without thrashing the whole release.</div>
+  <div class="chapter-body">
+    <div class="callout c-prev">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9M3 12l3-3M3 12l3 3"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Previously</div>
+        <p>In <a href="#ch-10">Ch 10</a> you picked your traffic surface and designed for it. This chapter is how you read the scoreboard without panicking.</p>
+      </div>
+    </div>
+    <p>YouTube doesn't reward panic. It tests a new upload in layers — home, suggested, search. If the packaging pulls clicks and the opening keeps people watching, the video moves outward. If not, distribution narrows. Focus your first 72 hours on three things: <strong>CTR, early retention, and surface-specific routing</strong>.</p>
+    <div class="sub-h">72-Hour Decision Table</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Signal</th><th>Healthy Range</th><th>What To Change If Weak</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CTR on Home/Suggested</strong></td><td>~6–12% strong; under ~5% warning</td><td>Swap title or thumbnail. Don't rewrite the edit.</td></tr>
+        <tr><td><strong>Retention in first 30 sec</strong></td><td>Avoid early drop larger than ~20 pts</td><td>Tighten cold open, remove preamble, move proof earlier</td></tr>
+        <tr><td><strong>Suggested share</strong></td><td>Promotion candidate if variant gains ~+5 pp</td><td>Keep the winning opening pattern and reuse it</td></tr>
+        <tr><td><strong>Impressions</strong></td><td>Growing across multiple surfaces</td><td>If flat, topic-package fit may be too narrow or too vague</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">T-Minus &amp; Day-Zero Moves</div>
+        <ul>
+          <li>Schedule the upload, prep two thumbnails, and lock metadata parity before release.</li>
+          <li>Publish with one highly related end screen and one pinned comment.</li>
+          <li>Use the <a href="https://support.google.com/youtube/answer/154235" data-ext>paid-promotion disclosure</a> if the episode includes a sponsor or compensated mention.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">T+2h to T+72h</div>
+        <ul>
+          <li><strong>T+2h:</strong> inspect CTR and the first 30 seconds of retention.</li>
+          <li><strong>T+6h to 12h:</strong> swap the losing thumbnail if discovery is clearly the issue.</li>
+          <li><strong>T+24h:</strong> add a community nudge and reinforce the best related video path.</li>
+          <li><strong>T+48h to 72h:</strong> refine the title toward actual search phrasing and capture learnings for the next upload.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> CTR is a packaging problem. Retention is a structure problem. Don't confuse the two.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 12 -->
+<section class="chapter" id="ch-12">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 12 · LEGAL</div>
+      <h3>Treat Fair Use, Defamation, And Policy Labels As Production Design</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Risk control should shape the edit itself: how much clip you use, how you label it, and what proof you show on screen.</div>
+  <div class="chapter-body">
+    <p>Legal references are most useful when you treat them as edit patterns, not abstract law-school notes. For third-party footage, lead with purpose, use only what's necessary, and show the receipts that create new meaning. For living people, label mode clearly, source facts aggressively, and avoid turning jokes into hidden factual allegations.</p>
+    <div class="sub-h">Minimum Risk Controls</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Risk Area</th><th>Minimum Safeguard</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fair use</strong></td><td>Short, analyzed excerpts with commentary wrapped around them; keep a transformation note and timecode log. See <a href="https://www.copyright.gov/fair-use/" data-ext>U.S. Copyright Office: fair use</a>.</td></tr>
+        <tr><td><strong>Defamation</strong></td><td>Source factual claims about living people, disclose the basis of your opinion, make parody unmistakable</td></tr>
+        <tr><td><strong>Satire / commentary</strong></td><td>Label the mode in-video and in the description; avoid clip compilations that act like substitutes</td></tr>
+        <tr><td><strong>Synthetic / AI media</strong></td><td>Use clear <a href="https://support.google.com/youtube/answer/14328491" data-ext>disclosure labels</a> when synthetic assets could be mistaken for real footage or political material</td></tr>
+        <tr><td><strong>Paid promotions</strong></td><td>Use YouTube's paid-promotion checkbox plus any required on-screen or description disclosures</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Best Fair-Use Templates For The Blindspot</div>
+        <ul>
+          <li><strong>Context sandwich:</strong> your setup, the precise clip, then your analysis.</li>
+          <li><strong>Clip ladder:</strong> several short examples arranged to prove a pattern.</li>
+          <li><strong>Juxtaposition with receipts:</strong> source clip on one side, documents or data on the other.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">March 2026 Policy Posture</div>
+        <ul>
+          <li>Expect continued pressure around political deepfakes and synthetic-content labeling.</li>
+          <li>Keep disclosures simple and explicit when AI-generated visuals depict real people, conflict, or political material.</li>
+          <li>Remember: Content ID and platform enforcement are not the same thing as a legal ruling.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> label the mode, source the claim, transform the clip. Not optional.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 13 -->
+<section class="chapter" id="ch-13">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 13 · REVENUE</div>
+      <h3>Build Revenue In Two Tracks From Day One</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Don't wait for ads to start monetizing. Run platform monetization and direct support in parallel.</div>
+  <div class="chapter-body">
+    <p>Track A is YouTube's platform stack. Track B should start before Track A fully unlocks. The fastest way to reduce pressure on a new documentary channel is to pair the <a href="https://support.google.com/youtube/answer/72851" data-ext>YPP</a> path with direct audience support, small digital products, and light licensing experiments.</p>
+    <div class="sub-h">Revenue Ladder</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Lane</th><th>Speed To Cash</th><th>When To Activate</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Super Thanks, Supers, Memberships</strong></td><td>Medium</td><td>Turn on as soon as the channel is eligible and a community loop exists</td></tr>
+        <tr><td><strong><a href="https://ko-fi.com/" data-ext>Ko-fi</a> / <a href="https://www.buymeacoffee.com/" data-ext>Buy Me a Coffee</a> / <a href="https://www.patreon.com/" data-ext>Patreon</a></strong></td><td>Fast</td><td>Launch early with simple perks: early access, notes, behind-the-scenes</td></tr>
+        <tr><td><strong>Newsletter / <a href="https://substack.com/" data-ext>Substack</a></strong></td><td>Medium</td><td>Owned audience channel tied to briefs, reading notes, episode extras</td></tr>
+        <tr><td><strong>Micro-product</strong></td><td>Fast</td><td>Sell one tiny asset for $5–$10 to validate what your audience will actually buy</td></tr>
+        <tr><td><strong>Sponsorships &amp; licensing</strong></td><td>Slower, higher upside</td><td>Create a media kit early so you can pitch when the right video lands</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Day-One Monetization Setup</div>
+        <ul>
+          <li>Prepare the sponsorship disclosure process <em>before</em> you have a sponsor.</li>
+          <li>Keep one media kit, one rate card, and one contact email ready.</li>
+          <li>Build a support link and place it consistently in descriptions and pinned comments.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H1l8-8 8 8h-8v10h-2z" transform="rotate(45 9 12)"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Low-Risk Experiments</div>
+        <ul>
+          <li>Test one micro-product tied to your production process: a source pack, workflow card, or grading preset.</li>
+          <li>Submit a few strong clips or archive-based assets for light licensing.</li>
+          <li>Use livestreams or Q&amp;A sessions to surface Supers and gauge membership interest.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> ad revenue is a lagging indicator. Build Track B before you need it.</div>
+  </div>
+</section>
+
+<!-- CHAPTER 14 -->
+<section class="chapter" id="ch-14">
+  <div class="chapter-head">
+    <div class="chapter-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <div class="chapter-head-text">
+      <div class="chapter-kicker">CHAPTER 14 · CADENCE</div>
+      <h3>Run The Channel On A 90-Day Cadence</h3>
+    </div>
+  </div>
+  <div class="chapter-thesis">Consistency beats bursts. Create a rhythm that your audience and the algorithm can both learn.</div>
+  <div class="chapter-body">
+    <p>The strongest operating model is simple enough to survive real life: one flagship every few weeks, one faster explainer per week when possible, and a clip engine that keeps the channel active between tentpole essays. The channel grows when viewers learn The Blindspot publishes with discipline — not when it vanishes between perfecting spirals.</p>
+    <div class="sub-h">90-Day Operating Plan</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Window</th><th>Primary Goal</th><th>Default Output</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Month 1</strong></td><td>Lock visual identity &amp; ship first flagship</td><td>1 flagship, 15–20 Shorts, 1 trailer, 1 channel-home refresh</td></tr>
+        <tr><td><strong>Month 2</strong></td><td>Increase frequency without breaking quality</td><td>1 flagship, 1–2 tactical explainers, 20 Shorts, 1 collab or guest element</td></tr>
+        <tr><td><strong>Month 3</strong></td><td>Convert early audience into routine viewers</td><td>2 strong uploads if feasible, repeatable packaging tests, visible support or membership path</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout c-rule">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Weekly Cadence</div>
+        <ul>
+          <li>One research block.</li>
+          <li>One script block.</li>
+          <li>One shoot block.</li>
+          <li>One edit and package block.</li>
+          <li>One post-publish review block.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-tip">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Daily Maintenance</div>
+        <ul>
+          <li>15 minutes of signal scanning.</li>
+          <li>5–10 minutes of on-camera or voice drilling (<a href="#ch-5">Ch 5</a>, <a href="#ch-6">Ch 6</a>).</li>
+          <li>One packaging task or one short-form extraction.</li>
+          <li>No infinite research windows outside the planned blocks.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-warn">
+      <span class="callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+      <div class="callout-body">
+        <div class="callout-title">Final Operating Principle</div>
+        <p>Ship the cleanest useful version, capture what the audience and metrics teach you, then feed that learning into the next upload. The channel doesn't become coherent through more planning. It becomes coherent through repeated publication under one visible system.</p>
+      </div>
+    </div>
+    <div class="takeaway"><strong>If you remember one thing:</strong> coherence is a byproduct of publishing, not planning.</div>
+  </div>
+</section>
+
+<!-- APPENDIX -->
+<div class="part-divider" id="appendix">
+  <div class="part-label">APPENDIX</div>
+  <h2>Addenda &amp; Source Atlas</h2>
+  <p>The redesign compressed five duplicate PDF families into single recommendations, excluded legacy binder files and one blank export note, and indexed administrative items without treating them as chapter-level guidance. Appendix B in the source binder contains a compact source atlas grouped by folder, so every reference set can be traced without dragging the full 402-page archive back into the daily workflow.</p>
+  <div class="part-toc">
+    <a href="#ch-1"><span class="ch-num">↑</span> Return to Chapter 1</a>
+    <a href="#blueprint"><span class="ch-num">↑</span> Operating Blueprint</a>
+    <a href="index.html"><span class="ch-num">←</span> Chaos Console Home</a>
+  </div>
+</div>
+
+</main>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<footer class="page-foot">
+  THE BLINDSPOT · CHANNEL SETUP BINDER v4 · MARCH 2026 · COMPILED FROM PULSE REFERENCE LIBRARY
+</footer>
+
+<script>
+// Reading progress bar
+const progressBar = document.getElementById('progressBar');
+const toTop = document.getElementById('toTop');
+const tabs = document.querySelectorAll('.part-tab[data-part]');
+const parts = ['part-1','part-2','part-3'].map(id => document.getElementById(id));
+
+function onScroll() {
+  const h = document.documentElement;
+  const scrolled = h.scrollTop;
+  const max = h.scrollHeight - h.clientHeight;
+  const pct = max > 0 ? (scrolled / max) * 100 : 0;
+  progressBar.style.width = pct + '%';
+  toTop.classList.toggle('visible', scrolled > 600);
+
+  // active tab based on scroll position
+  const y = scrolled + 200;
+  let active = 'part-1';
+  parts.forEach(p => { if (p && p.offsetTop <= y) active = p.id; });
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.part === active));
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+onScroll();
+</script>
+</body>
+</html>
