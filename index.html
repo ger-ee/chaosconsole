@@ -1,414 +1,276 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaos Console</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-[data-theme="dark"] {
-  --bg: #0b0f1a;
-  --bg-elevated: #101828;
-  --surface: #151d2e;
-  --surface-2: #1c2640;
-  --border: #2a3a5c;
-  --border-subtle: #1e2d4a;
-  --text: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #d4a052;
-  --accent-dim: rgba(212, 160, 82, 0.10);
-  --accent-glow: rgba(212, 160, 82, 0.25);
-  --red: #f87171;
-  --green: #4ade80;
-  --blue: #60a5fa;
-  --purple: #a07dd4;
-  --pink: #f472b6;
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  --card-1: #d4a052;
-  --card-2: #52b4d4;
-  --card-3: #4ade80;
-  --card-4: #f472b6;
-  --card-5: #a07dd4;
-  --card-6: #f87171;
-  --card-7: #e74c5a;
-  --card-8: #22d3ee;
+:root {
+  --bg-start: #e4ebf4;
+  --bg-mid: #dce4f0;
+  --bg-end: #d8e0ec;
+  --section-bg: rgba(255, 255, 255, 0.35);
+  --section-border: rgba(190, 198, 215, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.6);
+  --card-bg-hover: rgba(255, 255, 255, 0.82);
+  --card-shadow: 0 1px 8px rgba(120, 135, 170, 0.08);
+  --card-shadow-hover: 0 4px 20px rgba(120, 135, 170, 0.15);
+  --gold: #b59355;
+  --gold-light: #c9a96e;
+  --gold-dim: rgba(181, 147, 85, 0.08);
+  --text-dark: #1a1e2e;
+  --text-body: #3a3f52;
+  --text-secondary: #5e6375;
+  --text-muted: #8e93a5;
+  --accent-bar: #c4a265;
+  --green: #5cb87a;
+  --tag-border: #bfc4d2;
+  --tag-text: #555a6c;
+  --preview-shadow: 0 4px 16px rgba(80, 95, 130, 0.18);
 }
 
-[data-theme="light"] {
-  --bg: #f0f4f8;
-  --bg-elevated: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #e8edf4;
-  --border: #c8d3e0;
-  --border-subtle: #dce3ed;
-  --text: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --accent: #b8862d;
-  --accent-dim: rgba(184, 134, 45, 0.08);
-  --accent-glow: rgba(184, 134, 45, 0.18);
-  --red: #dc2626;
-  --green: #16a34a;
-  --blue: #2563eb;
-  --purple: #7c3aed;
-  --pink: #db2777;
-  --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
-  --card-1: #b8862d;
-  --card-2: #3b9fb8;
-  --card-3: #16a34a;
-  --card-4: #be185d;
-  --card-5: #6d28d9;
-  --card-6: #dc2626;
-  --card-7: #c0392b;
-  --card-8: #0891b2;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
+  background: linear-gradient(180deg, #e8eff8 0%, #dfe7f2 30%, #d8e1ed 60%, #dce5f0 100%);
+  background-attachment: fixed;
+  color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Subtle grain */
 body::after {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  background-size: 256px;
   pointer-events: none;
   z-index: 9999;
 }
 
-.theme-toggle {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  box-shadow: var(--shadow);
-}
-
-.theme-toggle:hover {
-  background: var(--surface-2);
-  border-color: var(--accent);
-  transform: scale(1.05);
-}
-
-.theme-toggle:active {
-  transform: scale(0.95);
-}
-
-.masthead {
-  max-width: 1080px;
+.container {
+  max-width: 920px;
   margin: 0 auto;
-  padding: 4.5rem 2rem 1rem;
+  padding: 0 2rem;
+}
+
+/* ═══════════════════════════════════════════
+   MASTHEAD
+   ═══════════════════════════════════════════ */
+.masthead {
+  padding: 3rem 0 1.5rem;
   position: relative;
 }
+
+.masthead-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.masthead-text { flex: 1; }
 
 .masthead-meta {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  gap: 0.7rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
 
-.masthead-meta span {
-  white-space: nowrap;
-}
-
 .masthead-meta .sep {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
+  width: 3px; height: 3px; border-radius: 50%;
   background: var(--text-muted);
-  flex-shrink: 0;
 }
 
 .status-dot {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .status-dot::before {
   content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+  box-shadow: 0 0 6px rgba(92, 184, 122, 0.5);
   animation: pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
-  }
-  50% {
-    opacity: 0.6;
-    box-shadow: 0 0 4px rgba(74, 222, 128, 0.2);
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .masthead h1 {
-  font-family: 'Syncopate', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  white-space: nowrap;
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1.0;
-  color: var(--text);
-  margin-bottom: 0.6rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.6rem, 5.5vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
 }
 
 .masthead .tagline {
-  font-size: 1rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   font-weight: 400;
-  letter-spacing: -0.01em;
 }
 
-.masthead-deco {
+/* ── CC Logo ── */
+.cc-logo {
+  width: 76px; height: 76px;
+  flex-shrink: 0;
+  margin-left: 2rem;
+  margin-top: 1.2rem;
+  filter: drop-shadow(0 2px 10px rgba(100, 115, 150, 0.15));
+}
+
+/* ═══════════════════════════════════════════
+   SECTION WRAPPER — fieldset-legend style
+   ═══════════════════════════════════════════ */
+.section-wrap {
+  margin-bottom: 2rem;
+}
+
+.section-box {
+  position: relative;
+  border: 1px solid var(--section-border);
+  border-radius: 14px;
+  background: var(--section-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 2rem 1.5rem 1.5rem;
+  overflow: visible;
+}
+
+.section-legend {
   position: absolute;
-  top: 3rem;
-  right: 2rem;
-  width: 80px;
-  height: 80px;
-  opacity: 0.06;
-  color: var(--text);
-}
-
-.rule {
-  max-width: 1080px;
-  margin: 1.5rem auto 0;
-  padding: 0 2rem;
-}
-
-.rule hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent-glow), transparent 80%);
-}
-
-.section-label {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem 1rem;
+  top: -0.55rem;
+  left: 1.5rem;
+  background: linear-gradient(180deg, #e8eff8, #e0e8f2);
+  padding: 0 0.75rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.45rem;
 }
 
-.section-label h2 {
+.section-legend h2 {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  white-space: nowrap;
 }
 
 .section-icon {
-  width: 18px;
-  height: 18px;
-  opacity: 0.7;
-  color: var(--text);
+  width: 15px; height: 15px;
+  color: var(--gold);
+  opacity: 0.75;
 }
 
-.section-label::after {
+/* Horizontal rule extending from the legend */
+.section-legend::after {
   content: '';
-  flex: 1;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: calc(100vw);
+  max-width: 600px;
   height: 1px;
-  background: var(--border);
+  background: linear-gradient(90deg, var(--section-border), transparent 80%);
+  margin-left: 0.5rem;
 }
 
-.grid {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* ═══════════════════════════════════════════
+   CARD GRID (inside section boxes)
+   ═══════════════════════════════════════════ */
+.card-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
-.grid--three {
-  grid-template-columns: repeat(3, 1fr);
+.card-row--single {
+  grid-template-columns: 1fr;
 }
 
+/* ═══════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════ */
 .card {
-  background: var(--surface);
-  padding: 2rem 1.75rem;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 1.5rem 1.25rem;
   text-decoration: none;
   color: inherit;
   display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: background 0.25s ease;
-  cursor: pointer;
-  min-height: 220px;
+  flex-direction: row;
+  gap: 1rem;
   overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  min-height: 170px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
+/* Gold left accent bar */
 .card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--card-accent);
-  opacity: 0.35;
-  transition: opacity 0.3s ease, height 0.3s ease;
-}
-
-.card:hover::before {
-  opacity: 1;
-  height: 3px;
-}
-
-.card::after {
-  content: '';
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--card-accent) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.card:hover::after {
-  opacity: 0.06;
+  top: 14px; left: 0; bottom: 14px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--accent-bar);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
 }
 
 .card:hover {
-  background: var(--surface-2);
+  background: var(--card-bg-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
 }
 
-.card:hover .card-number {
-  color: var(--card-accent);
-}
+.card:hover::before { opacity: 1; }
 
-.card:hover .card-title {
-  color: var(--text);
-}
-
-.card:hover .card-arrow {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.card:hover .card-tag {
-  border-color: var(--card-accent);
-  color: var(--card-accent);
-  background: var(--accent-dim);
-}
-
-.card[data-accent="1"] {
-  --card-accent: var(--card-1);
-}
-
-.card[data-accent="2"] {
-  --card-accent: var(--card-2);
-}
-
-.card[data-accent="3"] {
-  --card-accent: var(--card-3);
-}
-
-.card[data-accent="4"] {
-  --card-accent: var(--card-4);
-}
-
-.card[data-accent="5"] {
-  --card-accent: var(--card-5);
-}
-
-.card[data-accent="6"] {
-  --card-accent: var(--card-6);
-}
-
-.card[data-accent="7"] {
-  --card-accent: var(--card-7);
-}
-
-.card[data-accent="8"] {
-  --card-accent: var(--card-8);
+.card-content {
+  flex: 1; display: flex; flex-direction: column; min-width: 0;
 }
 
 .card-number {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
-  margin-bottom: 1.25rem;
-  transition: color 0.25s ease;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 0.5rem;
 }
 
 .card-title {
   font-family: 'Inter', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.25;
-  margin-bottom: 0.6rem;
-  transition: color 0.25s ease;
-  position: relative;
-  z-index: 1;
-  color: var(--text);
+  margin-bottom: 0.45rem;
+  color: var(--text-dark);
 }
 
 .card-desc {
@@ -416,63 +278,103 @@ body::after {
   line-height: 1.55;
   color: var(--text-secondary);
   flex-grow: 1;
-  position: relative;
-  z-index: 1;
 }
 
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1.25rem;
-  position: relative;
-  z-index: 1;
-}
+.card-footer { margin-top: 0.75rem; }
 
 .card-tag {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-  padding: 0.3rem 0.6rem;
+  color: var(--tag-text);
+  border: 1px solid var(--tag-border);
+  padding: 0.22rem 0.5rem;
   border-radius: 3px;
   transition: all 0.25s ease;
+  display: inline-block;
 }
 
-.card-arrow {
-  font-size: 0.85rem;
-  color: var(--card-accent);
-  opacity: 0;
-  transform: translate(-4px, 4px);
-  transition: all 0.25s ease;
+.card:hover .card-tag {
+  border-color: var(--gold-light);
+  color: var(--gold);
 }
 
-.card-deco {
+/* ═══════════════════════════════════════════
+   CARD PREVIEW — rich screenshot-like graphics
+   ═══════════════════════════════════════════ */
+.card-preview {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  overflow: visible;
+}
+
+/* Stacked screenshot style */
+.preview-frame {
+  position: relative;
+  width: 160px;
+  height: 120px;
+}
+
+.preview-frame .pf-back {
   position: absolute;
-  bottom: 1.25rem;
-  right: 1.25rem;
-  opacity: 0.04;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  color: var(--text);
+  top: 8px; right: -8px;
+  width: 140px; height: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  border: 1px solid rgba(200, 208, 225, 0.5);
+  box-shadow: 0 2px 8px rgba(100, 115, 150, 0.1);
+  transform: rotate(3deg);
 }
 
-.card:hover .card-deco {
-  opacity: 0.08;
+.preview-frame .pf-front {
+  position: absolute;
+  top: 0; right: 4px;
+  width: 150px; height: 110px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid rgba(190, 198, 215, 0.6);
+  box-shadow: var(--preview-shadow);
+  overflow: hidden;
+  transform: rotate(-1deg);
 }
 
+.preview-frame .pf-front svg {
+  width: 100%; height: 100%;
+}
+
+/* Single card (full width) gets a wider preview */
+.card-row--single .card-preview {
+  width: 260px;
+}
+
+.card-row--single .preview-frame {
+  width: 240px; height: 140px;
+}
+
+.card-row--single .pf-back {
+  width: 210px; height: 120px;
+}
+
+.card-row--single .pf-front {
+  width: 220px; height: 130px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
 .colophon {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 3rem 2rem 4rem;
+  padding: 2rem 0 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
@@ -483,13 +385,164 @@ body::after {
   transition: color 0.2s;
 }
 
-.colophon a:hover {
-  color: var(--accent);
+.colophon a:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   PASSWORD OVERLAY
+   ═══════════════════════════════════════════ */
+.card-protected { position: relative; }
+
+.card-protected .card-lock-overlay {
+  position: absolute; inset: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 10; gap: 0.75rem;
+  transition: opacity 0.3s ease;
 }
 
-/* ── Editorial polish: entrance animations ── */
+.card-protected .card-lock-overlay svg { width: 24px; height: 24px; opacity: 0.3; color: var(--text-dark); }
+
+.card-protected .card-lock-overlay input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid var(--tag-border);
+  color: var(--text-dark);
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  text-align: center;
+  width: 140px; outline: none;
+  transition: border-color 0.2s;
+}
+
+.card-protected .card-lock-overlay input:focus { border-color: var(--gold); }
+.card-protected .card-lock-overlay input::placeholder { color: var(--text-muted); font-size: 0.65rem; }
+.card-protected .card-lock-overlay .lock-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+.card-protected .card-lock-overlay .lock-error { font-size: 0.6rem; color: #e05555; height: 0.8rem; }
+.card-protected.unlocked .card-lock-overlay { opacity: 0; pointer-events: none; }
+
+/* ═══════════════════════════════════════════
+   DAILY PULSE
+   ═══════════════════════════════════════════ */
+.pulse-section { margin-bottom: 1.5rem; }
+
+.pulse-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.pulse-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 0.5rem; flex: 1;
+}
+
+.pulse-header h2::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--section-border); margin-left: 0.75rem;
+}
+
+.pulse-header .pulse-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem; color: var(--text-muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  white-space: nowrap; padding-left: 1rem;
+}
+
+.pulse-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1rem;
+}
+
+.pulse-card-hero {
+  grid-row: 1 / 3; grid-column: 1;
+  background: var(--card-bg);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 10px;
+  padding: 1.5rem 1.25rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 220px;
+  text-decoration: none; color: var(--text-dark);
+  transition: all 0.3s ease; box-shadow: var(--card-shadow);
+  position: relative;
+}
+
+.pulse-card-hero::before {
+  content: ''; position: absolute;
+  top: 14px; left: 0; bottom: 14px;
+  width: 3px; border-radius: 0 2px 2px 0;
+  background: var(--accent-bar); opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.pulse-card-hero:hover::before { opacity: 1; }
+.pulse-card-hero:hover { background: var(--card-bg-hover); box-shadow: var(--card-shadow-hover); transform: translateY(-1px); }
+
+.pulse-card:last-child { grid-column: 1 / -1; }
+
+.pulse-card-hero .pulse-topic, .pulse-card .pulse-topic {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.4rem;
+}
+
+.pulse-card-hero .pulse-title { font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.5rem; }
+.pulse-card-hero .pulse-summary { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); flex: 1; }
+
+.pulse-card-hero .pulse-source, .pulse-card .pulse-source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem; color: var(--text-muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  margin-top: 0.7rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.pulse-card-hero .pulse-source::before, .pulse-card .pulse-source::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+}
+
+.pulse-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 10px;
+  padding: 1.15rem 1.25rem;
+  display: flex; flex-direction: column; justify-content: center;
+  text-decoration: none; color: var(--text-dark);
+  transition: all 0.3s ease; box-shadow: var(--card-shadow);
+  position: relative;
+}
+
+.pulse-card::before {
+  content: ''; position: absolute;
+  top: 12px; left: 0; bottom: 12px;
+  width: 3px; border-radius: 0 2px 2px 0;
+  background: var(--accent-bar); opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pulse-card:hover::before { opacity: 0.5; }
+.pulse-card:hover { background: var(--card-bg-hover); box-shadow: var(--card-shadow-hover); transform: translateY(-1px); }
+
+.pulse-card .pulse-title { font-size: 0.9rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.2rem; }
+.pulse-card .pulse-summary { font-size: 0.76rem; line-height: 1.5; color: var(--text-secondary); }
+.pulse-card .pulse-source { margin-top: 0.4rem; }
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -499,266 +552,545 @@ body::after {
 }
 
 .masthead { animation: fadeUp 0.6s ease-out both; }
-.section-label { animation: fadeIn 0.5s ease-out both; animation-delay: 0.2s; }
-.grid { animation: fadeUp 0.5s ease-out both; animation-delay: 0.3s; }
+.section-wrap { animation: fadeUp 0.5s ease-out both; animation-delay: 0.15s; }
+.colophon { animation: fadeIn 0.5s ease-out both; animation-delay: 0.35s; }
 
-.card {
-  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease;
-}
+.card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-.card:hover {
-  background: var(--surface-2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.colophon { animation: fadeIn 0.5s ease-out both; animation-delay: 0.5s; }
-
-/* ── Focus ring for keyboard nav ── */
-.card:focus-visible {
-  outline: 2px solid var(--card-accent);
-  outline-offset: -2px;
-}
-
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .theme-toggle {
-    top: 1rem;
-    right: 1rem;
-    width: 44px;
-    height: 44px;
-    font-size: 1.1rem;
-  }
-
-  .masthead {
-    padding: 3rem 1.25rem 0.75rem;
-  }
-
-  .masthead h1 {
-    font-size: 2.4rem;
-  }
-
-  .masthead-deco {
-    display: none;
-  }
-
-  .rule, .section-label {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  .grid, .grid--three {
-    grid-template-columns: 1fr;
-    margin-left: 1.25rem;
-    margin-right: 1.25rem;
-    padding: 0;
-  }
-
-  .card {
-    padding: 1.5rem 1.25rem;
-    min-height: 160px;
-  }
-
-  .card-deco {
-    display: none;
-  }
-
-  .colophon {
-    padding: 2rem 1.25rem 3rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .grid--three {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .container { padding: 0 1rem; }
+  .masthead { padding: 2rem 0 1rem; }
+  .masthead h1 { font-size: 2.4rem; }
+  .cc-logo { width: 52px; height: 52px; margin-left: 1rem; margin-top: 0.8rem; }
+  .section-box { padding: 1.5rem 1rem 1.25rem; }
+  .section-legend { left: 1rem; }
+  .card-row, .card-row--single { grid-template-columns: 1fr; }
+  .card { flex-direction: column; min-height: auto; }
+  .card-preview, .card-row--single .card-preview { width: 100%; }
+  .preview-frame, .card-row--single .preview-frame { width: 100%; height: 100px; }
+  .pf-back, .card-row--single .pf-back { width: 85% !important; }
+  .pf-front, .card-row--single .pf-front { width: 90% !important; }
+  .colophon { flex-direction: column; gap: 0.5rem; }
+  .pulse-grid { grid-template-columns: 1fr; }
+  .pulse-card-hero { grid-row: auto; grid-column: auto; min-height: 160px; }
 }
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+<div class="container">
 
-<header class="masthead">
-  <div class="masthead-meta">
-    <span id="currentDate"></span>
-    <div class="sep"></div>
-    <span>7 Tools</span>
-    <div class="sep"></div>
-    <span class="status-dot">All Systems Go</span>
+  <!-- ═══ MASTHEAD ═══ -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-text">
+        <div class="masthead-meta">
+          <span id="currentDate"></span>
+          <div class="sep"></div>
+          <span>7 Tools</span>
+          <div class="sep"></div>
+          <span class="status-dot">All Systems Go</span>
+        </div>
+        <h1>chaos console</h1>
+        <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
+      </div>
+      <div class="cc-logo">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoFill" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fafbfd"/>
+              <stop offset="100%" stop-color="#eff2f7"/>
+            </linearGradient>
+            <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#c9a96e"/>
+              <stop offset="100%" stop-color="#a88a50"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="47" fill="url(#logoFill)" stroke="#d5dae4" stroke-width="0.7"/>
+          <circle cx="50" cy="50" r="39" fill="none" stroke="#e0e3ea" stroke-width="0.4"/>
+          <!-- First C — dark -->
+          <path d="M 50 28 C 35 28, 24 37, 24 50 C 24 63, 35 72, 50 72"
+                fill="none" stroke="#252a38" stroke-width="5" stroke-linecap="round"/>
+          <!-- Second C — gold, offset right -->
+          <path d="M 64 28 C 49 28, 38 37, 38 50 C 38 63, 49 72, 64 72"
+                fill="none" stroke="url(#goldStroke)" stroke-width="5" stroke-linecap="round"/>
+          <!-- Accent dots -->
+          <circle cx="50" cy="20" r="1" fill="#c9a96e" opacity="0.4"/>
+          <circle cx="50" cy="80" r="1" fill="#c9a96e" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ DAILY PULSE ═══ -->
+  <div class="pulse-section" id="dailyPulse">
+    <div class="pulse-header">
+      <h2>
+        <svg class="section-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M2 9 L5 9 L7 4 L9 14 L11 6 L13 12 L15 9 L17 9"/>
+        </svg>
+        Daily Pulse
+      </h2>
+      <span class="pulse-date" id="pulseDate"></span>
+    </div>
+    <div class="pulse-grid" id="pulseGrid"></div>
   </div>
-  <h1>Chaos Console</h1>
-  <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
-  <svg class="masthead-deco" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
-    <circle cx="40" cy="40" r="24" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
-    <line x1="40" y1="0" x2="40" y2="80" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
-    <line x1="0" y1="40" x2="80" y2="40" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
-  </svg>
-</header>
 
-<div class="rule"><hr></div>
+  <!-- ═══════════════════════════════════════
+       FINANCIAL TOOLS
+       ═══════════════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-box">
+      <div class="section-legend">
+        <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="3" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="1" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="1.2"/>
+          <rect x="11" y="10" width="3.5" height="2.5" rx="0.5" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <h2>Financial Tools</h2>
+      </div>
+      <div class="card-row card-row--single">
+        <a href="financial-consolidation.html" class="card">
+          <div class="card-content">
+            <div class="card-number">01</div>
+            <div class="card-title">The Ledger</div>
+            <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
+            <div class="card-footer"><span class="card-tag">Finance</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Window chrome -->
+                  <rect width="220" height="130" fill="#f8fafc"/>
+                  <rect width="220" height="18" fill="#eef1f5"/>
+                  <circle cx="10" cy="9" r="2.5" fill="#f87171" opacity="0.6"/>
+                  <circle cx="19" cy="9" r="2.5" fill="#fbbf24" opacity="0.6"/>
+                  <circle cx="28" cy="9" r="2.5" fill="#4ade80" opacity="0.6"/>
+                  <text x="80" y="12" font-family="Inter" font-size="5" fill="#8e93a5">Finance · Dashboard</text>
+                  <!-- Sidebar -->
+                  <rect x="0" y="18" width="48" height="112" fill="#f0f3f8"/>
+                  <rect x="6" y="26" width="36" height="5" rx="1.5" fill="#d0d5e0"/>
+                  <rect x="6" y="35" width="28" height="4" rx="1" fill="#dde0e8"/>
+                  <rect x="6" y="43" width="32" height="4" rx="1" fill="#dde0e8"/>
+                  <rect x="6" y="51" width="24" height="4" rx="1" fill="#dde0e8"/>
+                  <rect x="6" y="59" width="30" height="4" rx="1" fill="#dde0e8"/>
+                  <rect x="6" y="67" width="26" height="4" rx="1" fill="#dde0e8"/>
+                  <!-- Main content area -->
+                  <rect x="56" y="24" width="80" height="12" rx="2" fill="#eaecf2"/>
+                  <text x="60" y="33" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#3a3f52">$1,375,478</text>
+                  <text x="56" y="44" font-family="Inter" font-size="4" fill="#8e93a5">Total Net Worth</text>
+                  <!-- Chart area -->
+                  <rect x="56" y="50" width="80" height="40" rx="3" fill="#f5f7fa"/>
+                  <polyline points="60,78 68,72 76,75 84,65 92,68 100,58 108,62 116,55 124,60 132,52" fill="none" stroke="#5cb87a" stroke-width="1.5" opacity="0.7"/>
+                  <polyline points="60,80 68,76 76,78 84,70 92,73 100,66 108,68 116,62 124,65 132,58" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.4"/>
+                  <!-- Right panel -->
+                  <rect x="144" y="24" width="68" height="96" rx="3" fill="#f0f3f8"/>
+                  <rect x="150" y="30" width="56" height="6" rx="1.5" fill="#d8dce6"/>
+                  <rect x="150" y="40" width="40" height="4" rx="1" fill="#e0e3eb"/>
+                  <rect x="150" y="48" width="48" height="4" rx="1" fill="#e0e3eb"/>
+                  <rect x="150" y="60" width="56" height="6" rx="1.5" fill="#d8dce6"/>
+                  <rect x="150" y="70" width="36" height="4" rx="1" fill="#e0e3eb"/>
+                  <rect x="150" y="78" width="52" height="4" rx="1" fill="#e0e3eb"/>
+                  <rect x="150" y="90" width="56" height="6" rx="1.5" fill="#d8dce6"/>
+                  <rect x="150" y="100" width="44" height="4" rx="1" fill="#e0e3eb"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 
-<div class="section-label">
-  <h2>
-    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="3" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
-      <line x1="1" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="1.2"/>
-      <rect x="11" y="10" width="3.5" height="2.5" rx="0.5" fill="currentColor" opacity="0.4"/>
-    </svg>
-    Financial Tools
-  </h2>
+  <!-- ═══════════════════════════════════════
+       PERSONAL TRACKERS
+       ═══════════════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-box">
+      <div class="section-legend">
+        <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
+          <polyline points="9,4 9,9 13,11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2>Personal Trackers</h2>
+      </div>
+      <div class="card-row">
+        <a href="spotify-tracker.html" class="card">
+          <div class="card-content">
+            <div class="card-number">02</div>
+            <div class="card-title">Playlist Tracker</div>
+            <p class="card-desc">15 playlists tracked since Apr 2024. Growth trends, heatmaps, and data analysis across your Spotify library.</p>
+            <div class="card-footer"><span class="card-tag">Music</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 150 110" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="150" height="110" fill="#f8fafc"/>
+                  <!-- Mini bar chart -->
+                  <rect x="10" y="70" width="8" height="25" rx="2" fill="#fbbf24" opacity="0.6"/>
+                  <rect x="22" y="50" width="8" height="45" rx="2" fill="#fbbf24" opacity="0.5"/>
+                  <rect x="34" y="60" width="8" height="35" rx="2" fill="#fbbf24" opacity="0.6"/>
+                  <rect x="46" y="35" width="8" height="60" rx="2" fill="#fbbf24" opacity="0.5"/>
+                  <rect x="58" y="45" width="8" height="50" rx="2" fill="#fbbf24" opacity="0.6"/>
+                  <rect x="70" y="65" width="8" height="30" rx="2" fill="#fbbf24" opacity="0.5"/>
+                  <rect x="82" y="40" width="8" height="55" rx="2" fill="#fbbf24" opacity="0.6"/>
+                  <rect x="94" y="55" width="8" height="40" rx="2" fill="#fbbf24" opacity="0.5"/>
+                  <rect x="106" y="30" width="8" height="65" rx="2" fill="#4ade80" opacity="0.5"/>
+                  <rect x="118" y="50" width="8" height="45" rx="2" fill="#fbbf24" opacity="0.6"/>
+                  <line x1="8" y1="95" x2="135" y2="95" stroke="#dde0e8" stroke-width="0.5"/>
+                  <!-- Header text -->
+                  <rect x="10" y="8" width="50" height="5" rx="1.5" fill="#d0d5e0"/>
+                  <rect x="10" y="17" width="80" height="4" rx="1" fill="#e5e8ee"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="digital-ecosystem.html" class="card">
+          <div class="card-content">
+            <div class="card-number">03</div>
+            <div class="card-title">Digital Ecosystem Refresh</div>
+            <p class="card-desc">V10 &mdash; Systems maintenance guide. File organization, cleanup status, and upkeep workflows.</p>
+            <div class="card-footer"><span class="card-tag">Reference</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 150 110" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="150" height="110" fill="#f8fafc"/>
+                  <text x="10" y="16" font-family="JetBrains Mono" font-size="5" fill="#8e93a5">CoolDomainName</text>
+                  <!-- List items with colored status -->
+                  <rect x="10" y="24" width="130" height="14" rx="3" fill="#f0f3f8"/>
+                  <rect x="14" y="27" width="4" height="8" rx="1" fill="#fbbf24" opacity="0.7"/>
+                  <rect x="22" y="29" width="40" height="4" rx="1" fill="#d0d5e0"/>
+                  <rect x="10" y="42" width="130" height="14" rx="3" fill="#f0f3f8"/>
+                  <rect x="14" y="45" width="4" height="8" rx="1" fill="#f97316" opacity="0.7"/>
+                  <rect x="22" y="47" width="60" height="4" rx="1" fill="#d0d5e0"/>
+                  <rect x="92" y="46" width="42" height="6" rx="1.5" fill="#4ade80" opacity="0.3"/>
+                  <rect x="10" y="60" width="130" height="14" rx="3" fill="#f0f3f8"/>
+                  <rect x="14" y="63" width="4" height="8" rx="1" fill="#60a5fa" opacity="0.7"/>
+                  <rect x="22" y="65" width="52" height="4" rx="1" fill="#d0d5e0"/>
+                  <rect x="92" y="64" width="36" height="6" rx="1.5" fill="#60a5fa" opacity="0.3"/>
+                  <rect x="10" y="78" width="130" height="14" rx="3" fill="#f0f3f8"/>
+                  <rect x="14" y="81" width="4" height="8" rx="1" fill="#8b5cf6" opacity="0.7"/>
+                  <rect x="22" y="83" width="48" height="4" rx="1" fill="#d0d5e0"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       INTELLIGENCE & SYSTEMS
+       ═══════════════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-box">
+      <div class="section-legend">
+        <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 2L11.5 7H6.5L9 2Z" fill="currentColor" opacity="0.4"/>
+          <circle cx="9" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <circle cx="9" cy="12" r="1.5" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <h2>Intelligence &amp; Systems</h2>
+      </div>
+      <div class="card-row">
+        <a href="chatgpt-intelligence.html" class="card">
+          <div class="card-content">
+            <div class="card-number">04</div>
+            <div class="card-title">AI Intelligence</div>
+            <p class="card-desc">1,573 conversations across ChatGPT &amp; Claude &mdash; skills, patterns, warnings, and a merged diagnosis.</p>
+            <div class="card-footer"><span class="card-tag">Analysis</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 150 110" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="150" height="110" fill="#f8fafc"/>
+                  <text x="10" y="14" font-family="JetBrains Mono" font-size="5" fill="#8e93a5">Pattern Analysis</text>
+                  <!-- Table-like data -->
+                  <line x1="8" y1="20" x2="142" y2="20" stroke="#e5e8ee" stroke-width="0.5"/>
+                  <rect x="10" y="24" width="35" height="4" rx="1" fill="#d0d5e0"/>
+                  <rect x="50" y="24" width="20" height="4" rx="1" fill="#4ade80" opacity="0.5"/>
+                  <text x="100" y="28" font-family="JetBrains Mono" font-size="5" fill="#5cb87a" opacity="0.7">1,2 20.3%</text>
+                  <rect x="10" y="34" width="42" height="4" rx="1" fill="#d0d5e0"/>
+                  <rect x="50" y="34" width="15" height="4" rx="1" fill="#fbbf24" opacity="0.5"/>
+                  <rect x="10" y="44" width="30" height="4" rx="1" fill="#d0d5e0"/>
+                  <rect x="50" y="44" width="25" height="4" rx="1" fill="#60a5fa" opacity="0.5"/>
+                  <line x1="8" y1="54" x2="142" y2="54" stroke="#e5e8ee" stroke-width="0.5"/>
+                  <!-- Stats row -->
+                  <rect x="10" y="60" width="60" height="4" rx="1" fill="#dde0e8"/>
+                  <text x="100" y="64" font-family="JetBrains Mono" font-size="5" fill="#b59355" opacity="0.7">$&nbsp;30.1%</text>
+                  <rect x="10" y="70" width="55" height="4" rx="1" fill="#dde0e8"/>
+                  <text x="100" y="74" font-family="JetBrains Mono" font-size="5" fill="#b59355" opacity="0.7">$&nbsp;20.5%</text>
+                  <line x1="8" y1="82" x2="142" y2="82" stroke="#e5e8ee" stroke-width="0.5"/>
+                  <rect x="10" y="88" width="45" height="4" rx="1" fill="#dde0e8"/>
+                  <rect x="80" y="86" width="28" height="8" rx="2" fill="#4ade80" opacity="0.15"/>
+                  <text x="84" y="92" font-family="Inter" font-size="4.5" fill="#4ade80">Excellent</text>
+                  <rect x="112" y="86" width="28" height="8" rx="2" fill="#60a5fa" opacity="0.15"/>
+                  <text x="116" y="92" font-family="Inter" font-size="4.5" fill="#60a5fa">Healthy</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="color-bible.html" class="card">
+          <div class="card-content">
+            <div class="card-number">05</div>
+            <div class="card-title">The Color Bible</div>
+            <p class="card-desc">Universal 5-color system for your entire digital life. One color, one meaning, everywhere. No exceptions.</p>
+            <div class="card-footer"><span class="card-tag">System</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 150 110" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="150" height="110" fill="#f8fafc"/>
+                  <!-- Large color swatch -->
+                  <rect x="15" y="12" width="120" height="70" rx="8" fill="#6996ff" opacity="0.25"/>
+                  <rect x="15" y="12" width="120" height="70" rx="8" fill="none" stroke="#6996ff" stroke-width="0.5" opacity="0.3"/>
+                  <text x="75" y="54" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="500" fill="#4a72cc" opacity="0.8">#6996ff</text>
+                  <!-- Small swatches below -->
+                  <rect x="20" y="90" width="14" height="10" rx="2" fill="#f87171" opacity="0.5"/>
+                  <rect x="40" y="90" width="14" height="10" rx="2" fill="#fbbf24" opacity="0.5"/>
+                  <rect x="60" y="90" width="14" height="10" rx="2" fill="#4ade80" opacity="0.5"/>
+                  <rect x="80" y="90" width="14" height="10" rx="2" fill="#6996ff" opacity="0.5"/>
+                  <rect x="100" y="90" width="14" height="10" rx="2" fill="#a07dd4" opacity="0.5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CREATIVE & CRAFT
+       ═══════════════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-box">
+      <div class="section-legend">
+        <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 2h8l4 4v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <polyline points="11,2 11,6 15,6" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <line x1="5" y1="10" x2="13" y2="10" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          <line x1="5" y1="13" x2="11" y2="13" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <h2>Creative &amp; Craft</h2>
+      </div>
+      <div class="card-row">
+        <a href="screenwriting-guide.html" class="card">
+          <div class="card-content">
+            <div class="card-number">06</div>
+            <div class="card-title">Screenwriting &amp; Film Production</div>
+            <p class="card-desc">Complete 8-phase study guide &mdash; from blank page to final cut. Storytelling, structure, directing, cinematography, and industry knowledge.</p>
+            <div class="card-footer"><span class="card-tag">Study Guide</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 150 110" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="150" height="110" fill="#f8fafc"/>
+                  <!-- Browser-ish tab -->
+                  <rect x="0" y="0" width="150" height="16" fill="#eef1f5"/>
+                  <rect x="8" y="4" width="30" height="8" rx="2" fill="#fbbf24" opacity="0.4"/>
+                  <text x="12" y="10" font-family="Inter" font-size="4" fill="#8e93a5">SUMIDA</text>
+                  <!-- Page content -->
+                  <rect x="10" y="22" width="60" height="6" rx="1.5" fill="#d0d5e0"/>
+                  <text x="10" y="40" font-family="Inter" font-size="5" fill="#8e93a5">V.03</text>
+                  <!-- Document mock -->
+                  <rect x="75" y="20" width="65" height="80" rx="3" fill="#f0f3f8" stroke="#e0e3eb" stroke-width="0.5"/>
+                  <rect x="82" y="28" width="50" height="4" rx="1" fill="#dde0e8"/>
+                  <rect x="82" y="36" width="40" height="3" rx="1" fill="#e5e8ee"/>
+                  <rect x="82" y="43" width="45" height="3" rx="1" fill="#e5e8ee"/>
+                  <rect x="82" y="50" width="35" height="3" rx="1" fill="#e5e8ee"/>
+                  <!-- Avatars/icons -->
+                  <circle cx="20" cy="75" r="6" fill="#60a5fa" opacity="0.2"/>
+                  <text x="17" y="77" font-family="Inter" font-size="5" fill="#60a5fa" opacity="0.6">A</text>
+                  <circle cx="36" cy="75" r="6" fill="#4ade80" opacity="0.2"/>
+                  <text x="33" y="77" font-family="Inter" font-size="5" fill="#4ade80" opacity="0.6">S</text>
+                  <rect x="10" y="88" width="55" height="3" rx="1" fill="#e5e8ee"/>
+                  <rect x="10" y="95" width="42" height="3" rx="1" fill="#e5e8ee"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="blindspot-binder.html" class="card">
+          <div class="card-content">
+            <div class="card-number">07</div>
+            <div class="card-title">The Blindspot Binder</div>
+            <p class="card-desc">14-chapter YouTube channel operating manual &mdash; positioning, production standards, legal, and 90-day cadence.</p>
+            <div class="card-footer"><span class="card-tag">Playbook</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 150 110" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="150" height="110" fill="#f8fafc"/>
+                  <text x="10" y="14" font-family="Inter" font-size="5" fill="#555a6c">Chapter (6-sections) 3</text>
+                  <!-- Checklist items with progress bars -->
+                  <rect x="10" y="22" width="10" height="10" rx="2" fill="none" stroke="#d0d5e0" stroke-width="0.8"/>
+                  <rect x="24" y="24" width="50" height="4" rx="1" fill="#d0d5e0"/>
+                  <text x="110" y="29" font-family="JetBrains Mono" font-size="5" fill="#8e93a5" text-anchor="end">28%</text>
+                  <rect x="115" y="24" width="25" height="5" rx="1.5" fill="#f0f3f8"/>
+                  <rect x="115" y="24" width="7" height="5" rx="1.5" fill="#fbbf24" opacity="0.5"/>
+
+                  <rect x="10" y="38" width="10" height="10" rx="2" fill="none" stroke="#d0d5e0" stroke-width="0.8"/>
+                  <rect x="24" y="40" width="55" height="4" rx="1" fill="#d0d5e0"/>
+                  <text x="110" y="45" font-family="JetBrains Mono" font-size="5" fill="#8e93a5" text-anchor="end">65%</text>
+                  <rect x="115" y="40" width="25" height="5" rx="1.5" fill="#f0f3f8"/>
+                  <rect x="115" y="40" width="16" height="5" rx="1.5" fill="#4ade80" opacity="0.5"/>
+
+                  <rect x="10" y="54" width="10" height="10" rx="2" fill="none" stroke="#d0d5e0" stroke-width="0.8"/>
+                  <rect x="24" y="56" width="45" height="4" rx="1" fill="#d0d5e0"/>
+                  <text x="110" y="61" font-family="JetBrains Mono" font-size="5" fill="#8e93a5" text-anchor="end">42%</text>
+                  <rect x="115" y="56" width="25" height="5" rx="1.5" fill="#f0f3f8"/>
+                  <rect x="115" y="56" width="10" height="5" rx="1.5" fill="#60a5fa" opacity="0.5"/>
+
+                  <rect x="10" y="70" width="10" height="10" rx="2" fill="none" stroke="#d0d5e0" stroke-width="0.8"/>
+                  <rect x="24" y="72" width="58" height="4" rx="1" fill="#d0d5e0"/>
+                  <text x="110" y="77" font-family="JetBrains Mono" font-size="5" fill="#8e93a5" text-anchor="end">100%</text>
+                  <rect x="115" y="72" width="25" height="5" rx="1.5" fill="#4ade80" opacity="0.35"/>
+
+                  <rect x="10" y="86" width="10" height="10" rx="2" fill="none" stroke="#d0d5e0" stroke-width="0.8"/>
+                  <rect x="24" y="88" width="50" height="4" rx="1" fill="#d0d5e0"/>
+                  <text x="110" y="93" font-family="JetBrains Mono" font-size="5" fill="#8e93a5" text-anchor="end">15%</text>
+                  <rect x="115" y="88" width="25" height="5" rx="1.5" fill="#f0f3f8"/>
+                  <rect x="115" y="88" width="4" height="5" rx="1.5" fill="#f87171" opacity="0.5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       HEALTH & WELLNESS
+       ═══════════════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-box">
+      <div class="section-legend">
+        <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 3C6.5 3 4.5 5 4.5 7.5c0 3.5 4.5 7.5 4.5 7.5s4.5-4 4.5-7.5C13.5 5 11.5 3 9 3z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <path d="M9 6v3M7.5 7.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <h2>Health &amp; Wellness</h2>
+      </div>
+      <div class="card-row card-row--single">
+        <a href="wellness.html" class="card">
+          <div class="card-content">
+            <div class="card-number">08</div>
+            <div class="card-title">Wellness Analysis</div>
+            <p class="card-desc">188 days of HRV tracker data &mdash; heart rate corridors, sleep architecture, HRV recovery trends, and daily step tracking.</p>
+            <div class="card-footer"><span class="card-tag">Health</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="220" height="130" fill="#f8fafc"/>
+                  <text x="10" y="14" font-family="Inter" font-size="5" fill="#8e93a5">Parameters · Recovery Analysis</text>
+                  <line x1="8" y1="18" x2="212" y2="18" stroke="#e5e8ee" stroke-width="0.5"/>
+                  <!-- Heart rate corridor -->
+                  <rect x="10" y="22" width="200" height="50" rx="3" fill="#f5f7fa"/>
+                  <path d="M 15 52 Q 25 48 35 50 Q 45 42 55 46 Q 65 38 75 44 Q 85 35 95 40 Q 105 32 115 38 Q 125 30 135 36 Q 145 28 155 34 Q 165 26 175 32 Q 185 24 195 30 Q 205 34 210 36" fill="none" stroke="#60a5fa" stroke-width="1.2" opacity="0.5"/>
+                  <path d="M 15 58 Q 25 54 35 56 Q 45 50 55 52 Q 65 45 75 50 Q 85 42 95 46 Q 105 38 115 44 Q 125 36 135 42 Q 145 34 155 40 Q 165 32 175 38 Q 185 30 195 36 Q 205 38 210 40" fill="none" stroke="#5cb87a" stroke-width="1.2" opacity="0.5"/>
+                  <path d="M 15 64 Q 25 60 35 62 Q 45 55 55 58 Q 65 52 75 56 Q 85 48 95 52 Q 105 44 115 50 Q 125 42 135 48 Q 145 40 155 46 Q 165 38 175 44 Q 185 36 195 42 Q 205 44 210 46" fill="none" stroke="#f472b6" stroke-width="1" opacity="0.3"/>
+                  <!-- Bar chart below -->
+                  <rect x="15" y="82" width="8" height="30" rx="1.5" fill="#60a5fa" opacity="0.2"/>
+                  <rect x="28" y="90" width="8" height="22" rx="1.5" fill="#60a5fa" opacity="0.25"/>
+                  <rect x="41" y="85" width="8" height="27" rx="1.5" fill="#5cb87a" opacity="0.25"/>
+                  <rect x="54" y="78" width="8" height="34" rx="1.5" fill="#5cb87a" opacity="0.3"/>
+                  <rect x="67" y="88" width="8" height="24" rx="1.5" fill="#60a5fa" opacity="0.2"/>
+                  <rect x="80" y="82" width="8" height="30" rx="1.5" fill="#60a5fa" opacity="0.25"/>
+                  <rect x="93" y="92" width="8" height="20" rx="1.5" fill="#fbbf24" opacity="0.25"/>
+                  <rect x="106" y="86" width="8" height="26" rx="1.5" fill="#5cb87a" opacity="0.25"/>
+                  <rect x="119" y="80" width="8" height="32" rx="1.5" fill="#5cb87a" opacity="0.3"/>
+                  <rect x="132" y="88" width="8" height="24" rx="1.5" fill="#60a5fa" opacity="0.2"/>
+                  <rect x="145" y="84" width="8" height="28" rx="1.5" fill="#60a5fa" opacity="0.25"/>
+                  <rect x="158" y="78" width="8" height="34" rx="1.5" fill="#5cb87a" opacity="0.3"/>
+                  <rect x="171" y="90" width="8" height="22" rx="1.5" fill="#fbbf24" opacity="0.25"/>
+                  <rect x="184" y="86" width="8" height="26" rx="1.5" fill="#60a5fa" opacity="0.25"/>
+                  <rect x="197" y="82" width="8" height="30" rx="1.5" fill="#5cb87a" opacity="0.25"/>
+                  <line x1="12" y1="112" x2="210" y2="112" stroke="#e5e8ee" stroke-width="0.5"/>
+                  <!-- Legend dots -->
+                  <circle cx="30" cy="120" r="2.5" fill="#60a5fa" opacity="0.5"/>
+                  <text x="36" y="122" font-family="Inter" font-size="4" fill="#8e93a5">HR</text>
+                  <circle cx="60" cy="120" r="2.5" fill="#5cb87a" opacity="0.5"/>
+                  <text x="66" y="122" font-family="Inter" font-size="4" fill="#8e93a5">HRV</text>
+                  <circle cx="95" cy="120" r="2.5" fill="#fbbf24" opacity="0.5"/>
+                  <text x="101" y="122" font-family="Inter" font-size="4" fill="#8e93a5">Steps</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="colophon">
+    <span>Chaos Console &copy; 2026</span>
+    <a href="#">ChaosConsole</a>
+  </footer>
+
 </div>
-
-<div class="grid" style="grid-template-columns: 1fr;">
-  <a href="financial-consolidation.html" class="card" data-accent="1">
-    <div class="card-number">01</div>
-    <div class="card-title">The Ledger</div>
-    <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
-    <div class="card-footer"><span class="card-tag">Finance</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="2" y="20" width="8" height="16" fill="currentColor"/><rect x="14" y="10" width="8" height="26" fill="currentColor"/><rect x="26" y="4" width="8" height="32" fill="currentColor"/><rect x="38" y="14" width="8" height="22" fill="currentColor"/></svg>
-  </a>
-</div>
-
-<div class="section-label">
-  <h2>
-    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
-      <polyline points="9,4 9,9 13,11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    Personal Trackers
-  </h2>
-</div>
-
-<div class="grid">
-  <a href="spotify-tracker.html" class="card" data-accent="3">
-    <div class="card-number">02</div>
-    <div class="card-title">Playlist Tracker</div>
-    <p class="card-desc">15 playlists tracked since Apr 2024. Growth trends, heatmaps, and delta analysis across your Spotify library.</p>
-    <div class="card-footer"><span class="card-tag">Music</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="4" y="12" width="3" height="12" rx="1.5" fill="currentColor"/><rect x="11" y="6" width="3" height="24" rx="1.5" fill="currentColor"/><rect x="18" y="10" width="3" height="16" rx="1.5" fill="currentColor"/><rect x="25" y="3" width="3" height="30" rx="1.5" fill="currentColor"/><rect x="32" y="8" width="3" height="20" rx="1.5" fill="currentColor"/><rect x="39" y="13" width="3" height="10" rx="1.5" fill="currentColor"/></svg>
-  </a>
-  <a href="digital-ecosystem.html" class="card" data-accent="4">
-    <div class="card-number">03</div>
-    <div class="card-title">Digital Ecosystem Refresh</div>
-    <p class="card-desc">V10 &mdash; Systems maintenance guide. File organization, cleanup status, and upkeep workflows.</p>
-    <div class="card-footer"><span class="card-tag">Reference</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="12" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="36" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="32" y2="10" stroke="currentColor" stroke-width="1"/><line x1="12" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/><line x1="36" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="1"/></svg>
-  </a>
-</div>
-
-<div class="section-label">
-  <h2>
-    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9 2L11.5 7H6.5L9 2Z" fill="currentColor" opacity="0.4"/>
-      <circle cx="9" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
-      <circle cx="9" cy="12" r="1.5" fill="currentColor" opacity="0.4"/>
-    </svg>
-    Intelligence &amp; Systems
-  </h2>
-</div>
-
-<div class="grid">
-  <a href="chatgpt-intelligence.html" class="card" data-accent="5">
-    <div class="card-number">04</div>
-    <div class="card-title">AI Intelligence</div>
-    <p class="card-desc">1,578 conversations across ChatGPT &amp; Claude &mdash; skills, patterns, warnings, and a merged diagnosis.</p>
-    <div class="card-footer"><span class="card-tag">Analysis</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="24" cy="18" r="14" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M14 18 C14 12, 24 6, 24 18 S34 24, 34 18" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="24" cy="18" r="3" fill="currentColor" opacity="0.4"/></svg>
-  </a>
-  <a href="color-bible.html" class="card" data-accent="6">
-    <div class="card-number">05</div>
-    <div class="card-title">The Color Bible</div>
-    <p class="card-desc">Universal 5-color system for your entire digital life. One color, one meaning, everywhere. No exceptions.</p>
-    <div class="card-footer"><span class="card-tag">System</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="10" cy="18" r="6" fill="currentColor" opacity="0.25"/><circle cx="20" cy="18" r="6" fill="currentColor" opacity="0.2"/><circle cx="30" cy="18" r="6" fill="currentColor" opacity="0.15"/><circle cx="40" cy="18" r="6" fill="currentColor" opacity="0.1"/><circle cx="24" cy="18" r="2" fill="currentColor" opacity="0.6"/></svg>
-  </a>
-</div>
-
-
-<div class="section-label">
-  <h2>
-    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 2h8l4 4v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
-      <polyline points="11,2 11,6 15,6" stroke="currentColor" stroke-width="1.2" fill="none"/>
-      <line x1="5" y1="10" x2="13" y2="10" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-      <line x1="5" y1="13" x2="11" y2="13" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-    </svg>
-    Creative &amp; Craft
-  </h2>
-</div>
-
-<div class="grid">
-  <a href="screenwriting-guide.html" class="card" data-accent="7">
-    <div class="card-number">06</div>
-    <div class="card-title">Screenwriting &amp; Film Production</div>
-    <p class="card-desc">Complete 8-phase study guide &mdash; from blank page to final cut. Storytelling, structure, directing, cinematography, and industry knowledge.</p>
-    <div class="card-footer"><span class="card-tag">Study Guide</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><rect x="6" y="2" width="24" height="32" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="10" y1="8" x2="26" y2="8" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="10" y1="12" x2="26" y2="12" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="10" y1="16" x2="22" y2="16" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="10" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="10" y1="24" x2="20" y2="24" stroke="currentColor" stroke-width="1" opacity="0.3"/><path d="M34 8 L42 8 L42 30 L18 30 L18 34" stroke="currentColor" stroke-width="1" opacity="0.2" fill="none"/></svg>
-  </a>
-  <a href="blindspot-binder.html" class="card" data-accent="2">
-    <div class="card-number">07</div>
-    <div class="card-title">The Blindspot Binder</div>
-    <p class="card-desc">14-chapter YouTube channel operating manual &mdash; positioning, production standards, legal, and 90-day cadence.</p>
-    <div class="card-footer"><span class="card-tag">Playbook</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><circle cx="24" cy="18" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="18" r="3" fill="currentColor" opacity="0.6"/><line x1="2" y1="18" x2="10" y2="18" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="38" y1="18" x2="46" y2="18" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="24" y1="2" x2="24" y2="6" stroke="currentColor" stroke-width="1" opacity="0.3"/><line x1="24" y1="30" x2="24" y2="34" stroke="currentColor" stroke-width="1" opacity="0.3"/></svg>
-  </a>
-</div>
-
-<div class="section-label">
-  <h2>
-    <svg class="section-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9 3C6.5 3 4.5 5 4.5 7.5c0 3.5 4.5 7.5 4.5 7.5s4.5-4 4.5-7.5C13.5 5 11.5 3 9 3z" stroke="currentColor" stroke-width="1.2" fill="none"/>
-      <path d="M9 6v3M7.5 7.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-    </svg>
-    Health &amp; Wellness
-  </h2>
-</div>
-
-<div class="grid" style="grid-template-columns: 1fr;">
-  <a href="wellness.html" class="card" data-accent="8">
-    <div class="card-number">08</div>
-    <div class="card-title">Wellness Analysis</div>
-    <p class="card-desc">188 days of ring tracker data &mdash; heart rate corridors, sleep architecture, HRV recovery trends, and daily step tracking.</p>
-    <div class="card-footer"><span class="card-tag">Health</span><span class="card-arrow">&nearr;</span></div>
-    <svg class="card-deco" width="48" height="36" viewBox="0 0 48 36" fill="none"><path d="M2 20 L8 20 L12 8 L16 28 L20 14 L24 22 L28 10 L32 26 L36 16 L40 20 L46 20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><circle cx="16" cy="28" r="2" fill="currentColor" opacity="0.3"/><circle cx="28" cy="10" r="2" fill="currentColor" opacity="0.3"/></svg>
-  </a>
-</div>
-
-<footer class="colophon">
-  <span>Chaos Console &copy; 2026</span>
-  <a href="#">ChaosConsole</a>
-</footer>
 
 <script>
 const now = new Date();
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', opts);
 
-// Theme toggle functionality
-function toggleTheme() {
-  const html = document.documentElement;
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  document.querySelector('#themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+// Password protection
+const ACTUAL_PW = 'chaos$2026';
+function handleCardPassword(event, input) {
+  if (event.key !== 'Enter') return;
+  event.preventDefault(); event.stopPropagation();
+  const card = input.closest('.card-protected');
+  const errorEl = card.querySelector('.lock-error');
+  if (input.value === ACTUAL_PW) {
+    card.classList.add('unlocked');
+    document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
+    sessionStorage.setItem('fin_unlocked', '1');
+  } else {
+    errorEl.textContent = 'Wrong password';
+    input.value = '';
+    input.style.borderColor = '#e05555';
+    setTimeout(() => { errorEl.textContent = ''; input.style.borderColor = ''; }, 2000);
+  }
+}
+if (sessionStorage.getItem('fin_unlocked') === '1') {
+  document.querySelectorAll('.card-protected').forEach(c => c.classList.add('unlocked'));
 }
 
-// Initialize theme
-(function() {
-  const saved = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', saved);
-  const btn = document.querySelector('#themeToggle');
-  if (btn) {
-    btn.textContent = saved === 'dark' ? '☀️' : '🌙';
-    btn.addEventListener('click', toggleTheme);
-  }
-})();
+// Konami
+(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;var h=document.querySelector('.masthead h1');h.style.transition='all 0.6s ease';h.textContent='CHAOS IS A LADDER';h.style.background='linear-gradient(90deg,#b09050,#e05555,#b09050)';h.style.webkitBackgroundClip='text';h.style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='\u2014 Littlefinger was right about one thing.';setTimeout(function(){h.textContent='chaos console';h.style.background='none';h.style.webkitTextFillColor='var(--text-dark)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
 
-// konami
-(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;document.querySelector('.masthead h1').style.transition='all 0.6s ease';document.querySelector('.masthead h1').textContent='CHAOS IS A LADDER';document.querySelector('.masthead h1').style.background='linear-gradient(90deg, var(--accent), var(--red), var(--accent))';document.querySelector('.masthead h1').style.webkitBackgroundClip='text';document.querySelector('.masthead h1').style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='— Littlefinger was right about one thing.';setTimeout(function(){document.querySelector('.masthead h1').textContent='Chaos Console';document.querySelector('.masthead h1').style.background='none';document.querySelector('.masthead h1').style.webkitTextFillColor='var(--text)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
-
+// Daily Pulse
+(function(){async function loadPulse(){let data;try{const res=await fetch('pulse.json?v='+Date.now());if(res.ok)data=await res.json()}catch(e){}if(!data||!data.articles){document.getElementById('dailyPulse').style.display='none';return}const dateEl=document.getElementById('pulseDate');const d=new Date(data.date+'T12:00:00');dateEl.textContent=d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});const grid=document.getElementById('pulseGrid');grid.innerHTML='';data.articles.forEach(a=>{const isH=a.type==='hero';const c=document.createElement('a');c.href=a.url;c.target='_blank';c.rel='noopener noreferrer';c.className=isH?'pulse-card-hero':'pulse-card';c.innerHTML='<div class="pulse-topic">'+a.topic+'</div><div class="pulse-title">'+a.title+'</div><div class="pulse-summary">'+a.summary+'</div><div class="pulse-source">'+a.source+'</div>';grid.appendChild(c)})}loadPulse()})();
 </script>
 </body>
 </html>
