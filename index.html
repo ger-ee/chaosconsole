@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaos Console</title>
+<script>
+  // Apply saved theme immediately to prevent flash
+  (function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg-start: #e4ebf4;
-  --bg-mid: #dce4f0;
-  --bg-end: #d8e0ec;
+/* ═══ LIGHT THEME ═══ */
+[data-theme="light"] {
+  --page-bg: linear-gradient(180deg, #e8eff8 0%, #dfe7f2 30%, #d8e1ed 60%, #dce5f0 100%);
   --section-bg: rgba(255, 255, 255, 0.35);
   --section-border: rgba(190, 198, 215, 0.5);
+  --section-legend-bg: linear-gradient(180deg, #e8eff8, #e0e8f2);
   --card-bg: rgba(255, 255, 255, 0.6);
   --card-bg-hover: rgba(255, 255, 255, 0.82);
+  --card-inner-border: rgba(255, 255, 255, 0.45);
   --card-shadow: 0 1px 8px rgba(120, 135, 170, 0.08);
   --card-shadow-hover: 0 4px 20px rgba(120, 135, 170, 0.15);
   --gold: #b59355;
@@ -30,6 +35,69 @@
   --tag-border: #bfc4d2;
   --tag-text: #555a6c;
   --preview-shadow: 0 4px 16px rgba(80, 95, 130, 0.18);
+  --preview-front-bg: #f8fafc;
+  --preview-back-bg: rgba(255, 255, 255, 0.5);
+  --preview-back-border: rgba(200, 208, 225, 0.5);
+  --preview-front-border: rgba(190, 198, 215, 0.6);
+  --preview-chrome: #eef1f5;
+  --preview-line: #e5e8ee;
+  --preview-fill: #d0d5e0;
+  --preview-fill-light: #dde0e8;
+  --preview-fill-lighter: #e5e8ee;
+  --preview-block: #f0f3f8;
+  --lock-bg: rgba(255, 255, 255, 0.85);
+  --lock-input-bg: rgba(255, 255, 255, 0.8);
+  --grain-opacity: 0.02;
+  --logo-fill-start: #fafbfd;
+  --logo-fill-end: #eff2f7;
+  --logo-stroke: #d5dae4;
+  --logo-inner: #e0e3ea;
+  --logo-c-dark: #252a38;
+  --sticky-bg: rgba(232, 239, 248, 0.92);
+}
+
+/* ═══ DARK THEME ═══ */
+[data-theme="dark"] {
+  --page-bg: linear-gradient(180deg, #0b0f1a 0%, #101828 30%, #0e1422 60%, #0b0f1a 100%);
+  --section-bg: rgba(21, 29, 46, 0.6);
+  --section-border: rgba(42, 58, 92, 0.6);
+  --section-legend-bg: linear-gradient(180deg, #0d1120, #101828);
+  --card-bg: rgba(28, 38, 64, 0.55);
+  --card-bg-hover: rgba(35, 48, 78, 0.7);
+  --card-inner-border: rgba(42, 58, 92, 0.4);
+  --card-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --gold: #d4a052;
+  --gold-light: #d4a052;
+  --gold-dim: rgba(212, 160, 82, 0.10);
+  --text-dark: #e2e8f0;
+  --text-body: #cbd5e1;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-bar: #d4a052;
+  --green: #4ade80;
+  --tag-border: #2a3a5c;
+  --tag-text: #94a3b8;
+  --preview-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --preview-front-bg: #151d2e;
+  --preview-back-bg: rgba(21, 29, 46, 0.6);
+  --preview-back-border: rgba(42, 58, 92, 0.5);
+  --preview-front-border: rgba(42, 58, 92, 0.6);
+  --preview-chrome: #1c2640;
+  --preview-line: #2a3a5c;
+  --preview-fill: #3a4a6c;
+  --preview-fill-light: #2a3a5c;
+  --preview-fill-lighter: #1e2d4a;
+  --preview-block: #1c2640;
+  --lock-bg: rgba(11, 15, 26, 0.85);
+  --lock-input-bg: rgba(16, 24, 40, 0.8);
+  --grain-opacity: 0.03;
+  --logo-fill-start: #1c2640;
+  --logo-fill-end: #151d2e;
+  --logo-stroke: #2a3a5c;
+  --logo-inner: #1e2d4a;
+  --logo-c-dark: #e2e8f0;
+  --sticky-bg: rgba(11, 15, 26, 0.92);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,10 +106,11 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(180deg, #e8eff8 0%, #dfe7f2 30%, #d8e1ed 60%, #dce5f0 100%);
+  background: var(--page-bg);
   background-attachment: fixed;
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
+  transition: background 0.4s ease, color 0.3s ease;
 }
 
 /* Subtle grain */
@@ -49,7 +118,7 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   background-size: 256px;
   pointer-events: none;
   z-index: 9999;
@@ -154,13 +223,14 @@ body::after {
   -webkit-backdrop-filter: blur(6px);
   padding: 2rem 1.5rem 1.5rem;
   overflow: visible;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .section-legend {
   position: absolute;
   top: -0.55rem;
   left: 1.5rem;
-  background: linear-gradient(180deg, #e8eff8, #e0e8f2);
+  background: var(--section-legend-bg);
   padding: 0 0.75rem;
   display: flex;
   align-items: center;
@@ -227,7 +297,7 @@ body::after {
   box-shadow: var(--card-shadow);
   cursor: pointer;
   min-height: 170px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--card-inner-border);
 }
 
 /* Gold left accent bar */
@@ -325,23 +395,25 @@ body::after {
   position: absolute;
   top: 8px; right: -8px;
   width: 140px; height: 100px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--preview-back-bg);
   border-radius: 6px;
-  border: 1px solid rgba(200, 208, 225, 0.5);
+  border: 1px solid var(--preview-back-border);
   box-shadow: 0 2px 8px rgba(100, 115, 150, 0.1);
   transform: rotate(3deg);
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .preview-frame .pf-front {
   position: absolute;
   top: 0; right: 4px;
   width: 150px; height: 110px;
-  background: #fff;
+  background: var(--preview-front-bg);
   border-radius: 6px;
-  border: 1px solid rgba(190, 198, 215, 0.6);
+  border: 1px solid var(--preview-front-border);
   box-shadow: var(--preview-shadow);
   overflow: hidden;
   transform: rotate(-1deg);
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .preview-frame .pf-front svg {
@@ -394,7 +466,7 @@ body::after {
 
 .card-protected .card-lock-overlay {
   position: absolute; inset: 0;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--lock-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 10px;
@@ -409,7 +481,7 @@ body::after {
 .card-protected .card-lock-overlay input {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  background: rgba(255,255,255,0.8);
+  background: var(--lock-input-bg);
   border: 1px solid var(--tag-border);
   color: var(--text-dark);
   padding: 0.4rem 0.75rem;
@@ -560,6 +632,51 @@ body::after {
 /* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   THEME TOGGLE
+   ═══════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--section-border);
+  color: var(--text-dark);
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: var(--card-shadow);
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--gold);
+  transform: scale(1.05);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* ═══ SVG adaptive colors for dark mode ═══ */
+[data-theme="dark"] .pf-front svg {
+  filter: brightness(0.35) contrast(1.2) saturate(0.9);
+}
+[data-theme="dark"] .pf-front {
+  background: var(--preview-front-bg);
+}
+
 @media (max-width: 768px) {
   .container { padding: 0 1rem; }
   .masthead { padding: 2rem 0 1rem; }
@@ -573,6 +690,7 @@ body::after {
   .preview-frame, .card-row--single .preview-frame { width: 100%; height: 100px; }
   .pf-back, .card-row--single .pf-back { width: 85% !important; }
   .pf-front, .card-row--single .pf-front { width: 90% !important; }
+  .theme-toggle { top: 1rem; right: 1rem; width: 40px; height: 40px; font-size: 1rem; }
   .colophon { flex-direction: column; gap: 0.5rem; }
   .pulse-grid { grid-template-columns: 1fr; }
   .pulse-card-hero { grid-row: auto; grid-column: auto; min-height: 160px; }
@@ -580,6 +698,8 @@ body::after {
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
 
 <div class="container">
 
@@ -601,19 +721,19 @@ body::after {
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="logoFill" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#fafbfd"/>
-              <stop offset="100%" stop-color="#eff2f7"/>
+              <stop id="logoFillStart" offset="0%" stop-color="#fafbfd"/>
+              <stop id="logoFillEnd" offset="100%" stop-color="#eff2f7"/>
             </linearGradient>
             <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#c9a96e"/>
               <stop offset="100%" stop-color="#a88a50"/>
             </linearGradient>
           </defs>
-          <circle cx="50" cy="50" r="47" fill="url(#logoFill)" stroke="#d5dae4" stroke-width="0.7"/>
-          <circle cx="50" cy="50" r="39" fill="none" stroke="#e0e3ea" stroke-width="0.4"/>
+          <circle cx="50" cy="50" r="47" fill="url(#logoFill)" stroke="var(--logo-stroke)" stroke-width="0.7"/>
+          <circle cx="50" cy="50" r="39" fill="none" stroke="var(--logo-inner)" stroke-width="0.4"/>
           <!-- First C — dark -->
           <path d="M 50 28 C 35 28, 24 37, 24 50 C 24 63, 35 72, 50 72"
-                fill="none" stroke="#252a38" stroke-width="5" stroke-linecap="round"/>
+                fill="none" stroke="var(--logo-c-dark)" stroke-width="5" stroke-linecap="round"/>
           <!-- Second C — gold, offset right -->
           <path d="M 64 28 C 49 28, 38 37, 38 50 C 38 63, 49 72, 64 72"
                 fill="none" stroke="url(#goldStroke)" stroke-width="5" stroke-linecap="round"/>
@@ -1060,9 +1180,52 @@ body::after {
 </div>
 
 <script>
+// ── Date display ──
 const now = new Date();
 const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', opts);
+
+// ── Theme toggle ──
+function updateToggleIcon() {
+  const theme = document.documentElement.getAttribute('data-theme');
+  document.getElementById('themeToggle').textContent = theme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+  updateToggleIcon();
+  // Update SVG gradient fills for logo
+  const logoStart = document.getElementById('logoFillStart');
+  const logoEnd = document.getElementById('logoFillEnd');
+  if (logoStart && logoEnd) {
+    const s = getComputedStyle(document.documentElement);
+    logoStart.setAttribute('stop-color', s.getPropertyValue('--logo-fill-start').trim());
+    logoEnd.setAttribute('stop-color', s.getPropertyValue('--logo-fill-end').trim());
+  }
+}
+
+(function() {
+  const saved = localStorage.getItem('cc-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('themeToggle');
+  if (btn) {
+    updateToggleIcon();
+    btn.addEventListener('click', toggleTheme);
+  }
+  // Sync logo gradient with initial theme
+  setTimeout(() => {
+    const s = getComputedStyle(document.documentElement);
+    const logoStart = document.getElementById('logoFillStart');
+    const logoEnd = document.getElementById('logoFillEnd');
+    if (logoStart && logoEnd) {
+      logoStart.setAttribute('stop-color', s.getPropertyValue('--logo-fill-start').trim());
+      logoEnd.setAttribute('stop-color', s.getPropertyValue('--logo-fill-end').trim());
+    }
+  }, 50);
+})();
 
 // Password protection
 const ACTUAL_PW = 'chaos$2026';
