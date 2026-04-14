@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screenwriting Guide — Gary's Command Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=Archivo+Black&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,9 +13,11 @@
         }
 
         :root {
-            --font-inter: "Inter", sans-serif;
-            --font-syncopate: "Archivo Black", sans-serif;
+            --font-inter: "Lora", Georgia, serif;
+            --font-syncopate: "Playfair Display", Georgia, serif;
             --font-mono: "JetBrains Mono", monospace;
+            --font-body: "Lora", Georgia, serif;
+            --font-display: "Playfair Display", Georgia, serif;
         }
 
         [data-theme="dark"] {
@@ -124,7 +126,7 @@
         }
 
         .sidebar-header h1 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
             font-size: 1.1rem;
             color: var(--accent);
             margin-bottom: 0.5rem;
@@ -238,7 +240,7 @@
         }
 
         .title-section h1 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
@@ -281,7 +283,7 @@
         }
 
         .phase-header h2 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
@@ -581,7 +583,7 @@
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
     <div class="progress-bar"></div>
     <button class="menu-toggle">☰</button>
     <button class="theme-toggle">🌙 Dark</button>
