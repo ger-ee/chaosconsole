@@ -442,18 +442,21 @@ body::after {
 
 .preview-frame .pf-front svg { width: 100%; height: 100%; }
 
-/* Custom PNG icons inside preview frames (cards 01–07) */
-.preview-frame .pf-front .card-icon-img {
+/* Custom icons inside preview frames (cards 01–07).
+   Two variants per card:
+     - .card-icon-img   → the illustrated PNG, designed for LIGHT theme
+     - .card-icon-svg   → an inline SVG scene, designed for DARK theme
+   Only one is shown at a time via CSS theme-scoping. */
+.preview-frame .pf-front .card-icon-img,
+.preview-frame .pf-front .card-icon-svg {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-/* Dark mode: mirror the icons horizontally */
-[data-theme="dark"] .preview-frame .pf-front .card-icon-img {
-  transform: scaleX(-1);
-}
+[data-theme="light"] .preview-frame .pf-front .card-icon-svg { display: none; }
+[data-theme="dark"]  .preview-frame .pf-front .card-icon-img { display: none; }
 
 /* Wider previews for full-width cards */
 .card-row--single .card-preview { width: 280px; }
@@ -719,6 +722,45 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/Personal finance ledger icon.png" alt="The Ledger" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l1bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l1card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e3d5e"/><stop offset="1" stop-color="#1e2a46"/></linearGradient>
+                    <linearGradient id="l1coin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd34d"/><stop offset="1" stop-color="#b45309"/></linearGradient>
+                    <linearGradient id="l1bill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86efac"/><stop offset="1" stop-color="#22c55e"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#l1bg)"/>
+                  <!-- Back dashboard card -->
+                  <rect x="80" y="22" width="148" height="100" rx="10" fill="#1a2844" opacity="0.6"/>
+                  <rect x="74" y="18" width="148" height="100" rx="10" fill="url(#l1card)" stroke="#3a4d70" stroke-width="0.8"/>
+                  <!-- Header row -->
+                  <text x="86" y="36" font-family="Inter" font-size="10" font-weight="800" fill="#e8ecf4">$1,575.47</text>
+                  <rect x="180" y="30" width="32" height="3" rx="1" fill="#3a4d70"/>
+                  <rect x="186" y="36" width="26" height="2.5" rx="1" fill="#3a4d70"/>
+                  <!-- Chart area -->
+                  <rect x="86" y="44" width="126" height="48" rx="4" fill="#0d1628"/>
+                  <polyline points="92,78 104,72 116,74 128,62 140,66 152,54 164,58 176,48 188,52 200,42 206,46" fill="none" stroke="#4ade80" stroke-width="1.8"/>
+                  <polyline points="92,84 104,80 116,82 128,72 140,76 152,66 164,70 176,62 188,66 200,58 206,62" fill="none" stroke="#a78bfa" stroke-width="1.3" opacity="0.75"/>
+                  <polyline points="92,88 104,85 116,86 128,78 140,81 152,74 164,77 176,70 188,73 200,66 206,70" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.55"/>
+                  <!-- Chip row -->
+                  <rect x="88" y="100" width="18" height="8" rx="1.5" fill="#60a5fa" opacity="0.55"/>
+                  <rect x="110" y="100" width="18" height="8" rx="1.5" fill="#fbbf24" opacity="0.55"/>
+                  <rect x="132" y="100" width="18" height="8" rx="1.5" fill="#f87171" opacity="0.55"/>
+                  <rect x="154" y="100" width="18" height="8" rx="1.5" fill="#4ade80" opacity="0.55"/>
+                  <rect x="176" y="100" width="18" height="8" rx="1.5" fill="#a78bfa" opacity="0.55"/>
+                  <!-- Cash stack -->
+                  <rect x="18" y="44" width="52" height="30" rx="3" fill="url(#l1bill)" opacity="0.9" transform="rotate(-8 44 59)"/>
+                  <rect x="22" y="48" width="44" height="22" rx="2" fill="none" stroke="#14532d" stroke-width="0.6" transform="rotate(-8 44 59)"/>
+                  <circle cx="44" cy="59" r="5" fill="none" stroke="#14532d" stroke-width="0.6" transform="rotate(-8 44 59)"/>
+                  <rect x="12" y="56" width="52" height="30" rx="3" fill="url(#l1bill)" transform="rotate(-4 38 71)"/>
+                  <rect x="16" y="60" width="44" height="22" rx="2" fill="none" stroke="#14532d" stroke-width="0.7" transform="rotate(-4 38 71)"/>
+                  <text x="33" y="75" font-family="Inter" font-size="10" font-weight="800" fill="#14532d" transform="rotate(-4 38 71)">$</text>
+                  <!-- Gold coin (front) -->
+                  <ellipse cx="52" cy="98" rx="22" ry="22" fill="#78350f" opacity="0.4"/>
+                  <circle cx="52" cy="96" r="20" fill="url(#l1coin)"/>
+                  <circle cx="52" cy="96" r="16" fill="none" stroke="#78350f" stroke-width="0.8" opacity="0.6"/>
+                  <text x="46" y="103" font-family="Inter" font-size="18" font-weight="800" fill="#78350f">$</text>
+                </svg>
               </div>
             </div>
           </div>
@@ -747,6 +789,49 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/Playlist tracker and music chart details.png" alt="Playlist Tracker" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l2bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l2board" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e3d5e"/><stop offset="1" stop-color="#1e2a46"/></linearGradient>
+                    <linearGradient id="l2play" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd34d"/><stop offset="1" stop-color="#d97706"/></linearGradient>
+                  </defs>
+                  <rect width="155" height="108" fill="url(#l2bg)"/>
+                  <!-- Clipboard -->
+                  <rect x="52" y="14" width="88" height="88" rx="5" fill="url(#l2board)" stroke="#3a4d70" stroke-width="0.8"/>
+                  <rect x="83" y="9" width="26" height="10" rx="2.5" fill="#475569"/>
+                  <rect x="89" y="5" width="14" height="8" rx="1.5" fill="#64748b"/>
+                  <!-- Spotify dot -->
+                  <circle cx="63" cy="28" r="4" fill="#1db954"/>
+                  <path d="M60 27 Q63 26 66 28 M61 29 Q63 28 65 30" stroke="#0a0a0a" stroke-width="0.5" fill="none"/>
+                  <text x="72" y="30" font-family="Inter" font-size="6" font-weight="700" fill="#e8ecf4">April 2024</text>
+                  <!-- Text lines -->
+                  <rect x="59" y="37" width="74" height="2.5" rx="1" fill="#3a4d70"/>
+                  <rect x="59" y="43" width="60" height="2.5" rx="1" fill="#3a4d70"/>
+                  <rect x="59" y="49" width="40" height="2.5" rx="1" fill="#4ade80" opacity="0.6"/>
+                  <rect x="59" y="55" width="50" height="2.5" rx="1" fill="#fb923c" opacity="0.6"/>
+                  <!-- Bar chart -->
+                  <rect x="60" y="74" width="7" height="18" rx="1" fill="#4ade80"/>
+                  <rect x="70" y="68" width="7" height="24" rx="1" fill="#60a5fa"/>
+                  <rect x="80" y="76" width="7" height="16" rx="1" fill="#4ade80"/>
+                  <rect x="90" y="62" width="7" height="30" rx="1" fill="#60a5fa"/>
+                  <rect x="100" y="70" width="7" height="22" rx="1" fill="#4ade80"/>
+                  <rect x="110" y="78" width="7" height="14" rx="1" fill="#fbbf24"/>
+                  <rect x="120" y="66" width="7" height="26" rx="1" fill="#60a5fa"/>
+                  <rect x="130" y="72" width="7" height="20" rx="1" fill="#4ade80"/>
+                  <!-- Phone (left) -->
+                  <rect x="6" y="22" width="38" height="72" rx="6" fill="#0d1628" stroke="#475569" stroke-width="0.8"/>
+                  <rect x="10" y="26" width="30" height="54" rx="2" fill="#1e293b"/>
+                  <text x="17" y="48" font-family="Inter" font-size="16" font-weight="700" fill="#a78bfa">♫</text>
+                  <rect x="13" y="58" width="4" height="14" rx="1" fill="#4ade80"/>
+                  <rect x="19" y="54" width="4" height="18" rx="1" fill="#60a5fa"/>
+                  <rect x="25" y="60" width="4" height="12" rx="1" fill="#4ade80"/>
+                  <rect x="31" y="50" width="4" height="22" rx="1" fill="#60a5fa"/>
+                  <circle cx="25" cy="87" r="2.5" fill="#475569"/>
+                  <!-- Play button overlay -->
+                  <circle cx="58" cy="78" r="14" fill="#78350f" opacity="0.4"/>
+                  <circle cx="58" cy="76" r="13" fill="url(#l2play)"/>
+                  <path d="M54 70 L54 82 L66 76 Z" fill="#78350f"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -763,6 +848,58 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/Digital ecosystem task and refresh tools.png" alt="Digital Ecosystem Refresh" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l3bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l3lap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#5b21b6"/></linearGradient>
+                  </defs>
+                  <rect width="155" height="108" fill="url(#l3bg)"/>
+                  <!-- Stacked colored folders (right, fan) -->
+                  <g transform="translate(74 22)">
+                    <rect x="0" y="0" width="58" height="48" rx="3" fill="#dc2626" opacity="0.85"/>
+                    <rect x="0" y="2" width="22" height="5" rx="1" fill="#7f1d1d"/>
+                    <rect x="-4" y="6" width="58" height="48" rx="3" fill="#16a34a" opacity="0.9"/>
+                    <rect x="-4" y="8" width="22" height="5" rx="1" fill="#14532d"/>
+                    <rect x="-8" y="12" width="58" height="48" rx="3" fill="#eab308" opacity="0.9"/>
+                    <rect x="-8" y="14" width="22" height="5" rx="1" fill="#713f12"/>
+                    <rect x="-12" y="18" width="58" height="48" rx="3" fill="#2563eb"/>
+                    <rect x="-12" y="20" width="22" height="5" rx="1" fill="#1e3a8a"/>
+                    <!-- Sparkle on top folder -->
+                    <circle cx="10" cy="40" r="1.2" fill="#e0f2fe"/>
+                    <circle cx="16" cy="44" r="0.8" fill="#e0f2fe"/>
+                    <circle cx="6" cy="46" r="0.8" fill="#e0f2fe"/>
+                  </g>
+                  <!-- Laptop (left/front) -->
+                  <rect x="6" y="24" width="70" height="46" rx="3" fill="url(#l3lap)"/>
+                  <rect x="10" y="28" width="62" height="38" rx="1.5" fill="#0d1628"/>
+                  <!-- Laptop screen content: pie chart + lines -->
+                  <circle cx="22" cy="46" r="9" fill="#1e293b"/>
+                  <path d="M22 37 A9 9 0 0 1 30 50 L22 46 Z" fill="#4ade80"/>
+                  <path d="M30 50 A9 9 0 0 1 14 50 L22 46 Z" fill="#60a5fa"/>
+                  <path d="M14 50 A9 9 0 0 1 22 37 L22 46 Z" fill="#fbbf24"/>
+                  <rect x="36" y="34" width="32" height="2.5" rx="1" fill="#475569"/>
+                  <rect x="36" y="40" width="28" height="2" rx="1" fill="#334155"/>
+                  <rect x="36" y="45" width="22" height="2" rx="1" fill="#334155"/>
+                  <rect x="36" y="50" width="30" height="2" rx="1" fill="#4ade80" opacity="0.6"/>
+                  <rect x="36" y="55" width="24" height="2" rx="1" fill="#fbbf24" opacity="0.6"/>
+                  <!-- Laptop base -->
+                  <rect x="3" y="70" width="76" height="4" rx="1" fill="#4c1d95"/>
+                  <!-- Spray bottle -->
+                  <rect x="58" y="58" width="12" height="22" rx="1.5" fill="#60a5fa"/>
+                  <rect x="60" y="54" width="8" height="6" rx="1" fill="#1e40af"/>
+                  <path d="M68 56 L76 54 L76 58 L68 59 Z" fill="#1e40af"/>
+                  <!-- Broom -->
+                  <rect x="98" y="62" width="3" height="20" rx="0.5" fill="#1e3a8a" transform="rotate(18 99 72)"/>
+                  <path d="M95 78 L120 84 L116 96 L93 92 Z" fill="#fbbf24"/>
+                  <path d="M95 78 L120 84 L116 96 L93 92 Z" fill="none" stroke="#78350f" stroke-width="0.6"/>
+                  <line x1="100" y1="82" x2="98" y2="94" stroke="#78350f" stroke-width="0.4"/>
+                  <line x1="105" y1="83" x2="103" y2="95" stroke="#78350f" stroke-width="0.4"/>
+                  <line x1="110" y1="84" x2="108" y2="96" stroke="#78350f" stroke-width="0.4"/>
+                  <line x1="115" y1="85" x2="113" y2="97" stroke="#78350f" stroke-width="0.4"/>
+                  <!-- Checkmark badge -->
+                  <rect x="38" y="76" width="18" height="18" rx="3" fill="#1e293b" stroke="#4ade80" stroke-width="1"/>
+                  <path d="M42 84 L46 88 L53 80" stroke="#4ade80" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -791,6 +928,64 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/AI powered conversation and analysis.png" alt="AI Intelligence" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l4bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l4mon" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#475569"/><stop offset="1" stop-color="#1e293b"/></linearGradient>
+                    <linearGradient id="l4bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8ecf4"/><stop offset="1" stop-color="#94a3b8"/></linearGradient>
+                  </defs>
+                  <rect width="155" height="108" fill="url(#l4bg)"/>
+                  <!-- Monitor -->
+                  <rect x="30" y="16" width="84" height="56" rx="4" fill="url(#l4mon)" stroke="#64748b" stroke-width="0.8"/>
+                  <rect x="33" y="19" width="78" height="46" rx="1.5" fill="#0d1628"/>
+                  <rect x="67" y="72" width="10" height="4" fill="#475569"/>
+                  <rect x="56" y="76" width="32" height="2" rx="1" fill="#475569"/>
+                  <!-- Chat bubbles on screen -->
+                  <circle cx="40" cy="27" r="2.5" fill="#60a5fa"/>
+                  <rect x="45" y="24" width="32" height="5" rx="2.5" fill="#1e3a8a"/>
+                  <text x="47" y="28" font-family="Inter" font-size="3" fill="#93c5fd">Claude</text>
+                  <circle cx="40" cy="36" r="2.5" fill="#4ade80"/>
+                  <rect x="45" y="33" width="36" height="5" rx="2.5" fill="#14532d"/>
+                  <text x="47" y="37" font-family="Inter" font-size="3" fill="#86efac">ChatGPT</text>
+                  <circle cx="40" cy="45" r="2.5" fill="#60a5fa"/>
+                  <rect x="45" y="42" width="28" height="5" rx="2.5" fill="#1e3a8a"/>
+                  <!-- Mini chart on right of screen -->
+                  <rect x="85" y="24" width="23" height="22" rx="1" fill="#1e293b"/>
+                  <polyline points="87,42 90,38 93,40 96,34 99,36 102,30 105,32" fill="none" stroke="#fbbf24" stroke-width="1"/>
+                  <rect x="84" y="49" width="24" height="2" rx="1" fill="#475569"/>
+                  <rect x="84" y="53" width="18" height="2" rx="1" fill="#334155"/>
+                  <rect x="84" y="57" width="22" height="2" rx="1" fill="#334155"/>
+                  <!-- Warning triangle -->
+                  <path d="M96 51 L101 60 L91 60 Z" fill="#fbbf24"/>
+                  <rect x="95.3" y="54" width="1.4" height="3" fill="#78350f"/>
+                  <circle cx="96" cy="58.5" r="0.6" fill="#78350f"/>
+                  <!-- Network graph (left) -->
+                  <g stroke="#64748b" stroke-width="0.6" fill="none">
+                    <line x1="8" y1="48" x2="16" y2="42"/>
+                    <line x1="16" y1="42" x2="22" y2="52"/>
+                    <line x1="22" y1="52" x2="14" y2="58"/>
+                    <line x1="14" y1="58" x2="8" y2="48"/>
+                    <line x1="8" y1="48" x2="22" y2="52"/>
+                    <line x1="16" y1="42" x2="14" y2="58"/>
+                  </g>
+                  <circle cx="8" cy="48" r="2.5" fill="#f87171"/>
+                  <circle cx="16" cy="42" r="2.5" fill="#fbbf24"/>
+                  <circle cx="22" cy="52" r="2.5" fill="#4ade80"/>
+                  <circle cx="14" cy="58" r="2.5" fill="#60a5fa"/>
+                  <!-- Robot head (right) -->
+                  <ellipse cx="126" cy="96" rx="20" ry="5" fill="#000" opacity="0.35"/>
+                  <rect x="114" y="54" width="26" height="36" rx="10" fill="url(#l4bot)" stroke="#64748b" stroke-width="0.8"/>
+                  <rect x="110" y="64" width="7" height="12" rx="3" fill="#60a5fa"/>
+                  <rect x="137" y="64" width="7" height="12" rx="3" fill="#60a5fa"/>
+                  <circle cx="121" cy="70" r="2" fill="#1e293b"/>
+                  <circle cx="133" cy="70" r="2" fill="#1e293b"/>
+                  <path d="M120 78 Q127 82 134 78" stroke="#1e293b" stroke-width="1" fill="none" stroke-linecap="round"/>
+                  <rect x="124" y="50" width="6" height="4" fill="#94a3b8"/>
+                  <circle cx="127" cy="49" r="1.5" fill="#4ade80"/>
+                  <!-- Check badge -->
+                  <circle cx="108" cy="90" r="7" fill="#fbbf24"/>
+                  <path d="M104 90 L107 93 L112 87" stroke="#78350f" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -807,6 +1002,45 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/Color system with swatches and magnifier.png" alt="The Color Bible" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l5bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l5card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b4f78"/><stop offset="1" stop-color="#1e2a46"/></linearGradient>
+                    <linearGradient id="l5mag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+                    <radialGradient id="l5wheel" cx="0.5" cy="0.5" r="0.5">
+                      <stop offset="0" stop-color="#f8fafc"/>
+                      <stop offset="1" stop-color="#f8fafc" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <rect width="155" height="108" fill="url(#l5bg)"/>
+                  <!-- Big card -->
+                  <rect x="28" y="22" width="112" height="70" rx="6" fill="url(#l5card)" stroke="#475569" stroke-width="0.8"/>
+                  <!-- Top inner blue banner -->
+                  <rect x="34" y="28" width="100" height="38" rx="4" fill="#2563eb"/>
+                  <text x="84" y="52" text-anchor="middle" font-family="Inter" font-size="16" font-weight="800" fill="#e0f2fe">#6996ff</text>
+                  <!-- Color swatches row -->
+                  <rect x="38" y="72" width="14" height="14" rx="2" fill="#f87171"/>
+                  <rect x="56" y="72" width="14" height="14" rx="2" fill="#fbbf24"/>
+                  <rect x="74" y="72" width="14" height="14" rx="2" fill="#4ade80"/>
+                  <rect x="92" y="72" width="14" height="14" rx="2" fill="#60a5fa"/>
+                  <rect x="110" y="72" width="14" height="14" rx="2" fill="#a78bfa"/>
+                  <!-- HEX tag badge top-left of card -->
+                  <rect x="42" y="14" width="22" height="11" rx="2" fill="#fbbf24"/>
+                  <text x="45" y="22" font-family="Inter" font-size="7" font-weight="800" fill="#78350f">HEX</text>
+                  <!-- Color wheel (top-right) -->
+                  <rect x="120" y="6" width="26" height="26" rx="4" fill="#0d1628" stroke="#475569" stroke-width="0.6"/>
+                  <circle cx="133" cy="19" r="9" fill="#1e293b"/>
+                  <path d="M133 10 A9 9 0 0 1 141 19 L133 19 Z" fill="#f87171"/>
+                  <path d="M141 19 A9 9 0 0 1 133 28 L133 19 Z" fill="#fbbf24"/>
+                  <path d="M133 28 A9 9 0 0 1 125 19 L133 19 Z" fill="#4ade80"/>
+                  <path d="M125 19 A9 9 0 0 1 133 10 L133 19 Z" fill="#60a5fa"/>
+                  <circle cx="133" cy="19" r="3" fill="#0d1628"/>
+                  <!-- Magnifier -->
+                  <circle cx="28" cy="64" r="14" fill="url(#l5mag)" opacity="0.25"/>
+                  <circle cx="28" cy="64" r="12" fill="#1e293b" stroke="url(#l5mag)" stroke-width="2.5"/>
+                  <text x="18" y="67" font-family="Inter" font-size="6" font-weight="700" fill="#e0f2fe">#6996ff</text>
+                  <line x1="37" y1="73" x2="46" y2="82" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -835,6 +1069,68 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/Film production tools and symbols.png" alt="Screenwriting &amp; Film Production" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l6bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l6page" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbd5e1"/><stop offset="1" stop-color="#94a3b8"/></linearGradient>
+                    <linearGradient id="l6pencil" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#d97706"/></linearGradient>
+                  </defs>
+                  <rect width="155" height="108" fill="url(#l6bg)"/>
+                  <!-- Camera (left) -->
+                  <rect x="6" y="36" width="34" height="26" rx="2" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+                  <rect x="8" y="30" width="12" height="8" rx="1" fill="#334155"/>
+                  <circle cx="22" cy="49" r="8" fill="#0d1628"/>
+                  <circle cx="22" cy="49" r="5.5" fill="#1e3a8a"/>
+                  <circle cx="22" cy="49" r="2.5" fill="#60a5fa"/>
+                  <circle cx="24" cy="47" r="1" fill="#e0f2fe"/>
+                  <rect x="32" y="38" width="6" height="3" rx="0.5" fill="#475569"/>
+                  <rect x="32" y="42" width="6" height="3" rx="0.5" fill="#4ade80"/>
+                  <!-- Script page (center) -->
+                  <path d="M56 18 L104 18 L108 22 L108 92 L56 92 Z" fill="url(#l6page)" stroke="#64748b" stroke-width="0.6"/>
+                  <path d="M104 18 L108 22 L104 22 Z" fill="#64748b"/>
+                  <text x="62" y="32" font-family="Inter" font-size="7" font-weight="800" fill="#0f172a">EXT.</text>
+                  <rect x="62" y="38" width="38" height="2" rx="1" fill="#64748b"/>
+                  <rect x="62" y="44" width="32" height="2" rx="1" fill="#fbbf24"/>
+                  <rect x="62" y="50" width="40" height="2" rx="1" fill="#4ade80"/>
+                  <rect x="62" y="56" width="28" height="2" rx="1" fill="#64748b"/>
+                  <rect x="62" y="62" width="34" height="2" rx="1" fill="#64748b"/>
+                  <rect x="62" y="68" width="30" height="2" rx="1" fill="#64748b"/>
+                  <!-- Pencil (diagonal) -->
+                  <g transform="rotate(40 88 60)">
+                    <rect x="70" y="57" width="42" height="6" rx="0.5" fill="url(#l6pencil)"/>
+                    <rect x="70" y="57" width="4" height="6" fill="#f87171"/>
+                    <rect x="66" y="57" width="4" height="6" fill="#94a3b8"/>
+                    <path d="M112 57 L118 60 L112 63 Z" fill="#fde68a"/>
+                    <path d="M115 58.5 L118 60 L115 61.5 Z" fill="#0f172a"/>
+                    <line x1="76" y1="58" x2="76" y2="62" stroke="#78350f" stroke-width="0.5"/>
+                    <line x1="82" y1="58" x2="82" y2="62" stroke="#78350f" stroke-width="0.5"/>
+                    <line x1="88" y1="58" x2="88" y2="62" stroke="#78350f" stroke-width="0.5"/>
+                  </g>
+                  <!-- Star + check badge -->
+                  <rect x="56" y="78" width="28" height="14" rx="2" fill="#0d1628" stroke="#475569" stroke-width="0.6"/>
+                  <path d="M64 81 L66 85 L70 85 L67 88 L68 92 L64 89 L60 92 L61 88 L58 85 L62 85 Z" fill="#fbbf24"/>
+                  <circle cx="77" cy="85" r="4" fill="#4ade80"/>
+                  <path d="M74 85 L76 87 L80 83" stroke="#0f172a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <!-- Clapperboard (right) -->
+                  <g transform="translate(116 40)">
+                    <rect x="0" y="4" width="36" height="30" rx="2" fill="#1e293b" stroke="#475569" stroke-width="0.6"/>
+                    <path d="M0 4 L36 0 L36 6 L0 10 Z" fill="#0f172a"/>
+                    <path d="M2 4 L8 1 L8 7 L2 10 Z" fill="#e8ecf4"/>
+                    <path d="M10 2.5 L16 0 L16 6 L10 8.5 Z" fill="#1e293b"/>
+                    <path d="M18 1.5 L24 -1 L24 5 L18 7.5 Z" fill="#e8ecf4"/>
+                    <path d="M26 0.5 L32 -2 L32 4 L26 6.5 Z" fill="#1e293b"/>
+                    <rect x="2" y="13" width="15" height="8" fill="none" stroke="#475569" stroke-width="0.4"/>
+                    <rect x="19" y="13" width="15" height="8" fill="none" stroke="#475569" stroke-width="0.4"/>
+                    <text x="4" y="19" font-family="Inter" font-size="4" fill="#94a3b8">Scene</text>
+                    <text x="22" y="19" font-family="Inter" font-size="4" fill="#94a3b8">Take</text>
+                    <text x="7" y="29" font-family="Inter" font-size="7" font-weight="700" fill="#e8ecf4">1</text>
+                    <text x="25" y="29" font-family="Inter" font-size="7" font-weight="700" fill="#e8ecf4">1</text>
+                    <rect x="2" y="31" width="3" height="3" fill="#f87171"/>
+                    <rect x="7" y="31" width="3" height="3" fill="#fbbf24"/>
+                    <rect x="12" y="31" width="3" height="3" fill="#4ade80"/>
+                    <rect x="17" y="31" width="3" height="3" fill="#60a5fa"/>
+                  </g>
+                </svg>
               </div>
             </div>
           </div>
@@ -851,6 +1147,64 @@ body::after {
               <div class="pf-back"></div>
               <div class="pf-front">
                 <img src="icons/The Blindspot Binder icon design.png" alt="The Blindspot Binder" class="card-icon-img">
+                <svg class="card-icon-svg" viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="l7bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="l7binder" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f2937"/><stop offset="1" stop-color="#0a0f1a"/></linearGradient>
+                    <linearGradient id="l7accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="0.5" stop-color="#f472b6"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+                    <linearGradient id="l7mag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+                  </defs>
+                  <rect width="155" height="108" fill="url(#l7bg)"/>
+                  <!-- Binder shadow -->
+                  <ellipse cx="90" cy="98" rx="55" ry="4" fill="#000" opacity="0.4"/>
+                  <!-- Binder back (right spine) -->
+                  <rect x="128" y="22" width="12" height="72" rx="2" fill="#7c3aed"/>
+                  <rect x="130" y="30" width="8" height="4" rx="1" fill="#a78bfa"/>
+                  <rect x="130" y="40" width="8" height="4" rx="1" fill="#f472b6"/>
+                  <rect x="130" y="50" width="8" height="4" rx="1" fill="#60a5fa"/>
+                  <!-- Binder body -->
+                  <rect x="56" y="18" width="76" height="74" rx="4" fill="url(#l7binder)" stroke="#334155" stroke-width="1"/>
+                  <!-- Title frame -->
+                  <rect x="64" y="26" width="50" height="44" rx="1" fill="none" stroke="url(#l7accent)" stroke-width="1.3"/>
+                  <text x="89" y="38" text-anchor="middle" font-family="Inter" font-size="6" font-weight="800" fill="url(#l7accent)">THE</text>
+                  <text x="89" y="47" text-anchor="middle" font-family="Inter" font-size="7" font-weight="800" fill="url(#l7accent)">BLIND</text>
+                  <text x="89" y="55" text-anchor="middle" font-family="Inter" font-size="7" font-weight="800" fill="url(#l7accent)">SPOT.</text>
+                  <text x="89" y="65" text-anchor="middle" font-family="Dancing Script, cursive" font-size="8" font-style="italic" fill="#f472b6">Binder</text>
+                  <!-- "14" number (bottom right) -->
+                  <text x="118" y="92" font-family="Inter" font-size="22" font-weight="800" fill="url(#l7accent)">14</text>
+                  <!-- Playbook card (top-left) -->
+                  <g transform="rotate(-8 24 42)">
+                    <rect x="8" y="24" width="32" height="36" rx="2" fill="#e8ecf4" stroke="#94a3b8" stroke-width="0.6"/>
+                    <rect x="14" y="22" width="20" height="6" rx="1" fill="#fbbf24"/>
+                    <text x="16" y="27" font-family="Inter" font-size="4" font-weight="800" fill="#78350f">PLAYBOOK</text>
+                    <g stroke="#4ade80" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="12" y="32" width="4" height="4" rx="0.5" fill="none" stroke="#94a3b8" stroke-width="0.5"/>
+                      <path d="M13 34 L14 35 L15 33"/>
+                      <rect x="12" y="40" width="4" height="4" rx="0.5" fill="none" stroke="#94a3b8" stroke-width="0.5"/>
+                      <path d="M13 42 L14 43 L15 41"/>
+                      <rect x="12" y="48" width="4" height="4" rx="0.5" fill="none" stroke="#94a3b8" stroke-width="0.5"/>
+                      <path d="M13 50 L14 51 L15 49"/>
+                    </g>
+                    <rect x="18" y="33" width="18" height="2" rx="0.5" fill="#94a3b8"/>
+                    <rect x="18" y="41" width="16" height="2" rx="0.5" fill="#94a3b8"/>
+                    <rect x="18" y="49" width="14" height="2" rx="0.5" fill="#94a3b8"/>
+                  </g>
+                  <!-- Checklist doc (bottom, in front) -->
+                  <rect x="48" y="68" width="46" height="24" rx="2" fill="#e8ecf4" stroke="#94a3b8" stroke-width="0.6"/>
+                  <rect x="52" y="72" width="32" height="2" rx="0.5" fill="#94a3b8"/>
+                  <rect x="52" y="77" width="38" height="1.5" rx="0.5" fill="#cbd5e1"/>
+                  <rect x="52" y="81" width="34" height="1.5" rx="0.5" fill="#cbd5e1"/>
+                  <rect x="52" y="85" width="30" height="1.5" rx="0.5" fill="#cbd5e1"/>
+                  <rect x="86" y="71" width="6" height="4" rx="0.5" fill="#f472b6"/>
+                  <!-- Magnifier -->
+                  <circle cx="42" cy="70" r="13" fill="url(#l7mag)" opacity="0.25"/>
+                  <circle cx="42" cy="70" r="11" fill="#0d1628" stroke="url(#l7mag)" stroke-width="2.2"/>
+                  <rect x="34" y="65" width="16" height="10" rx="1" fill="#1e293b"/>
+                  <rect x="36" y="67" width="6" height="6" fill="#a78bfa"/>
+                  <rect x="44" y="67" width="5" height="2" rx="0.3" fill="#94a3b8"/>
+                  <rect x="44" y="70" width="5" height="2" rx="0.3" fill="#f472b6"/>
+                  <line x1="50" y1="78" x2="58" y2="86" stroke="url(#l7mag)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
               </div>
             </div>
           </div>
