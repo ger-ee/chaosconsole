@@ -448,8 +448,19 @@ body::after {
 .card-row--single .pf-back { width: 230px; height: 125px; }
 .card-row--single .pf-front { width: 245px; height: 138px; }
 
-/* Dark mode SVG dimming */
-[data-theme="light"] .pf-front svg { filter: brightness(1); }
+/* Light mode: invert the hard-coded dark SVG previews so they match the theme.
+   invert(1) flips luminance, hue-rotate(180deg) restores hue so colored
+   chart lines/bars still read correctly. */
+[data-theme="light"] .pf-front svg,
+[data-theme="light"] .pf-back svg { filter: invert(0.92) hue-rotate(180deg); }
+
+/* Preview back-card in light mode: use theme background so it doesn't
+   look like a dark slab peeking out. */
+[data-theme="light"] .preview-frame .pf-back,
+[data-theme="light"] .preview-frame .pf-front {
+  background: var(--preview-bg);
+  border-color: var(--preview-border);
+}
 
 /* ═══════════════════════════════════════════
    FOOTER

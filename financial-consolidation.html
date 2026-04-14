@@ -939,7 +939,137 @@ td.empty { color: transparent; }
 
   <!-- BALANCES VIEW -->
   <div class="view" id="view-balances">
-    <div class="table-section animate-in delay-1">
+
+    <!-- ========== APRIL 2026 INSIGHTS & PAYOFF STRATEGY ========== -->
+    <div class="chart-section animate-in delay-1" style="padding:0;overflow:hidden">
+      <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div>
+          <div class="chart-title" style="font-size:15px">Payoff Strategy — April 2026</div>
+          <div style="font-size:11px;color:var(--text-secondary);font-family:'JetBrains Mono',monospace;margin-top:4px">Reconciled against statements through Apr 10, 2026</div>
+        </div>
+        <div style="display:flex;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em">
+          <span style="padding:4px 10px;border-radius:4px;background:rgba(248,113,113,0.15);color:var(--accent-red);border:1px solid rgba(248,113,113,0.3)">Revolving $14,112</span>
+          <span style="padding:4px 10px;border-radius:4px;background:rgba(74,222,128,0.15);color:var(--accent-green);border:1px solid rgba(74,222,128,0.3)">Apr Δ −$608</span>
+        </div>
+      </div>
+
+      <!-- April statement updates -->
+      <div style="padding:18px 22px;border-bottom:1px solid var(--border)">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:12px">↳ April Statements Received</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+          <div style="padding:14px;background:var(--bg-input);border-radius:8px;border-left:3px solid var(--accent-green)">
+            <div style="font-size:12px;font-weight:600;margin-bottom:4px">Amazon Store Card</div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px">Synchrony · 29.49% APR · closes 4/05</div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:20px;font-weight:700;font-family:'JetBrains Mono',monospace">$2,495.32</span>
+              <span style="font-size:12px;color:var(--accent-green);font-weight:600">−$583.26</span>
+            </div>
+            <div style="font-size:10px;color:var(--text-secondary);margin-top:6px">Paid $800 · interest $54.04 · best progress this cycle</div>
+          </div>
+          <div style="padding:14px;background:var(--bg-input);border-radius:8px;border-left:3px solid var(--accent-orange)">
+            <div style="font-size:12px;font-weight:600;margin-bottom:4px">Citi Simplicity</div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px">Citi · 28.24% APR · closes 4/10</div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:20px;font-weight:700;font-family:'JetBrains Mono',monospace">$2,891.19</span>
+              <span style="font-size:12px;color:var(--accent-orange);font-weight:600">−$25.03</span>
+            </div>
+            <div style="font-size:10px;color:var(--text-secondary);margin-top:6px">Paid $93.19 · interest $68.16 · net principal −$25 (stagnant)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avalanche rank -->
+      <div style="padding:18px 22px;border-bottom:1px solid var(--border)">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:12px">↳ Avalanche Priority (highest APR first)</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(248,113,113,0.08);border-radius:6px;border-left:3px solid var(--accent-red)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-red);font-weight:700">01</span>
+            <span style="font-weight:600;font-size:13px">PayPal Cashback</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent-red)">30.99%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$53.41</span>
+            <span style="font-size:10px;color:var(--accent-green);text-align:right;font-weight:600">KILL NOW</span>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(251,146,60,0.08);border-radius:6px;border-left:3px solid var(--accent-orange)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-orange);font-weight:700">02</span>
+            <span style="font-weight:600;font-size:13px">PayPal Credit</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent-orange)">29.89%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$7.64</span>
+            <span style="font-size:10px;color:var(--accent-green);text-align:right;font-weight:600">KILL NOW</span>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(251,146,60,0.08);border-radius:6px;border-left:3px solid var(--accent-orange)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-orange);font-weight:700">03</span>
+            <span style="font-weight:600;font-size:13px">Amazon Store Card</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent-orange)">29.49%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$2,495.32</span>
+            <span style="font-size:10px;color:var(--accent-green);text-align:right;font-weight:600">ATTACK</span>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(251,146,60,0.08);border-radius:6px;border-left:3px solid var(--accent-orange)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-orange);font-weight:700">04</span>
+            <span style="font-weight:600;font-size:13px">Citi Simplicity</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent-orange)">28.24%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$2,891.19</span>
+            <span style="font-size:10px;color:var(--accent-red);text-align:right;font-weight:600">STALLED</span>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(167,139,250,0.08);border-radius:6px;border-left:3px solid var(--accent-purple)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-purple);font-weight:700">05</span>
+            <span style="font-weight:600;font-size:13px">Capital One 0623</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent-purple)">28.24%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$1,934.08</span>
+            <span style="font-size:10px;color:var(--accent-red);text-align:right;font-weight:600">FREEZE</span>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(167,139,250,0.08);border-radius:6px;border-left:3px solid var(--accent-purple)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-purple);font-weight:700">06</span>
+            <span style="font-weight:600;font-size:13px">Capital One 4540</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent-purple)">27.49%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$677.35</span>
+            <span style="font-size:10px;color:var(--accent-green);text-align:right;font-weight:600">SNOWBALL</span>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 1fr 80px 90px 70px;gap:10px;align-items:center;padding:10px 12px;background:rgba(226,232,240,0.06);border-radius:6px;border-left:3px solid var(--text-secondary)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);font-weight:700">07</span>
+            <span style="font-weight:600;font-size:13px">Apple Card</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-secondary)">25.49%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right">$5,445.70</span>
+            <span style="font-size:10px;color:var(--text-secondary);text-align:right;font-weight:600">HOLD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tactical tips -->
+      <div style="padding:18px 22px">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:12px">↳ Tactical Plays</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px">
+          <div style="padding:12px 14px;background:var(--bg-input);border-radius:6px;font-size:12px;line-height:1.55">
+            <div style="font-weight:600;color:var(--accent-green);margin-bottom:4px">① Free wins (today)</div>
+            Pay off PayPal Cashback ($53.41) and PayPal Credit ($7.64). $61.05 total clears 2 accounts and kills the 2 highest APRs off the board.
+          </div>
+          <div style="padding:12px 14px;background:var(--bg-input);border-radius:6px;font-size:12px;line-height:1.55">
+            <div style="font-weight:600;color:var(--accent-orange);margin-bottom:4px">② Keep Amazon momentum</div>
+            $800 payment in April crushed the balance by $583. One more $800 push drops it under $1,700 — then a final $1,700 wipe in June. Highest-APR priority.
+          </div>
+          <div style="padding:12px 14px;background:var(--bg-input);border-radius:6px;font-size:12px;line-height:1.55">
+            <div style="font-weight:600;color:var(--accent-red);margin-bottom:4px">③ Break the Citi stall</div>
+            Paying $93 on a $68 interest charge = $25 principal. That's a 30-year payoff. Need ≥$200/mo to make real progress. Autopay minimum is bleeding you.
+          </div>
+          <div style="padding:12px 14px;background:var(--bg-input);border-radius:6px;font-size:12px;line-height:1.55">
+            <div style="font-weight:600;color:var(--accent-red);margin-bottom:4px">④ Freeze Capital One 0623</div>
+            Balance climbed $663 last cycle ($1,271 → $1,934). Card is being used. Pull it out of the wallet until paid to zero.
+          </div>
+          <div style="padding:12px 14px;background:var(--bg-input);border-radius:6px;font-size:12px;line-height:1.55">
+            <div style="font-weight:600;color:var(--accent-purple);margin-bottom:4px">⑤ Snowball Cap One 4540</div>
+            At $677 this is the cheapest full-account kill after the PayPals. Eliminating it frees ~$16/mo interest and removes another min-payment obligation.
+          </div>
+          <div style="padding:12px 14px;background:var(--bg-input);border-radius:6px;font-size:12px;line-height:1.55">
+            <div style="font-weight:600;color:var(--text-secondary);margin-bottom:4px">⑥ Apple Card — triage last</div>
+            Biggest balance but lowest APR of the set. $119/mo interest is painful, but pay only the min until the higher-APR cards are dead. Consider a 0% BT.
+          </div>
+        </div>
+        <div style="margin-top:14px;padding:12px 14px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:6px;font-size:11px;line-height:1.6;color:var(--text-secondary)">
+          <strong style="color:var(--accent-green)">Net pulse:</strong> Revolving debt is <strong>down $608 in April so far</strong> (Amazon −$583, Citi −$25). That's a 4.3% monthly dent. Maintain this velocity and the non-Apple revolving load clears in ≈13 months. Interest drag across the stack is ≈<strong>$367/mo</strong> — every dollar of extra principal today saves ≈$0.30/yr in perpetuity.
+        </div>
+      </div>
+    </div>
+
+    <div class="table-section animate-in delay-2">
       <div class="table-header-bar">
         <div class="table-title">Credit Cards & Loan Balances</div>
         <div class="chart-controls">
