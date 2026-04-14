@@ -442,6 +442,19 @@ body::after {
 
 .preview-frame .pf-front svg { width: 100%; height: 100%; }
 
+/* Custom PNG icons inside preview frames (cards 01–07) */
+.preview-frame .pf-front .card-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark mode: mirror the icons horizontally */
+[data-theme="dark"] .preview-frame .pf-front .card-icon-img {
+  transform: scaleX(-1);
+}
+
 /* Wider previews for full-width cards */
 .card-row--single .card-preview { width: 280px; }
 .card-row--single .preview-frame { width: 260px; height: 145px; }
@@ -705,52 +718,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="245" height="138" fill="#151d2e"/>
-                  <!-- Window chrome -->
-                  <rect width="245" height="20" fill="#1c2640"/>
-                  <circle cx="12" cy="10" r="3" fill="#f87171" opacity="0.7"/>
-                  <circle cx="22" cy="10" r="3" fill="#fbbf24" opacity="0.7"/>
-                  <circle cx="32" cy="10" r="3" fill="#4ade80" opacity="0.7"/>
-                  <text x="70" y="13" font-family="Inter" font-size="5.5" fill="#94a3b8">Finance</text>
-                  <text x="115" y="13" font-family="Inter" font-size="5.5" fill="#64748b">Net Finance 19</text>
-                  <rect x="220" y="6" width="14" height="8" rx="2" fill="#2a3a5c"/>
-                  <!-- Sidebar -->
-                  <rect x="0" y="20" width="55" height="118" fill="#101828"/>
-                  <rect x="8" y="28" width="14" height="5" rx="1.5" fill="#d4a052" opacity="0.5"/>
-                  <rect x="8" y="37" width="38" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="8" y="50" font-family="Inter" font-size="4" fill="#64748b">Portfolio Value</text>
-                  <rect x="8" y="55" width="32" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <rect x="8" y="62" width="28" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <rect x="8" y="69" width="35" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <rect x="8" y="76" width="25" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <rect x="8" y="83" width="30" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <rect x="8" y="90" width="28" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <rect x="8" y="97" width="33" height="3.5" rx="1" fill="#2a3a5c"/>
-                  <!-- Main content -->
-                  <text x="65" y="37" font-family="JetBrains Mono" font-size="5" fill="#94a3b8">Balance/Position</text>
-                  <text x="65" y="52" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#e2e8f0">$1,375,478</text>
-                  <text x="65" y="62" font-family="Inter" font-size="4.5" fill="#64748b">Total Net Worth</text>
-                  <text x="135" y="62" font-family="Inter" font-size="4.5" fill="#4ade80">+2.3%</text>
-                  <!-- Chart -->
-                  <rect x="63" y="68" width="110" height="55" rx="3" fill="#0e1422"/>
-                  <polyline points="68,105 78,98 88,100 98,90 108,92 118,82 128,85 138,75 148,80 158,70 168,74" fill="none" stroke="#4ade80" stroke-width="1.5" opacity="0.8"/>
-                  <polyline points="68,108 78,104 88,106 98,96 108,100 118,92 128,94 138,86 148,90 158,82 168,85" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.5"/>
-                  <polyline points="68,110 78,107 88,109 98,100 108,104 118,96 128,98 138,92 148,96 158,88 168,92" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.4"/>
-                  <!-- Right panel -->
-                  <rect x="180" y="25" width="60" height="108" rx="3" fill="#101828"/>
-                  <text x="186" y="36" font-family="Inter" font-size="4" fill="#d4a052">Accounts/Allocate</text>
-                  <rect x="186" y="41" width="48" height="5" rx="1.5" fill="#2a3a5c"/>
-                  <rect x="186" y="50" width="40" height="3.5" rx="1" fill="#1e2d4a"/>
-                  <rect x="186" y="57" width="44" height="3.5" rx="1" fill="#1e2d4a"/>
-                  <text x="186" y="70" font-family="Inter" font-size="4" fill="#d4a052">Positions Details</text>
-                  <rect x="186" y="75" width="48" height="5" rx="1.5" fill="#2a3a5c"/>
-                  <rect x="186" y="84" width="36" height="3.5" rx="1" fill="#1e2d4a"/>
-                  <rect x="186" y="91" width="48" height="3.5" rx="1" fill="#1e2d4a"/>
-                  <text x="186" y="104" font-family="Inter" font-size="4" fill="#d4a052">Recent Transfers</text>
-                  <rect x="186" y="109" width="48" height="5" rx="1.5" fill="#2a3a5c"/>
-                  <rect x="186" y="118" width="42" height="3.5" rx="1" fill="#1e2d4a"/>
-                </svg>
+                <img src="icons/Personal finance ledger icon.png" alt="The Ledger" class="card-icon-img">
               </div>
             </div>
           </div>
@@ -778,23 +746,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="155" height="108" fill="#151d2e"/>
-                  <rect x="8" y="6" width="45" height="5" rx="1.5" fill="#2a3a5c"/>
-                  <rect x="8" y="15" width="65" height="3.5" rx="1" fill="#1e2d4a"/>
-                  <!-- Colorful bar chart -->
-                  <rect x="12" y="72" width="9" height="24" rx="2" fill="#fbbf24" opacity="0.7"/>
-                  <rect x="25" y="52" width="9" height="44" rx="2" fill="#fbbf24" opacity="0.6"/>
-                  <rect x="38" y="60" width="9" height="36" rx="2" fill="#fbbf24" opacity="0.7"/>
-                  <rect x="51" y="38" width="9" height="58" rx="2" fill="#d4a052" opacity="0.7"/>
-                  <rect x="64" y="48" width="9" height="48" rx="2" fill="#fbbf24" opacity="0.6"/>
-                  <rect x="77" y="68" width="9" height="28" rx="2" fill="#fbbf24" opacity="0.7"/>
-                  <rect x="90" y="42" width="9" height="54" rx="2" fill="#fbbf24" opacity="0.6"/>
-                  <rect x="103" y="56" width="9" height="40" rx="2" fill="#fbbf24" opacity="0.7"/>
-                  <rect x="116" y="32" width="9" height="64" rx="2" fill="#4ade80" opacity="0.6"/>
-                  <rect x="129" y="50" width="9" height="46" rx="2" fill="#fbbf24" opacity="0.7"/>
-                  <line x1="10" y1="96" x2="142" y2="96" stroke="#2a3a5c" stroke-width="0.5"/>
-                </svg>
+                <img src="icons/Playlist tracker and music chart details.png" alt="Playlist Tracker" class="card-icon-img">
               </div>
             </div>
           </div>
@@ -810,27 +762,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="155" height="108" fill="#151d2e"/>
-                  <text x="8" y="14" font-family="JetBrains Mono" font-size="5" fill="#94a3b8">CoolDomainName</text>
-                  <!-- List rows with colored indicators -->
-                  <rect x="8" y="22" width="138" height="15" rx="3" fill="#1c2640"/>
-                  <rect x="12" y="25" width="5" height="9" rx="1" fill="#fbbf24" opacity="0.8"/>
-                  <rect x="22" y="27" width="50" height="4" rx="1" fill="#2a3a5c"/>
-                  <rect x="100" y="26" width="40" height="6" rx="1.5" fill="#4ade80" opacity="0.2"/>
-                  <rect x="8" y="40" width="138" height="15" rx="3" fill="#1c2640"/>
-                  <rect x="12" y="43" width="5" height="9" rx="1" fill="#f97316" opacity="0.8"/>
-                  <rect x="22" y="45" width="60" height="4" rx="1" fill="#2a3a5c"/>
-                  <rect x="105" y="44" width="35" height="6" rx="1.5" fill="#60a5fa" opacity="0.2"/>
-                  <rect x="8" y="58" width="138" height="15" rx="3" fill="#1c2640"/>
-                  <rect x="12" y="61" width="5" height="9" rx="1" fill="#60a5fa" opacity="0.8"/>
-                  <rect x="22" y="63" width="45" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="68" font-family="Inter" font-size="4" fill="#60a5fa" opacity="0.6">Xantos Gate V</text>
-                  <rect x="8" y="76" width="138" height="15" rx="3" fill="#1c2640"/>
-                  <rect x="12" y="79" width="5" height="9" rx="1" fill="#a78bfa" opacity="0.8"/>
-                  <rect x="22" y="81" width="55" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="86" font-family="Inter" font-size="4" fill="#a78bfa" opacity="0.6">David Erden</text>
-                </svg>
+                <img src="icons/Digital ecosystem task and refresh tools.png" alt="Digital Ecosystem Refresh" class="card-icon-img">
               </div>
             </div>
           </div>
@@ -858,30 +790,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="155" height="108" fill="#151d2e"/>
-                  <!-- Data table rows -->
-                  <rect x="6" y="6" width="22" height="7" rx="2" fill="#4ade80" opacity="0.2"/>
-                  <text x="9" y="12" font-family="Inter" font-size="4" fill="#4ade80" opacity="0.7">Extra 45,640</text>
-                  <rect x="34" y="6" width="20" height="7" rx="2" fill="#60a5fa" opacity="0.2"/>
-                  <text x="37" y="12" font-family="Inter" font-size="4" fill="#60a5fa" opacity="0.7">P 7,100</text>
-                  <line x1="6" y1="18" x2="148" y2="18" stroke="#2a3a5c" stroke-width="0.5"/>
-                  <text x="6" y="28" font-family="Inter" font-size="4.5" fill="#94a3b8">1,573 conversations across</text>
-                  <text x="6" y="36" font-family="Inter" font-size="4.5" fill="#94a3b8">ChatGPT &amp; Claude — skills,</text>
-                  <text x="6" y="44" font-family="Inter" font-size="4.5" fill="#94a3b8">patterns, warnings, and a merged diagnosis.</text>
-                  <text x="100" y="36" font-family="JetBrains Mono" font-size="5" fill="#4ade80" opacity="0.7">$7,035</text>
-                  <line x1="6" y1="50" x2="148" y2="50" stroke="#2a3a5c" stroke-width="0.5"/>
-                  <!-- Stats rows -->
-                  <rect x="6" y="56" width="65" height="4" rx="1" fill="#1e2d4a"/>
-                  <text x="90" y="60" font-family="JetBrains Mono" font-size="5" fill="#d4a052" opacity="0.7">$&nbsp;30.7%</text>
-                  <rect x="6" y="66" width="55" height="4" rx="1" fill="#1e2d4a"/>
-                  <text x="90" y="70" font-family="JetBrains Mono" font-size="5" fill="#d4a052" opacity="0.7">$&nbsp;20.5%</text>
-                  <line x1="6" y1="78" x2="148" y2="78" stroke="#2a3a5c" stroke-width="0.5"/>
-                  <rect x="6" y="84" width="50" height="4" rx="1" fill="#1e2d4a"/>
-                  <rect x="6" y="94" width="45" height="4" rx="1" fill="#1e2d4a"/>
-                  <text x="90" y="88" font-family="JetBrains Mono" font-size="5" fill="#4ade80" opacity="0.6">15 1M &#9660;</text>
-                  <text x="90" y="98" font-family="JetBrains Mono" font-size="5" fill="#4ade80" opacity="0.6">30.0T 30 ME &#9660;</text>
-                </svg>
+                <img src="icons/AI powered conversation and analysis.png" alt="AI Intelligence" class="card-icon-img">
               </div>
             </div>
           </div>
@@ -897,18 +806,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="155" height="108" fill="#151d2e"/>
-                  <!-- Large blue swatch -->
-                  <rect x="12" y="10" width="130" height="72" rx="8" fill="#5580cc" opacity="0.35"/>
-                  <text x="77" y="54" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="500" fill="#82aaee" opacity="0.9">#6996ff</text>
-                  <!-- Small color swatches -->
-                  <rect x="18" y="90" width="16" height="10" rx="2.5" fill="#f87171" opacity="0.6"/>
-                  <rect x="40" y="90" width="16" height="10" rx="2.5" fill="#fbbf24" opacity="0.6"/>
-                  <rect x="62" y="90" width="16" height="10" rx="2.5" fill="#4ade80" opacity="0.6"/>
-                  <rect x="84" y="90" width="16" height="10" rx="2.5" fill="#6996ff" opacity="0.6"/>
-                  <rect x="106" y="90" width="16" height="10" rx="2.5" fill="#a78bfa" opacity="0.6"/>
-                </svg>
+                <img src="icons/Color system with swatches and magnifier.png" alt="The Color Bible" class="card-icon-img">
               </div>
             </div>
           </div>
@@ -936,28 +834,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="155" height="108" fill="#151d2e"/>
-                  <!-- Tab bar -->
-                  <rect width="155" height="16" fill="#1c2640"/>
-                  <rect x="6" y="3" width="28" height="10" rx="2" fill="#fbbf24" opacity="0.35"/>
-                  <text x="10" y="10" font-family="Inter" font-size="4" fill="#fbbf24" opacity="0.8">FILMVIDA</text>
-                  <!-- Content -->
-                  <text x="10" y="28" font-family="Inter" font-size="5" fill="#94a3b8">V.03</text>
-                  <!-- Document panel right -->
-                  <rect x="82" y="20" width="65" height="80" rx="3" fill="#1c2640" stroke="#2a3a5c" stroke-width="0.5"/>
-                  <rect x="88" y="28" width="50" height="4" rx="1" fill="#2a3a5c"/>
-                  <rect x="88" y="36" width="40" height="3" rx="1" fill="#1e2d4a"/>
-                  <rect x="88" y="43" width="45" height="3" rx="1" fill="#1e2d4a"/>
-                  <rect x="88" y="50" width="35" height="3" rx="1" fill="#1e2d4a"/>
-                  <!-- Avatar/profile icons -->
-                  <circle cx="20" cy="68" r="7" fill="#60a5fa" opacity="0.2"/>
-                  <text x="17" y="71" font-family="Inter" font-size="6" fill="#60a5fa" opacity="0.6">D</text>
-                  <circle cx="38" cy="68" r="7" fill="#4ade80" opacity="0.2"/>
-                  <text x="34" y="71" font-family="Inter" font-size="6" fill="#4ade80" opacity="0.6">Sm</text>
-                  <rect x="10" y="82" width="55" height="3" rx="1" fill="#1e2d4a"/>
-                  <rect x="10" y="89" width="42" height="3" rx="1" fill="#1e2d4a"/>
-                </svg>
+                <img src="icons/Film production tools and symbols.png" alt="Screenwriting &amp; Film Production" class="card-icon-img">
               </div>
             </div>
           </div>
@@ -973,42 +850,7 @@ body::after {
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 155 108" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="155" height="108" fill="#151d2e"/>
-                  <text x="8" y="13" font-family="Inter" font-size="5" fill="#94a3b8">Blindspot | Blueprint v4.0</text>
-                  <!-- Checklist rows -->
-                  <rect x="8" y="20" width="10" height="10" rx="2" fill="none" stroke="#2a3a5c" stroke-width="0.8"/>
-                  <path d="M10 25 L13 28 L17 22" stroke="#4ade80" stroke-width="1" fill="none" opacity="0.7"/>
-                  <rect x="22" y="22" width="55" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="27" font-family="JetBrains Mono" font-size="4.5" fill="#94a3b8" text-anchor="end">28%</text>
-                  <rect x="115" y="22" width="30" height="5" rx="1.5" fill="#1c2640"/>
-                  <rect x="115" y="22" width="8" height="5" rx="1.5" fill="#fbbf24" opacity="0.6"/>
-
-                  <rect x="8" y="36" width="10" height="10" rx="2" fill="none" stroke="#2a3a5c" stroke-width="0.8"/>
-                  <path d="M10 41 L13 44 L17 38" stroke="#4ade80" stroke-width="1" fill="none" opacity="0.7"/>
-                  <rect x="22" y="38" width="60" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="43" font-family="JetBrains Mono" font-size="4.5" fill="#94a3b8" text-anchor="end">65%</text>
-                  <rect x="115" y="38" width="30" height="5" rx="1.5" fill="#1c2640"/>
-                  <rect x="115" y="38" width="19" height="5" rx="1.5" fill="#4ade80" opacity="0.6"/>
-
-                  <rect x="8" y="52" width="10" height="10" rx="2" fill="none" stroke="#2a3a5c" stroke-width="0.8"/>
-                  <rect x="22" y="54" width="50" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="59" font-family="JetBrains Mono" font-size="4.5" fill="#94a3b8" text-anchor="end">42%</text>
-                  <rect x="115" y="54" width="30" height="5" rx="1.5" fill="#1c2640"/>
-                  <rect x="115" y="54" width="13" height="5" rx="1.5" fill="#60a5fa" opacity="0.6"/>
-
-                  <rect x="8" y="68" width="10" height="10" rx="2" fill="none" stroke="#2a3a5c" stroke-width="0.8"/>
-                  <path d="M10 73 L13 76 L17 70" stroke="#4ade80" stroke-width="1" fill="none" opacity="0.7"/>
-                  <rect x="22" y="70" width="58" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="75" font-family="JetBrains Mono" font-size="4.5" fill="#94a3b8" text-anchor="end">100%</text>
-                  <rect x="115" y="70" width="30" height="5" rx="1.5" fill="#4ade80" opacity="0.4"/>
-
-                  <rect x="8" y="84" width="10" height="10" rx="2" fill="none" stroke="#2a3a5c" stroke-width="0.8"/>
-                  <rect x="22" y="86" width="52" height="4" rx="1" fill="#2a3a5c"/>
-                  <text x="110" y="91" font-family="JetBrains Mono" font-size="4.5" fill="#94a3b8" text-anchor="end">18 Off Checkmarks</text>
-                  <rect x="115" y="86" width="30" height="5" rx="1.5" fill="#1c2640"/>
-                  <rect x="115" y="86" width="5" height="5" rx="1.5" fill="#f87171" opacity="0.6"/>
-                </svg>
+                <img src="icons/The Blindspot Binder icon design.png" alt="The Blindspot Binder" class="card-icon-img">
               </div>
             </div>
           </div>
