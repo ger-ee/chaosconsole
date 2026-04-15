@@ -435,13 +435,14 @@ body::after {
    CARD STATUS-PILL ROW
    ═══════════════════════════════════════════ */
 .card-desc { flex-grow: 0; }
-.card-content .card-footer { margin-top: auto; }
+.card-content .card-footer { display: none; }
 
 .card-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.32rem;
-  margin-top: 0.55rem;
+  margin-top: auto;
+  padding-top: 0.55rem;
   position: relative;
   z-index: 1;
 }
@@ -515,7 +516,8 @@ body::after {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.55rem;
-  margin-top: 0.7rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
   position: relative;
   z-index: 1;
 }
