@@ -42,6 +42,16 @@
   --toggle-border: rgba(55, 75, 115, 0.5);
   --mountain-opacity: 0.55;
   --wave-color: #1a2845;
+  --pill-bg: rgba(30, 42, 70, 0.55);
+  --pill-border: rgba(80, 105, 150, 0.38);
+  --pill-bg-hover: rgba(42, 58, 96, 0.8);
+  --pill-border-hover: rgba(120, 150, 200, 0.55);
+  --pill-text: #c4cfe0;
+  --pill-icon-muted: #7a8ca8;
+  --chart-grid: #1e2b47;
+  --chart-axis: #3a4d70;
+  --chart-label: #6b7e9e;
+  --sparkle: #d4a052;
 }
 
 /* ═══════════════════════════════════════════
@@ -77,6 +87,16 @@
   --toggle-border: rgba(190, 198, 215, 0.6);
   --mountain-opacity: 0;
   --wave-color: transparent;
+  --pill-bg: rgba(255, 255, 255, 0.78);
+  --pill-border: rgba(150, 165, 195, 0.45);
+  --pill-bg-hover: rgba(255, 255, 255, 0.95);
+  --pill-border-hover: rgba(100, 120, 160, 0.6);
+  --pill-text: #4a5168;
+  --pill-icon-muted: #8b95ad;
+  --chart-grid: #e2e8f0;
+  --chart-axis: #94a3b8;
+  --chart-label: #64748b;
+  --sparkle: #c4a265;
 }
 
 /* ═══════════════════════════════════════════
@@ -180,13 +200,27 @@ body::after {
 .masthead-meta {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  gap: 0.55rem;
+  margin-bottom: 0.65rem;
+  padding: 0.38rem 0.8rem;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--text-secondary);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
+
+.masthead-meta .cal-ico {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gold);
+}
+
+.masthead-meta .cal-ico svg { width: 11px; height: 11px; }
 
 .masthead-meta .sep-dot {
   color: var(--text-muted);
@@ -398,6 +432,170 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
+   CARD STATUS-PILL ROW
+   ═══════════════════════════════════════════ */
+.card-desc { flex-grow: 0; }
+.card-content .card-footer { margin-top: auto; }
+
+.card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+  margin-top: 0.55rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.26rem 0.55rem 0.26rem 0.5rem;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  color: var(--pill-text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.card-pill svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  stroke-width: 1.6;
+}
+
+.card:hover .card-pill {
+  background: var(--pill-bg-hover);
+  border-color: var(--pill-border-hover);
+}
+
+/* Color variants for pill icons */
+.pill-ic-blue   { color: #60a5fa; }
+.pill-ic-green  { color: #4ade80; }
+.pill-ic-amber  { color: #fbbf24; }
+.pill-ic-violet { color: #a78bfa; }
+.pill-ic-pink   { color: #f472b6; }
+.pill-ic-red    { color: #f87171; }
+.pill-ic-cyan   { color: #22d3ee; }
+[data-theme="light"] .pill-ic-blue   { color: #2563eb; }
+[data-theme="light"] .pill-ic-green  { color: #16a34a; }
+[data-theme="light"] .pill-ic-amber  { color: #d97706; }
+[data-theme="light"] .pill-ic-violet { color: #7c3aed; }
+[data-theme="light"] .pill-ic-pink   { color: #db2777; }
+[data-theme="light"] .pill-ic-red    { color: #dc2626; }
+[data-theme="light"] .pill-ic-cyan   { color: #0891b2; }
+
+/* Dot-style pill for Color Bible */
+.card-pill--dot {
+  padding: 0.3rem 0.42rem;
+  gap: 0.28rem;
+}
+.card-pill--dot .dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 1px 3px rgba(0,0,0,0.35);
+}
+[data-theme="light"] .card-pill--dot .dot {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 1px 3px rgba(80,95,130,0.2);
+}
+
+/* ═══════════════════════════════════════════
+   WELLNESS STAT BOXES
+   ═══════════════════════════════════════════ */
+.wellness-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wellness-stat {
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  border-radius: 7px;
+  padding: 0.55rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  transition: background 0.25s, border-color 0.25s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.card:hover .wellness-stat {
+  background: var(--pill-bg-hover);
+  border-color: var(--pill-border-hover);
+}
+
+.wellness-stat .ws-icon {
+  font-size: 0.62rem;
+  line-height: 1;
+  margin-bottom: 0.15rem;
+  opacity: 0.85;
+}
+
+.wellness-stat .ws-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.wellness-stat .ws-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.18rem;
+}
+
+/* ═══════════════════════════════════════════
+   MASTHEAD TITLE SPARKLES
+   ═══════════════════════════════════════════ */
+.masthead h1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.masthead h1 .title-sparkle {
+  color: var(--sparkle);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.38em;
+  font-weight: 400;
+  opacity: 0.78;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: translateY(-0.25em);
+}
+
+.masthead h1 .title-sparkle svg {
+  width: 0.85em; height: 0.85em;
+}
+
+/* ═══════════════════════════════════════════
    PREVIEW FRAMES
    ═══════════════════════════════════════════ */
 .card-preview {
@@ -458,17 +656,16 @@ body::after {
 [data-theme="light"] .preview-frame .pf-front .card-icon-svg { display: none; }
 [data-theme="dark"]  .preview-frame .pf-front .card-icon-img { display: none; }
 
+/* Wellness chart — dual inline SVGs, one per theme. */
+.wellness-chart { width: 100%; height: 100%; display: block; }
+[data-theme="light"] .wellness-chart--dark { display: none; }
+[data-theme="dark"]  .wellness-chart--light { display: none; }
+
 /* Wider previews for full-width cards */
 .card-row--single .card-preview { width: 280px; }
 .card-row--single .preview-frame { width: 260px; height: 145px; }
 .card-row--single .pf-back { width: 230px; height: 125px; }
 .card-row--single .pf-front { width: 245px; height: 138px; }
-
-/* Light mode: invert the hard-coded dark SVG previews so they match the theme.
-   invert(1) flips luminance, hue-rotate(180deg) restores hue so colored
-   chart lines/bars still read correctly. */
-[data-theme="light"] .pf-front svg,
-[data-theme="light"] .pf-back svg { filter: invert(0.92) hue-rotate(180deg); }
 
 /* Preview back-card in light mode: use theme background so it doesn't
    look like a dark slab peeking out. */
@@ -679,12 +876,17 @@ body::after {
   <!-- ═══ MASTHEAD ═══ -->
   <header class="masthead">
     <div class="masthead-meta">
+      <span class="cal-ico" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="10" height="9" rx="1.5"/><path d="M2 6h10"/><path d="M5 2v2"/><path d="M9 2v2"/></svg></span>
       <span id="currentDate"></span>
       <span class="sep-dot">&bull;</span>
       <span>7 Tools</span>
       <span class="moon">&#127769;</span>
     </div>
-    <h1>Chaos Console</h1>
+    <h1>
+      <span class="title-sparkle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z"/><circle cx="19" cy="4" r="1.1"/><circle cx="5" cy="19" r="0.9"/></svg></span>
+      <span class="title-text">Chaos Console</span>
+      <span class="title-sparkle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z"/><circle cx="5" cy="4" r="1.1"/><circle cx="19" cy="19" r="0.9"/></svg></span>
+    </h1>
     <p class="tagline">Personal data dashboard &mdash; one-stop shop.</p>
   </header>
 
@@ -715,6 +917,12 @@ body::after {
             <div class="card-number">01</div>
             <div class="card-title">The Ledger</div>
             <p class="card-desc">Personal finance dashboard. All accounts, debt payoff tracking, interest rates, and net worth in one view.</p>
+            <div class="card-pills">
+              <span class="card-pill"><svg class="pill-ic-amber" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="2.5" width="9" height="7" rx="1.2"/><path d="M1.5 5.2h9"/></svg>All Accounts</span>
+              <span class="card-pill"><svg class="pill-ic-red" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.8 8.5l2.3-2.3 1.8 1.8 4.3-4.3"/><path d="M8.2 3.7h2v2"/></svg>Debt Tracking</span>
+              <span class="card-pill"><svg class="pill-ic-green" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 9.5l3-3 2 2 4-4"/><path d="M7.5 4.5h3v3"/></svg>Net Worth</span>
+              <span class="card-pill"><svg class="pill-ic-violet" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="4.3"/><path d="M6 3.5v2.5l1.6 1"/></svg>Interest Rates</span>
+            </div>
             <div class="card-footer"><span class="card-tag">Finance</span></div>
           </div>
           <div class="card-preview">
@@ -782,6 +990,11 @@ body::after {
             <div class="card-number">02</div>
             <div class="card-title">Playlist Tracker</div>
             <p class="card-desc">15 playlists tracked since Apr 2024. Growth trends, heatmaps, and data analysis across your Spotify library.</p>
+            <div class="card-pills">
+              <span class="card-pill"><svg class="pill-ic-green" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="4.3"/><path d="M3.4 4.7c1.7-.4 3.5-.2 5.2.4"/><path d="M3.7 6.6c1.3-.3 2.8-.1 4.2.4"/><path d="M4 8.4c1-.2 2.1-.1 3.1.3"/></svg>15 Playlists</span>
+              <span class="card-pill"><svg class="pill-ic-blue" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 9l2-2.5L5.5 8 8 4.8l2.5 2"/><path d="M8 4.8h2.5V2.3"/></svg>Growth Trends</span>
+              <span class="card-pill"><svg class="pill-ic-pink" viewBox="0 0 12 12" fill="none" stroke="currentColor"><rect x="1.5" y="1.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.85"/><rect x="4.5" y="1.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.55"/><rect x="7.5" y="1.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.3"/><rect x="1.5" y="4.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.5"/><rect x="4.5" y="4.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.9"/><rect x="7.5" y="4.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.6"/><rect x="1.5" y="7.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.35"/><rect x="4.5" y="7.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.7"/><rect x="7.5" y="7.5" width="2.3" height="2.3" rx="0.3" fill="currentColor" opacity="0.45"/></svg>Heatmaps</span>
+            </div>
             <div class="card-footer"><span class="card-tag">Music</span></div>
           </div>
           <div class="card-preview">
@@ -841,6 +1054,11 @@ body::after {
             <div class="card-number">03</div>
             <div class="card-title">Digital Ecosystem Refresh</div>
             <p class="card-desc">V10 &mdash; Systems maintenance guide. File organization, cleanup status, and upkeep workflows.</p>
+            <div class="card-pills">
+              <span class="card-pill"><svg class="pill-ic-green" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.2l2.5 2.5L10 3.4"/></svg>Cleanup</span>
+              <span class="card-pill"><svg class="pill-ic-blue" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4V2.8a.8.8 0 0 1 .8-.8h2.7l1 1.2h4.7a.8.8 0 0 1 .8.8V9a.8.8 0 0 1-.8.8H2.3a.8.8 0 0 1-.8-.8V4z"/></svg>Organize</span>
+              <span class="card-pill"><svg class="pill-ic-violet" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.2 5.8a4.2 4.2 0 1 1-1.1-2.8"/><path d="M10.3 1.8v2.5H7.8"/></svg>Backups</span>
+            </div>
             <div class="card-footer"><span class="card-tag">Reference</span></div>
           </div>
           <div class="card-preview">
@@ -921,6 +1139,11 @@ body::after {
             <div class="card-number">04</div>
             <div class="card-title">AI Intelligence</div>
             <p class="card-desc">1,573 conversations across ChatGPT &amp; Claude &mdash; patterns, warnings, and a merged diagnosis.</p>
+            <div class="card-pills">
+              <span class="card-pill"><svg class="pill-ic-blue" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1H5.2L3.2 9.8V8H3a1 1 0 0 1-1-1V3.5z"/></svg>1,573 Chats</span>
+              <span class="card-pill"><svg class="pill-ic-violet" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="3" cy="3" r="1.3"/><circle cx="9" cy="3" r="1.3"/><circle cx="6" cy="9" r="1.3"/><path d="M3.8 4l1.8 4"/><path d="M8.2 4L6.4 8"/><path d="M4 3h4"/></svg>Patterns</span>
+              <span class="card-pill"><svg class="pill-ic-amber" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1.8L10.8 10H1.2L6 1.8z"/><path d="M6 5v2.2"/><circle cx="6" cy="8.8" r="0.4" fill="currentColor" stroke="none"/></svg>Warnings</span>
+            </div>
             <div class="card-footer"><span class="card-tag">Analysis</span></div>
           </div>
           <div class="card-preview">
@@ -995,6 +1218,13 @@ body::after {
             <div class="card-number">05</div>
             <div class="card-title">The Color Bible</div>
             <p class="card-desc">Universal 5-color system for your entire digital life. One color, one meaning, everywhere.</p>
+            <div class="card-pills">
+              <span class="card-pill card-pill--dot"><span class="dot" style="background:#f87171"></span></span>
+              <span class="card-pill card-pill--dot"><span class="dot" style="background:#fbbf24"></span></span>
+              <span class="card-pill card-pill--dot"><span class="dot" style="background:#4ade80"></span></span>
+              <span class="card-pill card-pill--dot"><span class="dot" style="background:#60a5fa"></span></span>
+              <span class="card-pill card-pill--dot"><span class="dot" style="background:#a78bfa"></span></span>
+            </div>
             <div class="card-footer"><span class="card-tag">System</span></div>
           </div>
           <div class="card-preview">
@@ -1062,6 +1292,11 @@ body::after {
             <div class="card-number">06</div>
             <div class="card-title">Screenwriting &amp; Film Production</div>
             <p class="card-desc">Complete 8-phase study guide &mdash; from blank page to final cut.</p>
+            <div class="card-pills">
+              <span class="card-pill"><svg class="pill-ic-amber" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="4.3"/><path d="M6 6l2.2-1.5"/><path d="M6 1.7v1"/></svg>8 Phases</span>
+              <span class="card-pill"><svg class="pill-ic-blue" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3a1 1 0 0 1 1-1h3.5l1 1H9a1 1 0 0 1 1 1v5.2a.8.8 0 0 1-.8.8H2.8a.8.8 0 0 1-.8-.8V3z"/><path d="M4 5.5h4"/><path d="M4 7.3h3"/></svg>Study Guide</span>
+              <span class="card-pill"><svg class="pill-ic-violet" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.8 6h8.4"/><path d="M7.5 3.5L10.2 6 7.5 8.5"/></svg>From Idea → Cut</span>
+            </div>
             <div class="card-footer"><span class="card-tag">Study Guide</span></div>
           </div>
           <div class="card-preview">
@@ -1140,6 +1375,11 @@ body::after {
             <div class="card-number">07</div>
             <div class="card-title">The Blindspot Binder</div>
             <p class="card-desc">14-chapter YouTube channel operating manual &mdash; positioning, production standards, legal.</p>
+            <div class="card-pills">
+              <span class="card-pill"><svg class="pill-ic-violet" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 2h5.5l2.1 2.1v5.7a.8.8 0 0 1-.8.8H2.2a.8.8 0 0 1-.8-.8V2.8a.8.8 0 0 1 .8-.8z"/><path d="M7.7 2v2.2h2.1"/><path d="M3.5 6.5h4.5"/><path d="M3.5 8h3.2"/></svg>14 Chapters</span>
+              <span class="card-pill"><svg class="pill-ic-red" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="1.3" y="3" width="9.4" height="6" rx="1.6"/><path d="M5 4.8v2.4l2.2-1.2z" fill="currentColor" stroke="none"/></svg>YouTube</span>
+              <span class="card-pill"><svg class="pill-ic-amber" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.5h5.5a1.5 1.5 0 0 1 1.5 1.5v6L6 8 3 10V4a1.5 1.5 0 0 1 1.5-1.5"/></svg>Playbook</span>
+            </div>
             <div class="card-footer"><span class="card-tag">Playbook</span></div>
           </div>
           <div class="card-preview">
@@ -1226,45 +1466,136 @@ body::after {
             <div class="card-number">08</div>
             <div class="card-title">Wellness Analysis</div>
             <p class="card-desc">188 days of HRV tracker data &mdash; heart rate corridors, sleep architecture, HRV recovery trends, and daily step tracking.</p>
+            <div class="wellness-stats">
+              <div class="wellness-stat">
+                <div class="ws-icon">&#128202;</div>
+                <div class="ws-value">188</div>
+                <div class="ws-label">Days Tracked</div>
+              </div>
+              <div class="wellness-stat">
+                <div class="ws-icon">&#128147;</div>
+                <div class="ws-value">62</div>
+                <div class="ws-label">Avg HRV</div>
+              </div>
+              <div class="wellness-stat">
+                <div class="ws-icon">&#128164;</div>
+                <div class="ws-value">7h 23m</div>
+                <div class="ws-label">Avg Sleep</div>
+              </div>
+              <div class="wellness-stat">
+                <div class="ws-icon">&#128694;</div>
+                <div class="ws-value">8,142</div>
+                <div class="ws-label">Avg Steps</div>
+              </div>
+            </div>
             <div class="card-footer"><span class="card-tag">Health</span></div>
           </div>
           <div class="card-preview">
             <div class="preview-frame">
               <div class="pf-back"></div>
               <div class="pf-front">
-                <svg viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="245" height="138" fill="#151d2e"/>
-                  <text x="10" y="14" font-family="Inter" font-size="5" fill="#94a3b8">Parameters · Recovery Analysis</text>
-                  <line x1="8" y1="18" x2="235" y2="18" stroke="#2a3a5c" stroke-width="0.5"/>
-                  <!-- Multi-line chart -->
-                  <rect x="10" y="22" width="225" height="55" rx="3" fill="#0e1422"/>
-                  <polyline points="15,55 30,50 45,52 60,42 75,46 90,35 105,40 120,30 135,36 150,28 165,34 180,26 195,32 210,24 225,30" fill="none" stroke="#60a5fa" stroke-width="1.2" opacity="0.6"/>
-                  <polyline points="15,60 30,56 45,58 60,48 75,52 90,42 105,46 120,36 135,42 150,35 165,40 180,32 195,38 210,30 225,36" fill="none" stroke="#4ade80" stroke-width="1.2" opacity="0.6"/>
-                  <polyline points="15,64 30,60 45,62 60,53 75,56 90,48 105,52 120,42 135,48 150,42 165,46 180,38 195,44 210,36 225,42" fill="none" stroke="#f472b6" stroke-width="0.8" opacity="0.4"/>
-                  <!-- Bar chart -->
-                  <rect x="15" y="86" width="9" height="32" rx="2" fill="#60a5fa" opacity="0.3"/>
-                  <rect x="29" y="94" width="9" height="24" rx="2" fill="#60a5fa" opacity="0.25"/>
-                  <rect x="43" y="88" width="9" height="30" rx="2" fill="#4ade80" opacity="0.3"/>
-                  <rect x="57" y="82" width="9" height="36" rx="2" fill="#4ade80" opacity="0.35"/>
-                  <rect x="71" y="92" width="9" height="26" rx="2" fill="#60a5fa" opacity="0.25"/>
-                  <rect x="85" y="86" width="9" height="32" rx="2" fill="#60a5fa" opacity="0.3"/>
-                  <rect x="99" y="96" width="9" height="22" rx="2" fill="#fbbf24" opacity="0.25"/>
-                  <rect x="113" y="90" width="9" height="28" rx="2" fill="#4ade80" opacity="0.3"/>
-                  <rect x="127" y="84" width="9" height="34" rx="2" fill="#4ade80" opacity="0.35"/>
-                  <rect x="141" y="92" width="9" height="26" rx="2" fill="#60a5fa" opacity="0.25"/>
-                  <rect x="155" y="88" width="9" height="30" rx="2" fill="#60a5fa" opacity="0.3"/>
-                  <rect x="169" y="82" width="9" height="36" rx="2" fill="#4ade80" opacity="0.35"/>
-                  <rect x="183" y="94" width="9" height="24" rx="2" fill="#fbbf24" opacity="0.25"/>
-                  <rect x="197" y="90" width="9" height="28" rx="2" fill="#60a5fa" opacity="0.3"/>
-                  <rect x="211" y="86" width="9" height="32" rx="2" fill="#4ade80" opacity="0.3"/>
-                  <line x1="12" y1="118" x2="225" y2="118" stroke="#2a3a5c" stroke-width="0.5"/>
+                <!-- DARK THEME CHART -->
+                <svg class="wellness-chart wellness-chart--dark" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="wcdbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141d30"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="wcdline1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#f472b6" stop-opacity="0.2"/></linearGradient>
+                    <linearGradient id="wcdarea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa" stop-opacity="0.25"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#wcdbg)"/>
+                  <!-- Header -->
+                  <text x="12" y="15" font-family="Inter" font-size="7" font-weight="700" fill="#e8ecf4">Heart Rate Variability (HRV)</text>
+                  <text x="225" y="15" text-anchor="end" font-family="JetBrains Mono" font-size="5" fill="#6b7e9e">188d</text>
+                  <line x1="10" y1="20" x2="235" y2="20" stroke="#233452" stroke-width="0.5"/>
+                  <!-- Chart body -->
+                  <rect x="12" y="24" width="221" height="80" rx="3" fill="#0a1020"/>
+                  <!-- Horizontal grid -->
+                  <line x1="18" y1="36" x2="230" y2="36" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="18" y1="52" x2="230" y2="52" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="18" y1="68" x2="230" y2="68" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="18" y1="84" x2="230" y2="84" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <!-- Axis labels (y) -->
+                  <text x="16" y="38" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#4f6485">90</text>
+                  <text x="16" y="54" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#4f6485">70</text>
+                  <text x="16" y="70" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#4f6485">50</text>
+                  <text x="16" y="86" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#4f6485">30</text>
+                  <!-- HR area (blue band) -->
+                  <path d="M20 66 L34 62 L48 64 L62 54 L76 58 L90 48 L104 52 L118 42 L132 46 L146 38 L160 42 L174 36 L188 40 L202 32 L216 36 L230 34 L230 94 L20 94 Z" fill="url(#wcdarea)"/>
+                  <polyline points="20,66 34,62 48,64 62,54 76,58 90,48 104,52 118,42 132,46 146,38 160,42 174,36 188,40 202,32 216,36 230,34" fill="none" stroke="#60a5fa" stroke-width="1.4" stroke-linejoin="round"/>
+                  <!-- Sleep line (violet) -->
+                  <polyline points="20,72 34,70 48,74 62,62 76,68 90,58 104,64 118,50 132,58 146,48 160,54 174,44 188,52 202,42 216,48 230,44" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-linejoin="round" opacity="0.85"/>
+                  <!-- Recovery line (green) -->
+                  <polyline points="20,78 34,76 48,80 62,68 76,74 90,64 104,70 118,56 132,66 146,54 160,60 174,50 188,58 202,48 216,54 230,50" fill="none" stroke="#4ade80" stroke-width="1.2" stroke-linejoin="round" opacity="0.85"/>
+                  <!-- Steps dotted (amber) -->
+                  <polyline points="20,84 34,82 48,86 62,74 76,80 90,70 104,76 118,62 132,70 146,60 160,66 174,56 188,64 202,54 216,60 230,56" fill="none" stroke="#fbbf24" stroke-width="1" stroke-linejoin="round" opacity="0.75" stroke-dasharray="2 1.5"/>
+                  <!-- X-axis labels -->
+                  <line x1="12" y1="104" x2="233" y2="104" stroke="#233452" stroke-width="0.5"/>
+                  <text x="24" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#4f6485">Oct</text>
+                  <text x="68" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#4f6485">Nov</text>
+                  <text x="112" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#4f6485">Dec</text>
+                  <text x="156" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#4f6485">Jan</text>
+                  <text x="198" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#4f6485">Feb</text>
                   <!-- Legend -->
-                  <circle cx="30" cy="128" r="3" fill="#60a5fa" opacity="0.5"/>
-                  <text x="36" y="130" font-family="Inter" font-size="4" fill="#64748b">HR</text>
-                  <circle cx="60" cy="128" r="3" fill="#4ade80" opacity="0.5"/>
-                  <text x="66" y="130" font-family="Inter" font-size="4" fill="#64748b">HRV</text>
-                  <circle cx="95" cy="128" r="3" fill="#fbbf24" opacity="0.5"/>
-                  <text x="101" y="130" font-family="Inter" font-size="4" fill="#64748b">Steps</text>
+                  <g font-family="Inter" font-size="4.2" font-weight="600">
+                    <circle cx="24" cy="125" r="2" fill="#60a5fa"/>
+                    <text x="30" y="127" fill="#8ea4c4">HR</text>
+                    <circle cx="62" cy="125" r="2" fill="#a78bfa"/>
+                    <text x="68" y="127" fill="#8ea4c4">Sleep</text>
+                    <circle cx="110" cy="125" r="2" fill="#4ade80"/>
+                    <text x="116" y="127" fill="#8ea4c4">Recovery</text>
+                    <circle cx="168" cy="125" r="2" fill="#fbbf24"/>
+                    <text x="174" y="127" fill="#8ea4c4">Steps</text>
+                  </g>
+                </svg>
+                <!-- LIGHT THEME CHART -->
+                <svg class="wellness-chart wellness-chart--light" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="wclbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafcff"/><stop offset="1" stop-color="#eef2f9"/></linearGradient>
+                    <linearGradient id="wclarea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2563eb" stop-opacity="0.18"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#wclbg)"/>
+                  <!-- Header -->
+                  <text x="12" y="15" font-family="Inter" font-size="7" font-weight="700" fill="#1a1e2e">Heart Rate Variability (HRV)</text>
+                  <text x="225" y="15" text-anchor="end" font-family="JetBrains Mono" font-size="5" fill="#64748b">188d</text>
+                  <line x1="10" y1="20" x2="235" y2="20" stroke="#cbd5e1" stroke-width="0.5"/>
+                  <!-- Chart body -->
+                  <rect x="12" y="24" width="221" height="80" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.5"/>
+                  <!-- Horizontal grid -->
+                  <line x1="18" y1="36" x2="230" y2="36" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="18" y1="52" x2="230" y2="52" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="18" y1="68" x2="230" y2="68" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="18" y1="84" x2="230" y2="84" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <!-- Axis labels (y) -->
+                  <text x="16" y="38" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#94a3b8">90</text>
+                  <text x="16" y="54" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#94a3b8">70</text>
+                  <text x="16" y="70" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#94a3b8">50</text>
+                  <text x="16" y="86" text-anchor="end" font-family="JetBrains Mono" font-size="3.5" fill="#94a3b8">30</text>
+                  <!-- HR area (blue band) -->
+                  <path d="M20 66 L34 62 L48 64 L62 54 L76 58 L90 48 L104 52 L118 42 L132 46 L146 38 L160 42 L174 36 L188 40 L202 32 L216 36 L230 34 L230 94 L20 94 Z" fill="url(#wclarea)"/>
+                  <polyline points="20,66 34,62 48,64 62,54 76,58 90,48 104,52 118,42 132,46 146,38 160,42 174,36 188,40 202,32 216,36 230,34" fill="none" stroke="#2563eb" stroke-width="1.4" stroke-linejoin="round"/>
+                  <!-- Sleep line (violet) -->
+                  <polyline points="20,72 34,70 48,74 62,62 76,68 90,58 104,64 118,50 132,58 146,48 160,54 174,44 188,52 202,42 216,48 230,44" fill="none" stroke="#7c3aed" stroke-width="1.2" stroke-linejoin="round" opacity="0.85"/>
+                  <!-- Recovery line (green) -->
+                  <polyline points="20,78 34,76 48,80 62,68 76,74 90,64 104,70 118,56 132,66 146,54 160,60 174,50 188,58 202,48 216,54 230,50" fill="none" stroke="#16a34a" stroke-width="1.2" stroke-linejoin="round" opacity="0.85"/>
+                  <!-- Steps dotted (amber) -->
+                  <polyline points="20,84 34,82 48,86 62,74 76,80 90,70 104,76 118,62 132,70 146,60 160,66 174,56 188,64 202,54 216,60 230,56" fill="none" stroke="#d97706" stroke-width="1" stroke-linejoin="round" opacity="0.85" stroke-dasharray="2 1.5"/>
+                  <!-- X-axis labels -->
+                  <line x1="12" y1="104" x2="233" y2="104" stroke="#cbd5e1" stroke-width="0.5"/>
+                  <text x="24" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#94a3b8">Oct</text>
+                  <text x="68" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#94a3b8">Nov</text>
+                  <text x="112" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#94a3b8">Dec</text>
+                  <text x="156" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#94a3b8">Jan</text>
+                  <text x="198" y="112" font-family="JetBrains Mono" font-size="3.8" fill="#94a3b8">Feb</text>
+                  <!-- Legend -->
+                  <g font-family="Inter" font-size="4.2" font-weight="600">
+                    <circle cx="24" cy="125" r="2" fill="#2563eb"/>
+                    <text x="30" y="127" fill="#475569">HR</text>
+                    <circle cx="62" cy="125" r="2" fill="#7c3aed"/>
+                    <text x="68" y="127" fill="#475569">Sleep</text>
+                    <circle cx="110" cy="125" r="2" fill="#16a34a"/>
+                    <text x="116" y="127" fill="#475569">Recovery</text>
+                    <circle cx="168" cy="125" r="2" fill="#d97706"/>
+                    <text x="174" y="127" fill="#475569">Steps</text>
+                  </g>
                 </svg>
               </div>
             </div>
@@ -1276,8 +1607,8 @@ body::after {
 
   <!-- ═══ FOOTER ═══ -->
   <footer class="colophon">
-    <span>Chaos Console &copy; 2026</span>
-    <a href="#">ChaosConsole</a>
+    <span>&copy; 2026 Chaos Console</span>
+    <a href="#">chaosconsole.com</a>
   </footer>
 
 </div>
@@ -1286,7 +1617,7 @@ body::after {
 // ── Date ──
 const now = new Date();
 const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-document.getElementById('currentDate').textContent = dateStr.toUpperCase();
+document.getElementById('currentDate').textContent = dateStr;
 
 // ── Theme toggle ──
 const sw = document.getElementById('themeSwitch');
@@ -1322,7 +1653,7 @@ if (sessionStorage.getItem('fin_unlocked') === '1') {
 }
 
 // ── Konami ──
-(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;var h=document.querySelector('.masthead h1');h.style.transition='all 0.6s ease';h.textContent='CHAOS IS A LADDER';h.style.background='linear-gradient(90deg,#d4a052,#f87171,#d4a052)';h.style.webkitBackgroundClip='text';h.style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='\u2014 Littlefinger was right about one thing.';setTimeout(function(){h.textContent='Chaos Console';h.style.background='none';h.style.webkitTextFillColor='var(--text-primary)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
+(function(){var k=[38,38,40,40,37,39,37,39,66,65],p=0;document.addEventListener('keydown',function(e){if(e.keyCode===k[p]){p++;if(p===k.length){p=0;var h=document.querySelector('.masthead h1 .title-text');if(!h)return;h.style.transition='all 0.6s ease';h.textContent='CHAOS IS A LADDER';h.style.background='linear-gradient(90deg,#d4a052,#f87171,#d4a052)';h.style.webkitBackgroundClip='text';h.style.webkitTextFillColor='transparent';document.querySelector('.tagline').textContent='\u2014 Littlefinger was right about one thing.';setTimeout(function(){h.textContent='Chaos Console';h.style.background='none';h.style.webkitTextFillColor='var(--text-primary)';document.querySelector('.tagline').innerHTML='Personal data dashboard &mdash; one-stop shop.';},4000)}}else{p=0}})})();
 
 // ── Daily Pulse ──
 (function(){async function loadPulse(){let data;try{const res=await fetch('pulse.json?v='+Date.now());if(res.ok)data=await res.json()}catch(e){}if(!data||!data.articles){document.getElementById('dailyPulse').style.display='none';return}document.getElementById('pulseDate').textContent=new Date(data.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});const grid=document.getElementById('pulseGrid');grid.innerHTML='';data.articles.forEach(a=>{const c=document.createElement('a');c.href=a.url;c.target='_blank';c.rel='noopener noreferrer';c.className=a.type==='hero'?'pulse-card-hero':'pulse-card';c.innerHTML='<div class="pulse-topic">'+a.topic+'</div><div class="pulse-title">'+a.title+'</div><div class="pulse-summary">'+a.summary+'</div><div class="pulse-source">'+a.source+'</div>';grid.appendChild(c)})}loadPulse()})();
