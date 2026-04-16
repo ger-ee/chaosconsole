@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness | ChaosConsole</title>
+<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@900&display=swap');
+
+/* ── Theme tokens ── */
+[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --surface: #101828;
+  --border: #2a3a5c;
+  --text: #f0f0f0;
+  --text-dim: #666;
+  --text-muted: #444;
+  --delta-pos: #16A34A;
+  --delta-neg: #a04040;
+  --c-weight: #D97706;
+  --c-hr: #0077BC;
+  --c-sleep: #16A34A;
+  --c-hrv: #8B5CF6;
+  --c-steps: #D97706;
+  --c-spo2: #0EA5E9;
+  --c-body: #EC4899;
+}
+
+[data-theme="light"] {
+  --bg: #e4ebf4;
+  --surface: rgba(255,255,255,0.65);
+  --border: rgba(160,175,200,0.3);
+  --text: #1a1e2e;
+  --text-dim: #6b7a8d;
+  --text-muted: #9aa5b4;
+  --delta-pos: #0f7d30;
+  --delta-neg: #903030;
+  --c-weight: #b5700a;
+  --c-hr: #005a8f;
+  --c-sleep: #0f7d30;
+  --c-hrv: #6d3fc0;
+  --c-steps: #b5700a;
+  --c-spo2: #0284c7;
+  --c-body: #be185d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+/* ── Header ── */
+header {
+  padding: 1.25rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.3rem; font-weight: 400; text-transform: uppercase;
+  background: linear-gradient(135deg, var(--c-hr), var(--c-sleep));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+header .meta {
+  display: flex; align-items: baseline; gap: 1rem;
+  flex-wrap: wrap; margin-top: 0.2rem;
+}
+
+header .breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--text-dim);
+}
+
+header .breadcrumb a { color: var(--c-hr); text-decoration: none; }
+
+.date-range {
+  font-size: 0.6rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Tile Grid — phone-first ── */
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  padding: 0.75rem;
+}
+
+/* ── Tile ── */
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.9rem 0.8rem 0.7rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 110px;
+}
+
+.tile::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+
+.tile.weight::before  { background: var(--c-weight); }
+.tile.rhr::before     { background: var(--c-hr); }
+.tile.sleep::before   { background: var(--c-sleep); }
+.tile.hrv::before     { background: var(--c-hrv); }
+.tile.steps::before   { background: var(--c-steps); }
+.tile.spo2::before    { background: var(--c-spo2); }
+.tile.body::before    { background: var(--c-body); }
+
+/* Full-width tiles */
+.tile.wide { grid-column: 1 / -1; }
+
+/* ── Tile label ── */
+.tile-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.15rem;
+}
+
+/* ── Hero number ── */
+.tile-value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.tile.weight .tile-value { color: var(--c-weight); }
+.tile.rhr    .tile-value { color: var(--c-hr); }
+.tile.sleep  .tile-value { color: var(--c-sleep); }
+.tile.hrv    .tile-value { color: var(--c-hrv); }
+.tile.steps  .tile-value { color: var(--c-steps); }
+.tile.spo2   .tile-value { color: var(--c-spo2); }
+.tile.body   .tile-value { color: var(--c-body); }
+
+/* ── Context / delta ── */
+.tile-context {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+}
+
+.tile-delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-dim);
+}
+
+.tile-delta.pos { color: var(--delta-pos); }
+.tile-delta.neg { color: var(--delta-neg); }
+
+/* ── Sparkline canvas ── */
+.sparkline {
+  width: 100%;
+  height: 32px;
+  display: block;
+  margin-top: auto;
+}
+
+/* ── Sleep bars ── */
+.sleep-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+  padding-top: 0.3rem;
+}
+
+.sleep-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sleep-bar-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.45rem;
+  color: var(--text-muted);
+  width: 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sleep-bar-track { flex: 1; height: 6px; }
+
+.sleep-bar-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: var(--c-sleep);
+  opacity: 0.5;
+}
+
+/* ── Theme toggle ── */
+.theme-switch {
+  position: fixed; bottom: 1rem; right: 1rem;
+  width: 40px; height: 20px;
+  border-radius: 10px;
+  background: var(--border);
+  cursor: pointer;
+  z-index: 10000;
+  display: flex; align-items: center;
+  padding: 0 2px;
+  transition: background 0.3s;
+}
+
+.theme-switch .knob {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 0.3s;
+}
+
+[data-theme="light"] .theme-switch .knob { transform: translateX(20px); }
+
+/* ── Footer ── */
+footer {
+  text-align: center; padding: 1.5rem 1rem;
+  font-size: 0.55rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--c-hr); text-decoration: none; }
+
+/* ── Refresh note ── */
+.refresh-note {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--text-muted);
+  padding: 0.5rem 1rem 0;
+}
+
+/* ── Desktop: widen to 3-up ── */
+@media (min-width: 640px) {
+  .tiles { grid-template-columns: repeat(3, 1fr); gap: 0.8rem; padding: 1.25rem 2rem; }
+  .tile { padding: 1.1rem 1rem 0.9rem; min-height: 130px; }
+  .tile-value { font-size: 2.2rem; }
+  header { padding: 1.5rem 2rem 1rem; }
+  header h1 { font-size: 1.5rem; }
+  footer { padding: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .tiles { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header>
+  <h1>Wellness</h1>
+  <div class="meta">
+    <span class="breadcrumb"><a href="index.html">CHAOS CONSOLE</a> / wellness</span>
+    <span class="date-range" id="dateRange">loading...</span>
+  </div>
+</header>
+
+<div class="tiles" id="tiles">
+  <!-- 1: Weight -->
+  <div class="tile weight" id="tWeight">
+    <div class="tile-label">Weight</div>
+    <div class="tile-value" id="weightVal">—</div>
+    <div class="tile-delta" id="weightDelta"></div>
+    <canvas class="sparkline" id="weightSpark"></canvas>
+  </div>
+
+  <!-- 2: Resting HR -->
+  <div class="tile rhr" id="tRHR">
+    <div class="tile-label">Resting HR</div>
+    <div class="tile-value" id="rhrVal">—</div>
+    <div class="tile-delta" id="rhrDelta"></div>
+    <canvas class="sparkline" id="rhrSpark"></canvas>
+  </div>
+
+  <!-- 3: Sleep -->
+  <div class="tile sleep" id="tSleep">
+    <div class="tile-label">Sleep</div>
+    <div class="tile-value" id="sleepVal">—</div>
+    <div class="tile-context" id="sleepCtx"></div>
+    <div class="sleep-bars" id="sleepBars"></div>
+  </div>
+
+  <!-- 4: HRV -->
+  <div class="tile hrv" id="tHRV">
+    <div class="tile-label">HRV</div>
+    <div class="tile-value" id="hrvVal">—</div>
+    <div class="tile-delta" id="hrvDelta"></div>
+    <canvas class="sparkline" id="hrvSpark"></canvas>
+  </div>
+
+  <!-- 5: Steps -->
+  <div class="tile steps" id="tSteps">
+    <div class="tile-label">Steps</div>
+    <div class="tile-value" id="stepsVal">—</div>
+    <div class="tile-context" id="stepsCtx"></div>
+    <canvas class="sparkline" id="stepsSpark"></canvas>
+  </div>
+
+  <!-- 6: SpO2 -->
+  <div class="tile spo2" id="tSpO2">
+    <div class="tile-label">SpO2</div>
+    <div class="tile-value" id="spo2Val">—</div>
+    <div class="tile-context" id="spo2Ctx"></div>
+  </div>
+
+  <!-- 7: Body Comp -->
+  <div class="tile body" id="tBody">
+    <div class="tile-label">Body Composition</div>
+    <div class="tile-value" id="bodyVal">—</div>
+    <div class="tile-context" id="bodyCtx"></div>
+  </div>
+</div>
+
+<div class="refresh-note">
+  cache refreshed <span id="cacheAge">—</span> | <code>python3 data/health_loader.py --force</code>
+</div>
+
+<footer>
+  ChaosConsole &mdash; Wellness Dashboard &mdash; Apple Health + RingConn &mdash; <a href="index.html">chaosconsole.com</a>
+</footer>
+
+<div class="theme-switch" id="themeSwitch" role="button" tabindex="0">
+  <div class="knob"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// THEME TOGGLE
+// ═══════════════════════════════════════════
+const sw = document.getElementById('themeSwitch');
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+  // Redraw sparklines on theme change
+  if (window._sparkRedraws) window._sparkRedraws.forEach(fn => fn());
+}
+sw.addEventListener('click', toggleTheme);
+sw.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); }
+});
+
+// ═══════════════════════════════════════════
+// DATA LOADING
+// ═══════════════════════════════════════════
+window._sparkRedraws = [];
+
+fetch('data/health_cache.json')
+  .then(r => r.json())
+  .then(cache => {
+    const data = cache.data;
+    renderMeta(cache);
+    renderWeight(data);
+    renderRHR(data);
+    renderSleep(data);
+    renderHRV(data);
+    renderSteps(data);
+    renderSpO2(data);
+    renderBody(data);
+  })
+  .catch(err => {
+    console.error('Failed to load health cache:', err);
+    document.getElementById('dateRange').textContent = 'data unavailable';
+  });
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+
+function byMetric(data, name) {
+  return data
+    .filter(r => r.metric === name && r.value != null)
+    .sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+}
+
+/** Deduplicate daily values — pick one per calendar day (latest source wins). */
+function dailyDedup(rows) {
+  const map = {};
+  for (const r of rows) {
+    const day = r.timestamp.slice(0, 10);
+    map[day] = r;
+  }
+  return Object.values(map).sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+}
+
+function daysBetween(a, b) {
+  return Math.round((new Date(b) - new Date(a)) / 86400000);
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function relTime(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+// ═══════════════════════════════════════════
+// META
+// ═══════════════════════════════════════════
+function renderMeta(cache) {
+  const s = cache.stats;
+  const days = daysBetween(s.date_range.min, s.date_range.max);
+  document.getElementById('dateRange').textContent =
+    `${fmtDate(s.date_range.min)} — ${fmtDate(s.date_range.max)} | ${days}d`;
+  document.getElementById('cacheAge').textContent = relTime(cache.generated);
+}
+
+// ═══════════════════════════════════════════
+// SPARKLINE RENDERER
+// ═══════════════════════════════════════════
+function drawSparkline(canvasId, points, colorVar) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || points.length < 2) {
+    if (canvas) canvas.style.display = 'none';
+    return;
+  }
+  canvas.style.display = 'block';
+
+  const color = getComputedStyle(document.documentElement).getPropertyValue(colorVar).trim();
+
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const w = rect.width;
+  const h = rect.height;
+  const pad = 2;
+
+  const values = points.map(p => p.y);
+  const minV = Math.min(...values);
+  const maxV = Math.max(...values);
+  const range = maxV - minV || 1;
+
+  const xRange = Math.max(points[points.length - 1].x - points[0].x, 1);
+  const xScale = (w - pad * 2) / xRange;
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.45;
+  ctx.lineWidth = 1.5;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+
+  ctx.beginPath();
+  let drawing = false;
+  for (let i = 0; i < points.length; i++) {
+    const px = pad + (points[i].x - points[0].x) * xScale;
+    const py = pad + (1 - (points[i].y - minV) / range) * (h - pad * 2);
+    const gap = i > 0 ? (points[i].x - points[i - 1].x) : 0;
+
+    if (gap > 2) { // Break line for gaps > 2 days
+      ctx.stroke();
+      ctx.beginPath();
+      drawing = false;
+    }
+
+    if (!drawing) { ctx.moveTo(px, py); drawing = true; }
+    else { ctx.lineTo(px, py); }
+  }
+  ctx.stroke();
+
+  // Register for theme-change redraw
+  window._sparkRedraws.push(() => drawSparkline(canvasId, points, colorVar));
+}
+
+/** Convert daily rows to sparkline points relative to day-0. */
+function toSparkPoints(rows, daysBack) {
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - daysBack);
+  const recent = rows.filter(r => new Date(r.timestamp) >= cutoff);
+  if (recent.length < 2) return [];
+  const day0 = new Date(recent[0].timestamp);
+  return recent.map(r => ({
+    x: daysBetween(day0.toISOString(), r.timestamp),
+    y: r.value
+  }));
+}
+
+// ═══════════════════════════════════════════
+// TILE 1: WEIGHT
+// ═══════════════════════════════════════════
+function renderWeight(data) {
+  const rows = dailyDedup(byMetric(data, 'weight_body_mass'));
+  if (!rows.length) return;
+
+  const latest = rows[rows.length - 1];
+  document.getElementById('weightVal').textContent = latest.value.toFixed(1);
+
+  // Delta: require a reading >= 14 days old
+  const old = rows.filter(r => daysBetween(r.timestamp, latest.timestamp) >= 14);
+  if (old.length) {
+    const baseline = old[old.length - 1];
+    const delta = latest.value - baseline.value;
+    const span = daysBetween(baseline.timestamp, latest.timestamp);
+    const el = document.getElementById('weightDelta');
+    el.textContent = `${delta > 0 ? '+' : ''}${delta.toFixed(1)} lbs / ${span}d`;
+    // Weight: down = improvement (losing weight)
+    if (delta < -0.5) el.classList.add('pos');
+    else if (delta > 0.5) el.classList.add('neg');
+  }
+
+  drawSparkline('weightSpark', toSparkPoints(rows, 90), '--c-weight');
+}
+
+// ═══════════════════════════════════════════
+// TILE 2: RESTING HR
+// ═══════════════════════════════════════════
+function renderRHR(data) {
+  const rows = dailyDedup(byMetric(data, 'resting_heart_rate'));
+  if (!rows.length) return;
+
+  const last7 = rows.slice(-7);
+  const avg7 = last7.reduce((s, r) => s + r.value, 0) / last7.length;
+  document.getElementById('rhrVal').textContent = Math.round(avg7);
+
+  // Delta: require >= 14 days of data span
+  const span = daysBetween(rows[0].timestamp, rows[rows.length - 1].timestamp);
+  if (span >= 14 && rows.length > 7) {
+    const prior = rows.slice(-14, -7);
+    if (prior.length) {
+      const avgPrior = prior.reduce((s, r) => s + r.value, 0) / prior.length;
+      const delta = avg7 - avgPrior;
+      const el = document.getElementById('rhrDelta');
+      el.textContent = `${delta > 0 ? '+' : ''}${delta.toFixed(0)} bpm vs prior 7d`;
+      // Resting HR: down = improvement (lower resting HR)
+      if (delta < -1) el.classList.add('pos');
+      else if (delta > 1) el.classList.add('neg');
+    }
+  }
+
+  drawSparkline('rhrSpark', toSparkPoints(rows, 180), '--c-hr');
+}
+
+// ═══════════════════════════════════════════
+// TILE 3: SLEEP
+// ═══════════════════════════════════════════
+function renderSleep(data) {
+  const rows = data.filter(r => r.metric === 'sleep_analysis' && r.value != null);
+  if (!rows.length) return;
+
+  // Group segments by (date, source), sum non-Awake for duration
+  const nightMap = {};
+  for (const r of rows) {
+    const date = r.timestamp.slice(0, 10);
+    const src = r.source;
+    const key = date + '|' + src;
+    if (!nightMap[key]) nightMap[key] = { date, source: src, hrs: 0 };
+    const label = r.extra && r.extra.label ? r.extra.label : '';
+    if (label !== 'Awake') nightMap[key].hrs += r.value;
+  }
+
+  // Dedup: prefer RingConn sources per night
+  const byDate = {};
+  for (const n of Object.values(nightMap)) {
+    if (!byDate[n.date] || n.source.includes('RingConn')) byDate[n.date] = n;
+  }
+
+  const nights = Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
+  if (!nights.length) return;
+
+  // Last night
+  const last = nights[nights.length - 1];
+  const h = Math.floor(last.hrs);
+  const m = Math.round((last.hrs - h) * 60);
+  document.getElementById('sleepVal').textContent = `${h}:${String(m).padStart(2, '0')}`;
+
+  // 7-night average
+  const last7 = nights.slice(-7);
+  const avg = last7.reduce((s, n) => s + n.hrs, 0) / last7.length;
+  const ah = Math.floor(avg);
+  const am = Math.round((avg - ah) * 60);
+  document.getElementById('sleepCtx').textContent =
+    `${last7.length}-night avg: ${ah}:${String(am).padStart(2, '0')}`;
+
+  // Horizontal bars
+  const el = document.getElementById('sleepBars');
+  const maxH = Math.max(...last7.map(n => n.hrs));
+  for (const night of last7) {
+    const d = new Date(night.date + 'T12:00:00');
+    const day = d.toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2);
+    const pct = maxH > 0 ? (night.hrs / maxH) * 100 : 0;
+    const row = document.createElement('div');
+    row.className = 'sleep-bar-row';
+    row.innerHTML = `<span class="sleep-bar-label">${day}</span>
+      <div class="sleep-bar-track"><div class="sleep-bar-fill" style="width:${pct.toFixed(1)}%"></div></div>`;
+    el.appendChild(row);
+  }
+}
+
+// ═══════════════════════════════════════════
+// TILE 4: HRV
+// ═══════════════════════════════════════════
+function renderHRV(data) {
+  // For historical data, value is avg HRV. For Apple Health, it's individual readings.
+  // dailyDedup picks one per day.
+  const rows = dailyDedup(byMetric(data, 'heart_rate_variability'));
+  if (!rows.length) return;
+
+  const last7 = rows.slice(-7);
+  const avg7 = last7.reduce((s, r) => s + r.value, 0) / last7.length;
+  document.getElementById('hrvVal').textContent = Math.round(avg7);
+
+  const span = daysBetween(rows[0].timestamp, rows[rows.length - 1].timestamp);
+  if (span >= 14 && rows.length > 7) {
+    const prior = rows.slice(-14, -7);
+    if (prior.length) {
+      const avgPrior = prior.reduce((s, r) => s + r.value, 0) / prior.length;
+      const delta = avg7 - avgPrior;
+      const el = document.getElementById('hrvDelta');
+      el.textContent = `${delta > 0 ? '+' : ''}${delta.toFixed(0)} ms vs prior 7d`;
+      // HRV: up = improvement (higher HRV = better recovery)
+      if (delta > 2) el.classList.add('pos');
+      else if (delta < -2) el.classList.add('neg');
+    }
+  }
+
+  drawSparkline('hrvSpark', toSparkPoints(rows, 180), '--c-hrv');
+}
+
+// ═══════════════════════════════════════════
+// TILE 5: STEPS
+// ═══════════════════════════════════════════
+function renderSteps(data) {
+  const rows = dailyDedup(byMetric(data, 'step_count'));
+  if (!rows.length) return;
+
+  const latest = rows[rows.length - 1];
+  document.getElementById('stepsVal').textContent = Math.round(latest.value).toLocaleString();
+
+  const last7 = rows.slice(-7);
+  const avg = last7.reduce((s, r) => s + r.value, 0) / last7.length;
+  document.getElementById('stepsCtx').textContent = `7d avg: ${Math.round(avg).toLocaleString()}`;
+
+  drawSparkline('stepsSpark', toSparkPoints(rows, 30), '--c-steps');
+}
+
+// ═══════════════════════════════════════════
+// TILE 6: SpO2
+// ═══════════════════════════════════════════
+function renderSpO2(data) {
+  const rows = dailyDedup(byMetric(data, 'blood_oxygen_saturation'));
+  if (!rows.length) return;
+
+  const latest = rows[rows.length - 1];
+  document.getElementById('spo2Val').textContent = latest.value.toFixed(1) + '%';
+
+  const last7 = rows.slice(-7);
+  const vals = last7.map(r => r.value);
+  const min7 = Math.min(...vals).toFixed(0);
+  const max7 = Math.max(...vals).toFixed(0);
+  document.getElementById('spo2Ctx').textContent = `7d range: ${min7}–${max7}%`;
+}
+
+// ═══════════════════════════════════════════
+// TILE 7: BODY COMPOSITION
+// ═══════════════════════════════════════════
+function renderBody(data) {
+  const bf = byMetric(data, 'body_fat_percentage');
+  const lm = byMetric(data, 'lean_body_mass');
+  if (!bf.length && !lm.length) {
+    document.getElementById('tBody').style.display = 'none';
+    return;
+  }
+
+  if (bf.length) {
+    document.getElementById('bodyVal').textContent = bf[bf.length - 1].value.toFixed(1) + '%';
+  }
+
+  if (lm.length) {
+    document.getElementById('bodyCtx').textContent =
+      `lean: ${lm[lm.length - 1].value.toFixed(1)} lbs`;
+  }
+}
+</script>
+</body>
+</html>

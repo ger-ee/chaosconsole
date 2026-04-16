@@ -38,6 +38,7 @@ EXPORT_DIR = Path(
 SCRIPT_DIR = Path(__file__).resolve().parent
 CACHE_PATH = SCRIPT_DIR / "health_cache.json"
 MANIFEST_PATH = SCRIPT_DIR / ".health_manifest.json"
+HISTORICAL_PATH = SCRIPT_DIR / "ringconn_historical.json"
 
 # Metrics whose per-second rows get rolled up to daily sums.
 DAILY_AGG_METRICS = {
@@ -212,6 +213,16 @@ def aggregate_daily(rows: list[dict]) -> list[dict]:
 # Main
 # ---------------------------------------------------------------------------
 
+def load_historical() -> list[dict]:
+    """Load pre-normalized RingConn/Oura historical data if available."""
+    if not HISTORICAL_PATH.exists():
+        return []
+    print(f"  loading {HISTORICAL_PATH.name}")
+    with open(HISTORICAL_PATH) as f:
+        hist = json.load(f)
+    return hist.get("data", [])
+
+
 def run(force: bool = False) -> dict:
     manifest = build_manifest(EXPORT_DIR)
 
@@ -224,21 +235,39 @@ def run(force: bool = False) -> dict:
 
     print("Normalizing and deduplicating...")
     rows = normalize_and_dedupe(raw)
+
+    # Merge historical RingConn data (already normalized)
+    historical = load_historical()
+    if historical:
+        print(f"  merged {len(historical):,} historical rows")
+        rows.extend(historical)
+
     before = len(rows)
 
     print("Aggregating high-frequency metrics to daily sums...")
     rows = aggregate_daily(rows)
     after = len(rows)
 
+    # Deduplicate again after merge (historical rows are pre-deduped but
+    # there could be overlap at the boundary)
+    seen: set[tuple[str, str, str]] = set()
+    deduped: list[dict] = []
+    for r in rows:
+        key = (r["timestamp"], r["metric"], r["source"])
+        if key not in seen:
+            seen.add(key)
+            deduped.append(r)
+    rows = deduped
+
     # Sort by timestamp then metric
     rows.sort(key=lambda r: (r["timestamp"], r["metric"]))
 
     output = {
         "generated": datetime.now(timezone.utc).isoformat(),
-        "source_files": list(manifest.keys()),
+        "source_files": list(manifest.keys()) + (["ringconn_historical.json"] if historical else []),
         "stats": {
             "rows_before_aggregation": before,
-            "rows_after_aggregation": after,
+            "rows_after_aggregation": len(rows),
             "metrics": sorted(set(r["metric"] for r in rows)),
             "date_range": {
                 "min": rows[0]["timestamp"] if rows else None,
