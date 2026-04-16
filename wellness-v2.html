@@ -97,6 +97,8 @@ header .breadcrumb a { color: var(--c-hr); text-decoration: none; }
   grid-template-columns: 1fr 1fr;
   gap: 0.6rem;
   padding: 0.75rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 /* ── Tile ── */
@@ -169,8 +171,8 @@ header .breadcrumb a { color: var(--c-hr); text-decoration: none; }
   color: var(--text-dim);
 }
 
-.tile-delta.pos { color: var(--delta-pos); }
-.tile-delta.neg { color: var(--delta-neg); }
+.tile-delta[data-trend="pos"] { color: var(--delta-pos); }
+.tile-delta[data-trend="neg"] { color: var(--delta-neg); }
 
 /* ── Sparkline canvas ── */
 .sparkline {
@@ -326,6 +328,7 @@ footer a { color: var(--c-hr); text-decoration: none; }
     <div class="tile-label">SpO2</div>
     <div class="tile-value" id="spo2Val">—</div>
     <div class="tile-context" id="spo2Ctx"></div>
+    <canvas class="sparkline" id="spo2Spark"></canvas>
   </div>
 
   <!-- 7: Body Comp -->
@@ -333,6 +336,7 @@ footer a { color: var(--c-hr); text-decoration: none; }
     <div class="tile-label">Body Composition</div>
     <div class="tile-value" id="bodyVal">—</div>
     <div class="tile-context" id="bodyCtx"></div>
+    <canvas class="sparkline" id="bodySpark"></canvas>
   </div>
 </div>
 
@@ -416,6 +420,15 @@ function daysBetween(a, b) {
 function fmtDate(iso) {
   const d = new Date(iso);
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+/** Apply directional color to a delta element via data attribute + CSS.
+ *  direction: 'lower-is-better' (weight, resting HR) or 'higher-is-better' (HRV) */
+function colorDelta(el, delta, direction) {
+  const improved = direction === 'higher-is-better' ? delta > 2 : delta < -0.5;
+  const regressed = direction === 'higher-is-better' ? delta < -2 : delta > 0.5;
+  if (improved) el.setAttribute('data-trend', 'pos');
+  else if (regressed) el.setAttribute('data-trend', 'neg');
 }
 
 function relTime(iso) {
@@ -531,8 +544,7 @@ function renderWeight(data) {
     const el = document.getElementById('weightDelta');
     el.textContent = `${delta > 0 ? '+' : ''}${delta.toFixed(1)} lbs / ${span}d`;
     // Weight: down = improvement (losing weight)
-    if (delta < -0.5) el.classList.add('pos');
-    else if (delta > 0.5) el.classList.add('neg');
+    colorDelta(el, delta, 'lower-is-better');
   }
 
   drawSparkline('weightSpark', toSparkPoints(rows, 90), '--c-weight');
@@ -559,8 +571,7 @@ function renderRHR(data) {
       const el = document.getElementById('rhrDelta');
       el.textContent = `${delta > 0 ? '+' : ''}${delta.toFixed(0)} bpm vs prior 7d`;
       // Resting HR: down = improvement (lower resting HR)
-      if (delta < -1) el.classList.add('pos');
-      else if (delta > 1) el.classList.add('neg');
+      colorDelta(el, delta, 'lower-is-better');
     }
   }
 
@@ -645,8 +656,7 @@ function renderHRV(data) {
       const el = document.getElementById('hrvDelta');
       el.textContent = `${delta > 0 ? '+' : ''}${delta.toFixed(0)} ms vs prior 7d`;
       // HRV: up = improvement (higher HRV = better recovery)
-      if (delta > 2) el.classList.add('pos');
-      else if (delta < -2) el.classList.add('neg');
+      colorDelta(el, delta, 'higher-is-better');
     }
   }
 
@@ -685,6 +695,8 @@ function renderSpO2(data) {
   const min7 = Math.min(...vals).toFixed(0);
   const max7 = Math.max(...vals).toFixed(0);
   document.getElementById('spo2Ctx').textContent = `7d range: ${min7}–${max7}%`;
+
+  drawSparkline('spo2Spark', toSparkPoints(rows, 180), '--c-spo2');
 }
 
 // ═══════════════════════════════════════════
@@ -706,6 +718,9 @@ function renderBody(data) {
     document.getElementById('bodyCtx').textContent =
       `lean: ${lm[lm.length - 1].value.toFixed(1)} lbs`;
   }
+
+  // Sparkline: body fat % over time (if enough data)
+  drawSparkline('bodySpark', toSparkPoints(bf, 180), '--c-body');
 }
 </script>
 </body>
