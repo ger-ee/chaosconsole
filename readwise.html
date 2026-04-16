@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highlights | ChaosConsole</title>
+<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --surface: #101828;
+  --border: #2a3a5c;
+  --text: #f0f0f0;
+  --text-dim: #666;
+  --text-muted: #444;
+  --accent: #d4a052;
+  --accent-dim: rgba(212,160,82,0.15);
+  --quote-text: #d4cfc4;
+  --link: #60a5fa;
+}
+
+[data-theme="light"] {
+  --bg: #e4ebf4;
+  --surface: rgba(255,255,255,0.65);
+  --border: rgba(160,175,200,0.3);
+  --text: #1a1e2e;
+  --text-dim: #6b7a8d;
+  --text-muted: #9aa5b4;
+  --accent: #b59355;
+  --accent-dim: rgba(181,147,85,0.12);
+  --quote-text: #2c2a24;
+  --link: #2563eb;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+header {
+  padding: 1.25rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.3rem; font-weight: 400; text-transform: uppercase;
+  color: var(--accent);
+}
+
+header .meta {
+  display: flex; align-items: baseline; gap: 1rem;
+  flex-wrap: wrap; margin-top: 0.2rem;
+}
+
+header .breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--text-dim);
+}
+
+header .breadcrumb a { color: var(--accent); text-decoration: none; }
+
+.header-stat {
+  font-size: 0.6rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Quote Card ── */
+.quote-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.quote-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2rem 1.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Left accent bar */
+.quote-bar {
+  position: absolute;
+  top: 1.5rem; left: 0; bottom: 1.5rem;
+  width: 3px;
+  background: var(--accent);
+  opacity: 0.4;
+  border-radius: 0 2px 2px 0;
+}
+
+.quote-text {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--quote-text);
+  margin-bottom: 1.2rem;
+  padding-left: 0.5rem;
+}
+
+.quote-text .ellipsis {
+  color: var(--text-dim);
+}
+
+.quote-source {
+  padding-left: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.8rem;
+}
+
+.quote-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.quote-author {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  margin-top: 0.15rem;
+}
+
+.quote-category {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+}
+
+.quote-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--link);
+  text-decoration: none;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.quote-link:hover { text-decoration: underline; }
+
+.quote-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 0.6rem;
+  padding-left: 0.5rem;
+}
+
+/* ── Shuffle button ── */
+.shuffle {
+  display: block;
+  margin: 0 auto;
+  padding: 0.4rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.shuffle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* ── Theme toggle ── */
+.theme-switch {
+  position: fixed; bottom: 1rem; right: 1rem;
+  width: 40px; height: 20px;
+  border-radius: 10px;
+  background: var(--border);
+  cursor: pointer;
+  z-index: 10000;
+  display: flex; align-items: center;
+  padding: 0 2px;
+  transition: background 0.3s;
+}
+
+.theme-switch .knob {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 0.3s;
+}
+
+[data-theme="light"] .theme-switch .knob { transform: translateX(20px); }
+
+footer {
+  text-align: center; padding: 1.5rem 1rem;
+  font-size: 0.55rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--accent); text-decoration: none; }
+
+@media (min-width: 640px) {
+  header { padding: 1.5rem 2rem 1rem; }
+  header h1 { font-size: 1.5rem; }
+  .quote-wrap { padding: 2.5rem 2rem; }
+  .quote-card { padding: 2.5rem 2rem 2rem; }
+  .quote-text { font-size: 1.25rem; }
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header>
+  <h1>Highlights</h1>
+  <div class="meta">
+    <span class="breadcrumb"><a href="index.html">CHAOS CONSOLE</a> / highlights</span>
+    <span class="header-stat" id="stats">loading...</span>
+  </div>
+</header>
+
+<div class="quote-wrap">
+  <div id="quoteCard" class="quote-card" style="display:none">
+    <div class="quote-bar"></div>
+    <div class="quote-text" id="quoteText"></div>
+    <div class="quote-note" id="quoteNote" style="display:none"></div>
+    <div class="quote-source">
+      <div class="quote-title" id="quoteTitle"></div>
+      <div class="quote-author" id="quoteAuthor"></div>
+      <div>
+        <span class="quote-category" id="quoteCat"></span>
+        <a class="quote-link" id="quoteLink" target="_blank" rel="noopener" style="display:none">source</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="emptyState" class="empty-state" style="display:none">
+    No highlights loaded. Run:<br>
+    <code>python3 data/readwise_loader.py</code>
+  </div>
+</div>
+
+<button class="shuffle" id="shuffleBtn" style="display:none">another</button>
+
+<footer>
+  ChaosConsole &mdash; Readwise Highlights &mdash; <a href="index.html">chaosconsole.com</a>
+</footer>
+
+<div class="theme-switch" id="themeSwitch" role="button" tabindex="0">
+  <div class="knob"></div>
+</div>
+
+<script>
+// ── Theme toggle ──
+const sw = document.getElementById('themeSwitch');
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+}
+sw.addEventListener('click', toggleTheme);
+sw.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); }
+});
+
+// ── Data ──
+let allHighlights = [];
+
+fetch('data/readwise_cache.json')
+  .then(r => r.json())
+  .then(cache => {
+    allHighlights = cache.data || [];
+    const s = cache.stats || {};
+    document.getElementById('stats').textContent =
+      `${s.total_highlights || 0} highlights from ${s.total_books || 0} sources`;
+
+    if (!allHighlights.length) {
+      document.getElementById('emptyState').style.display = '';
+      return;
+    }
+
+    document.getElementById('shuffleBtn').style.display = '';
+    showRandom();
+  })
+  .catch(() => {
+    document.getElementById('stats').textContent = 'data unavailable';
+    document.getElementById('emptyState').style.display = '';
+  });
+
+function showRandom() {
+  const h = allHighlights[Math.floor(Math.random() * allHighlights.length)];
+  const card = document.getElementById('quoteCard');
+  card.style.display = '';
+
+  // Text — truncate at 500 chars on word boundary
+  let text = h.text;
+  let truncated = false;
+  if (text.length > 500) {
+    const cut = text.lastIndexOf(' ', 500);
+    text = text.slice(0, cut > 0 ? cut : 500);
+    truncated = true;
+  }
+  document.getElementById('quoteText').innerHTML =
+    escHtml(text) + (truncated ? '<span class="ellipsis"> ...</span>' : '');
+
+  // Note
+  const noteEl = document.getElementById('quoteNote');
+  if (h.note) {
+    noteEl.textContent = h.note;
+    noteEl.style.display = '';
+  } else {
+    noteEl.style.display = 'none';
+  }
+
+  // Source
+  document.getElementById('quoteTitle').textContent = h.book_title || 'Unknown source';
+  document.getElementById('quoteAuthor').textContent = h.author || '';
+
+  // Category
+  const catEl = document.getElementById('quoteCat');
+  catEl.textContent = h.category || '';
+  catEl.style.display = h.category ? '' : 'none';
+
+  // Link
+  const linkEl = document.getElementById('quoteLink');
+  const url = h.source_url || h.readwise_url || '';
+  if (url) {
+    linkEl.href = url;
+    linkEl.style.display = '';
+  } else {
+    linkEl.style.display = 'none';
+  }
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+document.getElementById('shuffleBtn').addEventListener('click', showRandom);
+</script>
+</body>
+</html>
