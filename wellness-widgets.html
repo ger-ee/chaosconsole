@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness — Live | ChaosConsole</title>
+<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@900&display=swap');
+
+/* ── Theme tokens ── */
+[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --surface: #101828;
+  --border: #2a3a5c;
+  --text: #f0f0f0;
+  --text-dim: #666666;
+  --accent-weight: #D97706;
+  --accent-hr: #0077BC;
+  --accent-sleep: #16A34A;
+  --delta-pos: #16A34A;
+  --delta-neg: #a04040;
+}
+
+[data-theme="light"] {
+  --bg: #e4ebf4;
+  --surface: rgba(255,255,255,0.65);
+  --border: rgba(160,175,200,0.3);
+  --text: #1a1e2e;
+  --text-dim: #6b7a8d;
+  --accent-weight: #b5700a;
+  --accent-hr: #005a8f;
+  --accent-sleep: #0f7d30;
+  --delta-pos: #0f7d30;
+  --delta-neg: #903030;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+/* ── Header ── */
+header {
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.6rem; font-weight: 400; text-transform: uppercase;
+  background: linear-gradient(135deg, var(--accent-hr), var(--accent-sleep));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+header .breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; color: var(--text-dim);
+}
+
+header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
+
+.date-range {
+  font-size: 0.7rem; color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  margin-left: auto;
+}
+
+/* ── Widget Grid ── */
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+}
+
+@media (max-width: 900px) { .widget-grid { grid-template-columns: 1fr; } }
+
+/* ── Widget Card ── */
+.widget {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.4rem 1.2rem 1.2rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.widget::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+
+.widget.weight::before { background: var(--accent-weight); }
+.widget.rhr::before    { background: var(--accent-hr); }
+.widget.sleep::before  { background: var(--accent-sleep); }
+
+/* ── Widget Label ── */
+.widget-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+/* ── Big Number ── */
+.widget-value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.widget.weight .widget-value { color: var(--accent-weight); }
+.widget.rhr    .widget-value { color: var(--accent-hr); }
+.widget.sleep  .widget-value { color: var(--accent-sleep); }
+
+/* ── Delta ── */
+.widget-delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.widget-delta.positive { color: var(--delta-pos); }
+.widget-delta.negative { color: var(--delta-neg); }
+
+/* ── Sub line ── */
+.widget-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+}
+
+/* ── Sparkline canvas ── */
+.sparkline {
+  width: 100%;
+  height: 40px;
+  display: block;
+  margin-top: auto;
+}
+
+/* ── Sleep bars ── */
+.sleep-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: auto;
+}
+
+.sleep-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sleep-bar-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--text-dim);
+  width: 22px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sleep-bar-track {
+  flex: 1;
+  height: 7px;
+  position: relative;
+}
+
+.sleep-bar-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: var(--accent-sleep);
+  opacity: 0.55;
+}
+
+/* ── No-data state ── */
+.widget-empty {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  padding: 1rem 0;
+}
+
+/* ── Theme toggle ── */
+.theme-switch {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  width: 48px; height: 24px;
+  border-radius: 12px;
+  background: var(--border);
+  cursor: pointer;
+  z-index: 10000;
+  display: flex; align-items: center;
+  padding: 0 3px;
+  transition: background 0.3s;
+}
+
+.theme-switch .knob {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 0.3s;
+}
+
+[data-theme="light"] .theme-switch .knob { transform: translateX(24px); }
+
+/* ── Footer ── */
+footer {
+  text-align: center; padding: 2rem;
+  font-size: 0.65rem; color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--accent-hr); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header>
+  <h1>Wellness — Live</h1>
+  <span class="breadcrumb"><a href="index.html">CHAOS CONSOLE</a> / wellness-live</span>
+  <span class="date-range" id="dateRange">loading...</span>
+</header>
+
+<div class="widget-grid">
+  <!-- Widget 1: Weight -->
+  <div class="widget weight" id="wWeight">
+    <div class="widget-label">Weight</div>
+    <div class="widget-value" id="weightValue">—</div>
+    <div class="widget-delta" id="weightDelta"></div>
+    <canvas class="sparkline" id="weightSparkline"></canvas>
+  </div>
+
+  <!-- Widget 2: Resting Heart Rate -->
+  <div class="widget rhr" id="wRHR">
+    <div class="widget-label">Resting Heart Rate</div>
+    <div class="widget-value" id="rhrValue">—</div>
+    <div class="widget-delta" id="rhrDelta"></div>
+    <canvas class="sparkline" id="rhrSparkline"></canvas>
+  </div>
+
+  <!-- Widget 3: Sleep -->
+  <div class="widget sleep" id="wSleep">
+    <div class="widget-label">Sleep</div>
+    <div class="widget-value" id="sleepValue">—</div>
+    <div class="widget-sub" id="sleepSub"></div>
+    <div class="sleep-bars" id="sleepBars"></div>
+  </div>
+</div>
+
+<footer>
+  ChaosConsole &mdash; Wellness Live &mdash; Data from Apple Health &mdash; <a href="index.html">chaosconsole.com</a>
+</footer>
+
+<div class="theme-switch" id="themeSwitch" role="button" tabindex="0">
+  <div class="knob"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// THEME TOGGLE
+// ═══════════════════════════════════════════
+const sw = document.getElementById('themeSwitch');
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+}
+sw.addEventListener('click', toggleTheme);
+sw.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); }
+});
+
+// ═══════════════════════════════════════════
+// DATA LOADING
+// ═══════════════════════════════════════════
+fetch('data/health_cache.json')
+  .then(r => r.json())
+  .then(cache => {
+    const data = cache.data;
+    const stats = cache.stats;
+    renderDateRange(stats);
+    renderWeight(data);
+    renderRHR(data);
+    renderSleep(data);
+  })
+  .catch(err => {
+    console.error('Failed to load health cache:', err);
+    document.getElementById('dateRange').textContent = 'data unavailable';
+  });
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+
+function byMetric(data, name) {
+  return data
+    .filter(r => r.metric === name && r.value != null)
+    .sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+}
+
+function daysBetween(a, b) {
+  return Math.round((new Date(b) - new Date(a)) / 86400000);
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+// ═══════════════════════════════════════════
+// DATE RANGE
+// ═══════════════════════════════════════════
+function renderDateRange(stats) {
+  const el = document.getElementById('dateRange');
+  const min = stats.date_range.min;
+  const max = stats.date_range.max;
+  if (!min || !max) { el.textContent = 'no data'; return; }
+  const days = daysBetween(min, max);
+  el.textContent = `${formatDate(min)} — ${formatDate(max)}  |  ${days} days tracked`;
+}
+
+// ═══════════════════════════════════════════
+// SPARKLINE RENDERER
+// ═══════════════════════════════════════════
+function drawSparkline(canvasId, points, color) {
+  // points: [{x: dayIndex, y: value}, ...] — missing days omitted
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || points.length < 2) {
+    if (canvas) canvas.style.display = 'none';
+    return;
+  }
+
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const w = rect.width;
+  const h = rect.height;
+  const pad = 2;
+
+  const values = points.map(p => p.y);
+  const minV = Math.min(...values);
+  const maxV = Math.max(...values);
+  const range = maxV - minV || 1;
+
+  const xScale = (w - pad * 2) / Math.max(points[points.length - 1].x - points[0].x, 1);
+
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.45;
+  ctx.lineWidth = 1.5;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+
+  // Draw segments, breaking when gap > 1 day
+  ctx.beginPath();
+  let drawing = false;
+  for (let i = 0; i < points.length; i++) {
+    const px = pad + (points[i].x - points[0].x) * xScale;
+    const py = pad + (1 - (points[i].y - minV) / range) * (h - pad * 2);
+
+    const gap = i > 0 ? (points[i].x - points[i - 1].x) : 0;
+    if (gap > 1) {
+      ctx.stroke();
+      ctx.beginPath();
+      drawing = false;
+    }
+
+    if (!drawing) {
+      ctx.moveTo(px, py);
+      drawing = true;
+    } else {
+      ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
+}
+
+// ═══════════════════════════════════════════
+// WIDGET 1: WEIGHT
+// ═══════════════════════════════════════════
+function renderWeight(data) {
+  const rows = byMetric(data, 'weight_body_mass');
+  if (rows.length === 0) {
+    document.getElementById('weightValue').textContent = '—';
+    return;
+  }
+
+  const latest = rows[rows.length - 1];
+  const val = latest.value;
+  document.getElementById('weightValue').textContent = val.toFixed(1);
+
+  // Delta: only show if we have a reading ≥14 days old
+  const latestDate = new Date(latest.timestamp);
+  const oldEnough = rows.filter(r => daysBetween(r.timestamp, latest.timestamp) >= 14);
+
+  if (oldEnough.length > 0) {
+    const baseline = oldEnough[oldEnough.length - 1]; // closest to 14 days ago
+    const delta = val - baseline.value;
+    const span = daysBetween(baseline.timestamp, latest.timestamp);
+    const el = document.getElementById('weightDelta');
+    const sign = delta > 0 ? '+' : '';
+    el.textContent = `${sign}${delta.toFixed(1)} lbs / ${span}d`;
+    // Weight: negative delta = improvement (losing weight)
+    if (delta < -0.5) el.classList.add('positive');
+    else if (delta > 0.5) el.classList.add('negative');
+  }
+
+  // Sparkline: last 90 days of data
+  const cutoff = new Date(latestDate);
+  cutoff.setDate(cutoff.getDate() - 90);
+  const recent = rows.filter(r => new Date(r.timestamp) >= cutoff);
+  const day0 = new Date(recent[0].timestamp);
+  const points = recent.map(r => ({
+    x: daysBetween(day0.toISOString(), r.timestamp),
+    y: r.value
+  }));
+
+  drawSparkline('weightSparkline', points,
+    getComputedStyle(document.documentElement).getPropertyValue('--accent-weight').trim());
+}
+
+// ═══════════════════════════════════════════
+// WIDGET 2: RESTING HEART RATE
+// ═══════════════════════════════════════════
+function renderRHR(data) {
+  const rows = byMetric(data, 'resting_heart_rate');
+  if (rows.length === 0) {
+    document.getElementById('rhrValue').textContent = '—';
+    return;
+  }
+
+  // 7-day average (most recent 7 days with data)
+  const last7 = rows.slice(-7);
+  const avg7 = last7.reduce((s, r) => s + r.value, 0) / last7.length;
+  document.getElementById('rhrValue').textContent = Math.round(avg7);
+
+  // Delta: only show if we have ≥14 days of data
+  const totalSpan = daysBetween(rows[0].timestamp, rows[rows.length - 1].timestamp);
+  if (totalSpan >= 14 && rows.length > 7) {
+    const prior = rows.slice(-14, -7);
+    if (prior.length > 0) {
+      const avgPrior = prior.reduce((s, r) => s + r.value, 0) / prior.length;
+      const delta = avg7 - avgPrior;
+      const el = document.getElementById('rhrDelta');
+      const sign = delta > 0 ? '+' : '';
+      el.textContent = `${sign}${delta.toFixed(0)} bpm vs prior 7d`;
+      // Resting HR: negative delta = improvement (lower resting HR)
+      if (delta < -1) el.classList.add('positive');
+      else if (delta > 1) el.classList.add('negative');
+    }
+  }
+
+  // Sparkline: last 60 days
+  const latestDate = new Date(rows[rows.length - 1].timestamp);
+  const cutoff = new Date(latestDate);
+  cutoff.setDate(cutoff.getDate() - 60);
+  const recent = rows.filter(r => new Date(r.timestamp) >= cutoff);
+  if (recent.length >= 2) {
+    const day0 = new Date(recent[0].timestamp);
+    const points = recent.map(r => ({
+      x: daysBetween(day0.toISOString(), r.timestamp),
+      y: r.value
+    }));
+    drawSparkline('rhrSparkline', points,
+      getComputedStyle(document.documentElement).getPropertyValue('--accent-hr').trim());
+  }
+}
+
+// ═══════════════════════════════════════════
+// WIDGET 3: SLEEP
+// ═══════════════════════════════════════════
+function renderSleep(data) {
+  const rows = data.filter(r => r.metric === 'sleep_analysis' && r.value != null);
+  if (rows.length === 0) {
+    document.getElementById('sleepValue').textContent = '—';
+    return;
+  }
+
+  // Group segments by (date, source).
+  // Sleep duration = sum of non-Awake segments.
+  const nightMap = {};
+  for (const r of rows) {
+    const date = r.timestamp.slice(0, 10);
+    const src = r.source;
+    const key = date + '|' + src;
+    if (!nightMap[key]) nightMap[key] = { date, source: src, totalHrs: 0 };
+    const label = r.extra && r.extra.label ? r.extra.label : '';
+    if (label !== 'Awake') {
+      nightMap[key].totalHrs += r.value;
+    }
+  }
+
+  // Deduplicate: for nights with multiple sources, prefer RingConn
+  const byDate = {};
+  for (const n of Object.values(nightMap)) {
+    if (!byDate[n.date] || n.source === 'RingConn') {
+      byDate[n.date] = n;
+    }
+  }
+
+  const nights = Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
+  if (nights.length === 0) return;
+
+  // Last night
+  const lastNight = nights[nights.length - 1];
+  const hrs = Math.floor(lastNight.totalHrs);
+  const mins = Math.round((lastNight.totalHrs - hrs) * 60);
+  document.getElementById('sleepValue').textContent = `${hrs}:${String(mins).padStart(2, '0')}`;
+
+  // 7-day average
+  const last7Nights = nights.slice(-7);
+  const avg7 = last7Nights.reduce((s, n) => s + n.totalHrs, 0) / last7Nights.length;
+  const avgHrs = Math.floor(avg7);
+  const avgMins = Math.round((avg7 - avgHrs) * 60);
+  document.getElementById('sleepSub').textContent =
+    `${last7Nights.length}-night avg: ${avgHrs}:${String(avgMins).padStart(2, '0')}`;
+
+  // Horizontal bars for last 7 nights
+  const barsEl = document.getElementById('sleepBars');
+  const maxHrs = Math.max(...last7Nights.map(n => n.totalHrs));
+
+  for (const night of last7Nights) {
+    const d = new Date(night.date + 'T12:00:00');
+    const dayName = d.toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2);
+    const pct = maxHrs > 0 ? (night.totalHrs / maxHrs) * 100 : 0;
+
+    const row = document.createElement('div');
+    row.className = 'sleep-bar-row';
+    row.innerHTML = `
+      <span class="sleep-bar-label">${dayName}</span>
+      <div class="sleep-bar-track">
+        <div class="sleep-bar-fill" style="width:${pct.toFixed(1)}%"></div>
+      </div>`;
+    barsEl.appendChild(row);
+  }
+}
+</script>
+</body>
+</html>
