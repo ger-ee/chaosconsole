@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insult Rolodex | ChaosConsole</title>
+<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --surface: #101828;
+  --border: #2a3a5c;
+  --text: #f0f0f0;
+  --text-dim: #666;
+  --text-muted: #444;
+  --accent: #f87171;
+  --accent-dim: rgba(248,113,113,0.12);
+  --quote-text: #e0d8cc;
+  --link: #60a5fa;
+}
+
+[data-theme="light"] {
+  --bg: #e4ebf4;
+  --surface: rgba(255,255,255,0.65);
+  --border: rgba(160,175,200,0.3);
+  --text: #1a1e2e;
+  --text-dim: #6b7a8d;
+  --text-muted: #9aa5b4;
+  --accent: #dc2626;
+  --accent-dim: rgba(220,38,38,0.1);
+  --quote-text: #2c2a24;
+  --link: #2563eb;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+header {
+  padding: 1.25rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.3rem; font-weight: 400; text-transform: uppercase;
+  color: var(--accent);
+}
+
+header .meta {
+  display: flex; align-items: baseline; gap: 1rem;
+  flex-wrap: wrap; margin-top: 0.2rem;
+}
+
+header .breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--text-dim);
+}
+
+header .breadcrumb a { color: var(--accent); text-decoration: none; }
+
+.header-stat {
+  font-size: 0.6rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.quote-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.quote-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2rem 1.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+.quote-bar {
+  position: absolute;
+  top: 1.5rem; left: 0; bottom: 1.5rem;
+  width: 3px;
+  background: var(--accent);
+  opacity: 0.4;
+  border-radius: 0 2px 2px 0;
+}
+
+.quote-text {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--quote-text);
+  padding-left: 0.5rem;
+}
+
+.quote-idx {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+  padding-left: 0.5rem;
+}
+
+.shuffle {
+  display: block;
+  margin: 0 auto;
+  padding: 0.4rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.shuffle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-switch {
+  position: fixed; bottom: 1rem; right: 1rem;
+  width: 40px; height: 20px;
+  border-radius: 10px;
+  background: var(--border);
+  cursor: pointer;
+  z-index: 10000;
+  display: flex; align-items: center;
+  padding: 0 2px;
+  transition: background 0.3s;
+}
+
+.theme-switch .knob {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 0.3s;
+}
+
+[data-theme="light"] .theme-switch .knob { transform: translateX(20px); }
+
+footer {
+  text-align: center; padding: 1.5rem 1rem;
+  font-size: 0.55rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--accent); text-decoration: none; }
+
+@media (min-width: 640px) {
+  header { padding: 1.5rem 2rem 1rem; }
+  header h1 { font-size: 1.5rem; }
+  .quote-wrap { padding: 2.5rem 2rem; }
+  .quote-card { padding: 2.5rem 2rem 2rem; }
+  .quote-text { font-size: 1.25rem; }
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header>
+  <h1>Insult Rolodex</h1>
+  <div class="meta">
+    <span class="breadcrumb"><a href="index.html">CHAOS CONSOLE</a> / insults</span>
+    <span class="header-stat" id="stats"></span>
+  </div>
+</header>
+
+<div class="quote-wrap">
+  <div class="quote-card">
+    <div class="quote-bar"></div>
+    <div class="quote-text" id="quoteText"></div>
+    <div class="quote-idx" id="quoteIdx"></div>
+  </div>
+</div>
+
+<button class="shuffle" id="shuffleBtn">another</button>
+
+<footer>
+  ChaosConsole &mdash; Insult Rolodex &mdash; <a href="index.html">chaosconsole.com</a>
+</footer>
+
+<div class="theme-switch" id="themeSwitch" role="button" tabindex="0">
+  <div class="knob"></div>
+</div>
+
+<script>
+const sw = document.getElementById('themeSwitch');
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+}
+sw.addEventListener('click', toggleTheme);
+sw.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); }
+});
+
+const QUOTES = [
+"The only way it can be called a hit is if you put an S before the H.",
+"It's called the American Dream because you have to be asleep to believe it.",
+"\"We pretend to work, the government pretends to pay us.\" (Communism)",
+"\"Your cats are gonna eat you when you die!\" Buddy, my cats are trying to eat me now",
+"Like walking on mud with cement shoes",
+"You are legally obligated to tell me if I've somehow turned on read receipts.",
+"LA be like we are going to make a city so unwalkable u HAVE to drive, while simultaneously giving you nowhere to park if u DO drive, but if you find parking we will give u a ticket",
+"I think the elephant really ties the room together",
+"I tell my cat \"I know\" whenever he meows but I'm gonna be honest, I have no idea",
+"Its so much nicer to be depressed in a clean room",
+"The first 10 minutes of going to anyone's place in LA is them trying to calm down their dog while telling you this never happens",
+"if you text me \"we need to talk\" i'm gonna reply \"yes we do\" now we both stressed",
+"when someone loses something i like to ask helpful questions like \"where did you last see it?\" and \"where did you put it?\" and \"where is it?\"",
+"everyone knows that emotionally the day ends at 330",
+"It's always hard to pick a favorite anything, but this Andrea Cohen poem is hands down my favorite poem. (The committee weighs in)",
+"You don't hate cats you just can't handle rejection",
+"The looker and the cooker",
+"Yes, I have a question. First of all, how dare you?",
+"I love it when my cat sighs. Like what ails you my little unemployed freeloader",
+"You fucked more old Jews than Bernie Madoff",
+"You can live in LA and still be 2 hrs away from LA",
+"My dick has led me to places I wouldn't even go with a gun",
+"I feel like a seafront village after the Vikings have left.",
+"Chi semina vento, raccoglie tempesta",
+"This is how you play tennis without the net. Sam Harrisism",
+"She thinks Monty Python is the evil snake from Harry Potter.",
+"She looks like she uses LinkedIn to flirt and Yelp to leave breakup notes.",
+"His career trajectory resembles a pancake: flat, forgettable, and entirely dependent on buttering up someone else.",
+"The less you know, the more you believe",
+"I saw a guy forget his glasses in a cafe once; he came back for them, saw me watching him so, turned to me, and said, \"I'd probably lose my balls if they weren't in a bag.\" To this day, that saying is my favorite.",
+"Give a man the reputation of an early riser, and that man can sleep till noon.",
+"Orange cats are in a league of their own",
+"When you cuddle up to your cat an their lil paw starts going",
+"Two bald men fighting over a comb",
+"If you find yourself in a hole, stop diggin.",
+"You ever send an email and go to the Sent folder so you can \"read it from their perspective\"?",
+"I love how cats just slap everything they don't understand.",
+"You may think you need a cat, but what you actually need is two cats.",
+"Rid me of this meddlesome priest.",
+"If you just get the people who already hate Donald Trump to hate him a little more, we can win this thing.",
+"People who live in New York think that people who don't live in New York are somehow kidding. \u2014 Updike",
+"I found you on the road to home.",
+"I've been to hell and back so often that I've got frequent flyer miles.",
+"Cats constantly look at you like you just asked them for a ride to the airport.",
+"My hobbies include gently bonking my phone against the window while trying to take a picture of the sky.",
+"Nothing more suspicious than a good mood.",
+"Looks like _____ fucked a ________.",
+"You have the vocal range of a tea kettle",
+"If you can believe in yourself half as much as you believe in cream cheese",
+"She looks like she shops at Auto Zone",
+"You know what has zero calories and zero carbs? A nap.",
+"Griffith Park is for healing childhood trauma Runyon Canyon is for ignoring it",
+"The entire country is awaiting a biopsy result",
+"It's fun watching asshat rearrange the chairs on the Titanic.",
+"America's wealthiest hemorrhoid",
+"A racist voodoo doll made of discarded cat hair",
+"A clown made of mummified foreskin and cotton candy",
+"A kidney dropped on the floor at a Supercuts",
+"States' rights: Not just for racists anymore!",
+"Today's high: 54 degrees. Today's low: the current state of American politics.",
+"The best house renovation you can do right about now is the addition of a screaming room.",
+"It's times like this that one is reminded of King George III's words on American Independence: \"Can't see that ending well\". Quite.",
+"She looks like every woman eating lobster on a cruise ship.",
+"When Democrats organize a firing squad, they do it in a circle.",
+"When you pull your head out of your ass the view is so much better",
+"There are more things in Heaven and Earth, Horatio, than are dreamt of in your philosophy.",
+"Yes, it's insanely hot in Los Angeles, but at least everyone is rude.",
+"Thru thick and thin.",
+"If cats were the size of dogs, we'd be fucked.",
+"Two cats is a play date; three cats is a riot.",
+"It's a shame that fat cats became synonymous with corporate greed because they are one of the cutest kinds of cats!",
+"If elected president, the only statues will be of cats like the Egyptians.",
+"I wish I was a house cat. No anxiety except for pretending I am starving.",
+"I think my cat could drive a car if he was in the right mindset.",
+"How do I teach my body that my fight or flight response is supposed to be for life-or-death situations, not answering an email?",
+"Human red Solo cup (referring to college bro-looking guys).",
+"At what time today did you hit \"Fuck It\"?",
+"More people get to kiss you than the pop's ring.",
+"She slappeth.",
+"All about that conditional love.",
+"I believe in science. I also believe 55\u00b0 in October is colder than 55\u00b0 in April.",
+"It really be me vs. the pile of clothes in my room.",
+"At this point, if a clown invited me into the woods, I would just go.",
+"My favorite Christmas song is whatever plays immediately after \"Feliz Navidad.\"",
+"Somebody please develop the app \"Why Is There a Helicopter Over My House.\"",
+"My cat is busy staring at ghosts until it's time to yell at bugs he can't reach.",
+"Generational wealth is when my cat gets to lay around doing nothing all day while I pay for everything.",
+"Rearranging the chairs on the Titanic.",
+"LA is like if an entire city had airport prices.",
+"You should be able to leave reviews for other people's therapists.",
+"When the moon hits your eye like a big pizza pie.",
+"Password must contain a symbol, a number, an emotional arc, a centralized theme, a big set piece, a male lead \"struggling with inner demons,\" and a strong female character.",
+"High on his own supply.",
+"Fuck it. This is the year we're saving everything to the desktop.",
+"Woke up so today's already started shaky.",
+"Pretty excited to show off how a year of being indoors with plenty of time to self-reflect did not make me a better person.",
+"Everyone swears that their cat \"acts more like a dog.\"",
+"Is yo blood shuga low?",
+"What are cats if not lions that gave up persevering?",
+"Should I go on a jog in LA, or should I smoke 100 cigarettes?",
+"Whenever I do something that's not on my to-do list, I feel a little bit cheated, so I write it down and immediately cross it off.",
+"The women in my town can't wait to wear those long sleeve shirts with the thumb holes.",
+"Silver facial hair coming in feels a little aggressive.",
+"One fun thing I do on Wednesday is spend half the day thinking it's Thursday.",
+"The cat would like to know where all of you hid his shit.",
+"Normalize calling Lunchables charcuterie.",
+"Basically a renaissance painting (Francis with pizza picture).",
+"Easy like Sunday morning, tough like Sunday afternoon, full void like Sunday night.",
+"What a year we've had this week.",
+"Hot single grannies in your area want to bake you fresh pies.",
+"Bring all the groceries in at once or die trying.",
+"Whoever decided on spelling \"biscuit\" really needs to get their shuit together.",
+"I don't like the person I become when I'm tracking a UPS package.",
+"The most zen place in the airport is the \"get your shit together\" bench after going through security.",
+"Home is where my habits have a habitat.",
+"You can be blessed and exhausted.",
+"Sunshine returns to San Francisco for the first time in days, wreaking havoc and destruction everywhere it goes.",
+"Having Monday off: A poem.",
+"Your tone seems very pointed right now.",
+"When you scratch a cynic, you'll see a disappointed idealist.",
+"I feel I'm in a therapy group being run by my own rapist",
+"Okay, yeah. That's a cherry on top of this whole turd cake",
+"Didn't those Founding Fuckers ever hear of an odd number?!",
+"Why don't you put on your running shoes and get to the fucking point, Jonah?",
+"Being Vice President is like being declawed, defanged, neutered, ball-gagged, and sealed in an abandoned coal mine under two miles of human shit! It is a fate worse than death!",
+"Time to robust a nut all over this place",
+"Siri, why does God allow suffering?",
+"Stealing South Carolina is the bedrock of our political system",
+"Does he understand the policy? Forgive my concern, but it's a bit like asking if a dog can grasp the concept of Norway.",
+"And while you're there, could you do me another favor, please? Could you find a hostel, go there, and take a fucking overdose of barbiturates?",
+"I'm sensing a change in management styles. From touchy-feely to smashy-testes.",
+"Have you ever Googled your own name? It's like opening a door to a room where everyone tells you how shit you are.",
+"What would you call that? Obsessive Repulsive Disorder?",
+"He likes to think of himself as more of a thin, white Mugabe.",
+"I'm not quite sure what level of reality I'm supposed to be operating on.",
+"Good cock, bad cock.",
+"All he's doing is depriving a village somewhere of a twat",
+"It's all just gone really HBO.",
+"This is like a clown running across a minefield!",
+"Excuse me while I slip into something a lot more comfortable, like a coma.",
+"I heard he's about as useless as a chocolate teapot.",
+"This is the fucking Shawshank Redemption. Only there's more tunneling through shit, and no fucking redemption",
+"I've got a to-do list that's longer than a fucking Leonard Cohen song.",
+"He's so dense that light bends around him",
+"You have more nervous tics than a shoe bomber.",
+"He is a 12-year-old boy trapped in the body of a 12-year-old girl.",
+"You are the worst thing that has happened to this country since food in buckets and maybe slavery!",
+"I've seen a salmon in a grizzly's mouth look less panicky than that!",
+"If you listen to me instead of your only two brain cells that are too busy butt-fucking each other somewhere in the vast expanses of your misshapen skull, then maybe, Jonah, you might have a chance at becoming the first mentally impaired Frankenstein's monster to ever win an American election.",
+"CNN and Fox both say he's critical, but Fox says it with blonder hair and bigger tits.",
+"You're about as welcomed here as a turd in a hot tub",
+"Too bad you're not counting your missteps, you'd be done by breakfast, right?",
+"When does the White House's Most Useless Press Secretary List come out? I can't wait to see who's number one this year.",
+"Hey, hunchback! I don't know what you've been trying to do instead of win, but I'm guessing it has the word 'anal' in it.",
+"Is my entire presidency about to have its neck snapped by Congressman Lennie here?",
+"She has gone full-metal Nixon.",
+"You wouldn't know the smart move if it bent you over and fucked you with a Coke bottle.",
+"I am the one who got us this far, you sentient enema.",
+"You look like Clark Kent if they dug up Christopher Reeves' corpse to play the part.",
+"66 percent disapprove. That's everyone in America who's awake right now.",
+"See, this is the problem with high-definition. You don't want to see a dick in hi-def.",
+"Go, period. Fuck, period. Yourself, exclamation point!",
+"You don't get the complexity. You're the world's biggest single-cell organism.",
+"Look, I love abortion, okay? I am an abortionado. But I would go pro-life in a fetal fucking heartbeat if it meant winning.",
+"We have a saying here at FB: \"Move fast and break things.\" \u2014 Well that's a job well done.",
+"Watching you try to be nice is like watching a baby smoke a cigarette. It's kind of cool, but also very disturbing.",
+"It's like watching a goat try and use an ATM.",
+"Kent majored in fortune cookies.",
+"The 60-Foot Virgin",
+"Teenage Mutant Ninja Asshole",
+"Tinkerballs",
+"One Erection",
+"Hagrid's Nutsack",
+"Ma'am, I don't mean to piss on your bliss...",
+"Sometimes I feel like there's a 9-year-old boy inside of you just operating levers.",
+"You're about as annoying as a condom filled with fire ants.",
+"Middle East? Middle Easy!",
+"This goat is not gonna scape itself.",
+"I feel like I'm on a life support machine and they keep pulling the plug to charge their phones.",
+"I wouldn't let you run a bath without having the Coast Guard and Fire Department standing by \u2014 yet here you are running America.",
+"Supercalifragilisticexpialidickcheese",
+"The Gates of Hell have opened and you're my plus one.",
+"Calm down! Go to a SPA. Take a Pilates class. Go to a fucking church & find someone there who has Xanax and take four of them.",
+"People are looking at me and they are whispering... dick-cake.",
+"How do you expect me to mingle with this few people? Did Simon mingle with Garfunkle?",
+"She's really mediocre. Of all the ocres, she's the medi-est.",
+"Are we seriously gonna let the guy with the police sketch face of a rapist tell us what to do?",
+"Could you get me a real coffee instead of this fucking beige paint they're serving?",
+"The skyscraper of shit has arrived.",
+"You are like an earlobe, just there. Just wobbling",
+"If you're bored Anthony Bourdain is on CNN eating mac & cheese",
+"This isn't a choice like my diet, this is a necessity like my drinking.",
+"It feels like Christmas, except... happy!",
+"I am so tense, I could crack a walnut with my ass.",
+"You're as welcome here as a swastika mom-shaped shit in a synagogue.",
+"You're treating the Constitution like it's a build-your-own-pizza menu.",
+"Bordello Bill",
+"Hanukkah polls higher in Mecca",
+"It's always nice to see the most left-swiped face on Tinder.",
+"God doesn't giveth with both hands!",
+"This is like explaining gravity to a chicken.",
+"Yes please, milk, and two heaping spoonfuls of whatever the fuck you're on."
+];
+
+document.getElementById('stats').textContent = QUOTES.length + ' quotes';
+
+function show() {
+  const i = Math.floor(Math.random() * QUOTES.length);
+  document.getElementById('quoteText').textContent = QUOTES[i];
+  document.getElementById('quoteIdx').textContent = (i + 1) + ' / ' + QUOTES.length;
+}
+
+show();
+document.getElementById('shuffleBtn').addEventListener('click', show);
+</script>
+</body>
+</html>
