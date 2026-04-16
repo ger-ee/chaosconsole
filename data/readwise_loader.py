@@ -71,7 +71,7 @@ def get_token() -> str:
 # API helpers
 # ---------------------------------------------------------------------------
 
-def api_get(path: str, token: str, params: dict | None = None) -> dict:
+def api_get(path, token, params=None):
     """GET a Readwise API endpoint, handle rate limits."""
     url = f"{API_BASE}/{path.lstrip('/')}"
     if params:
@@ -95,9 +95,9 @@ def api_get(path: str, token: str, params: dict | None = None) -> dict:
     raise RuntimeError("Exceeded retry limit on rate-limited endpoint")
 
 
-def fetch_all_pages(path: str, token: str, page_size: int = 1000) -> list[dict]:
+def fetch_all_pages(path, token, page_size=1000):
     """Paginate through a Readwise list endpoint."""
-    results: list[dict] = []
+    results = []
     page = 1
     while True:
         data = api_get(path, token, {"page_size": page_size, "page": page})
@@ -152,7 +152,7 @@ def run(force: bool = False) -> dict:
     # Fetch books (for title/author metadata)
     print("Fetching books...")
     raw_books = fetch_all_pages("books/", token)
-    book_map: dict[int, dict] = {}
+    book_map = {}
     for b in raw_books:
         book_map[b["id"]] = {
             "title": b.get("title", ""),
@@ -169,7 +169,7 @@ def run(force: bool = False) -> dict:
     print(f"  {len(raw_highlights)} highlights fetched.")
 
     # Normalize
-    highlights: list[dict] = []
+    highlights = []
     for h in raw_highlights:
         text = (h.get("text") or "").strip()
         if not text:
