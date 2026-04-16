@@ -663,6 +663,11 @@ body::after {
 [data-theme="light"] .wellness-chart--dark { display: none; }
 [data-theme="dark"]  .wellness-chart--light { display: none; }
 
+/* Generic dual-theme inline SVG scenes (cards without PNGs). */
+.scene-dark, .scene-light { width: 100%; height: 100%; display: block; }
+[data-theme="light"] .scene-dark  { display: none; }
+[data-theme="dark"]  .scene-light { display: none; }
+
 /* Wider previews for full-width cards */
 .card-row--single .card-preview { width: 280px; }
 .card-row--single .preview-frame { width: 260px; height: 145px; }
@@ -1604,6 +1609,90 @@ body::after {
             <p class="card-desc">188 days of historical HRV tracker data &mdash; heart rate corridors, sleep architecture, recovery trends, and daily step tracking (Sep 2025 &ndash; Mar 2026).</p>
             <div class="card-footer"><span class="card-tag">Health</span><span class="card-tag">Archive</span></div>
           </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <!-- DARK -->
+                <svg class="scene-dark" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="a9bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="a9box" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e3d5e"/><stop offset="1" stop-color="#1e2a46"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#a9bg)"/>
+                  <!-- Archive box -->
+                  <rect x="60" y="30" width="160" height="95" rx="6" fill="url(#a9box)" stroke="#3a4d70" stroke-width="0.8"/>
+                  <!-- Box lid -->
+                  <rect x="55" y="26" width="170" height="14" rx="3" fill="#334155" stroke="#475569" stroke-width="0.6"/>
+                  <rect x="120" y="22" width="40" height="8" rx="2" fill="#475569"/>
+                  <!-- Faded HRV chart inside box -->
+                  <rect x="72" y="50" width="136" height="55" rx="3" fill="#0d1628" opacity="0.8"/>
+                  <line x1="78" y1="60" x2="202" y2="60" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="78" y1="75" x2="202" y2="75" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="78" y1="90" x2="202" y2="90" stroke="#1e2b47" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <polyline points="78,82 90,78 102,80 114,70 126,74 138,64 150,68 162,58 174,62 186,56 198,60" fill="none" stroke="#60a5fa" stroke-width="1.3" opacity="0.5" stroke-linejoin="round"/>
+                  <polyline points="78,86 90,84 102,88 114,76 126,80 138,72 150,74 162,66 174,70 186,64 198,68" fill="none" stroke="#4ade80" stroke-width="1.1" opacity="0.4" stroke-linejoin="round"/>
+                  <polyline points="78,90 90,88 102,92 114,82 126,86 138,78 150,80 162,72 174,76 186,70 198,74" fill="none" stroke="#a78bfa" stroke-width="0.9" opacity="0.35" stroke-linejoin="round"/>
+                  <!-- Date range label -->
+                  <rect x="82" y="52" width="60" height="8" rx="1.5" fill="#1e293b"/>
+                  <text x="86" y="58" font-family="JetBrains Mono" font-size="4.5" fill="#94a3b8">Sep 25 → Mar 26</text>
+                  <!-- ARCHIVED stamp -->
+                  <g transform="rotate(-12 180 90)">
+                    <rect x="155" y="80" width="50" height="16" rx="2" fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.7"/>
+                    <text x="162" y="92" font-family="Inter" font-size="8" font-weight="800" fill="#fbbf24" opacity="0.7">ARCHIVED</text>
+                  </g>
+                  <!-- Calendar icon (left of box) -->
+                  <rect x="14" y="48" width="30" height="28" rx="4" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+                  <rect x="14" y="48" width="30" height="8" rx="4" fill="#f87171" opacity="0.85"/>
+                  <rect x="14" y="52" width="30" height="4" fill="#f87171" opacity="0.85"/>
+                  <text x="22" y="72" font-family="Inter" font-size="12" font-weight="800" fill="#e8ecf4">188</text>
+                  <rect x="18" y="44" width="3" height="8" rx="1" fill="#475569"/>
+                  <rect x="37" y="44" width="3" height="8" rx="1" fill="#475569"/>
+                  <!-- Heart icon -->
+                  <path d="M22 88 C18 84 12 86 12 92 C12 96 22 104 22 104 C22 104 32 96 32 92 C32 86 26 84 22 88Z" fill="#f472b6" opacity="0.7"/>
+                  <text x="17" y="99" font-family="Inter" font-size="6" font-weight="700" fill="#e8ecf4">♥</text>
+                </svg>
+                <!-- LIGHT -->
+                <svg class="scene-light" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="a9lbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafcff"/><stop offset="1" stop-color="#eef2f9"/></linearGradient>
+                    <linearGradient id="a9lbox" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2e8f0"/><stop offset="1" stop-color="#cbd5e1"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#a9lbg)"/>
+                  <!-- Archive box -->
+                  <rect x="60" y="30" width="160" height="95" rx="6" fill="url(#a9lbox)" stroke="#94a3b8" stroke-width="0.8"/>
+                  <!-- Box lid -->
+                  <rect x="55" y="26" width="170" height="14" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="0.6"/>
+                  <rect x="120" y="22" width="40" height="8" rx="2" fill="#cbd5e1"/>
+                  <!-- Faded HRV chart inside box -->
+                  <rect x="72" y="50" width="136" height="55" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.5"/>
+                  <line x1="78" y1="60" x2="202" y2="60" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="78" y1="75" x2="202" y2="75" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <line x1="78" y1="90" x2="202" y2="90" stroke="#e2e8f0" stroke-width="0.4" stroke-dasharray="2 2"/>
+                  <polyline points="78,82 90,78 102,80 114,70 126,74 138,64 150,68 162,58 174,62 186,56 198,60" fill="none" stroke="#2563eb" stroke-width="1.3" opacity="0.45" stroke-linejoin="round"/>
+                  <polyline points="78,86 90,84 102,88 114,76 126,80 138,72 150,74 162,66 174,70 186,64 198,68" fill="none" stroke="#16a34a" stroke-width="1.1" opacity="0.35" stroke-linejoin="round"/>
+                  <polyline points="78,90 90,88 102,92 114,82 126,86 138,78 150,80 162,72 174,76 186,70 198,74" fill="none" stroke="#7c3aed" stroke-width="0.9" opacity="0.3" stroke-linejoin="round"/>
+                  <!-- Date range label -->
+                  <rect x="82" y="52" width="60" height="8" rx="1.5" fill="#f1f5f9"/>
+                  <text x="86" y="58" font-family="JetBrains Mono" font-size="4.5" fill="#64748b">Sep 25 → Mar 26</text>
+                  <!-- ARCHIVED stamp -->
+                  <g transform="rotate(-12 180 90)">
+                    <rect x="155" y="80" width="50" height="16" rx="2" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.6"/>
+                    <text x="162" y="92" font-family="Inter" font-size="8" font-weight="800" fill="#d97706" opacity="0.6">ARCHIVED</text>
+                  </g>
+                  <!-- Calendar icon (left of box) -->
+                  <rect x="14" y="48" width="30" height="28" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+                  <rect x="14" y="48" width="30" height="8" rx="4" fill="#ef4444" opacity="0.85"/>
+                  <rect x="14" y="52" width="30" height="4" fill="#ef4444" opacity="0.85"/>
+                  <text x="22" y="72" font-family="Inter" font-size="12" font-weight="800" fill="#1e293b">188</text>
+                  <rect x="18" y="44" width="3" height="8" rx="1" fill="#cbd5e1"/>
+                  <rect x="37" y="44" width="3" height="8" rx="1" fill="#cbd5e1"/>
+                  <!-- Heart icon -->
+                  <path d="M22 88 C18 84 12 86 12 92 C12 96 22 104 22 104 C22 104 32 96 32 92 C32 86 26 84 22 88Z" fill="#ec4899" opacity="0.6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
         </a>
       </div>
     </div>
@@ -1624,6 +1713,137 @@ body::after {
             <p class="card-desc">Random highlight from your reading library &mdash; books, articles, and podcasts. Refreshes on each visit.</p>
             <div class="card-footer"><span class="card-tag">Reading</span><span class="card-tag">Live Data</span></div>
           </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <!-- DARK -->
+                <svg class="scene-dark" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="r10bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="r10page" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8ecf4"/><stop offset="1" stop-color="#cbd5e1"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#r10bg)"/>
+                  <!-- Stacked books (left, behind) -->
+                  <g transform="rotate(-6 38 80)">
+                    <rect x="8" y="54" width="48" height="60" rx="3" fill="#7c3aed" stroke="#5b21b6" stroke-width="0.6"/>
+                    <rect x="12" y="60" width="10" height="48" rx="1" fill="#6d28d9" opacity="0.5"/>
+                    <rect x="8" y="54" width="4" height="60" rx="1" fill="#5b21b6"/>
+                  </g>
+                  <g transform="rotate(-3 40 80)">
+                    <rect x="14" y="50" width="46" height="58" rx="3" fill="#2563eb" stroke="#1e40af" stroke-width="0.6"/>
+                    <rect x="14" y="50" width="4" height="58" rx="1" fill="#1e40af"/>
+                    <rect x="22" y="56" width="30" height="3" rx="1" fill="#1e40af" opacity="0.6"/>
+                    <rect x="22" y="62" width="24" height="2" rx="1" fill="#1e40af" opacity="0.4"/>
+                  </g>
+                  <!-- Open book (center) -->
+                  <rect x="58" y="20" width="82" height="105" rx="4" fill="url(#r10page)" stroke="#94a3b8" stroke-width="0.6"/>
+                  <rect x="140" y="20" width="82" height="105" rx="4" fill="url(#r10page)" stroke="#94a3b8" stroke-width="0.6"/>
+                  <!-- Book spine -->
+                  <line x1="140" y1="20" x2="140" y2="125" stroke="#94a3b8" stroke-width="0.8"/>
+                  <!-- Left page lines -->
+                  <rect x="66" y="32" width="60" height="2.5" rx="1" fill="#94a3b8"/>
+                  <rect x="66" y="39" width="55" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="45" width="58" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Highlighted line! -->
+                  <rect x="64" y="51" width="65" height="9" rx="1" fill="#fbbf24" opacity="0.35"/>
+                  <rect x="66" y="53" width="60" height="2" rx="1" fill="#78350f" opacity="0.6"/>
+                  <rect x="66" y="57" width="48" height="2" rx="1" fill="#78350f" opacity="0.5"/>
+                  <rect x="66" y="64" width="52" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="70" width="56" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Another highlighted line -->
+                  <rect x="64" y="76" width="65" height="6" rx="1" fill="#fbbf24" opacity="0.3"/>
+                  <rect x="66" y="77" width="58" height="2" rx="1" fill="#78350f" opacity="0.5"/>
+                  <rect x="66" y="85" width="50" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="91" width="54" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="97" width="42" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Right page lines -->
+                  <rect x="148" y="32" width="62" height="2.5" rx="1" fill="#94a3b8"/>
+                  <rect x="148" y="39" width="58" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="45" width="55" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="51" width="60" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="57" width="50" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="63" width="56" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="69" width="52" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="75" width="58" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="81" width="48" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="87" width="54" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="93" width="50" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Bookmark ribbon -->
+                  <path d="M208 20 L208 48 L214 42 L220 48 L220 20 Z" fill="#f87171"/>
+                  <!-- Quote mark (top-right floating) -->
+                  <text x="218" y="84" font-family="Inter" font-size="42" font-weight="800" fill="#a78bfa" opacity="0.25">&quot;</text>
+                  <!-- Pencil underline indicator -->
+                  <g transform="rotate(25 56 120)">
+                    <rect x="42" y="114" width="30" height="4" rx="0.5" fill="#fbbf24"/>
+                    <path d="M72 114 L76 116 L72 118 Z" fill="#fde68a"/>
+                    <path d="M74 115 L76 116 L74 117 Z" fill="#0f172a"/>
+                  </g>
+                </svg>
+                <!-- LIGHT -->
+                <svg class="scene-light" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="r10lbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafcff"/><stop offset="1" stop-color="#eef2f9"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#r10lbg)"/>
+                  <!-- Stacked books (left, behind) -->
+                  <g transform="rotate(-6 38 80)">
+                    <rect x="8" y="54" width="48" height="60" rx="3" fill="#a78bfa" stroke="#7c3aed" stroke-width="0.6"/>
+                    <rect x="12" y="60" width="10" height="48" rx="1" fill="#8b5cf6" opacity="0.5"/>
+                    <rect x="8" y="54" width="4" height="60" rx="1" fill="#7c3aed"/>
+                  </g>
+                  <g transform="rotate(-3 40 80)">
+                    <rect x="14" y="50" width="46" height="58" rx="3" fill="#60a5fa" stroke="#2563eb" stroke-width="0.6"/>
+                    <rect x="14" y="50" width="4" height="58" rx="1" fill="#2563eb"/>
+                    <rect x="22" y="56" width="30" height="3" rx="1" fill="#2563eb" opacity="0.5"/>
+                    <rect x="22" y="62" width="24" height="2" rx="1" fill="#2563eb" opacity="0.3"/>
+                  </g>
+                  <!-- Open book (center) -->
+                  <rect x="58" y="20" width="82" height="105" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.6"/>
+                  <rect x="140" y="20" width="82" height="105" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.6"/>
+                  <line x1="140" y1="20" x2="140" y2="125" stroke="#cbd5e1" stroke-width="0.8"/>
+                  <!-- Left page lines -->
+                  <rect x="66" y="32" width="60" height="2.5" rx="1" fill="#64748b"/>
+                  <rect x="66" y="39" width="55" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="45" width="58" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Highlighted line -->
+                  <rect x="64" y="51" width="65" height="9" rx="1" fill="#fbbf24" opacity="0.3"/>
+                  <rect x="66" y="53" width="60" height="2" rx="1" fill="#92400e" opacity="0.5"/>
+                  <rect x="66" y="57" width="48" height="2" rx="1" fill="#92400e" opacity="0.4"/>
+                  <rect x="66" y="64" width="52" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="70" width="56" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Another highlighted line -->
+                  <rect x="64" y="76" width="65" height="6" rx="1" fill="#fbbf24" opacity="0.25"/>
+                  <rect x="66" y="77" width="58" height="2" rx="1" fill="#92400e" opacity="0.4"/>
+                  <rect x="66" y="85" width="50" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="91" width="54" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="66" y="97" width="42" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Right page lines -->
+                  <rect x="148" y="32" width="62" height="2.5" rx="1" fill="#64748b"/>
+                  <rect x="148" y="39" width="58" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="45" width="55" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="51" width="60" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="57" width="50" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="63" width="56" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="69" width="52" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="75" width="58" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="81" width="48" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="87" width="54" height="2" rx="1" fill="#cbd5e1"/>
+                  <rect x="148" y="93" width="50" height="2" rx="1" fill="#cbd5e1"/>
+                  <!-- Bookmark ribbon -->
+                  <path d="M208 20 L208 48 L214 42 L220 48 L220 20 Z" fill="#ef4444"/>
+                  <!-- Quote mark -->
+                  <text x="218" y="84" font-family="Inter" font-size="42" font-weight="800" fill="#7c3aed" opacity="0.18">&quot;</text>
+                  <!-- Pencil -->
+                  <g transform="rotate(25 56 120)">
+                    <rect x="42" y="114" width="30" height="4" rx="0.5" fill="#d97706"/>
+                    <path d="M72 114 L76 116 L72 118 Z" fill="#fde68a"/>
+                    <path d="M74 115 L76 116 L74 117 Z" fill="#1e293b"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
         </a>
       </div>
       <div class="card-row card-row--single">
@@ -1633,6 +1853,123 @@ body::after {
             <div class="card-title">Insult Rolodex</div>
             <p class="card-desc">A rotating carousel of quotes, one-liners, and comical insults. Random pick on every visit.</p>
             <div class="card-footer"><span class="card-tag">Reading</span></div>
+          </div>
+          <div class="card-preview">
+            <div class="preview-frame">
+              <div class="pf-back"></div>
+              <div class="pf-front">
+                <!-- DARK -->
+                <svg class="scene-dark" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="i11bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+                    <linearGradient id="i11card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#i11bg)"/>
+                  <!-- Rolodex base -->
+                  <ellipse cx="130" cy="126" rx="70" ry="6" fill="#000" opacity="0.35"/>
+                  <rect x="72" y="108" width="116" height="22" rx="4" fill="#334155" stroke="#475569" stroke-width="0.8"/>
+                  <rect x="76" y="108" width="108" height="3" rx="1" fill="#475569"/>
+                  <!-- Rolodex spindle -->
+                  <rect x="126" y="42" width="8" height="70" rx="2" fill="#475569"/>
+                  <circle cx="130" cy="42" r="5" fill="#64748b" stroke="#475569" stroke-width="0.8"/>
+                  <!-- Fanned cards (back) -->
+                  <g transform="rotate(-18 130 90)">
+                    <rect x="80" y="56" width="100" height="52" rx="3" fill="#94a3b8" opacity="0.5"/>
+                  </g>
+                  <g transform="rotate(-10 130 90)">
+                    <rect x="80" y="56" width="100" height="52" rx="3" fill="#cbd5e1" opacity="0.65"/>
+                    <rect x="88" y="64" width="60" height="2" rx="1" fill="#64748b" opacity="0.5"/>
+                    <rect x="88" y="70" width="48" height="2" rx="1" fill="#64748b" opacity="0.4"/>
+                  </g>
+                  <!-- Front card (prominent) -->
+                  <rect x="80" y="52" width="100" height="56" rx="4" fill="url(#i11card)" stroke="#94a3b8" stroke-width="0.6"/>
+                  <!-- Card lines -->
+                  <rect x="88" y="60" width="70" height="3" rx="1" fill="#334155"/>
+                  <rect x="88" y="67" width="58" height="2" rx="1" fill="#94a3b8"/>
+                  <rect x="88" y="73" width="64" height="2" rx="1" fill="#94a3b8"/>
+                  <rect x="88" y="79" width="50" height="2" rx="1" fill="#94a3b8"/>
+                  <!-- Index tab -->
+                  <rect x="168" y="58" width="14" height="10" rx="2" fill="#fbbf24"/>
+                  <text x="171" y="66" font-family="Inter" font-size="6" font-weight="700" fill="#78350f">Q</text>
+                  <!-- Fanned cards (front-right, peeking) -->
+                  <g transform="rotate(8 130 90)">
+                    <rect x="82" y="58" width="100" height="52" rx="3" fill="#cbd5e1" opacity="0.55"/>
+                  </g>
+                  <!-- Speech bubble (top-right) -->
+                  <rect x="178" y="14" width="56" height="34" rx="8" fill="#f87171"/>
+                  <path d="M192 48 L198 56 L186 48 Z" fill="#f87171"/>
+                  <text x="190" y="36" font-family="Inter" font-size="14" font-weight="800" fill="#fef2f2">!@#$</text>
+                  <!-- Laughing emoji (left) -->
+                  <circle cx="34" cy="76" r="18" fill="#fbbf24"/>
+                  <circle cx="34" cy="76" r="16" fill="#fbbf24" stroke="#d97706" stroke-width="0.6"/>
+                  <circle cx="27" cy="72" r="2.5" fill="#78350f"/>
+                  <circle cx="41" cy="72" r="2.5" fill="#78350f"/>
+                  <path d="M26 80 Q34 90 42 80" stroke="#78350f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Tear drops -->
+                  <path d="M24 72 Q22 68 20 72 Q22 74 24 72Z" fill="#60a5fa"/>
+                  <path d="M44 72 Q46 68 48 72 Q46 74 44 72Z" fill="#60a5fa"/>
+                  <!-- Rotation arrow -->
+                  <g transform="translate(52 34)">
+                    <path d="M0 8 A8 8 0 1 1 8 16" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M6 13 L8 16 L5 17" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                </svg>
+                <!-- LIGHT -->
+                <svg class="scene-light" viewBox="0 0 245 138" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="i11lbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafcff"/><stop offset="1" stop-color="#eef2f9"/></linearGradient>
+                    <linearGradient id="i11lcard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1f5f9"/></linearGradient>
+                  </defs>
+                  <rect width="245" height="138" fill="url(#i11lbg)"/>
+                  <!-- Rolodex base -->
+                  <ellipse cx="130" cy="126" rx="70" ry="6" fill="#94a3b8" opacity="0.2"/>
+                  <rect x="72" y="108" width="116" height="22" rx="4" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="0.8"/>
+                  <rect x="76" y="108" width="108" height="3" rx="1" fill="#cbd5e1"/>
+                  <!-- Rolodex spindle -->
+                  <rect x="126" y="42" width="8" height="70" rx="2" fill="#cbd5e1"/>
+                  <circle cx="130" cy="42" r="5" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="0.8"/>
+                  <!-- Fanned cards (back) -->
+                  <g transform="rotate(-18 130 90)">
+                    <rect x="80" y="56" width="100" height="52" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  </g>
+                  <g transform="rotate(-10 130 90)">
+                    <rect x="80" y="56" width="100" height="52" rx="3" fill="#f1f5f9" opacity="0.8"/>
+                    <rect x="88" y="64" width="60" height="2" rx="1" fill="#94a3b8" opacity="0.5"/>
+                    <rect x="88" y="70" width="48" height="2" rx="1" fill="#94a3b8" opacity="0.4"/>
+                  </g>
+                  <!-- Front card -->
+                  <rect x="80" y="52" width="100" height="56" rx="4" fill="url(#i11lcard)" stroke="#cbd5e1" stroke-width="0.6"/>
+                  <rect x="88" y="60" width="70" height="3" rx="1" fill="#1e293b"/>
+                  <rect x="88" y="67" width="58" height="2" rx="1" fill="#94a3b8"/>
+                  <rect x="88" y="73" width="64" height="2" rx="1" fill="#94a3b8"/>
+                  <rect x="88" y="79" width="50" height="2" rx="1" fill="#94a3b8"/>
+                  <!-- Index tab -->
+                  <rect x="168" y="58" width="14" height="10" rx="2" fill="#d97706"/>
+                  <text x="171" y="66" font-family="Inter" font-size="6" font-weight="700" fill="#fffbeb">Q</text>
+                  <!-- Fanned cards (front-right) -->
+                  <g transform="rotate(8 130 90)">
+                    <rect x="82" y="58" width="100" height="52" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  </g>
+                  <!-- Speech bubble -->
+                  <rect x="178" y="14" width="56" height="34" rx="8" fill="#ef4444"/>
+                  <path d="M192 48 L198 56 L186 48 Z" fill="#ef4444"/>
+                  <text x="190" y="36" font-family="Inter" font-size="14" font-weight="800" fill="#fef2f2">!@#$</text>
+                  <!-- Laughing emoji -->
+                  <circle cx="34" cy="76" r="18" fill="#fbbf24"/>
+                  <circle cx="34" cy="76" r="16" fill="#fbbf24" stroke="#d97706" stroke-width="0.6"/>
+                  <circle cx="27" cy="72" r="2.5" fill="#78350f"/>
+                  <circle cx="41" cy="72" r="2.5" fill="#78350f"/>
+                  <path d="M26 80 Q34 90 42 80" stroke="#78350f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path d="M24 72 Q22 68 20 72 Q22 74 24 72Z" fill="#2563eb"/>
+                  <path d="M44 72 Q46 68 48 72 Q46 74 44 72Z" fill="#2563eb"/>
+                  <!-- Rotation arrow -->
+                  <g transform="translate(52 34)">
+                    <path d="M0 8 A8 8 0 1 1 8 16" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M6 13 L8 16 L5 17" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
           </div>
         </a>
       </div>
