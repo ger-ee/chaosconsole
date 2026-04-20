@@ -6,996 +6,1068 @@
     <title>Playlist Tracker — curated by gary.</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ===== TOKENS ===== */
         [data-theme="dark"] {
-          --bg: #0b0f1a;
-          --bg-elevated: #101828;
-          --surface: #151d2e;
-          --surface-2: #1c2640;
-          --bg-card: #151d2e;
-          --bg-card-hover: #1c2640;
-          --border: #2a3a5c;
-          --border-subtle: #1e2d4a;
-          --text: #f0f0f0;
-          --text-primary: #f0f0f0;
-          --text-secondary: #a0a0a0;
-          --text-muted: #7a8aa8;
-          --accent: #0077BC;
-          --accent-dim: rgba(0, 119, 188, 0.10);
-          --accent-glow: rgba(0, 119, 188, 0.25);
-          --neon-pink: #ff2d55;
-          --neon-blue: #0af;
-          --neon-green: #39ff14;
-          --neon-purple: #bf5fff;
-          --neon-yellow: #ffe600;
-          --neon-orange: #ff9500;
-          --neon-gold: #ffd700;
-          --neon-teal: #14d4b8;
-          --gain: #00e88a;
-          --gain-bg: rgba(0, 232, 138, 0.14);
-          --loss: #ff4466;
-          --loss-bg: rgba(255, 68, 102, 0.14);
-          --flat: #8a92a6;
-          --flat-bg: rgba(138, 146, 166, 0.14);
-          --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+          --bg: #0a0e17;
+          --surface: #0f1522;
+          --surface-2: #131a2a;
+          --surface-3: #1a2238;
+          --border: #1f2a3d;
+          --border-strong: #2a3854;
+          --border-subtle: #17203080;
+          --text: #e8eaf0;
+          --text-secondary: #a5afc2;
+          --text-muted: #6b7690;
+          --text-subtle: #4a5370;
+          --accent: #06b6d4;
+          --accent-hover: #0891b2;
+          --accent-dim: rgba(6, 182, 212, 0.12);
+          --accent-glow: rgba(6, 182, 212, 0.22);
+          --gain: #10b981;
+          --gain-bg: rgba(16, 185, 129, 0.1);
+          --gain-strong: rgba(16, 185, 129, 0.2);
+          --loss: #f43f5e;
+          --loss-bg: rgba(244, 63, 94, 0.1);
+          --loss-strong: rgba(244, 63, 94, 0.2);
+          --flat: #64748b;
+          --flat-bg: rgba(100, 116, 139, 0.1);
+          --outlier: #f59e0b;
+          --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+          --shadow-lg: 0 4px 16px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.25);
         }
-
         [data-theme="light"] {
-          --bg: #f5f5f5;
-          --bg-elevated: #ffffff;
+          --bg: #f7f8fa;
           --surface: #ffffff;
-          --surface-2: #ebebeb;
-          --bg-card: #ffffff;
-          --bg-card-hover: #f1f1f3;
-          --border: #d4d4d4;
-          --border-subtle: #e0e0e0;
+          --surface-2: #f3f4f8;
+          --surface-3: #e8ebf1;
+          --border: #dfe3ec;
+          --border-strong: #c7cdd9;
+          --border-subtle: #eff1f580;
           --text: #0f172a;
-          --text-primary: #0f172a;
           --text-secondary: #334155;
           --text-muted: #64748b;
-          --accent: #005a8f;
-          --accent-dim: rgba(0, 90, 143, 0.08);
-          --accent-glow: rgba(0, 90, 143, 0.18);
-          --neon-pink: #d4265a;
-          --neon-blue: #0077cc;
-          --neon-green: #16a34a;
-          --neon-purple: #7c3aed;
-          --neon-yellow: #ca8a04;
-          --neon-orange: #ea580c;
-          --neon-gold: #b8860b;
-          --neon-teal: #0d9488;
-          --gain: #16a34a;
-          --gain-bg: rgba(22, 163, 74, 0.12);
+          --text-subtle: #94a3b8;
+          --accent: #0891b2;
+          --accent-hover: #0e7490;
+          --accent-dim: rgba(8, 145, 178, 0.1);
+          --accent-glow: rgba(8, 145, 178, 0.16);
+          --gain: #059669;
+          --gain-bg: rgba(5, 150, 105, 0.1);
+          --gain-strong: rgba(5, 150, 105, 0.18);
           --loss: #dc2626;
-          --loss-bg: rgba(220, 38, 38, 0.12);
+          --loss-bg: rgba(220, 38, 38, 0.1);
+          --loss-strong: rgba(220, 38, 38, 0.18);
           --flat: #64748b;
-          --flat-bg: rgba(100, 116, 139, 0.12);
-          --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+          --flat-bg: rgba(100, 116, 139, 0.1);
+          --outlier: #d97706;
+          --shadow: 0 1px 2px rgba(15,23,42,0.04), 0 4px 12px rgba(15,23,42,0.06);
+          --shadow-lg: 0 4px 16px rgba(15,23,42,0.06), 0 16px 48px rgba(15,23,42,0.1);
         }
 
+        /* ===== BASE ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        html { scroll-behavior: smooth; }
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        .container { max-width: 1440px; margin: 0 auto; padding: 40px 32px; }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 24px;
-            padding-bottom: 20px;
-        }
-        .header h1 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2.6rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            line-height: 1;
-            background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .header .subtitle {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-        .header-right { display: flex; gap: 10px; align-items: center; }
-        .spotify-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 12px 18px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        .spotify-link:hover {
-            border-color: #1DB954;
-            color: #1DB954;
-        }
-        .spotify-link .dot {
-            width: 8px; height: 8px; border-radius: 50%; background: #1DB954;
-        }
-
-        .hero {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 32px;
-            padding: 28px 32px;
-            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-            pointer-events: none;
-            opacity: 0.4;
-        }
-        .hero-block { position: relative; z-index: 1; }
-        .hero-block .hero-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-        .hero-block .hero-value {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 3.4rem;
-            font-weight: 900;
-            line-height: 0.95;
-            letter-spacing: 1px;
-            color: var(--text);
-        }
-        .hero-block .hero-detail {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            margin-top: 8px;
-            color: var(--text-muted);
-        }
-        .hero-block.hero-headline .hero-value {
-            background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-block.hero-secondary .hero-value {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.9rem;
-        }
-        .hero-movement {
-            display: flex;
-            gap: 10px;
-            margin-top: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-        }
-        .hero-movement .gain { color: var(--gain); }
-        .hero-movement .loss { color: var(--loss); }
-        .hero-movement .flat { color: var(--flat); }
-
-        .btn {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: none;
-            border-radius: 4px;
-            padding: 14px 24px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(255, 45, 120, 0.25);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(255, 45, 120, 0.4);
-        }
-        .btn-secondary {
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
-        }
-
-        .section-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-        }
-
-        .summary-strip {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-        .summary-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 20px;
-        }
-        .summary-card .sc-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-        .summary-card .sc-value {
-            font-family: 'Inter', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1;
-        }
-        .summary-card .sc-detail {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            margin-top: 6px;
-        }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-        .stat-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-card-cover {
-            position: absolute;
-            inset: 0;
-            opacity: 0.08;
-            z-index: 0;
-            border-radius: 14px;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .stat-card:hover .stat-card-cover { opacity: 0.15; }
-        .stat-card .sc-top, .stat-card .followers, .stat-card .delta-row, .stat-card .sparkline-container { position: relative; z-index: 1; }
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .stat-card:hover, .stat-card.active {
-            background: var(--surface-2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .stat-card.active::after { opacity: 1; }
-        .stat-card .sc-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 4px;
-        }
-        .stat-card .name {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .stat-card .momentum-badge {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 2px 7px;
-            border-radius: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
-            margin-left: 8px;
-        }
-        .stat-card .followers {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1;
-        }
-        .stat-card .delta-row {
-            display: flex;
-            gap: 12px;
-            margin-top: 6px;
-            align-items: center;
-        }
-        .stat-card .delta-pill {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-        }
-        .delta-pill.gain { background: var(--gain-bg); color: var(--gain); }
-        .delta-pill.loss { background: var(--loss-bg); color: var(--loss); }
-        .delta-pill.flat { background: var(--flat-bg); color: var(--flat); }
-        .stat-card .delta-label { font-size: 0.65rem; color: var(--text-muted); }
-        .stat-card .sparkline-container { margin-top: 10px; height: 32px; }
-        .stat-card .sc-detail-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 2;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.35);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .stat-card:hover .sc-detail-btn { display: flex; }
-        .stat-card .sc-detail-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-        .insights-feed {
-            display: grid;
-            gap: 10px;
-        }
-        .insight-item {
-            display: flex;
-            gap: 14px;
-            padding: 14px 16px;
-            background: var(--surface-2);
-            border: 1px solid var(--border-subtle);
-            border-left: 3px solid var(--accent);
-            border-radius: 10px;
-            align-items: flex-start;
-            transition: transform 0.2s ease;
-        }
-        .insight-item:hover { transform: translateX(2px); }
-        .insight-item.priority-1 { border-left-color: var(--neon-gold); }
-        .insight-item.priority-2 { border-left-color: var(--neon-blue); }
-        .insight-item.priority-3 { border-left-color: var(--text-muted); }
-        .insight-item .i-icon {
-            font-size: 1.1rem;
-            line-height: 1;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .insight-item .i-body { flex: 1; font-size: 0.88rem; line-height: 1.5; color: var(--text-secondary); }
-        .insight-item .i-title { font-weight: 700; color: var(--text-primary); margin-right: 4px; }
-
-        .detail-modal .dm-header {
-            display: flex;
-            gap: 18px;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .detail-modal .dm-cover {
-            width: 80px; height: 80px;
-            border-radius: 8px;
-            background-size: cover;
-            background-position: center;
-            background-color: var(--surface-2);
-            flex-shrink: 0;
-            border: 1px solid var(--border);
-        }
-        .detail-modal .dm-title {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .detail-modal .dm-sub {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        .detail-modal .dm-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .detail-modal .dm-stat {
-            background: var(--surface-2);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 12px 14px;
-        }
-        .detail-modal .dm-stat .label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-        .detail-modal .dm-stat .value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .detail-modal .dm-chart {
-            height: 200px;
-            margin-bottom: 20px;
-        }
-        .detail-modal .dm-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        .detail-modal .dm-spotify-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: #1DB954;
-            color: #fff;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-        }
-        .detail-modal .dm-spotify-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(29, 185, 84, 0.4); }
-
-        .chart-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 32px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .chart-controls { display: flex; gap: 8px; }
-        .chart-controls button {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 2px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .chart-controls button:hover, .chart-controls button.active {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
-            border-color: var(--text-muted);
-        }
-        .chart-canvas-wrap { position: relative; height: 400px; }
-        .chart-canvas-wrap.short { height: 320px; }
-
-        .heatmap-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 32px;
-            margin-bottom: 24px;
-            overflow-x: auto;
-        }
-        .heatmap-wrap { overflow-x: auto; padding-bottom: 8px; }
-        .heatmap { display: grid; gap: 2px; min-width: fit-content; }
-        .hm-row { display: contents; }
-        .hm-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            padding: 6px 12px 6px 0;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            min-width: 130px;
-            position: sticky;
-            left: 0;
-            background: var(--surface);
-            z-index: 2;
-        }
-        .hm-header {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            text-align: center;
-            padding: 4px 2px;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .hm-cell {
-            width: 48px;
-            height: 32px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 500;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            cursor: default;
-            position: relative;
-        }
-        .hm-cell:hover {
-            transform: scale(1.25);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
-        .hm-cell.outlier::before {
-            content: '';
-            position: absolute;
-            top: 3px; right: 3px;
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: var(--neon-gold);
-            box-shadow: 0 0 6px var(--neon-gold);
-        }
-        .hm-cell[data-tooltip]:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1a2e;
-            color: var(--text-primary);
-            padding: 4px 8px;
-            border-radius: 2px;
-            font-size: 0.65rem;
-            white-space: nowrap;
-            border: 1px solid var(--border);
-            z-index: 20;
-        }
-        .heatmap-legend {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 16px;
-            justify-content: flex-end;
-        }
-        .heatmap-legend .hl-block { width: 28px; height: 12px; border-radius: 2px; }
-        .heatmap-legend span {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--text-muted);
-        }
-
-        .movers-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .movers-panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 24px;
-        }
-        .movers-panel .mp-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-        .movers-panel .mp-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-        .mover-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(30, 30, 53, 0.4);
-        }
-        .mover-item:last-child { border-bottom: none; }
-        .mover-item .mi-name { font-size: 0.82rem; font-weight: 600; }
-        .mover-item .mi-stats { display: flex; gap: 12px; align-items: center; }
-        .mover-item .mi-abs {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .mover-item .mi-pct {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 2px;
-            min-width: 56px;
-            text-align: center;
-        }
-
-        .table-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 32px;
-            margin-bottom: 40px;
-            overflow-x: auto;
-        }
-        .table-section table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        .table-section th {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 10px 12px;
-            text-align: right;
-            border-bottom: 1px solid var(--border);
-            white-space: nowrap;
-            position: sticky;
-            top: 0;
-            background: var(--surface);
-        }
-        .table-section th:first-child {
-            text-align: left;
-            min-width: 140px;
-            position: sticky;
-            left: 0;
-            z-index: 3;
-        }
-        .table-section td {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            padding: 8px 12px;
-            text-align: right;
-            border-bottom: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-        }
-        .table-section td:first-child {
-            text-align: left;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            color: var(--text-primary);
-            position: sticky;
-            left: 0;
-            background: var(--surface);
-            z-index: 2;
-        }
-        .table-section tr:hover td:first-child { background: var(--surface-2); }
-        .table-section tr:hover td { background: rgba(255,255,255,0.02); }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 15, 26, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-overlay.open { display: flex; }
-        .modal {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 36px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: modalIn 0.3s ease;
-        }
-        @keyframes modalIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.97); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .modal h2 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-teal));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .modal .modal-subtitle {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-        .modal-field {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(30, 30, 53, 0.5);
-        }
-        .modal-field label { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
-        .modal-field .mf-right { display: flex; align-items: center; gap: 10px; }
-        .modal-field .mf-prev {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-        .modal-field input {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            width: 80px;
-            text-align: right;
-            padding: 8px 12px;
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            color: var(--text);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .modal-field input:focus { border-color: var(--neon-blue); }
-        .modal-field .mf-delta {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            min-width: 48px;
-            text-align: right;
-        }
-        .month-selector { display: flex; gap: 12px; margin-bottom: 20px; }
-        .month-selector select, .month-selector input[type="number"] {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            padding: 10px 14px;
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            color: var(--text);
-            outline: none;
-            flex: 1;
-        }
-        .modal-actions { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
-
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+          background: var(--bg);
+          color: var(--text);
+          font-family: 'Inter', sans-serif;
+          font-size: 14px;
+          line-height: 1.5;
+          min-height: 100vh;
+          overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+          max-width: 1360px;
+          margin: 0 auto;
+          padding: 32px 32px 64px;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-        @media (max-width: 900px) {
-            .container { padding: 20px 16px; }
-            .header { flex-direction: column; align-items: flex-start; gap: 16px; }
-            .header h1 { font-size: 2.2rem; }
-            .header-right { width: 100%; justify-content: space-between; }
-            .hero { grid-template-columns: 1fr 1fr; padding: 20px; gap: 16px; }
-            .hero-block.hero-headline { grid-column: 1 / -1; }
-            .hero-block .hero-value { font-size: 2.6rem; }
-            .hero-block.hero-secondary .hero-value { font-size: 1.4rem; }
-            .stats-row { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-            .summary-strip { grid-template-columns: repeat(2, 1fr); }
-            .movers-grid { grid-template-columns: 1fr; }
-            .chart-canvas-wrap { height: 300px; }
-            .detail-modal .dm-stats { grid-template-columns: 1fr; }
-            .detail-modal .dm-chart { height: 180px; }
-        }
-
+        /* ===== TOP NAV ===== */
         .topnav {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          padding: 14px 36px;
-          border-bottom: 1px solid var(--border-subtle);
-          background: var(--bg-elevated);
+          gap: 16px;
+          padding: 14px 32px;
+          border-bottom: 1px solid var(--border);
+          background: var(--surface);
           position: sticky;
           top: 0;
           z-index: 100;
-          transition: background 0.3s ease, border-color 0.3s ease;
         }
         .topnav-back {
           color: var(--accent);
           text-decoration: none;
-          font-size: 0.85rem;
+          font-size: 0.78rem;
           font-weight: 600;
-          transition: opacity 0.2s ease;
+          letter-spacing: 0.02em;
+          transition: opacity 0.15s;
         }
         .topnav-back:hover { opacity: 0.7; }
         .topnav-title {
           color: var(--text-muted);
-          font-size: 0.8rem;
+          font-size: 0.72rem;
           font-family: 'Archivo Black', sans-serif;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
         }
+        .topnav .spacer { flex: 1; }
         .theme-toggle {
-          margin-left: auto;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 1.5px solid var(--border);
-          background: var(--surface);
+          width: 34px;
+          height: 34px;
+          border-radius: 6px;
+          border: 1px solid var(--border);
+          background: var(--surface-2);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 16px;
-          transition: all 0.3s ease;
+          font-size: 14px;
+          transition: all 0.15s;
         }
         .theme-toggle:hover {
           border-color: var(--accent);
-          box-shadow: 0 0 16px var(--accent-glow);
+          background: var(--accent-dim);
         }
 
-        .colophon {
-          max-width: 1080px;
-          margin: 0 auto;
-          padding: 3rem 36px 4rem;
+        /* ===== PAGE HEADER ===== */
+        .page-header {
           display: flex;
           justify-content: space-between;
+          align-items: flex-end;
+          gap: 24px;
+          margin-bottom: 32px;
+          padding-bottom: 24px;
+          border-bottom: 1px solid var(--border);
+        }
+        .page-header h1 {
+          font-family: 'Archivo Black', sans-serif;
+          font-size: 2rem;
+          font-weight: 900;
+          letter-spacing: -0.01em;
+          line-height: 1.05;
+          color: var(--text);
+          margin-bottom: 8px;
+        }
+        .page-header .subtitle {
+          font-size: 0.82rem;
+          color: var(--text-muted);
+          line-height: 1.5;
+        }
+        .page-header .subtitle strong {
+          color: var(--text-secondary);
+          font-weight: 600;
+        }
+        .page-header .actions {
+          display: flex;
+          gap: 10px;
           align-items: center;
-          font-size: 0.65rem;
+        }
+        .btn {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          padding: 10px 16px;
+          cursor: pointer;
+          transition: all 0.15s;
+          background: var(--surface);
+          color: var(--text-secondary);
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          white-space: nowrap;
+        }
+        .btn:hover {
+          border-color: var(--border-strong);
+          color: var(--text);
+          background: var(--surface-2);
+        }
+        .btn-primary {
+          background: var(--accent);
+          border-color: var(--accent);
+          color: #fff;
+        }
+        .btn-primary:hover {
+          background: var(--accent-hover);
+          border-color: var(--accent-hover);
+          color: #fff;
+        }
+        .btn .dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: #1DB954;
+        }
+        .btn .icon { font-size: 0.95rem; line-height: 1; }
+
+        /* ===== KPI STRIP ===== */
+        .kpi-strip {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+          margin-bottom: 32px;
+        }
+        .kpi-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 20px 22px;
+          position: relative;
+          transition: border-color 0.15s;
+        }
+        .kpi-card:hover { border-color: var(--border-strong); }
+        .kpi-card .label {
+          font-size: 0.7rem;
+          font-weight: 600;
           letter-spacing: 0.06em;
           text-transform: uppercase;
           color: var(--text-muted);
-          border-top: 1px solid var(--border-subtle);
-          margin-top: 4rem;
+          margin-bottom: 10px;
+        }
+        .kpi-card .value {
+          font-family: 'Inter', sans-serif;
+          font-size: 1.85rem;
+          font-weight: 800;
+          letter-spacing: -0.01em;
+          line-height: 1.1;
+          color: var(--text);
+        }
+        .kpi-card .value.secondary {
+          font-size: 1.35rem;
+          font-weight: 700;
+        }
+        .kpi-card .trend {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          font-weight: 500;
+          margin-top: 8px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .kpi-card .trend .chip {
+          padding: 2px 7px;
+          border-radius: 3px;
+          font-weight: 600;
+          font-size: 0.68rem;
+          letter-spacing: 0.02em;
+        }
+        .kpi-card .trend .chip.gain { background: var(--gain-bg); color: var(--gain); }
+        .kpi-card .trend .chip.loss { background: var(--loss-bg); color: var(--loss); }
+        .kpi-card .trend .chip.flat { background: var(--flat-bg); color: var(--flat); }
+        .kpi-card .trend .sub { color: var(--text-muted); }
+
+        /* ===== SECTIONS ===== */
+        .section {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 28px;
+          margin-bottom: 20px;
+        }
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 24px;
+          margin-bottom: 22px;
+          flex-wrap: wrap;
+        }
+        .section-title {
+          font-family: 'Inter', sans-serif;
+          font-size: 1.05rem;
+          font-weight: 700;
+          letter-spacing: -0.005em;
+          color: var(--text);
+          margin-bottom: 4px;
+        }
+        .section-subtitle {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          line-height: 1.5;
+        }
+        .section-subtitle code {
+          background: var(--surface-2);
+          padding: 1px 6px;
+          border-radius: 3px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          color: var(--text-secondary);
+          border: 1px solid var(--border);
+        }
+
+        /* ===== SEGMENTED CONTROL ===== */
+        .control-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .control-label {
+          font-size: 0.65rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+        }
+        .segmented {
+          display: inline-flex;
+          background: var(--surface-2);
+          border: 1px solid var(--border);
+          border-radius: 7px;
+          padding: 3px;
+          gap: 2px;
+        }
+        .segmented button {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.77rem;
+          font-weight: 500;
+          padding: 6px 12px;
+          border-radius: 5px;
+          border: none;
+          background: transparent;
+          color: var(--text-muted);
+          cursor: pointer;
+          transition: all 0.15s;
+          white-space: nowrap;
+          letter-spacing: 0.005em;
+        }
+        .segmented button:hover { color: var(--text-secondary); }
+        .segmented button.active {
+          background: var(--surface);
+          color: var(--text);
+          font-weight: 600;
+          box-shadow: var(--shadow);
+        }
+
+        /* ===== CHART HERO ===== */
+        .chart-hero .controls-row {
+          display: flex;
+          gap: 28px;
+          flex-wrap: wrap;
+          padding-bottom: 20px;
+          margin-bottom: 22px;
+          border-bottom: 1px solid var(--border-subtle);
+        }
+        .chart-wrap {
+          position: relative;
+          height: 380px;
+        }
+        .chart-wrap.short { height: 300px; }
+
+        /* ===== INSIGHTS GRID ===== */
+        .insight-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+        .insight-card {
+          display: flex;
+          gap: 14px;
+          padding: 18px 20px;
+          background: var(--surface-2);
+          border: 1px solid var(--border-subtle);
+          border-radius: 10px;
+          align-items: flex-start;
+          transition: all 0.15s;
+        }
+        .insight-card:hover {
+          border-color: var(--border);
+          background: var(--surface-3);
+        }
+        .insight-card .icon-wrap {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.95rem;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          flex-shrink: 0;
+        }
+        .insight-card.tone-gain .icon-wrap { background: var(--gain-bg); border-color: transparent; color: var(--gain); }
+        .insight-card.tone-loss .icon-wrap { background: var(--loss-bg); border-color: transparent; color: var(--loss); }
+        .insight-card.tone-accent .icon-wrap { background: var(--accent-dim); border-color: transparent; color: var(--accent); }
+        .insight-card.tone-outlier .icon-wrap { background: rgba(245, 158, 11, 0.12); border-color: transparent; color: var(--outlier); }
+        .insight-card .body { flex: 1; min-width: 0; }
+        .insight-card .i-title {
+          font-weight: 700;
+          font-size: 0.87rem;
+          color: var(--text);
+          margin-bottom: 3px;
+          line-height: 1.35;
+        }
+        .insight-card .i-detail {
+          font-size: 0.78rem;
+          color: var(--text-muted);
+          line-height: 1.45;
+        }
+        .insight-card .playlist-tag {
+          font-weight: 700;
+        }
+
+        /* ===== DIAGNOSTIC PANEL ===== */
+        .diagnostic-summary {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.76rem;
+          color: var(--text-muted);
+          margin-top: 4px;
+        }
+        .diagnostic-summary strong { color: var(--text-secondary); font-weight: 600; }
+        .diagnostic-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+        .diag-column {
+          background: var(--surface-2);
+          border: 1px solid var(--border-subtle);
+          border-radius: 10px;
+          padding: 20px;
+        }
+        .diag-column .col-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          margin-bottom: 14px;
+          padding-bottom: 12px;
+          border-bottom: 1px solid var(--border-subtle);
+        }
+        .diag-column .col-title {
+          font-weight: 700;
+          font-size: 0.88rem;
+          color: var(--text);
+        }
+        .diag-column.gainers .col-title::before {
+          content: '';
+          display: inline-block;
+          width: 6px; height: 6px;
+          border-radius: 50%;
+          background: var(--gain);
+          margin-right: 8px;
+          vertical-align: middle;
+        }
+        .diag-column.losers .col-title::before {
+          content: '';
+          display: inline-block;
+          width: 6px; height: 6px;
+          border-radius: 50%;
+          background: var(--loss);
+          margin-right: 8px;
+          vertical-align: middle;
+        }
+        .diag-column .col-count {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.74rem;
+          color: var(--text-muted);
+        }
+        .diag-row {
+          display: grid;
+          grid-template-columns: 1fr auto auto;
+          gap: 12px;
+          align-items: center;
+          padding: 9px 0;
+          border-bottom: 1px solid var(--border-subtle);
+          cursor: pointer;
+          transition: background 0.1s;
+          margin: 0 -8px;
+          padding-left: 8px;
+          padding-right: 8px;
+          border-radius: 4px;
+        }
+        .diag-row:last-child { border-bottom: none; }
+        .diag-row:hover { background: var(--surface-3); }
+        .diag-row .d-name {
+          font-weight: 600;
+          font-size: 0.83rem;
+        }
+        .diag-row .d-abs {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.78rem;
+          font-weight: 600;
+          min-width: 40px;
+          text-align: right;
+        }
+        .diag-row .d-pct {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          padding: 2px 7px;
+          border-radius: 3px;
+          min-width: 52px;
+          text-align: center;
+          font-weight: 500;
+        }
+        .diag-row .d-pct.gain { background: var(--gain-bg); color: var(--gain); }
+        .diag-row .d-pct.loss { background: var(--loss-bg); color: var(--loss); }
+        .diag-row .d-pct.flat { background: var(--flat-bg); color: var(--flat); }
+        .diag-empty {
+          padding: 20px 0;
+          color: var(--text-muted);
+          font-size: 0.8rem;
+          text-align: center;
+          font-style: italic;
+        }
+
+        /* ===== HEATMAP ===== */
+        .heatmap-wrap {
+          overflow-x: auto;
+          padding-bottom: 8px;
+          border: 1px solid var(--border-subtle);
+          border-radius: 8px;
+          background: var(--surface-2);
+        }
+        .heatmap {
+          display: grid;
+          gap: 2px;
+          min-width: fit-content;
+          padding: 8px;
+        }
+        .hm-row { display: contents; }
+        .hm-label {
+          font-size: 0.76rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          padding: 6px 12px 6px 8px;
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          min-width: 140px;
+          position: sticky;
+          left: 8px;
+          background: var(--surface-2);
+          z-index: 2;
+          cursor: pointer;
+          transition: color 0.15s;
+        }
+        .hm-label:hover { color: var(--accent); }
+        .hm-header {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.62rem;
+          font-weight: 500;
+          color: var(--text-muted);
+          text-align: center;
+          padding: 4px 2px 8px;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+          position: sticky;
+          top: 0;
+          background: var(--surface-2);
+          z-index: 1;
+        }
+        .hm-header:first-child { z-index: 3; }
+        .hm-cell {
+          width: 44px;
+          height: 30px;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.64rem;
+          font-weight: 500;
+          transition: transform 0.12s ease, box-shadow 0.12s ease;
+          cursor: default;
+          position: relative;
+        }
+        .hm-cell:hover {
+          transform: scale(1.2);
+          box-shadow: var(--shadow);
+          z-index: 10;
+        }
+        .hm-cell.outlier::before {
+          content: '';
+          position: absolute;
+          top: 3px; right: 3px;
+          width: 5px; height: 5px;
+          border-radius: 50%;
+          background: var(--outlier);
+          box-shadow: 0 0 5px var(--outlier);
+        }
+        .hm-cell[data-tooltip]:hover::after {
+          content: attr(data-tooltip);
+          position: absolute;
+          bottom: calc(100% + 6px);
+          left: 50%;
+          transform: translateX(-50%);
+          background: var(--surface);
+          color: var(--text);
+          padding: 6px 10px;
+          border-radius: 5px;
+          font-size: 0.7rem;
+          font-weight: 500;
+          white-space: nowrap;
+          border: 1px solid var(--border-strong);
+          box-shadow: var(--shadow-lg);
+          z-index: 20;
+          font-family: 'Inter', sans-serif;
+          letter-spacing: 0.005em;
+        }
+        .heatmap-legend {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin-top: 16px;
+          flex-wrap: wrap;
+          font-size: 0.7rem;
+          color: var(--text-muted);
+        }
+        .heatmap-legend .scale {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .heatmap-legend .scale-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.66rem;
+        }
+        .heatmap-legend .hl-block {
+          width: 24px; height: 10px;
+          border-radius: 2px;
+        }
+        .heatmap-legend .outlier-note {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.7rem;
+        }
+        .heatmap-legend .outlier-dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: var(--outlier);
+          box-shadow: 0 0 5px var(--outlier);
+        }
+
+        /* ===== TABLE ===== */
+        .data-table-wrap {
+          overflow-x: auto;
+          border: 1px solid var(--border-subtle);
+          border-radius: 8px;
+          background: var(--surface-2);
+          max-height: 520px;
+          overflow-y: auto;
+        }
+        .data-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.8rem;
+        }
+        .data-table th {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.65rem;
+          font-weight: 600;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+          padding: 10px 12px;
+          text-align: right;
+          border-bottom: 1px solid var(--border);
+          white-space: nowrap;
+          position: sticky;
+          top: 0;
+          background: var(--surface-2);
+          z-index: 1;
+        }
+        .data-table th:first-child {
+          text-align: left;
+          min-width: 160px;
+          position: sticky;
+          left: 0;
+          z-index: 3;
+        }
+        .data-table td {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.75rem;
+          padding: 8px 12px;
+          text-align: right;
+          border-bottom: 1px solid var(--border-subtle);
+          color: var(--text-secondary);
+        }
+        .data-table td:first-child {
+          text-align: left;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: var(--text);
+          position: sticky;
+          left: 0;
+          background: var(--surface-2);
+          z-index: 2;
+        }
+        .data-table tbody tr { cursor: pointer; transition: background 0.1s; }
+        .data-table tbody tr:hover td { background: var(--surface-3); }
+        .data-table tbody tr:hover td:first-child { background: var(--surface-3); }
+        .data-table .cell-gain { color: var(--gain); }
+        .data-table .cell-loss { color: var(--loss); }
+
+        /* ===== MODALS ===== */
+        .modal-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(8px);
+          z-index: 1000;
+          justify-content: center;
+          align-items: center;
+          padding: 24px;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          padding: 30px;
+          width: 100%;
+          max-width: 560px;
+          max-height: 88vh;
+          overflow-y: auto;
+          box-shadow: var(--shadow-lg);
+          animation: modalIn 0.2s ease;
+        }
+        .modal.wide { max-width: 680px; }
+        @keyframes modalIn {
+          from { opacity: 0; transform: translateY(8px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal h2 {
+          font-family: 'Inter', sans-serif;
+          font-size: 1.25rem;
+          font-weight: 800;
+          letter-spacing: -0.01em;
+          margin-bottom: 4px;
+          color: var(--text);
+        }
+        .modal .modal-subtitle {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          margin-bottom: 22px;
+        }
+
+        /* Entry modal */
+        .month-selector {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+        .month-selector select, .month-selector input[type="number"] {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.85rem;
+          padding: 10px 12px;
+          background: var(--surface-2);
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          color: var(--text);
+          outline: none;
+          flex: 1;
+          transition: border-color 0.15s;
+        }
+        .month-selector select:focus, .month-selector input:focus {
+          border-color: var(--accent);
+        }
+        .modal-field {
+          display: grid;
+          grid-template-columns: 1fr auto auto auto;
+          gap: 10px;
+          align-items: center;
+          padding: 10px 0;
+          border-bottom: 1px solid var(--border-subtle);
+        }
+        .modal-field:last-child { border-bottom: none; }
+        .modal-field label {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+        }
+        .modal-field .mf-prev {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          color: var(--text-muted);
+        }
+        .modal-field input {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.85rem;
+          width: 80px;
+          text-align: right;
+          padding: 7px 10px;
+          background: var(--surface-2);
+          border: 1px solid var(--border);
+          border-radius: 5px;
+          color: var(--text);
+          outline: none;
+        }
+        .modal-field input:focus { border-color: var(--accent); }
+        .modal-field .mf-delta {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          min-width: 44px;
+          text-align: right;
+          font-weight: 600;
+        }
+        .modal-actions {
+          display: flex;
+          gap: 10px;
+          margin-top: 22px;
+          justify-content: flex-end;
+        }
+
+        /* Detail modal */
+        .dm-header {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .dm-cover {
+          width: 72px; height: 72px;
+          border-radius: 8px;
+          background-size: cover;
+          background-position: center;
+          background-color: var(--surface-2);
+          flex-shrink: 0;
+          border: 1px solid var(--border);
+        }
+        .dm-title {
+          font-family: 'Archivo Black', sans-serif;
+          font-size: 1.25rem;
+          letter-spacing: 0;
+          margin-bottom: 2px;
+          color: var(--text);
+        }
+        .dm-sub {
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          font-family: 'JetBrains Mono', monospace;
+          letter-spacing: 0.02em;
+        }
+        .dm-stats {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+          margin-bottom: 18px;
+        }
+        .dm-stat {
+          background: var(--surface-2);
+          border: 1px solid var(--border-subtle);
+          border-radius: 7px;
+          padding: 11px 13px;
+        }
+        .dm-stat .label {
+          font-size: 0.63rem;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--text-muted);
+          margin-bottom: 4px;
+          font-weight: 600;
+        }
+        .dm-stat .value {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.98rem;
+          font-weight: 700;
+          color: var(--text);
+        }
+        .dm-stat .value .context {
+          color: var(--text-muted);
+          font-size: 0.7rem;
+          font-weight: 400;
+        }
+        .dm-chart { height: 190px; margin-bottom: 18px; }
+        .dm-actions {
+          display: flex;
+          gap: 10px;
+          justify-content: flex-end;
+        }
+        .dm-spotify {
+          background: #1DB954;
+          border-color: #1DB954;
+          color: #fff;
+        }
+        .dm-spotify:hover {
+          background: #169c46;
+          border-color: #169c46;
+          color: #fff;
+        }
+
+        /* ===== COLOPHON ===== */
+        .colophon {
+          max-width: 1360px;
+          margin: 40px auto 0;
+          padding: 24px 32px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.68rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          border-top: 1px solid var(--border);
         }
         .colophon a {
           color: var(--text-secondary);
           text-decoration: none;
-          transition: color 0.2s ease;
+          transition: color 0.15s;
         }
         .colophon a:hover { color: var(--accent); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1080px) {
+          .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+          .insight-grid { grid-template-columns: repeat(2, 1fr); }
+          .chart-hero .controls-row { gap: 16px; }
+        }
+        @media (max-width: 720px) {
+          .container { padding: 20px 16px 40px; }
+          .page-header { flex-direction: column; align-items: flex-start; }
+          .page-header h1 { font-size: 1.6rem; }
+          .kpi-strip { grid-template-columns: 1fr; }
+          .insight-grid { grid-template-columns: 1fr; }
+          .diagnostic-grid { grid-template-columns: 1fr; }
+          .chart-wrap { height: 300px; }
+          .chart-hero .controls-row { flex-direction: column; gap: 14px; }
+          .section { padding: 20px; }
+          .modal { padding: 22px; }
+        }
     </style>
-  <script defer src="gate.js"></script>
+    <script defer src="gate.js"></script>
 </head>
 <body>
     <nav class="topnav">
       <a href="index.html" class="topnav-back">&larr; CHAOS CONSOLE</a>
       <span class="topnav-title">Playlist Tracker</span>
-      <button class="theme-toggle" onclick="toggleTheme()"></button>
+      <div class="spacer"></div>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
     </nav>
 
-    <div class="container">
-        <div class="header">
+    <main class="container">
+        <!-- PAGE HEADER -->
+        <div class="page-header">
             <div>
-                <h1>PLAYLIST TRACKER</h1>
-                <div class="subtitle">curated by gary.</div>
+                <h1>playlist tracker</h1>
+                <p class="subtitle" id="subtitle">Follower performance across <strong>0</strong> playlists</p>
             </div>
-            <div class="header-right">
-                <a class="spotify-link" href="https://open.spotify.com/user/gerald91" target="_blank" rel="noopener">
-                  <span class="dot"></span> View profile
+            <div class="actions">
+                <a class="btn" href="https://open.spotify.com/user/gerald91" target="_blank" rel="noopener">
+                  <span class="dot"></span> Open profile
                 </a>
-                <button class="btn btn-primary" onclick="openModal()">+ Add Month</button>
+                <button class="btn btn-primary" onclick="openEntry()">
+                  <span class="icon">+</span> Log this month
+                </button>
             </div>
         </div>
 
-        <div class="hero" id="hero"></div>
+        <!-- KPI STRIP -->
+        <section class="kpi-strip" id="kpiStrip"></section>
 
-        <div class="summary-strip" id="summaryStrip"></div>
-        <div class="stats-row" id="statsRow"></div>
-        <div class="movers-grid" id="moversGrid"></div>
-
-        <div class="insights-section" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:40px;">
-            <div class="section-title" style="margin-bottom:20px;">INSIGHTS</div>
-            <div id="insightsContent" style="font-size:0.9rem;line-height:1.8;color:var(--text-secondary);"></div>
-        </div>
-
-        <div class="chart-section">
-            <div class="chart-header">
-                <div class="section-title">FOLLOWER GROWTH</div>
-                <div class="chart-controls">
-                    <button onclick="setView('all')" class="active" id="btn-all">All</button>
-                    <button onclick="setView('6m')" id="btn-6m">6M</button>
-                    <button onclick="setView('12m')" id="btn-12m">12M</button>
-                    <button onclick="setView('top5')" id="btn-top5">Top 5</button>
-                </div>
+        <!-- CHART HERO -->
+        <section class="section chart-hero">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Follower growth</div>
+                <p class="section-subtitle">Primary trend view. Reshape with the controls below.</p>
+              </div>
             </div>
-            <div class="chart-canvas-wrap"><canvas id="mainChart"></canvas></div>
-        </div>
-
-        <div class="chart-section">
-            <div class="chart-header">
-                <div class="section-title">MONTH-OVER-MONTH CHANGE</div>
-                <div class="chart-controls">
-                    <button onclick="setDeltaMode('abs')" class="active" id="btn-delta-abs">Absolute</button>
-                    <button onclick="setDeltaMode('pct')" id="btn-delta-pct">% Change</button>
+            <div class="controls-row">
+              <div class="control-group">
+                <span class="control-label">Time range</span>
+                <div class="segmented" id="ctrl-timeRange">
+                  <button data-value="6m">6M</button>
+                  <button data-value="12m">12M</button>
+                  <button data-value="all" class="active">All</button>
                 </div>
+              </div>
+              <div class="control-group">
+                <span class="control-label">Selection</span>
+                <div class="segmented" id="ctrl-selection">
+                  <button data-value="all" class="active">All playlists</button>
+                  <button data-value="top5">Top 5</button>
+                  <button data-value="bottom5">Bottom 5</button>
+                </div>
+              </div>
+              <div class="control-group">
+                <span class="control-label">Metric</span>
+                <div class="segmented" id="ctrl-metric">
+                  <button data-value="followers" class="active">Followers</button>
+                  <button data-value="delta">Net change</button>
+                  <button data-value="pct">% change</button>
+                </div>
+              </div>
             </div>
-            <div class="chart-canvas-wrap short"><canvas id="deltaChart"></canvas></div>
-        </div>
+            <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+        </section>
 
-        <div class="heatmap-section">
-            <div class="chart-header">
-                <div class="section-title">DELTA HEATMAP</div>
-                <div class="chart-controls">
-                    <button onclick="setHeatmapRange('12m')" class="active" id="btn-hm-12m">12M</button>
-                    <button onclick="setHeatmapRange('all')" id="btn-hm-all">All</button>
-                    <span style="width:1px;background:var(--border);margin:0 4px;"></span>
-                    <button onclick="setHeatmapMode('abs')" class="active" id="btn-hm-abs">Absolute</button>
-                    <button onclick="setHeatmapMode('pct')" id="btn-hm-pct">% Change</button>
+        <!-- INSIGHTS -->
+        <section class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">What's happening</div>
+                <p class="section-subtitle">Deterministic patterns detected in the latest month of data.</p>
+              </div>
+            </div>
+            <div class="insight-grid" id="insightGrid"></div>
+        </section>
+
+        <!-- DIAGNOSTIC PANEL -->
+        <section class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">This month vs. last month</div>
+                <p class="section-subtitle">Ranked comparison of every playlist's most recent movement.</p>
+                <p class="diagnostic-summary" id="diagSummary"></p>
+              </div>
+              <div class="segmented" id="ctrl-diagSort">
+                <button data-value="abs" class="active">Absolute</button>
+                <button data-value="pct">% change</button>
+              </div>
+            </div>
+            <div class="diagnostic-grid" id="diagGrid"></div>
+        </section>
+
+        <!-- HEATMAP -->
+        <section class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Monthly change by playlist</div>
+                <p class="section-subtitle">Each cell is one month's delta. Darker = larger move.</p>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <div class="segmented" id="ctrl-heatmapRange">
+                  <button data-value="12m" class="active">12M</button>
+                  <button data-value="all">All</button>
                 </div>
+                <div class="segmented" id="ctrl-heatmapMetric">
+                  <button data-value="abs" class="active">Absolute</button>
+                  <button data-value="pct">%</button>
+                </div>
+              </div>
             </div>
             <div class="heatmap-wrap"><div class="heatmap" id="heatmap"></div></div>
             <div class="heatmap-legend" id="heatmapLegend"></div>
-            <div style="font-size:0.65rem;color:var(--text-muted);margin-top:10px;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--neon-gold);box-shadow:0 0 6px var(--neon-gold);"></span> Gold dot = top/bottom 5% outlier</div>
-        </div>
+        </section>
 
-        <div class="table-section">
-            <div class="chart-header" style="margin-bottom:16px;">
-                <div class="section-title">RAW DATA</div>
-                <button class="btn btn-secondary" onclick="exportCSV()">Export CSV</button>
+        <!-- DATA TABLE -->
+        <section class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">All data</div>
+                <p class="section-subtitle" id="tableSubtitle">&nbsp;</p>
+              </div>
+              <button class="btn" onclick="exportCSV()">Export CSV</button>
             </div>
-            <div style="overflow-x:auto;"><table id="dataTable"></table></div>
-        </div>
-    </div>
+            <div class="data-table-wrap"><table class="data-table" id="dataTable"></table></div>
+        </section>
+    </main>
 
+    <!-- DETAIL MODAL -->
     <div class="modal-overlay" id="detailModal">
-        <div class="modal detail-modal">
+        <div class="modal wide">
             <div class="dm-header">
                 <div class="dm-cover" id="dmCover"></div>
                 <div style="flex:1;">
@@ -1006,16 +1078,17 @@
             <div class="dm-stats" id="dmStats"></div>
             <div class="dm-chart"><canvas id="detailChartCanvas"></canvas></div>
             <div class="dm-actions">
-                <button class="btn btn-secondary" onclick="closeDetail()">Close</button>
-                <a class="dm-spotify-btn" id="dmSpotifyLink" href="#" target="_blank" rel="noopener">Open in Spotify &nbsp;&rarr;</a>
+                <button class="btn" onclick="closeDetail()">Close</button>
+                <a class="btn dm-spotify" id="dmSpotifyLink" href="#" target="_blank" rel="noopener">Open in Spotify &rarr;</a>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="modal">
+    <!-- ENTRY MODAL -->
+    <div class="modal-overlay" id="entryModal">
         <div class="modal">
-            <h2>ADD MONTHLY DATA</h2>
-            <div class="modal-subtitle">Enter follower counts &mdash; deltas shown live as you type</div>
+            <h2>Log this month's numbers</h2>
+            <p class="modal-subtitle">Enter follower counts — deltas calculate live as you type.</p>
             <div class="month-selector">
                 <select id="monthSelect">
                     <option value="Jan">January</option><option value="Feb">February</option>
@@ -1029,8 +1102,8 @@
             </div>
             <div id="modalFields"></div>
             <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveMonth()">Save &amp; Update</button>
+                <button class="btn" onclick="closeEntry()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveMonth()">Save &amp; update</button>
             </div>
         </div>
     </div>
@@ -1041,13 +1114,12 @@
     </footer>
 
     <script>
-    // 15 distinguishable hues, spaced around the wheel, no near-duplicates
+    // ========== CONSTANTS ==========
     const COLORS = [
-        '#ff2d78','#00c8ff','#ffd700','#00e88a','#a855f7',
-        '#ff6b35','#14d4b8','#ef4444','#38bdf8','#a3e635',
-        '#fb923c','#8b5cf6','#f472b6','#ca8a04','#e879f9'
+        '#06b6d4','#f43f5e','#10b981','#f59e0b','#a855f7',
+        '#ec4899','#14b8a6','#ef4444','#3b82f6','#84cc16',
+        '#f97316','#8b5cf6','#e11d48','#eab308','#06b6d4'
     ];
-
     const COVERS = {
         "Monday's Mixtape": "covers/mondays-mixtape.png",
         "Groove": "covers/groove.jpg",
@@ -1065,12 +1137,9 @@
         "Masterpiece": "covers/masterpiece.png",
         "Broadway": "covers/broadway.png"
     };
-
-    // Fallback to profile for unknown playlist IDs — fill these in as they resolve.
     const SPOTIFY_PROFILE = "https://open.spotify.com/user/gerald91";
     const SPOTIFY_URLS = {};
 
-    // ─── V11 DEFAULT DATA — 15 playlists, 23 months (Apr 24 → Apr 26) ───
     const DEFAULT_DATA = {
         months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26"],
         playlists: {
@@ -1092,26 +1161,14 @@
         }
     };
 
-    const STORAGE_KEY = 'spotify-tracker-v11';
+    const STORAGE_KEY = 'spotify-tracker-v12';
 
-    let data = loadData();
-    let mainChart = null;
-    let deltaChart = null;
-    let detailChart = null;
-    let currentView = 'all';
-    let deltaMode = 'abs';
-    let heatmapMode = 'abs';
-    let heatmapRange = '12m';
-    let selectedPlaylists = new Set(Object.keys(data.playlists));
-
+    // ========== DATA LAYER ==========
     function loadData() {
         try {
-            // Migrate from legacy key if present
-            const legacy = localStorage.getItem('spotify-tracker-v4');
-            const saved = localStorage.getItem(STORAGE_KEY) || legacy;
+            const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('spotify-tracker-v11') || localStorage.getItem('spotify-tracker-v4');
             if (saved) {
                 const parsed = JSON.parse(saved);
-                // If months array ends before Apr 26, fall back to defaults (new schema)
                 if (!parsed.months || parsed.months[parsed.months.length - 1] !== 'Apr 26') {
                     return JSON.parse(JSON.stringify(DEFAULT_DATA));
                 }
@@ -1123,421 +1180,565 @@
     function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
     function getSpotifyUrl(name) { return SPOTIFY_URLS[name] || SPOTIFY_PROFILE; }
 
+    // ========== STATE ==========
+    const state = {
+        timeRange: 'all',        // '6m' | '12m' | 'all'
+        selection: 'all',        // 'all' | 'top5' | 'bottom5'
+        metric: 'followers',     // 'followers' | 'delta' | 'pct'
+        heatmapRange: '12m',
+        heatmapMetric: 'abs',
+        diagnosticSort: 'abs'
+    };
+    let data = loadData();
+    let mainChart = null;
+    let detailChart = null;
+
+    // ========== HELPERS ==========
     function getColor(name) {
         const idx = Object.keys(data.playlists).indexOf(name);
         return COLORS[idx % COLORS.length];
     }
     function getDelta(name, idx) {
-        const vals = data.playlists[name];
+        const v = data.playlists[name];
         if (idx <= 0) return 0;
-        return vals[idx] - vals[idx - 1];
+        return v[idx] - v[idx - 1];
     }
     function getPctChange(name, idx) {
-        const vals = data.playlists[name];
-        if (idx <= 0 || vals[idx - 1] === 0) return 0;
-        return ((vals[idx] - vals[idx - 1]) / vals[idx - 1]) * 100;
+        const v = data.playlists[name];
+        if (idx <= 0 || v[idx - 1] === 0) return 0;
+        return ((v[idx] - v[idx - 1]) / v[idx - 1]) * 100;
     }
-    function getMomentum(name) {
-        const vals = data.playlists[name];
-        if (vals.length < 4) return 'new';
-        const last3 = vals.slice(-3);
-        const prev3 = vals.slice(-6, -3);
-        if (prev3.length < 3) return 'new';
-        const recentAvgDelta = (last3[2] - last3[0]) / 2;
-        const prevAvgDelta = (prev3[2] - prev3[0]) / 2;
-        if (recentAvgDelta > 0.5 && recentAvgDelta > prevAvgDelta) return 'accelerating';
-        if (recentAvgDelta > 0.3) return 'growing';
-        if (recentAvgDelta < -0.3) return 'declining';
-        return 'stable';
+    function getAllNames() { return Object.keys(data.playlists); }
+    function getCurrentIdx() { return data.months.length - 1; }
+    function getFilteredNames() {
+        const names = getAllNames();
+        const L = getCurrentIdx();
+        if (state.selection === 'top5') {
+            return [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]).slice(0, 5);
+        }
+        if (state.selection === 'bottom5') {
+            return [...names].sort((a, b) => data.playlists[a][L] - data.playlists[b][L]).slice(0, 5);
+        }
+        return names;
     }
-    function momentumLabel(m) {
-        const map = {
-            'accelerating': { text: '\u{1F525} HOT', bg: '#00e88a22', color: '#00e88a' },
-            'growing': { text: '\u2197 GROWING', bg: '#00c8ff18', color: '#00c8ff' },
-            'stable': { text: '\u2014 STABLE', bg: '#55536a18', color: '#55536a' },
-            'declining': { text: '\u2198 COOLING', bg: '#ff446618', color: '#ff4466' },
-            'new': { text: '\u2726 NEW', bg: '#a855f718', color: '#a855f7' }
-        };
-        return map[m] || map['stable'];
+    function getTimeRange() {
+        const total = data.months.length;
+        let startIdx = 0;
+        if (state.timeRange === '6m') startIdx = Math.max(0, total - 6);
+        if (state.timeRange === '12m') startIdx = Math.max(0, total - 12);
+        return { startIdx, endIdx: total };
     }
-
-    function createSparkline(container, values, color) {
-        const canvas = document.createElement('canvas');
-        canvas.width = container.clientWidth || 180;
-        canvas.height = 32;
-        canvas.style.width = '100%';
-        canvas.style.height = '32px';
-        container.appendChild(canvas);
-        const ctx = canvas.getContext('2d');
-        const w = canvas.width, h = canvas.height;
-        const max = Math.max(...values, 1);
-        const min = Math.min(...values);
-        const range = max - min || 1;
-        const step = w / (values.length - 1 || 1);
-        const grad = ctx.createLinearGradient(0, 0, 0, h);
-        grad.addColorStop(0, color + '30');
-        grad.addColorStop(1, color + '00');
-        ctx.beginPath();
-        ctx.moveTo(0, h);
-        values.forEach((v, i) => {
-            const x = i * step;
-            const y = h - ((v - min) / range) * (h - 4) - 2;
-            ctx.lineTo(x, y);
-        });
-        ctx.lineTo(w, h);
-        ctx.closePath();
-        ctx.fillStyle = grad;
-        ctx.fill();
-        ctx.beginPath();
-        values.forEach((v, i) => {
-            const x = i * step;
-            const y = h - ((v - min) / range) * (h - 4) - 2;
-            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        });
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        const lastX = (values.length - 1) * step;
-        const lastY = h - ((values[values.length - 1] - min) / range) * (h - 4) - 2;
-        ctx.beginPath();
-        ctx.arc(lastX, lastY, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
+    function formatNum(n) {
+        if (n === null || n === undefined || !isFinite(n)) return '—';
+        return n.toLocaleString();
+    }
+    function signed(n) {
+        if (n === 0) return '0';
+        return (n > 0 ? '+' : '') + formatNum(n);
     }
 
-    function renderSummary() {
-        const names = Object.keys(data.playlists);
-        const L = data.months.length - 1;
+    // ========== KPI STRIP ==========
+    function renderKpi() {
+        const names = getAllNames();
+        const L = getCurrentIdx();
         const totalNow = names.reduce((s, n) => s + data.playlists[n][L], 0);
         const totalPrev = L > 0 ? names.reduce((s, n) => s + data.playlists[n][L - 1], 0) : totalNow;
-        const totalDelta = totalNow - totalPrev;
-        const totalPct = totalPrev > 0 ? ((totalDelta / totalPrev) * 100).toFixed(1) : '0';
-        const totalStart = names.reduce((s, n) => s + data.playlists[n][0], 0);
-        const totalGrowthAll = totalNow - totalStart;
+        const netDelta = totalNow - totalPrev;
+        const netPct = totalPrev > 0 ? ((netDelta / totalPrev) * 100) : 0;
 
-        let growing = 0, declining = 0, flat = 0;
-        names.forEach(n => { const d = getDelta(n, L); if (d > 0) growing++; else if (d < 0) declining++; else flat++; });
-
-        // YoY (12 months ago vs now)
-        let yoyDelta = null, yoyPct = null, yoyFrom = null;
-        if (L >= 12) {
-            const totalYearAgo = names.reduce((s, n) => s + data.playlists[n][L - 12], 0);
-            yoyDelta = totalNow - totalYearAgo;
-            yoyPct = totalYearAgo > 0 ? ((yoyDelta / totalYearAgo) * 100).toFixed(1) : 0;
-            yoyFrom = data.months[L - 12];
-        }
-
-        // Best month ever (largest net portfolio gain)
-        let bestMonthIdx = 0, bestMonthDelta = -Infinity;
-        for (let i = 1; i <= L; i++) {
-            const tot = names.reduce((s, n) => s + data.playlists[n][i], 0);
-            const prevTot = names.reduce((s, n) => s + data.playlists[n][i-1], 0);
-            const d = tot - prevTot;
-            if (d > bestMonthDelta) { bestMonthDelta = d; bestMonthIdx = i; }
-        }
-
-        // Fastest riser last 3 months
-        let riserName = '', riserDelta = -Infinity;
+        // Top gainer this month (largest absolute positive delta)
+        let topGainer = null, topGain = -Infinity;
         names.forEach(n => {
-            if (L >= 3) {
-                const d = data.playlists[n][L] - data.playlists[n][L - 3];
-                if (d > riserDelta) { riserDelta = d; riserName = n; }
-            }
+            const d = getDelta(n, L);
+            if (d > topGain) { topGain = d; topGainer = n; }
         });
 
-        // Best performer all-time (by %)
-        let bestName = '', bestPct = -Infinity;
-        names.forEach(n => {
-            const vals = data.playlists[n];
-            const start = vals.find(v => v > 0);
-            const end = vals[L];
-            if (end >= 5 && start >= 3) {
-                const pct = ((end - start) / start) * 100;
-                if (pct > bestPct) { bestPct = pct; bestName = n; }
-            }
-        });
-
-        // Render hero
-        const hero = document.getElementById('hero');
-        const deltaClass = totalDelta > 0 ? 'gain' : totalDelta < 0 ? 'loss' : 'flat';
-        const deltaColor = totalDelta > 0 ? 'var(--gain)' : totalDelta < 0 ? 'var(--loss)' : 'var(--flat)';
-        hero.innerHTML = `
-          <div class="hero-block hero-headline">
-            <div class="hero-label">Total Followers</div>
-            <div class="hero-value">${totalNow.toLocaleString()}</div>
-            <div class="hero-detail">${data.months[L]} \u00b7 <span style="color:${deltaColor}">${totalDelta >= 0 ? '+' : ''}${totalDelta} (${totalDelta >= 0 ? '+' : ''}${totalPct}%) MoM</span></div>
-          </div>
-          <div class="hero-block hero-secondary">
-            <div class="hero-label">Year-Over-Year</div>
-            <div class="hero-value" style="color:${yoyDelta >= 0 ? 'var(--gain)' : 'var(--loss)'}">${yoyDelta !== null ? (yoyDelta >= 0 ? '+' : '') + yoyDelta.toLocaleString() : '\u2014'}</div>
-            <div class="hero-detail">${yoyFrom ? yoyFrom + ' \u2192 ' + data.months[L] + ' (' + (yoyPct >= 0 ? '+' : '') + yoyPct + '%)' : 'needs 12 months'}</div>
-          </div>
-          <div class="hero-block hero-secondary">
-            <div class="hero-label">Movement This Month</div>
-            <div class="hero-value" style="font-family:'Inter',sans-serif;font-size:1.6rem;">
-              <span style="color:var(--gain)">${growing}\u2191</span>&nbsp;
-              <span style="color:var(--flat)">${flat}\u2014</span>&nbsp;
-              <span style="color:var(--loss)">${declining}\u2193</span>
-            </div>
-            <div class="hero-detail">of ${names.length} playlists</div>
-          </div>
-          <div class="hero-block hero-secondary">
-            <div class="hero-label">Tracking</div>
-            <div class="hero-value" style="font-family:'Inter',sans-serif;font-size:1.6rem;">${data.months.length} months</div>
-            <div class="hero-detail">${data.months[0]} \u2192 ${data.months[L]}</div>
-          </div>`;
-
-        // Render summary strip
-        const strip = document.getElementById('summaryStrip');
-        strip.innerHTML = `
-        <div class="summary-card"><div class="sc-label">Total Growth (All Time)</div><div class="sc-value" style="color:var(--neon-blue)">+${totalGrowthAll.toLocaleString()}</div><div class="sc-detail" style="color:var(--text-muted)">${totalStart.toLocaleString()} \u2192 ${totalNow.toLocaleString()}</div></div>
-        <div class="summary-card"><div class="sc-label">Best Month Ever</div><div class="sc-value" style="color:var(--neon-gold); font-size:1.6rem;">${data.months[bestMonthIdx]}</div><div class="sc-detail" style="color:var(--text-muted)">+${bestMonthDelta} followers in a single month</div></div>
-        <div class="summary-card"><div class="sc-label">Hottest Riser (3mo)</div><div class="sc-value" style="color:${getColor(riserName)}; font-size:1.4rem;">${riserName || '\u2014'}</div><div class="sc-detail" style="color:var(--text-muted)">+${riserDelta} since ${data.months[L-3] || data.months[0]}</div></div>
-        <div class="summary-card"><div class="sc-label">Best Performer (All Time)</div><div class="sc-value" style="color:${getColor(bestName)}; font-size:1.4rem;">${bestName || '\u2014'}</div><div class="sc-detail" style="color:var(--text-muted)">${bestPct !== -Infinity ? '+' + bestPct.toFixed(0) + '% since ' + data.months[0] : '\u2014'}</div></div>`;
-    }
-
-    function renderStatCards() {
-        const row = document.getElementById('statsRow');
-        row.innerHTML = '';
-        const names = Object.keys(data.playlists);
-        const L = data.months.length - 1;
-        const sorted = [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
-        sorted.forEach(name => {
-            const values = data.playlists[name];
-            const current = values[L];
-            const prev = L > 0 ? values[L - 1] : current;
-            const diff = current - prev;
-            const color = getColor(name);
-            const mom = getMomentum(name);
-            const momStyle = momentumLabel(mom);
-            const threeMonthAgo = L >= 3 ? values[L - 3] : values[0];
-            const diff3 = current - threeMonthAgo;
-            const card = document.createElement('div');
-            card.className = 'stat-card' + (selectedPlaylists.has(name) ? ' active' : '');
-            const coverUrl = COVERS[name] || '';
-            const coverBg = coverUrl ? `background-image:url('${coverUrl}');background-size:cover;background-position:center;` : '';
-            card.innerHTML = `
-            <style>.stat-card[data-n="${CSS.escape(name)}"]::after{background:${color};}</style>
-            ${coverUrl ? `<div class="stat-card-cover" style="${coverBg}"></div>` : ''}
-            <button class="sc-detail-btn" aria-label="Open details" data-open-detail="${CSS.escape(name)}">\u2197</button>
-            <div class="sc-top"><div class="name">${name}</div><div class="momentum-badge" style="background:${momStyle.bg};color:${momStyle.color}">${momStyle.text}</div></div>
-            <div class="followers" style="color:${color}">${current.toLocaleString()}</div>
-            <div class="delta-row">
-                <div class="delta-pill ${diff > 0 ? 'gain' : diff < 0 ? 'loss' : 'flat'}">${diff > 0 ? '\u25B2' : diff < 0 ? '\u25BC' : '\u2014'}\u2009${Math.abs(diff)}\u2009<span class="delta-label">1m</span></div>
-                <div class="delta-pill ${diff3 > 0 ? 'gain' : diff3 < 0 ? 'loss' : 'flat'}">${diff3 > 0 ? '\u25B2' : diff3 < 0 ? '\u25BC' : '\u2014'}\u2009${Math.abs(diff3)}\u2009<span class="delta-label">3m</span></div>
-            </div>
-            <div class="sparkline-container"></div>`;
-            card.setAttribute('data-n', name);
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('[data-open-detail]')) {
-                    e.stopPropagation();
-                    openDetail(name);
-                    return;
+        // Biggest slowdown: largest negative (lastDelta - 3mo average delta)
+        let slowdown = null;
+        if (L >= 4) {
+            let worstScore = -Infinity;
+            names.forEach(n => {
+                const v = data.playlists[n];
+                const lastDelta = v[L] - v[L-1];
+                const prevAvg = (v[L-1] - v[L-4]) / 3;
+                if (prevAvg <= 0.2) return; // only consider playlists that *were* growing
+                const score = prevAvg - lastDelta;
+                if (score > worstScore && score > 0.5) {
+                    worstScore = score;
+                    slowdown = { name: n, lastDelta, prevAvg, score };
                 }
-                if (selectedPlaylists.has(name) && selectedPlaylists.size === 1) return;
-                if (selectedPlaylists.size === names.length) { selectedPlaylists = new Set([name]); }
-                else if (selectedPlaylists.has(name)) { selectedPlaylists.delete(name); }
-                else { selectedPlaylists.add(name); }
-                updateAll();
             });
-            card.addEventListener('dblclick', () => { selectedPlaylists = new Set(names); updateAll(); });
-            row.appendChild(card);
-            requestAnimationFrame(() => { const sc = card.querySelector('.sparkline-container'); createSparkline(sc, values, color); });
-        });
+        }
+
+        const firstMonth = data.months[0];
+        const lastMonth = data.months[L];
+
+        const kpi = [
+            {
+                label: 'Total followers',
+                value: formatNum(totalNow),
+                trend: `<span class="sub">${names.length} playlists · ${firstMonth} → ${lastMonth}</span>`
+            },
+            {
+                label: 'Net growth this month',
+                value: signed(netDelta),
+                trend: `<span class="chip ${netDelta > 0 ? 'gain' : netDelta < 0 ? 'loss' : 'flat'}">${netDelta >= 0 ? '+' : ''}${netPct.toFixed(1)}%</span><span class="sub">vs. ${data.months[L-1] || '—'}</span>`
+            },
+            {
+                label: 'Top gainer',
+                value: topGainer || '—',
+                valueSecondary: true,
+                trend: topGain > 0
+                    ? `<span class="chip gain">+${topGain}</span><span class="sub">followers added</span>`
+                    : `<span class="sub">no playlist grew this month</span>`
+            },
+            {
+                label: 'Biggest slowdown',
+                value: slowdown ? slowdown.name : '—',
+                valueSecondary: true,
+                trend: slowdown
+                    ? `<span class="chip loss">${slowdown.lastDelta >= 0 ? '+' : ''}${slowdown.lastDelta}</span><span class="sub">vs. ${slowdown.prevAvg.toFixed(1)}/mo trend</span>`
+                    : `<span class="sub">no notable slowdowns</span>`
+            }
+        ];
+
+        const root = document.getElementById('kpiStrip');
+        root.innerHTML = kpi.map(k => `
+            <div class="kpi-card">
+                <div class="label">${k.label}</div>
+                <div class="value${k.valueSecondary ? ' secondary' : ''}">${k.value}</div>
+                <div class="trend">${k.trend}</div>
+            </div>
+        `).join('');
+
+        document.getElementById('subtitle').innerHTML =
+            `Follower performance across <strong>${names.length}</strong> playlists · Last updated <strong>${lastMonth}</strong>`;
     }
 
-    function renderMovers() {
-        const grid = document.getElementById('moversGrid');
-        const names = Object.keys(data.playlists);
-        const L = data.months.length - 1;
-        const deltas = names.map(n => {
-            const vals = data.playlists[n]; const d = getDelta(n, L);
-            const pct = vals[L - 1] > 0 ? ((d / vals[L - 1]) * 100) : (d > 0 ? 100 : 0);
-            return { name: n, delta: d, pct, current: vals[L] };
-        });
-        const gainers = [...deltas].filter(d => d.delta > 0).sort((a, b) => b.delta - a.delta);
-        const losers = [...deltas].filter(d => d.delta < 0).sort((a, b) => a.delta - b.delta);
-        const stagnant = deltas.filter(d => d.delta === 0);
-        let html = `<div class="movers-panel"><div class="mp-header"><div class="mp-icon" style="background:var(--gain-bg);color:var(--gain);font-size:1rem;">\u25B2</div><div class="section-title" style="font-size:1.1rem;">GAINERS</div></div>`;
-        if (gainers.length === 0) html += `<div style="color:var(--text-muted);font-size:0.8rem;">No gainers this month</div>`;
-        gainers.forEach(g => { html += `<div class="mover-item"><div class="mi-name" style="color:${getColor(g.name)}">${g.name}</div><div class="mi-stats"><div class="mi-abs" style="color:var(--gain)">+${g.delta}</div><div class="mi-pct" style="background:var(--gain-bg);color:var(--gain)">+${g.pct.toFixed(1)}%</div></div></div>`; });
-        html += '</div>';
-        html += `<div class="movers-panel"><div class="mp-header"><div class="mp-icon" style="background:var(--loss-bg);color:var(--loss);font-size:1rem;">\u25BC</div><div class="section-title" style="font-size:1.1rem;">DECLINERS & FLAT</div></div>`;
-        if (losers.length === 0 && stagnant.length === 0) html += `<div style="color:var(--text-muted);font-size:0.8rem;">Everything's up</div>`;
-        losers.forEach(g => { html += `<div class="mover-item"><div class="mi-name" style="color:${getColor(g.name)}">${g.name}</div><div class="mi-stats"><div class="mi-abs" style="color:var(--loss)">${g.delta}</div><div class="mi-pct" style="background:var(--loss-bg);color:var(--loss)">${g.pct.toFixed(1)}%</div></div></div>`; });
-        stagnant.forEach(g => { html += `<div class="mover-item"><div class="mi-name" style="color:${getColor(g.name)}">${g.name}</div><div class="mi-stats"><div class="mi-abs" style="color:var(--flat)">0</div><div class="mi-pct" style="background:var(--flat-bg);color:var(--flat)">FLAT</div></div></div>`; });
-        html += '</div>';
-        grid.innerHTML = html;
+    // ========== MAIN CHART ==========
+    function buildChartSeries(name, startIdx) {
+        const v = data.playlists[name].slice(startIdx);
+        if (state.metric === 'followers') return v;
+        if (state.metric === 'delta') {
+            return v.map((val, i) => {
+                const absIdx = startIdx + i;
+                return absIdx === 0 ? 0 : val - data.playlists[name][absIdx - 1];
+            });
+        }
+        if (state.metric === 'pct') {
+            return v.map((val, i) => {
+                const absIdx = startIdx + i;
+                if (absIdx === 0) return 0;
+                const prev = data.playlists[name][absIdx - 1];
+                if (prev === 0) return 0;
+                return +(((val - prev) / prev) * 100).toFixed(1);
+            });
+        }
     }
-
     function renderMainChart() {
         const ctx = document.getElementById('mainChart').getContext('2d');
         if (mainChart) mainChart.destroy();
-        let labels = [...data.months];
-        const names = Object.keys(data.playlists);
-        let startIdx = 0;
-        if (currentView === '6m') startIdx = Math.max(0, labels.length - 6);
-        if (currentView === '12m') startIdx = Math.max(0, labels.length - 12);
-        labels = labels.slice(startIdx);
-        let visibleNames = [...selectedPlaylists];
-        if (currentView === 'top5') { const L = data.months.length - 1; visibleNames = [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]).slice(0, 5); }
-        const datasets = [];
-        visibleNames.forEach(name => {
-            if (!data.playlists[name]) return;
-            const values = data.playlists[name].slice(startIdx);
+        const { startIdx } = getTimeRange();
+        const labels = data.months.slice(startIdx);
+        const visibleNames = getFilteredNames();
+        const datasets = visibleNames.map(name => {
             const color = getColor(name);
-            datasets.push({ label: name, data: values, borderColor: color, backgroundColor: color + '15', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 6, pointBackgroundColor: color, pointBorderColor: 'transparent', tension: 0.35, fill: false });
+            return {
+                label: name,
+                data: buildChartSeries(name, startIdx),
+                borderColor: color,
+                backgroundColor: color + '15',
+                borderWidth: 2,
+                pointRadius: visibleNames.length <= 5 ? 2.5 : 1.8,
+                pointHoverRadius: 6,
+                pointBackgroundColor: color,
+                pointBorderColor: 'transparent',
+                tension: 0.35,
+                fill: false
+            };
         });
-        mainChart = new Chart(ctx, { type: 'line', data: { labels, datasets }, options: {
-            responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
-            plugins: { legend: { display: true, position: 'bottom', labels: { color: '#8a88a0', font: { family: "'DM Sans'", size: 11 }, boxWidth: 12, boxHeight: 2, padding: 16 } },
-            tooltip: { backgroundColor: '#141420ee', titleColor: '#e8e6f0', bodyColor: '#8a88a0', titleFont: { family: "'DM Sans'", weight: '700', size: 13 }, bodyFont: { family: "'JetBrains Mono'", size: 12 }, borderColor: '#1e1e35', borderWidth: 1, cornerRadius: 10, padding: 14,
-                callbacks: { label: ctx => { const idx = ctx.dataIndex + (currentView === '6m' ? Math.max(0, data.months.length - 6) : currentView === '12m' ? Math.max(0, data.months.length - 12) : 0); const d = idx > 0 ? data.playlists[ctx.dataset.label][idx] - data.playlists[ctx.dataset.label][idx - 1] : 0; const arrow = d > 0 ? ' \u25B2' + d : d < 0 ? ' \u25BC' + Math.abs(d) : ''; return ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}${arrow}`; } } } },
-            scales: { x: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 10 } } }, y: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 10 } } } },
-            animation: { duration: 800, easing: 'easeOutQuart' }
-        }});
+        const yFormat = state.metric === 'pct' ? (v) => v + '%' : (v) => v;
+        const isDelta = state.metric !== 'followers';
+        mainChart = new Chart(ctx, {
+            type: 'line',
+            data: { labels, datasets },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: {
+                        display: true, position: 'bottom', align: 'start',
+                        labels: {
+                            color: getCssVar('--text-muted'),
+                            font: { family: "'Inter'", size: 11, weight: '500' },
+                            boxWidth: 10, boxHeight: 2, padding: 14, usePointStyle: false
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: getCssVar('--surface'),
+                        titleColor: getCssVar('--text'),
+                        bodyColor: getCssVar('--text-secondary'),
+                        borderColor: getCssVar('--border-strong'),
+                        borderWidth: 1,
+                        cornerRadius: 6,
+                        padding: 10,
+                        titleFont: { family: "'Inter'", weight: '700', size: 12 },
+                        bodyFont: { family: "'JetBrains Mono'", size: 11 },
+                        callbacks: {
+                            label: c => {
+                                const raw = c.parsed.y;
+                                const suffix = state.metric === 'pct' ? '%' : '';
+                                const prefix = isDelta && raw > 0 ? '+' : '';
+                                return ` ${c.dataset.label}: ${prefix}${raw.toLocaleString()}${suffix}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: getCssVar('--border-subtle'), drawBorder: false },
+                        ticks: {
+                            color: getCssVar('--text-muted'),
+                            font: { family: "'JetBrains Mono'", size: 10 },
+                            maxRotation: 0, autoSkipPadding: 16
+                        }
+                    },
+                    y: {
+                        grid: { color: getCssVar('--border-subtle'), drawBorder: false },
+                        ticks: {
+                            color: getCssVar('--text-muted'),
+                            font: { family: "'JetBrains Mono'", size: 10 },
+                            callback: yFormat
+                        },
+                        beginAtZero: isDelta ? false : true
+                    }
+                },
+                animation: { duration: 500, easing: 'easeOutQuart' }
+            }
+        });
     }
 
-    function renderDeltaChart() {
-        const ctx = document.getElementById('deltaChart').getContext('2d');
-        if (deltaChart) deltaChart.destroy();
-        const names = Object.keys(data.playlists);
-        const L = data.months.length - 1;
-        const sorted = [...names].sort((a, b) => { const da = deltaMode === 'abs' ? getDelta(a, L) : getPctChange(a, L); const db = deltaMode === 'abs' ? getDelta(b, L) : getPctChange(b, L); return db - da; });
-        const values = sorted.map(n => deltaMode === 'abs' ? getDelta(n, L) : +getPctChange(n, L).toFixed(1));
-        const colors = values.map(v => v > 0 ? '#00e88a' : v < 0 ? '#ff4466' : '#55536a');
-        const bgColors = values.map(v => v > 0 ? '#00e88a30' : v < 0 ? '#ff446630' : '#55536a20');
-        deltaChart = new Chart(ctx, { type: 'bar', data: { labels: sorted, datasets: [{ data: values, backgroundColor: bgColors, borderColor: colors, borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] }, options: {
-            responsive: true, maintainAspectRatio: false, indexAxis: 'y',
-            plugins: { legend: { display: false }, tooltip: { backgroundColor: '#141420ee', titleColor: '#e8e6f0', bodyColor: '#8a88a0', titleFont: { family: "'DM Sans'", weight: '700' }, bodyFont: { family: "'JetBrains Mono'", size: 12 }, borderColor: '#1e1e35', borderWidth: 1, cornerRadius: 10, padding: 12, callbacks: { label: ctx => deltaMode === 'abs' ? ` ${ctx.parsed.x > 0 ? '+' : ''}${ctx.parsed.x} followers` : ` ${ctx.parsed.x > 0 ? '+' : ''}${ctx.parsed.x}%` } } },
-            scales: { x: { grid: { color: '#1e1e3515' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 10 }, callback: v => deltaMode === 'pct' ? v + '%' : v } }, y: { grid: { display: false }, ticks: { color: '#8a88a0', font: { family: "'DM Sans'", size: 11, weight: '600' } } } },
-            animation: { duration: 600, easing: 'easeOutQuart' }
-        }});
+    // ========== INSIGHTS ==========
+    function renderInsights() {
+        const names = getAllNames();
+        const L = getCurrentIdx();
+        const insights = [];
+        const tag = n => `<span class="playlist-tag" style="color:${getColor(n)}">${n}</span>`;
+
+        // 1. Milestone crossings (highest priority)
+        const MILESTONES = [10, 25, 50, 100, 250, 500, 1000];
+        names.forEach(n => {
+            const cur = data.playlists[n][L];
+            const prev = data.playlists[n][L-1];
+            MILESTONES.forEach(t => {
+                if (prev < t && cur >= t) insights.push({
+                    tone: 'outlier', icon: '◆', priority: 1,
+                    title: `${n} crossed ${t}`,
+                    detail: `Followers climbed from ${prev} to ${cur} this month.`
+                });
+            });
+        });
+
+        // 2. Growth streaks (4+ consecutive monthly gains)
+        names.forEach(n => {
+            const v = data.playlists[n];
+            let streak = 0;
+            for (let i = v.length - 1; i > 0; i--) {
+                if (v[i] > v[i-1]) streak++;
+                else break;
+            }
+            if (streak >= 4) insights.push({
+                tone: 'gain', icon: '↑', priority: 2,
+                title: `${n}: ${streak}-month streak`,
+                detail: `Up ${v[L] - v[L - streak]} followers over ${streak} consecutive months.`
+            });
+        });
+
+        // 3. Reactivation — flat 3mo then a jump
+        if (L >= 4) {
+            names.forEach(n => {
+                const v = data.playlists[n];
+                const recent = v[L] - v[L-1];
+                if (recent < 3) return;
+                const window = v.slice(L-4, L-1);
+                const range = Math.max(...window) - Math.min(...window);
+                if (range <= 1 && v[L-1] > 0) insights.push({
+                    tone: 'accent', icon: '⟳', priority: 2,
+                    title: `${n} reactivated`,
+                    detail: `Flat for 3 months, then +${recent} this month. Worth investigating what changed.`
+                });
+            });
+        }
+
+        // 4. Breakouts from zero
+        const breakouts = names.filter(n => data.playlists[n][0] === 0 && data.playlists[n][L] >= 10)
+            .sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
+        if (breakouts.length) {
+            const bo = breakouts[0];
+            const v = data.playlists[bo];
+            const firstMonth = data.months[v.findIndex(x => x > 0)];
+            insights.push({
+                tone: 'gain', icon: '▲', priority: 2,
+                title: `${bo} built from zero`,
+                detail: `Launched ${firstMonth}, now sits at ${v[L]} followers.`
+            });
+        }
+
+        // 5. Zombie watch — flat ±1 for 12+ months
+        if (L >= 12) {
+            const zombies = names.filter(n => {
+                const v = data.playlists[n];
+                const recent = v.slice(-12);
+                return Math.max(...recent) - Math.min(...recent) <= 1 && v[L] >= 5;
+            });
+            if (zombies.length) insights.push({
+                tone: 'loss', icon: '—', priority: 3,
+                title: zombies.length === 1 ? `${zombies[0]} has stalled` : `${zombies.length} playlists stalled`,
+                detail: `${zombies.join(', ')} held within one follower for 12+ consecutive months.`
+            });
+        }
+
+        // 6. Portfolio share shift
+        if (L >= 12) {
+            const totNow = names.reduce((s,n) => s + data.playlists[n][L], 0);
+            const tot12 = names.reduce((s,n) => s + data.playlists[n][L-12], 0);
+            const shifts = names.map(n => {
+                const shareNow = (data.playlists[n][L] / totNow) * 100;
+                const share12 = tot12 > 0 ? (data.playlists[n][L-12] / tot12) * 100 : 0;
+                return { name: n, shift: shareNow - share12, shareNow, share12 };
+            }).filter(s => s.shift >= 3).sort((a,b) => b.shift - a.shift);
+            if (shifts.length) {
+                const s = shifts[0];
+                insights.push({
+                    tone: 'accent', icon: '⤴', priority: 3,
+                    title: `${s.name} is capturing more of the portfolio`,
+                    detail: `Share of total followers rose from ${s.share12.toFixed(1)}% to ${s.shareNow.toFixed(1)}% year-over-year.`
+                });
+            }
+        }
+
+        // 7. 12-month linear projection for top playlist
+        if (L >= 6) {
+            const top = [...names].sort((a,b) => data.playlists[b][L] - data.playlists[a][L])[0];
+            const v = data.playlists[top];
+            const recent6 = v.slice(L - 5, L + 1);
+            const slope = (recent6[5] - recent6[0]) / 5;
+            if (slope > 0.5) {
+                const projected = Math.round(v[L] + slope * 12);
+                insights.push({
+                    tone: 'accent', icon: '→', priority: 3,
+                    title: `${top} projects to ~${projected.toLocaleString()} by ${projectedMonthLabel(12)}`,
+                    detail: `Based on the six-month trend of +${slope.toFixed(1)} followers/month.`
+                });
+            }
+        }
+
+        // 8. All-time growth leader
+        let bestName = '', bestPct = -Infinity;
+        names.forEach(n => {
+            const v = data.playlists[n];
+            const start = v.find(x => x > 0);
+            if (start && start >= 3 && v[L] >= 5) {
+                const pct = ((v[L] - start) / start) * 100;
+                if (pct > bestPct) { bestPct = pct; bestName = n; }
+            }
+        });
+        if (bestName) insights.push({
+            tone: 'accent', icon: '★', priority: 4,
+            title: `${bestName} leads on % growth`,
+            detail: `+${bestPct.toFixed(0)}% since ${data.months[0]}.`
+        });
+
+        // Render first 6 insights, sorted by priority
+        const top = insights.sort((a,b) => a.priority - b.priority).slice(0, 6);
+        const root = document.getElementById('insightGrid');
+        if (top.length === 0) {
+            root.innerHTML = `<div class="insight-card"><div class="icon-wrap">·</div><div class="body"><div class="i-title">Nothing notable this month</div><div class="i-detail">Follower movement was within normal ranges across the board.</div></div></div>`;
+            return;
+        }
+        root.innerHTML = top.map(i => `
+            <div class="insight-card tone-${i.tone}">
+                <div class="icon-wrap">${i.icon}</div>
+                <div class="body">
+                    <div class="i-title">${i.title}</div>
+                    <div class="i-detail">${i.detail}</div>
+                </div>
+            </div>
+        `).join('');
     }
 
+    function projectedMonthLabel(delta) {
+        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const last = data.months[data.months.length - 1];
+        const [m, y] = last.split(' ');
+        const mIdx = MON.indexOf(m);
+        const total = mIdx + delta;
+        const newIdx = ((total % 12) + 12) % 12;
+        const newYr = parseInt('20' + y) + Math.floor(total / 12);
+        return `${MON[newIdx]} ${String(newYr).slice(-2)}`;
+    }
+
+    // ========== DIAGNOSTIC PANEL ==========
+    function renderDiagnostic() {
+        const names = getAllNames();
+        const L = getCurrentIdx();
+        const rows = names.map(n => {
+            const v = data.playlists[n];
+            const abs = v[L] - v[L-1];
+            const pct = v[L-1] > 0 ? ((abs / v[L-1]) * 100) : 0;
+            return { name: n, abs, pct, current: v[L] };
+        });
+        const gainers = rows.filter(r => r.abs > 0);
+        const losers = rows.filter(r => r.abs < 0);
+        const flat = rows.filter(r => r.abs === 0);
+
+        const sortKey = state.diagnosticSort;
+        gainers.sort((a, b) => sortKey === 'abs' ? b.abs - a.abs : b.pct - a.pct);
+        losers.sort((a, b) => sortKey === 'abs' ? a.abs - b.abs : a.pct - b.pct);
+
+        document.getElementById('diagSummary').innerHTML =
+            `<strong>${gainers.length}</strong> gained · <strong>${flat.length}</strong> unchanged · <strong>${losers.length}</strong> declined · ${data.months[L-1] || '—'} → ${data.months[L]}`;
+
+        const renderRow = (r) => `
+            <div class="diag-row" data-playlist="${r.name}">
+                <div class="d-name" style="color:${getColor(r.name)}">${r.name}</div>
+                <div class="d-abs" style="color:${r.abs > 0 ? 'var(--gain)' : r.abs < 0 ? 'var(--loss)' : 'var(--flat)'}">${r.abs > 0 ? '+' : ''}${r.abs}</div>
+                <div class="d-pct ${r.abs > 0 ? 'gain' : r.abs < 0 ? 'loss' : 'flat'}">${r.abs > 0 ? '+' : ''}${r.pct.toFixed(1)}%</div>
+            </div>
+        `;
+
+        document.getElementById('diagGrid').innerHTML = `
+            <div class="diag-column gainers">
+                <div class="col-header">
+                    <div class="col-title">Gainers</div>
+                    <div class="col-count">${gainers.length} playlist${gainers.length === 1 ? '' : 's'}</div>
+                </div>
+                ${gainers.length ? gainers.map(renderRow).join('') : '<div class="diag-empty">No playlists grew this month.</div>'}
+            </div>
+            <div class="diag-column losers">
+                <div class="col-header">
+                    <div class="col-title">Decliners &amp; flat</div>
+                    <div class="col-count">${losers.length + flat.length} playlist${losers.length + flat.length === 1 ? '' : 's'}</div>
+                </div>
+                ${losers.length || flat.length
+                    ? [...losers.map(renderRow), ...flat.map(renderRow)].join('')
+                    : '<div class="diag-empty">Everything gained ground this month.</div>'}
+            </div>
+        `;
+
+        document.querySelectorAll('.diag-row').forEach(el => {
+            el.addEventListener('click', () => openDetail(el.dataset.playlist));
+        });
+    }
+
+    // ========== HEATMAP ==========
     function renderHeatmap() {
         const hm = document.getElementById('heatmap');
-        const names = Object.keys(data.playlists);
-        const months = data.months;
-        const totalMonths = months.length;
-        const startIdx = heatmapRange === '12m' ? Math.max(1, totalMonths - 12) : 1;
-        const sorted = [...names].sort((a, b) => data.playlists[b][totalMonths - 1] - data.playlists[a][totalMonths - 1]);
-        let allDeltas = [];
+        const names = getAllNames();
+        const total = data.months.length;
+        const startIdx = state.heatmapRange === '12m' ? Math.max(1, total - 12) : 1;
+        const sorted = [...names].sort((a, b) => data.playlists[b][total - 1] - data.playlists[a][total - 1]);
+
+        const allDeltas = [];
         sorted.forEach(name => {
-            for (let i = startIdx; i < totalMonths; i++) {
-                const v = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i);
+            for (let i = startIdx; i < total; i++) {
+                const v = state.heatmapMetric === 'abs' ? getDelta(name, i) : getPctChange(name, i);
                 if (isFinite(v)) allDeltas.push(v);
             }
         });
         const maxD = Math.max(...allDeltas.map(Math.abs), 1);
-
-        // Outlier thresholds: top/bottom 5% by absolute value
+        // Reserve gold dots for the true 3% outliers (conservative)
         const sortedAbs = [...allDeltas].map(Math.abs).sort((a,b) => b - a);
-        const outlierThreshold = sortedAbs[Math.max(0, Math.floor(sortedAbs.length * 0.05) - 1)] || Infinity;
+        const outlierThreshold = sortedAbs[Math.max(0, Math.floor(sortedAbs.length * 0.03) - 1)] || Infinity;
 
         function cellColor(val) {
-            if (val === 0) return { bg: 'var(--surface-2)', text: 'var(--text-muted)' };
+            if (val === 0) return { bg: 'var(--surface-3)', text: 'var(--text-muted)' };
             const intensity = Math.min(Math.abs(val) / maxD, 1);
-            if (val > 0) return { bg: `rgba(0, 232, 138, ${(intensity * 0.5 + 0.08).toFixed(2)})`, text: intensity > 0.3 ? '#d0ffe8' : '#00e88a' };
-            else return { bg: `rgba(255, 68, 102, ${(intensity * 0.5 + 0.08).toFixed(2)})`, text: intensity > 0.3 ? '#ffd0d8' : '#ff4466' };
+            if (val > 0) return { bg: `rgba(16, 185, 129, ${(intensity * 0.6 + 0.08).toFixed(2)})`, text: intensity > 0.4 ? '#d1fae5' : '#10b981' };
+            return { bg: `rgba(244, 63, 94, ${(intensity * 0.6 + 0.08).toFixed(2)})`, text: intensity > 0.4 ? '#ffe4e6' : '#f43f5e' };
         }
-        const numCols = totalMonths - startIdx;
-        hm.style.gridTemplateColumns = `130px repeat(${numCols}, 48px)`;
-        let html = '<div class="hm-row"><div class="hm-label"></div>';
-        for (let i = startIdx; i < totalMonths; i++) html += `<div class="hm-header">${months[i]}</div>`;
+
+        const numCols = total - startIdx;
+        hm.style.gridTemplateColumns = `140px repeat(${numCols}, 44px)`;
+
+        let html = `<div class="hm-row"><div class="hm-header hm-label-header"></div>`;
+        for (let i = startIdx; i < total; i++) html += `<div class="hm-header">${data.months[i]}</div>`;
         html += '</div>';
+
         sorted.forEach(name => {
-            html += `<div class="hm-row"><div class="hm-label" style="color:${getColor(name)}">${name}</div>`;
-            for (let i = startIdx; i < totalMonths; i++) {
-                const raw = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i);
+            html += `<div class="hm-row"><div class="hm-label" style="color:${getColor(name)}" data-playlist="${name}">${name}</div>`;
+            for (let i = startIdx; i < total; i++) {
+                const raw = state.heatmapMetric === 'abs' ? getDelta(name, i) : getPctChange(name, i);
                 const rawFinite = isFinite(raw) ? raw : 0;
-                const display = heatmapMode === 'pct' ? (isFinite(raw) ? raw.toFixed(0) + '%' : '\u2014') : (raw > 0 ? '+' + raw : raw);
+                const display = state.heatmapMetric === 'pct'
+                    ? (isFinite(raw) ? raw.toFixed(0) + '%' : '—')
+                    : (raw > 0 ? '+' + raw : raw);
                 const { bg, text } = cellColor(rawFinite);
-                const isOutlier = Math.abs(rawFinite) >= outlierThreshold && rawFinite !== 0;
-                const tooltip = `${name}: ${data.playlists[name][i - 1]} \u2192 ${data.playlists[name][i]} (${raw > 0 ? '+' : ''}${heatmapMode === 'pct' ? raw.toFixed(1) + '%' : raw})`;
-                html += `<div class="hm-cell${isOutlier ? ' outlier' : ''}" style="background:${bg};color:${text}" data-tooltip="${tooltip}">${display}</div>`;
+                const isOut = Math.abs(rawFinite) >= outlierThreshold && rawFinite !== 0;
+                const tip = `${name} · ${data.months[i-1]} → ${data.months[i]} · ${data.playlists[name][i-1]} → ${data.playlists[name][i]} (${raw > 0 ? '+' : ''}${state.heatmapMetric === 'pct' ? raw.toFixed(1) + '%' : raw})`;
+                html += `<div class="hm-cell${isOut ? ' outlier' : ''}" style="background:${bg};color:${text}" data-tooltip="${tip}">${display}</div>`;
             }
             html += '</div>';
         });
         hm.innerHTML = html;
+        document.querySelectorAll('.hm-label').forEach(el => {
+            el.addEventListener('click', () => openDetail(el.dataset.playlist));
+        });
+
+        // Legend
         const legend = document.getElementById('heatmapLegend');
         const steps = 7;
-        let legendHtml = '<span>decline</span>';
-        for (let i = 0; i < steps; i++) { const val = -maxD + (2 * maxD * i / (steps - 1)); const { bg } = cellColor(val); legendHtml += `<div class="hl-block" style="background:${bg}"></div>`; }
-        legendHtml += '<span>growth</span>';
+        let legendHtml = `<div class="scale"><span class="scale-label">−${Math.round(maxD)}</span>`;
+        for (let i = 0; i < steps; i++) {
+            const val = -maxD + (2 * maxD * i / (steps - 1));
+            const { bg } = cellColor(val);
+            legendHtml += `<div class="hl-block" style="background:${bg}"></div>`;
+        }
+        legendHtml += `<span class="scale-label">+${Math.round(maxD)}${state.heatmapMetric === 'pct' ? '%' : ''}</span></div>`;
+        legendHtml += `<div class="outlier-note"><span class="outlier-dot"></span> Top/bottom 3% outliers</div>`;
         legend.innerHTML = legendHtml;
     }
 
-    function setHeatmapRange(r) {
-        heatmapRange = r;
-        document.getElementById('btn-hm-12m').classList.toggle('active', r === '12m');
-        document.getElementById('btn-hm-all').classList.toggle('active', r === 'all');
-        renderHeatmap();
-    }
-
+    // ========== DATA TABLE ==========
     function renderTable() {
         const table = document.getElementById('dataTable');
-        const names = Object.keys(data.playlists);
-        const L = data.months.length - 1;
+        const filteredNames = getFilteredNames();
+        const { startIdx } = getTimeRange();
+        const months = data.months.slice(startIdx);
+        const L = getCurrentIdx();
+        const sorted = [...filteredNames].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
+
         let html = '<thead><tr><th>Playlist</th>';
-        data.months.forEach(m => { html += `<th>${m}</th>`; });
+        months.forEach(m => { html += `<th>${m}</th>`; });
         html += '</tr></thead><tbody>';
-        const sorted = [...names].sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
         sorted.forEach(name => {
-            const color = getColor(name);
-            html += `<tr><td style="color:${color}">${name}</td>`;
-            data.playlists[name].forEach((v, i) => { const d = i > 0 ? v - data.playlists[name][i - 1] : 0; const bg = d > 0 ? 'rgba(0,232,138,0.06)' : d < 0 ? 'rgba(255,68,102,0.06)' : ''; html += `<td style="background:${bg}">${v}</td>`; });
+            html += `<tr data-playlist="${name}"><td style="color:${getColor(name)}">${name}</td>`;
+            data.playlists[name].slice(startIdx).forEach((v, i) => {
+                const absIdx = startIdx + i;
+                const d = absIdx > 0 ? v - data.playlists[name][absIdx-1] : 0;
+                const cls = d > 0 ? 'cell-gain' : d < 0 ? 'cell-loss' : '';
+                html += `<td class="${cls}">${v}</td>`;
+            });
             html += '</tr>';
         });
         html += '</tbody>';
         table.innerHTML = html;
-    }
 
-    function setView(view) {
-        currentView = view;
-        document.querySelectorAll('.chart-controls button[id^="btn-"]').forEach(b => { if (['btn-all','btn-6m','btn-12m','btn-top5'].includes(b.id)) b.classList.remove('active'); });
-        document.getElementById('btn-' + view)?.classList.add('active');
-        renderMainChart();
-    }
-    function setDeltaMode(mode) { deltaMode = mode; document.getElementById('btn-delta-abs').classList.toggle('active', mode === 'abs'); document.getElementById('btn-delta-pct').classList.toggle('active', mode === 'pct'); renderDeltaChart(); }
-    function setHeatmapMode(mode) { heatmapMode = mode; document.getElementById('btn-hm-abs').classList.toggle('active', mode === 'abs'); document.getElementById('btn-hm-pct').classList.toggle('active', mode === 'pct'); renderHeatmap(); }
-
-    function openModal() {
-        const modal = document.getElementById('modal');
-        const fields = document.getElementById('modalFields');
-        const names = Object.keys(data.playlists);
-        fields.innerHTML = '';
-        names.forEach(name => {
-            const lastVal = data.playlists[name][data.playlists[name].length - 1];
-            const color = getColor(name);
-            fields.innerHTML += `<div class="modal-field"><label style="color:${color}">${name}</label><div class="mf-right"><div class="mf-prev">was ${lastVal}</div><input type="number" min="0" value="${lastVal}" data-playlist="${name}" data-prev="${lastVal}" oninput="updateModalDelta(this)"><div class="mf-delta" data-delta-for="${name}" style="color:var(--flat)">\u2014</div></div></div>`;
+        document.querySelectorAll('.data-table tbody tr').forEach(tr => {
+            tr.addEventListener('click', () => openDetail(tr.dataset.playlist));
         });
-        const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        const lastMonth = data.months[data.months.length - 1];
-        const parts = lastMonth.split(' ');
-        const mIdx = monthNames.indexOf(parts[0]);
-        const yr = parseInt('20' + parts[1]);
-        const nextM = (mIdx + 1) % 12;
-        const nextY = mIdx === 11 ? yr + 1 : yr;
-        document.getElementById('monthSelect').value = monthNames[nextM];
-        document.getElementById('yearSelect').value = nextY;
-        modal.classList.add('open');
-    }
-    function updateModalDelta(input) {
-        const name = input.dataset.playlist;
-        const prev = parseInt(input.dataset.prev);
-        const curr = parseInt(input.value) || 0;
-        const diff = curr - prev;
-        const el = document.querySelector(`[data-delta-for="${name}"]`);
-        if (diff > 0) { el.style.color = 'var(--gain)'; el.textContent = '+' + diff; }
-        else if (diff < 0) { el.style.color = 'var(--loss)'; el.textContent = '' + diff; }
-        else { el.style.color = 'var(--flat)'; el.textContent = '\u2014'; }
-    }
-    function closeModal() { document.getElementById('modal').classList.remove('open'); }
 
+        // Subtitle describing active filters
+        const rangeText = state.timeRange === 'all' ? `all ${data.months.length} months` : `last ${state.timeRange === '6m' ? '6' : '12'} months`;
+        const selText = state.selection === 'all' ? `all ${filteredNames.length} playlists` : state.selection === 'top5' ? 'top 5 playlists' : 'bottom 5 playlists';
+        document.getElementById('tableSubtitle').innerHTML =
+            `Showing <code>${selText}</code> over <code>${rangeText}</code>. Click any row for detail.`;
+    }
+
+    // ========== DETAIL MODAL ==========
     function openDetail(name) {
         const v = data.playlists[name];
-        const L = data.months.length - 1;
+        const L = getCurrentIdx();
         const color = getColor(name);
         const cur = v[L];
         const prev = v[L-1] ?? cur;
@@ -1548,22 +1749,18 @@
         const firstIdx = v.findIndex(x => x > 0);
         const allTimePct = firstNonZero > 0 ? Math.round(((cur - firstNonZero) / firstNonZero) * 100) : 0;
 
-        // Rank and portfolio share
-        const names = Object.keys(data.playlists);
+        const names = getAllNames();
         const ranked = [...names].sort((a,b) => data.playlists[b][L] - data.playlists[a][L]);
         const rank = ranked.indexOf(name) + 1;
         const total = names.reduce((s,n) => s + data.playlists[n][L], 0);
         const share = total > 0 ? ((cur / total) * 100).toFixed(1) : '0.0';
 
-        // Best / worst month deltas
         let bestIdx = 1, bestDelta = -Infinity, worstIdx = 1, worstDelta = Infinity;
         for (let i = 1; i <= L; i++) {
             const d = v[i] - v[i-1];
             if (d > bestDelta) { bestDelta = d; bestIdx = i; }
             if (d < worstDelta) { worstDelta = d; worstIdx = i; }
         }
-
-        // Simple projection from last-6 slope
         let projection = null;
         if (L >= 6) {
             const recent = v.slice(L - 5, L + 1);
@@ -1573,23 +1770,21 @@
 
         document.getElementById('dmTitle').textContent = name;
         document.getElementById('dmTitle').style.color = color;
-        document.getElementById('dmSub').textContent = `Rank #${rank} of ${names.length} \u00b7 ${share}% of portfolio`;
-        const coverEl = document.getElementById('dmCover');
-        coverEl.style.backgroundImage = COVERS[name] ? `url('${COVERS[name]}')` : 'none';
+        document.getElementById('dmSub').textContent = `Rank #${rank} of ${names.length} · ${share}% of portfolio`;
+        document.getElementById('dmCover').style.backgroundImage = COVERS[name] ? `url('${COVERS[name]}')` : 'none';
         document.getElementById('dmSpotifyLink').href = getSpotifyUrl(name);
 
-        const statsEl = document.getElementById('dmStats');
-        const fmt = (n, sign = true) => (sign && n > 0 ? '+' : '') + n.toLocaleString();
         const col = (n) => n > 0 ? 'var(--gain)' : n < 0 ? 'var(--loss)' : 'var(--flat)';
-        statsEl.innerHTML = `
-            <div class="dm-stat"><div class="label">Current</div><div class="value" style="color:${color}">${cur.toLocaleString()}</div></div>
-            <div class="dm-stat"><div class="label">All-Time Growth</div><div class="value" style="color:${col(allTimePct)}">${fmt(allTimePct)}% <span style="color:var(--text-muted);font-size:0.75rem;font-weight:400;">since ${data.months[firstIdx] || data.months[0]}</span></div></div>
-            <div class="dm-stat"><div class="label">MoM</div><div class="value" style="color:${col(mom1)}">${fmt(mom1)}</div></div>
-            <div class="dm-stat"><div class="label">3-Month</div><div class="value" style="color:${col(mom3)}">${fmt(mom3)}</div></div>
-            ${mom12 !== null ? `<div class="dm-stat"><div class="label">YoY</div><div class="value" style="color:${col(mom12)}">${fmt(mom12)}</div></div>` : ''}
-            ${projection !== null ? `<div class="dm-stat"><div class="label">Projection (12mo)</div><div class="value" style="color:var(--neon-gold)">~${projection.toLocaleString()}</div></div>` : ''}
-            <div class="dm-stat"><div class="label">Best Month</div><div class="value" style="color:var(--gain)">${data.months[bestIdx]} <span style="color:var(--text-muted);font-size:0.75rem;font-weight:400;">+${bestDelta}</span></div></div>
-            <div class="dm-stat"><div class="label">Worst Month</div><div class="value" style="color:${worstDelta < 0 ? 'var(--loss)' : 'var(--flat)'}">${data.months[worstIdx]} <span style="color:var(--text-muted);font-size:0.75rem;font-weight:400;">${worstDelta > 0 ? '+' : ''}${worstDelta}</span></div></div>
+        const fmt = (n) => (n > 0 ? '+' : '') + n.toLocaleString();
+        document.getElementById('dmStats').innerHTML = `
+            <div class="dm-stat"><div class="label">Current</div><div class="value" style="color:${color}">${formatNum(cur)}</div></div>
+            <div class="dm-stat"><div class="label">All-time growth</div><div class="value" style="color:${col(allTimePct)}">${fmt(allTimePct)}% <span class="context">since ${data.months[firstIdx] || data.months[0]}</span></div></div>
+            <div class="dm-stat"><div class="label">Month over month</div><div class="value" style="color:${col(mom1)}">${fmt(mom1)}</div></div>
+            <div class="dm-stat"><div class="label">3-month change</div><div class="value" style="color:${col(mom3)}">${fmt(mom3)}</div></div>
+            ${mom12 !== null ? `<div class="dm-stat"><div class="label">Year over year</div><div class="value" style="color:${col(mom12)}">${fmt(mom12)}</div></div>` : ''}
+            ${projection !== null ? `<div class="dm-stat"><div class="label">12-month projection</div><div class="value" style="color:var(--outlier)">~${formatNum(projection)}</div></div>` : ''}
+            <div class="dm-stat"><div class="label">Best month</div><div class="value" style="color:var(--gain)">${data.months[bestIdx]} <span class="context">+${bestDelta}</span></div></div>
+            <div class="dm-stat"><div class="label">Worst month</div><div class="value" style="color:${worstDelta < 0 ? 'var(--loss)' : 'var(--flat)'}">${data.months[worstIdx]} <span class="context">${worstDelta >= 0 ? '+' : ''}${worstDelta}</span></div></div>
         `;
 
         const ctx = document.getElementById('detailChartCanvas').getContext('2d');
@@ -1602,7 +1797,7 @@
                     label: name,
                     data: v,
                     borderColor: color,
-                    backgroundColor: color + '25',
+                    backgroundColor: color + '22',
                     borderWidth: 2.5,
                     pointRadius: 2,
                     pointHoverRadius: 5,
@@ -1613,12 +1808,21 @@
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { backgroundColor: '#141420ee', titleColor: '#e8e6f0', bodyColor: '#8a88a0', borderColor: '#1e1e35', borderWidth: 1, cornerRadius: 10 } },
-                scales: {
-                    x: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 9 }, maxRotation: 0, autoSkipPadding: 12 } },
-                    y: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 9 } } }
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: getCssVar('--surface'),
+                        titleColor: getCssVar('--text'),
+                        bodyColor: getCssVar('--text-secondary'),
+                        borderColor: getCssVar('--border-strong'),
+                        borderWidth: 1, cornerRadius: 6, padding: 10
+                    }
                 },
-                animation: { duration: 500 }
+                scales: {
+                    x: { grid: { color: getCssVar('--border-subtle') }, ticks: { color: getCssVar('--text-muted'), font: { family: "'JetBrains Mono'", size: 9 }, maxRotation: 0, autoSkipPadding: 12 } },
+                    y: { grid: { color: getCssVar('--border-subtle') }, ticks: { color: getCssVar('--text-muted'), font: { family: "'JetBrains Mono'", size: 9 } } }
+                },
+                animation: { duration: 300 }
             }
         });
 
@@ -1628,6 +1832,44 @@
         document.getElementById('detailModal').classList.remove('open');
         if (detailChart) { detailChart.destroy(); detailChart = null; }
     }
+
+    // ========== ENTRY MODAL ==========
+    function openEntry() {
+        const fields = document.getElementById('modalFields');
+        fields.innerHTML = '';
+        getAllNames().forEach(name => {
+            const lastVal = data.playlists[name][data.playlists[name].length - 1];
+            fields.innerHTML += `
+                <div class="modal-field">
+                    <label style="color:${getColor(name)}">${name}</label>
+                    <div class="mf-prev">was ${lastVal}</div>
+                    <input type="number" min="0" value="${lastVal}" data-playlist="${name}" data-prev="${lastVal}" oninput="updateModalDelta(this)">
+                    <div class="mf-delta" data-delta-for="${name}" style="color:var(--flat)">—</div>
+                </div>
+            `;
+        });
+        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const lastMonth = data.months[data.months.length - 1];
+        const [m, y] = lastMonth.split(' ');
+        const mIdx = MON.indexOf(m);
+        const yr = parseInt('20' + y);
+        const nextM = (mIdx + 1) % 12;
+        const nextY = mIdx === 11 ? yr + 1 : yr;
+        document.getElementById('monthSelect').value = MON[nextM];
+        document.getElementById('yearSelect').value = nextY;
+        document.getElementById('entryModal').classList.add('open');
+    }
+    function updateModalDelta(input) {
+        const name = input.dataset.playlist;
+        const prev = parseInt(input.dataset.prev);
+        const curr = parseInt(input.value) || 0;
+        const diff = curr - prev;
+        const el = document.querySelector(`[data-delta-for="${name}"]`);
+        if (diff > 0) { el.style.color = 'var(--gain)'; el.textContent = '+' + diff; }
+        else if (diff < 0) { el.style.color = 'var(--loss)'; el.textContent = '' + diff; }
+        else { el.style.color = 'var(--flat)'; el.textContent = '—'; }
+    }
+    function closeEntry() { document.getElementById('entryModal').classList.remove('open'); }
     function saveMonth() {
         const month = document.getElementById('monthSelect').value;
         const year = document.getElementById('yearSelect').value.toString().slice(-2);
@@ -1640,192 +1882,95 @@
             else data.playlists[name].push(val);
         });
         if (existingIdx < 0) data.months.push(label);
-        saveData(); closeModal(); updateAll();
+        saveData();
+        closeEntry();
+        renderAll();
     }
 
+    // ========== CSV EXPORT ==========
     function exportCSV() {
-        const names = Object.keys(data.playlists);
-        let csv = ',' + data.months.join(',') + '\n';
-        names.forEach(name => { csv += name + ',' + data.playlists[name].join(',') + '\n'; });
+        const filteredNames = getFilteredNames();
+        const { startIdx } = getTimeRange();
+        const months = data.months.slice(startIdx);
+        let csv = 'Playlist,' + months.join(',') + '\n';
+        filteredNames.forEach(name => {
+            csv += name + ',' + data.playlists[name].slice(startIdx).join(',') + '\n';
+        });
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'playlist-tracker-' + new Date().toISOString().split('T')[0] + '.csv'; a.click(); URL.revokeObjectURL(url);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'playlist-tracker-' + new Date().toISOString().split('T')[0] + '.csv';
+        a.click();
+        URL.revokeObjectURL(url);
     }
 
-    function renderInsights() {
-        const names = Object.keys(data.playlists);
-        const L = data.months.length - 1;
-        const insights = [];
-        const nameTag = n => `<span class="i-title" style="color:${getColor(n)}">${n}</span>`;
+    // ========== CSS VAR HELPER (for Chart.js) ==========
+    function getCssVar(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888';
+    }
 
-        // 1. MILESTONES CROSSED THIS MONTH — high priority (anniversaries first)
-        const THRESHOLDS = [10, 25, 50, 100, 250, 500, 1000];
-        if (L >= 1) {
-            names.forEach(n => {
-                const cur = data.playlists[n][L];
-                const prev = data.playlists[n][L-1];
-                THRESHOLDS.forEach(t => {
-                    if (prev < t && cur >= t) insights.push({
-                        priority: 1, icon: '\uD83C\uDFAF',
-                        html: `${nameTag(n)} crossed <strong>${t} followers</strong> this month (${prev} \u2192 ${cur}). Mark the moment.`
-                    });
-                });
-            });
-        }
-
-        // 2. GROWTH STREAKS (4+ consecutive months of growth)
-        names.forEach(n => {
-            const v = data.playlists[n];
-            let streak = 0;
-            for (let i = v.length - 1; i > 0; i--) {
-                if (v[i] > v[i-1]) streak++;
-                else break;
-            }
-            if (streak >= 4) insights.push({
-                priority: 2, icon: '\uD83D\uDD25',
-                html: `${nameTag(n)} has grown <strong>${streak} months in a row</strong>. Up ${v[L] - v[L - streak]} over the run.`
+    // ========== CONTROL WIRING ==========
+    function wireControl(id, stateKey, onChange) {
+        const root = document.getElementById(id);
+        if (!root) return;
+        root.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                state[stateKey] = btn.dataset.value;
+                root.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                onChange();
             });
         });
-
-        // 3. REACTIVATION — flat/declining for 3+ months then a jump
-        if (L >= 4) {
-            names.forEach(n => {
-                const v = data.playlists[n];
-                const recentDelta = v[L] - v[L-1];
-                if (recentDelta < 3) return;
-                const prevWindow = v.slice(L-4, L-1);
-                const windowRange = Math.max(...prevWindow) - Math.min(...prevWindow);
-                const windowDelta = prevWindow[2] - prevWindow[0];
-                if (windowRange <= 1 && windowDelta <= 0 && v[L-1] > 0) {
-                    insights.push({
-                        priority: 2, icon: '\u26A1',
-                        html: `${nameTag(n)} just broke out of a flat streak with <strong>+${recentDelta}</strong> this month. Something caught the algorithm's attention.`
-                    });
-                }
-            });
-        }
-
-        // 4. BREAKOUT — went from 0 to meaningful
-        const breakouts = names.filter(n => {
-            const v = data.playlists[n];
-            return v[0] === 0 && v[L] >= 10;
-        }).sort((a, b) => data.playlists[b][L] - data.playlists[a][L]);
-        if (breakouts.length > 0) {
-            const bo = breakouts[0];
-            const v = data.playlists[bo];
-            const firstMonth = data.months[v.findIndex(x => x > 0)];
-            insights.push({
-                priority: 2, icon: '\uD83D\uDE80',
-                html: `${nameTag(bo)} didn't exist before <strong>${firstMonth}</strong> and sits at <strong>${v[L]}</strong> today. Proof new playlists can find an audience from a standing start.`
-            });
-        }
-
-        // 5. ZOMBIE WATCH — flat within 1 follower for 12+ months
-        if (L >= 12) {
-            const zombies = names.filter(n => {
-                const v = data.playlists[n];
-                const recent = v.slice(-12);
-                return Math.max(...recent) - Math.min(...recent) <= 1 && v[L] >= 5;
-            });
-            if (zombies.length > 0) {
-                insights.push({
-                    priority: 3, icon: '\uD83D\uDC80',
-                    html: `${zombies.map(n => nameTag(n)).join(', ')} ${zombies.length > 1 ? 'have' : 'has'} ticked within 1 follower for <strong>12+ months</strong>. Consider refreshing cover art, title, or adds — the algorithm isn't feeding them.`
-                });
-            }
-        }
-
-        // 6. PORTFOLIO SHARE SHIFT (12-month window)
-        if (L >= 12) {
-            const totNow = names.reduce((s,n) => s + data.playlists[n][L], 0);
-            const tot12 = names.reduce((s,n) => s + data.playlists[n][L-12], 0);
-            names.forEach(n => {
-                const shareNow = (data.playlists[n][L] / totNow) * 100;
-                const share12 = tot12 > 0 ? (data.playlists[n][L-12] / tot12) * 100 : 0;
-                const shift = shareNow - share12;
-                if (shift >= 3) insights.push({
-                    priority: 2, icon: '\uD83D\uDCC8',
-                    html: `${nameTag(n)} is eating more of the portfolio: <strong>${share12.toFixed(1)}% \u2192 ${shareNow.toFixed(1)}%</strong> of total followers over the year.`
-                });
-            });
-        }
-
-        // 7. LINEAR PROJECTION — top 3 playlists, 12 months out from last-6 trend
-        const topN = [...names].sort((a,b) => data.playlists[b][L] - data.playlists[a][L]).slice(0, 3);
-        if (L >= 6) {
-            topN.forEach(n => {
-                const v = data.playlists[n];
-                const recent = v.slice(Math.max(0, L - 5), L + 1);
-                const slope = (recent[recent.length - 1] - recent[0]) / (recent.length - 1);
-                if (slope > 0.5) {
-                    const projected = Math.round(v[L] + slope * 12);
-                    insights.push({
-                        priority: 3, icon: '\uD83D\uDD2E',
-                        html: `At the 6-month pace, ${nameTag(n)} projects to <strong>~${projected.toLocaleString()}</strong> followers by ${projectedMonth(12)} (+${projected - v[L]} from today).`
-                    });
-                }
-            });
-        }
-
-        // 8. ALL-TIME GROWTH KING (by %) — always-on baseline
-        let bestPctName = '', bestPctVal = -Infinity;
-        names.forEach(n => {
-            const v = data.playlists[n];
-            const start = v.find(x => x > 0);
-            if (start && start >= 3 && v[L] >= 5) {
-                const pct = ((v[L] - start) / start) * 100;
-                if (pct > bestPctVal) { bestPctVal = pct; bestPctName = n; }
-            }
-        });
-        if (bestPctName) {
-            const v = data.playlists[bestPctName];
-            const start = v.find(x => x > 0);
-            insights.push({
-                priority: 3, icon: '\uD83D\uDC51',
-                html: `${nameTag(bestPctName)} is the all-time % growth leader at <strong>+${bestPctVal.toFixed(0)}%</strong> (${start} \u2192 ${v[L]}).`
-            });
-        }
-
-        // Sort by priority, render
-        insights.sort((a, b) => a.priority - b.priority);
-        const el = document.getElementById('insightsContent');
-        el.innerHTML = `<div class="insights-feed">${insights.map(i => `
-          <div class="insight-item priority-${i.priority}">
-            <div class="i-icon">${i.icon}</div>
-            <div class="i-body">${i.html}</div>
-          </div>`).join('')}</div>`;
     }
 
-    function projectedMonth(delta) {
-        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        const last = data.months[data.months.length - 1];
-        const [m, y] = last.split(' ');
-        const mIdx = MON.indexOf(m);
-        const totalMonths = mIdx + delta;
-        const newIdx = ((totalMonths % 12) + 12) % 12;
-        const newYr = parseInt('20' + y) + Math.floor(totalMonths / 12);
-        return `${MON[newIdx]} ${String(newYr).slice(-2)}`;
+    // ========== RENDER ALL ==========
+    function renderAll() {
+        renderKpi();
+        renderMainChart();
+        renderInsights();
+        renderDiagnostic();
+        renderHeatmap();
+        renderTable();
     }
 
-    function updateAll() { renderSummary(); renderStatCards(); renderMovers(); renderInsights(); renderMainChart(); renderDeltaChart(); renderHeatmap(); renderTable(); }
-    document.addEventListener('DOMContentLoaded', updateAll);
-    document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
-    document.getElementById('detailModal').addEventListener('click', e => { if (e.target === document.getElementById('detailModal')) closeDetail(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeDetail(); } });
-
+    // ========== THEME ==========
     function toggleTheme() {
-      const html = document.documentElement;
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        document.querySelector('.theme-toggle').textContent = next === 'dark' ? '☀' : '☽';
+        renderAll();
     }
-    (function() {
-      const saved = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', saved);
-      const btn = document.querySelector('.theme-toggle');
-      if (btn) btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    (function initTheme() {
+        const saved = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+        const btn = document.querySelector('.theme-toggle');
+        if (btn) btn.textContent = saved === 'dark' ? '☀' : '☽';
     })();
+
+    // ========== INIT ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        wireControl('ctrl-timeRange', 'timeRange', () => { renderMainChart(); renderTable(); });
+        wireControl('ctrl-selection', 'selection', () => { renderMainChart(); renderTable(); });
+        wireControl('ctrl-metric', 'metric', renderMainChart);
+        wireControl('ctrl-heatmapRange', 'heatmapRange', renderHeatmap);
+        wireControl('ctrl-heatmapMetric', 'heatmapMetric', renderHeatmap);
+        wireControl('ctrl-diagSort', 'diagnosticSort', renderDiagnostic);
+
+        document.getElementById('entryModal').addEventListener('click', e => {
+            if (e.target === document.getElementById('entryModal')) closeEntry();
+        });
+        document.getElementById('detailModal').addEventListener('click', e => {
+            if (e.target === document.getElementById('detailModal')) closeDetail();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closeEntry(); closeDetail(); }
+        });
+
+        renderAll();
+    });
     </script>
 </body>
 </html>
