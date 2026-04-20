@@ -13,11 +13,14 @@
           --bg-elevated: #101828;
           --surface: #151d2e;
           --surface-2: #1c2640;
+          --bg-card: #151d2e;
+          --bg-card-hover: #1c2640;
           --border: #2a3a5c;
           --border-subtle: #1e2d4a;
           --text: #f0f0f0;
+          --text-primary: #f0f0f0;
           --text-secondary: #a0a0a0;
-          --text-muted: #666666;
+          --text-muted: #7a8aa8;
           --accent: #0077BC;
           --accent-dim: rgba(0, 119, 188, 0.10);
           --accent-glow: rgba(0, 119, 188, 0.25);
@@ -27,6 +30,14 @@
           --neon-purple: #bf5fff;
           --neon-yellow: #ffe600;
           --neon-orange: #ff9500;
+          --neon-gold: #ffd700;
+          --neon-teal: #14d4b8;
+          --gain: #00e88a;
+          --gain-bg: rgba(0, 232, 138, 0.14);
+          --loss: #ff4466;
+          --loss-bg: rgba(255, 68, 102, 0.14);
+          --flat: #8a92a6;
+          --flat-bg: rgba(138, 146, 166, 0.14);
           --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
 
@@ -35,11 +46,14 @@
           --bg-elevated: #ffffff;
           --surface: #ffffff;
           --surface-2: #ebebeb;
+          --bg-card: #ffffff;
+          --bg-card-hover: #f1f1f3;
           --border: #d4d4d4;
           --border-subtle: #e0e0e0;
           --text: #0f172a;
+          --text-primary: #0f172a;
           --text-secondary: #334155;
-          --text-muted: #666666;
+          --text-muted: #64748b;
           --accent: #005a8f;
           --accent-dim: rgba(0, 90, 143, 0.08);
           --accent-glow: rgba(0, 90, 143, 0.18);
@@ -49,6 +63,14 @@
           --neon-purple: #7c3aed;
           --neon-yellow: #ca8a04;
           --neon-orange: #ea580c;
+          --neon-gold: #b8860b;
+          --neon-teal: #0d9488;
+          --gain: #16a34a;
+          --gain-bg: rgba(22, 163, 74, 0.12);
+          --loss: #dc2626;
+          --loss-bg: rgba(220, 38, 38, 0.12);
+          --flat: #64748b;
+          --flat-bg: rgba(100, 116, 139, 0.12);
           --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
         }
 
@@ -78,15 +100,14 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 48px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 32px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
         }
         .header h1 {
             font-family: 'Archivo Black', sans-serif;
-            font-size: 3.2rem;
+            font-size: 2.6rem;
             font-weight: 900;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             line-height: 1;
             background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
             -webkit-background-clip: text;
@@ -94,33 +115,102 @@
             background-clip: text;
         }
         .header .subtitle {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-top: 4px;
         }
-        .header-right { display: flex; gap: 12px; align-items: center; }
-        .total-badge {
-            background: var(--surface);
+        .header-right { display: flex; gap: 10px; align-items: center; }
+        .spotify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 18px;
             border: 1px solid var(--border);
             border-radius: 4px;
-            padding: 12px 20px;
-            text-align: right;
+            transition: all 0.2s ease;
         }
-        .total-badge .label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
+        .spotify-link:hover {
+            border-color: #1DB954;
+            color: #1DB954;
+        }
+        .spotify-link .dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #1DB954;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            pointer-events: none;
+            opacity: 0.4;
+        }
+        .hero-block { position: relative; z-index: 1; }
+        .hero-block .hero-label {
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
         }
-        .total-badge .value {
-            font-family: 'Inter', sans-serif;
-            font-size: 2rem;
+        .hero-block .hero-value {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 3.4rem;
             font-weight: 900;
-            color: var(--neon-gold);
+            line-height: 0.95;
             letter-spacing: 1px;
+            color: var(--text);
         }
+        .hero-block .hero-detail {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            margin-top: 8px;
+            color: var(--text-muted);
+        }
+        .hero-block.hero-headline .hero-value {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-block.hero-secondary .hero-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.9rem;
+        }
+        .hero-movement {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+        .hero-movement .gain { color: var(--gain); }
+        .hero-movement .loss { color: var(--loss); }
+        .hero-movement .flat { color: var(--flat); }
 
         .btn {
             font-family: 'Inter', sans-serif;
@@ -286,6 +376,132 @@
         .delta-pill.flat { background: var(--flat-bg); color: var(--flat); }
         .stat-card .delta-label { font-size: 0.65rem; color: var(--text-muted); }
         .stat-card .sparkline-container { margin-top: 10px; height: 32px; }
+        .stat-card .sc-detail-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .stat-card:hover .sc-detail-btn { display: flex; }
+        .stat-card .sc-detail-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        .insights-feed {
+            display: grid;
+            gap: 10px;
+        }
+        .insight-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--accent);
+            border-radius: 10px;
+            align-items: flex-start;
+            transition: transform 0.2s ease;
+        }
+        .insight-item:hover { transform: translateX(2px); }
+        .insight-item.priority-1 { border-left-color: var(--neon-gold); }
+        .insight-item.priority-2 { border-left-color: var(--neon-blue); }
+        .insight-item.priority-3 { border-left-color: var(--text-muted); }
+        .insight-item .i-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .insight-item .i-body { flex: 1; font-size: 0.88rem; line-height: 1.5; color: var(--text-secondary); }
+        .insight-item .i-title { font-weight: 700; color: var(--text-primary); margin-right: 4px; }
+
+        .detail-modal .dm-header {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .detail-modal .dm-cover {
+            width: 80px; height: 80px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--surface-2);
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+        .detail-modal .dm-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .detail-modal .dm-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .detail-modal .dm-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .detail-modal .dm-stat {
+            background: var(--surface-2);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+        .detail-modal .dm-stat .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .detail-modal .dm-stat .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .detail-modal .dm-chart {
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .detail-modal .dm-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .detail-modal .dm-spotify-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #1DB954;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+        .detail-modal .dm-spotify-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(29, 185, 84, 0.4); }
 
         .chart-section {
             background: var(--surface);
@@ -374,6 +590,15 @@
             transform: scale(1.25);
             box-shadow: 0 4px 16px rgba(0,0,0,0.5);
             z-index: 10;
+        }
+        .hm-cell.outlier::before {
+            content: '';
+            position: absolute;
+            top: 3px; right: 3px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--neon-gold);
+            box-shadow: 0 0 6px var(--neon-gold);
         }
         .hm-cell[data-tooltip]:hover::after {
             content: attr(data-tooltip);
@@ -479,21 +704,32 @@
             top: 0;
             background: var(--surface);
         }
-        .table-section th:first-child { text-align: left; min-width: 140px; }
+        .table-section th:first-child {
+            text-align: left;
+            min-width: 140px;
+            position: sticky;
+            left: 0;
+            z-index: 3;
+        }
         .table-section td {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
             padding: 8px 12px;
             text-align: right;
-            border-bottom: 1px solid rgba(30, 30, 53, 0.5);
+            border-bottom: 1px solid var(--border-subtle);
             color: var(--text-secondary);
         }
         .table-section td:first-child {
             text-align: left;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
             color: var(--text-primary);
+            position: sticky;
+            left: 0;
+            background: var(--surface);
+            z-index: 2;
         }
+        .table-section tr:hover td:first-child { background: var(--surface-2); }
         .table-section tr:hover td { background: rgba(255,255,255,0.02); }
 
         .modal-overlay {
@@ -595,10 +831,17 @@
             .container { padding: 20px 16px; }
             .header { flex-direction: column; align-items: flex-start; gap: 16px; }
             .header h1 { font-size: 2.2rem; }
+            .header-right { width: 100%; justify-content: space-between; }
+            .hero { grid-template-columns: 1fr 1fr; padding: 20px; gap: 16px; }
+            .hero-block.hero-headline { grid-column: 1 / -1; }
+            .hero-block .hero-value { font-size: 2.6rem; }
+            .hero-block.hero-secondary .hero-value { font-size: 1.4rem; }
             .stats-row { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
             .summary-strip { grid-template-columns: repeat(2, 1fr); }
             .movers-grid { grid-template-columns: 1fr; }
             .chart-canvas-wrap { height: 300px; }
+            .detail-modal .dm-stats { grid-template-columns: 1fr; }
+            .detail-modal .dm-chart { height: 180px; }
         }
 
         .topnav {
@@ -684,13 +927,14 @@
                 <div class="subtitle">curated by gary.</div>
             </div>
             <div class="header-right">
-                <div class="total-badge">
-                    <div class="label">Last Updated</div>
-                    <div class="value" style="font-size:1.2rem;" id="totalFollowers">Apr 2026</div>
-                </div>
+                <a class="spotify-link" href="https://open.spotify.com/user/gerald91" target="_blank" rel="noopener">
+                  <span class="dot"></span> View profile
+                </a>
                 <button class="btn btn-primary" onclick="openModal()">+ Add Month</button>
             </div>
         </div>
+
+        <div class="hero" id="hero"></div>
 
         <div class="summary-strip" id="summaryStrip"></div>
         <div class="stats-row" id="statsRow"></div>
@@ -729,12 +973,16 @@
             <div class="chart-header">
                 <div class="section-title">DELTA HEATMAP</div>
                 <div class="chart-controls">
+                    <button onclick="setHeatmapRange('12m')" class="active" id="btn-hm-12m">12M</button>
+                    <button onclick="setHeatmapRange('all')" id="btn-hm-all">All</button>
+                    <span style="width:1px;background:var(--border);margin:0 4px;"></span>
                     <button onclick="setHeatmapMode('abs')" class="active" id="btn-hm-abs">Absolute</button>
                     <button onclick="setHeatmapMode('pct')" id="btn-hm-pct">% Change</button>
                 </div>
             </div>
             <div class="heatmap-wrap"><div class="heatmap" id="heatmap"></div></div>
             <div class="heatmap-legend" id="heatmapLegend"></div>
+            <div style="font-size:0.65rem;color:var(--text-muted);margin-top:10px;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--neon-gold);box-shadow:0 0 6px var(--neon-gold);"></span> Gold dot = top/bottom 5% outlier</div>
         </div>
 
         <div class="table-section">
@@ -743,6 +991,24 @@
                 <button class="btn btn-secondary" onclick="exportCSV()">Export CSV</button>
             </div>
             <div style="overflow-x:auto;"><table id="dataTable"></table></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal detail-modal">
+            <div class="dm-header">
+                <div class="dm-cover" id="dmCover"></div>
+                <div style="flex:1;">
+                    <div class="dm-title" id="dmTitle"></div>
+                    <div class="dm-sub" id="dmSub"></div>
+                </div>
+            </div>
+            <div class="dm-stats" id="dmStats"></div>
+            <div class="dm-chart"><canvas id="detailChartCanvas"></canvas></div>
+            <div class="dm-actions">
+                <button class="btn btn-secondary" onclick="closeDetail()">Close</button>
+                <a class="dm-spotify-btn" id="dmSpotifyLink" href="#" target="_blank" rel="noopener">Open in Spotify &nbsp;&rarr;</a>
+            </div>
         </div>
     </div>
 
@@ -775,10 +1041,11 @@
     </footer>
 
     <script>
+    // 15 distinguishable hues, spaced around the wheel, no near-duplicates
     const COLORS = [
-        '#ff2d78','#00c8ff','#ff6b35','#00e88a','#a855f7',
-        '#14d4b8','#fbbf24','#ef4444','#6366f1','#22d3ee',
-        '#fb7185','#a3e635','#f59e0b','#38bdf8','#c084fc','#e879f9'
+        '#ff2d78','#00c8ff','#ffd700','#00e88a','#a855f7',
+        '#ff6b35','#14d4b8','#ef4444','#38bdf8','#a3e635',
+        '#fb923c','#8b5cf6','#f472b6','#ca8a04','#e879f9'
     ];
 
     const COVERS = {
@@ -799,17 +1066,21 @@
         "Broadway": "covers/broadway.png"
     };
 
-    // ─── V10 DEFAULT DATA — 15 playlists, 23 months (Apr 24 → Apr 26) ───
+    // Fallback to profile for unknown playlist IDs — fill these in as they resolve.
+    const SPOTIFY_PROFILE = "https://open.spotify.com/user/gerald91";
+    const SPOTIFY_URLS = {};
+
+    // ─── V11 DEFAULT DATA — 15 playlists, 23 months (Apr 24 → Apr 26) ───
     const DEFAULT_DATA = {
         months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26"],
         playlists: {
             "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509,511],
-            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168,186],
+            "Groove":           [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168,185],
             "Guide to Indie":   [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,110,111],
             "Ancora":           [21,28,28,28,30,31,31,31,33,32,33,36,34,34,35,36,37,37,37,37,38,38,38],
             "Thirst":           [24,26,26,28,28,28,28,30,30,31,32,32,32,32,32,32,32,32,32,32,33,33,33],
             "Potpourri":        [3,5,5,7,8,8,9,10,24,26,27,29,27,27,28,32,30,30,30,30,31,31,33],
-            "Cloudbuster":      [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26,27],
+            "Cloudbuster":      [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26,29],
             "Broken":           [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,20,22],
             "run":              [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,16],
             "Oddities":         [5,13,14,13,13,13,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,14],
@@ -821,22 +1092,36 @@
         }
     };
 
+    const STORAGE_KEY = 'spotify-tracker-v11';
+
     let data = loadData();
     let mainChart = null;
     let deltaChart = null;
+    let detailChart = null;
     let currentView = 'all';
     let deltaMode = 'abs';
     let heatmapMode = 'abs';
+    let heatmapRange = '12m';
     let selectedPlaylists = new Set(Object.keys(data.playlists));
 
     function loadData() {
         try {
-            const saved = localStorage.getItem('spotify-tracker-v4');
-            if (saved) return JSON.parse(saved);
+            // Migrate from legacy key if present
+            const legacy = localStorage.getItem('spotify-tracker-v4');
+            const saved = localStorage.getItem(STORAGE_KEY) || legacy;
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // If months array ends before Apr 26, fall back to defaults (new schema)
+                if (!parsed.months || parsed.months[parsed.months.length - 1] !== 'Apr 26') {
+                    return JSON.parse(JSON.stringify(DEFAULT_DATA));
+                }
+                return parsed;
+            }
         } catch(e) {}
         return JSON.parse(JSON.stringify(DEFAULT_DATA));
     }
-    function saveData() { localStorage.setItem('spotify-tracker-v4', JSON.stringify(data)); }
+    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    function getSpotifyUrl(name) { return SPOTIFY_URLS[name] || SPOTIFY_PROFILE; }
 
     function getColor(name) {
         const idx = Object.keys(data.playlists).indexOf(name);
@@ -926,22 +1211,89 @@
         const totalNow = names.reduce((s, n) => s + data.playlists[n][L], 0);
         const totalPrev = L > 0 ? names.reduce((s, n) => s + data.playlists[n][L - 1], 0) : totalNow;
         const totalDelta = totalNow - totalPrev;
+        const totalPct = totalPrev > 0 ? ((totalDelta / totalPrev) * 100).toFixed(1) : '0';
         const totalStart = names.reduce((s, n) => s + data.playlists[n][0], 0);
         const totalGrowthAll = totalNow - totalStart;
+
         let growing = 0, declining = 0, flat = 0;
         names.forEach(n => { const d = getDelta(n, L); if (d > 0) growing++; else if (d < 0) declining++; else flat++; });
+
+        // YoY (12 months ago vs now)
+        let yoyDelta = null, yoyPct = null, yoyFrom = null;
+        if (L >= 12) {
+            const totalYearAgo = names.reduce((s, n) => s + data.playlists[n][L - 12], 0);
+            yoyDelta = totalNow - totalYearAgo;
+            yoyPct = totalYearAgo > 0 ? ((yoyDelta / totalYearAgo) * 100).toFixed(1) : 0;
+            yoyFrom = data.months[L - 12];
+        }
+
+        // Best month ever (largest net portfolio gain)
+        let bestMonthIdx = 0, bestMonthDelta = -Infinity;
+        for (let i = 1; i <= L; i++) {
+            const tot = names.reduce((s, n) => s + data.playlists[n][i], 0);
+            const prevTot = names.reduce((s, n) => s + data.playlists[n][i-1], 0);
+            const d = tot - prevTot;
+            if (d > bestMonthDelta) { bestMonthDelta = d; bestMonthIdx = i; }
+        }
+
+        // Fastest riser last 3 months
+        let riserName = '', riserDelta = -Infinity;
+        names.forEach(n => {
+            if (L >= 3) {
+                const d = data.playlists[n][L] - data.playlists[n][L - 3];
+                if (d > riserDelta) { riserDelta = d; riserName = n; }
+            }
+        });
+
+        // Best performer all-time (by %)
         let bestName = '', bestPct = -Infinity;
         names.forEach(n => {
-            const vals = data.playlists[n]; const start = vals[0]; const end = vals[L];
-            if (end >= 5 && start > 0) { const pct = ((end - start) / start) * 100; if (pct > bestPct) { bestPct = pct; bestName = n; } }
+            const vals = data.playlists[n];
+            const start = vals.find(v => v > 0);
+            const end = vals[L];
+            if (end >= 5 && start >= 3) {
+                const pct = ((end - start) / start) * 100;
+                if (pct > bestPct) { bestPct = pct; bestName = n; }
+            }
         });
+
+        // Render hero
+        const hero = document.getElementById('hero');
+        const deltaClass = totalDelta > 0 ? 'gain' : totalDelta < 0 ? 'loss' : 'flat';
+        const deltaColor = totalDelta > 0 ? 'var(--gain)' : totalDelta < 0 ? 'var(--loss)' : 'var(--flat)';
+        hero.innerHTML = `
+          <div class="hero-block hero-headline">
+            <div class="hero-label">Total Followers</div>
+            <div class="hero-value">${totalNow.toLocaleString()}</div>
+            <div class="hero-detail">${data.months[L]} \u00b7 <span style="color:${deltaColor}">${totalDelta >= 0 ? '+' : ''}${totalDelta} (${totalDelta >= 0 ? '+' : ''}${totalPct}%) MoM</span></div>
+          </div>
+          <div class="hero-block hero-secondary">
+            <div class="hero-label">Year-Over-Year</div>
+            <div class="hero-value" style="color:${yoyDelta >= 0 ? 'var(--gain)' : 'var(--loss)'}">${yoyDelta !== null ? (yoyDelta >= 0 ? '+' : '') + yoyDelta.toLocaleString() : '\u2014'}</div>
+            <div class="hero-detail">${yoyFrom ? yoyFrom + ' \u2192 ' + data.months[L] + ' (' + (yoyPct >= 0 ? '+' : '') + yoyPct + '%)' : 'needs 12 months'}</div>
+          </div>
+          <div class="hero-block hero-secondary">
+            <div class="hero-label">Movement This Month</div>
+            <div class="hero-value" style="font-family:'Inter',sans-serif;font-size:1.6rem;">
+              <span style="color:var(--gain)">${growing}\u2191</span>&nbsp;
+              <span style="color:var(--flat)">${flat}\u2014</span>&nbsp;
+              <span style="color:var(--loss)">${declining}\u2193</span>
+            </div>
+            <div class="hero-detail">of ${names.length} playlists</div>
+          </div>
+          <div class="hero-block hero-secondary">
+            <div class="hero-label">Tracking</div>
+            <div class="hero-value" style="font-family:'Inter',sans-serif;font-size:1.6rem;">${data.months.length} months</div>
+            <div class="hero-detail">${data.months[0]} \u2192 ${data.months[L]}</div>
+          </div>`;
+
+        // Render summary strip
         const strip = document.getElementById('summaryStrip');
         strip.innerHTML = `
-        <div class="summary-card"><div class="sc-label">Net Change This Month</div><div class="sc-value" style="color:${totalDelta >= 0 ? 'var(--gain)' : 'var(--loss)'}">${totalDelta >= 0 ? '+' : ''}${totalDelta}</div><div class="sc-detail" style="color:var(--text-muted)">${data.months[L - 1] || '\u2014'} \u2192 ${data.months[L]}</div></div>
         <div class="summary-card"><div class="sc-label">Total Growth (All Time)</div><div class="sc-value" style="color:var(--neon-blue)">+${totalGrowthAll.toLocaleString()}</div><div class="sc-detail" style="color:var(--text-muted)">${totalStart.toLocaleString()} \u2192 ${totalNow.toLocaleString()}</div></div>
-        <div class="summary-card"><div class="sc-label">This Month's Movement</div><div class="sc-value" style="color:var(--text-primary); font-size:1.6rem;"><span style="color:var(--gain)">${growing}\u2191</span>&nbsp;<span style="color:var(--flat)">${flat}\u2014</span>&nbsp;<span style="color:var(--loss)">${declining}\u2193</span></div><div class="sc-detail" style="color:var(--text-muted)">of ${names.length} playlists</div></div>
+        <div class="summary-card"><div class="sc-label">Best Month Ever</div><div class="sc-value" style="color:var(--neon-gold); font-size:1.6rem;">${data.months[bestMonthIdx]}</div><div class="sc-detail" style="color:var(--text-muted)">+${bestMonthDelta} followers in a single month</div></div>
+        <div class="summary-card"><div class="sc-label">Hottest Riser (3mo)</div><div class="sc-value" style="color:${getColor(riserName)}; font-size:1.4rem;">${riserName || '\u2014'}</div><div class="sc-detail" style="color:var(--text-muted)">+${riserDelta} since ${data.months[L-3] || data.months[0]}</div></div>
         <div class="summary-card"><div class="sc-label">Best Performer (All Time)</div><div class="sc-value" style="color:${getColor(bestName)}; font-size:1.4rem;">${bestName || '\u2014'}</div><div class="sc-detail" style="color:var(--text-muted)">${bestPct !== -Infinity ? '+' + bestPct.toFixed(0) + '% since ' + data.months[0] : '\u2014'}</div></div>`;
-        document.getElementById('totalFollowers').textContent = data.months[L];
     }
 
     function renderStatCards() {
@@ -967,6 +1319,7 @@
             card.innerHTML = `
             <style>.stat-card[data-n="${CSS.escape(name)}"]::after{background:${color};}</style>
             ${coverUrl ? `<div class="stat-card-cover" style="${coverBg}"></div>` : ''}
+            <button class="sc-detail-btn" aria-label="Open details" data-open-detail="${CSS.escape(name)}">\u2197</button>
             <div class="sc-top"><div class="name">${name}</div><div class="momentum-badge" style="background:${momStyle.bg};color:${momStyle.color}">${momStyle.text}</div></div>
             <div class="followers" style="color:${color}">${current.toLocaleString()}</div>
             <div class="delta-row">
@@ -975,7 +1328,12 @@
             </div>
             <div class="sparkline-container"></div>`;
             card.setAttribute('data-n', name);
-            card.addEventListener('click', () => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('[data-open-detail]')) {
+                    e.stopPropagation();
+                    openDetail(name);
+                    return;
+                }
                 if (selectedPlaylists.has(name) && selectedPlaylists.size === 1) return;
                 if (selectedPlaylists.size === names.length) { selectedPlaylists = new Set([name]); }
                 else if (selectedPlaylists.has(name)) { selectedPlaylists.delete(name); }
@@ -1061,29 +1419,43 @@
         const hm = document.getElementById('heatmap');
         const names = Object.keys(data.playlists);
         const months = data.months;
-        const L = months.length;
-        const sorted = [...names].sort((a, b) => data.playlists[b][L - 1] - data.playlists[a][L - 1]);
+        const totalMonths = months.length;
+        const startIdx = heatmapRange === '12m' ? Math.max(1, totalMonths - 12) : 1;
+        const sorted = [...names].sort((a, b) => data.playlists[b][totalMonths - 1] - data.playlists[a][totalMonths - 1]);
         let allDeltas = [];
-        sorted.forEach(name => { for (let i = 1; i < L; i++) { const v = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i); if (isFinite(v)) allDeltas.push(v); } });
+        sorted.forEach(name => {
+            for (let i = startIdx; i < totalMonths; i++) {
+                const v = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i);
+                if (isFinite(v)) allDeltas.push(v);
+            }
+        });
         const maxD = Math.max(...allDeltas.map(Math.abs), 1);
+
+        // Outlier thresholds: top/bottom 5% by absolute value
+        const sortedAbs = [...allDeltas].map(Math.abs).sort((a,b) => b - a);
+        const outlierThreshold = sortedAbs[Math.max(0, Math.floor(sortedAbs.length * 0.05) - 1)] || Infinity;
+
         function cellColor(val) {
-            if (val === 0) return { bg: '#1a1a2e', text: '#55536a' };
+            if (val === 0) return { bg: 'var(--surface-2)', text: 'var(--text-muted)' };
             const intensity = Math.min(Math.abs(val) / maxD, 1);
             if (val > 0) return { bg: `rgba(0, 232, 138, ${(intensity * 0.5 + 0.08).toFixed(2)})`, text: intensity > 0.3 ? '#d0ffe8' : '#00e88a' };
             else return { bg: `rgba(255, 68, 102, ${(intensity * 0.5 + 0.08).toFixed(2)})`, text: intensity > 0.3 ? '#ffd0d8' : '#ff4466' };
         }
-        hm.style.gridTemplateColumns = `130px repeat(${L - 1}, 48px)`;
+        const numCols = totalMonths - startIdx;
+        hm.style.gridTemplateColumns = `130px repeat(${numCols}, 48px)`;
         let html = '<div class="hm-row"><div class="hm-label"></div>';
-        for (let i = 1; i < L; i++) html += `<div class="hm-header">${months[i]}</div>`;
+        for (let i = startIdx; i < totalMonths; i++) html += `<div class="hm-header">${months[i]}</div>`;
         html += '</div>';
         sorted.forEach(name => {
             html += `<div class="hm-row"><div class="hm-label" style="color:${getColor(name)}">${name}</div>`;
-            for (let i = 1; i < L; i++) {
+            for (let i = startIdx; i < totalMonths; i++) {
                 const raw = heatmapMode === 'abs' ? getDelta(name, i) : getPctChange(name, i);
+                const rawFinite = isFinite(raw) ? raw : 0;
                 const display = heatmapMode === 'pct' ? (isFinite(raw) ? raw.toFixed(0) + '%' : '\u2014') : (raw > 0 ? '+' + raw : raw);
-                const { bg, text } = cellColor(isFinite(raw) ? raw : 0);
+                const { bg, text } = cellColor(rawFinite);
+                const isOutlier = Math.abs(rawFinite) >= outlierThreshold && rawFinite !== 0;
                 const tooltip = `${name}: ${data.playlists[name][i - 1]} \u2192 ${data.playlists[name][i]} (${raw > 0 ? '+' : ''}${heatmapMode === 'pct' ? raw.toFixed(1) + '%' : raw})`;
-                html += `<div class="hm-cell" style="background:${bg};color:${text}" data-tooltip="${tooltip}">${display}</div>`;
+                html += `<div class="hm-cell${isOutlier ? ' outlier' : ''}" style="background:${bg};color:${text}" data-tooltip="${tooltip}">${display}</div>`;
             }
             html += '</div>';
         });
@@ -1094,6 +1466,13 @@
         for (let i = 0; i < steps; i++) { const val = -maxD + (2 * maxD * i / (steps - 1)); const { bg } = cellColor(val); legendHtml += `<div class="hl-block" style="background:${bg}"></div>`; }
         legendHtml += '<span>growth</span>';
         legend.innerHTML = legendHtml;
+    }
+
+    function setHeatmapRange(r) {
+        heatmapRange = r;
+        document.getElementById('btn-hm-12m').classList.toggle('active', r === '12m');
+        document.getElementById('btn-hm-all').classList.toggle('active', r === 'all');
+        renderHeatmap();
     }
 
     function renderTable() {
@@ -1155,6 +1534,100 @@
         else { el.style.color = 'var(--flat)'; el.textContent = '\u2014'; }
     }
     function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+    function openDetail(name) {
+        const v = data.playlists[name];
+        const L = data.months.length - 1;
+        const color = getColor(name);
+        const cur = v[L];
+        const prev = v[L-1] ?? cur;
+        const mom1 = cur - prev;
+        const mom3 = L >= 3 ? cur - v[L-3] : mom1;
+        const mom12 = L >= 12 ? cur - v[L-12] : null;
+        const firstNonZero = v.find(x => x > 0) ?? 0;
+        const firstIdx = v.findIndex(x => x > 0);
+        const allTimePct = firstNonZero > 0 ? Math.round(((cur - firstNonZero) / firstNonZero) * 100) : 0;
+
+        // Rank and portfolio share
+        const names = Object.keys(data.playlists);
+        const ranked = [...names].sort((a,b) => data.playlists[b][L] - data.playlists[a][L]);
+        const rank = ranked.indexOf(name) + 1;
+        const total = names.reduce((s,n) => s + data.playlists[n][L], 0);
+        const share = total > 0 ? ((cur / total) * 100).toFixed(1) : '0.0';
+
+        // Best / worst month deltas
+        let bestIdx = 1, bestDelta = -Infinity, worstIdx = 1, worstDelta = Infinity;
+        for (let i = 1; i <= L; i++) {
+            const d = v[i] - v[i-1];
+            if (d > bestDelta) { bestDelta = d; bestIdx = i; }
+            if (d < worstDelta) { worstDelta = d; worstIdx = i; }
+        }
+
+        // Simple projection from last-6 slope
+        let projection = null;
+        if (L >= 6) {
+            const recent = v.slice(L - 5, L + 1);
+            const slope = (recent[5] - recent[0]) / 5;
+            projection = Math.max(0, Math.round(cur + slope * 12));
+        }
+
+        document.getElementById('dmTitle').textContent = name;
+        document.getElementById('dmTitle').style.color = color;
+        document.getElementById('dmSub').textContent = `Rank #${rank} of ${names.length} \u00b7 ${share}% of portfolio`;
+        const coverEl = document.getElementById('dmCover');
+        coverEl.style.backgroundImage = COVERS[name] ? `url('${COVERS[name]}')` : 'none';
+        document.getElementById('dmSpotifyLink').href = getSpotifyUrl(name);
+
+        const statsEl = document.getElementById('dmStats');
+        const fmt = (n, sign = true) => (sign && n > 0 ? '+' : '') + n.toLocaleString();
+        const col = (n) => n > 0 ? 'var(--gain)' : n < 0 ? 'var(--loss)' : 'var(--flat)';
+        statsEl.innerHTML = `
+            <div class="dm-stat"><div class="label">Current</div><div class="value" style="color:${color}">${cur.toLocaleString()}</div></div>
+            <div class="dm-stat"><div class="label">All-Time Growth</div><div class="value" style="color:${col(allTimePct)}">${fmt(allTimePct)}% <span style="color:var(--text-muted);font-size:0.75rem;font-weight:400;">since ${data.months[firstIdx] || data.months[0]}</span></div></div>
+            <div class="dm-stat"><div class="label">MoM</div><div class="value" style="color:${col(mom1)}">${fmt(mom1)}</div></div>
+            <div class="dm-stat"><div class="label">3-Month</div><div class="value" style="color:${col(mom3)}">${fmt(mom3)}</div></div>
+            ${mom12 !== null ? `<div class="dm-stat"><div class="label">YoY</div><div class="value" style="color:${col(mom12)}">${fmt(mom12)}</div></div>` : ''}
+            ${projection !== null ? `<div class="dm-stat"><div class="label">Projection (12mo)</div><div class="value" style="color:var(--neon-gold)">~${projection.toLocaleString()}</div></div>` : ''}
+            <div class="dm-stat"><div class="label">Best Month</div><div class="value" style="color:var(--gain)">${data.months[bestIdx]} <span style="color:var(--text-muted);font-size:0.75rem;font-weight:400;">+${bestDelta}</span></div></div>
+            <div class="dm-stat"><div class="label">Worst Month</div><div class="value" style="color:${worstDelta < 0 ? 'var(--loss)' : 'var(--flat)'}">${data.months[worstIdx]} <span style="color:var(--text-muted);font-size:0.75rem;font-weight:400;">${worstDelta > 0 ? '+' : ''}${worstDelta}</span></div></div>
+        `;
+
+        const ctx = document.getElementById('detailChartCanvas').getContext('2d');
+        if (detailChart) detailChart.destroy();
+        detailChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.months,
+                datasets: [{
+                    label: name,
+                    data: v,
+                    borderColor: color,
+                    backgroundColor: color + '25',
+                    borderWidth: 2.5,
+                    pointRadius: 2,
+                    pointHoverRadius: 5,
+                    pointBackgroundColor: color,
+                    tension: 0.35,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { backgroundColor: '#141420ee', titleColor: '#e8e6f0', bodyColor: '#8a88a0', borderColor: '#1e1e35', borderWidth: 1, cornerRadius: 10 } },
+                scales: {
+                    x: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 9 }, maxRotation: 0, autoSkipPadding: 12 } },
+                    y: { grid: { color: '#1e1e3520' }, ticks: { color: '#55536a', font: { family: "'JetBrains Mono'", size: 9 } } }
+                },
+                animation: { duration: 500 }
+            }
+        });
+
+        document.getElementById('detailModal').classList.add('open');
+    }
+    function closeDetail() {
+        document.getElementById('detailModal').classList.remove('open');
+        if (detailChart) { detailChart.destroy(); detailChart = null; }
+    }
     function saveMonth() {
         const month = document.getElementById('monthSelect').value;
         const year = document.getElementById('yearSelect').value.toString().slice(-2);
@@ -1183,45 +1656,56 @@
         const names = Object.keys(data.playlists);
         const L = data.months.length - 1;
         const insights = [];
+        const nameTag = n => `<span class="i-title" style="color:${getColor(n)}">${n}</span>`;
 
-        // Best performer all-time by % growth (min 5 followers to qualify)
-        let bestPctName = '', bestPctVal = -Infinity;
+        // 1. MILESTONES CROSSED THIS MONTH — high priority (anniversaries first)
+        const THRESHOLDS = [10, 25, 50, 100, 250, 500, 1000];
+        if (L >= 1) {
+            names.forEach(n => {
+                const cur = data.playlists[n][L];
+                const prev = data.playlists[n][L-1];
+                THRESHOLDS.forEach(t => {
+                    if (prev < t && cur >= t) insights.push({
+                        priority: 1, icon: '\uD83C\uDFAF',
+                        html: `${nameTag(n)} crossed <strong>${t} followers</strong> this month (${prev} \u2192 ${cur}). Mark the moment.`
+                    });
+                });
+            });
+        }
+
+        // 2. GROWTH STREAKS (4+ consecutive months of growth)
         names.forEach(n => {
             const v = data.playlists[n];
-            const start = v.find(x => x > 0);
-            const startIdx = v.indexOf(start);
-            if (start && start >= 3 && v[L] >= 5) {
-                const pct = ((v[L] - start) / start) * 100;
-                if (pct > bestPctVal) { bestPctVal = pct; bestPctName = n; }
+            let streak = 0;
+            for (let i = v.length - 1; i > 0; i--) {
+                if (v[i] > v[i-1]) streak++;
+                else break;
             }
+            if (streak >= 4) insights.push({
+                priority: 2, icon: '\uD83D\uDD25',
+                html: `${nameTag(n)} has grown <strong>${streak} months in a row</strong>. Up ${v[L] - v[L - streak]} over the run.`
+            });
         });
-        if (bestPctName) {
-            const v = data.playlists[bestPctName];
-            const start = v.find(x => x > 0);
-            insights.push(`<span style="color:${getColor(bestPctName)};font-weight:700;">${bestPctName}</span> is the all-time growth king at <strong>+${bestPctVal.toFixed(0)}%</strong> (${start} \u2192 ${v[L]}). It crossed the inflection point in late 2024 and hasn't looked back.`);
+
+        // 3. REACTIVATION — flat/declining for 3+ months then a jump
+        if (L >= 4) {
+            names.forEach(n => {
+                const v = data.playlists[n];
+                const recentDelta = v[L] - v[L-1];
+                if (recentDelta < 3) return;
+                const prevWindow = v.slice(L-4, L-1);
+                const windowRange = Math.max(...prevWindow) - Math.min(...prevWindow);
+                const windowDelta = prevWindow[2] - prevWindow[0];
+                if (windowRange <= 1 && windowDelta <= 0 && v[L-1] > 0) {
+                    insights.push({
+                        priority: 2, icon: '\u26A1',
+                        html: `${nameTag(n)} just broke out of a flat streak with <strong>+${recentDelta}</strong> this month. Something caught the algorithm's attention.`
+                    });
+                }
+            });
         }
 
-        // Monday's Mixtape dominance
-        const mm = data.playlists["Monday's Mixtape"];
-        if (mm) {
-            const share = ((mm[L] / names.reduce((s,n) => s + data.playlists[n][L], 0)) * 100).toFixed(0);
-            insights.push(`<span style="color:${getColor("Monday's Mixtape")};font-weight:700;">Monday's Mixtape</span> commands <strong>${share}%</strong> of all followers at <strong>${mm[L]}</strong>. It's been the flagship since day one and the only playlist to breach 500.`);
-        }
-
-        // Fastest recent mover (last 3 months)
-        let fastName = '', fastDelta = 0;
-        names.forEach(n => {
-            const v = data.playlists[n];
-            if (L >= 3) {
-                const d = v[L] - v[L - 3];
-                if (d > fastDelta) { fastDelta = d; fastName = n; }
-            }
-        });
-        if (fastName && fastDelta > 0) {
-            insights.push(`<span style="color:${getColor(fastName)};font-weight:700;">${fastName}</span> is the hottest mover over the last 3 months with <strong>+${fastDelta}</strong> new followers. That's momentum worth watching.`);
-        }
-
-        // Breakout playlist (started at 0, now meaningful)
+        // 4. BREAKOUT — went from 0 to meaningful
         const breakouts = names.filter(n => {
             const v = data.playlists[n];
             return v[0] === 0 && v[L] >= 10;
@@ -1230,34 +1714,104 @@
             const bo = breakouts[0];
             const v = data.playlists[bo];
             const firstMonth = data.months[v.findIndex(x => x > 0)];
-            insights.push(`<span style="color:${getColor(bo)};font-weight:700;">${bo}</span> didn't exist before <strong>${firstMonth}</strong> and now sits at <strong>${v[L]}</strong> followers. Best proof that new playlists can find an audience from a standing start.`);
+            insights.push({
+                priority: 2, icon: '\uD83D\uDE80',
+                html: `${nameTag(bo)} didn't exist before <strong>${firstMonth}</strong> and sits at <strong>${v[L]}</strong> today. Proof new playlists can find an audience from a standing start.`
+            });
         }
 
-        // Plateaus (stable for 6+ months)
-        const plateaus = names.filter(n => {
+        // 5. ZOMBIE WATCH — flat within 1 follower for 12+ months
+        if (L >= 12) {
+            const zombies = names.filter(n => {
+                const v = data.playlists[n];
+                const recent = v.slice(-12);
+                return Math.max(...recent) - Math.min(...recent) <= 1 && v[L] >= 5;
+            });
+            if (zombies.length > 0) {
+                insights.push({
+                    priority: 3, icon: '\uD83D\uDC80',
+                    html: `${zombies.map(n => nameTag(n)).join(', ')} ${zombies.length > 1 ? 'have' : 'has'} ticked within 1 follower for <strong>12+ months</strong>. Consider refreshing cover art, title, or adds — the algorithm isn't feeding them.`
+                });
+            }
+        }
+
+        // 6. PORTFOLIO SHARE SHIFT (12-month window)
+        if (L >= 12) {
+            const totNow = names.reduce((s,n) => s + data.playlists[n][L], 0);
+            const tot12 = names.reduce((s,n) => s + data.playlists[n][L-12], 0);
+            names.forEach(n => {
+                const shareNow = (data.playlists[n][L] / totNow) * 100;
+                const share12 = tot12 > 0 ? (data.playlists[n][L-12] / tot12) * 100 : 0;
+                const shift = shareNow - share12;
+                if (shift >= 3) insights.push({
+                    priority: 2, icon: '\uD83D\uDCC8',
+                    html: `${nameTag(n)} is eating more of the portfolio: <strong>${share12.toFixed(1)}% \u2192 ${shareNow.toFixed(1)}%</strong> of total followers over the year.`
+                });
+            });
+        }
+
+        // 7. LINEAR PROJECTION — top 3 playlists, 12 months out from last-6 trend
+        const topN = [...names].sort((a,b) => data.playlists[b][L] - data.playlists[a][L]).slice(0, 3);
+        if (L >= 6) {
+            topN.forEach(n => {
+                const v = data.playlists[n];
+                const recent = v.slice(Math.max(0, L - 5), L + 1);
+                const slope = (recent[recent.length - 1] - recent[0]) / (recent.length - 1);
+                if (slope > 0.5) {
+                    const projected = Math.round(v[L] + slope * 12);
+                    insights.push({
+                        priority: 3, icon: '\uD83D\uDD2E',
+                        html: `At the 6-month pace, ${nameTag(n)} projects to <strong>~${projected.toLocaleString()}</strong> followers by ${projectedMonth(12)} (+${projected - v[L]} from today).`
+                    });
+                }
+            });
+        }
+
+        // 8. ALL-TIME GROWTH KING (by %) — always-on baseline
+        let bestPctName = '', bestPctVal = -Infinity;
+        names.forEach(n => {
             const v = data.playlists[n];
-            if (L < 6) return false;
-            const recent = v.slice(-6);
-            return Math.max(...recent) - Math.min(...recent) <= 1 && v[L] >= 5;
+            const start = v.find(x => x > 0);
+            if (start && start >= 3 && v[L] >= 5) {
+                const pct = ((v[L] - start) / start) * 100;
+                if (pct > bestPctVal) { bestPctVal = pct; bestPctName = n; }
+            }
         });
-        if (plateaus.length > 0) {
-            insights.push(`<strong>${plateaus.length} playlist${plateaus.length > 1 ? 's' : ''}</strong> (${plateaus.map(n => `<span style="color:${getColor(n)}">${n}</span>`).join(', ')}) ${plateaus.length > 1 ? 'have' : 'has'} been flat for 6+ months. Either the niche is saturated or the algorithmic boost has faded. Worth revisiting cover art, descriptions, or fresh adds.`);
+        if (bestPctName) {
+            const v = data.playlists[bestPctName];
+            const start = v.find(x => x > 0);
+            insights.push({
+                priority: 3, icon: '\uD83D\uDC51',
+                html: `${nameTag(bestPctName)} is the all-time % growth leader at <strong>+${bestPctVal.toFixed(0)}%</strong> (${start} \u2192 ${v[L]}).`
+            });
         }
 
-        // Groove's resurgence
-        const gr = data.playlists["Groove"];
-        if (gr && L >= 1 && gr[L] - gr[L-1] > 5) {
-            insights.push(`<span style="color:${getColor("Groove")};font-weight:700;">Groove</span> just spiked <strong>+${gr[L] - gr[L-1]}</strong> in a single month \u2014 the biggest single-month jump it's had since the Jan\u201325 era. Something caught the algorithm's attention.`);
-        }
-
+        // Sort by priority, render
+        insights.sort((a, b) => a.priority - b.priority);
         const el = document.getElementById('insightsContent');
-        el.innerHTML = insights.map(i => `<p style="margin-bottom:12px;padding-left:14px;border-left:2px solid var(--border);">${i}</p>`).join('');
+        el.innerHTML = `<div class="insights-feed">${insights.map(i => `
+          <div class="insight-item priority-${i.priority}">
+            <div class="i-icon">${i.icon}</div>
+            <div class="i-body">${i.html}</div>
+          </div>`).join('')}</div>`;
+    }
+
+    function projectedMonth(delta) {
+        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const last = data.months[data.months.length - 1];
+        const [m, y] = last.split(' ');
+        const mIdx = MON.indexOf(m);
+        const totalMonths = mIdx + delta;
+        const newIdx = ((totalMonths % 12) + 12) % 12;
+        const newYr = parseInt('20' + y) + Math.floor(totalMonths / 12);
+        return `${MON[newIdx]} ${String(newYr).slice(-2)}`;
     }
 
     function updateAll() { renderSummary(); renderStatCards(); renderMovers(); renderInsights(); renderMainChart(); renderDeltaChart(); renderHeatmap(); renderTable(); }
     document.addEventListener('DOMContentLoaded', updateAll);
     document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.getElementById('detailModal').addEventListener('click', e => { if (e.target === document.getElementById('detailModal')) closeDetail(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeDetail(); } });
 
     function toggleTheme() {
       const html = document.documentElement;
