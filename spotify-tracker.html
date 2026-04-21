@@ -304,6 +304,12 @@
           color: var(--text-secondary);
           border: 1px solid var(--border);
         }
+        .section-tools {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: flex-end;
+        }
 
         /* ===== SEGMENTED CONTROL ===== */
         .control-group {
@@ -756,7 +762,6 @@
         .month-selector {
           display: flex;
           gap: 10px;
-          margin-bottom: 20px;
         }
         .month-selector select, .month-selector input[type="number"] {
           font-family: 'Inter', sans-serif;
@@ -772,6 +777,16 @@
         }
         .month-selector select:focus, .month-selector input:focus {
           border-color: var(--accent);
+        }
+        .modal-meta {
+          font-size: 0.76rem;
+          color: var(--text-muted);
+          margin: 10px 0 18px;
+          line-height: 1.45;
+        }
+        .modal-meta strong {
+          color: var(--text-secondary);
+          font-weight: 600;
         }
         .modal-field {
           display: grid;
@@ -958,7 +973,7 @@
                   <span class="dot"></span> Open profile
                 </a>
                 <button class="btn btn-primary" onclick="openEntry()">
-                  <span class="icon">+</span> Log this month
+                  <span class="icon">+</span> Add snapshot
                 </button>
             </div>
         </div>
@@ -1022,9 +1037,14 @@
                 <p class="section-subtitle">Ranked comparison of every playlist's most recent movement.</p>
                 <p class="diagnostic-summary" id="diagSummary"></p>
               </div>
-              <div class="segmented" id="ctrl-diagSort">
-                <button data-value="abs" class="active">Absolute</button>
-                <button data-value="pct">% change</button>
+              <div class="section-tools">
+                <div class="control-group">
+                  <span class="control-label">Sort by</span>
+                  <div class="segmented" id="ctrl-diagSort">
+                    <button data-value="abs" class="active">Absolute</button>
+                    <button data-value="pct">% change</button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="diagnostic-grid" id="diagGrid"></div>
@@ -1037,14 +1057,20 @@
                 <div class="section-title">Monthly change by playlist</div>
                 <p class="section-subtitle">Each cell is one month's delta. Darker = larger move.</p>
               </div>
-              <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                <div class="segmented" id="ctrl-heatmapRange">
-                  <button data-value="12m" class="active">12M</button>
-                  <button data-value="all">All</button>
+              <div class="section-tools">
+                <div class="control-group">
+                  <span class="control-label">Window</span>
+                  <div class="segmented" id="ctrl-heatmapRange">
+                    <button data-value="12m" class="active">12M</button>
+                    <button data-value="all">All</button>
+                  </div>
                 </div>
-                <div class="segmented" id="ctrl-heatmapMetric">
-                  <button data-value="abs" class="active">Absolute</button>
-                  <button data-value="pct">%</button>
+                <div class="control-group">
+                  <span class="control-label">Metric</span>
+                  <div class="segmented" id="ctrl-heatmapMetric">
+                    <button data-value="abs" class="active">Absolute</button>
+                    <button data-value="pct">% change</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1087,23 +1113,27 @@
     <!-- ENTRY MODAL -->
     <div class="modal-overlay" id="entryModal">
         <div class="modal">
-            <h2>Log this month's numbers</h2>
-            <p class="modal-subtitle">Enter follower counts — deltas calculate live as you type.</p>
-            <div class="month-selector">
-                <select id="monthSelect">
-                    <option value="Jan">January</option><option value="Feb">February</option>
-                    <option value="Mar">March</option><option value="Apr">April</option>
-                    <option value="May">May</option><option value="Jun">June</option>
-                    <option value="Jul">July</option><option value="Aug">August</option>
-                    <option value="Sep">September</option><option value="Oct">October</option>
-                    <option value="Nov">November</option><option value="Dec">December</option>
-                </select>
-                <input type="number" id="yearSelect" min="2024" max="2030" value="2026" placeholder="Year">
+            <h2>Add monthly snapshot</h2>
+            <p class="modal-subtitle">Enter follower counts for a single month. Existing snapshots update in place.</p>
+            <div class="control-group">
+                <span class="control-label">Snapshot month</span>
+                <div class="month-selector">
+                    <select id="monthSelect">
+                        <option value="Jan">January</option><option value="Feb">February</option>
+                        <option value="Mar">March</option><option value="Apr">April</option>
+                        <option value="May">May</option><option value="Jun">June</option>
+                        <option value="Jul">July</option><option value="Aug">August</option>
+                        <option value="Sep">September</option><option value="Oct">October</option>
+                        <option value="Nov">November</option><option value="Dec">December</option>
+                    </select>
+                    <input type="number" id="yearSelect" min="2024" max="2030" value="2026" placeholder="Year">
+                </div>
             </div>
+            <p class="modal-meta" id="entryModalMeta"></p>
             <div id="modalFields"></div>
             <div class="modal-actions">
                 <button class="btn" onclick="closeEntry()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveMonth()">Save &amp; update</button>
+                <button class="btn btn-primary" onclick="saveMonth()">Save snapshot</button>
             </div>
         </div>
     </div>
@@ -1164,18 +1194,71 @@
     const STORAGE_KEY = 'spotify-tracker-v12';
 
     // ========== DATA LAYER ==========
+    function cloneDefaultData() {
+        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+    function monthLabelToValue(label) {
+        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        if (typeof label !== 'string') return null;
+        const [month, rawYear] = label.trim().split(/\s+/);
+        const monthIdx = MON.indexOf(month);
+        const year = Number(rawYear);
+        if (monthIdx === -1 || !Number.isFinite(year)) return null;
+        const fullYear = year < 100 ? 2000 + year : year;
+        return fullYear * 12 + monthIdx;
+    }
+    function getMonthLabel(month, year) {
+        return `${month} ${String(year).slice(-2)}`;
+    }
+    function normalizeData(parsed) {
+        const fallback = cloneDefaultData();
+        if (!parsed || !Array.isArray(parsed.months) || typeof parsed.playlists !== 'object' || !parsed.playlists) {
+            return fallback;
+        }
+
+        const monthLabels = new Set(DEFAULT_DATA.months);
+        parsed.months.forEach(label => {
+            if (monthLabelToValue(label) !== null) monthLabels.add(label);
+        });
+        const months = [...monthLabels].sort((a, b) => monthLabelToValue(a) - monthLabelToValue(b));
+        const savedIndexByLabel = new Map();
+        parsed.months.forEach((label, index) => {
+            if (monthLabelToValue(label) !== null) savedIndexByLabel.set(label, index);
+        });
+        if (!DEFAULT_DATA.months.every(label => months.includes(label))) {
+            return fallback;
+        }
+
+        const defaultIndexByLabel = new Map(DEFAULT_DATA.months.map((label, index) => [label, index]));
+        const playlists = {};
+        Object.keys(DEFAULT_DATA.playlists).forEach(name => {
+            const baseline = DEFAULT_DATA.playlists[name];
+            const saved = Array.isArray(parsed.playlists[name]) ? parsed.playlists[name] : [];
+            const series = [];
+            months.forEach((label, index) => {
+                const savedIndex = savedIndexByLabel.get(label);
+                const candidate = savedIndex === undefined ? NaN : Number(saved[savedIndex]);
+                if (Number.isFinite(candidate) && candidate >= 0) {
+                    series.push(Math.round(candidate));
+                } else if (defaultIndexByLabel.has(label)) {
+                    series.push(baseline[defaultIndexByLabel.get(label)]);
+                } else {
+                    series.push(series[index - 1] ?? baseline[baseline.length - 1] ?? 0);
+                }
+            });
+            playlists[name] = series;
+        });
+
+        return { months, playlists };
+    }
     function loadData() {
         try {
             const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('spotify-tracker-v11') || localStorage.getItem('spotify-tracker-v4');
             if (saved) {
-                const parsed = JSON.parse(saved);
-                if (!parsed.months || parsed.months[parsed.months.length - 1] !== 'Apr 26') {
-                    return JSON.parse(JSON.stringify(DEFAULT_DATA));
-                }
-                return parsed;
+                return normalizeData(JSON.parse(saved));
             }
         } catch(e) {}
-        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+        return cloneDefaultData();
     }
     function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
     function getSpotifyUrl(name) { return SPOTIFY_URLS[name] || SPOTIFY_PROFILE; }
@@ -1236,6 +1319,48 @@
         if (n === 0) return '0';
         return (n > 0 ? '+' : '') + formatNum(n);
     }
+    function getNextMonthInfo() {
+        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const lastMonth = data.months[data.months.length - 1];
+        const [month, rawYear] = lastMonth.split(' ');
+        const monthIdx = MON.indexOf(month);
+        const year = rawYear.length === 2 ? 2000 + Number(rawYear) : Number(rawYear);
+        const nextMonthIdx = (monthIdx + 1) % 12;
+        const nextYear = monthIdx === 11 ? year + 1 : year;
+        return { month: MON[nextMonthIdx], year: nextYear, label: getMonthLabel(MON[nextMonthIdx], nextYear) };
+    }
+    function refreshEntryMeta() {
+        const month = document.getElementById('monthSelect').value;
+        const year = Number(document.getElementById('yearSelect').value);
+        const label = getMonthLabel(month, year);
+        const exists = data.months.includes(label);
+        const suggested = getNextMonthInfo().label;
+        document.getElementById('entryModalMeta').innerHTML = exists
+            ? `Editing existing snapshot for <strong>${label}</strong>. Saving will overwrite that month's counts.`
+            : `Creating a new snapshot for <strong>${label}</strong>. Suggested next month: <strong>${suggested}</strong>.`;
+    }
+    function ensureMonth(label) {
+        const existingIdx = data.months.indexOf(label);
+        if (existingIdx >= 0) return existingIdx;
+
+        const insertIdx = data.months.findIndex(existing => monthLabelToValue(label) < monthLabelToValue(existing));
+        if (insertIdx === -1) {
+            data.months.push(label);
+            getAllNames().forEach(name => {
+                const series = data.playlists[name];
+                series.push(series[series.length - 1] ?? 0);
+            });
+            return data.months.length - 1;
+        }
+
+        data.months.splice(insertIdx, 0, label);
+        getAllNames().forEach(name => {
+            const series = data.playlists[name];
+            const fill = insertIdx > 0 ? series[insertIdx - 1] : 0;
+            series.splice(insertIdx, 0, fill);
+        });
+        return insertIdx;
+    }
 
     // ========== KPI STRIP ==========
     function renderKpi() {
@@ -1286,7 +1411,7 @@
             },
             {
                 label: 'Top gainer',
-                value: topGainer || '—',
+                value: topGain > 0 ? topGainer : '—',
                 valueSecondary: true,
                 trend: topGain > 0
                     ? `<span class="chip gain">+${topGain}</span><span class="sub">followers added</span>`
@@ -1848,15 +1973,10 @@
                 </div>
             `;
         });
-        const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        const lastMonth = data.months[data.months.length - 1];
-        const [m, y] = lastMonth.split(' ');
-        const mIdx = MON.indexOf(m);
-        const yr = parseInt('20' + y);
-        const nextM = (mIdx + 1) % 12;
-        const nextY = mIdx === 11 ? yr + 1 : yr;
-        document.getElementById('monthSelect').value = MON[nextM];
-        document.getElementById('yearSelect').value = nextY;
+        const next = getNextMonthInfo();
+        document.getElementById('monthSelect').value = next.month;
+        document.getElementById('yearSelect').value = next.year;
+        refreshEntryMeta();
         document.getElementById('entryModal').classList.add('open');
     }
     function updateModalDelta(input) {
@@ -1873,15 +1993,13 @@
     function saveMonth() {
         const month = document.getElementById('monthSelect').value;
         const year = document.getElementById('yearSelect').value.toString().slice(-2);
-        const label = `${month} ${year}`;
-        const existingIdx = data.months.indexOf(label);
+        const label = getMonthLabel(month, year);
+        const targetIdx = ensureMonth(label);
         document.querySelectorAll('#modalFields input').forEach(input => {
             const name = input.dataset.playlist;
             const val = parseInt(input.value) || 0;
-            if (existingIdx >= 0) data.playlists[name][existingIdx] = val;
-            else data.playlists[name].push(val);
+            data.playlists[name][targetIdx] = val;
         });
-        if (existingIdx < 0) data.months.push(label);
         saveData();
         closeEntry();
         renderAll();
@@ -1958,6 +2076,8 @@
         wireControl('ctrl-heatmapRange', 'heatmapRange', renderHeatmap);
         wireControl('ctrl-heatmapMetric', 'heatmapMetric', renderHeatmap);
         wireControl('ctrl-diagSort', 'diagnosticSort', renderDiagnostic);
+        document.getElementById('monthSelect').addEventListener('change', refreshEntryMeta);
+        document.getElementById('yearSelect').addEventListener('input', refreshEntryMeta);
 
         document.getElementById('entryModal').addEventListener('click', e => {
             if (e.target === document.getElementById('entryModal')) closeEntry();
