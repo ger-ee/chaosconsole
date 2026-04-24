@@ -52,3 +52,29 @@ Run 1 of 4. Publishing & Growth subfolder. 39 PDFs ingested. Chapters touched: 1
 | Ref_Reading relative vs typical retention.pdf | Publishing & Growth | added | Ch 14 | Two Retention Gates subsection (Gate A 0:30, Gate B segment health). |
 | Ref_Live formats with moderation & DMCA safety.pdf | Publishing & Growth | added | Ch 15 | Full Production Roster + DMCA Exposure On Live Streams + Scripted Compliance Flow. Cross-ref from Ch 12. |
 
+## v7 — 2026-04-24
+
+Run 2 of 4. Performance & Content Dev subfolder. 15 PDFs ingested, 1 failed (oversize). Chapters touched: 3, 4, 5, 6. Ref_Scope-control and cadence practice loop deferred per user instruction (belongs to a later Ch 14 touch).
+
+| filename | subfolder | outcome | chapter touched | note |
+|---|---|---|---|---|
+| Counterargument_ Authenticity vs. Clarity.pdf | Performance & Content Dev | added | Ch 3 | Clarity Beats Authenticity subsection (persona-construction stance). |
+| Ref_Evergreen hooks for Eastern Front stories.pdf | Performance & Content Dev | added | Ch 3 | Evergreen Hook Archetypes table (Misread Tactics / Microhistory / Single Object, cone arc, 3min/10-15min split). |
+| Ref_Build momentum with an If-Then sprint.pdf | Performance & Content Dev | refined | Ch 3 | 20-Minute If-Then Sprint callout (implementation-intention template, creator sprint example). |
+| Ref_Script the perfect 30-second end handoff.pdf | Performance & Content Dev | refined | Ch 3 | 30-Second End-Screen Handoff callout (5-20s window, two-element default, on-camera line). |
+| Ref_Primary Soviet documents for Episode-1.pdf | Performance & Content Dev | added | Ch 4 | Episode-1 Primary Archival Anchors subsection (filtration order 00706/00268, Beria 1944 report, NKVD 0058 / GARF). |
+| Ref_Source list and packaging for reflexive control.pdf | Performance & Content Dev | added | Ch 4 | Reflexive Control Research Pack subsection (Foundational Texts callout + Contemporary Threat Reporting callout + operational chain). |
+| Ref_How reflexive control maps to today's platforms.pdf | Performance & Content Dev | refined | Ch 4 | FIMI chain sentence (seeded → amplified → boosted) integrated into Reflexive Control Research Pack prose. |
+| Ref_Propaganda lineage meets platform mechanics.pdf | Performance & Content Dev | dedup | Ch 4 | Overlaps Reflexive Control Research Pack (same propaganda-to-platform lineage). |
+| Ref_Tracing propaganda from press to platform ops.pdf | Performance & Content Dev | dedup | Ch 4 | Overlaps Reflexive Control Research Pack (same EU FIMI / DOJ / DFRLab picture). |
+| Ref_8-minute news triage routine.pdf | Performance & Content Dev | dedup | Ch 4 | Overlaps Low-Fatigue Intake Layer 1 (Reuters / AP / FT + counter-narrative). |
+| Ref_Breathing & pacing drills from Carlin and Hitchens.pdf | Performance & Content Dev | added | Ch 5 | Breath, Pause, And Consonant Attack subsection + 5-Minute Daily Workout + Technique Cues callouts. Cross-ref from Ch 6. |
+| Ref_Toulmin + Steelman rapid argument drills.pdf | Performance & Content Dev | added | Ch 5 | Toulmin + Steelman Rapid (10 Minutes) callout + Hot-Tag History Improv (5 Minutes) callout. |
+| Ref_Debate flow and moderation blueprint.pdf | Performance & Content Dev | refined | Ch 5 | 90-Minute Group Debate Practice subsection + Run Of Show callout; cross-refs Ch 15 for broadcast-day DMCA and moderation ops. |
+| Ref_Sharpen eyeline and facial economy on camera.pdf | Performance & Content Dev | dedup | Ch 5 | Daily Authority Reset already covers posture / head control / expression/gesture. |
+| (none) | Performance & Content Dev | cross-ref | Ch 6 | Cross-ref sentence added pointing to Ch 5 breathing / pacing workout. |
+
+### failed
+
+- Ref_Three tight formats for history.pdf — 28 MB PDF exceeds 20 MB Read tool limit. No extract performed. Log for later tool support; subagent filename-based classification suggested visual storytelling templates (Map That Lies / Silence After The Headline / Decision Fork) but content unverified, so no edit applied.
+
