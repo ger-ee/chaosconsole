@@ -78,3 +78,31 @@ Run 2 of 4. Performance & Content Dev subfolder. 15 PDFs ingested, 1 failed (ove
 
 - Ref_Three tight formats for history.pdf — 28 MB PDF exceeds 20 MB Read tool limit. No extract performed. Log for later tool support; subagent filename-based classification suggested visual storytelling templates (Map That Lies / Silence After The Headline / Decision Fork) but content unverified, so no edit applied.
 
+## v8 — 2026-04-24
+
+Run 3 of 4. Production & Post subfolder. 20 PDFs ingested. Chapters touched: 7, 8, 9.
+
+| filename | subfolder | outcome | chapter touched | note |
+|---|---|---|---|---|
+| Ref_Eliminate flicker on A7 IV desk setups.pdf | Production & Post | added | Ch 7 | Variable Shutter For LED Desk Flicker callout (decimal-tune + mains anchor + log recipe). |
+| Ref_Lock consistent A7 IV floating-head presets.pdf | Production & Post | added | Ch 7 | Memory Recall Preset + Bench Test callout (MR1 slot, S-Log3→709 LUT, Zebra 48–52% IRE, cold-reload test). |
+| Ref_Shoot like Pakula and Gordon Willis.pdf | Production & Post | added | Ch 7 | Cinematography After Pakula And Willis subsection (layered depth, split-diopter planes, foreground obstruction). |
+| Ref_Sony A7 IV reliability checklist.pdf | Production & Post | added | Ch 7 | Weekly Reliability Check subsection + Validate The Chain callout (PWM sweep, dual-zebra, CPL/hood/tilt, LED recipe log). |
+| Ref_Quick remote double-ender upgrade.pdf | Production & Post | added | Ch 7 | Remote Double-Ender Capture subsection (local WAV both ends, cloud feed as reference only, clap-sync). |
+| Ref_Use Story Blocks to auto-split teleprompter takes.pdf | Production & Post | added | Ch 8 | NLE Workflow Shortcuts bullet — PromptSmart VoiceTrack + HTML paragraph tags + Story Blocks stringout. |
+| Ref_Use Previews for near-instant exports.pdf | Production & Post | added | Ch 8 | NLE Workflow Shortcuts bullet — Premiere Smart Render via preview codec matching. |
+| Ref_Fix S-Log3 color tags for YouTube.pdf | Production & Post | added | Ch 9 | Rec.709 Color Tag Fix For YouTube subsection (NCLC 1/1/1 on macOS, Rec.709 Gamma 2.4 on Windows, bt709 primaries, SMPTE bars test). |
+| Ref_Master the Cold-Ink S-Log3 grade in FCP.pdf | Production & Post | refined | Ch 9 | Cold-Ink Grade In FCP subsection (soft-knee S-curve, cool shadow bias, sat 85–95%, teal lift, vignette). |
+| Ref_S-Log3 grading for a print-like look.pdf | Production & Post | refined | Ch 9 | Print-Like Finish subsection (Print Film Emulation LUT 30–60%, grain 4–8%, paper-texture overlay 5–8% Overlay blend). |
+| Ref_Final loudness targets for YouTube masters.pdf | Production & Post | refined | Ch 9 | Finish Standards audio line + Loudness Matrix table (−14/−16/−13 LUFS by surface, ≤−1 dBTP). |
+| Ref_Episode-1 loudness and quick QC workflow.pdf | Production & Post | added | Ch 9 | 10-Minute Audio QC Gate callout (vocal chain, Integrated/TP/LRA meters, on-device listen, 60-sec pre-upload checklist). |
+| Ref_Finalize Episode-1 with precise loudness and grade.pdf | Production & Post | added | Ch 9 | Episode-1 Pre-Ship Routine subsection (6-step end-to-end: grade → audio QC → caption QC → master+manifest → upload → schedule). |
+| Ref_Preserving Sony A7 IV detail on YouTube.pdf | Production & Post | refined | Ch 9 | Finish Checklist table refined (ProRes 422 HQ master, HEVC/H.264 MP4 upload, AAC 320 kbps audio). |
+| Ref_CC0 dossier textures and SFX kit.pdf | Production & Post | added | Ch 9 | Archival Asset Sourcing / Default Asset Shelf — dossier textures & mechanical SFX bullet (NYPL, LoC, BigSoundBank). |
+| Ref_Public-domain 1940s ambience pack.pdf | Production & Post | added | Ch 9 | Default Asset Shelf — 1940s ambience bullet (Listen to Britain, Valentino, shortwave, locomotive; HPF 80 Hz, tame 2–4 kHz, crossfade 5–20%). |
+| Ref_Public-domain Soviet textures for Episode-1.pdf | Production & Post | added | Ch 9 | Default Asset Shelf — Soviet-texture pack bullet (NYPL Stengazeta/Pravda, Picryl; master TIFF/JP2 + rights sidecar + 4K pan/zoom). |
+| Ref_Provenance and translation checklist.pdf | Production & Post | added | Ch 9 | Source Integrity Standards callout extended — GARF fond/opis/delo citation triplet + Yakovlev Archive + untranslatable-term note discipline. |
+| Ref_Rapid caption quality-control checklist.pdf | Production & Post | added | Ch 9 | Caption QC Checklist subsection + 6-Step Caption Pass callout (ASR draft → timed proof → names → ≤32 CPL / 12 CPS → glossary seeding → 60-sec audit gate). |
+| Ref_Run a 3-2-1 backup sanity check.pdf | Production & Post | dedup | Ch 9 | 3-2-1 rule noted as infrastructure hygiene; not added to finish-facing chapter. Candidate for a future ops chapter if the Binder ever picks one up. |
+
+
