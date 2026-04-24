@@ -646,15 +646,16 @@ html[data-theme="dark"] .hero h1 {
 
 .spotlight-card h2 {
   margin-top: 10px;
-  font-family: var(--display-font);
-  font-size: 27px;
-  line-height: 1.08;
+  font-family: var(--body-font);
+  font-size: 25px;
+  line-height: 1.1;
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 html[data-theme="dark"] .spotlight-card h2 {
-  font-size: 24px;
-  letter-spacing: 0;
+  font-size: 21px;
+  letter-spacing: -0.02em;
 }
 
 .spotlight-card p {
@@ -851,12 +852,6 @@ table,
   background: linear-gradient(180deg, var(--soft-tint), transparent 65%);
 }
 
-.chapter.is-muted,
-.part-divider.is-muted {
-  opacity: 0.34;
-  filter: saturate(0.72);
-}
-
 html[data-theme="light"] .hero-grid {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -898,11 +893,6 @@ html[data-theme="light"] .chapter {
 
 html[data-theme="light"] .chapter {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.16));
-}
-
-html[data-theme="light"] .chapter.is-muted,
-html[data-theme="light"] .part-divider.is-muted {
-  opacity: 0.44;
 }
 
 @media (max-width: 1180px) {
@@ -2752,7 +2742,7 @@ function setTheme(theme) {
   modeCopy.textContent = THEME_COPY[nextTheme].copy;
 }
 
-function applyFilter(filter, shouldScroll) {
+function applyFilter(filter) {
   activeFilter = filter;
   filterButtons.forEach(button => {
     button.classList.toggle('is-active', button.dataset.filter === filter);
@@ -2761,20 +2751,11 @@ function applyFilter(filter, shouldScroll) {
   chapterData.forEach(chapter => {
     const isMatch = filter === 'all' || chapter.partId === filter;
     chapter.card.classList.toggle('is-dim', !isMatch);
-    chapter.element.classList.toggle('is-muted', !isMatch);
-  });
-
-  partDividers.forEach(divider => {
-    divider.classList.toggle('is-muted', filter !== 'all' && divider.id !== filter);
   });
 
   const visibleChapters = getVisibleChapters();
   if (activeChapter && !visibleChapters.some(chapter => chapter.id === activeChapter.id)) {
     updateSpotlight(visibleChapters[0] || chapterData[0]);
-  }
-
-  if (shouldScroll && filter !== 'all') {
-    partInfo[filter]?.element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
@@ -2797,10 +2778,6 @@ function updateSpotlight(chapter) {
   chapterData.forEach(item => {
     item.card.classList.toggle('is-active', item.id === chapter.id);
   });
-
-  if (chapterDeck.scrollHeight > chapterDeck.clientHeight) {
-    chapter.card.scrollIntoView({ block: 'nearest' });
-  }
 }
 
 function getVisibleChapters() {
@@ -2836,7 +2813,7 @@ themeButtons.forEach(button => {
 });
 
 filterButtons.forEach(button => {
-  button.addEventListener('click', () => applyFilter(button.dataset.filter, true));
+  button.addEventListener('click', () => applyFilter(button.dataset.filter));
 });
 
 deckScrollActive.addEventListener('click', () => {
@@ -2855,7 +2832,7 @@ window.addEventListener('scroll', onScroll, { passive: true });
 toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 setTheme(document.documentElement.getAttribute('data-theme') || localStorage.getItem(STORAGE_KEY) || 'dark');
-applyFilter('all', false);
+applyFilter('all');
 onScroll();
 </script>
 </body>
