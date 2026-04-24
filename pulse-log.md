@@ -105,4 +105,14 @@ Run 3 of 4. Production & Post subfolder. 20 PDFs ingested. Chapters touched: 7, 
 | Ref_Rapid caption quality-control checklist.pdf | Production & Post | added | Ch 9 | Caption QC Checklist subsection + 6-Step Caption Pass callout (ASR draft → timed proof → names → ≤32 CPL / 12 CPS → glossary seeding → 60-sec audit gate). |
 | Ref_Run a 3-2-1 backup sanity check.pdf | Production & Post | dedup | Ch 9 | 3-2-1 rule noted as infrastructure hygiene; not added to finish-facing chapter. Candidate for a future ops chapter if the Binder ever picks one up. |
 
+## v9 — 2026-04-24
+
+Run 4 of 4. Admin & Misc subfolder + deferred Scope-control PDF from Run 2. 2 PDFs ingested. Chapter touched: 14. Closes the full newly-sorted sweep.
+
+| filename | subfolder | outcome | chapter touched | note |
+|---|---|---|---|---|
+| Ref_Scope-control and cadence practice loop.pdf | Performance & Content Dev (deferred from Run 2) | added | Ch 14 | Anti-Perfectionism Loop subsection: 2-Minute Scope Lock callout (urge log, 2–3 reps/day) + 20-Minute Admin Move callout (Private YT Studio draft as ship target) + blend paragraph cross-refs Ch 5 for 2-Minute Anchor. |
+| Ref_Three quick Notion tweaks for tomorrow.pdf | Admin & Misc | refined | Ch 14 | Ops Hygiene For A Team Of One subsection + Standing Ops Rules callout (file naming `proj_YYYYMMDD_title_v##.ext`, minimal asset folder `01_sources/02_work/03_exports/04_social/_archive`, Today + Slip Risk editorial-calendar views). Render-ready checklist deduped vs Ch 9 Finish Checklist; generic status-tag list skipped as too boilerplate for the Binder. |
+
+
 
