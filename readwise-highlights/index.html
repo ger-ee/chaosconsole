@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highlights | ChaosConsole</title>
+<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,0..100&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+[data-theme="dark"] {
+  --bg: #171411;
+  --bg-2: #231c16;
+  --surface: rgba(34, 27, 20, 0.82);
+  --surface-2: rgba(44, 34, 25, 0.94);
+  --paper: #fff6e8;
+  --paper-2: #f0debf;
+  --paper-line: rgba(110, 83, 40, 0.16);
+  --text: #f8f0e5;
+  --text-dim: #c9b699;
+  --text-muted: #9f8665;
+  --border: rgba(233, 196, 133, 0.14);
+  --accent: #f4b942;
+  --accent-2: #ffd98c;
+  --link: #9ec5ff;
+  --shadow: 0 28px 84px rgba(0, 0, 0, 0.38);
+  --chip: rgba(255, 255, 255, 0.05);
+  --chip-border: rgba(255, 255, 255, 0.08);
+  --live-accent: var(--accent);
+}
+
+[data-theme="light"] {
+  --bg: #f6ecd8;
+  --bg-2: #ecd7b6;
+  --surface: rgba(255, 249, 239, 0.84);
+  --surface-2: rgba(255, 252, 246, 0.95);
+  --paper: #fffbf4;
+  --paper-2: #f3e3c9;
+  --paper-line: rgba(110, 83, 40, 0.14);
+  --text: #2a2118;
+  --text-dim: #725b3c;
+  --text-muted: #9b8160;
+  --border: rgba(129, 95, 52, 0.12);
+  --accent: #ef9f22;
+  --accent-2: #8b5a1e;
+  --link: #245cb3;
+  --shadow: 0 24px 64px rgba(129, 95, 52, 0.12);
+  --chip: rgba(255, 255, 255, 0.72);
+  --chip-border: rgba(129, 95, 52, 0.12);
+  --live-accent: var(--accent);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(244, 185, 66, 0.16), transparent 28%),
+    radial-gradient(circle at top right, rgba(255, 217, 140, 0.14), transparent 24%),
+    linear-gradient(180deg, var(--bg), var(--bg-2) 66%, var(--bg));
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(20px);
+}
+
+body::before {
+  left: -8%;
+  bottom: 8%;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 185, 66, 0.14), transparent 68%);
+}
+
+body::after {
+  right: -8%;
+  top: 5%;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 217, 140, 0.16), transparent 70%);
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.46;
+  z-index: 10;
+}
+
+a { color: inherit; }
+button { font: inherit; }
+
+.site-head,
+.page-shell,
+.site-foot {
+  position: relative;
+  z-index: 1;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.site-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1rem 0;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.theme-switch {
+  position: relative;
+  width: 132px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.theme-switch-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.35rem;
+}
+
+.theme-label {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.73rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.theme-knob {
+  position: absolute;
+  top: 0.32rem;
+  left: 0.35rem;
+  width: calc(50% - 0.35rem);
+  height: calc(100% - 0.64rem);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(244, 185, 66, 0.95), rgba(255, 217, 140, 0.92));
+  transition: transform 220ms ease;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .theme-knob {
+  transform: translateX(100%);
+}
+
+.page-shell {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 1rem 4rem;
+  align-items: start;
+}
+
+.intro-panel,
+.deck-panel,
+.note-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.intro-panel {
+  position: sticky;
+  top: 1rem;
+  padding: 1.6rem;
+  border-radius: 30px;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.intro-panel h1 {
+  margin-top: 0.75rem;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.45rem, 3.5vw, 4.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+}
+
+.intro-copy {
+  margin-top: 1rem;
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.72;
+  max-width: 34ch;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+}
+
+.stat-card {
+  min-width: 0;
+  padding: 0.95rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--chip-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+}
+
+.stat-label,
+.card-label,
+.note-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stat-card strong,
+.note-value {
+  display: block;
+  margin-top: 0.42rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.45rem;
+}
+
+.action-btn,
+.filter-chip,
+.source-link {
+  border: 1px solid var(--chip-border);
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.action-btn {
+  padding: 0.82rem 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, rgba(244, 185, 66, 0.22), rgba(255, 217, 140, 0.18));
+  border-color: rgba(255, 217, 140, 0.3);
+}
+
+.action-btn:hover,
+.filter-chip:hover,
+.source-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 217, 140, 0.38);
+}
+
+.action-btn:disabled,
+.source-link.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.helper-line {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+}
+
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--chip-border);
+  background: rgba(255, 255, 255, 0.06);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78em;
+  color: var(--text);
+}
+
+.deck-panel {
+  padding: 1.15rem;
+  border-radius: 34px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.78rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.filter-chip em {
+  font-style: normal;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+}
+
+.filter-chip.is-active {
+  background: linear-gradient(135deg, rgba(244, 185, 66, 0.22), rgba(255, 217, 140, 0.18));
+  border-color: rgba(255, 217, 140, 0.42);
+  color: var(--accent);
+}
+
+.deck-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1.15rem;
+}
+
+.deck-stage {
+  position: relative;
+  padding: 2.1rem 0 0.6rem;
+  min-height: 680px;
+}
+
+.stack {
+  position: absolute;
+  inset: 1rem 1rem 0 auto;
+  width: calc(100% - 2rem);
+  border-radius: 28px;
+  border: 1px solid rgba(110, 83, 40, 0.08);
+  background: linear-gradient(180deg, var(--paper), var(--paper-2));
+  box-shadow: var(--shadow);
+}
+
+.stack-back {
+  transform: translate(14px, -10px) rotate(1.8deg);
+  opacity: 0.42;
+}
+
+.stack-mid {
+  transform: translate(7px, -4px) rotate(0.9deg);
+  opacity: 0.74;
+}
+
+.quote-card {
+  --local-accent: var(--live-accent);
+  position: relative;
+  min-height: 620px;
+  padding: 1.8rem 1.8rem 1.5rem;
+  border-radius: 28px;
+  border: 1px solid var(--paper-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), transparent 18%),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+  color: #271d12;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 220ms ease;
+}
+
+.quote-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 8px;
+  background: linear-gradient(180deg, var(--local-accent), rgba(255, 255, 255, 0));
+}
+
+.quote-card::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--local-accent) 24%, transparent), transparent 72%);
+  opacity: 0.65;
+}
+
+.quote-card.is-fresh {
+  animation: settle 320ms ease;
+}
+
+@keyframes settle {
+  0% { transform: translateY(10px) rotate(-1deg) scale(0.99); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+.card-tabs {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.1rem;
+}
+
+.card-tabs span {
+  width: 3.4rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(110, 83, 40, 0.16);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.quote-category {
+  margin-top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(110, 83, 40, 0.14);
+  background: rgba(255, 255, 255, 0.55);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--local-accent);
+}
+
+.quote-idx {
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(110, 83, 40, 0.14);
+  background: rgba(255, 255, 255, 0.55);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  color: #71583a;
+}
+
+.quote-text {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.55rem;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.45rem, 2.25vw, 2.45rem);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.quote-text .ellipsis {
+  color: #a48866;
+}
+
+.quote-note {
+  margin-top: 1.3rem;
+  padding: 1rem 1rem 1rem 1.1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(110, 83, 40, 0.14);
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.quote-note[hidden] {
+  display: none !important;
+}
+
+.quote-note strong {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--local-accent);
+}
+
+.quote-note p {
+  margin-top: 0.55rem;
+  color: #684e3a;
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+
+.quote-source {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed rgba(110, 83, 40, 0.18);
+}
+
+.quote-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d2217;
+}
+
+.quote-author {
+  color: #755b3d;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.source-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.45rem;
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 0.92rem;
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.side-notes {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.note-card {
+  border-radius: 24px;
+  padding: 1rem;
+}
+
+.note-copy {
+  margin-top: 0.55rem;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.empty-state {
+  margin-top: 1rem;
+  padding: 2.2rem 1.2rem;
+  border-radius: 28px;
+  border: 1px dashed var(--border);
+  background: var(--surface-2);
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.site-foot {
+  padding: 0 1rem 2.4rem;
+}
+
+.site-foot-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-foot-inner a {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translate(-50%, 120%);
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: rgba(23, 20, 17, 0.94);
+  color: #fff8ee;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 20;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 1120px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-panel {
+    position: static;
+  }
+
+  .deck-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side-notes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .site-head,
+  .page-shell,
+  .site-foot {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .site-head {
+    flex-wrap: wrap;
+  }
+
+  .theme-switch {
+    width: 100%;
+  }
+
+  .intro-panel,
+  .deck-panel {
+    border-radius: 24px;
+    padding: 1rem;
+  }
+
+  .intro-panel h1 {
+    font-size: 2.3rem;
+  }
+
+  .stats-grid,
+  .side-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .deck-stage {
+    min-height: 0;
+    padding-top: 1.4rem;
+  }
+
+  .quote-card {
+    min-height: 0;
+    padding: 1.25rem 1.15rem 1.15rem;
+  }
+
+  .card-head {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .quote-text {
+    font-size: 1.45rem;
+  }
+}
+</style>
+  <script defer src="../shared/gate.js"></script>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="site-head">
+  <a class="back-link" href="../index.html">← Chaos Console</a>
+  <button class="theme-switch" id="themeSwitch" type="button" aria-label="Toggle theme">
+    <span class="theme-switch-track">
+      <span class="theme-label">Dark</span>
+      <span class="theme-label">Light</span>
+      <span class="theme-knob" aria-hidden="true"></span>
+    </span>
+  </button>
+</header>
+
+<main class="page-shell">
+  <section class="intro-panel">
+    <p class="eyebrow">Readwise / Highlight Shelf</p>
+    <h1>Readwise Highlights</h1>
+    <p class="intro-copy">A rolling shelf of saved lines, article fragments, marginalia, and source notes pulled from the Readwise archive and restaged as a clean reading deck.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Highlights</span>
+        <strong id="stats">Loading...</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Sources</span>
+        <strong id="sourceCount">--</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Shelf</span>
+        <strong id="activeFilterLabel">All shelves</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Visible</span>
+        <strong id="poolSize">--</strong>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <button class="action-btn primary" id="shuffleBtn" type="button" disabled>Pull Another</button>
+      <button class="action-btn" id="prevBtn" type="button" disabled>Previous Pull</button>
+      <button class="action-btn" id="copyBtn" type="button" disabled>Copy Highlight</button>
+    </div>
+
+    <p class="helper-line">Keyboard: <kbd>→</kbd> next, <kbd>←</kbd> previous, <kbd>C</kbd> copy. The layout borrows warm paper and amber accents from the Readwise ecosystem without turning into a fake app clone.</p>
+  </section>
+
+  <section class="deck-panel">
+    <div class="filter-bar" id="filterBar" aria-label="Highlight filters"></div>
+
+    <div id="emptyState" class="empty-state" hidden>
+      No highlights loaded.<br>
+      Run <code>python3 data/readwise_loader.py</code> and refresh.
+    </div>
+
+    <div id="deckLayout" class="deck-layout" hidden>
+      <div class="deck-stage">
+        <div class="stack stack-back" aria-hidden="true"></div>
+        <div class="stack stack-mid" aria-hidden="true"></div>
+
+        <article class="quote-card" id="quoteCard">
+          <div class="card-tabs" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="card-head">
+            <div>
+              <span class="card-label">Shelf</span>
+              <div class="quote-category" id="quoteCategory">Books</div>
+            </div>
+            <div class="quote-idx" id="quoteIdx">0001 / 0001</div>
+          </div>
+
+          <div class="quote-text" id="quoteText"></div>
+
+          <section class="quote-note" id="quoteNote" hidden>
+            <strong>Attached Note</strong>
+            <p id="quoteNoteText"></p>
+          </section>
+
+          <div class="quote-source">
+            <div class="quote-title" id="quoteTitle">Loading…</div>
+            <div class="quote-author" id="quoteAuthor"></div>
+            <div class="source-actions">
+              <a class="source-link" id="readwiseLink" target="_blank" rel="noopener">Open In Readwise</a>
+              <a class="source-link" id="sourceLink" target="_blank" rel="noopener">Open Source</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="side-notes">
+        <div class="note-card">
+          <span class="note-label">Current Pull</span>
+          <div class="note-value" id="currentPosition">000 / 000</div>
+        </div>
+        <div class="note-card">
+          <span class="note-label">Author</span>
+          <div class="note-value" id="authorValue">Unknown</div>
+        </div>
+        <div class="note-card">
+          <span class="note-label">Note Status</span>
+          <div class="note-value" id="noteStatus">No marginal note</div>
+        </div>
+        <div class="note-card">
+          <span class="note-label">Last Action</span>
+          <p class="note-copy" id="historyDepth">Waiting for data.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot-inner">
+    <span>Chaos Console / Readwise Highlights / 2026</span>
+    <a href="../index.html">chaosconsole.com</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const sw = document.getElementById('themeSwitch');
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+  sw.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
+}
+sw.addEventListener('click', toggleTheme);
+sw.setAttribute('aria-pressed', document.documentElement.getAttribute('data-theme') === 'light' ? 'true' : 'false');
+
+const CATEGORY_META = {
+  all: { label: 'All shelves', color: '#f4b942' },
+  books: { label: 'Books', color: '#f4b942' },
+  articles: { label: 'Articles', color: '#60a5fa' },
+  supplementals: { label: 'Supplementals', color: '#fb7185' },
+  tweets: { label: 'Tweets', color: '#22c55e' },
+  unknown: { label: 'Unknown', color: '#a78bfa' }
+};
+
+const state = {
+  items: [],
+  filter: 'all',
+  currentId: null,
+  history: [],
+  historyCursor: -1,
+  sourceCount: 0
+};
+
+const els = {
+  stats: document.getElementById('stats'),
+  sourceCount: document.getElementById('sourceCount'),
+  activeFilterLabel: document.getElementById('activeFilterLabel'),
+  poolSize: document.getElementById('poolSize'),
+  filterBar: document.getElementById('filterBar'),
+  emptyState: document.getElementById('emptyState'),
+  deckLayout: document.getElementById('deckLayout'),
+  quoteCard: document.getElementById('quoteCard'),
+  quoteCategory: document.getElementById('quoteCategory'),
+  quoteIdx: document.getElementById('quoteIdx'),
+  quoteText: document.getElementById('quoteText'),
+  quoteNote: document.getElementById('quoteNote'),
+  quoteNoteText: document.getElementById('quoteNoteText'),
+  quoteTitle: document.getElementById('quoteTitle'),
+  quoteAuthor: document.getElementById('quoteAuthor'),
+  readwiseLink: document.getElementById('readwiseLink'),
+  sourceLink: document.getElementById('sourceLink'),
+  currentPosition: document.getElementById('currentPosition'),
+  authorValue: document.getElementById('authorValue'),
+  noteStatus: document.getElementById('noteStatus'),
+  historyDepth: document.getElementById('historyDepth'),
+  shuffleBtn: document.getElementById('shuffleBtn'),
+  prevBtn: document.getElementById('prevBtn'),
+  copyBtn: document.getElementById('copyBtn'),
+  toast: document.getElementById('toast')
+};
+
+let toastTimer = null;
+
+function pad(n) {
+  return String(n).padStart(4, '0');
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function showToast(message) {
+  els.toast.textContent = message;
+  els.toast.classList.add('is-visible');
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    els.toast.classList.remove('is-visible');
+  }, 1800);
+}
+
+function getPool() {
+  if (state.filter === 'all') return state.items;
+  return state.items.filter(item => item.category === state.filter);
+}
+
+function getItemById(id) {
+  return state.items.find(item => item.id === id) || null;
+}
+
+function truncateText(text, limit) {
+  if (!text) return { text: '', truncated: false };
+  if (text.length <= limit) return { text, truncated: false };
+  const cut = text.lastIndexOf(' ', limit);
+  return { text: text.slice(0, cut > 0 ? cut : limit), truncated: true };
+}
+
+function chooseRandom(pool, excludeId) {
+  if (!pool.length) return null;
+  if (pool.length === 1) return pool[0];
+  let next = pool[Math.floor(Math.random() * pool.length)];
+  while (next.id === excludeId) {
+    next = pool[Math.floor(Math.random() * pool.length)];
+  }
+  return next;
+}
+
+function setLinkState(anchor, url) {
+  if (url) {
+    anchor.href = url;
+    anchor.classList.remove('is-disabled');
+    anchor.setAttribute('aria-disabled', 'false');
+    anchor.tabIndex = 0;
+  } else {
+    anchor.removeAttribute('href');
+    anchor.classList.add('is-disabled');
+    anchor.setAttribute('aria-disabled', 'true');
+    anchor.tabIndex = -1;
+  }
+}
+
+function buildFilters() {
+  const counts = state.items.reduce((map, item) => {
+    map[item.category] = (map[item.category] || 0) + 1;
+    return map;
+  }, {});
+
+  const order = ['all', 'books', 'articles', 'supplementals', 'tweets', 'unknown'];
+  els.filterBar.innerHTML = '';
+
+  order.forEach(filterId => {
+    const count = filterId === 'all' ? state.items.length : (counts[filterId] || 0);
+    if (!count && filterId !== 'all') return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'filter-chip';
+    if (state.filter === filterId) button.classList.add('is-active');
+    button.dataset.filter = filterId;
+    button.innerHTML = `<span>${CATEGORY_META[filterId].label}</span><em>${pad(count)}</em>`;
+    button.addEventListener('click', () => {
+      state.filter = filterId;
+      buildFilters();
+      syncFilter();
+    });
+    els.filterBar.appendChild(button);
+  });
+}
+
+function animateCard() {
+  els.quoteCard.classList.remove('is-fresh');
+  void els.quoteCard.offsetWidth;
+  els.quoteCard.classList.add('is-fresh');
+}
+
+function render(item, actionLabel) {
+  const pool = getPool();
+  const position = Math.max(0, pool.findIndex(entry => entry.id === item.id)) + 1;
+  const meta = CATEGORY_META[item.category] || CATEGORY_META.unknown;
+  const truncated = truncateText(item.text, 560);
+  const author = item.author || 'Unknown author';
+
+  document.documentElement.style.setProperty('--live-accent', meta.color);
+
+  els.activeFilterLabel.textContent = meta.label && state.filter !== 'all' ? meta.label : CATEGORY_META[state.filter].label;
+  els.poolSize.textContent = pad(pool.length);
+  els.quoteCategory.textContent = meta.label;
+  els.quoteIdx.textContent = `${pad(item.id + 1)} / ${pad(state.items.length)}`;
+  els.quoteText.innerHTML = escHtml(truncated.text) + (truncated.truncated ? '<span class="ellipsis"> ...</span>' : '');
+  els.currentPosition.textContent = `${pad(position)} / ${pad(pool.length)}`;
+  els.authorValue.textContent = author;
+  els.historyDepth.textContent = actionLabel;
+  els.quoteTitle.textContent = item.book_title || 'Unknown source';
+  els.quoteAuthor.textContent = author;
+  els.prevBtn.disabled = state.historyCursor <= 0;
+
+  if (item.note) {
+    els.quoteNote.hidden = false;
+    els.quoteNoteText.textContent = item.note;
+    els.noteStatus.textContent = 'Includes note';
+  } else {
+    els.quoteNote.hidden = true;
+    els.quoteNoteText.textContent = '';
+    els.noteStatus.textContent = 'No marginal note';
+  }
+
+  setLinkState(els.readwiseLink, item.readwise_url || '');
+  setLinkState(els.sourceLink, item.source_url || '');
+  animateCard();
+}
+
+function setCurrent(item, actionLabel, pushHistory) {
+  if (!item) return;
+
+  state.currentId = item.id;
+  if (pushHistory) {
+    state.history = state.history.slice(0, state.historyCursor + 1);
+    state.history.push(item.id);
+    state.historyCursor = state.history.length - 1;
+  }
+  render(item, actionLabel);
+}
+
+function pullAnother() {
+  setCurrent(chooseRandom(getPool(), state.currentId), 'Fresh pull', true);
+}
+
+function showPrevious() {
+  if (state.historyCursor <= 0) return;
+  state.historyCursor -= 1;
+  const item = getItemById(state.history[state.historyCursor]);
+  state.currentId = item.id;
+  render(item, 'Backtracked one pull');
+}
+
+function syncFilter() {
+  const pool = getPool();
+  const currentInPool = pool.some(item => item.id === state.currentId);
+
+  if (!pool.length) {
+    els.deckLayout.hidden = true;
+    els.emptyState.hidden = false;
+    els.emptyState.innerHTML = 'This shelf is empty.';
+    return;
+  }
+
+  els.emptyState.hidden = true;
+  els.deckLayout.hidden = false;
+
+  if (!currentInPool) {
+    setCurrent(chooseRandom(pool), `Shelf: ${CATEGORY_META[state.filter].label}`, true);
+    return;
+  }
+
+  render(getItemById(state.currentId), `Shelf: ${CATEGORY_META[state.filter].label}`);
+}
+
+async function copyCurrentHighlight() {
+  const item = getItemById(state.currentId);
+  if (!item) return;
+  try {
+    await navigator.clipboard.writeText(item.text || '');
+    showToast('Copied');
+    els.historyDepth.textContent = 'Copied to clipboard';
+  } catch (err) {
+    showToast('Copy failed');
+  }
+}
+
+fetch('../data/readwise_cache.json')
+  .then(response => response.json())
+  .then(cache => {
+    const data = Array.isArray(cache.data) ? cache.data : [];
+    const stats = cache.stats || {};
+
+    state.items = data.map((item, index) => ({
+      id: index,
+      text: item.text || '',
+      note: item.note || '',
+      book_title: item.book_title || 'Unknown source',
+      author: item.author || '',
+      category: item.category || 'unknown',
+      source_url: item.source_url || '',
+      readwise_url: item.readwise_url || ''
+    }));
+
+    state.sourceCount = Number(stats.total_books || new Set(state.items.map(item => item.book_title)).size);
+    els.stats.textContent = pad(state.items.length);
+    els.sourceCount.textContent = pad(state.sourceCount);
+    els.shuffleBtn.disabled = !state.items.length;
+    els.copyBtn.disabled = !state.items.length;
+
+    if (!state.items.length) {
+      els.emptyState.hidden = false;
+      els.deckLayout.hidden = true;
+      buildFilters();
+      return;
+    }
+
+    buildFilters();
+    els.deckLayout.hidden = false;
+    pullAnother();
+  })
+  .catch(() => {
+    els.stats.textContent = 'Error';
+    els.sourceCount.textContent = '--';
+    els.emptyState.hidden = false;
+    els.deckLayout.hidden = true;
+  });
+
+els.shuffleBtn.addEventListener('click', pullAnother);
+els.prevBtn.addEventListener('click', showPrevious);
+els.copyBtn.addEventListener('click', copyCurrentHighlight);
+
+window.addEventListener('keydown', event => {
+  if (event.metaKey || event.ctrlKey || event.altKey) return;
+  if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    if (!els.shuffleBtn.disabled) pullAnother();
+  } else if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    showPrevious();
+  } else if (event.key.toLowerCase() === 'c') {
+    if (!els.copyBtn.disabled) copyCurrentHighlight();
+  }
+});
+</script>
+</body>
+</html>

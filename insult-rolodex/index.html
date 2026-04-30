@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insult Rolodex | ChaosConsole</title>
+<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:opsz,wght,SOFT@9..144,500..800,0..100&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+[data-theme="dark"] {
+  --bg: #16111c;
+  --bg-2: #24192d;
+  --surface: rgba(33, 24, 43, 0.82);
+  --surface-2: rgba(45, 33, 58, 0.95);
+  --paper: #fff3e2;
+  --paper-2: #f3dfc1;
+  --paper-line: rgba(114, 69, 39, 0.18);
+  --border: rgba(255, 216, 167, 0.16);
+  --text: #fbf2e7;
+  --text-dim: #c5b3a3;
+  --text-muted: #8e7b6d;
+  --accent: #ff6b3d;
+  --accent-2: #ffd166;
+  --shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+  --chip: rgba(255, 255, 255, 0.05);
+  --chip-border: rgba(255, 255, 255, 0.08);
+  --live-accent: var(--accent);
+}
+
+[data-theme="light"] {
+  --bg: #f6ead8;
+  --bg-2: #f0d8bc;
+  --surface: rgba(255, 248, 239, 0.84);
+  --surface-2: rgba(255, 251, 246, 0.94);
+  --paper: #fff9f1;
+  --paper-2: #f4e1cb;
+  --paper-line: rgba(120, 72, 40, 0.16);
+  --border: rgba(126, 84, 55, 0.12);
+  --text: #2b1d16;
+  --text-dim: #735546;
+  --text-muted: #9e7b67;
+  --accent: #c63d1f;
+  --accent-2: #f6a623;
+  --shadow: 0 24px 64px rgba(118, 73, 43, 0.12);
+  --chip: rgba(255, 255, 255, 0.7);
+  --chip-border: rgba(126, 84, 55, 0.12);
+  --live-accent: var(--accent);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 107, 61, 0.18), transparent 26%),
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.12), transparent 24%),
+    linear-gradient(180deg, var(--bg), var(--bg-2) 70%, var(--bg));
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: auto auto 8% -8%;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 61, 0.14), transparent 66%);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  inset: 8% -10% auto auto;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.15), transparent 70%);
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.48;
+  z-index: 10;
+}
+
+a { color: inherit; }
+
+button {
+  font: inherit;
+}
+
+.site-head,
+.page-shell,
+.site-foot {
+  position: relative;
+  z-index: 1;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.site-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1rem 0;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.back-link:hover {
+  color: var(--accent-2);
+}
+
+.theme-switch {
+  position: relative;
+  width: 132px;
+  height: 52px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.theme-switch-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.35rem;
+}
+
+.theme-label {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.73rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.theme-knob {
+  position: absolute;
+  top: 0.32rem;
+  left: 0.35rem;
+  width: calc(50% - 0.35rem);
+  height: calc(100% - 0.64rem);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 107, 61, 0.8), rgba(255, 209, 102, 0.92));
+  transition: transform 220ms ease;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .theme-knob {
+  transform: translateX(100%);
+}
+
+.page-shell {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 1rem 4rem;
+  align-items: start;
+}
+
+.intro-panel,
+.deck-panel,
+.note-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.intro-panel {
+  position: sticky;
+  top: 1rem;
+  padding: 1.6rem;
+  border-radius: 32px;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.intro-panel h1 {
+  margin-top: 0.8rem;
+  font-family: 'Bungee', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4.75rem);
+  line-height: 0.94;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.intro-copy {
+  margin-top: 1rem;
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 34ch;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+}
+
+.stat-card {
+  min-width: 0;
+  padding: 0.95rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--chip-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+}
+
+.stat-label,
+.card-label,
+.note-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stat-card strong,
+.note-value {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.45rem;
+}
+
+.action-btn,
+.filter-chip {
+  border: 1px solid var(--chip-border);
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.action-btn {
+  padding: 0.82rem 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, rgba(255, 107, 61, 0.24), rgba(255, 209, 102, 0.18));
+  border-color: rgba(255, 209, 102, 0.28);
+}
+
+.action-btn:hover,
+.filter-chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 209, 102, 0.38);
+}
+
+.action-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.helper-line {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+}
+
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--chip-border);
+  background: rgba(255, 255, 255, 0.06);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78em;
+  color: var(--text);
+}
+
+.deck-panel {
+  padding: 1.15rem;
+  border-radius: 34px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.78rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.filter-chip em {
+  font-style: normal;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+}
+
+.filter-chip.is-active {
+  background: linear-gradient(135deg, rgba(255, 107, 61, 0.22), rgba(255, 209, 102, 0.18));
+  border-color: rgba(255, 209, 102, 0.4);
+  color: var(--accent-2);
+}
+
+.deck-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1.15rem;
+}
+
+.deck-stage {
+  position: relative;
+  padding: 2.2rem 0 0.6rem;
+  min-height: 620px;
+}
+
+.stack {
+  position: absolute;
+  inset: 1rem 1.2rem 0 auto;
+  width: calc(100% - 2.4rem);
+  border-radius: 30px;
+  border: 1px solid rgba(120, 72, 40, 0.08);
+  background: linear-gradient(180deg, var(--paper), var(--paper-2));
+  box-shadow: var(--shadow);
+}
+
+.stack-back {
+  transform: translate(16px, -10px) rotate(2deg);
+  opacity: 0.44;
+}
+
+.stack-mid {
+  transform: translate(8px, -4px) rotate(1deg);
+  opacity: 0.72;
+}
+
+.quote-card {
+  --local-accent: var(--live-accent);
+  position: relative;
+  min-height: 560px;
+  padding: 2rem 2rem 1.6rem;
+  border-radius: 30px;
+  border: 1px solid var(--paper-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), transparent 18%),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+  color: #271a14;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.quote-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 10px;
+  background: linear-gradient(180deg, var(--local-accent), rgba(255, 255, 255, 0));
+}
+
+.quote-card::after {
+  content: '';
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--local-accent) 24%, transparent), transparent 70%);
+  opacity: 0.65;
+}
+
+.quote-card.is-fresh {
+  animation: riffle 320ms ease;
+}
+
+@keyframes riffle {
+  0% { transform: translateY(10px) rotate(-1.2deg) scale(0.99); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+.card-rings {
+  display: flex;
+  justify-content: center;
+  gap: 2.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-rings span {
+  width: 2.5rem;
+  height: 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(71, 44, 25, 0.18);
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.quote-category {
+  margin-top: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--local-accent);
+}
+
+.quote-idx {
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(71, 44, 25, 0.14);
+  background: rgba(255, 255, 255, 0.55);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  color: #6b4d3b;
+}
+
+.quote-text {
+  position: relative;
+  z-index: 1;
+  margin-top: 2rem;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.55rem, 2.6vw, 2.75rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed rgba(71, 44, 25, 0.18);
+}
+
+.quote-note,
+.quote-source,
+.note-copy {
+  color: #6d5140;
+  font-size: 0.92rem;
+}
+
+.quote-source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9c7d67;
+}
+
+.side-notes {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.note-card {
+  border-radius: 24px;
+  padding: 1rem;
+}
+
+.note-copy {
+  margin-top: 0.55rem;
+  line-height: 1.65;
+}
+
+.site-foot {
+  padding: 0 1rem 2.4rem;
+}
+
+.site-foot-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-foot-inner a {
+  text-decoration: none;
+  color: var(--accent-2);
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translate(-50%, 120%);
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: rgba(22, 17, 28, 0.92);
+  color: #fff7eb;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 20;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 1100px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-panel {
+    position: static;
+  }
+
+  .deck-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side-notes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .site-head,
+  .page-shell,
+  .site-foot {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .site-head {
+    flex-wrap: wrap;
+  }
+
+  .theme-switch {
+    width: 100%;
+  }
+
+  .intro-panel,
+  .deck-panel {
+    border-radius: 26px;
+    padding: 1rem;
+  }
+
+  .intro-panel h1 {
+    font-size: 2.25rem;
+  }
+
+  .stats-grid,
+  .side-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .deck-stage {
+    min-height: 0;
+    padding-top: 1.4rem;
+  }
+
+  .quote-card {
+    min-height: 0;
+    padding: 1.3rem 1.2rem 1.1rem;
+  }
+
+  .card-head,
+  .card-foot {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .quote-text {
+    margin-top: 1.35rem;
+    font-size: 1.52rem;
+  }
+}
+</style>
+  <script defer src="../shared/gate.js"></script>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="site-head">
+  <a class="back-link" href="../index.html">← Chaos Console</a>
+  <button class="theme-switch" id="themeSwitch" type="button" aria-label="Toggle theme">
+    <span class="theme-switch-track">
+      <span class="theme-label">Dark</span>
+      <span class="theme-label">Light</span>
+      <span class="theme-knob" aria-hidden="true"></span>
+    </span>
+  </button>
+</header>
+
+<main class="page-shell">
+  <section class="intro-panel">
+    <p class="eyebrow">Filed Under: Weaponized Wit</p>
+    <h1>Insult Rolodex</h1>
+    <p class="intro-copy">A rotating card tray of one-liners, cat contempt, city slander, political poison, and daily-life hostility dressed up as observation.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Cards</span>
+        <strong id="stats">000</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Filter</span>
+        <strong id="activeFilterLabel">All Files</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">In Tray</span>
+        <strong id="poolSize">000</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Heat</span>
+        <strong id="quoteScore">Low Simmer</strong>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <button class="action-btn primary" id="shuffleBtn" type="button">Spin The Tray</button>
+      <button class="action-btn" id="prevBtn" type="button">Previous Burn</button>
+      <button class="action-btn" id="copyBtn" type="button">Copy Line</button>
+    </div>
+
+    <p class="helper-line">Use the filters to rig the mood. Keyboard: <kbd>→</kbd> next, <kbd>←</kbd> previous, <kbd>C</kbd> copy.</p>
+  </section>
+
+  <section class="deck-panel">
+    <div class="filter-bar" id="filterBar" aria-label="Quote filters"></div>
+
+    <div class="deck-layout">
+      <div class="deck-stage">
+        <div class="stack stack-back" aria-hidden="true"></div>
+        <div class="stack stack-mid" aria-hidden="true"></div>
+
+        <article class="quote-card" id="quoteCard">
+          <div class="card-rings" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="card-head">
+            <div>
+              <div class="card-label">Filed Under</div>
+              <div class="quote-category" id="quoteCategory">General Purpose Venom</div>
+            </div>
+            <div class="quote-idx" id="quoteIdx">001 / 001</div>
+          </div>
+
+          <blockquote class="quote-text" id="quoteText"></blockquote>
+
+          <div class="card-foot">
+            <div class="quote-note" id="quoteNote">Rotating entry.</div>
+            <div class="quote-source">Chaos Console / insult file</div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="side-notes">
+        <div class="note-card">
+          <span class="note-label">Current Slot</span>
+          <div class="note-value" id="currentPosition">001 / 001</div>
+        </div>
+        <div class="note-card">
+          <span class="note-label">Last Action</span>
+          <div class="note-value" id="historyDepth">Fresh draw</div>
+        </div>
+        <div class="note-card">
+          <span class="note-label">Tray Logic</span>
+          <p class="note-copy">The layout stays playful, but the mechanics are disciplined: no auto-scroll, no viewport jumps, just a better stage for the lines.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot-inner">
+    <span>Chaos Console / Insult Rolodex / 2026</span>
+    <a href="../index.html">chaosconsole.com</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const sw = document.getElementById('themeSwitch');
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cc-theme', next);
+  sw.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
+}
+sw.addEventListener('click', toggleTheme);
+sw.setAttribute('aria-pressed', document.documentElement.getAttribute('data-theme') === 'light' ? 'true' : 'false');
+
+const QUOTES = [
+"The only way it can be called a hit is if you put an S before the H.",
+"It's called the American Dream because you have to be asleep to believe it.",
+"\"We pretend to work, the government pretends to pay us.\" (Communism)",
+"\"Your cats are gonna eat you when you die!\" Buddy, my cats are trying to eat me now",
+"Like walking on mud with cement shoes",
+"You are legally obligated to tell me if I've somehow turned on read receipts.",
+"LA be like we are going to make a city so unwalkable u HAVE to drive, while simultaneously giving you nowhere to park if u DO drive, but if you find parking we will give u a ticket",
+"I think the elephant really ties the room together",
+"I tell my cat \"I know\" whenever he meows but I'm gonna be honest, I have no idea",
+"Its so much nicer to be depressed in a clean room",
+"The first 10 minutes of going to anyone's place in LA is them trying to calm down their dog while telling you this never happens",
+"if you text me \"we need to talk\" i'm gonna reply \"yes we do\" now we both stressed",
+"when someone loses something i like to ask helpful questions like \"where did you last see it?\" and \"where did you put it?\" and \"where is it?\"",
+"everyone knows that emotionally the day ends at 330",
+"It's always hard to pick a favorite anything, but this Andrea Cohen poem is hands down my favorite poem. (The committee weighs in)",
+"You don't hate cats you just can't handle rejection",
+"The looker and the cooker",
+"Yes, I have a question. First of all, how dare you?",
+"I love it when my cat sighs. Like what ails you my little unemployed freeloader",
+"You fucked more old Jews than Bernie Madoff",
+"You can live in LA and still be 2 hrs away from LA",
+"My dick has led me to places I wouldn't even go with a gun",
+"I feel like a seafront village after the Vikings have left.",
+"Chi semina vento, raccoglie tempesta",
+"This is how you play tennis without the net. Sam Harrisism",
+"She thinks Monty Python is the evil snake from Harry Potter.",
+"She looks like she uses LinkedIn to flirt and Yelp to leave breakup notes.",
+"His career trajectory resembles a pancake: flat, forgettable, and entirely dependent on buttering up someone else.",
+"The less you know, the more you believe",
+"I saw a guy forget his glasses in a cafe once; he came back for them, saw me watching him so, turned to me, and said, \"I'd probably lose my balls if they weren't in a bag.\" To this day, that saying is my favorite.",
+"Give a man the reputation of an early riser, and that man can sleep till noon.",
+"Orange cats are in a league of their own",
+"When you cuddle up to your cat an their lil paw starts going",
+"Two bald men fighting over a comb",
+"If you find yourself in a hole, stop diggin.",
+"You ever send an email and go to the Sent folder so you can \"read it from their perspective\"?",
+"I love how cats just slap everything they don't understand.",
+"You may think you need a cat, but what you actually need is two cats.",
+"Rid me of this meddlesome priest.",
+"If you just get the people who already hate Donald Trump to hate him a little more, we can win this thing.",
+"People who live in New York think that people who don't live in New York are somehow kidding. \u2014 Updike",
+"I found you on the road to home.",
+"I've been to hell and back so often that I've got frequent flyer miles.",
+"Cats constantly look at you like you just asked them for a ride to the airport.",
+"My hobbies include gently bonking my phone against the window while trying to take a picture of the sky.",
+"Nothing more suspicious than a good mood.",
+"Looks like _____ fucked a ________.",
+"You have the vocal range of a tea kettle",
+"If you can believe in yourself half as much as you believe in cream cheese",
+"She looks like she shops at Auto Zone",
+"You know what has zero calories and zero carbs? A nap.",
+"Griffith Park is for healing childhood trauma Runyon Canyon is for ignoring it",
+"The entire country is awaiting a biopsy result",
+"It's fun watching asshat rearrange the chairs on the Titanic.",
+"America's wealthiest hemorrhoid",
+"A racist voodoo doll made of discarded cat hair",
+"A clown made of mummified foreskin and cotton candy",
+"A kidney dropped on the floor at a Supercuts",
+"States' rights: Not just for racists anymore!",
+"Today's high: 54 degrees. Today's low: the current state of American politics.",
+"The best house renovation you can do right about now is the addition of a screaming room.",
+"It's times like this that one is reminded of King George III's words on American Independence: \"Can't see that ending well\". Quite.",
+"She looks like every woman eating lobster on a cruise ship.",
+"When Democrats organize a firing squad, they do it in a circle.",
+"When you pull your head out of your ass the view is so much better",
+"There are more things in Heaven and Earth, Horatio, than are dreamt of in your philosophy.",
+"Yes, it's insanely hot in Los Angeles, but at least everyone is rude.",
+"Thru thick and thin.",
+"If cats were the size of dogs, we'd be fucked.",
+"Two cats is a play date; three cats is a riot.",
+"It's a shame that fat cats became synonymous with corporate greed because they are one of the cutest kinds of cats!",
+"If elected president, the only statues will be of cats like the Egyptians.",
+"I wish I was a house cat. No anxiety except for pretending I am starving.",
+"I think my cat could drive a car if he was in the right mindset.",
+"How do I teach my body that my fight or flight response is supposed to be for life-or-death situations, not answering an email?",
+"Human red Solo cup (referring to college bro-looking guys).",
+"At what time today did you hit \"Fuck It\"?",
+"More people get to kiss you than the pop's ring.",
+"She slappeth.",
+"All about that conditional love.",
+"I believe in science. I also believe 55\u00b0 in October is colder than 55\u00b0 in April.",
+"It really be me vs. the pile of clothes in my room.",
+"At this point, if a clown invited me into the woods, I would just go.",
+"My favorite Christmas song is whatever plays immediately after \"Feliz Navidad.\"",
+"Somebody please develop the app \"Why Is There a Helicopter Over My House.\"",
+"My cat is busy staring at ghosts until it's time to yell at bugs he can't reach.",
+"Generational wealth is when my cat gets to lay around doing nothing all day while I pay for everything.",
+"Rearranging the chairs on the Titanic.",
+"LA is like if an entire city had airport prices.",
+"You should be able to leave reviews for other people's therapists.",
+"When the moon hits your eye like a big pizza pie.",
+"Password must contain a symbol, a number, an emotional arc, a centralized theme, a big set piece, a male lead \"struggling with inner demons,\" and a strong female character.",
+"High on his own supply.",
+"Fuck it. This is the year we're saving everything to the desktop.",
+"Woke up so today's already started shaky.",
+"Pretty excited to show off how a year of being indoors with plenty of time to self-reflect did not make me a better person.",
+"Everyone swears that their cat \"acts more like a dog.\"",
+"Is yo blood shuga low?",
+"What are cats if not lions that gave up persevering?",
+"Should I go on a jog in LA, or should I smoke 100 cigarettes?",
+"Whenever I do something that's not on my to-do list, I feel a little bit cheated, so I write it down and immediately cross it off.",
+"The women in my town can't wait to wear those long sleeve shirts with the thumb holes.",
+"Silver facial hair coming in feels a little aggressive.",
+"One fun thing I do on Wednesday is spend half the day thinking it's Thursday.",
+"The cat would like to know where all of you hid his shit.",
+"Normalize calling Lunchables charcuterie.",
+"Basically a renaissance painting (Francis with pizza picture).",
+"Easy like Sunday morning, tough like Sunday afternoon, full void like Sunday night.",
+"What a year we've had this week.",
+"Hot single grannies in your area want to bake you fresh pies.",
+"Bring all the groceries in at once or die trying.",
+"Whoever decided on spelling \"biscuit\" really needs to get their shuit together.",
+"I don't like the person I become when I'm tracking a UPS package.",
+"The most zen place in the airport is the \"get your shit together\" bench after going through security.",
+"Home is where my habits have a habitat.",
+"You can be blessed and exhausted.",
+"Sunshine returns to San Francisco for the first time in days, wreaking havoc and destruction everywhere it goes.",
+"Having Monday off: A poem.",
+"Your tone seems very pointed right now.",
+"When you scratch a cynic, you'll see a disappointed idealist.",
+"I feel I'm in a therapy group being run by my own rapist",
+"Okay, yeah. That's a cherry on top of this whole turd cake",
+"Didn't those Founding Fuckers ever hear of an odd number?!",
+"Why don't you put on your running shoes and get to the fucking point, Jonah?",
+"Being Vice President is like being declawed, defanged, neutered, ball-gagged, and sealed in an abandoned coal mine under two miles of human shit! It is a fate worse than death!",
+"Time to robust a nut all over this place",
+"Siri, why does God allow suffering?",
+"Stealing South Carolina is the bedrock of our political system",
+"Does he understand the policy? Forgive my concern, but it's a bit like asking if a dog can grasp the concept of Norway.",
+"And while you're there, could you do me another favor, please? Could you find a hostel, go there, and take a fucking overdose of barbiturates?",
+"I'm sensing a change in management styles. From touchy-feely to smashy-testes.",
+"Have you ever Googled your own name? It's like opening a door to a room where everyone tells you how shit you are.",
+"What would you call that? Obsessive Repulsive Disorder?",
+"He likes to think of himself as more of a thin, white Mugabe.",
+"I'm not quite sure what level of reality I'm supposed to be operating on.",
+"Good cock, bad cock.",
+"All he's doing is depriving a village somewhere of a twat",
+"It's all just gone really HBO.",
+"This is like a clown running across a minefield!",
+"Excuse me while I slip into something a lot more comfortable, like a coma.",
+"I heard he's about as useless as a chocolate teapot.",
+"This is the fucking Shawshank Redemption. Only there's more tunneling through shit, and no fucking redemption",
+"I've got a to-do list that's longer than a fucking Leonard Cohen song.",
+"He's so dense that light bends around him",
+"You have more nervous tics than a shoe bomber.",
+"He is a 12-year-old boy trapped in the body of a 12-year-old girl.",
+"You are the worst thing that has happened to this country since food in buckets and maybe slavery!",
+"I've seen a salmon in a grizzly's mouth look less panicky than that!",
+"If you listen to me instead of your only two brain cells that are too busy butt-fucking each other somewhere in the vast expanses of your misshapen skull, then maybe, Jonah, you might have a chance at becoming the first mentally impaired Frankenstein's monster to ever win an American election.",
+"CNN and Fox both say he's critical, but Fox says it with blonder hair and bigger tits.",
+"You're about as welcomed here as a turd in a hot tub",
+"Too bad you're not counting your missteps, you'd be done by breakfast, right?",
+"When does the White House's Most Useless Press Secretary List come out? I can't wait to see who's number one this year.",
+"Hey, hunchback! I don't know what you've been trying to do instead of win, but I'm guessing it has the word 'anal' in it.",
+"Is my entire presidency about to have its neck snapped by Congressman Lennie here?",
+"She has gone full-metal Nixon.",
+"You wouldn't know the smart move if it bent you over and fucked you with a Coke bottle.",
+"I am the one who got us this far, you sentient enema.",
+"You look like Clark Kent if they dug up Christopher Reeves' corpse to play the part.",
+"66 percent disapprove. That's everyone in America who's awake right now.",
+"See, this is the problem with high-definition. You don't want to see a dick in hi-def.",
+"Go, period. Fuck, period. Yourself, exclamation point!",
+"You don't get the complexity. You're the world's biggest single-cell organism.",
+"Look, I love abortion, okay? I am an abortionado. But I would go pro-life in a fetal fucking heartbeat if it meant winning.",
+"We have a saying here at FB: \"Move fast and break things.\" \u2014 Well that's a job well done.",
+"Watching you try to be nice is like watching a baby smoke a cigarette. It's kind of cool, but also very disturbing.",
+"It's like watching a goat try and use an ATM.",
+"Kent majored in fortune cookies.",
+"The 60-Foot Virgin",
+"Teenage Mutant Ninja Asshole",
+"Tinkerballs",
+"One Erection",
+"Hagrid's Nutsack",
+"Ma'am, I don't mean to piss on your bliss...",
+"Sometimes I feel like there's a 9-year-old boy inside of you just operating levers.",
+"You're about as annoying as a condom filled with fire ants.",
+"Middle East? Middle Easy!",
+"This goat is not gonna scape itself.",
+"I feel like I'm on a life support machine and they keep pulling the plug to charge their phones.",
+"I wouldn't let you run a bath without having the Coast Guard and Fire Department standing by \u2014 yet here you are running America.",
+"Supercalifragilisticexpialidickcheese",
+"The Gates of Hell have opened and you're my plus one.",
+"Calm down! Go to a SPA. Take a Pilates class. Go to a fucking church & find someone there who has Xanax and take four of them.",
+"People are looking at me and they are whispering... dick-cake.",
+"How do you expect me to mingle with this few people? Did Simon mingle with Garfunkle?",
+"She's really mediocre. Of all the ocres, she's the medi-est.",
+"Are we seriously gonna let the guy with the police sketch face of a rapist tell us what to do?",
+"Could you get me a real coffee instead of this fucking beige paint they're serving?",
+"The skyscraper of shit has arrived.",
+"You are like an earlobe, just there. Just wobbling",
+"If you're bored Anthony Bourdain is on CNN eating mac & cheese",
+"This isn't a choice like my diet, this is a necessity like my drinking.",
+"It feels like Christmas, except... happy!",
+"I am so tense, I could crack a walnut with my ass.",
+"You're as welcome here as a swastika mom-shaped shit in a synagogue.",
+"You're treating the Constitution like it's a build-your-own-pizza menu.",
+"Bordello Bill",
+"Hanukkah polls higher in Mecca",
+"It's always nice to see the most left-swiped face on Tinder.",
+"God doesn't giveth with both hands!",
+"This is like explaining gravity to a chicken.",
+"Yes please, milk, and two heaping spoonfuls of whatever the fuck you're on."
+];
+
+const CATEGORY_META = {
+  all: { label: 'All Files', note: 'Everything sharp enough to leave a mark.', color: '#ff6b3d' },
+  cats: { label: 'Cats', note: 'Feline contempt and domestic royalty.', color: '#f59e0b' },
+  la: { label: 'LA', note: 'Municipal despair and parking-lot theology.', color: '#60a5fa' },
+  politics: { label: 'Politics', note: 'National decline gift-wrapped as a sentence.', color: '#ef4444' },
+  veep: { label: 'Veep', note: 'Maximum shrapnel per syllable.', color: '#f472b6' },
+  domestic: { label: 'Domestic Chaos', note: 'Ordinary life, now weaponized.', color: '#34d399' },
+  existential: { label: 'Existential', note: 'Melancholy with stage lighting.', color: '#a78bfa' },
+  general: { label: 'Wildcard', note: 'General-purpose social damage.', color: '#fb7185' }
+};
+
+const FILTER_ORDER = ['all', 'cats', 'la', 'politics', 'veep', 'domestic', 'existential', 'general'];
+
+function getTags(quote) {
+  const tags = [];
+
+  if (/\bcat\b|\bcats\b|kitty|kitten|lion|paw/i.test(quote)) tags.push('cats');
+  if (/\bLA\b|Los Angeles|Griffith|Runyon/i.test(quote)) tags.push('la');
+  if (/Jonah|Kent\b|Congressman Lennie|Mugabe|Middle East\?|Garfunkle|press secretary|presidency|Bordello Bill|Tinkerballs|One Erection|Hagrid's Nutsack|Supercalifragilisticexpialidickcheese|Dick-cake|beige paint|skyscraper of shit|left-swiped face on Tinder/i.test(quote)) tags.push('veep');
+  if (/Trump|Democrats|America|American|election|president|government|Constitution|Fox|CNN|South Carolina|racists|abortion|Communism|Founding|politics|King George III/i.test(quote)) tags.push('politics');
+  if (/dog|room|email|Sent folder|phone|airport|groceries|desktop|UPS|password|Lunchables|helicopter|therapists?|parking|shoes|biscuit|window|Wednesday|Monday|Sunday|Christmas|coffee|to-do list|jog|cigarettes|bench|habits|package|lunchables/i.test(quote)) tags.push('domestic');
+  if (/dream|depressed|hell|anxiety|fight or flight|good mood|idealist|therapy|shaky|blessed and exhausted|biopsy|suffering|better person|life support|disappointed idealist|the day ends/i.test(quote)) tags.push('existential');
+
+  if (!tags.length) tags.push('general');
+  return tags;
+}
+
+function getHeat(quote) {
+  const swears = (quote.match(/fuck|fucking|shit|ass|bitch|dick|balls|twat|cock|bastard|bored/i) || []).length;
+  const punctuation = (quote.match(/[!?]/g) || []).length;
+  const score = Math.min(100, 18 + Math.floor(quote.length / 4) + (swears * 12) + (punctuation * 3));
+
+  if (score >= 82) return { score, label: 'Felony' };
+  if (score >= 65) return { score, label: 'Housefire' };
+  if (score >= 45) return { score, label: 'Sharp' };
+  return { score, label: 'Low Simmer' };
+}
+
+const ENTRIES = QUOTES.map((quote, index) => {
+  const tags = getTags(quote);
+  const primary = tags[0];
+  const heat = getHeat(quote);
+  return {
+    index,
+    quote,
+    tags,
+    primary,
+    heat
+  };
+});
+
+const els = {
+  stats: document.getElementById('stats'),
+  activeFilterLabel: document.getElementById('activeFilterLabel'),
+  poolSize: document.getElementById('poolSize'),
+  quoteScore: document.getElementById('quoteScore'),
+  quoteCategory: document.getElementById('quoteCategory'),
+  quoteIdx: document.getElementById('quoteIdx'),
+  quoteText: document.getElementById('quoteText'),
+  quoteNote: document.getElementById('quoteNote'),
+  currentPosition: document.getElementById('currentPosition'),
+  historyDepth: document.getElementById('historyDepth'),
+  filterBar: document.getElementById('filterBar'),
+  quoteCard: document.getElementById('quoteCard'),
+  shuffleBtn: document.getElementById('shuffleBtn'),
+  prevBtn: document.getElementById('prevBtn'),
+  copyBtn: document.getElementById('copyBtn'),
+  toast: document.getElementById('toast')
+};
+
+const state = {
+  filter: 'all',
+  currentIndex: null,
+  history: [],
+  historyCursor: -1
+};
+
+let toastTimer = null;
+
+function pad(n) {
+  return String(n).padStart(3, '0');
+}
+
+function showToast(message) {
+  els.toast.textContent = message;
+  els.toast.classList.add('is-visible');
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    els.toast.classList.remove('is-visible');
+  }, 1800);
+}
+
+function getPool() {
+  if (state.filter === 'all') return ENTRIES;
+  return ENTRIES.filter(entry => entry.tags.includes(state.filter));
+}
+
+function getEntryByIndex(index) {
+  return ENTRIES.find(entry => entry.index === index) || null;
+}
+
+function chooseRandom(pool, excludeIndex) {
+  if (!pool.length) return null;
+  if (pool.length === 1) return pool[0];
+
+  let next = pool[Math.floor(Math.random() * pool.length)];
+  while (next.index === excludeIndex) {
+    next = pool[Math.floor(Math.random() * pool.length)];
+  }
+  return next;
+}
+
+function buildFilters() {
+  els.filterBar.innerHTML = '';
+
+  FILTER_ORDER.forEach(filterId => {
+    if (filterId !== 'all' && !ENTRIES.some(entry => entry.tags.includes(filterId))) return;
+
+    const count = filterId === 'all'
+      ? ENTRIES.length
+      : ENTRIES.filter(entry => entry.tags.includes(filterId)).length;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'filter-chip';
+    if (state.filter === filterId) button.classList.add('is-active');
+    button.dataset.filter = filterId;
+    button.innerHTML = `<span>${CATEGORY_META[filterId].label}</span><em>${pad(count)}</em>`;
+    button.addEventListener('click', () => {
+      state.filter = filterId;
+      buildFilters();
+      syncFilterState();
+    });
+    els.filterBar.appendChild(button);
+  });
+}
+
+function animateCard() {
+  els.quoteCard.classList.remove('is-fresh');
+  void els.quoteCard.offsetWidth;
+  els.quoteCard.classList.add('is-fresh');
+}
+
+function render(entry, actionLabel) {
+  const pool = getPool();
+  const poolPosition = Math.max(0, pool.findIndex(item => item.index === entry.index)) + 1;
+  const meta = CATEGORY_META[entry.primary] || CATEGORY_META.general;
+
+  document.documentElement.style.setProperty('--live-accent', meta.color);
+
+  els.stats.textContent = pad(ENTRIES.length);
+  els.activeFilterLabel.textContent = CATEGORY_META[state.filter].label;
+  els.poolSize.textContent = pad(pool.length);
+  els.quoteScore.textContent = entry.heat.label;
+  els.quoteCategory.textContent = meta.label;
+  els.quoteIdx.textContent = `Card ${pad(entry.index + 1)}`;
+  els.currentPosition.textContent = `${pad(poolPosition)} / ${pad(pool.length)}`;
+  els.quoteText.textContent = entry.quote;
+  els.quoteNote.textContent = meta.note;
+  els.historyDepth.textContent = actionLabel;
+  els.prevBtn.disabled = state.historyCursor <= 0;
+  els.quoteCard.style.setProperty('--local-accent', meta.color);
+
+  animateCard();
+}
+
+function setCurrent(entry, actionLabel, pushHistory) {
+  if (!entry) return;
+
+  state.currentIndex = entry.index;
+
+  if (pushHistory) {
+    state.history = state.history.slice(0, state.historyCursor + 1);
+    state.history.push(entry.index);
+    state.historyCursor = state.history.length - 1;
+  }
+
+  render(entry, actionLabel);
+}
+
+function spinTray() {
+  const next = chooseRandom(getPool(), state.currentIndex);
+  setCurrent(next, 'Fresh draw', true);
+}
+
+function showPrevious() {
+  if (state.historyCursor <= 0) return;
+
+  state.historyCursor -= 1;
+  const entry = getEntryByIndex(state.history[state.historyCursor]);
+  state.currentIndex = entry.index;
+  render(entry, 'Backtracked one card');
+}
+
+function syncFilterState() {
+  const pool = getPool();
+  const currentInPool = pool.some(entry => entry.index === state.currentIndex);
+
+  if (!currentInPool) {
+    setCurrent(chooseRandom(pool), `Filter: ${CATEGORY_META[state.filter].label}`, true);
+    return;
+  }
+
+  render(getEntryByIndex(state.currentIndex), `Filter: ${CATEGORY_META[state.filter].label}`);
+}
+
+async function copyCurrentQuote() {
+  const entry = getEntryByIndex(state.currentIndex);
+  if (!entry) return;
+
+  try {
+    await navigator.clipboard.writeText(entry.quote);
+    showToast('Copied');
+    els.historyDepth.textContent = 'Copied to clipboard';
+  } catch (err) {
+    showToast('Copy failed');
+  }
+}
+
+els.shuffleBtn.addEventListener('click', spinTray);
+els.prevBtn.addEventListener('click', showPrevious);
+els.copyBtn.addEventListener('click', copyCurrentQuote);
+
+window.addEventListener('keydown', event => {
+  if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+  if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    spinTray();
+  } else if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    showPrevious();
+  } else if (event.key.toLowerCase() === 'c') {
+    copyCurrentQuote();
+  }
+});
+
+buildFilters();
+setCurrent(chooseRandom(getPool()), 'Fresh draw', true);
+</script>
+</body>
+</html>
