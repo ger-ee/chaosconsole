@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaos Console</title>
-<meta name="description" content="Chaos Console is an editorial index to eleven personal pages across finance, wellness, music, craft, maintenance, and reading.">
-<meta name="theme-color" content="#0D0906">
+<meta name="description" content="Chaos Console is a private command center for finance, wellness, music, reading, intelligence, and maintenance.">
+<meta name="theme-color" content="#120d0f">
 <link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
@@ -38,20 +38,23 @@
 }
 
 :root {
-  --bg: #0D0906;
-  --bg-elev: #150E09;
-  --border-hairline: rgba(240, 229, 208, 0.08);
-  --border-strong: rgba(240, 229, 208, 0.22);
-  --text: #F0E5D0;
-  --text-muted: #9C907A;
-  --text-subtle: #6B6152;
-  --accent: #D9631E;
-  --accent-dim: #8A3F15;
-  --focus: #D9631E;
+  --bg: #120d0f;
+  --bg-soft: #171115;
+  --panel: rgba(28, 19, 25, 0.88);
+  --panel-strong: rgba(36, 24, 31, 0.96);
+  --border: rgba(255, 226, 205, 0.12);
+  --border-strong: rgba(255, 226, 205, 0.24);
+  --text: #fff1e3;
+  --muted: #c6b6a6;
+  --subtle: #87786e;
+  --accent: #ff8f43;
+  --accent-2: #58d0bd;
+  --accent-3: #f0d070;
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --display: "Archivo Black", Impact, sans-serif;
   --editorial: "Fraunces", Georgia, serif;
-  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
 }
 
 *,
@@ -62,17 +65,33 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(255, 143, 67, 0.2), transparent 34%),
+    radial-gradient(circle at top right, rgba(88, 208, 189, 0.16), transparent 30%),
+    linear-gradient(180deg, #0f0a0c 0%, #140f12 48%, #120d0f 100%);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg);
+  background: transparent;
   color: var(--text);
   font-family: var(--editorial);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 90%);
+  pointer-events: none;
+  opacity: 0.24;
 }
 
 a {
@@ -93,12 +112,13 @@ a {
 
 .skip-link {
   position: fixed;
-  left: 20px;
-  top: 20px;
-  transform: translateY(-160%);
+  left: 24px;
+  top: 24px;
+  transform: translateY(-180%);
   padding: 12px 16px;
   border: 1px solid var(--border-strong);
-  background: var(--bg-elev);
+  border-radius: 999px;
+  background: var(--panel-strong);
   color: var(--text);
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -106,427 +126,541 @@ a {
   text-decoration: none;
   text-transform: uppercase;
   z-index: 1000;
-  transition: transform 220ms var(--ease), border-color 220ms var(--ease);
+  transition: transform 200ms var(--ease);
 }
 
 .skip-link:focus {
   transform: translateY(0);
 }
 
-.site-inner {
-  width: min(1200px, calc(100% - 96px));
-  margin: 0 auto;
-}
-
-.site-inner-hero {
-  width: min(1100px, calc(100% - 96px));
+.site-shell {
+  width: min(1240px, calc(100% - 56px));
   margin: 0 auto;
 }
 
 .site-header {
-  border-bottom: 1px solid var(--border-hairline);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  background: rgba(18, 13, 15, 0.72);
+  border-bottom: 1px solid rgba(255, 226, 205, 0.06);
 }
 
 .site-header-inner {
-  min-height: 72px;
+  min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
 }
 
-.site-brand {
+.brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   min-width: 0;
+  text-decoration: none;
 }
 
 .brand-mark {
-  width: 28px;
-  height: 28px;
-  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border-strong);
-  border-radius: 6px;
-}
-
-.brand-mark svg {
-  width: 16px;
-  height: 16px;
-  display: block;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--accent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .brand-wordmark,
-.site-edition,
-.hero-eyebrow,
-.hero-attribution,
-.scroll-mark,
-.footer-copy,
-.index-number {
+.header-meta,
+.eyebrow,
+.stat-label,
+.spotlight-meta,
+.lane-kicker,
+.module-index,
+.module-tag,
+.footer-copy {
   font-family: var(--mono);
 }
 
 .brand-wordmark {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 0.78rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--text);
   white-space: nowrap;
 }
 
-.site-edition {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  line-height: 1.6;
+.header-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--subtle);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-subtle);
-  text-align: right;
-  white-space: nowrap;
 }
 
-.hero {
+.header-meta span {
   position: relative;
-  min-height: calc(100svh - 72px);
 }
 
-.hero::before {
+.header-meta span + span::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 120%, rgba(217, 99, 30, 0.22) 0%, rgba(217, 99, 30, 0.06) 35%, transparent 65%);
+  left: -10px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-50%);
+}
+
+.masthead {
+  padding: 48px 0 28px;
+}
+
+.masthead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.intro-panel,
+.spotlight-card,
+.lane,
+.footer-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.intro-panel {
+  min-height: 420px;
+  border-radius: 34px;
+  padding: 36px;
+  display: grid;
+  align-content: space-between;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 143, 67, 0.22), transparent 28%),
+    radial-gradient(circle at 82% 84%, rgba(88, 208, 189, 0.16), transparent 30%),
+    linear-gradient(160deg, rgba(32, 23, 28, 0.95), rgba(19, 14, 17, 0.98));
+}
+
+.intro-panel::after,
+.spotlight-card::after,
+.lane::after,
+.footer-panel::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.03);
   pointer-events: none;
 }
 
-.hero-inner {
-  min-height: calc(100svh - 72px);
-  display: flex;
-  align-items: center;
-  padding-block: 72px 96px;
-  position: relative;
-}
-
-.hero-sequence {
-  max-width: 980px;
-  text-align: left;
-}
-
-.hero-eyebrow {
-  margin: 0;
-  color: var(--text-subtle);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  line-height: 1.6;
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--accent-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fade-lift 500ms var(--ease) 0ms forwards;
 }
 
 .hero-title {
-  margin: 40px 0 0;
-  display: grid;
-  gap: 0;
-  font-family: var(--editorial);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(56px, 7.5vw, 112px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fade-lift 500ms var(--ease) 120ms forwards;
+  margin: 0;
+  max-width: 9ch;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 9vw, 6.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
 }
 
-.hero-accent {
+.hero-title strong {
   color: var(--accent);
 }
 
-.hero-meta {
-  margin-top: 32px;
-  display: grid;
-  gap: 20px;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fade-lift 500ms var(--ease) 220ms forwards;
+.hero-copy {
+  max-width: 54ch;
 }
 
-.hero-rule {
-  width: 120px;
-  height: 1px;
+.hero-copy p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.14rem);
+  line-height: 1.7;
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.stat-chip {
+  min-width: 150px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stat-value {
   display: block;
-  background: var(--border-hairline);
+  font-family: var(--display);
+  font-size: 1.4rem;
+  letter-spacing: -0.04em;
 }
 
-.hero-attribution {
-  margin: 0;
-  color: var(--text-subtle);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  line-height: 1.6;
+.stat-label {
+  display: block;
+  margin-top: 6px;
+  color: var(--subtle);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.scroll-mark {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  color: var(--text-subtle);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  line-height: 1;
-  opacity: 0.8;
-  pointer-events: none;
+.intro-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-top: 36px;
 }
 
-.index-section {
-  padding: 24px 0 120px;
-}
-
-.index-list {
-  list-style: none;
-  padding: 0;
+.intro-note {
   margin: 0;
-  border-top: 1px solid var(--border-hairline);
-  border-bottom: 1px solid var(--border-hairline);
-}
-
-.index-item + .index-item {
-  border-top: 1px solid var(--border-hairline);
-}
-
-.index-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) 72px;
-  grid-template-areas:
-    "number name arrow"
-    "number category arrow";
-  align-items: baseline;
-  column-gap: 24px;
-  row-gap: 8px;
-  min-height: 160px;
-  padding: 30px 0;
-  text-decoration: none;
-  transition: background-color 240ms var(--ease);
-}
-
-.index-row::after {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border: 1px solid var(--accent);
-  opacity: 0;
-  transition: opacity 120ms ease-out;
-  pointer-events: none;
-}
-
-.index-row:hover {
-  background: var(--bg-elev);
-}
-
-.index-row:hover .index-category,
-.index-row:focus-visible .index-category {
-  color: var(--accent);
-}
-
-.index-row:hover .index-arrow,
-.index-row:focus-visible .index-arrow {
-  transform: translateX(8px);
-}
-
-.index-row:focus-visible {
-  outline: none;
-}
-
-.index-row:focus-visible::after {
-  opacity: 1;
-}
-
-.index-number {
-  grid-area: number;
-  align-self: start;
-  padding-top: 8px;
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  max-width: 36ch;
+  color: var(--muted);
+  font-size: 0.98rem;
   line-height: 1.6;
 }
 
-.index-name {
-  grid-area: name;
-  min-width: 0;
+.intro-anchor {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: transform 200ms var(--ease), border-color 200ms var(--ease), background 200ms var(--ease);
+}
+
+.intro-anchor:hover,
+.intro-anchor:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(255, 143, 67, 0.1);
+  outline: none;
+}
+
+.spotlight-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.spotlight-card {
+  border-radius: 28px;
+  padding: 24px;
+  text-decoration: none;
+  transition: transform 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease);
+}
+
+.spotlight-card:hover,
+.spotlight-card:focus-visible,
+.module-card:hover,
+.module-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  outline: none;
+}
+
+.spotlight-card.primary {
+  min-height: 250px;
+  display: grid;
+  align-content: end;
+  background:
+    linear-gradient(140deg, rgba(255, 143, 67, 0.18), rgba(19, 14, 17, 0)),
+    linear-gradient(180deg, rgba(10, 10, 10, 0), rgba(10, 10, 10, 0.7)),
+    url("/covers/groove.jpg") center / cover;
+}
+
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.spotlight-card.secondary {
+  min-height: 152px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    linear-gradient(180deg, rgba(255, 143, 67, 0.08), rgba(88, 208, 189, 0.02));
+}
+
+.spotlight-label {
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.spotlight-title {
+  margin: 12px 0 0;
   font-family: var(--display);
-  font-size: clamp(36px, 5vw, 72px);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.spotlight-body {
+  margin: 12px 0 0;
+  max-width: 30ch;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+.spotlight-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--text);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.spotlight-meta::before {
+  content: "→";
+  color: var(--accent);
+}
+
+.directory {
+  padding: 10px 0 34px;
+}
+
+.directory-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.directory-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.directory-copy {
+  margin: 10px 0 0;
+  max-width: 42ch;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.directory-status {
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.index-category {
-  grid-area: category;
-  color: var(--text-muted);
-  font-family: var(--editorial);
-  font-size: 17px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.35;
-  font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 1;
-  transition: color 240ms var(--ease);
+.lane-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
-.index-arrow {
-  grid-area: arrow;
-  justify-self: end;
-  align-self: center;
-  color: var(--text-muted);
-  font-family: var(--editorial);
-  font-size: 24px;
-  font-style: italic;
+.lane {
+  border-radius: 28px;
+  padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    linear-gradient(180deg, rgba(255, 143, 67, 0.05), rgba(88, 208, 189, 0));
+}
+
+.lane-kicker {
+  margin-bottom: 18px;
+  color: var(--accent-3);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.module-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.module-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+  padding: 16px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  transition: transform 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease);
+}
+
+.module-index {
+  color: var(--subtle);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-top: 3px;
+}
+
+.module-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
   line-height: 1;
-  transition: transform 240ms var(--ease);
+  letter-spacing: -0.04em;
+}
+
+.module-copy {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.module-tag {
+  align-self: center;
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--subtle);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .site-footer {
-  border-top: 1px solid var(--border-hairline);
+  padding: 0 0 40px;
 }
 
-.site-footer-inner {
-  min-height: 200px;
+.footer-panel {
+  border-radius: 28px;
+  padding: 28px 30px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 24px;
-  padding: 48px 0 56px;
-  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    linear-gradient(120deg, rgba(255, 143, 67, 0.08), rgba(88, 208, 189, 0.04));
 }
 
 .footer-credit {
   margin: 0;
-  color: rgba(240, 229, 208, 0.82);
-  font-family: var(--editorial);
-  font-size: clamp(22px, 2.1vw, 30px);
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.35;
-  font-variation-settings: "opsz" 72, "SOFT" 30, "WONK" 1;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.55;
+}
+
+.footer-credit strong {
+  color: var(--accent);
 }
 
 .footer-copy {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  line-height: 1.6;
+  color: var(--subtle);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-@keyframes fade-lift {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
+@media (max-width: 1080px) {
+  .masthead-grid,
+  .lane-grid {
+    grid-template-columns: 1fr;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 1279px) {
-  .index-row {
-    min-height: 140px;
+  .intro-panel {
+    min-height: unset;
   }
 }
 
-@media (max-width: 959px) {
-  .index-row {
-    min-height: 120px;
-  }
-}
-
-@media (max-width: 639px) {
-  .site-inner,
-  .site-inner-hero {
-    width: min(1200px, calc(100% - 48px));
+@media (max-width: 720px) {
+  .site-shell {
+    width: min(1240px, calc(100% - 32px));
   }
 
-  .site-header-inner {
-    min-height: 72px;
+  .site-header-inner,
+  .directory-header,
+  .intro-footer,
+  .footer-panel {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .site-edition {
+  .header-meta {
     display: none;
   }
 
-  .brand-wordmark {
-    font-size: 12px;
-    letter-spacing: 0.22em;
+  .masthead {
+    padding-top: 28px;
   }
 
-  .hero-inner {
-    padding-block: 56px 88px;
+  .intro-panel,
+  .spotlight-card,
+  .lane {
+    border-radius: 24px;
   }
 
-  .hero-title {
-    font-size: clamp(56px, 13vw, 76px);
+  .intro-panel,
+  .lane {
+    padding: 24px;
   }
 
-  .index-section {
-    padding: 8px 0 96px;
+  .spotlight-grid {
+    grid-template-columns: 1fr;
   }
 
-  .index-row {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-areas:
-      "number name name"
-      ". category arrow";
-    column-gap: 14px;
-    row-gap: 10px;
-    min-height: 120px;
-    padding: 20px 0;
+  .module-card {
+    grid-template-columns: 40px minmax(0, 1fr);
   }
 
-  .index-number {
-    padding-top: 2px;
-  }
-
-  .index-name {
-    font-size: clamp(28px, 9vw, 44px);
-  }
-
-  .index-category {
-    font-size: 16px;
-  }
-
-  .index-arrow {
-    font-size: 22px;
-    align-self: end;
-  }
-
-  .site-footer-inner {
-    min-height: 176px;
-    padding: 40px 0 48px;
-  }
-
-  .footer-credit {
-    font-size: clamp(18px, 6vw, 24px);
+  .module-tag {
+    grid-column: 2;
+    justify-self: start;
   }
 }
 
@@ -538,8 +672,8 @@ a {
   *,
   *::before,
   *::after {
-    animation: none !important;
-    transition-duration: 120ms !important;
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
   }
 }
 </style>
@@ -547,140 +681,244 @@ a {
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<div class="scroll-mark" aria-hidden="true">↓</div>
 
-<header class="site-header" aria-label="Colophon strip">
-  <div class="site-inner site-header-inner">
-    <div class="site-brand" aria-label="Chaos Console colophon">
+<header class="site-header" aria-label="Site header">
+  <div class="site-shell site-header-inner">
+    <a class="brand" href="/index.html" aria-label="Chaos Console home">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M41 20C36.8 17.2 30.5 17 25.8 19.5C21.1 22.1 18 26.8 18 32C18 37.2 21.1 41.9 25.8 44.5C30.5 47 36.8 46.8 41 44" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
         </svg>
       </span>
-      <span class="brand-wordmark">CHAOS CONSOLE</span>
+      <span class="brand-wordmark">Chaos Console</span>
+    </a>
+    <div class="header-meta" aria-label="Edition metadata">
+      <span>Private Command Center</span>
+      <span>11 Modules</span>
+      <span>Los Angeles · MMXXVI</span>
     </div>
-    <div class="site-edition">LOS ANGELES — MMXXVI</div>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="site-inner-hero hero-inner">
-      <div class="hero-sequence">
-        <p class="hero-eyebrow">AN EPIGRAPH</p>
-        <h1 class="hero-title" id="hero-title">
-          <span>Chaos isn't a pit.</span>
-          <span>Chaos is a <span class="hero-accent">ladder.</span></span>
-        </h1>
-        <div class="hero-meta">
-          <span class="hero-rule" aria-hidden="true"></span>
-          <p class="hero-attribution">— PETYR BAELISH</p>
+  <section class="masthead" aria-labelledby="home-title">
+    <div class="site-shell masthead-grid">
+      <article class="intro-panel">
+        <div>
+          <p class="eyebrow">Editorial Index</p>
+          <h1 class="hero-title" id="home-title">Chaos <strong>Console</strong></h1>
+          <div class="hero-copy">
+            <p>A private operating system for money, wellness, playlists, reading, intelligence, and maintenance.</p>
+            <div class="stats-row" aria-label="Site summary">
+              <span class="stat-chip">
+                <span class="stat-value">11</span>
+                <span class="stat-label">Live modules</span>
+              </span>
+              <span class="stat-chip">
+                <span class="stat-value">6</span>
+                <span class="stat-label">Core domains</span>
+              </span>
+              <span class="stat-chip">
+                <span class="stat-value">3</span>
+                <span class="stat-label">Featured rebuilds</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="intro-footer">
+          <p class="intro-note">Start with the rebuilt control rooms below, then move through the rest of the stack by domain.</p>
+          <a class="intro-anchor" href="#directory">Open Directory</a>
+        </div>
+      </article>
+
+      <div class="spotlight-stack" aria-label="Featured pages">
+        <a class="spotlight-card primary" href="/spotify-tracker.html">
+          <div>
+            <span class="spotlight-label">Featured rebuild</span>
+            <h2 class="spotlight-title">Playlist Tracker</h2>
+            <p class="spotlight-body">A sharper music analytics surface for follower momentum, breakout playlists, and monthly movement.</p>
+          </div>
+          <span class="spotlight-meta">Open tracker</span>
+        </a>
+
+        <div class="spotlight-grid">
+          <a class="spotlight-card secondary" href="/wellness.html">
+            <div>
+              <span class="spotlight-label">Fresh insight layer</span>
+              <h2 class="spotlight-title">Wellness Analysis</h2>
+              <p class="spotlight-body">A readable recovery narrative built to explain the signal, not just show the charts.</p>
+            </div>
+            <span class="spotlight-meta">Read analysis</span>
+          </a>
+
+          <a class="spotlight-card secondary" href="/financial-consolidation.html">
+            <div>
+              <span class="spotlight-label">Anchor system</span>
+              <h2 class="spotlight-title">The Ledger</h2>
+              <p class="spotlight-body">The financial spine of the console, with obligations, flow, and net picture in one place.</p>
+            </div>
+            <span class="spotlight-meta">Open ledger</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="index-section" aria-labelledby="index-title">
-    <div class="site-inner">
-      <h2 class="sr-only" id="index-title">Index</h2>
-      <ol class="index-list">
-        <li class="index-item">
-          <a class="index-row" href="/financial-consolidation.html">
-            <span class="index-number">01</span>
-            <span class="index-name">The Ledger</span>
-            <span class="index-category">Finance</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/wellness-v2.html">
-            <span class="index-number">02</span>
-            <span class="index-name">Wellness Dashboard</span>
-            <span class="index-category">Wellness</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/spotify-tracker.html">
-            <span class="index-number">03</span>
-            <span class="index-name">Playlist Tracker</span>
-            <span class="index-category">Music</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/chatgpt-intelligence.html">
-            <span class="index-number">04</span>
-            <span class="index-name">AI Intelligence</span>
-            <span class="index-category">Intelligence</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/color-bible.html">
-            <span class="index-number">05</span>
-            <span class="index-name">The Color Bible</span>
-            <span class="index-category">System</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/blindspot-binder.html">
-            <span class="index-number">06</span>
-            <span class="index-name">The Blindspot Binder</span>
-            <span class="index-category">Craft</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/screenwriting-guide.html">
-            <span class="index-number">07</span>
-            <span class="index-name">Screenwriting &amp; Film Production</span>
-            <span class="index-category">Craft</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/digital-ecosystem.html">
-            <span class="index-number">08</span>
-            <span class="index-name">Digital Ecosystem Refresh</span>
-            <span class="index-category">Maintenance</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/wellness.html">
-            <span class="index-number">09</span>
-            <span class="index-name">Wellness Analysis</span>
-            <span class="index-category">Archive</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/readwise.html">
-            <span class="index-number">10</span>
-            <span class="index-name">Readwise Highlights</span>
-            <span class="index-category">Reading</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-        <li class="index-item">
-          <a class="index-row" href="/quotes.html">
-            <span class="index-number">11</span>
-            <span class="index-name">Insult Rolodex</span>
-            <span class="index-category">Humor</span>
-            <span class="index-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-      </ol>
+  <section class="directory" id="directory" aria-labelledby="directory-title">
+    <div class="site-shell">
+      <div class="directory-header">
+        <div>
+          <h2 class="directory-title" id="directory-title">Directory</h2>
+          <p class="directory-copy">The stack is organized by role: core systems, wellness, culture, and long-tail utilities.</p>
+        </div>
+        <div class="directory-status">Fast path: Tracker, Wellness, Ledger</div>
+      </div>
+
+      <div class="lane-grid">
+        <section class="lane" aria-labelledby="lane-systems">
+          <h3 class="lane-kicker" id="lane-systems">Finance &amp; Systems</h3>
+          <ul class="module-list">
+            <li>
+              <a class="module-card" href="/financial-consolidation.html">
+                <span class="module-index">01</span>
+                <div>
+                  <p class="module-title">The Ledger</p>
+                  <p class="module-copy">Cash flow, obligations, and the overall money picture.</p>
+                </div>
+                <span class="module-tag">Finance</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/chatgpt-intelligence.html">
+                <span class="module-index">04</span>
+                <div>
+                  <p class="module-title">AI Intelligence</p>
+                  <p class="module-copy">Notes, models, and operating logic for AI-assisted work.</p>
+                </div>
+                <span class="module-tag">Intelligence</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/color-bible.html">
+                <span class="module-index">05</span>
+                <div>
+                  <p class="module-title">The Color Bible</p>
+                  <p class="module-copy">The visual system, references, swatches, and design logic.</p>
+                </div>
+                <span class="module-tag">System</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/digital-ecosystem.html">
+                <span class="module-index">08</span>
+                <div>
+                  <p class="module-title">Digital Ecosystem Refresh</p>
+                  <p class="module-copy">Maintenance tasks, cleanup, and platform-wide recalibration.</p>
+                </div>
+                <span class="module-tag">Maintenance</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="lane" aria-labelledby="lane-wellness">
+          <h3 class="lane-kicker" id="lane-wellness">Wellness &amp; Signals</h3>
+          <ul class="module-list">
+            <li>
+              <a class="module-card" href="/wellness-v2.html">
+                <span class="module-index">02</span>
+                <div>
+                  <p class="module-title">Wellness Dashboard</p>
+                  <p class="module-copy">Live pulse tiles for weight, resting heart rate, sleep, HRV, and body composition.</p>
+                </div>
+                <span class="module-tag">Live</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/wellness.html">
+                <span class="module-index">09</span>
+                <div>
+                  <p class="module-title">Wellness Analysis</p>
+                  <p class="module-copy">Long-range trends, recovery patterns, and a clearer narrative around the data.</p>
+                </div>
+                <span class="module-tag">Insights</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="lane" aria-labelledby="lane-culture">
+          <h3 class="lane-kicker" id="lane-culture">Culture &amp; Craft</h3>
+          <ul class="module-list">
+            <li>
+              <a class="module-card" href="/spotify-tracker.html">
+                <span class="module-index">03</span>
+                <div>
+                  <p class="module-title">Playlist Tracker</p>
+                  <p class="module-copy">A music control room for follower movement, portfolio strength, and breakout playlists.</p>
+                </div>
+                <span class="module-tag">Music</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/blindspot-binder.html">
+                <span class="module-index">06</span>
+                <div>
+                  <p class="module-title">The Blindspot Binder</p>
+                  <p class="module-copy">A craft-focused reference system for recurring creative weak spots.</p>
+                </div>
+                <span class="module-tag">Craft</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/screenwriting-guide.html">
+                <span class="module-index">07</span>
+                <div>
+                  <p class="module-title">Screenwriting &amp; Film Production</p>
+                  <p class="module-copy">Story mechanics, production notes, and film workflow references.</p>
+                </div>
+                <span class="module-tag">Craft</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="lane" aria-labelledby="lane-library">
+          <h3 class="lane-kicker" id="lane-library">Reading &amp; Sidecars</h3>
+          <ul class="module-list">
+            <li>
+              <a class="module-card" href="/readwise.html">
+                <span class="module-index">10</span>
+                <div>
+                  <p class="module-title">Readwise Highlights</p>
+                  <p class="module-copy">Saved passages, resurfaced ideas, and reading memory across books and essays.</p>
+                </div>
+                <span class="module-tag">Reading</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/quotes.html">
+                <span class="module-index">11</span>
+                <div>
+                  <p class="module-title">Insult Rolodex</p>
+                  <p class="module-copy">A dedicated archive for sharp lines, comic timing, and conversational ammunition.</p>
+                </div>
+                <span class="module-tag">Humor</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <div class="site-inner site-footer-inner">
-    <p class="footer-credit">Designed and maintained by Gary Elbasani, Los Angeles.</p>
-    <p class="footer-copy">© MMXXVI — CHAOSCONSOLE.COM</p>
+  <div class="site-shell">
+    <div class="footer-panel">
+      <p class="footer-credit">Designed and maintained by <strong>Gary Elbasani</strong>, Los Angeles.</p>
+      <p class="footer-copy">ChaosConsole.com · MMXXVI</p>
+    </div>
   </div>
 </footer>
 </body>

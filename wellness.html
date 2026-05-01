@@ -3,591 +3,1741 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wellness Analysis | ChaosConsole</title>
+<title>Wellness Analysis | Chaos Console</title>
+<meta name="description" content="Wellness Analysis turns Apple Health and RingConn data into a readable recovery narrative with clear trends and monthly insight.">
+<meta name="theme-color" content="#f4efe6">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&display=swap');
+@font-face {
+  font-family: "Archivo Black";
+  src: url("/fonts/archivo-black-subset.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-italic-subset.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-subset.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
 
 :root {
-  --bg: #0b0f1a;
-  --surface: #101828;
-  --surface2: #1c2640;
-  --border: #2a3a5c;
-  --text: #f0f0f0;
-  --text-dim: #666666;
-  --accent: #0077BC;
-  --accent2: #009866;
-  --accent3: #16A34A;
-  --accent4: #D97706;
-  --accent5: #0077BC;
-  --deep: #009866;
-  --rem: #DC2626;
-  --light: #0077BC;
-  --awake: #D97706;
+  --bg: #f4efe6;
+  --paper: rgba(255, 251, 245, 0.92);
+  --paper-strong: rgba(255, 253, 250, 0.98);
+  --border: rgba(84, 71, 55, 0.14);
+  --border-strong: rgba(84, 71, 55, 0.22);
+  --text: #201b17;
+  --muted: #665b51;
+  --subtle: #9d9084;
+  --accent: #0c7c59;
+  --accent-2: #22577a;
+  --accent-3: #d97706;
+  --accent-4: #b42318;
+  --accent-5: #7c3aed;
+  --score-hi: #0c7c59;
+  --score-mid: #c0841a;
+  --score-low: #b42318;
+  --shadow: 0 24px 48px rgba(77, 56, 36, 0.09);
+  --display: "Archivo Black", Impact, sans-serif;
+  --accent-display: "Fraunces", Georgia, serif;
+  --body: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background:
+    radial-gradient(circle at top left, rgba(12, 124, 89, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(34, 87, 122, 0.12), transparent 28%),
+    linear-gradient(180deg, #efe9df 0%, #f7f2ea 40%, #f4efe6 100%);
+}
 
 body {
-  background: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
   color: var(--text);
-  font-family: 'Inter', -apple-system, sans-serif;
-  line-height: 1.5;
-  overflow-x: hidden;
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
 }
 
-.noise {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9999;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79, 61, 44, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 61, 44, 0.025) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 92%);
+  opacity: 0.3;
+  pointer-events: none;
 }
 
-header {
-  padding: 2rem 2rem 1rem;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: baseline; gap: 1.5rem;
-  flex-wrap: wrap;
+a {
+  color: inherit;
 }
 
-header h1 {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 1.6rem; font-weight: 400; text-transform: uppercase;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+.page-shell {
+  width: min(1320px, calc(100% - 40px));
+  margin: 0 auto;
 }
 
-header .breadcrumb {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem; color: var(--text-dim);
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(18px);
+  background: rgba(244, 239, 230, 0.8);
+  border-bottom: 1px solid rgba(84, 71, 55, 0.08);
 }
 
-header .breadcrumb a { color: var(--accent); text-decoration: none; }
-
-.date-range {
-  font-size: 0.7rem; color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
-  margin-left: auto;
+.topbar-inner {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
 }
 
-/* Score Cards Row */
-.scores {
+.topbar-brand,
+.eyebrow,
+.meta-line,
+.score-label,
+.glance-kicker,
+.metric-label,
+.section-kicker,
+.relation-label,
+.footer-copy {
+  font-family: var(--mono);
+}
+
+.topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.topbar-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-3);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.topbar-title {
+  font-size: 0.76rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.topbar-meta {
+  color: var(--subtle);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.page {
+  padding: 30px 0 50px;
+}
+
+.hero {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
-  padding: 1.5rem 2rem;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.hero-card,
+.panel,
+.glance-card,
+.metric-card,
+.relation-card,
+.month-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.hero-card,
+.panel {
+  border-radius: 30px;
+}
+
+.hero-card::after,
+.panel::after,
+.glance-card::after,
+.metric-card::after,
+.relation-card::after,
+.month-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.hero-copy-card {
+  padding: 30px;
+  background:
+    radial-gradient(circle at top left, rgba(12, 124, 89, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.92));
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.hero-title em {
+  color: var(--accent-3);
+  font-family: var(--accent-display);
+  font-style: italic;
+}
+
+.hero-copy {
+  margin: 18px 0 0;
+  max-width: 48ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.meta-line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.meta-pill {
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(84, 71, 55, 0.12);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .score-card {
-  background: var(--surface);
+  padding: 28px;
+  display: grid;
+  align-content: space-between;
+  background:
+    radial-gradient(circle at top right, rgba(34, 87, 122, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.96));
+}
+
+.score-label {
+  color: var(--subtle);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.score-value {
+  margin: 16px 0 0;
+  font-family: var(--display);
+  font-size: clamp(4rem, 9vw, 6rem);
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+}
+
+.score-value.good {
+  color: var(--score-hi);
+}
+
+.score-value.mixed {
+  color: var(--score-mid);
+}
+
+.score-value.low {
+  color: var(--score-low);
+}
+
+.score-status {
+  margin: 12px 0 0;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.score-summary {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.score-delta {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(84, 71, 55, 0.12);
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.score-delta strong {
+  color: var(--text);
+}
+
+.glance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.glance-card {
+  border-radius: 24px;
+  padding: 20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.76)),
+    linear-gradient(180deg, rgba(12,124,89,0.05), rgba(34,87,122,0.02));
+}
+
+.glance-kicker {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.glance-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.4rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.glance-copy {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.metric-card {
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(255,255,255,0.82);
+}
+
+.metric-value {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.85rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.metric-delta {
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+.metric-delta.positive {
+  color: var(--accent);
+}
+
+.metric-delta.negative {
+  color: var(--accent-4);
+}
+
+.metric-label {
+  display: block;
+  margin-top: 10px;
+  color: var(--subtle);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.panel {
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 18px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.section-kicker {
+  margin-bottom: 10px;
+  color: var(--subtle);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panel-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.panel-copy {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+  max-width: 58ch;
+}
+
+.panel-meta {
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 320px;
+}
+
+.chart-wrap.tall {
+  height: 360px;
+}
+
+.narrative-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 20px;
+}
+
+.relation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.relation-card {
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(255,255,255,0.78);
+}
+
+.relation-label {
+  color: var(--subtle);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.relation-title {
+  margin: 10px 0 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.relation-copy {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.month-card {
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(255,255,255,0.78);
+}
+
+.month-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.month-name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.month-score {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.month-meta {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.footer {
+  margin-top: 8px;
+}
+
+.footer-card {
+  padding: 22px 24px;
+  border-radius: 24px;
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1.2rem 1rem;
+  background: rgba(255,255,255,0.74);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.footer-copy {
+  color: var(--subtle);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.loading,
+.error {
+  padding: 80px 0;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  color: var(--muted);
+  font-size: 1rem;
 }
 
-.score-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+@media (max-width: 1120px) {
+  .hero,
+  .analysis-grid,
+  .narrative-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .glance-grid,
+  .metric-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.score-card.hr::before { background: var(--accent); }
-.score-card.hrv::before { background: var(--accent2); }
-.score-card.sleep::before { background: var(--accent3); }
-.score-card.steps::before { background: var(--accent4); }
-.score-card.spo2::before { background: var(--accent5); }
-.score-card.deep::before { background: var(--deep); }
+@media (max-width: 760px) {
+  .page-shell {
+    width: min(1320px, calc(100% - 24px));
+  }
 
-.score-card .value {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 2rem; font-weight: 700; line-height: 1;
+  .topbar-inner,
+  .panel-head,
+  .footer-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-card,
+  .panel,
+  .glance-card,
+  .metric-card,
+  .relation-card,
+  .month-card {
+    border-radius: 24px;
+  }
+
+  .hero-copy-card,
+  .score-card,
+  .panel,
+  .glance-card {
+    padding: 20px;
+  }
+
+  .glance-grid,
+  .metric-strip,
+  .relation-grid,
+  .month-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrap,
+  .chart-wrap.tall {
+    height: 300px;
+  }
 }
 
-.score-card.hr .value { color: var(--accent); }
-.score-card.hrv .value { color: var(--accent2); }
-.score-card.sleep .value { color: var(--accent3); }
-.score-card.steps .value { color: var(--accent4); }
-.score-card.spo2 .value { color: var(--accent5); }
-.score-card.deep .value { color: var(--deep); }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-.score-card .label {
-  font-size: 0.65rem; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--text-dim);
-  margin-top: 0.4rem;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
 }
-
-.score-card .sub {
-  font-size: 0.65rem; color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
-  margin-top: 0.2rem;
-}
-
-/* Charts */
-.charts-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  padding: 1.5rem 2rem 3rem;
-}
-
-.chart-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1.5rem;
-  position: relative;
-}
-
-.chart-panel h2 {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem; font-weight: 500;
-  color: var(--text); margin-bottom: 0.3rem;
-}
-
-.chart-panel .chart-sub {
-  font-size: 0.7rem; color: var(--text-dim);
-  margin-bottom: 1rem;
-}
-
-.chart-panel canvas { max-height: 320px; }
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
-
-/* Footer */
-footer {
-  text-align: center; padding: 2rem;
-  font-size: 0.65rem; color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
-  border-top: 1px solid var(--border);
-}
-
-footer a { color: var(--accent); text-decoration: none; }
 </style>
-  <script defer src="gate.js"></script>
+<script defer src="gate.js"></script>
 </head>
 <body>
-<div class="noise"></div>
-
-<header>
-  <h1>Wellness Analysis</h1>
-  <span class="breadcrumb"><a href="index.html">CHAOS CONSOLE</a> / wellness</span>
-  <span class="date-range">Sep 11, 2025 — Mar 17, 2026 &nbsp;|&nbsp; 188 days tracked</span>
+<header class="topbar">
+  <div class="page-shell topbar-inner">
+    <a class="topbar-brand" href="/index.html" aria-label="Return to Chaos Console">
+      <span class="topbar-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M41 20C36.8 17.2 30.5 17 25.8 19.5C21.1 22.1 18 26.8 18 32C18 37.2 21.1 41.9 25.8 44.5C30.5 47 36.8 46.8 41 44" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="topbar-title">Chaos Console</span>
+    </a>
+    <div class="topbar-meta" id="dateRange">Loading wellness range...</div>
+  </div>
 </header>
 
-<div class="scores" id="scores"></div>
-
-<div class="charts-grid">
-  <!-- Chart 1: Heart Rate Corridor -->
-  <div class="chart-panel">
-    <h2>Heart Rate Analysis</h2>
-    <div class="chart-sub">Daily min / avg / max heart rate over 6 months — resting HR trend reveals recovery patterns</div>
-    <canvas id="hrChart"></canvas>
+<main class="page">
+  <div class="page-shell" id="app">
+    <div class="loading">Loading wellness analysis...</div>
   </div>
-
-  <div class="two-col">
-    <!-- Chart 2: Sleep Architecture -->
-    <div class="chart-panel">
-      <h2>Sleep Architecture</h2>
-      <div class="chart-sub">Nightly breakdown: deep, REM, light, and awake stages. Weekly rolling average.</div>
-      <canvas id="sleepChart"></canvas>
-    </div>
-
-    <!-- Chart 3: Steps vs HRV -->
-    <div class="chart-panel">
-      <h2>Recovery vs. Activity</h2>
-      <div class="chart-sub">Daily steps overlaid with HRV (heart rate variability) — higher HRV = better recovery</div>
-      <canvas id="stepsHrvChart"></canvas>
-    </div>
-  </div>
-
-  <!-- Chart 4: Sleep Duration + Quality -->
-  <div class="chart-panel">
-    <h2>Sleep Duration &amp; Efficiency</h2>
-    <div class="chart-sub">Hours asleep per night with sleep efficiency ratio — the 7-hour target line marks recommended minimum</div>
-    <canvas id="sleepDurationChart"></canvas>
-  </div>
-</div>
-
-<footer>
-  ChaosConsole &mdash; Wellness Module &mdash; Data from Oura/Ring Tracker &mdash; <a href="#">chaosconsole.com</a>
-</footer>
+</main>
 
 <script>
-// ═══════════════════════════════════════════
-// DATA INJECTION
-// ═══════════════════════════════════════════
-const DATA = {"vitals": [{"Date": "2025-09-11", "Avg. Heart Rate(bpm)": 84, "Min. Heart Rate(bpm)": 62, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 31, "Min. HRV(ms)": 11, "Max. HRV(ms)": 75}, {"Date": "2025-09-12", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 66, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 73}, {"Date": "2025-09-13", "Avg. Heart Rate(bpm)": 77, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 114, "Avg. Spo2(%)": 93.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 58, "Min. HRV(ms)": 17, "Max. HRV(ms)": 146}, {"Date": "2025-09-14", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 110}, {"Date": "2025-09-15", "Avg. Heart Rate(bpm)": 102, "Min. Heart Rate(bpm)": 41, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 84}, {"Date": "2025-09-16", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 49, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 13, "Max. HRV(ms)": 80}, {"Date": "2025-09-17", "Avg. Heart Rate(bpm)": 81, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 128, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 54, "Min. HRV(ms)": 11, "Max. HRV(ms)": 143}, {"Date": "2025-09-18", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 46, "Min. HRV(ms)": 14, "Max. HRV(ms)": 120}, {"Date": "2025-09-19", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 13, "Max. HRV(ms)": 118}, {"Date": "2025-09-20", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 62, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-09-21", "Avg. Heart Rate(bpm)": 85, "Min. Heart Rate(bpm)": 40, "Max. Heart Rate(bpm)": 120, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 41, "Min. HRV(ms)": 13, "Max. HRV(ms)": 102}, {"Date": "2025-09-22", "Avg. Heart Rate(bpm)": 84, "Min. Heart Rate(bpm)": 42, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 40, "Min. HRV(ms)": 11, "Max. HRV(ms)": 90}, {"Date": "2025-09-23", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 49, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 69}, {"Date": "2025-09-24", "Avg. Heart Rate(bpm)": 85, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 129, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 47, "Min. HRV(ms)": 12, "Max. HRV(ms)": 135}, {"Date": "2025-09-25", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 48, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 95.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 42, "Min. HRV(ms)": 14, "Max. HRV(ms)": 135}, {"Date": "2025-09-26", "Avg. Heart Rate(bpm)": 78, "Min. Heart Rate(bpm)": 43, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 51, "Min. HRV(ms)": 11, "Max. HRV(ms)": 146}, {"Date": "2025-09-27", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 128, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 89}, {"Date": "2025-09-28", "Avg. Heart Rate(bpm)": 84, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 129, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 103}, {"Date": "2025-09-29", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 95}, {"Date": "2025-09-30", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 128, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 72}, {"Date": "2025-10-01", "Avg. Heart Rate(bpm)": 79, "Min. Heart Rate(bpm)": 43, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 48, "Min. HRV(ms)": 12, "Max. HRV(ms)": 97}, {"Date": "2025-10-02", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 72}, {"Date": "2025-10-03", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 72}, {"Date": "2025-10-04", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 48, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 12, "Max. HRV(ms)": 106}, {"Date": "2025-10-05", "Avg. Heart Rate(bpm)": 75, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 42, "Min. HRV(ms)": 17, "Max. HRV(ms)": 86}, {"Date": "2025-10-06", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 147, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 12, "Max. HRV(ms)": 69}, {"Date": "2025-10-07", "Avg. Heart Rate(bpm)": 87, "Min. Heart Rate(bpm)": 46, "Max. Heart Rate(bpm)": 125, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 40, "Min. HRV(ms)": 12, "Max. HRV(ms)": 113}, {"Date": "2025-10-08", "Avg. Heart Rate(bpm)": 87, "Min. Heart Rate(bpm)": 45, "Max. Heart Rate(bpm)": 119, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 12, "Max. HRV(ms)": 81}, {"Date": "2025-10-09", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 115, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 59}, {"Date": "2025-10-10", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 31, "Min. HRV(ms)": 11, "Max. HRV(ms)": 171}, {"Date": "2025-10-11", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 176}, {"Date": "2025-10-12", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 43, "Max. Heart Rate(bpm)": 145, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 195}, {"Date": "2025-10-13", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 41, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 31, "Min. HRV(ms)": 11, "Max. HRV(ms)": 156}, {"Date": "2025-10-14", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 127, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-10-15", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 171}, {"Date": "2025-10-16", "Avg. Heart Rate(bpm)": 102, "Min. Heart Rate(bpm)": 60, "Max. Heart Rate(bpm)": 139, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 12, "Max. HRV(ms)": 99}, {"Date": "2025-10-17", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 128, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 12, "Max. HRV(ms)": 84}, {"Date": "2025-10-18", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 54}, {"Date": "2025-10-19", "Avg. Heart Rate(bpm)": 88, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 39, "Min. HRV(ms)": 11, "Max. HRV(ms)": 145}, {"Date": "2025-10-20", "Avg. Heart Rate(bpm)": 88, "Min. Heart Rate(bpm)": 47, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 86}, {"Date": "2025-10-21", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 48, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 77}, {"Date": "2025-10-22", "Avg. Heart Rate(bpm)": 98, "Min. Heart Rate(bpm)": 48, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 31, "Min. HRV(ms)": 12, "Max. HRV(ms)": 72}, {"Date": "2025-10-23", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 45, "Max. Heart Rate(bpm)": 126, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 46, "Min. HRV(ms)": 11, "Max. HRV(ms)": 141}, {"Date": "2025-10-24", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 68, "Max. Heart Rate(bpm)": 121, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 103}, {"Date": "2025-10-25", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 139, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-10-26", "Avg. Heart Rate(bpm)": 106, "Min. Heart Rate(bpm)": 48, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 99}, {"Date": "2025-10-27", "Avg. Heart Rate(bpm)": 105, "Min. Heart Rate(bpm)": 73, "Max. Heart Rate(bpm)": 145, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 77}, {"Date": "2025-10-28", "Avg. Heart Rate(bpm)": 103, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 62}, {"Date": "2025-10-29", "Avg. Heart Rate(bpm)": 108, "Min. Heart Rate(bpm)": 69, "Max. Heart Rate(bpm)": 146, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 52}, {"Date": "2025-10-30", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 75, "Max. Heart Rate(bpm)": 139, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 129}, {"Date": "2025-10-31", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 121, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 82}, {"Date": "2025-11-01", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 141}, {"Date": "2025-11-02", "Avg. Heart Rate(bpm)": 106, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 123}, {"Date": "2025-11-03", "Avg. Heart Rate(bpm)": 89, "Min. Heart Rate(bpm)": 45, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 48, "Min. HRV(ms)": 13, "Max. HRV(ms)": 147}, {"Date": "2025-11-04", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 128, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 197}, {"Date": "2025-11-05", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 126, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-11-06", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 115, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-11-07", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 46, "Max. Heart Rate(bpm)": 121, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 144}, {"Date": "2025-11-08", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 61, "Max. Heart Rate(bpm)": 125, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 143}, {"Date": "2025-11-09", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 139, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 99}, {"Date": "2025-11-10", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 64, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 77}, {"Date": "2025-11-11", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 49, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 31, "Min. HRV(ms)": 11, "Max. HRV(ms)": 76}, {"Date": "2025-11-12", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 73, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 98}, {"Date": "2025-11-13", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 63, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 66}, {"Date": "2025-11-14", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 139, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 78}, {"Date": "2025-11-15", "Avg. Heart Rate(bpm)": 112, "Min. Heart Rate(bpm)": 75, "Max. Heart Rate(bpm)": 128, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 12, "Max. HRV(ms)": 117}, {"Date": "2025-11-16", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 136}, {"Date": "2025-11-17", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 100}, {"Date": "2025-11-18", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 118}, {"Date": "2025-11-19", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 45, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 67}, {"Date": "2025-11-20", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 142, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 107}, {"Date": "2025-11-21", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 145, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 83.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 37, "Min. HRV(ms)": 11, "Max. HRV(ms)": 157}, {"Date": "2025-11-22", "Avg. Heart Rate(bpm)": 108, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 60}, {"Date": "2025-11-23", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 99}, {"Date": "2025-11-24", "Avg. Heart Rate(bpm)": 110, "Min. Heart Rate(bpm)": 74, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 23, "Min. HRV(ms)": 11, "Max. HRV(ms)": 57}, {"Date": "2025-11-25", "Avg. Heart Rate(bpm)": 108, "Min. Heart Rate(bpm)": 74, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 99}, {"Date": "2025-11-26", "Avg. Heart Rate(bpm)": 109, "Min. Heart Rate(bpm)": 82, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 66}, {"Date": "2025-11-27", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 63, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 76}, {"Date": "2025-11-28", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 70, "Max. Heart Rate(bpm)": 125, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 81}, {"Date": "2025-11-29", "Avg. Heart Rate(bpm)": 89, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 88.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 101}, {"Date": "2025-11-30", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 93}, {"Date": "2025-12-01", "Avg. Heart Rate(bpm)": 98, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 127, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 46, "Min. HRV(ms)": 15, "Max. HRV(ms)": 114}, {"Date": "2025-12-02", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 66, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 37, "Min. HRV(ms)": 11, "Max. HRV(ms)": 91}, {"Date": "2025-12-03", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 64, "Max. Heart Rate(bpm)": 122, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 86}, {"Date": "2025-12-04", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 121, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 86.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 85}, {"Date": "2025-12-05", "Avg. Heart Rate(bpm)": 98, "Min. Heart Rate(bpm)": 61, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 68}, {"Date": "2025-12-06", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 62, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 155}, {"Date": "2025-12-07", "Avg. Heart Rate(bpm)": 86, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 114}, {"Date": "2025-12-08", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 120, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 12, "Max. HRV(ms)": 101}, {"Date": "2025-12-09", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 46, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 109}, {"Date": "2025-12-10", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 129, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 46, "Min. HRV(ms)": 11, "Max. HRV(ms)": 118}, {"Date": "2025-12-11", "Avg. Heart Rate(bpm)": 105, "Min. Heart Rate(bpm)": 48, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-12-12", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 59, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 42, "Min. HRV(ms)": 11, "Max. HRV(ms)": 99}, {"Date": "2025-12-13", "Avg. Heart Rate(bpm)": 98, "Min. Heart Rate(bpm)": 66, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 23, "Min. HRV(ms)": 11, "Max. HRV(ms)": 62}, {"Date": "2025-12-14", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 73, "Max. Heart Rate(bpm)": 125, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 95.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 35, "Min. HRV(ms)": 14, "Max. HRV(ms)": 77}, {"Date": "2025-12-15", "Avg. Heart Rate(bpm)": 103, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 70}, {"Date": "2025-12-16", "Avg. Heart Rate(bpm)": 84, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 135}, {"Date": "2025-12-17", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 40, "Min. HRV(ms)": 11, "Max. HRV(ms)": 119}, {"Date": "2025-12-18", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 55, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 96}, {"Date": "2025-12-19", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 97}, {"Date": "2025-12-20", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 119, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 181}, {"Date": "2025-12-21", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 46, "Min. HRV(ms)": 14, "Max. HRV(ms)": 105}, {"Date": "2025-12-22", "Avg. Heart Rate(bpm)": 89, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 122, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 88.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 37, "Min. HRV(ms)": 11, "Max. HRV(ms)": 127}, {"Date": "2025-12-23", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 129, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 35, "Min. HRV(ms)": 11, "Max. HRV(ms)": 114}, {"Date": "2025-12-24", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 72}, {"Date": "2025-12-25", "Avg. Heart Rate(bpm)": 88, "Min. Heart Rate(bpm)": 49, "Max. Heart Rate(bpm)": 124, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 96}, {"Date": "2025-12-26", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 44, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 89}, {"Date": "2025-12-27", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 127, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 37, "Min. HRV(ms)": 11, "Max. HRV(ms)": 87}, {"Date": "2025-12-28", "Avg. Heart Rate(bpm)": 109, "Min. Heart Rate(bpm)": 69, "Max. Heart Rate(bpm)": 127, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 54}, {"Date": "2025-12-29", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 60, "Max. Heart Rate(bpm)": 125, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2025-12-30", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 119}, {"Date": "2025-12-31", "Avg. Heart Rate(bpm)": 102, "Min. Heart Rate(bpm)": 78, "Max. Heart Rate(bpm)": 143, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 48}, {"Date": "2026-01-01", "Avg. Heart Rate(bpm)": 108, "Min. Heart Rate(bpm)": 73, "Max. Heart Rate(bpm)": 151, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 113}, {"Date": "2026-01-02", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 76}, {"Date": "2026-01-03", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 83, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 180}, {"Date": "2026-01-04", "Avg. Heart Rate(bpm)": 89, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 149, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 94}, {"Date": "2026-01-05", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 76, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 95.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 155}, {"Date": "2026-01-06", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 61, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 76}, {"Date": "2026-01-07", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 62, "Max. Heart Rate(bpm)": 160, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 76}, {"Date": "2026-01-08", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 149, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 92}, {"Date": "2026-01-09", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 60, "Max. Heart Rate(bpm)": 120, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 73}, {"Date": "2026-01-10", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 140, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 39, "Min. HRV(ms)": 11, "Max. HRV(ms)": 105}, {"Date": "2026-01-11", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 74, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 73}, {"Date": "2026-01-12", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 61, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 107}, {"Date": "2026-01-13", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 65, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 60}, {"Date": "2026-01-14", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 119, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 142}, {"Date": "2026-01-15", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 66, "Max. Heart Rate(bpm)": 118, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 80}, {"Date": "2026-01-16", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 68, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 96}, {"Date": "2026-01-17", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 68, "Max. Heart Rate(bpm)": 144, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 74}, {"Date": "2026-01-18", "Avg. Heart Rate(bpm)": 98, "Min. Heart Rate(bpm)": 92, "Max. Heart Rate(bpm)": 107, "Avg. Spo2(%)": 97.0, "Min. Spo2(%)": 97.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 19, "Min. HRV(ms)": 12, "Max. HRV(ms)": 36}, {"Date": "2026-01-19", "Avg. Heart Rate(bpm)": 115, "Min. Heart Rate(bpm)": 75, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 70}, {"Date": "2026-01-20", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 70, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 23, "Min. HRV(ms)": 11, "Max. HRV(ms)": 167}, {"Date": "2026-01-21", "Avg. Heart Rate(bpm)": 106, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 85.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 101}, {"Date": "2026-01-22", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 75, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 88.0, "Max. Spo2(%)": 97.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 179}, {"Date": "2026-01-23", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 65, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 63}, {"Date": "2026-01-24", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 139, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 83.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 109}, {"Date": "2026-01-25", "Avg. Heart Rate(bpm)": 87, "Min. Heart Rate(bpm)": 61, "Max. Heart Rate(bpm)": 119, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 72}, {"Date": "2026-01-26", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 123, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 32, "Min. HRV(ms)": 11, "Max. HRV(ms)": 123}, {"Date": "2026-01-27", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 69, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 70}, {"Date": "2026-01-28", "Avg. Heart Rate(bpm)": 82, "Min. Heart Rate(bpm)": 65, "Max. Heart Rate(bpm)": 112, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 64}, {"Date": "2026-01-29", "Avg. Heart Rate(bpm)": 110, "Min. Heart Rate(bpm)": 61, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 79}, {"Date": "2026-01-30", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 65, "Max. Heart Rate(bpm)": 149, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 114}, {"Date": "2026-01-31", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 59, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 106}, {"Date": "2026-02-01", "Avg. Heart Rate(bpm)": 88, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 102}, {"Date": "2026-02-02", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 124}, {"Date": "2026-02-03", "Avg. Heart Rate(bpm)": 105, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 88.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 112}, {"Date": "2026-02-04", "Avg. Heart Rate(bpm)": 109, "Min. Heart Rate(bpm)": 55, "Max. Heart Rate(bpm)": 146, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 96}, {"Date": "2026-02-05", "Avg. Heart Rate(bpm)": 116, "Min. Heart Rate(bpm)": 89, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 135}, {"Date": "2026-02-06", "Avg. Heart Rate(bpm)": 119, "Min. Heart Rate(bpm)": 73, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 94.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 76}, {"Date": "2026-02-07", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 54}, {"Date": "2026-02-08", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 89}, {"Date": "2026-02-09", "Avg. Heart Rate(bpm)": 101, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 94}, {"Date": "2026-02-10", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 49, "Max. Heart Rate(bpm)": 132, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 108}, {"Date": "2026-02-11", "Avg. Heart Rate(bpm)": 89, "Min. Heart Rate(bpm)": 43, "Max. Heart Rate(bpm)": 143, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 42, "Min. HRV(ms)": 11, "Max. HRV(ms)": 94}, {"Date": "2026-02-12", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 53, "Max. Heart Rate(bpm)": 141, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 97}, {"Date": "2026-02-13", "Avg. Heart Rate(bpm)": 79, "Min. Heart Rate(bpm)": 43, "Max. Heart Rate(bpm)": 119, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 57, "Min. HRV(ms)": 12, "Max. HRV(ms)": 151}, {"Date": "2026-02-14", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 38, "Min. HRV(ms)": 11, "Max. HRV(ms)": 155}, {"Date": "2026-02-15", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 55, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 35, "Min. HRV(ms)": 11, "Max. HRV(ms)": 146}, {"Date": "2026-02-16", "Avg. Heart Rate(bpm)": 87, "Min. Heart Rate(bpm)": 50, "Max. Heart Rate(bpm)": 120, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 44, "Min. HRV(ms)": 12, "Max. HRV(ms)": 123}, {"Date": "2026-02-17", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 55, "Max. Heart Rate(bpm)": 127, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 43, "Min. HRV(ms)": 11, "Max. HRV(ms)": 136}, {"Date": "2026-02-18", "Avg. Heart Rate(bpm)": 87, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 85.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 52, "Min. HRV(ms)": 13, "Max. HRV(ms)": 137}, {"Date": "2026-02-19", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 126, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 79.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 39, "Min. HRV(ms)": 11, "Max. HRV(ms)": 112}, {"Date": "2026-02-20", "Avg. Heart Rate(bpm)": 85, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 45, "Min. HRV(ms)": 11, "Max. HRV(ms)": 116}, {"Date": "2026-02-21", "Avg. Heart Rate(bpm)": 88, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 118, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 88.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 44, "Min. HRV(ms)": 11, "Max. HRV(ms)": 166}, {"Date": "2026-02-22", "Avg. Heart Rate(bpm)": 88, "Min. Heart Rate(bpm)": 46, "Max. Heart Rate(bpm)": 130, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 42, "Min. HRV(ms)": 11, "Max. HRV(ms)": 123}, {"Date": "2026-02-23", "Avg. Heart Rate(bpm)": 102, "Min. Heart Rate(bpm)": 66, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 19, "Min. HRV(ms)": 11, "Max. HRV(ms)": 47}, {"Date": "2026-02-24", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 137, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 166}, {"Date": "2026-02-25", "Avg. Heart Rate(bpm)": 90, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 86.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 35, "Min. HRV(ms)": 11, "Max. HRV(ms)": 85}, {"Date": "2026-02-26", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 140, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 87.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 71}, {"Date": "2026-02-27", "Avg. Heart Rate(bpm)": 104, "Min. Heart Rate(bpm)": 44, "Max. Heart Rate(bpm)": 150, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 26, "Min. HRV(ms)": 11, "Max. HRV(ms)": 86}, {"Date": "2026-02-28", "Avg. Heart Rate(bpm)": 100, "Min. Heart Rate(bpm)": 72, "Max. Heart Rate(bpm)": 126, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 20, "Min. HRV(ms)": 11, "Max. HRV(ms)": 60}, {"Date": "2026-03-01", "Avg. Heart Rate(bpm)": 91, "Min. Heart Rate(bpm)": 51, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 36, "Min. HRV(ms)": 11, "Max. HRV(ms)": 112}, {"Date": "2026-03-02", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 39, "Min. HRV(ms)": 11, "Max. HRV(ms)": 119}, {"Date": "2026-03-03", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 125, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 34, "Min. HRV(ms)": 11, "Max. HRV(ms)": 100}, {"Date": "2026-03-04", "Avg. Heart Rate(bpm)": 93, "Min. Heart Rate(bpm)": 56, "Max. Heart Rate(bpm)": 143, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 89.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 29, "Min. HRV(ms)": 11, "Max. HRV(ms)": 89}, {"Date": "2026-03-05", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 52, "Max. Heart Rate(bpm)": 154, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 30, "Min. HRV(ms)": 11, "Max. HRV(ms)": 94}, {"Date": "2026-03-06", "Avg. Heart Rate(bpm)": 96, "Min. Heart Rate(bpm)": 57, "Max. Heart Rate(bpm)": 143, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 93.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 33, "Min. HRV(ms)": 11, "Max. HRV(ms)": 116}, {"Date": "2026-03-07", "Avg. Heart Rate(bpm)": 95, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 28, "Min. HRV(ms)": 11, "Max. HRV(ms)": 94}, {"Date": "2026-03-08", "Avg. Heart Rate(bpm)": 94, "Min. Heart Rate(bpm)": 64, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 93}, {"Date": "2026-03-09", "Avg. Heart Rate(bpm)": 105, "Min. Heart Rate(bpm)": 66, "Max. Heart Rate(bpm)": 138, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 23, "Min. HRV(ms)": 11, "Max. HRV(ms)": 81}, {"Date": "2026-03-11", "Avg. Heart Rate(bpm)": 92, "Min. Heart Rate(bpm)": 65, "Max. Heart Rate(bpm)": 131, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 100}, {"Date": "2026-03-10", "Avg. Heart Rate(bpm)": 111, "Min. Heart Rate(bpm)": 77, "Max. Heart Rate(bpm)": 136, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 23, "Min. HRV(ms)": 11, "Max. HRV(ms)": 71}, {"Date": "2026-03-12", "Avg. Heart Rate(bpm)": 111, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 134, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 92.0, "Max. Spo2(%)": 99.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 77}, {"Date": "2026-03-13", "Avg. Heart Rate(bpm)": 99, "Min. Heart Rate(bpm)": 54, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 94.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 25, "Min. HRV(ms)": 11, "Max. HRV(ms)": 64}, {"Date": "2026-03-14", "Avg. Heart Rate(bpm)": 103, "Min. Heart Rate(bpm)": 70, "Max. Heart Rate(bpm)": 133, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 24, "Min. HRV(ms)": 11, "Max. HRV(ms)": 70}, {"Date": "2026-03-15", "Avg. Heart Rate(bpm)": 97, "Min. Heart Rate(bpm)": 58, "Max. Heart Rate(bpm)": 142, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 27, "Min. HRV(ms)": 11, "Max. HRV(ms)": 82}, {"Date": "2026-03-16", "Avg. Heart Rate(bpm)": 113, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 155, "Avg. Spo2(%)": 95.0, "Min. Spo2(%)": 90.0, "Max. Spo2(%)": 98.0, "Avg. HRV(ms)": 20, "Min. HRV(ms)": 11, "Max. HRV(ms)": 51}, {"Date": "2026-03-17", "Avg. Heart Rate(bpm)": 102, "Min. Heart Rate(bpm)": 71, "Max. Heart Rate(bpm)": 135, "Avg. Spo2(%)": 96.0, "Min. Spo2(%)": 91.0, "Max. Spo2(%)": 100.0, "Avg. HRV(ms)": 22, "Min. HRV(ms)": 11, "Max. HRV(ms)": 61}], "activity": [{"Date": "2025-09-11", "Steps": 1315, "Calories(kcal)": 865}, {"Date": "2025-09-12", "Steps": 2210, "Calories(kcal)": 2299}, {"Date": "2025-09-13", "Steps": 1069, "Calories(kcal)": 2050}, {"Date": "2025-09-14", "Steps": 4048, "Calories(kcal)": 2317}, {"Date": "2025-09-15", "Steps": 4177, "Calories(kcal)": 2907}, {"Date": "2025-09-16", "Steps": 5158, "Calories(kcal)": 2855}, {"Date": "2025-09-17", "Steps": 1390, "Calories(kcal)": 2058}, {"Date": "2025-09-18", "Steps": 4190, "Calories(kcal)": 2615}, {"Date": "2025-09-19", "Steps": 3182, "Calories(kcal)": 2359}, {"Date": "2025-09-20", "Steps": 4390, "Calories(kcal)": 2554}, {"Date": "2025-09-21", "Steps": 1482, "Calories(kcal)": 2104}, {"Date": "2025-09-22", "Steps": 1621, "Calories(kcal)": 2021}, {"Date": "2025-09-23", "Steps": 5093, "Calories(kcal)": 2632}, {"Date": "2025-09-24", "Steps": 3980, "Calories(kcal)": 2352}, {"Date": "2025-09-25", "Steps": 4216, "Calories(kcal)": 2613}, {"Date": "2025-09-26", "Steps": 2511, "Calories(kcal)": 2211}, {"Date": "2025-09-27", "Steps": 4269, "Calories(kcal)": 2576}, {"Date": "2025-09-28", "Steps": 2032, "Calories(kcal)": 2481}, {"Date": "2025-09-29", "Steps": 8791, "Calories(kcal)": 2956}, {"Date": "2025-09-30", "Steps": 5766, "Calories(kcal)": 2741}, {"Date": "2025-10-01", "Steps": 1504, "Calories(kcal)": 2142}, {"Date": "2025-10-02", "Steps": 2543, "Calories(kcal)": 2772}, {"Date": "2025-10-03", "Steps": 2551, "Calories(kcal)": 2267}, {"Date": "2025-10-04", "Steps": 2185, "Calories(kcal)": 2234}, {"Date": "2025-10-05", "Steps": 1644, "Calories(kcal)": 1980}, {"Date": "2025-10-06", "Steps": 1657, "Calories(kcal)": 2128}, {"Date": "2025-10-07", "Steps": 4113, "Calories(kcal)": 2444}, {"Date": "2025-10-08", "Steps": 1098, "Calories(kcal)": 1965}, {"Date": "2025-10-09", "Steps": 1318, "Calories(kcal)": 2032}, {"Date": "2025-10-10", "Steps": 3405, "Calories(kcal)": 2233}, {"Date": "2025-10-11", "Steps": 3663, "Calories(kcal)": 2348}, {"Date": "2025-10-12", "Steps": 2178, "Calories(kcal)": 2114}, {"Date": "2025-10-13", "Steps": 2041, "Calories(kcal)": 2098}, {"Date": "2025-10-14", "Steps": 4900, "Calories(kcal)": 2302}, {"Date": "2025-10-15", "Steps": 4982, "Calories(kcal)": 2526}, {"Date": "2025-10-16", "Steps": 3841, "Calories(kcal)": 2315}, {"Date": "2025-10-17", "Steps": 2897, "Calories(kcal)": 2236}, {"Date": "2025-10-18", "Steps": 1321, "Calories(kcal)": 2198}, {"Date": "2025-10-19", "Steps": 1592, "Calories(kcal)": 2018}, {"Date": "2025-10-20", "Steps": 300, "Calories(kcal)": 1899}, {"Date": "2025-10-21", "Steps": 2416, "Calories(kcal)": 2121}, {"Date": "2025-10-22", "Steps": 2252, "Calories(kcal)": 2225}, {"Date": "2025-10-23", "Steps": 775, "Calories(kcal)": 1922}, {"Date": "2025-10-24", "Steps": 2730, "Calories(kcal)": 2222}, {"Date": "2025-10-25", "Steps": 2001, "Calories(kcal)": 2143}, {"Date": "2025-10-26", "Steps": 3636, "Calories(kcal)": 2461}, {"Date": "2025-10-27", "Steps": 2914, "Calories(kcal)": 2499}, {"Date": "2025-10-28", "Steps": 2162, "Calories(kcal)": 2141}, {"Date": "2025-10-29", "Steps": 1180, "Calories(kcal)": 2153}, {"Date": "2025-10-30", "Steps": 1660, "Calories(kcal)": 2153}, {"Date": "2025-10-31", "Steps": 2207, "Calories(kcal)": 2115}, {"Date": "2025-11-01", "Steps": 4112, "Calories(kcal)": 2631}, {"Date": "2025-11-02", "Steps": 3882, "Calories(kcal)": 2611}, {"Date": "2025-11-03", "Steps": 1969, "Calories(kcal)": 2115}, {"Date": "2025-11-04", "Steps": 2006, "Calories(kcal)": 2122}, {"Date": "2025-11-05", "Steps": 1525, "Calories(kcal)": 2033}, {"Date": "2025-11-06", "Steps": 2469, "Calories(kcal)": 2324}, {"Date": "2025-11-07", "Steps": 1449, "Calories(kcal)": 2126}, {"Date": "2025-11-08", "Steps": 1222, "Calories(kcal)": 2138}, {"Date": "2025-11-09", "Steps": 4167, "Calories(kcal)": 2423}, {"Date": "2025-11-10", "Steps": 2925, "Calories(kcal)": 2340}, {"Date": "2025-11-11", "Steps": 2504, "Calories(kcal)": 2324}, {"Date": "2025-11-12", "Steps": 1429, "Calories(kcal)": 2092}, {"Date": "2025-11-13", "Steps": 3184, "Calories(kcal)": 2415}, {"Date": "2025-11-14", "Steps": 1754, "Calories(kcal)": 2100}, {"Date": "2025-11-15", "Steps": 1201, "Calories(kcal)": 2127}, {"Date": "2025-11-16", "Steps": 2149, "Calories(kcal)": 2253}, {"Date": "2025-11-17", "Steps": 3010, "Calories(kcal)": 2282}, {"Date": "2025-11-18", "Steps": 1677, "Calories(kcal)": 2166}, {"Date": "2025-11-19", "Steps": 2165, "Calories(kcal)": 2230}, {"Date": "2025-11-20", "Steps": 1132, "Calories(kcal)": 2164}, {"Date": "2025-11-21", "Steps": 1538, "Calories(kcal)": 2137}, {"Date": "2025-11-22", "Steps": 2359, "Calories(kcal)": 2317}, {"Date": "2025-11-23", "Steps": 2859, "Calories(kcal)": 2304}, {"Date": "2025-11-24", "Steps": 3697, "Calories(kcal)": 2874}, {"Date": "2025-11-25", "Steps": 4761, "Calories(kcal)": 2764}, {"Date": "2025-11-26", "Steps": 4264, "Calories(kcal)": 2455}, {"Date": "2025-11-27", "Steps": 2536, "Calories(kcal)": 2279}, {"Date": "2025-11-28", "Steps": 1164, "Calories(kcal)": 2092}, {"Date": "2025-11-29", "Steps": 444, "Calories(kcal)": 1995}, {"Date": "2025-11-30", "Steps": 2204, "Calories(kcal)": 2226}, {"Date": "2025-12-01", "Steps": 3364, "Calories(kcal)": 2652}, {"Date": "2025-12-02", "Steps": 2886, "Calories(kcal)": 2306}, {"Date": "2025-12-03", "Steps": 2188, "Calories(kcal)": 2192}, {"Date": "2025-12-04", "Steps": 2128, "Calories(kcal)": 2147}, {"Date": "2025-12-05", "Steps": 2240, "Calories(kcal)": 2519}, {"Date": "2025-12-06", "Steps": 2732, "Calories(kcal)": 2252}, {"Date": "2025-12-07", "Steps": 2017, "Calories(kcal)": 2232}, {"Date": "2025-12-08", "Steps": 4204, "Calories(kcal)": 2473}, {"Date": "2025-12-09", "Steps": 2848, "Calories(kcal)": 2343}, {"Date": "2025-12-10", "Steps": 1095, "Calories(kcal)": 1969}, {"Date": "2025-12-11", "Steps": 5783, "Calories(kcal)": 2775}, {"Date": "2025-12-12", "Steps": 2021, "Calories(kcal)": 2209}, {"Date": "2025-12-13", "Steps": 3056, "Calories(kcal)": 2402}, {"Date": "2025-12-14", "Steps": 1090, "Calories(kcal)": 1954}, {"Date": "2025-12-15", "Steps": 2724, "Calories(kcal)": 2302}, {"Date": "2025-12-16", "Steps": 2093, "Calories(kcal)": 2061}, {"Date": "2025-12-17", "Steps": 3799, "Calories(kcal)": 2393}, {"Date": "2025-12-18", "Steps": 3757, "Calories(kcal)": 2608}, {"Date": "2025-12-19", "Steps": 4220, "Calories(kcal)": 2438}, {"Date": "2025-12-20", "Steps": 3107, "Calories(kcal)": 2455}, {"Date": "2025-12-21", "Steps": 2240, "Calories(kcal)": 2311}, {"Date": "2025-12-22", "Steps": 4785, "Calories(kcal)": 2584}, {"Date": "2025-12-23", "Steps": 3539, "Calories(kcal)": 2596}, {"Date": "2025-12-24", "Steps": 2601, "Calories(kcal)": 2290}, {"Date": "2025-12-25", "Steps": 1371, "Calories(kcal)": 2042}, {"Date": "2025-12-26", "Steps": 1348, "Calories(kcal)": 2030}, {"Date": "2025-12-27", "Steps": 2155, "Calories(kcal)": 2143}, {"Date": "2025-12-28", "Steps": 6356, "Calories(kcal)": 2813}, {"Date": "2025-12-29", "Steps": 4793, "Calories(kcal)": 2689}, {"Date": "2025-12-30", "Steps": 3006, "Calories(kcal)": 2136}, {"Date": "2025-12-31", "Steps": 2381, "Calories(kcal)": 2208}, {"Date": "2026-01-01", "Steps": 3602, "Calories(kcal)": 2436}, {"Date": "2026-01-02", "Steps": 1398, "Calories(kcal)": 2085}, {"Date": "2026-01-03", "Steps": 6325, "Calories(kcal)": 2775}, {"Date": "2026-01-04", "Steps": 2374, "Calories(kcal)": 2316}, {"Date": "2026-01-05", "Steps": 3359, "Calories(kcal)": 2544}, {"Date": "2026-01-06", "Steps": 3281, "Calories(kcal)": 2276}, {"Date": "2026-01-07", "Steps": 3331, "Calories(kcal)": 2372}, {"Date": "2026-01-08", "Steps": 5079, "Calories(kcal)": 2540}, {"Date": "2026-01-09", "Steps": 3297, "Calories(kcal)": 2331}, {"Date": "2026-01-10", "Steps": 2707, "Calories(kcal)": 2247}, {"Date": "2026-01-11", "Steps": 5034, "Calories(kcal)": 2456}, {"Date": "2026-01-12", "Steps": 3032, "Calories(kcal)": 2188}, {"Date": "2026-01-13", "Steps": 3734, "Calories(kcal)": 2539}, {"Date": "2026-01-14", "Steps": 7994, "Calories(kcal)": 2861}, {"Date": "2026-01-15", "Steps": 4128, "Calories(kcal)": 2526}, {"Date": "2026-01-16", "Steps": 4072, "Calories(kcal)": 2536}, {"Date": "2026-01-17", "Steps": 4210, "Calories(kcal)": 2357}, {"Date": "2026-01-18", "Steps": 0, "Calories(kcal)": 1728}, {"Date": "2026-01-19", "Steps": 1952, "Calories(kcal)": 1991}, {"Date": "2026-01-20", "Steps": 4524, "Calories(kcal)": 2318}, {"Date": "2026-01-21", "Steps": 3195, "Calories(kcal)": 2395}, {"Date": "2026-01-22", "Steps": 2929, "Calories(kcal)": 2304}, {"Date": "2026-01-23", "Steps": 2596, "Calories(kcal)": 2170}, {"Date": "2026-01-24", "Steps": 1974, "Calories(kcal)": 2119}, {"Date": "2026-01-25", "Steps": 839, "Calories(kcal)": 1925}, {"Date": "2026-01-26", "Steps": 2419, "Calories(kcal)": 2270}, {"Date": "2026-01-27", "Steps": 3380, "Calories(kcal)": 2184}, {"Date": "2026-01-28", "Steps": 228, "Calories(kcal)": 1789}, {"Date": "2026-01-29", "Steps": 3415, "Calories(kcal)": 2253}, {"Date": "2026-01-30", "Steps": 1544, "Calories(kcal)": 2026}, {"Date": "2026-01-31", "Steps": 2323, "Calories(kcal)": 2177}, {"Date": "2026-02-01", "Steps": 755, "Calories(kcal)": 2066}, {"Date": "2026-02-02", "Steps": 926, "Calories(kcal)": 1981}, {"Date": "2026-02-03", "Steps": 2400, "Calories(kcal)": 2254}, {"Date": "2026-02-04", "Steps": 2028, "Calories(kcal)": 2085}, {"Date": "2026-02-05", "Steps": 1975, "Calories(kcal)": 2100}, {"Date": "2026-02-06", "Steps": 2015, "Calories(kcal)": 2184}, {"Date": "2026-02-07", "Steps": 4714, "Calories(kcal)": 2325}, {"Date": "2026-02-08", "Steps": 3638, "Calories(kcal)": 2278}, {"Date": "2026-02-09", "Steps": 5023, "Calories(kcal)": 2456}, {"Date": "2026-02-10", "Steps": 4688, "Calories(kcal)": 2426}, {"Date": "2026-02-11", "Steps": 1830, "Calories(kcal)": 2395}, {"Date": "2026-02-12", "Steps": 3739, "Calories(kcal)": 3255}, {"Date": "2026-02-13", "Steps": 716, "Calories(kcal)": 1978}, {"Date": "2026-02-14", "Steps": 1527, "Calories(kcal)": 2073}, {"Date": "2026-02-15", "Steps": 3214, "Calories(kcal)": 2378}, {"Date": "2026-02-16", "Steps": 448, "Calories(kcal)": 1924}, {"Date": "2026-02-17", "Steps": 3867, "Calories(kcal)": 2330}, {"Date": "2026-02-18", "Steps": 1289, "Calories(kcal)": 2075}, {"Date": "2026-02-19", "Steps": 2775, "Calories(kcal)": 2176}, {"Date": "2026-02-20", "Steps": 4400, "Calories(kcal)": 2418}, {"Date": "2026-02-21", "Steps": 2107, "Calories(kcal)": 2142}, {"Date": "2026-02-22", "Steps": 2417, "Calories(kcal)": 2170}, {"Date": "2026-02-23", "Steps": 1452, "Calories(kcal)": 2040}, {"Date": "2026-02-24", "Steps": 2959, "Calories(kcal)": 2288}, {"Date": "2026-02-25", "Steps": 849, "Calories(kcal)": 1980}, {"Date": "2026-02-26", "Steps": 1803, "Calories(kcal)": 2089}, {"Date": "2026-02-27", "Steps": 4768, "Calories(kcal)": 2512}, {"Date": "2026-02-28", "Steps": 2071, "Calories(kcal)": 2091}, {"Date": "2026-03-01", "Steps": 3355, "Calories(kcal)": 2391}, {"Date": "2026-03-02", "Steps": 4498, "Calories(kcal)": 2310}, {"Date": "2026-03-03", "Steps": 2714, "Calories(kcal)": 2341}, {"Date": "2026-03-04", "Steps": 2311, "Calories(kcal)": 2182}, {"Date": "2026-03-05", "Steps": 3640, "Calories(kcal)": 2342}, {"Date": "2026-03-06", "Steps": 3149, "Calories(kcal)": 2169}, {"Date": "2026-03-07", "Steps": 1016, "Calories(kcal)": 2029}, {"Date": "2026-03-08", "Steps": 3135, "Calories(kcal)": 2163}, {"Date": "2026-03-09", "Steps": 2417, "Calories(kcal)": 2156}, {"Date": "2026-03-11", "Steps": 1400, "Calories(kcal)": 1991}, {"Date": "2026-03-10", "Steps": 2826, "Calories(kcal)": 2290}, {"Date": "2026-03-12", "Steps": 10685, "Calories(kcal)": 3035}, {"Date": "2026-03-13", "Steps": 4146, "Calories(kcal)": 2227}, {"Date": "2026-03-14", "Steps": 2744, "Calories(kcal)": 2203}, {"Date": "2026-03-15", "Steps": 1080, "Calories(kcal)": 1991}, {"Date": "2026-03-16", "Steps": 5854, "Calories(kcal)": 2743}, {"Date": "2026-03-17", "Steps": 3085, "Calories(kcal)": 2332}], "sleep": [{"date": "2025-09-11", "Time Asleep(min)": 275, "Sleep Time Ratio(%)": 81.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 90, "Sleep Stages - Light Sleep(min)": 170, "Sleep Stages - Awake(min)": 30, "hours": 4.58}, {"date": "2025-09-13", "Time Asleep(min)": 1050, "Sleep Time Ratio(%)": 95.0, "Sleep Stages - REM(min)": 175, "Sleep Stages - Deep Sleep(min)": 195, "Sleep Stages - Light Sleep(min)": 680, "Sleep Stages - Awake(min)": 35, "hours": 17.5}, {"date": "2025-09-14", "Time Asleep(min)": 250, "Sleep Time Ratio(%)": 60.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 90, "Sleep Stages - Light Sleep(min)": 140, "Sleep Stages - Awake(min)": 61, "hours": 4.17}, {"date": "2025-09-17", "Time Asleep(min)": 1045, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 250, "Sleep Stages - Deep Sleep(min)": 165, "Sleep Stages - Light Sleep(min)": 630, "Sleep Stages - Awake(min)": 106, "hours": 17.42}, {"date": "2025-09-20", "Time Asleep(min)": 783, "Sleep Time Ratio(%)": 78.0, "Sleep Stages - REM(min)": 120, "Sleep Stages - Deep Sleep(min)": 210, "Sleep Stages - Light Sleep(min)": 453, "Sleep Stages - Awake(min)": 100, "hours": 13.05}, {"date": "2025-09-21", "Time Asleep(min)": 112, "Sleep Time Ratio(%)": 84.0, "Sleep Stages - REM(min)": 45, "Sleep Stages - Deep Sleep(min)": 25, "Sleep Stages - Light Sleep(min)": 42, "Sleep Stages - Awake(min)": 8, "hours": 1.87}, {"date": "2025-09-22", "Time Asleep(min)": 382, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 95, "Sleep Stages - Light Sleep(min)": 232, "Sleep Stages - Awake(min)": 13, "hours": 6.37}, {"date": "2025-09-24", "Time Asleep(min)": 573, "Sleep Time Ratio(%)": 92.0, "Sleep Stages - REM(min)": 110, "Sleep Stages - Deep Sleep(min)": 115, "Sleep Stages - Light Sleep(min)": 348, "Sleep Stages - Awake(min)": 7, "hours": 9.55}, {"date": "2025-09-25", "Time Asleep(min)": 603, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 180, "Sleep Stages - Deep Sleep(min)": 125, "Sleep Stages - Light Sleep(min)": 298, "Sleep Stages - Awake(min)": 27, "hours": 10.05}, {"date": "2025-09-26", "Time Asleep(min)": 85, "Sleep Time Ratio(%)": 77.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 20, "Sleep Stages - Light Sleep(min)": 60, "Sleep Stages - Awake(min)": 10, "hours": 1.42}, {"date": "2025-09-27", "Time Asleep(min)": 130, "Sleep Time Ratio(%)": 70.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 25, "Sleep Stages - Light Sleep(min)": 100, "Sleep Stages - Awake(min)": 6, "hours": 2.17}, {"date": "2025-09-28", "Time Asleep(min)": 605, "Sleep Time Ratio(%)": 92.0, "Sleep Stages - REM(min)": 185, "Sleep Stages - Deep Sleep(min)": 145, "Sleep Stages - Light Sleep(min)": 275, "Sleep Stages - Awake(min)": 36, "hours": 10.08}, {"date": "2025-09-29", "Time Asleep(min)": 162, "Sleep Time Ratio(%)": 80.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 40, "Sleep Stages - Light Sleep(min)": 122, "Sleep Stages - Awake(min)": 1, "hours": 2.7}, {"date": "2025-09-30", "Time Asleep(min)": 870, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 140, "Sleep Stages - Deep Sleep(min)": 190, "Sleep Stages - Light Sleep(min)": 540, "Sleep Stages - Awake(min)": 36, "hours": 14.5}, {"date": "2025-10-03", "Time Asleep(min)": 345, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 95, "Sleep Stages - Light Sleep(min)": 215, "Sleep Stages - Awake(min)": 15, "hours": 5.75}, {"date": "2025-10-04", "Time Asleep(min)": 985, "Sleep Time Ratio(%)": 94.0, "Sleep Stages - REM(min)": 160, "Sleep Stages - Deep Sleep(min)": 170, "Sleep Stages - Light Sleep(min)": 655, "Sleep Stages - Awake(min)": 31, "hours": 16.42}, {"date": "2025-10-08", "Time Asleep(min)": 655, "Sleep Time Ratio(%)": 96.0, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 178, "Sleep Stages - Light Sleep(min)": 422, "Sleep Stages - Awake(min)": 10, "hours": 10.92}, {"date": "2025-10-09", "Time Asleep(min)": 271, "Sleep Time Ratio(%)": 58.0, "Sleep Stages - REM(min)": 60, "Sleep Stages - Deep Sleep(min)": 93, "Sleep Stages - Light Sleep(min)": 118, "Sleep Stages - Awake(min)": 140, "hours": 4.52}, {"date": "2025-10-10", "Time Asleep(min)": 280, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 55, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 5, "hours": 4.67}, {"date": "2025-10-11", "Time Asleep(min)": 140, "Sleep Time Ratio(%)": 83.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 85, "Sleep Stages - Awake(min)": 10, "hours": 2.33}, {"date": "2025-10-12", "Time Asleep(min)": 665, "Sleep Time Ratio(%)": 85.0, "Sleep Stages - REM(min)": 130, "Sleep Stages - Deep Sleep(min)": 180, "Sleep Stages - Light Sleep(min)": 355, "Sleep Stages - Awake(min)": 5, "hours": 11.08}, {"date": "2025-10-13", "Time Asleep(min)": 168, "Sleep Time Ratio(%)": 78.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 15, "Sleep Stages - Light Sleep(min)": 138, "Sleep Stages - Awake(min)": 2, "hours": 2.8}, {"date": "2025-10-14", "Time Asleep(min)": 515, "Sleep Time Ratio(%)": 80.5, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 80, "Sleep Stages - Light Sleep(min)": 435, "Sleep Stages - Awake(min)": 30, "hours": 8.58}, {"date": "2025-10-16", "Time Asleep(min)": 70, "Sleep Time Ratio(%)": 62.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 10, "Sleep Stages - Light Sleep(min)": 40, "Sleep Stages - Awake(min)": 0, "hours": 1.17}, {"date": "2025-10-17", "Time Asleep(min)": 505, "Sleep Time Ratio(%)": 92.0, "Sleep Stages - REM(min)": 95, "Sleep Stages - Deep Sleep(min)": 105, "Sleep Stages - Light Sleep(min)": 305, "Sleep Stages - Awake(min)": 20, "hours": 8.42}, {"date": "2025-10-19", "Time Asleep(min)": 967, "Sleep Time Ratio(%)": 91.5, "Sleep Stages - REM(min)": 100, "Sleep Stages - Deep Sleep(min)": 200, "Sleep Stages - Light Sleep(min)": 667, "Sleep Stages - Awake(min)": 43, "hours": 16.12}, {"date": "2025-10-21", "Time Asleep(min)": 450, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 40, "Sleep Stages - Deep Sleep(min)": 60, "Sleep Stages - Light Sleep(min)": 350, "Sleep Stages - Awake(min)": 0, "hours": 7.5}, {"date": "2025-10-23", "Time Asleep(min)": 683, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 85, "Sleep Stages - Deep Sleep(min)": 170, "Sleep Stages - Light Sleep(min)": 428, "Sleep Stages - Awake(min)": 43, "hours": 11.38}, {"date": "2025-10-25", "Time Asleep(min)": 400, "Sleep Time Ratio(%)": 87.0, "Sleep Stages - REM(min)": 10, "Sleep Stages - Deep Sleep(min)": 75, "Sleep Stages - Light Sleep(min)": 315, "Sleep Stages - Awake(min)": 15, "hours": 6.67}, {"date": "2025-10-26", "Time Asleep(min)": 110, "Sleep Time Ratio(%)": 85.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 15, "Sleep Stages - Light Sleep(min)": 80, "Sleep Stages - Awake(min)": 0, "hours": 1.83}, {"date": "2025-10-27", "Time Asleep(min)": 220, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 40, "Sleep Stages - Light Sleep(min)": 155, "Sleep Stages - Awake(min)": 0, "hours": 3.67}, {"date": "2025-10-28", "Time Asleep(min)": 365, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 70, "Sleep Stages - Light Sleep(min)": 280, "Sleep Stages - Awake(min)": 30, "hours": 6.08}, {"date": "2025-10-29", "Time Asleep(min)": 160, "Sleep Time Ratio(%)": 84.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 125, "Sleep Stages - Awake(min)": 3, "hours": 2.67}, {"date": "2025-10-30", "Time Asleep(min)": 140, "Sleep Time Ratio(%)": 81.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 25, "Sleep Stages - Light Sleep(min)": 115, "Sleep Stages - Awake(min)": 0, "hours": 2.33}, {"date": "2025-10-31", "Time Asleep(min)": 310, "Sleep Time Ratio(%)": 87.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 65, "Sleep Stages - Light Sleep(min)": 230, "Sleep Stages - Awake(min)": 15, "hours": 5.17}, {"date": "2025-11-01", "Time Asleep(min)": 295, "Sleep Time Ratio(%)": 84.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 75, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 15, "hours": 4.92}, {"date": "2025-11-03", "Time Asleep(min)": 510, "Sleep Time Ratio(%)": 87.0, "Sleep Stages - REM(min)": 110, "Sleep Stages - Deep Sleep(min)": 125, "Sleep Stages - Light Sleep(min)": 275, "Sleep Stages - Awake(min)": 10, "hours": 8.5}, {"date": "2025-11-04", "Time Asleep(min)": 250, "Sleep Time Ratio(%)": 83.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 50, "Sleep Stages - Light Sleep(min)": 165, "Sleep Stages - Awake(min)": 0, "hours": 4.17}, {"date": "2025-11-06", "Time Asleep(min)": 445, "Sleep Time Ratio(%)": 84.0, "Sleep Stages - REM(min)": 60, "Sleep Stages - Deep Sleep(min)": 60, "Sleep Stages - Light Sleep(min)": 325, "Sleep Stages - Awake(min)": 15, "hours": 7.42}, {"date": "2025-11-07", "Time Asleep(min)": 385, "Sleep Time Ratio(%)": 79.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 95, "Sleep Stages - Light Sleep(min)": 260, "Sleep Stages - Awake(min)": 3, "hours": 6.42}, {"date": "2025-11-08", "Time Asleep(min)": 542, "Sleep Time Ratio(%)": 86.5, "Sleep Stages - REM(min)": 75, "Sleep Stages - Deep Sleep(min)": 155, "Sleep Stages - Light Sleep(min)": 312, "Sleep Stages - Awake(min)": 23, "hours": 9.03}, {"date": "2025-11-10", "Time Asleep(min)": 681, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 98, "Sleep Stages - Deep Sleep(min)": 155, "Sleep Stages - Light Sleep(min)": 428, "Sleep Stages - Awake(min)": 25, "hours": 11.35}, {"date": "2025-11-13", "Time Asleep(min)": 358, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 50, "Sleep Stages - Deep Sleep(min)": 80, "Sleep Stages - Light Sleep(min)": 228, "Sleep Stages - Awake(min)": 7, "hours": 5.97}, {"date": "2025-11-14", "Time Asleep(min)": 80, "Sleep Time Ratio(%)": 68.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 10, "Sleep Stages - Light Sleep(min)": 70, "Sleep Stages - Awake(min)": 0, "hours": 1.33}, {"date": "2025-11-16", "Time Asleep(min)": 712, "Sleep Time Ratio(%)": 83.0, "Sleep Stages - REM(min)": 80, "Sleep Stages - Deep Sleep(min)": 190, "Sleep Stages - Light Sleep(min)": 442, "Sleep Stages - Awake(min)": 88, "hours": 11.87}, {"date": "2025-11-17", "Time Asleep(min)": 240, "Sleep Time Ratio(%)": 80.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 35, "Sleep Stages - Light Sleep(min)": 180, "Sleep Stages - Awake(min)": 15, "hours": 4.0}, {"date": "2025-11-18", "Time Asleep(min)": 200, "Sleep Time Ratio(%)": 84.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 20, "Sleep Stages - Light Sleep(min)": 160, "Sleep Stages - Awake(min)": 1, "hours": 3.33}, {"date": "2025-11-19", "Time Asleep(min)": 165, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 130, "Sleep Stages - Awake(min)": 6, "hours": 2.75}, {"date": "2025-11-20", "Time Asleep(min)": 430, "Sleep Time Ratio(%)": 93.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 60, "Sleep Stages - Light Sleep(min)": 340, "Sleep Stages - Awake(min)": 16, "hours": 7.17}, {"date": "2025-11-21", "Time Asleep(min)": 310, "Sleep Time Ratio(%)": 81.0, "Sleep Stages - REM(min)": 40, "Sleep Stages - Deep Sleep(min)": 65, "Sleep Stages - Light Sleep(min)": 205, "Sleep Stages - Awake(min)": 10, "hours": 5.17}, {"date": "2025-11-22", "Time Asleep(min)": 197, "Sleep Time Ratio(%)": 79.0, "Sleep Stages - REM(min)": 45, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 122, "Sleep Stages - Awake(min)": 8, "hours": 3.28}, {"date": "2025-11-23", "Time Asleep(min)": 295, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 70, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 20, "hours": 4.92}, {"date": "2025-11-24", "Time Asleep(min)": 120, "Sleep Time Ratio(%)": 76.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 20, "Sleep Stages - Light Sleep(min)": 85, "Sleep Stages - Awake(min)": 5, "hours": 2.0}, {"date": "2025-11-26", "Time Asleep(min)": 145, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 25, "Sleep Stages - Light Sleep(min)": 105, "Sleep Stages - Awake(min)": 0, "hours": 2.42}, {"date": "2025-11-27", "Time Asleep(min)": 375, "Sleep Time Ratio(%)": 78.0, "Sleep Stages - REM(min)": 10, "Sleep Stages - Deep Sleep(min)": 100, "Sleep Stages - Light Sleep(min)": 265, "Sleep Stages - Awake(min)": 45, "hours": 6.25}, {"date": "2025-11-28", "Time Asleep(min)": 255, "Sleep Time Ratio(%)": 87.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 45, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 10, "hours": 4.25}, {"date": "2025-11-29", "Time Asleep(min)": 637, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 115, "Sleep Stages - Deep Sleep(min)": 140, "Sleep Stages - Light Sleep(min)": 382, "Sleep Stages - Awake(min)": 48, "hours": 10.62}, {"date": "2025-11-30", "Time Asleep(min)": 425, "Sleep Time Ratio(%)": 78.66666666666667, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 80, "Sleep Stages - Light Sleep(min)": 320, "Sleep Stages - Awake(min)": 16, "hours": 7.08}, {"date": "2025-12-01", "Time Asleep(min)": 215, "Sleep Time Ratio(%)": 85.0, "Sleep Stages - REM(min)": 40, "Sleep Stages - Deep Sleep(min)": 55, "Sleep Stages - Light Sleep(min)": 120, "Sleep Stages - Awake(min)": 11, "hours": 3.58}, {"date": "2025-12-02", "Time Asleep(min)": 435, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 70, "Sleep Stages - Deep Sleep(min)": 85, "Sleep Stages - Light Sleep(min)": 280, "Sleep Stages - Awake(min)": 40, "hours": 7.25}, {"date": "2025-12-03", "Time Asleep(min)": 70, "Sleep Time Ratio(%)": 54.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 15, "Sleep Stages - Light Sleep(min)": 55, "Sleep Stages - Awake(min)": 0, "hours": 1.17}, {"date": "2025-12-04", "Time Asleep(min)": 738, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 60, "Sleep Stages - Deep Sleep(min)": 200, "Sleep Stages - Light Sleep(min)": 478, "Sleep Stages - Awake(min)": 52, "hours": 12.3}, {"date": "2025-12-06", "Time Asleep(min)": 408, "Sleep Time Ratio(%)": 85.0, "Sleep Stages - REM(min)": 50, "Sleep Stages - Deep Sleep(min)": 88, "Sleep Stages - Light Sleep(min)": 270, "Sleep Stages - Awake(min)": 43, "hours": 6.8}, {"date": "2025-12-07", "Time Asleep(min)": 410, "Sleep Time Ratio(%)": 80.5, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 120, "Sleep Stages - Light Sleep(min)": 265, "Sleep Stages - Awake(min)": 10, "hours": 6.83}, {"date": "2025-12-08", "Time Asleep(min)": 410, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 80, "Sleep Stages - Deep Sleep(min)": 42, "Sleep Stages - Light Sleep(min)": 288, "Sleep Stages - Awake(min)": 16, "hours": 6.83}, {"date": "2025-12-09", "Time Asleep(min)": 80, "Sleep Time Ratio(%)": 69.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 15, "Sleep Stages - Light Sleep(min)": 65, "Sleep Stages - Awake(min)": 6, "hours": 1.33}, {"date": "2025-12-10", "Time Asleep(min)": 565, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 115, "Sleep Stages - Deep Sleep(min)": 160, "Sleep Stages - Light Sleep(min)": 290, "Sleep Stages - Awake(min)": 20, "hours": 9.42}, {"date": "2025-12-12", "Time Asleep(min)": 345, "Sleep Time Ratio(%)": 67.0, "Sleep Stages - REM(min)": 95, "Sleep Stages - Deep Sleep(min)": 130, "Sleep Stages - Light Sleep(min)": 120, "Sleep Stages - Awake(min)": 126, "hours": 5.75}, {"date": "2025-12-16", "Time Asleep(min)": 745, "Sleep Time Ratio(%)": 94.0, "Sleep Stages - REM(min)": 135, "Sleep Stages - Deep Sleep(min)": 175, "Sleep Stages - Light Sleep(min)": 435, "Sleep Stages - Awake(min)": 20, "hours": 12.42}, {"date": "2025-12-17", "Time Asleep(min)": 340, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 62, "Sleep Stages - Light Sleep(min)": 258, "Sleep Stages - Awake(min)": 5, "hours": 5.67}, {"date": "2025-12-19", "Time Asleep(min)": 150, "Sleep Time Ratio(%)": 72.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 55, "Sleep Stages - Light Sleep(min)": 95, "Sleep Stages - Awake(min)": 15, "hours": 2.5}, {"date": "2025-12-20", "Time Asleep(min)": 448, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 90, "Sleep Stages - Light Sleep(min)": 323, "Sleep Stages - Awake(min)": 13, "hours": 7.47}, {"date": "2025-12-22", "Time Asleep(min)": 280, "Sleep Time Ratio(%)": 65.0, "Sleep Stages - REM(min)": 45, "Sleep Stages - Deep Sleep(min)": 55, "Sleep Stages - Light Sleep(min)": 180, "Sleep Stages - Awake(min)": 71, "hours": 4.67}, {"date": "2025-12-23", "Time Asleep(min)": 305, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 60, "Sleep Stages - Light Sleep(min)": 215, "Sleep Stages - Awake(min)": 11, "hours": 5.08}, {"date": "2025-12-24", "Time Asleep(min)": 120, "Sleep Time Ratio(%)": 76.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 20, "Sleep Stages - Light Sleep(min)": 100, "Sleep Stages - Awake(min)": 15, "hours": 2.0}, {"date": "2025-12-25", "Time Asleep(min)": 480, "Sleep Time Ratio(%)": 93.0, "Sleep Stages - REM(min)": 95, "Sleep Stages - Deep Sleep(min)": 80, "Sleep Stages - Light Sleep(min)": 305, "Sleep Stages - Awake(min)": 15, "hours": 8.0}, {"date": "2025-12-26", "Time Asleep(min)": 595, "Sleep Time Ratio(%)": 82.0, "Sleep Stages - REM(min)": 45, "Sleep Stages - Deep Sleep(min)": 115, "Sleep Stages - Light Sleep(min)": 435, "Sleep Stages - Awake(min)": 15, "hours": 9.92}, {"date": "2025-12-27", "Time Asleep(min)": 557, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 110, "Sleep Stages - Deep Sleep(min)": 100, "Sleep Stages - Light Sleep(min)": 347, "Sleep Stages - Awake(min)": 18, "hours": 9.28}, {"date": "2025-12-28", "Time Asleep(min)": 180, "Sleep Time Ratio(%)": 76.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 20, "Sleep Stages - Light Sleep(min)": 140, "Sleep Stages - Awake(min)": 6, "hours": 3.0}, {"date": "2025-12-29", "Time Asleep(min)": 300, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 80, "Sleep Stages - Light Sleep(min)": 185, "Sleep Stages - Awake(min)": 15, "hours": 5.0}, {"date": "2025-12-30", "Time Asleep(min)": 290, "Sleep Time Ratio(%)": 72.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 50, "Sleep Stages - Light Sleep(min)": 215, "Sleep Stages - Awake(min)": 0, "hours": 4.83}, {"date": "2025-12-31", "Time Asleep(min)": 200, "Sleep Time Ratio(%)": 54.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 72, "Sleep Stages - Light Sleep(min)": 98, "Sleep Stages - Awake(min)": 121, "hours": 3.33}, {"date": "2026-01-02", "Time Asleep(min)": 657, "Sleep Time Ratio(%)": 93.0, "Sleep Stages - REM(min)": 50, "Sleep Stages - Deep Sleep(min)": 145, "Sleep Stages - Light Sleep(min)": 462, "Sleep Stages - Awake(min)": 21, "hours": 10.95}, {"date": "2026-01-04", "Time Asleep(min)": 775, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 115, "Sleep Stages - Deep Sleep(min)": 140, "Sleep Stages - Light Sleep(min)": 520, "Sleep Stages - Awake(min)": 75, "hours": 12.92}, {"date": "2026-01-06", "Time Asleep(min)": 302, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 55, "Sleep Stages - Light Sleep(min)": 192, "Sleep Stages - Awake(min)": 8, "hours": 5.03}, {"date": "2026-01-07", "Time Asleep(min)": 412, "Sleep Time Ratio(%)": 84.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 60, "Sleep Stages - Light Sleep(min)": 327, "Sleep Stages - Awake(min)": 38, "hours": 6.87}, {"date": "2026-01-09", "Time Asleep(min)": 245, "Sleep Time Ratio(%)": 74.0, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 160, "Sleep Stages - Awake(min)": 1, "hours": 4.08}, {"date": "2026-01-10", "Time Asleep(min)": 655, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 85, "Sleep Stages - Deep Sleep(min)": 80, "Sleep Stages - Light Sleep(min)": 490, "Sleep Stages - Awake(min)": 30, "hours": 10.92}, {"date": "2026-01-12", "Time Asleep(min)": 698, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 90, "Sleep Stages - Deep Sleep(min)": 145, "Sleep Stages - Light Sleep(min)": 463, "Sleep Stages - Awake(min)": 58, "hours": 11.63}, {"date": "2026-01-14", "Time Asleep(min)": 426, "Sleep Time Ratio(%)": 85.5, "Sleep Stages - REM(min)": 10, "Sleep Stages - Deep Sleep(min)": 75, "Sleep Stages - Light Sleep(min)": 341, "Sleep Stages - Awake(min)": 10, "hours": 7.1}, {"date": "2026-01-16", "Time Asleep(min)": 368, "Sleep Time Ratio(%)": 65.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 68, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 52, "hours": 6.13}, {"date": "2026-01-17", "Time Asleep(min)": 205, "Sleep Time Ratio(%)": 83.0, "Sleep Stages - REM(min)": 45, "Sleep Stages - Deep Sleep(min)": 68, "Sleep Stages - Light Sleep(min)": 92, "Sleep Stages - Awake(min)": 5, "hours": 3.42}, {"date": "2026-01-20", "Time Asleep(min)": 537, "Sleep Time Ratio(%)": 75.33333333333333, "Sleep Stages - REM(min)": 40, "Sleep Stages - Deep Sleep(min)": 105, "Sleep Stages - Light Sleep(min)": 392, "Sleep Stages - Awake(min)": 31, "hours": 8.95}, {"date": "2026-01-21", "Time Asleep(min)": 200, "Sleep Time Ratio(%)": 73.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 5, "Sleep Stages - Light Sleep(min)": 160, "Sleep Stages - Awake(min)": 25, "hours": 3.33}, {"date": "2026-01-22", "Time Asleep(min)": 212, "Sleep Time Ratio(%)": 69.0, "Sleep Stages - REM(min)": 20, "Sleep Stages - Deep Sleep(min)": 70, "Sleep Stages - Light Sleep(min)": 122, "Sleep Stages - Awake(min)": 13, "hours": 3.53}, {"date": "2026-01-23", "Time Asleep(min)": 395, "Sleep Time Ratio(%)": 73.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 95, "Sleep Stages - Light Sleep(min)": 275, "Sleep Stages - Awake(min)": 106, "hours": 6.58}, {"date": "2026-01-24", "Time Asleep(min)": 533, "Sleep Time Ratio(%)": 85.0, "Sleep Stages - REM(min)": 110, "Sleep Stages - Deep Sleep(min)": 105, "Sleep Stages - Light Sleep(min)": 318, "Sleep Stages - Awake(min)": 47, "hours": 8.88}, {"date": "2026-01-25", "Time Asleep(min)": 1381, "Sleep Time Ratio(%)": 80.0, "Sleep Stages - REM(min)": 236, "Sleep Stages - Deep Sleep(min)": 295, "Sleep Stages - Light Sleep(min)": 850, "Sleep Stages - Awake(min)": 290, "hours": 23.02}, {"date": "2026-01-26", "Time Asleep(min)": 343, "Sleep Time Ratio(%)": 85.5, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 75, "Sleep Stages - Light Sleep(min)": 213, "Sleep Stages - Awake(min)": 32, "hours": 5.72}, {"date": "2026-01-27", "Time Asleep(min)": 1125, "Sleep Time Ratio(%)": 81.0, "Sleep Stages - REM(min)": 288, "Sleep Stages - Deep Sleep(min)": 190, "Sleep Stages - Light Sleep(min)": 647, "Sleep Stages - Awake(min)": 270, "hours": 18.75}, {"date": "2026-01-28", "Time Asleep(min)": 170, "Sleep Time Ratio(%)": 75.0, "Sleep Stages - REM(min)": 72, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 68, "Sleep Stages - Awake(min)": 31, "hours": 2.83}, {"date": "2026-01-30", "Time Asleep(min)": 1086, "Sleep Time Ratio(%)": 81.5, "Sleep Stages - REM(min)": 133, "Sleep Stages - Deep Sleep(min)": 280, "Sleep Stages - Light Sleep(min)": 673, "Sleep Stages - Awake(min)": 130, "hours": 18.1}, {"date": "2026-01-31", "Time Asleep(min)": 140, "Sleep Time Ratio(%)": 47.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 75, "Sleep Stages - Awake(min)": 146, "hours": 2.33}, {"date": "2026-02-01", "Time Asleep(min)": 832, "Sleep Time Ratio(%)": 80.5, "Sleep Stages - REM(min)": 120, "Sleep Stages - Deep Sleep(min)": 160, "Sleep Stages - Light Sleep(min)": 552, "Sleep Stages - Awake(min)": 103, "hours": 13.87}, {"date": "2026-02-02", "Time Asleep(min)": 963, "Sleep Time Ratio(%)": 87.0, "Sleep Stages - REM(min)": 125, "Sleep Stages - Deep Sleep(min)": 212, "Sleep Stages - Light Sleep(min)": 626, "Sleep Stages - Awake(min)": 124, "hours": 16.05}, {"date": "2026-02-03", "Time Asleep(min)": 205, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 50, "Sleep Stages - Light Sleep(min)": 100, "Sleep Stages - Awake(min)": 15, "hours": 3.42}, {"date": "2026-02-04", "Time Asleep(min)": 43, "Sleep Time Ratio(%)": 68.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 0, "Sleep Stages - Light Sleep(min)": 0, "Sleep Stages - Awake(min)": 0, "hours": 0.72}, {"date": "2026-02-07", "Time Asleep(min)": 50, "Sleep Time Ratio(%)": 62.0, "Sleep Stages - REM(min)": 0, "Sleep Stages - Deep Sleep(min)": 0, "Sleep Stages - Light Sleep(min)": 50, "Sleep Stages - Awake(min)": 10, "hours": 0.83}, {"date": "2026-02-08", "Time Asleep(min)": 505, "Sleep Time Ratio(%)": 85.0, "Sleep Stages - REM(min)": 75, "Sleep Stages - Deep Sleep(min)": 50, "Sleep Stages - Light Sleep(min)": 380, "Sleep Stages - Awake(min)": 50, "hours": 8.42}, {"date": "2026-02-09", "Time Asleep(min)": 100, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 20, "Sleep Stages - Light Sleep(min)": 75, "Sleep Stages - Awake(min)": 0, "hours": 1.67}, {"date": "2026-02-10", "Time Asleep(min)": 585, "Sleep Time Ratio(%)": 88.0, "Sleep Stages - REM(min)": 110, "Sleep Stages - Deep Sleep(min)": 135, "Sleep Stages - Light Sleep(min)": 340, "Sleep Stages - Awake(min)": 15, "hours": 9.75}, {"date": "2026-02-12", "Time Asleep(min)": 265, "Sleep Time Ratio(%)": 82.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 45, "Sleep Stages - Light Sleep(min)": 205, "Sleep Stages - Awake(min)": 5, "hours": 4.42}, {"date": "2026-02-13", "Time Asleep(min)": 460, "Sleep Time Ratio(%)": 92.0, "Sleep Stages - REM(min)": 130, "Sleep Stages - Deep Sleep(min)": 100, "Sleep Stages - Light Sleep(min)": 230, "Sleep Stages - Awake(min)": 26, "hours": 7.67}, {"date": "2026-02-14", "Time Asleep(min)": 548, "Sleep Time Ratio(%)": 80.5, "Sleep Stages - REM(min)": 110, "Sleep Stages - Deep Sleep(min)": 115, "Sleep Stages - Light Sleep(min)": 323, "Sleep Stages - Awake(min)": 7, "hours": 9.13}, {"date": "2026-02-15", "Time Asleep(min)": 165, "Sleep Time Ratio(%)": 79.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 30, "Sleep Stages - Light Sleep(min)": 130, "Sleep Stages - Awake(min)": 15, "hours": 2.75}, {"date": "2026-02-16", "Time Asleep(min)": 482, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 82, "Sleep Stages - Deep Sleep(min)": 110, "Sleep Stages - Light Sleep(min)": 290, "Sleep Stages - Awake(min)": 11, "hours": 8.03}, {"date": "2026-02-17", "Time Asleep(min)": 992, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 275, "Sleep Stages - Deep Sleep(min)": 182, "Sleep Stages - Light Sleep(min)": 535, "Sleep Stages - Awake(min)": 53, "hours": 16.53}, {"date": "2026-02-19", "Time Asleep(min)": 335, "Sleep Time Ratio(%)": 73.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 90, "Sleep Stages - Light Sleep(min)": 240, "Sleep Stages - Awake(min)": 90, "hours": 5.58}, {"date": "2026-02-20", "Time Asleep(min)": 315, "Sleep Time Ratio(%)": 86.0, "Sleep Stages - REM(min)": 60, "Sleep Stages - Deep Sleep(min)": 95, "Sleep Stages - Light Sleep(min)": 160, "Sleep Stages - Awake(min)": 15, "hours": 5.25}, {"date": "2026-02-21", "Time Asleep(min)": 435, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 75, "Sleep Stages - Deep Sleep(min)": 100, "Sleep Stages - Light Sleep(min)": 260, "Sleep Stages - Awake(min)": 26, "hours": 7.25}, {"date": "2026-02-22", "Time Asleep(min)": 400, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 50, "Sleep Stages - Deep Sleep(min)": 90, "Sleep Stages - Light Sleep(min)": 260, "Sleep Stages - Awake(min)": 30, "hours": 6.67}, {"date": "2026-02-23", "Time Asleep(min)": 70, "Sleep Time Ratio(%)": 44.0, "Sleep Stages - REM(min)": 5, "Sleep Stages - Deep Sleep(min)": 0, "Sleep Stages - Light Sleep(min)": 65, "Sleep Stages - Awake(min)": 15, "hours": 1.17}, {"date": "2026-02-25", "Time Asleep(min)": 465, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 135, "Sleep Stages - Deep Sleep(min)": 95, "Sleep Stages - Light Sleep(min)": 235, "Sleep Stages - Awake(min)": 15, "hours": 7.75}, {"date": "2026-02-26", "Time Asleep(min)": 320, "Sleep Time Ratio(%)": 81.0, "Sleep Stages - REM(min)": 40, "Sleep Stages - Deep Sleep(min)": 70, "Sleep Stages - Light Sleep(min)": 210, "Sleep Stages - Awake(min)": 20, "hours": 5.33}, {"date": "2026-02-27", "Time Asleep(min)": 280, "Sleep Time Ratio(%)": 90.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 55, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 16, "hours": 4.67}, {"date": "2026-03-01", "Time Asleep(min)": 705, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 140, "Sleep Stages - Deep Sleep(min)": 155, "Sleep Stages - Light Sleep(min)": 410, "Sleep Stages - Awake(min)": 35, "hours": 11.75}, {"date": "2026-03-03", "Time Asleep(min)": 495, "Sleep Time Ratio(%)": 93.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 110, "Sleep Stages - Light Sleep(min)": 360, "Sleep Stages - Awake(min)": 10, "hours": 8.25}, {"date": "2026-03-05", "Time Asleep(min)": 602, "Sleep Time Ratio(%)": 81.0, "Sleep Stages - REM(min)": 105, "Sleep Stages - Deep Sleep(min)": 150, "Sleep Stages - Light Sleep(min)": 347, "Sleep Stages - Awake(min)": 39, "hours": 10.03}, {"date": "2026-03-06", "Time Asleep(min)": 520, "Sleep Time Ratio(%)": 78.0, "Sleep Stages - REM(min)": 80, "Sleep Stages - Deep Sleep(min)": 135, "Sleep Stages - Light Sleep(min)": 305, "Sleep Stages - Awake(min)": 90, "hours": 8.67}, {"date": "2026-03-08", "Time Asleep(min)": 603, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 150, "Sleep Stages - Deep Sleep(min)": 165, "Sleep Stages - Light Sleep(min)": 288, "Sleep Stages - Awake(min)": 52, "hours": 10.05}, {"date": "2026-03-09", "Time Asleep(min)": 487, "Sleep Time Ratio(%)": 92.0, "Sleep Stages - REM(min)": 55, "Sleep Stages - Deep Sleep(min)": 130, "Sleep Stages - Light Sleep(min)": 302, "Sleep Stages - Awake(min)": 8, "hours": 8.12}, {"date": "2026-03-11", "Time Asleep(min)": 535, "Sleep Time Ratio(%)": 93.0, "Sleep Stages - REM(min)": 45, "Sleep Stages - Deep Sleep(min)": 105, "Sleep Stages - Light Sleep(min)": 385, "Sleep Stages - Awake(min)": 10, "hours": 8.92}, {"date": "2026-03-13", "Time Asleep(min)": 415, "Sleep Time Ratio(%)": 87.0, "Sleep Stages - REM(min)": 35, "Sleep Stages - Deep Sleep(min)": 90, "Sleep Stages - Light Sleep(min)": 290, "Sleep Stages - Awake(min)": 35, "hours": 6.92}, {"date": "2026-03-14", "Time Asleep(min)": 225, "Sleep Time Ratio(%)": 80.0, "Sleep Stages - REM(min)": 30, "Sleep Stages - Deep Sleep(min)": 70, "Sleep Stages - Light Sleep(min)": 125, "Sleep Stages - Awake(min)": 5, "hours": 3.75}, {"date": "2026-03-15", "Time Asleep(min)": 325, "Sleep Time Ratio(%)": 91.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 60, "Sleep Stages - Light Sleep(min)": 240, "Sleep Stages - Awake(min)": 10, "hours": 5.42}, {"date": "2026-03-16", "Time Asleep(min)": 255, "Sleep Time Ratio(%)": 93.0, "Sleep Stages - REM(min)": 15, "Sleep Stages - Deep Sleep(min)": 45, "Sleep Stages - Light Sleep(min)": 195, "Sleep Stages - Awake(min)": 5, "hours": 4.25}, {"date": "2026-03-17", "Time Asleep(min)": 315, "Sleep Time Ratio(%)": 89.0, "Sleep Stages - REM(min)": 25, "Sleep Stages - Deep Sleep(min)": 65, "Sleep Stages - Light Sleep(min)": 225, "Sleep Stages - Awake(min)": 10, "hours": 5.25}]};
+const app = document.getElementById("app");
+let recoveryChart = null;
+let cardioChart = null;
+let sleepChart = null;
+let monthChart = null;
 
-// ═══════════════════════════════════════════
-// CHART.JS DEFAULTS
-// ═══════════════════════════════════════════
-Chart.defaults.color = '#8888a0';
-Chart.defaults.font.family = "'JetBrains Mono', monospace";
-Chart.defaults.font.size = 10;
-Chart.defaults.plugins.legend.labels.usePointStyle = true;
-Chart.defaults.plugins.legend.labels.pointStyleWidth = 8;
-Chart.defaults.plugins.legend.labels.boxHeight = 6;
-Chart.defaults.elements.point.radius = 0;
-Chart.defaults.elements.point.hoverRadius = 4;
-Chart.defaults.elements.line.tension = 0.3;
-Chart.defaults.elements.line.borderWidth = 1.5;
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
 
-const gridColor = 'rgba(42,42,58,0.6)';
-const tooltipBg = '#1a1a24';
+function average(values) {
+  const clean = values.filter(value => Number.isFinite(value));
+  if (!clean.length) return null;
+  return clean.reduce((sum, value) => sum + value, 0) / clean.length;
+}
 
-function timeAxis(min, max) {
+function sum(values) {
+  const clean = values.filter(value => Number.isFinite(value));
+  if (!clean.length) return null;
+  return clean.reduce((total, value) => total + value, 0);
+}
+
+function countFinite(values) {
+  return values.filter(value => Number.isFinite(value)).length;
+}
+
+function formatDate(iso, options = { month: "short", day: "numeric", year: "numeric" }) {
+  return new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", options);
+}
+
+function formatMonthLabel(isoMonth) {
+  return new Date(`${isoMonth}-01T12:00:00`).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+function signed(value, digits = 1) {
+  if (!Number.isFinite(value)) return "—";
+  return `${value > 0 ? "+" : ""}${value.toFixed(digits)}`;
+}
+
+function formatMetric(value, digits = 1, suffix = "") {
+  if (!Number.isFinite(value)) return "--";
+  return `${value.toFixed(digits)}${suffix}`;
+}
+
+function formatWhole(value, suffix = "") {
+  if (!Number.isFinite(value)) return "--";
+  return `${Math.round(value)}${suffix}`;
+}
+
+function formatHours(value) {
+  return formatMetric(value, 1, "h");
+}
+
+function formatPercent(value) {
+  return formatMetric(value, 0, "%");
+}
+
+function formatBpm(value) {
+  return formatWhole(value, " bpm");
+}
+
+function formatMs(value) {
+  return formatWhole(value, " ms");
+}
+
+function formatMinutesFromHours(value) {
+  if (!Number.isFinite(value)) return "--";
+  return `${Math.round(value * 60)} min`;
+}
+
+function formatCount(value, singular, plural = `${singular}s`) {
+  return `${value} ${value === 1 ? singular : plural}`;
+}
+
+function statusForScore(score) {
+  if (score >= 70) return { label: "Steady", className: "good" };
+  if (score >= 55) return { label: "Mixed", className: "mixed" };
+  return { label: "Under Pressure", className: "low" };
+}
+
+function relationshipStrength(value) {
+  const magnitude = Math.abs(value);
+  if (magnitude < 0.1) return "almost no";
+  if (magnitude < 0.25) return "a light";
+  if (magnitude < 0.45) return "a moderate";
+  return "a strong";
+}
+
+function byMetric(data, metric) {
+  return data
+    .filter(row => row.metric === metric && row.value != null)
+    .sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+}
+
+function aggregateDailyMetric(data, metric, strategy = "avg") {
+  const groups = new Map();
+  byMetric(data, metric).forEach(row => {
+    const date = row.timestamp.slice(0, 10);
+    const value = typeof row.extra?.avg === "number" ? row.extra.avg : Number(row.value);
+    if (!Number.isFinite(value)) return;
+    if (!groups.has(date)) groups.set(date, []);
+    groups.get(date).push({ value, timestamp: row.timestamp });
+  });
+
+  return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([date, rows]) => {
+    let value = null;
+    if (strategy === "max") value = Math.max(...rows.map(row => row.value));
+    else if (strategy === "last") value = rows.sort((a, b) => a.timestamp.localeCompare(b.timestamp))[rows.length - 1].value;
+    else value = average(rows.map(row => row.value));
+    return { date, value };
+  });
+}
+
+function buildSleepRows(data) {
+  const groups = new Map();
+  data
+    .filter(row => row.metric === "sleep_analysis" && row.value != null)
+    .forEach(row => {
+      const date = row.timestamp.slice(0, 10);
+      const source = row.source || "";
+      const key = `${date}|${source}`;
+      if (!groups.has(key)) {
+        groups.set(key, {
+          date,
+          source,
+          labels: new Set(),
+          sleepHours: 0,
+          awakeHours: 0,
+          deepHours: 0,
+          remHours: 0,
+          lightHours: 0
+        });
+      }
+      const entry = groups.get(key);
+      const label = row.extra?.label || "";
+      const value = Number(row.value);
+      if (!Number.isFinite(value)) return;
+      entry.labels.add(label);
+      if (label === "Awake") {
+        entry.awakeHours += value;
+        return;
+      }
+      entry.sleepHours += value;
+      if (label === "Deep") entry.deepHours += value;
+      else if (label === "REM") entry.remHours += value;
+      else entry.lightHours += value;
+    });
+
+  const selected = new Map();
+  groups.forEach(entry => {
+    const totalHours = entry.sleepHours + entry.awakeHours;
+    const stageCount = ["Core", "REM", "Deep"].filter(label => entry.labels.has(label)).length;
+    const hasStageDetail = entry.labels.has("Awake") || entry.labels.has("Core") || entry.labels.has("REM");
+    if (!hasStageDetail || totalHours < 2) return;
+    const existing = selected.get(entry.date);
+    const completeness = stageCount + (entry.labels.has("Awake") ? 1 : 0);
+    const priority = completeness * 100 + Math.min(totalHours, 16) + (entry.source.includes("RingConn") ? 5 : 0);
+    if (!existing || priority > existing.priority) selected.set(entry.date, { ...entry, priority });
+  });
+
+  return [...selected.values()]
+    .map(({ priority, labels, ...entry }) => {
+      const total = entry.sleepHours + entry.awakeHours;
+      return {
+        ...entry,
+        sleepEff: total > 0 ? (entry.sleepHours / total) * 100 : null
+      };
+    })
+    .filter(entry => entry.sleepHours > 0)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function buildDailyRows(data) {
+  const rhrRows = aggregateDailyMetric(data, "resting_heart_rate", "avg");
+  const hrvRows = aggregateDailyMetric(data, "heart_rate_variability", "avg");
+  const stepsRows = aggregateDailyMetric(data, "step_count", "max");
+  const spo2Rows = aggregateDailyMetric(data, "blood_oxygen_saturation", "avg");
+  const sleepRows = buildSleepRows(data);
+
+  const map = new Map();
+  function mergeRows(rows, assign) {
+    rows.forEach(row => {
+      if (!map.has(row.date)) map.set(row.date, { date: row.date });
+      assign(map.get(row.date), row);
+    });
+  }
+
+  mergeRows(rhrRows, (target, row) => {
+    target.rhr = row.value;
+  });
+  mergeRows(hrvRows, (target, row) => {
+    target.hrv = row.value;
+  });
+  mergeRows(stepsRows, (target, row) => {
+    target.steps = row.value;
+  });
+  mergeRows(spo2Rows, (target, row) => {
+    target.spo2 = row.value;
+  });
+  mergeRows(sleepRows, (target, row) => {
+    target.sleepHours = row.sleepHours;
+    target.sleepEff = row.sleepEff;
+    target.deepHours = row.deepHours;
+    target.remHours = row.remHours;
+    target.lightHours = row.lightHours;
+    target.awakeHours = row.awakeHours;
+  });
+
+  const rows = [...map.values()].sort((a, b) => a.date.localeCompare(b.date));
+  rows.forEach(row => {
+    row.score = scoreRow(row);
+  });
+  return rows;
+}
+
+function scoreRow(row) {
+  const components = [];
+  if (Number.isFinite(row.sleepHours) && Number.isFinite(row.sleepEff)) {
+    components.push({ weight: 0.28, value: clamp(((row.sleepHours - 4.5) / 3.5) * 100, 0, 100) });
+    components.push({ weight: 0.2, value: clamp(((row.sleepEff - 65) / 25) * 100, 0, 100) });
+    components.push({ weight: 0.08, value: clamp(((row.deepHours || 0) / 2) * 100, 0, 100) });
+  }
+  if (Number.isFinite(row.hrv)) {
+    components.push({ weight: 0.22, value: clamp(((row.hrv - 15) / 30) * 100, 0, 100) });
+  }
+  if (Number.isFinite(row.rhr)) {
+    components.push({ weight: 0.22, value: clamp(((75 - row.rhr) / 25) * 100, 0, 100) });
+  }
+  if (Number.isFinite(row.steps)) {
+    components.push({ weight: 0.08, value: clamp(((row.steps - 3000) / 7000) * 100, 0, 100) });
+  }
+  if (components.length < 2) return null;
+  const totalWeight = sum(components.map(component => component.weight));
+  return components.reduce((score, component) => score + component.value * component.weight, 0) / totalWeight;
+}
+
+function rollingSeries(rows, key, window) {
+  return rows.map((row, index) => {
+    const slice = rows.slice(Math.max(0, index - window + 1), index + 1).filter(candidate => Number.isFinite(candidate[key]));
+    return {
+      x: row.date,
+      y: slice.length ? average(slice.map(candidate => candidate[key])) : null
+    };
+  }).filter(point => Number.isFinite(point.y));
+}
+
+function summarizeRows(rows) {
   return {
-    type: 'time',
-    time: { unit: 'month', displayFormats: { month: 'MMM yy' } },
-    min, max,
-    grid: { color: gridColor, drawBorder: false },
-    ticks: { maxTicksLimit: 7 }
+    count: rows.length,
+    sleepCount: countFinite(rows.map(row => row.sleepHours)),
+    score: average(rows.map(row => row.score)),
+    sleepHours: average(rows.map(row => row.sleepHours)),
+    sleepEff: average(rows.map(row => row.sleepEff)),
+    rhr: average(rows.map(row => row.rhr)),
+    hrv: average(rows.map(row => row.hrv)),
+    steps: average(rows.map(row => row.steps)),
+    spo2: average(rows.map(row => row.spo2)),
+    deepHours: average(rows.map(row => row.deepHours))
   };
 }
 
-function yAxis(label, min, max) {
+function buildWindows(rows, size = 14) {
+  const complete = rows.filter(row => Number.isFinite(row.score));
+  const windows = [];
+  for (let i = 0; i <= complete.length - size; i += 1) {
+    const slice = complete.slice(i, i + size);
+    const summary = summarizeRows(slice);
+    windows.push({
+      ...summary,
+      start: slice[0].date,
+      end: slice[slice.length - 1].date
+    });
+  }
+  return windows;
+}
+
+function buildMonthlySummaries(rows) {
+  const groups = new Map();
+  rows.forEach(row => {
+    const month = row.date.slice(0, 7);
+    if (!groups.has(month)) groups.set(month, []);
+    groups.get(month).push(row);
+  });
+  return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([month, monthRows]) => {
+    const summary = summarizeRows(monthRows);
+    return { month, ...summary };
+  });
+}
+
+function correlation(xs, ys) {
+  const pairs = xs.map((value, index) => [value, ys[index]]).filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y));
+  if (pairs.length < 3) return 0;
+  const xMean = average(pairs.map(pair => pair[0]));
+  const yMean = average(pairs.map(pair => pair[1]));
+  let numerator = 0;
+  let xSpread = 0;
+  let ySpread = 0;
+  pairs.forEach(([x, y]) => {
+    const dx = x - xMean;
+    const dy = y - yMean;
+    numerator += dx * dy;
+    xSpread += dx * dx;
+    ySpread += dy * dy;
+  });
+  const denominator = Math.sqrt(xSpread * ySpread);
+  return denominator ? numerator / denominator : 0;
+}
+
+function toneClass(delta, inverse = false) {
+  if (!Number.isFinite(delta)) return "";
+  if (inverse) {
+    if (delta < 0) return "positive";
+    if (delta > 0) return "negative";
+    return "";
+  }
+  if (delta > 0) return "positive";
+  if (delta < 0) return "negative";
+  return "";
+}
+
+function scoreClass(score) {
+  return statusForScore(score).className;
+}
+
+function renderShell() {
+  app.innerHTML = `
+    <section class="hero" aria-labelledby="page-title">
+      <article class="hero-card hero-copy-card">
+        <p class="eyebrow">Recovery narrative</p>
+        <h1 class="hero-title" id="page-title">Wellness <em>Analysis</em></h1>
+        <p class="hero-copy">A clearer read on recovery, sleep, and cardiovascular strain across the Apple Health and RingConn archive. This page is built to explain what the data means, not just plot every metric, while staying honest about where sleep staging is sparse.</p>
+        <div class="meta-line">
+          <span class="meta-pill" id="trackedDaysPill">Tracked days</span>
+          <span class="meta-pill" id="trackedNightsPill">Stage-resolved nights</span>
+          <span class="meta-pill">Daily wellness synthesis</span>
+        </div>
+      </article>
+
+      <aside class="hero-card score-card">
+        <div>
+          <div class="score-label">Recent recovery posture</div>
+          <div class="score-value" id="scoreValue">—</div>
+          <div class="score-status" id="scoreStatus">Loading</div>
+          <p class="score-summary" id="scoreSummary"></p>
+        </div>
+        <div class="score-delta" id="scoreDelta"></div>
+      </aside>
+    </section>
+
+    <section class="glance-grid" id="glanceGrid" aria-label="Top takeaways"></section>
+    <section class="metric-strip" id="metricStrip" aria-label="Recent metrics"></section>
+
+    <section class="panel" aria-labelledby="read-first-title">
+      <div class="panel-head">
+        <div>
+          <div class="section-kicker">Read this first</div>
+          <h2 class="panel-title" id="read-first-title">What the data is saying</h2>
+          <p class="panel-copy">A short narrative layer on top of the raw metrics, focused on what actually changed and what matters most.</p>
+        </div>
+        <div class="panel-meta" id="summaryMeta">Live analysis</div>
+      </div>
+      <div class="glance-grid" id="insightGrid"></div>
+    </section>
+
+    <section class="analysis-grid">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">Composite signal</div>
+            <h2 class="panel-title">Recovery score over time</h2>
+            <p class="panel-copy">Seven-day rolling recovery score paired with stage-resolved sleep observations when available. This is the fastest way to see whether better sleep is actually landing as better recovery.</p>
+          </div>
+        </div>
+        <div class="chart-wrap tall"><canvas id="recoveryChart"></canvas></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">Cardio balance</div>
+            <h2 class="panel-title">Resting HR vs. HRV</h2>
+            <p class="panel-copy">Rolling resting heart rate and HRV, the most legible two-metric read on strain versus recovery.</p>
+          </div>
+        </div>
+        <div class="chart-wrap tall"><canvas id="cardioChart"></canvas></div>
+      </article>
+    </section>
+
+    <section class="analysis-grid">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">Sleep consistency</div>
+            <h2 class="panel-title">Hours and efficiency</h2>
+            <p class="panel-copy">Stage-resolved sleep duration with estimated efficiency. Only nights with enough staging detail are included, so this view stays interpretable.</p>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="sleepChart"></canvas></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">Monthly quality</div>
+            <h2 class="panel-title">Month-by-month score</h2>
+            <p class="panel-copy">Monthly averages collapsed into one score, useful for spotting sustained periods of pressure or recovery.</p>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="monthChart"></canvas></div>
+      </article>
+    </section>
+
+    <section class="narrative-grid">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">Relationships</div>
+            <h2 class="panel-title">Signal relationships</h2>
+            <p class="panel-copy">Simple correlations that show which variables actually moved together in this dataset.</p>
+          </div>
+        </div>
+        <div class="relation-grid" id="relationGrid"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">Monthly ledger</div>
+            <h2 class="panel-title">Monthly readout</h2>
+            <p class="panel-copy">A compact month-by-month read of score, sleep, resting heart rate, and HRV.</p>
+          </div>
+        </div>
+        <div class="month-grid" id="monthGrid"></div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-card">
+        <p class="footer-note">Built from Apple Health and RingConn exports in the shared health cache, interpreted as a readable recovery report.</p>
+        <p class="footer-copy" id="footerMeta">Wellness desk</p>
+      </div>
+    </footer>
+  `;
+}
+
+function renderOverview(dailyRows, monthlySummaries, windows, stats) {
+  const completeRows = dailyRows.filter(row => Number.isFinite(row.score));
+  const baseline = summarizeRows(completeRows);
+  const recentRows = completeRows.slice(-14);
+  const recent = summarizeRows(recentRows);
+  const bestWindow = [...windows].sort((a, b) => b.score - a.score)[0];
+  const worstWindow = [...windows].sort((a, b) => a.score - b.score)[0];
+  const scoreDelta = recent.score - baseline.score;
+  const posture = statusForScore(recent.score);
+
+  document.getElementById("trackedDaysPill").textContent = `${stats.days} tracked days`;
+  document.getElementById("trackedNightsPill").textContent = `${stats.sleepNights} stage-resolved nights`;
+  document.getElementById("scoreValue").textContent = Math.round(recent.score);
+  document.getElementById("scoreValue").className = `score-value ${posture.className}`;
+  document.getElementById("scoreStatus").textContent = posture.label;
+  document.getElementById("scoreSummary").textContent = recent.sleepCount
+    ? `Across the last ${recent.count} tracked days, stage-resolved sleep appeared on ${formatCount(recent.sleepCount, "night")} and averaged ${formatHours(recent.sleepHours)} at ${formatPercent(recent.sleepEff)} efficiency. Resting HR averaged ${formatBpm(recent.rhr)} and HRV ${formatMs(recent.hrv)}.`
+    : `Across the last ${recent.count} tracked days, the posture is driven by cardio and movement signals because no stage-resolved sleep landed in the window. Resting HR averaged ${formatBpm(recent.rhr)} and HRV ${formatMs(recent.hrv)}.`;
+  document.getElementById("scoreDelta").innerHTML = `
+    <strong>${signed(scoreDelta, 1)}</strong> points versus the full baseline score.
+    Sleep staging covers ${formatCount(stats.sleepNights, "night")} in the full archive, while recent resting HR is ${signed(recent.rhr - baseline.rhr, 1)} bpm and HRV is ${signed(recent.hrv - baseline.hrv, 1)} ms against baseline.
+  `;
+
+  document.getElementById("summaryMeta").textContent = `${formatDate(stats.minDate)} → ${formatDate(stats.maxDate)} · ${formatCount(stats.sleepNights, "stage-resolved night")}`;
+  document.getElementById("footerMeta").textContent = `Updated through ${formatDate(stats.maxDate)} · ${monthlySummaries.length} months summarized · ${formatCount(stats.sleepNights, "stage-resolved night")}`;
+
+  const longerSleep = recent.sleepCount > 0 && baseline.sleepCount > 0 && recent.sleepHours > baseline.sleepHours;
+  const worseRecovery = recent.rhr > baseline.rhr && recent.hrv < baseline.hrv;
+  const recentInsight = longerSleep && worseRecovery
+    ? "Sleep volume is up lately, but the recovery markers have not caught up yet."
+    : recent.score >= baseline.score
+      ? "The recent two-week block is holding ahead of baseline."
+      : "The recent two-week block is running behind baseline on recovery quality.";
+
+  document.getElementById("glanceGrid").innerHTML = `
+    <article class="glance-card">
+      <div class="glance-kicker">Recent 14 days</div>
+      <h3 class="glance-title">${Math.round(recent.score)} score</h3>
+      <p class="glance-copy">${recentInsight}</p>
+    </article>
+    <article class="glance-card">
+      <div class="glance-kicker">Best stretch</div>
+      <h3 class="glance-title">${formatDate(bestWindow.start, { month: "short", day: "numeric" })} - ${formatDate(bestWindow.end, { month: "short", day: "numeric" })}</h3>
+      <p class="glance-copy">${bestWindow.sleepCount ? `Sleep detail showed ${formatHours(bestWindow.sleepHours)} across ${formatCount(bestWindow.sleepCount, "night")} in that window.` : "No stage-resolved sleep landed in that window, so the result is driven by cardio stability."} Resting HR sat at ${formatBpm(bestWindow.rhr)} with HRV at ${formatMs(bestWindow.hrv)}.</p>
+    </article>
+    <article class="glance-card">
+      <div class="glance-kicker">Hardest stretch</div>
+      <h3 class="glance-title">${formatDate(worstWindow.start, { month: "short", day: "numeric" })} - ${formatDate(worstWindow.end, { month: "short", day: "numeric" })}</h3>
+      <p class="glance-copy">${worstWindow.sleepCount ? `${formatHours(worstWindow.sleepHours)} sleep was all the recovery buffer available in that stretch.` : "Sleep staging did not land in that stretch, so the weak score reflects cardio pressure more than missing sleep totals."} Resting HR climbed to ${formatBpm(worstWindow.rhr)} while HRV fell to ${formatMs(worstWindow.hrv)}.</p>
+    </article>
+    <article class="glance-card">
+      <div class="glance-kicker">Archive coverage</div>
+      <h3 class="glance-title">${formatCount(stats.sleepNights, "stage-resolved night")}</h3>
+      <p class="glance-copy">${stats.sleepNights ? `Stage-based sleep is only available on ${formatCount(stats.sleepNights, "night")} in this archive, so sleep averages are provisional while the cardio trends are well-covered.` : "No stage-resolved sleep is available right now, so the page leans entirely on cardio and movement trends."}</p>
+    </article>
+  `;
+
+  const metrics = [
+    {
+      label: "Sleep",
+      value: recent.sleepCount ? formatHours(recent.sleepHours) : "No stage data",
+      delta: null,
+      deltaText: recent.sleepCount ? `${formatCount(recent.sleepCount, "night")} with stage detail` : "No stage-resolved sleep in window"
+    },
+    {
+      label: "Efficiency",
+      value: recent.sleepCount ? formatPercent(recent.sleepEff) : "--",
+      delta: null,
+      deltaText: recent.sleepCount ? "Average across staged nights" : "Needs stage-resolved sleep"
+    },
+    {
+      label: "Resting HR",
+      value: formatBpm(recent.rhr),
+      delta: recent.rhr - baseline.rhr,
+      deltaText: `${signed(recent.rhr - baseline.rhr, 1)} bpm vs baseline`,
+      inverse: true
+    },
+    {
+      label: "HRV",
+      value: formatMs(recent.hrv),
+      delta: recent.hrv - baseline.hrv,
+      deltaText: `${signed(recent.hrv - baseline.hrv, 1)} ms vs baseline`
+    },
+    {
+      label: "Deep Sleep",
+      value: recent.sleepCount ? formatMinutesFromHours(recent.deepHours) : "--",
+      delta: null,
+      deltaText: recent.sleepCount ? "Average deep stage time" : "No deep-stage sample"
+    },
+    {
+      label: "Steps",
+      value: Number.isFinite(recent.steps) ? Math.round(recent.steps).toLocaleString() : "--",
+      delta: recent.steps - baseline.steps,
+      deltaText: `${signed(recent.steps - baseline.steps, 0)} steps vs baseline`
+    }
+  ];
+
+  document.getElementById("metricStrip").innerHTML = metrics.map(metric => `
+    <article class="metric-card">
+      <span class="metric-value">${metric.value}</span>
+      <div class="metric-delta ${toneClass(metric.delta, metric.inverse)}">${metric.deltaText}</div>
+      <span class="metric-label">${metric.label}</span>
+    </article>
+  `).join("");
+}
+
+function renderInsightGrid(dailyRows, windows, relations) {
+  const completeRows = dailyRows.filter(row => Number.isFinite(row.score));
+  const baseline = summarizeRows(completeRows);
+  const recent = summarizeRows(completeRows.slice(-14));
+  const bestWindow = [...windows].sort((a, b) => b.score - a.score)[0];
+  const worstWindow = [...windows].sort((a, b) => a.score - b.score)[0];
+  const topRelation = [...relations].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))[0];
+  const highRhrDays = dailyRows.filter(row => Number.isFinite(row.rhr) && row.rhr >= 65).length;
+  const shortNights = dailyRows.filter(row => Number.isFinite(row.sleepHours) && row.sleepHours < 5).length;
+
+  let recentCopy = "";
+  if (recent.sleepCount && recent.rhr > baseline.rhr && recent.hrv < baseline.hrv) {
+    recentCopy = `The recent block has some usable sleep detail, but the stronger signal is strain: resting HR is elevated and HRV is lower than baseline.`;
+  } else if (recent.score >= baseline.score) {
+    recentCopy = "The recent block is cleaner than baseline overall, with score strength coming from sleep and efficiency more than movement.";
+  } else {
+    recentCopy = "The recent block is running behind baseline overall, led more by cardio pressure than by clear movement or sleep wins.";
+  }
+
+  const strongestDay = dailyRows.reduce((best, row) => Number.isFinite(row.score) && (!best || row.score > best.score) ? row : best, null);
+  const weakestDay = dailyRows.reduce((worst, row) => Number.isFinite(row.score) && (!worst || row.score < worst.score) ? row : worst, null);
+
+  document.getElementById("insightGrid").innerHTML = `
+    <article class="glance-card">
+      <div class="glance-kicker">Recent block</div>
+      <h3 class="glance-title">${Math.round(recent.score)} vs ${Math.round(baseline.score)}</h3>
+      <p class="glance-copy">${recentCopy}</p>
+    </article>
+    <article class="glance-card">
+      <div class="glance-kicker">Pressure markers</div>
+      <h3 class="glance-title">${shortNights} short nights</h3>
+      <p class="glance-copy">${shortNights} stage-resolved nights landed below five hours, and ${highRhrDays} days came in at or above 65 bpm resting heart rate.</p>
+    </article>
+    <article class="glance-card">
+      <div class="glance-kicker">Best day / hardest day</div>
+      <h3 class="glance-title">${formatDate(strongestDay.date, { month: "short", day: "numeric" })} / ${formatDate(weakestDay.date, { month: "short", day: "numeric" })}</h3>
+      <p class="glance-copy">The cleanest daily score hit ${Math.round(strongestDay.score)}. The roughest daily score fell to ${Math.round(weakestDay.score)}. The best 14-day window ran ${formatDate(bestWindow.start, { month: "short", day: "numeric" })} to ${formatDate(bestWindow.end, { month: "short", day: "numeric" })}, while the hardest ran ${formatDate(worstWindow.start, { month: "short", day: "numeric" })} to ${formatDate(worstWindow.end, { month: "short", day: "numeric" })}.</p>
+    </article>
+    <article class="glance-card">
+      <div class="glance-kicker">Most useful relationship</div>
+      <h3 class="glance-title">${topRelation.title}</h3>
+      <p class="glance-copy">${topRelation.copy}</p>
+    </article>
+  `;
+}
+
+function renderRelationGrid(relations) {
+  document.getElementById("relationGrid").innerHTML = relations.map(relation => `
+    <article class="relation-card">
+      <div class="relation-label">${relation.label}</div>
+      <h3 class="relation-title">${relation.title}</h3>
+      <p class="relation-copy">${relation.copy}</p>
+    </article>
+  `).join("");
+}
+
+function renderMonthGrid(monthlySummaries) {
+  document.getElementById("monthGrid").innerHTML = monthlySummaries.map(summary => `
+    <article class="month-card">
+      <div class="month-top">
+        <h3 class="month-name">${formatMonthLabel(summary.month)}</h3>
+        <div class="month-score" style="color: var(--${scoreClass(summary.score) === "good" ? "score-hi" : scoreClass(summary.score) === "mixed" ? "score-mid" : "score-low"})">${Math.round(summary.score)}</div>
+      </div>
+      <div class="month-meta">
+        <div>${summary.count} scored days · ${summary.sleepCount ? formatCount(summary.sleepCount, "sleep night") : "sleep stages unavailable"}</div>
+        <div>${summary.sleepCount ? `${formatHours(summary.sleepHours)} sleep · ${formatPercent(summary.sleepEff)} efficiency` : "No stage-resolved sleep detail in this month"}</div>
+        <div>${formatBpm(summary.rhr)} resting HR · ${formatMs(summary.hrv)} HRV</div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function destroyCharts() {
+  [recoveryChart, cardioChart, sleepChart, monthChart].forEach(chart => {
+    if (chart) chart.destroy();
+  });
+}
+
+function chartColors() {
+  const styles = getComputedStyle(document.documentElement);
   return {
-    title: { display: true, text: label, font: { size: 9 } },
-    min, max,
-    grid: { color: gridColor, drawBorder: false },
-    ticks: { maxTicksLimit: 6 }
+    text: styles.getPropertyValue("--text").trim(),
+    muted: styles.getPropertyValue("--muted").trim(),
+    subtle: styles.getPropertyValue("--subtle").trim(),
+    border: styles.getPropertyValue("--border").trim(),
+    accent: styles.getPropertyValue("--accent").trim(),
+    accent2: styles.getPropertyValue("--accent-2").trim(),
+    accent3: styles.getPropertyValue("--accent-3").trim(),
+    accent4: styles.getPropertyValue("--accent-4").trim(),
+    accent5: styles.getPropertyValue("--accent-5").trim()
   };
 }
 
-const tooltipOpts = {
-  backgroundColor: tooltipBg,
-  borderColor: '#2a2a3a',
-  borderWidth: 1,
-  titleFont: { size: 11 },
-  bodyFont: { size: 10 },
-  padding: 10,
-  cornerRadius: 6,
-};
+function renderCharts(dailyRows, monthlySummaries) {
+  destroyCharts();
+  const colors = chartColors();
+  const rollingScore = rollingSeries(dailyRows, "score", 7);
+  const rollingRhr = rollingSeries(dailyRows, "rhr", 7);
+  const rollingHrv = rollingSeries(dailyRows, "hrv", 7);
+  const sleepRows = dailyRows.filter(row => Number.isFinite(row.sleepHours));
 
-// ═══════════════════════════════════════════
-// SCORE CARDS
-// ═══════════════════════════════════════════
-const v = DATA.vitals;
-const s = DATA.sleep;
-const a = DATA.activity;
-
-const avgHR = (v.reduce((s,d) => s + d['Avg. Heart Rate(bpm)'], 0) / v.length).toFixed(0);
-const restHR = (v.reduce((s,d) => s + d['Min. Heart Rate(bpm)'], 0) / v.length).toFixed(0);
-const avgHRV = (v.reduce((s,d) => s + d['Avg. HRV(ms)'], 0) / v.length).toFixed(0);
-const avgSleep = (s.reduce((sum,d) => sum + d.hours, 0) / s.length).toFixed(1);
-const avgSteps = (a.reduce((sum,d) => sum + d.Steps, 0) / a.length).toFixed(0);
-const avgSpO2 = (v.reduce((sum,d) => sum + d['Avg. Spo2(%)'], 0) / v.length).toFixed(1);
-const avgDeep = (s.reduce((sum,d) => sum + d['Sleep Stages - Deep Sleep(min)'], 0) / s.length).toFixed(0);
-
-const minHR = Math.min(...v.map(d => d['Min. Heart Rate(bpm)']));
-const maxHR = Math.max(...v.map(d => d['Max. Heart Rate(bpm)']));
-const maxHRV = Math.max(...v.map(d => d['Avg. HRV(ms)']));
-
-document.getElementById('scores').innerHTML = `
-  <div class="score-card hr">
-    <div class="value">${avgHR}</div>
-    <div class="label">Avg Heart Rate</div>
-    <div class="sub">range: ${minHR}–${maxHR} bpm</div>
-  </div>
-  <div class="score-card hrv">
-    <div class="value">${avgHRV}</div>
-    <div class="label">Avg HRV (ms)</div>
-    <div class="sub">peak: ${maxHRV} ms</div>
-  </div>
-  <div class="score-card sleep">
-    <div class="value">${avgSleep}h</div>
-    <div class="label">Avg Sleep</div>
-    <div class="sub">${s.length} nights tracked</div>
-  </div>
-  <div class="score-card steps">
-    <div class="value">${Number(avgSteps).toLocaleString()}</div>
-    <div class="label">Avg Daily Steps</div>
-    <div class="sub">max: ${Math.max(...a.map(d=>d.Steps)).toLocaleString()}</div>
-  </div>
-  <div class="score-card spo2">
-    <div class="value">${avgSpO2}%</div>
-    <div class="label">Avg SpO2</div>
-    <div class="sub">blood oxygen</div>
-  </div>
-  <div class="score-card deep">
-    <div class="value">${avgDeep}m</div>
-    <div class="label">Avg Deep Sleep</div>
-    <div class="sub">per night</div>
-  </div>
-`;
-
-// ═══════════════════════════════════════════
-// CHART 1: HEART RATE CORRIDOR
-// ═══════════════════════════════════════════
-new Chart(document.getElementById('hrChart'), {
-  type: 'line',
-  data: {
-    labels: v.map(d => d.Date),
-    datasets: [
-      {
-        label: 'Max HR',
-        data: v.map(d => d['Max. Heart Rate(bpm)']),
-        borderColor: 'rgba(233,69,96,0.3)',
-        backgroundColor: 'rgba(233,69,96,0.05)',
-        fill: '+1',
-        borderWidth: 1,
-      },
-      {
-        label: 'Avg HR',
-        data: v.map(d => d['Avg. Heart Rate(bpm)']),
-        borderColor: '#e94560',
-        backgroundColor: 'rgba(233,69,96,0.08)',
-        fill: '+1',
-        borderWidth: 2,
-      },
-      {
-        label: 'Resting HR',
-        data: v.map(d => d['Min. Heart Rate(bpm)']),
-        borderColor: 'rgba(108,99,255,0.8)',
-        backgroundColor: 'transparent',
-        borderWidth: 1.5,
-        borderDash: [4, 2],
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      tooltip: { ...tooltipOpts, callbacks: {
-        label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} bpm`
-      }},
-      legend: { position: 'top', align: 'end' },
+  recoveryChart = new Chart(document.getElementById("recoveryChart"), {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "7d recovery score",
+          data: rollingScore,
+          borderColor: colors.accent,
+          backgroundColor: "rgba(12,124,89,0.14)",
+          fill: true,
+          borderWidth: 3,
+          pointRadius: 0,
+          tension: 0.28,
+          yAxisID: "y"
+        },
+        {
+          label: "Stage-resolved sleep hours",
+          data: sleepRows.map(row => ({ x: row.date, y: row.sleepHours })),
+          borderColor: colors.accent3,
+          backgroundColor: "rgba(217,119,6,0.08)",
+          fill: false,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 5,
+          showLine: false,
+          yAxisID: "y1"
+        }
+      ]
     },
-    scales: {
-      x: timeAxis('2025-09-11', '2026-03-17'),
-      y: yAxis('BPM', 30, 160),
-    }
-  }
-});
-
-// ═══════════════════════════════════════════
-// CHART 2: SLEEP ARCHITECTURE (stacked)
-// ═══════════════════════════════════════════
-// Filter out extreme outlier days (>16h total)
-const sleepFiltered = s.filter(d => d.hours <= 16);
-
-new Chart(document.getElementById('sleepChart'), {
-  type: 'bar',
-  data: {
-    labels: sleepFiltered.map(d => d.date),
-    datasets: [
-      {
-        label: 'Deep',
-        data: sleepFiltered.map(d => d['Sleep Stages - Deep Sleep(min)'] / 60),
-        backgroundColor: '#7c4dff',
-        borderRadius: 1,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 11 }
+          }
+        },
+        tooltip: {
+          backgroundColor: "rgba(255,253,250,0.98)",
+          titleColor: colors.text,
+          bodyColor: colors.muted,
+          borderColor: "rgba(84,71,55,0.18)",
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 16,
+          titleFont: { family: "'Archivo Black'", size: 12 },
+          bodyFont: { family: "'JetBrains Mono'", size: 11 }
+        }
       },
-      {
-        label: 'REM',
-        data: sleepFiltered.map(d => d['Sleep Stages - REM(min)'] / 60),
-        backgroundColor: '#ff6b9d',
-        borderRadius: 1,
-      },
-      {
-        label: 'Light',
-        data: sleepFiltered.map(d => d['Sleep Stages - Light Sleep(min)'] / 60),
-        backgroundColor: '#4dd0e1',
-        borderRadius: 1,
-      },
-      {
-        label: 'Awake',
-        data: sleepFiltered.map(d => d['Sleep Stages - Awake(min)'] / 60),
-        backgroundColor: 'rgba(255,138,101,0.6)',
-        borderRadius: 1,
-      },
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      tooltip: { ...tooltipOpts, callbacks: {
-        label: ctx => `${ctx.dataset.label}: ${(ctx.parsed.y * 60).toFixed(0)} min`
-      }},
-      legend: { position: 'top', align: 'end' },
-    },
-    scales: {
-      x: {
-        type: 'time',
-        time: { unit: 'month', displayFormats: { month: 'MMM' } },
-        stacked: true,
-        grid: { display: false },
-        ticks: { maxTicksLimit: 6 }
-      },
-      y: {
-        stacked: true,
-        title: { display: true, text: 'Hours', font: { size: 9 } },
-        max: 18,
-        grid: { color: gridColor, drawBorder: false },
-      },
-    },
-  }
-});
-
-// ═══════════════════════════════════════════
-// CHART 3: STEPS vs HRV (dual axis)
-// ═══════════════════════════════════════════
-// Merge activity + vitals by date
-const stepsMap = {};
-a.forEach(d => { stepsMap[d.Date] = d.Steps; });
-const hrvMap = {};
-v.forEach(d => { hrvMap[d.Date] = d['Avg. HRV(ms)']; });
-const mergedDates = v.map(d => d.Date).filter(d => stepsMap[d] !== undefined);
-
-new Chart(document.getElementById('stepsHrvChart'), {
-  type: 'bar',
-  data: {
-    labels: mergedDates,
-    datasets: [
-      {
-        label: 'Steps',
-        data: mergedDates.map(d => stepsMap[d]),
-        backgroundColor: 'rgba(255,167,38,0.35)',
-        borderColor: 'rgba(255,167,38,0.6)',
-        borderWidth: 1,
-        borderRadius: 2,
-        yAxisID: 'y',
-        order: 2,
-      },
-      {
-        label: 'HRV (ms)',
-        type: 'line',
-        data: mergedDates.map(d => hrvMap[d]),
-        borderColor: '#6c63ff',
-        backgroundColor: 'rgba(108,99,255,0.1)',
-        fill: true,
-        borderWidth: 2,
-        yAxisID: 'y1',
-        order: 1,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      tooltip: tooltipOpts,
-      legend: { position: 'top', align: 'end' },
-    },
-    scales: {
-      x: {
-        type: 'time',
-        time: { unit: 'month', displayFormats: { month: 'MMM' } },
-        grid: { display: false },
-        ticks: { maxTicksLimit: 6 }
-      },
-      y: {
-        position: 'left',
-        title: { display: true, text: 'Steps', font: { size: 9 } },
-        grid: { color: gridColor, drawBorder: false },
-        min: 0,
-      },
-      y1: {
-        position: 'right',
-        title: { display: true, text: 'HRV (ms)', font: { size: 9 } },
-        grid: { display: false },
-        min: 0, max: 70,
-      }
-    }
-  }
-});
-
-// ═══════════════════════════════════════════
-// CHART 4: SLEEP DURATION + EFFICIENCY
-// ═══════════════════════════════════════════
-const sleepClean = s.filter(d => d.hours > 1 && d.hours <= 14);
-
-new Chart(document.getElementById('sleepDurationChart'), {
-  type: 'bar',
-  data: {
-    labels: sleepClean.map(d => d.date),
-    datasets: [
-      {
-        label: 'Hours Asleep',
-        data: sleepClean.map(d => d.hours),
-        backgroundColor: sleepClean.map(d =>
-          d.hours >= 7 ? 'rgba(0,212,170,0.5)' :
-          d.hours >= 5 ? 'rgba(255,167,38,0.5)' :
-          'rgba(233,69,96,0.5)'
-        ),
-        borderColor: sleepClean.map(d =>
-          d.hours >= 7 ? 'rgba(0,212,170,0.8)' :
-          d.hours >= 5 ? 'rgba(255,167,38,0.8)' :
-          'rgba(233,69,96,0.8)'
-        ),
-        borderWidth: 1,
-        borderRadius: 2,
-        yAxisID: 'y',
-        order: 2,
-      },
-      {
-        label: 'Sleep Efficiency %',
-        type: 'line',
-        data: sleepClean.map(d => d['Sleep Time Ratio(%)']),
-        borderColor: 'rgba(66,165,245,0.8)',
-        backgroundColor: 'rgba(66,165,245,0.05)',
-        fill: true,
-        borderWidth: 1.5,
-        yAxisID: 'y1',
-        order: 1,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      tooltip: tooltipOpts,
-      legend: { position: 'top', align: 'end' },
-      annotation: {
-        annotations: {
-          target: {
-            type: 'line', yMin: 7, yMax: 7, yScaleID: 'y',
-            borderColor: 'rgba(0,212,170,0.3)', borderWidth: 1, borderDash: [6,3],
-            label: { display: true, content: '7h target', position: 'start', font: { size: 9 } }
+      scales: {
+        x: {
+          type: "time",
+          time: { unit: "month", displayFormats: { month: "MMM yy" } },
+          grid: { color: "rgba(84,71,55,0.08)", drawBorder: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        },
+        y: {
+          min: 0,
+          max: 100,
+          grid: { color: "rgba(84,71,55,0.08)", drawBorder: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        },
+        y1: {
+          position: "right",
+          min: 0,
+          max: 12,
+          grid: { display: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
           }
         }
       }
+    }
+  });
+
+  cardioChart = new Chart(document.getElementById("cardioChart"), {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "7d resting HR",
+          data: rollingRhr,
+          borderColor: colors.accent4,
+          backgroundColor: "rgba(180,35,24,0.12)",
+          fill: false,
+          borderWidth: 3,
+          pointRadius: 0,
+          tension: 0.28,
+          yAxisID: "y"
+        },
+        {
+          label: "7d HRV",
+          data: rollingHrv,
+          borderColor: colors.accent2,
+          backgroundColor: "rgba(34,87,122,0.12)",
+          fill: false,
+          borderWidth: 3,
+          pointRadius: 0,
+          tension: 0.28,
+          yAxisID: "y1"
+        }
+      ]
     },
-    scales: {
-      x: {
-        type: 'time',
-        time: { unit: 'month', displayFormats: { month: 'MMM yy' } },
-        grid: { display: false },
-        ticks: { maxTicksLimit: 7 }
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 11 }
+          }
+        },
+        tooltip: {
+          backgroundColor: "rgba(255,253,250,0.98)",
+          titleColor: colors.text,
+          bodyColor: colors.muted,
+          borderColor: "rgba(84,71,55,0.18)",
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 16,
+          titleFont: { family: "'Archivo Black'", size: 12 },
+          bodyFont: { family: "'JetBrains Mono'", size: 11 }
+        }
       },
-      y: {
-        position: 'left',
-        title: { display: true, text: 'Hours', font: { size: 9 } },
-        grid: { color: gridColor, drawBorder: false },
-        min: 0, max: 15,
-      },
-      y1: {
-        position: 'right',
-        title: { display: true, text: 'Efficiency %', font: { size: 9 } },
-        grid: { display: false },
-        min: 40, max: 100,
+      scales: {
+        x: {
+          type: "time",
+          time: { unit: "month", displayFormats: { month: "MMM yy" } },
+          grid: { color: "rgba(84,71,55,0.08)", drawBorder: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        },
+        y: {
+          position: "left",
+          grid: { color: "rgba(84,71,55,0.08)", drawBorder: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        },
+        y1: {
+          position: "right",
+          grid: { display: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        }
       }
     }
+  });
+
+  sleepChart = new Chart(document.getElementById("sleepChart"), {
+    data: {
+      labels: sleepRows.map(row => row.date),
+      datasets: [
+        {
+          type: "bar",
+          label: "Sleep hours",
+          data: sleepRows.map(row => row.sleepHours),
+          backgroundColor: sleepRows.map(row => row.sleepHours >= 7 ? "rgba(12,124,89,0.45)" : row.sleepHours >= 5 ? "rgba(217,119,6,0.38)" : "rgba(180,35,24,0.35)"),
+          borderColor: sleepRows.map(row => row.sleepHours >= 7 ? "rgba(12,124,89,0.8)" : row.sleepHours >= 5 ? "rgba(217,119,6,0.7)" : "rgba(180,35,24,0.72)"),
+          borderWidth: 1,
+          borderRadius: 6,
+          yAxisID: "y"
+        },
+        {
+          type: "line",
+          label: "Efficiency %",
+          data: sleepRows.map(row => row.sleepEff),
+          borderColor: colors.accent2,
+          backgroundColor: "rgba(34,87,122,0.08)",
+          fill: false,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0.28,
+          yAxisID: "y1"
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 11 }
+          }
+        },
+        tooltip: {
+          backgroundColor: "rgba(255,253,250,0.98)",
+          titleColor: colors.text,
+          bodyColor: colors.muted,
+          borderColor: "rgba(84,71,55,0.18)",
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 16,
+          titleFont: { family: "'Archivo Black'", size: 12 },
+          bodyFont: { family: "'JetBrains Mono'", size: 11 }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 },
+            maxRotation: 0,
+            callback(value, index, ticks) {
+              const label = this.getLabelForValue(value);
+              return index % Math.ceil(ticks.length / 8) === 0 ? label.slice(5) : "";
+            }
+          }
+        },
+        y: {
+          grid: { color: "rgba(84,71,55,0.08)", drawBorder: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        },
+        y1: {
+          position: "right",
+          min: 40,
+          max: 100,
+          grid: { display: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        }
+      }
+    }
+  });
+
+  monthChart = new Chart(document.getElementById("monthChart"), {
+    type: "bar",
+    data: {
+      labels: monthlySummaries.map(summary => formatMonthLabel(summary.month)),
+      datasets: [{
+        label: "Monthly score",
+        data: monthlySummaries.map(summary => Math.round(summary.score)),
+        backgroundColor: monthlySummaries.map(summary => summary.score >= 70 ? "rgba(12,124,89,0.65)" : summary.score >= 55 ? "rgba(217,119,6,0.58)" : "rgba(180,35,24,0.6)"),
+        borderColor: monthlySummaries.map(summary => summary.score >= 70 ? "rgba(12,124,89,0.9)" : summary.score >= 55 ? "rgba(217,119,6,0.86)" : "rgba(180,35,24,0.9)"),
+        borderWidth: 1,
+        borderRadius: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "rgba(255,253,250,0.98)",
+          titleColor: colors.text,
+          bodyColor: colors.muted,
+          borderColor: "rgba(84,71,55,0.18)",
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 16,
+          titleFont: { family: "'Archivo Black'", size: 12 },
+          bodyFont: { family: "'JetBrains Mono'", size: 11 }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        },
+        y: {
+          min: 0,
+          max: 100,
+          grid: { color: "rgba(84,71,55,0.08)", drawBorder: false },
+          ticks: {
+            color: colors.subtle,
+            font: { family: "'JetBrains Mono'", size: 10 }
+          }
+        }
+      }
+    }
+  });
+}
+
+function buildRelationCards(dailyRows) {
+  const cardioRows = dailyRows.filter(row => Number.isFinite(row.rhr) && Number.isFinite(row.hrv));
+  const stepsRows = dailyRows.filter(row => Number.isFinite(row.steps) && Number.isFinite(row.hrv));
+  const spo2Rows = dailyRows.filter(row => Number.isFinite(row.spo2) && Number.isFinite(row.rhr));
+  const stageSleepRows = dailyRows.filter(row => Number.isFinite(row.sleepHours));
+  const nextDayPairs = [];
+  for (let i = 0; i < dailyRows.length - 1; i += 1) {
+    const current = dailyRows[i];
+    const next = dailyRows[i + 1];
+    if (Number.isFinite(current.sleepHours) && Number.isFinite(next.hrv)) {
+      nextDayPairs.push([current.sleepHours, next.hrv]);
+    }
   }
-});
+
+  const rhrVsHrv = correlation(
+    cardioRows.map(row => row.rhr),
+    cardioRows.map(row => row.hrv)
+  );
+  const stepsVsHrv = correlation(
+    stepsRows.map(row => row.steps),
+    stepsRows.map(row => row.hrv)
+  );
+  const spo2VsRhr = correlation(
+    spo2Rows.map(row => row.spo2),
+    spo2Rows.map(row => row.rhr)
+  );
+  const sleepVsNextHrv = correlation(
+    nextDayPairs.map(pair => pair[0]),
+    nextDayPairs.map(pair => pair[1])
+  );
+
+  return [
+    {
+      label: "Resting HR vs HRV",
+      title: `${relationshipStrength(rhrVsHrv)} inverse link`,
+      value: rhrVsHrv,
+      copy: `This is the clearest relationship in the archive (r=${rhrVsHrv.toFixed(2)}). When resting HR climbs, HRV usually drops too, which makes the cardio pair the most reliable recovery read on this page.`
+    },
+    {
+      label: "SpO2 vs resting HR",
+      title: `${relationshipStrength(spo2VsRhr)} pressure link`,
+      value: spo2VsRhr,
+      copy: `Blood oxygen does not move enough to be a lead indicator here, but it does rise slightly with higher resting HR (r=${spo2VsRhr.toFixed(2)}), which reads more like pressure than resilience.`
+    },
+    {
+      label: "Steps vs HRV",
+      title: `${relationshipStrength(stepsVsHrv)} connection`,
+      value: stepsVsHrv,
+      copy: `Step count explains very little of recovery quality in this dataset (r=${stepsVsHrv.toFixed(2)}). Movement volume matters less than what the cardio markers are doing afterward.`
+    },
+    {
+      label: "Sleep carryover",
+      title: stageSleepRows.length >= 5 ? `${relationshipStrength(sleepVsNextHrv)} carryover` : "Sample too thin to trust",
+      value: stageSleepRows.length >= 5 ? sleepVsNextHrv : 0,
+      copy: stageSleepRows.length >= 5
+        ? `Longer stage-resolved nights translated into next-day HRV with ${relationshipStrength(sleepVsNextHrv)} relationship (r=${sleepVsNextHrv.toFixed(2)}).`
+        : `Stage-resolved sleep only shows up on ${formatCount(stageSleepRows.length, "night")} in this archive, so next-day sleep carryover is not yet reliable enough to treat as a real relationship.`
+    }
+  ];
+}
+
+function render(cache) {
+  renderShell();
+  const dailyRows = buildDailyRows(cache.data);
+  const completeRows = dailyRows.filter(row => Number.isFinite(row.score));
+  const monthlySummaries = buildMonthlySummaries(completeRows);
+  const windows = buildWindows(completeRows, 14);
+  const relationCards = buildRelationCards(dailyRows);
+  const stats = {
+    days: dailyRows.length,
+    sleepNights: dailyRows.filter(row => Number.isFinite(row.sleepHours)).length,
+    minDate: dailyRows[0]?.date,
+    maxDate: dailyRows[dailyRows.length - 1]?.date
+  };
+
+  document.getElementById("dateRange").textContent = `${formatDate(stats.minDate)} — ${formatDate(stats.maxDate)} · ${stats.days} tracked days`;
+  renderOverview(dailyRows, monthlySummaries, windows, stats);
+  renderInsightGrid(dailyRows, windows, [...relationCards]);
+  renderRelationGrid(relationCards);
+  renderMonthGrid(monthlySummaries);
+  renderCharts(completeRows, monthlySummaries);
+}
+
+fetch("data/health_cache.json")
+  .then(response => {
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  })
+  .then(render)
+  .catch(error => {
+    console.error("Failed to load wellness analysis", error);
+    app.innerHTML = `<div class="error">Wellness data could not be loaded right now.</div>`;
+    document.getElementById("dateRange").textContent = "Data unavailable";
+  });
 </script>
 </body>
 </html>
