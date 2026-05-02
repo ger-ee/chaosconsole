@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Callout Components - Signal Manual</title>
+<meta name="description" content="Documented callout components for the Signal Manual subsection.">
+<meta name="theme-color" content="#0D0906">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/production-almanac/styles.css">
+<script defer src="../../shared/gate.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand-link" href="/production-almanac/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M12 4v16"/><circle cx="12" cy="12" r="7"/></svg>
+      </span>
+      <span class="brand-wordmark">Signal Manual</span>
+    </a>
+    <nav class="top-links" aria-label="Section">
+      <a href="/production-almanac/">Index</a>
+      <a href="/production-almanac/cold-open/">Cold Open</a>
+      <a href="/production-almanac/voice-cadence/">Voice</a>
+      <a href="/production-almanac/bibliography/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <details class="mobile-toc">
+    <summary>Open contents</summary>
+    <ul class="toc-list">
+      <li><a href="#tokens">Tokens</a></li>
+      <li><a href="#callouts">Callouts</a></li>
+      <li><a href="#usage">Usage Rules</a></li>
+    </ul>
+  </details>
+
+  <div class="layout">
+    <aside class="toc" aria-label="Table of contents">
+      <p class="toc-title">Components</p>
+      <ul class="toc-list">
+        <li><a href="#main">Top</a></li>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#callouts">Callouts</a></li>
+        <li><a href="#usage">Usage Rules</a></li>
+      </ul>
+    </aside>
+
+    <main class="content" id="main">
+      <section class="hero">
+        <div class="breadcrumb">Signal Manual / Components / Phase 1</div>
+        <h1 class="long-title">Callout Components</h1>
+        <p class="subtitle">Small, repeatable blocks for ADHD-friendly re-entry without turning the page into a sticker sheet.</p>
+        <div class="meta-row">
+          <span class="meta-chip">4 min read</span>
+          <span class="meta-chip">Depth 1 / Docs</span>
+        </div>
+      </section>
+
+      <div class="callout tldr">
+        <span class="callout-label">TL;DR</span>
+        <ul>
+          <li>Use one callout every few scrolls.</li>
+          <li>Keep labels fixed.</li>
+          <li>Do not stack callouts.</li>
+          <li>Reset blocks are re-entry points.</li>
+        </ul>
+      </div>
+
+      <section class="section" id="tokens">
+        <p class="section-kicker">Tokens</p>
+        <h2>Inherited Base</h2>
+        <p>The component set inherits the Chaos Console palette and font tokens: dark ground, cream text, orange action color, JetBrains Mono for metadata, Fraunces for editorial emphasis, Archivo Black for display headings.</p>
+        <p>Radii stay at 8px or less. Borders do the framing. No nested cards, no decorative blobs, no separate frontend system.</p>
+      </section>
+
+      <div class="callout reset">
+        <span class="callout-label">Reset</span>
+        <p>Components exist to reduce cognitive load. If a component makes the page louder without making it easier, delete it.</p>
+      </div>
+
+      <section class="section wide" id="callouts">
+        <p class="section-kicker">Library</p>
+        <h2>Callout Set</h2>
+        <div class="grid chapter-grid">
+          <article class="component-card">
+            <span class="component-token">.callout.tldr</span>
+            <h3>TL;DR</h3>
+            <p>Use at the top of every page. Three to five bullets. Keep total copy under 80 words.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.callout.key-stat</span>
+            <h3>Key Stat</h3>
+            <p>Use only when a number changes the editorial decision. Every number needs a source.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.callout.steal</span>
+            <h3>Steal This</h3>
+            <p>Use for operational moves: edit patterns, script tests, production defaults, or repeatable checks.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.callout.skip</span>
+            <h3>Skip This If</h3>
+            <p>Use to protect attention. It tells the reader when a section is not for their current problem.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.callout.reset</span>
+            <h3>Reset</h3>
+            <p>Use every few sections as a one-line recap. It lets a distracted reader re-enter without scrolling.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.callout.forum-note</span>
+            <h3>Forum Note</h3>
+            <p>Use for Reddit or niche-forum material. Mark it anecdotal, cite it, and never let it carry a core claim.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="usage">
+        <p class="section-kicker">Usage</p>
+        <h2>Examples</h2>
+        <div class="callout steal">
+          <span class="callout-label">Steal This</span>
+          <p>Write the callout as a command or diagnostic. Avoid decorative summaries that repeat the paragraph above.</p>
+        </div>
+        <div class="callout forum-note">
+          <span class="callout-label">Forum Note / Reddit / Anecdotal</span>
+          <p>Use this marker when the source is useful operator chatter rather than a vetted production breakdown.</p>
+          <p class="source-line">Marked addition: public forum signal.</p>
+        </div>
+        <pre><code>&lt;div class="callout steal"&gt;
+  &lt;span class="callout-label"&gt;Steal This&lt;/span&gt;
+  &lt;p&gt;Draft the cold open before the full script.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        <p>Do not put callouts inside cards. Do not use more than two callouts back to back. If the page needs that much rescue, the prose is the problem.</p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <p class="footer-copy">Signal Manual / Component Docs</p>
+  <p class="footer-copy"><a href="/production-almanac/cold-open/">Back to Cold Open</a></p>
+</footer>
+</body>
+</html>
