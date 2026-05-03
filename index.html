@@ -459,6 +459,10 @@ a {
   padding: 10px 0 34px;
 }
 
+.archives {
+  padding-top: 6px;
+}
+
 .directory-header {
   display: flex;
   align-items: end;
@@ -502,6 +506,10 @@ a {
   gap: 18px;
 }
 
+.archive-grid {
+  grid-template-columns: 1fr;
+}
+
 .lane {
   border-radius: 28px;
   padding: 24px;
@@ -524,6 +532,10 @@ a {
   margin: 0;
   display: grid;
   gap: 12px;
+}
+
+.archives .module-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .module-card {
@@ -613,6 +625,10 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .archives .module-list {
+    grid-template-columns: 1fr;
+  }
+
   .intro-panel {
     min-height: unset;
   }
@@ -694,7 +710,8 @@ a {
     </a>
     <div class="header-meta" aria-label="Edition metadata">
       <span>Private Command Center</span>
-      <span>12 Modules</span>
+      <span>10 Active Modules</span>
+      <span>2 Archives</span>
       <span>Los Angeles · MMXXVI</span>
     </div>
   </div>
@@ -711,16 +728,16 @@ a {
             <p>A private operating system for money, wellness, playlists, Blindspot craft, reading, intelligence, and maintenance.</p>
             <div class="stats-row" aria-label="Site summary">
               <span class="stat-chip">
-                <span class="stat-value">12</span>
-                <span class="stat-label">Live modules</span>
+                <span class="stat-value">10</span>
+                <span class="stat-label">Active modules</span>
               </span>
               <span class="stat-chip">
-                <span class="stat-value">6</span>
-                <span class="stat-label">Core domains</span>
+                <span class="stat-value">4</span>
+                <span class="stat-label">Main lanes</span>
               </span>
               <span class="stat-chip">
-                <span class="stat-value">3</span>
-                <span class="stat-label">Featured rebuilds</span>
+                <span class="stat-value">2</span>
+                <span class="stat-label">Archive pages</span>
               </span>
             </div>
           </div>
@@ -769,7 +786,7 @@ a {
       <div class="directory-header">
         <div>
           <h2 class="directory-title" id="directory-title">Directory</h2>
-          <p class="directory-copy">The stack is organized by role: core systems, wellness, culture, Blindspot craft, and long-tail utilities.</p>
+          <p class="directory-copy">The active stack is organized by role: core systems, wellness, culture, Blindspot craft, and long-tail utilities.</p>
         </div>
         <div class="directory-status">Fast path: The Blindspot Almanac Phase 2, Tracker, Wellness, Ledger</div>
       </div>
@@ -796,26 +813,6 @@ a {
                   <p class="module-copy">Notes, models, and operating logic for AI-assisted work.</p>
                 </div>
                 <span class="module-tag">Intelligence</span>
-              </a>
-            </li>
-            <li>
-              <a class="module-card" href="/the-color-bible/">
-                <span class="module-index">05</span>
-                <div>
-                  <p class="module-title">The Color Bible</p>
-                  <p class="module-copy">The visual system, references, swatches, and design logic.</p>
-                </div>
-                <span class="module-tag">System</span>
-              </a>
-            </li>
-            <li>
-              <a class="module-card" href="/digital-ecosystem-refresh/">
-                <span class="module-index">08</span>
-                <div>
-                  <p class="module-title">Digital Ecosystem Refresh</p>
-                  <p class="module-copy">Maintenance tasks, cleanup, and platform-wide recalibration.</p>
-                </div>
-                <span class="module-tag">Maintenance</span>
               </a>
             </li>
           </ul>
@@ -914,6 +911,46 @@ a {
                   <p class="module-copy">A dedicated archive for sharp lines, comic timing, and conversational ammunition.</p>
                 </div>
                 <span class="module-tag">Humor</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="directory archives" id="archives" aria-labelledby="archives-title">
+    <div class="site-shell">
+      <div class="directory-header">
+        <div>
+          <h2 class="directory-title" id="archives-title">Archives</h2>
+          <p class="directory-copy">Reference pages and completed refresh work stay available here without sitting in the active operating directory.</p>
+        </div>
+        <div class="directory-status">Archived: Color Bible, Digital Refresher</div>
+      </div>
+
+      <div class="lane-grid archive-grid">
+        <section class="lane" aria-labelledby="lane-archives">
+          <h3 class="lane-kicker" id="lane-archives">Reference &amp; Retired Work</h3>
+          <ul class="module-list">
+            <li>
+              <a class="module-card" href="/the-color-bible/">
+                <span class="module-index">A1</span>
+                <div>
+                  <p class="module-title">The Color Bible</p>
+                  <p class="module-copy">The visual system, references, swatches, and design logic.</p>
+                </div>
+                <span class="module-tag">Archive</span>
+              </a>
+            </li>
+            <li>
+              <a class="module-card" href="/digital-ecosystem-refresh/">
+                <span class="module-index">A2</span>
+                <div>
+                  <p class="module-title">The Digital Refresher</p>
+                  <p class="module-copy">Maintenance tasks, cleanup, and platform-wide recalibration.</p>
+                </div>
+                <span class="module-tag">Archive</span>
               </a>
             </li>
           </ul>
