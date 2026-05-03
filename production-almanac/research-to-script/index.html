@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research-To-Script - The Blindspot Almanac</title>
+<meta name="description" content="A field-manual chapter on turning research into a verified Blindspot script.">
+<meta name="theme-color" content="#0D0906">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/production-almanac/styles.css">
+<script defer src="../../shared/gate.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand-link" href="/production-almanac/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M12 4v16"/><circle cx="12" cy="12" r="7"/></svg>
+      </span>
+      <span class="brand-wordmark">The Blindspot Almanac</span>
+    </a>
+    <nav class="top-links" aria-label="Section">
+      <a href="/production-almanac/">Index</a>
+      <a href="/production-almanac/cold-open/">Cold</a>
+      <a href="/production-almanac/voice-cadence/">Voice</a>
+      <a href="/production-almanac/visual-system/">Visuals</a>
+      <a href="/production-almanac/edit-grammar/">Edit</a>
+      <a href="/production-almanac/sound-finish/">Sound</a>
+      <a href="/production-almanac/case-files/">Cases</a>
+      <a href="/production-almanac/bibliography/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <details class="mobile-toc">
+    <summary>Open contents</summary>
+    <ul class="toc-list">
+      <li><a href="#job">Job</a></li>
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#claim-map">Claim Map</a></li>
+      <li><a href="#fact-pass">Fact Pass</a></li>
+      <li><a href="#stop">Stop Rules</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+    </ul>
+  </details>
+
+  <div class="layout">
+    <aside class="toc" aria-label="Table of contents">
+      <p class="toc-title">Research</p>
+      <ul class="toc-list">
+        <li><a href="#main">Top</a></li>
+        <li><a href="#job">Job</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+        <li><a href="#claim-map">Claim Map</a></li>
+        <li><a href="#fact-pass">Fact Pass</a></li>
+        <li><a href="#stop">Stop Rules</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+      </ul>
+    </aside>
+
+    <main class="content" id="main">
+      <section class="hero">
+        <div class="breadcrumb">Chapter 03 / Reporting / Phase 2</div>
+        <h1 class="long-title">Research-To-Script</h1>
+        <p class="subtitle">Research is not a pile. It is a chain of claims that can survive a hostile read.</p>
+        <div class="meta-row" aria-label="Chapter metadata">
+          <span class="meta-chip">8 min read</span>
+          <span class="meta-chip">Depth 3 / Build Ready</span>
+          <span class="meta-chip depth-meter" aria-label="Depth three of four"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span></span></span>
+        </div>
+      </section>
+
+      <div class="callout tldr">
+        <span class="callout-label">TL;DR</span>
+        <ul>
+          <li>Turn every beat into a checkable claim.</li>
+          <li>Separate evidence from interpretation.</li>
+          <li>Write the source stack before the script sings.</li>
+          <li>Stop researching when the risk is mapped.</li>
+        </ul>
+      </div>
+
+      <section class="section" id="job">
+        <p class="section-kicker">Job To Do</p>
+        <h2>Make The Episode Falsifiable</h2>
+        <p class="lede">A Blindspot script should be hard to knock down because the claims are visible before the rhetoric arrives. The joke, the outrage, the map, and the edit all depend on that.</p>
+        <p>Bill Kovach and Tom Rosenstiel put verification at the center of journalism. Tim Harrower turns that into newsroom behavior: check names, titles, numbers, spellings, claims, attribution, and disputed facts before the sentence hardens into copy.</p>
+        <p>For The Blindspot, that means the script is not the first artifact. The first artifact is a claim ledger. The script comes after the claims have receipts, context, and a note on what remains uncertain.</p>
+      </section>
+
+      <div class="callout key-stat">
+        <span class="callout-label">Key Rule</span>
+        <p>No load-bearing sentence enters the script without a source, a visual proof plan, and a risk label. If it cannot meet that bar, it becomes opinion, narration, or trash.</p>
+      </div>
+
+      <section class="section" id="pipeline">
+        <p class="section-kicker">Operating Model</p>
+        <h2>Seed, Stack, Beat, Lock</h2>
+        <p>The pipeline should be boring enough to survive a bad week. Start with a seed question, then build a claim map, then attach sources, then write the beat sheet, then run the fact pass.</p>
+        <p>Steven Pinker's clarity work is useful here because the enemy is not vocabulary. The enemy is the curse of knowledge: you know why a detail matters, so you forget to build the bridge for the viewer.</p>
+        <p>The <a href="/the-blindspot-binder/">Blindspot Binder</a> already points toward episode folders with research, scripts, footage, assets, exports, and a local <code>_Sources.md</code>. Use that structure. It turns research from a drawer into a production object.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>Output</th><th>Exit Test</th></tr></thead>
+            <tbody>
+              <tr><td>Seed</td><td>One question and one suspected mechanism.</td><td>You can state what the episode tests.</td></tr>
+              <tr><td>Claim map</td><td>Chronological or causal list of claims.</td><td>Every beat can be true or false.</td></tr>
+              <tr><td>Source stack</td><td>Primary, expert, context, and dissenting sources.</td><td>No source is doing a job it cannot do.</td></tr>
+              <tr><td>Beat sheet</td><td>Story order with proof images assigned.</td><td>The viewer can follow without a footnote cloud.</td></tr>
+              <tr><td>Fact pass</td><td>Marked copy: fact, interpretation, opinion, joke.</td><td>A hostile reader knows what you know and how.</td></tr>
+              <tr><td>Script lock</td><td>VO draft ready for <a href="/production-almanac/visual-system/">visual planning</a>.</td><td>No unresolved red claims remain.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="callout steal">
+        <span class="callout-label">Steal This</span>
+        <p>Create <code>_Sources.md</code> before the first draft. Add four headings: Primary, Context, Dissent, Visual Proof. If Dissent is empty, the episode is still shopping for confirmation.</p>
+      </div>
+
+      <div class="callout forum-note">
+        <span class="callout-label">Forum Note / r/editors / Anecdotal</span>
+        <p>Documentary editors often warn that transcripts and paper cuts can hide story holes. A quote may read perfectly and still fail because the usable footage, tone, or bridge is missing. Treat this as a production warning: source logic has to meet edit logic before scripting locks.</p>
+        <p class="source-line">Marked addition: editor-forum heuristic, not a reporting standard.</p>
+      </div>
+
+      <section class="section" id="claim-map">
+        <p class="section-kicker">Claim Map</p>
+        <h2>Separate Fact, Read, And Punchline</h2>
+        <p>Most script confusion comes from mixing three modes. <strong>Fact</strong>: the checkable thing. <strong>Read</strong>: the interpretation. <strong>Punchline</strong>: the pressure valve that makes the interpretation memorable.</p>
+        <p>Opinion: the best Blindspot paragraph usually contains one fact, one implication, and one turn. If it contains three facts, two dates, a joke, and a moral conclusion, the viewer is doing unpaid clerical work.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ledger Column</th><th>What Goes There</th><th>Why It Exists</th></tr></thead>
+            <tbody>
+              <tr><td>Claim</td><td>The exact sentence or beat.</td><td>Prevents vague sourcing.</td></tr>
+              <tr><td>Source</td><td>Document, interview, book, dataset, or clip.</td><td>Shows where the claim came from.</td></tr>
+              <tr><td>Status</td><td>Verified, disputed, inferred, opinion.</td><td>Stops uncertainty from wearing a tie.</td></tr>
+              <tr><td>Visual proof</td><td>Document zoom, map, chart, archive, quote card.</td><td>Hands the editor something real.</td></tr>
+              <tr><td>Risk</td><td>Legal, factual, ethical, tone, rights.</td><td>Moves danger upstream.</td></tr>
+              <tr><td>Script beat</td><td>Cold open, setup, turn, consequence, release.</td><td>Keeps research attached to story.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Harrower's checking habits belong in this ledger: spell the name, confirm the title, attribute the contested fact, and label disputed material. The viewer does not need to see the ledger. The edit needs to feel like one exists.</p>
+      </section>
+
+      <div class="callout reset" id="reset-map">
+        <span class="callout-label">Reset</span>
+        <p>The claim map is the episode's skeleton. The script is muscle, timing, and attitude.</p>
+      </div>
+
+      <section class="section" id="fact-pass">
+        <p class="section-kicker">Fact Pass</p>
+        <h2>Run The Hostile Read Before The Internet Does</h2>
+        <p>The fact pass is not copyediting. It is a behavior pass. Ask what a motivated critic would attack, then decide whether the source, language, and visual support can handle it.</p>
+        <p>Mark phrases that overstate causality. "Led to" is stronger than "was followed by." "Proved" is stronger than "suggested." If the evidence only supports "suggested," write that and let the edit carry the pressure.</p>
+        <p>Unsettled debate: there is no universal source count per claim. A birth date may need one reliable source. An allegation against a living person may need primary records, corroboration, right-of-reply, and careful language. Risk decides the depth.</p>
+      </section>
+
+      <div class="callout skip">
+        <span class="callout-label">Skip This If</span>
+        <p>The beat is clearly labeled as opinion, interpretation, or comedy. Still check that it does not smuggle in a false factual allegation.</p>
+      </div>
+
+      <section class="section" id="stop">
+        <p class="section-kicker">Stop Rules</p>
+        <h2>Research Ends When The Decision Is Clear</h2>
+        <p>Research becomes avoidance when it no longer changes the episode. Do one final sweep for gaps, then lock the beat sheet and move to <a href="/production-almanac/edit-grammar/">edit grammar</a>.</p>
+        <p>Use three stop rules. First, every main claim has a source and a status. Second, every disputed claim has the dispute represented fairly. Third, every visual proof need has an assigned asset or an honest placeholder.</p>
+        <p>Then stop. Not because the subject is exhausted. Because production needs a version it can test.</p>
+      </section>
+
+      <div class="quote-strip">
+        <p>"If the source cannot change the script, it is probably not research anymore."</p>
+        <cite>The Blindspot Almanac working rule</cite>
+      </div>
+
+      <section class="section" id="checklist">
+        <p class="section-kicker">Print View</p>
+        <h2>Just The Checklist</h2>
+        <details class="checklist-panel" open>
+          <summary>
+            <span class="checklist-title">Research-To-Script Checklist</span>
+          </summary>
+          <div class="checklist-content">
+            <button class="print-link" type="button" onclick="window.print()">Print Checklist</button>
+            <ol>
+              <li>Write the seed question in one sentence.</li>
+              <li>Create <code>_Sources.md</code> with Primary, Context, Dissent, and Visual Proof headings.</li>
+              <li>Convert every major beat into a checkable claim.</li>
+              <li>Mark each claim as verified, disputed, inferred, opinion, or joke.</li>
+              <li>Assign one visual proof plan to every load-bearing claim.</li>
+              <li>Run a hostile read for causality, names, titles, numbers, dates, and attribution.</li>
+              <li>Represent the strongest dissenting source where the topic is contested.</li>
+              <li>Move legal, rights, or defamation risks into the ledger before the edit.</li>
+              <li>Cut claims that cannot be sourced at the needed risk level.</li>
+              <li>Lock the beat sheet once new research stops changing the story order.</li>
+            </ol>
+          </div>
+        </details>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <p class="footer-copy">The Blindspot Almanac / Research-To-Script</p>
+  <p class="footer-copy"><a href="/production-almanac/bibliography/">Source ledger</a></p>
+</footer>
+</body>
+</html>

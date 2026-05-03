@@ -188,6 +188,8 @@ pre,
 .top-links {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 14px;
   color: var(--text-muted);
   font-family: var(--mono);
@@ -784,6 +786,8 @@ pre {
   .top-links {
     width: 100%;
     overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     padding-bottom: 2px;
   }
 
@@ -794,6 +798,11 @@ pre {
   .hero h1,
   .hero h1.long-title {
     font-size: clamp(40px, 17vw, 64px);
+  }
+
+  .hero h1.long-title {
+    max-width: 100%;
+    font-size: clamp(36px, 13.5vw, 52px);
   }
 
   .subtitle {
