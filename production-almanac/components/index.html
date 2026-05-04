@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Callout Components - The Blindspot Almanac</title>
-<meta name="description" content="Documented callout components for The Blindspot Almanac subsection.">
+<title>Components - The Blindspot Almanac</title>
+<meta name="description" content="Documented callout and visual components for The Blindspot Almanac subsection.">
 <meta name="theme-color" content="#0D0906">
 <link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
@@ -24,15 +24,11 @@
       <span class="brand-wordmark">The Blindspot Almanac</span>
     </a>
     <nav class="top-links" aria-label="Section">
-      <a href="/production-almanac/">Index</a>
-      <a href="/production-almanac/cold-open/">Cold</a>
-      <a href="/production-almanac/voice-cadence/">Voice</a>
-      <a href="/production-almanac/research-to-script/">Research</a>
-      <a href="/production-almanac/visual-system/">Visuals</a>
-      <a href="/production-almanac/edit-grammar/">Edit</a>
-      <a href="/production-almanac/sound-finish/">Sound</a>
+      <a href="/production-almanac/#workflow">Workflow</a>
+      <a href="/production-almanac/#chapters">Chapters</a>
       <a href="/production-almanac/case-files/">Cases</a>
       <a href="/production-almanac/bibliography/">Sources</a>
+      <a href="/production-almanac/components/">Components</a>
     </nav>
   </div>
 </header>
@@ -43,6 +39,7 @@
     <ul class="toc-list">
       <li><a href="#tokens">Tokens</a></li>
       <li><a href="#callouts">Callouts</a></li>
+      <li><a href="#visuals">Visuals</a></li>
       <li><a href="#usage">Usage Rules</a></li>
     </ul>
   </details>
@@ -54,6 +51,7 @@
         <li><a href="#main">Top</a></li>
         <li><a href="#tokens">Tokens</a></li>
         <li><a href="#callouts">Callouts</a></li>
+        <li><a href="#visuals">Visuals</a></li>
         <li><a href="#usage">Usage Rules</a></li>
       </ul>
     </aside>
@@ -61,7 +59,7 @@
     <main class="content" id="main">
       <section class="hero">
         <div class="breadcrumb">The Blindspot Almanac / Components / Live</div>
-        <h1 class="long-title">Callout Components</h1>
+        <h1 class="long-title">Components</h1>
         <p class="subtitle">Small, repeatable blocks for ADHD-friendly re-entry without turning the page into a sticker sheet.</p>
         <div class="meta-row">
           <span class="meta-chip">4 min read</span>
@@ -74,7 +72,7 @@
         <ul>
           <li>Use one callout every few scrolls.</li>
           <li>Keep labels fixed.</li>
-          <li>Do not stack callouts.</li>
+          <li>Use visuals when they clarify a decision.</li>
           <li>Reset blocks are re-entry points.</li>
         </ul>
       </div>
@@ -126,6 +124,42 @@
             <p>Use for Reddit or niche-forum material. Mark it anecdotal, cite it, and never let it carry a core claim.</p>
           </article>
         </div>
+      </section>
+
+      <section class="section wide" id="visuals">
+        <p class="section-kicker">Library</p>
+        <h2>Visual Set</h2>
+        <div class="grid chapter-grid">
+          <article class="component-card">
+            <span class="component-token">.visual-figure</span>
+            <h3>Figure Shell</h3>
+            <p>Use for charts, diagrams, proof boards, and workflow maps. Every figure needs an accessible label and a caption.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.workflow-map</span>
+            <h3>Workflow Map</h3>
+            <p>Use on index or chapter overviews when the reader needs production order before detail.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.bar-chart</span>
+            <h3>Diagnostic Bars</h3>
+            <p>Use for relative craft emphasis. Do not use for sourced numerical claims unless the underlying numbers are cited.</p>
+          </article>
+          <article class="component-card">
+            <span class="component-token">.image-strip</span>
+            <h3>Proof Images</h3>
+            <p>Use synthetic panels for document, map, and timeline jobs when a real image would imply unsupported evidence.</p>
+          </article>
+        </div>
+        <figure class="visual-figure">
+          <p class="figure-title">Example Figure</p>
+          <div class="image-strip">
+            <div class="image-panel doc"><span>Document</span></div>
+            <div class="image-panel map"><span>Map</span></div>
+            <div class="image-panel timeline"><span>Timeline</span></div>
+          </div>
+          <p class="figure-caption">Use visual scaffolding to help the reader skim the operating logic. Do not make fake evidence.</p>
+        </figure>
       </section>
 
       <section class="section" id="usage">

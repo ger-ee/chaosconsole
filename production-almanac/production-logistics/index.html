@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Logistics - The Blindspot Almanac</title>
+<meta name="description" content="A field-manual chapter on small-team production logistics, file discipline, solo recording, and shipment for The Blindspot.">
+<meta name="theme-color" content="#0D0906">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/production-almanac/styles.css">
+<script defer src="../../shared/gate.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand-link" href="/production-almanac/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M12 4v16"/><circle cx="12" cy="12" r="7"/></svg>
+      </span>
+      <span class="brand-wordmark">The Blindspot Almanac</span>
+    </a>
+    <nav class="top-links" aria-label="Section">
+      <a href="/production-almanac/#workflow">Workflow</a>
+      <a href="/production-almanac/#chapters">Chapters</a>
+      <a href="/production-almanac/case-files/">Cases</a>
+      <a href="/production-almanac/bibliography/">Sources</a>
+      <a href="/production-almanac/components/">Components</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <details class="mobile-toc">
+    <summary>Open contents</summary>
+    <ul class="toc-list">
+      <li><a href="#job">Job</a></li>
+      <li><a href="#folder">Folder Model</a></li>
+      <li><a href="#week">Week Loop</a></li>
+      <li><a href="#capture">Capture</a></li>
+      <li><a href="#handoff">Handoff</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+    </ul>
+  </details>
+
+  <div class="layout">
+    <aside class="toc" aria-label="Table of contents">
+      <p class="toc-title">Logistics</p>
+      <ul class="toc-list">
+        <li><a href="#main">Top</a></li>
+        <li><a href="#job">Job</a></li>
+        <li><a href="#folder">Folder Model</a></li>
+        <li><a href="#week">Week Loop</a></li>
+        <li><a href="#capture">Capture</a></li>
+        <li><a href="#handoff">Handoff</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+      </ul>
+    </aside>
+
+    <main class="content" id="main">
+      <section class="hero">
+        <div class="breadcrumb">Chapter 08 / Operations / Live</div>
+        <h1 class="long-title">Production Logistics</h1>
+        <p class="subtitle">The solo workflow has to be boring on purpose. Boring is where the episode survives.</p>
+        <div class="meta-row" aria-label="Chapter metadata">
+          <span class="meta-chip">8 min read</span>
+          <span class="meta-chip">Depth 3 / Build Ready</span>
+          <span class="meta-chip depth-meter" aria-label="Depth three of four"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span></span></span>
+        </div>
+      </section>
+
+      <div class="callout tldr">
+        <span class="callout-label">TL;DR</span>
+        <ul>
+          <li>Make folders before inspiration arrives.</li>
+          <li>Separate source, work, export, and social assets.</li>
+          <li>Shoot for the edit, not the ego.</li>
+          <li>Ship a clean version before polishing the ghost.</li>
+        </ul>
+      </div>
+
+      <section class="section" id="job">
+        <p class="section-kicker">Job To Do</p>
+        <h2>Reduce The Number Of Heroic Decisions</h2>
+        <p class="lede">A one-person investigative channel fails when every task becomes a fresh act of invention. Production logistics exist to move decisions out of panic time.</p>
+        <p>The <a href="/the-blindspot-binder/">Blindspot Binder</a> already gives the right bias: packaging-first planning, source-safe folders, and anti-perfectionism. Iain Anderson's Final Cut workflow adds the post side: organize first, then assemble, trim, sweeten, title, export, and archive.</p>
+        <p>The result is not bureaucracy. It is a small set of defaults that let Gary stay journalist, filmmaker, editor, and adult with a calendar.</p>
+      </section>
+
+      <div class="callout key-stat">
+        <span class="callout-label">Key Rule</span>
+        <p>The episode is not "in production" until its folder, source ledger, working edit, thumbnail draft, and export target exist. Otherwise the project is still a pile with a dramatic name.</p>
+      </div>
+
+      <figure class="visual-figure" role="img" aria-label="Three production images: a source document, a map, and a timeline panel representing the minimum episode kit.">
+        <p class="figure-title">Minimum Episode Kit</p>
+        <div class="image-strip">
+          <div class="image-panel doc"><span>Source Ledger</span></div>
+          <div class="image-panel map"><span>Visual Proof Map</span></div>
+          <div class="image-panel timeline"><span>Timeline Spine</span></div>
+        </div>
+        <p class="figure-caption">An episode needs a source trail, a proof plan, and a timeline path before it needs a prettier font.</p>
+      </figure>
+
+      <section class="section" id="folder">
+        <p class="section-kicker">Folder Model</p>
+        <h2>Use One Shape Every Time</h2>
+        <p>The Binder's folder logic should be the default for every episode: sources, work files, exports, social cuts, and archive. Keep the names boring enough that a collaborator can find a court filing without reading Gary's mood that week.</p>
+        <p>Use one local source ledger: <code>_Sources.md</code>. It should carry links, provenance, rights notes, fact status, and visual proof notes. A source living only inside a browser tab is not a source. It is a future apology.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Folder</th><th>What Goes There</th><th>Exit Test</th></tr></thead>
+            <tbody>
+              <tr><td><code>01_sources</code></td><td>PDFs, clips, interview audio, screen captures, rights notes.</td><td>Every load-bearing asset has provenance.</td></tr>
+              <tr><td><code>02_work</code></td><td>Project files, scripts, graphics, audio sessions, edit files.</td><td>Current version is obvious.</td></tr>
+              <tr><td><code>03_exports</code></td><td>Masters, review files, captions, upload files.</td><td>Public, review, and archive files are separated.</td></tr>
+              <tr><td><code>04_social</code></td><td>Thumbnails, shorts, clips, titles, pinned-comment drafts.</td><td>Packaging is not an afterthought.</td></tr>
+              <tr><td><code>_archive</code></td><td>Old versions, killed sequences, superseded research.</td><td>Nothing important is deleted under stress.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="callout steal">
+        <span class="callout-label">Steal This</span>
+        <p>Name files as <code>blindspot_YYYYMMDD_episode_slug_v01.ext</code>. Version numbers are not glamorous. Neither is rebuilding a lost lower third at midnight.</p>
+      </div>
+
+      <section class="section" id="week">
+        <p class="section-kicker">Production Loop</p>
+        <h2>Build A Week That Can Survive The Week</h2>
+        <p>Use a repeatable loop: shape, source, write, cut, finish, package, publish, learn. The time blocks will move. The order should not.</p>
+        <p>The Binder's 70% rule is a local operating heuristic, not an empirical law. Use it this way: once the episode is source-safe, coherent, audible, and visually legible, ship the best clean version instead of waiting for a mythical perfect version to walk through the door holding a lav mic.</p>
+        <div class="flow-list" aria-label="Small-team production loop">
+          <div class="flow-step"><span>Shape</span><p>Choose the controlling question, line, and packaging promise.</p></div>
+          <div class="flow-step"><span>Source</span><p>Build the ledger, dissent stack, and visual proof list.</p></div>
+          <div class="flow-step"><span>Write</span><p>Draft aloud, mark breath, receipts, names, and risk.</p></div>
+          <div class="flow-step"><span>Cut</span><p>Build spine cut, evidence cut, pace cut, finish cut.</p></div>
+          <div class="flow-step"><span>Publish</span><p>Upload, caption, package, log first read of analytics, archive.</p></div>
+        </div>
+      </section>
+
+      <div class="callout reset" id="reset-week">
+        <span class="callout-label">Reset</span>
+        <p>The workflow should make the next action obvious even when the episode is ugly.</p>
+      </div>
+
+      <div class="callout forum-note">
+        <span class="callout-label">Forum Note / r/editors / Anecdotal</span>
+        <p>Editors in documentary threads keep describing the same pain: unclear story goals, missing assets, and late structure decisions. Treat the pattern as a handoff warning. The solo producer has to be kind to the future editor, even when the future editor is also Gary.</p>
+        <p class="source-line">Marked addition: editor-forum production friction, not a formal workflow source.</p>
+      </div>
+
+      <section class="section" id="capture">
+        <p class="section-kicker">Solo Capture</p>
+        <h2>Shoot Yourself Like You Are Already Editing</h2>
+        <p>Small-team production cannot afford coverage fantasies. If Gary is on camera, capture a clean anchor take, tight hands, desk details, monitor/source inserts, empty room plate, and room tone. Mascelli's coverage logic still applies when the crew is one person and a tripod judging silently from the corner.</p>
+        <p>Sound comes first. Glen Weldon's NPR guide is useful because it treats audio as credibility: monitor with headphones, control the room, and collect sound deliberately. Bad picture can sometimes become style. Bad audio mostly becomes distrust.</p>
+        <p>Light for consistency before drama. A repeatable closet, desk, or wall setup beats a heroic cinematic look that cannot be rebuilt next Tuesday.</p>
+      </section>
+
+      <div class="callout skip">
+        <span class="callout-label">Skip This If</span>
+        <p>The sequence is pure archival or graphics. Still create the equivalent coverage list: orientation, proof, bridge, consequence, and breathing room.</p>
+      </div>
+
+      <section class="section" id="handoff">
+        <p class="section-kicker">Handoff</p>
+        <h2>Make Review Boring Too</h2>
+        <p>Every review export should answer three questions. What changed since the last cut? What kind of feedback is needed? What is locked?</p>
+        <p>Do not ask for "thoughts" when you need a fact check, pace read, title preference, or legal-risk scan. Vague feedback invites aesthetic wandering. Specific feedback protects the schedule.</p>
+        <p>After publish, archive the master, upload file, captions, thumbnail, title notes, source ledger, and one short postmortem. The next episode should inherit lessons, not folklore.</p>
+      </section>
+
+      <div class="quote-strip">
+        <p>"A clean folder is not admin. It is future evidence."</p>
+        <cite>The Blindspot Almanac working rule</cite>
+      </div>
+
+      <section class="section" id="checklist">
+        <p class="section-kicker">Print View</p>
+        <h2>Just The Checklist</h2>
+        <details class="checklist-panel" open>
+          <summary>
+            <span class="checklist-title">Production Logistics Checklist</span>
+          </summary>
+          <div class="checklist-content">
+            <button class="print-link" type="button" onclick="window.print()">Print Checklist</button>
+            <ol>
+              <li>Create the episode folder before drafting.</li>
+              <li>Add <code>01_sources</code>, <code>02_work</code>, <code>03_exports</code>, <code>04_social</code>, and <code>_archive</code>.</li>
+              <li>Create <code>_Sources.md</code> with provenance, rights, risk, and visual proof notes.</li>
+              <li>Use date, slug, and version number in every production file.</li>
+              <li>Draft title and thumbnail promise during shaping, not after export.</li>
+              <li>Capture anchor, detail, insert, empty plate, and room tone for self-shot scenes.</li>
+              <li>Monitor audio with headphones before real takes.</li>
+              <li>Label exports by use: review, master, upload, social, caption.</li>
+              <li>Ask reviewers for one specific kind of feedback.</li>
+              <li>Archive the master, upload, SRT, thumbnail, source ledger, and postmortem after publish.</li>
+            </ol>
+          </div>
+        </details>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <p class="footer-copy">The Blindspot Almanac / Production Logistics</p>
+  <p class="footer-copy"><a href="/production-almanac/bibliography/">Source ledger</a></p>
+</footer>
+</body>
+</html>

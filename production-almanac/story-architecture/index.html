@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Architecture - The Blindspot Almanac</title>
+<meta name="description" content="A field-manual chapter on act structure, controlling questions, and long-form story architecture for The Blindspot.">
+<meta name="theme-color" content="#0D0906">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/production-almanac/styles.css">
+<script defer src="../../shared/gate.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand-link" href="/production-almanac/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M12 4v16"/><circle cx="12" cy="12" r="7"/></svg>
+      </span>
+      <span class="brand-wordmark">The Blindspot Almanac</span>
+    </a>
+    <nav class="top-links" aria-label="Section">
+      <a href="/production-almanac/#workflow">Workflow</a>
+      <a href="/production-almanac/#chapters">Chapters</a>
+      <a href="/production-almanac/case-files/">Cases</a>
+      <a href="/production-almanac/bibliography/">Sources</a>
+      <a href="/production-almanac/components/">Components</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <details class="mobile-toc">
+    <summary>Open contents</summary>
+    <ul class="toc-list">
+      <li><a href="#job">Job</a></li>
+      <li><a href="#spine">Spine</a></li>
+      <li><a href="#acts">Act Map</a></li>
+      <li><a href="#load">Viewer Load</a></li>
+      <li><a href="#failure">Failure Modes</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+    </ul>
+  </details>
+
+  <div class="layout">
+    <aside class="toc" aria-label="Table of contents">
+      <p class="toc-title">Story</p>
+      <ul class="toc-list">
+        <li><a href="#main">Top</a></li>
+        <li><a href="#job">Job</a></li>
+        <li><a href="#spine">Spine</a></li>
+        <li><a href="#acts">Act Map</a></li>
+        <li><a href="#load">Viewer Load</a></li>
+        <li><a href="#failure">Failure Modes</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+      </ul>
+    </aside>
+
+    <main class="content" id="main">
+      <section class="hero">
+        <div class="breadcrumb">Chapter 01 / Architecture / Live</div>
+        <h1 class="long-title">Story Architecture</h1>
+        <p class="subtitle">A long episode holds when every turn changes the question the viewer is carrying.</p>
+        <div class="meta-row" aria-label="Chapter metadata">
+          <span class="meta-chip">9 min read</span>
+          <span class="meta-chip">Depth 3 / Build Ready</span>
+          <span class="meta-chip depth-meter" aria-label="Depth three of four"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span></span></span>
+        </div>
+      </section>
+
+      <div class="callout tldr">
+        <span class="callout-label">TL;DR</span>
+        <ul>
+          <li>Choose the controlling question first.</li>
+          <li>Build acts around changed understanding.</li>
+          <li>Reset before the viewer gets lost.</li>
+          <li>Cut brilliance that leaves the spine.</li>
+        </ul>
+      </div>
+
+      <section class="section" id="job">
+        <p class="section-kicker">Job To Do</p>
+        <h2>Make The Episode Followable</h2>
+        <p class="lede">Story architecture is the operating system under the jokes, documents, maps, and edits. If the viewer loses the controlling question, the episode becomes a handsome archive tour with commitment issues.</p>
+        <p>Don Hewitt's <em>60 Minutes</em> lesson is blunt enough to keep: tell a story. Steve Audette's FRONTLINE workflow says the same thing in post language: find the line through a large subject and cut what does not move that line.</p>
+        <p>The Blindspot needs both instincts. It can handle complex geopolitics and history, but it cannot ask the viewer to carry every branch at once.</p>
+      </section>
+
+      <div class="callout key-stat">
+        <span class="callout-label">Key Rule</span>
+        <p>Every act must change the viewer's answer to the same question. If an act only adds information, it is probably a folder, not a story turn.</p>
+      </div>
+
+      <figure class="visual-figure" role="img" aria-label="A five-part episode spine from question to cost to mechanism to turn to consequence.">
+        <p class="figure-title">Episode Spine Graph</p>
+        <div class="phase-map">
+          <div class="phase-node"><span>01</span><strong>Question</strong><p>What do we think is happening?</p></div>
+          <div class="phase-node"><span>02</span><strong>Cost</strong><p>Who pays for the official story?</p></div>
+          <div class="phase-node"><span>03</span><strong>Mechanism</strong><p>How does the system actually work?</p></div>
+          <div class="phase-node"><span>04</span><strong>Turn</strong><p>What changes our read?</p></div>
+          <div class="phase-node"><span>05</span><strong>Consequence</strong><p>What remains true after the evidence lands?</p></div>
+        </div>
+        <p class="figure-caption">Use this as a tension map, not a formula. Some episodes start with consequence. The viewer still needs the path.</p>
+      </figure>
+
+      <section class="section" id="spine">
+        <p class="section-kicker">Operating Model</p>
+        <h2>Question, Line, Turn</h2>
+        <p><strong>Question:</strong> the thing the episode is actually investigating. Not the topic. "Why did this policy fail after everyone saw the warning signs?" is a question. "The policy failure" is a drawer label.</p>
+        <p><strong>Line:</strong> the path through the subject. It can be a person, memo, shipment, border, court case, agency decision, or money trail. Audette's point about story boxes is useful because it forces the edit to choose a route before it chooses beauty.</p>
+        <p><strong>Turn:</strong> the moment the viewer's understanding changes. A good turn does not simply add a new fact. It reorganizes the facts already on the table.</p>
+        <p>Opinion: The Blindspot should write the controlling question on the first page of every script and the first marker of every edit timeline. If a sequence cannot answer to it, the sequence is begging for a future life as a short.</p>
+      </section>
+
+      <div class="callout steal">
+        <span class="callout-label">Steal This</span>
+        <p>Before research gets pretty, write the sentence: "This is the story of [mechanism] told through [path], because [cost]." Then make every chapter beat defend its right to stay.</p>
+      </div>
+
+      <div class="callout forum-note">
+        <span class="callout-label">Forum Note / r/editors / Anecdotal</span>
+        <p>Documentary editors in public forum threads keep warning that paper cuts can hide story holes. Treat the warning as practical: a beat can be sourced, emotional, and visually strong while still failing the line test.</p>
+        <p class="source-line">Marked addition: editor-forum heuristic, not source-backed doctrine.</p>
+      </div>
+
+      <section class="section" id="acts">
+        <p class="section-kicker">Act Map</p>
+        <h2>Use Acts As Re-Entry Points</h2>
+        <p>Long-form YouTube does not need old broadcast act breaks. It does need act movement. A viewer should be able to scrub into the middle and know what question is active within seconds.</p>
+        <p>Nancy Duarte's storyboarding habit helps here. Build the episode as a row of decisions, not a stack of paragraphs. If a card has no decision, no visual proof, and no viewer re-orientation, it is not an act beat yet.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Act</th><th>Viewer Question</th><th>Exit Test</th></tr></thead>
+            <tbody>
+              <tr><td>Cold open</td><td>Why should I trust this click?</td><td>The wound and proof are visible.</td></tr>
+              <tr><td>Setup</td><td>What did the public story claim?</td><td>The official version is clear.</td></tr>
+              <tr><td>Mechanism</td><td>How did the system behave?</td><td>The viewer can explain the engine.</td></tr>
+              <tr><td>Reversal</td><td>What did we miss?</td><td>A new fact changes the read.</td></tr>
+              <tr><td>Consequence</td><td>Who lived with the result?</td><td>The cost is specific, not atmospheric.</td></tr>
+              <tr><td>Landing</td><td>What remains unsettled?</td><td>The viewer knows what was proved and what was not.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="callout reset" id="reset-acts">
+        <span class="callout-label">Reset</span>
+        <p>The act break is not a bumper. It is a handrail.</p>
+      </div>
+
+      <section class="section" id="load">
+        <p class="section-kicker">Viewer Load</p>
+        <h2>Protect The Viewer From Your Research</h2>
+        <p>Steven Pinker's curse-of-knowledge warning belongs in the edit bay. You know the backstory, acronyms, factions, and dates. The viewer gets them one at a time, while eating cereal or avoiding sleep.</p>
+        <p>Use resets as mercy. After two dense sequences, write one plain line that says where we are now. The reset should not summarize the whole episode. It should tell the viewer which door they are about to walk through.</p>
+        <p>The West Wing material on the shelf is useful for rhythm, but it is dangerous if copied as density. Propulsion is not the same as overload. The Blindspot can use verbal momentum only when picture and proof keep the floor under the viewer.</p>
+      </section>
+
+      <div class="callout skip">
+        <span class="callout-label">Skip This If</span>
+        <p>The sequence has one claim, one proof beat, and one plain exit line. If the viewer can already re-enter cleanly, do not add a museum plaque.</p>
+      </div>
+
+      <section class="section" id="failure">
+        <p class="section-kicker">Failure Modes</p>
+        <h2>Kill These On Sight</h2>
+        <p><strong>The chronology trap.</strong> Time order is not story order. Use chronology when cause depends on sequence, not because the research folder starts in 1947.</p>
+        <p><strong>The all-star sidebar.</strong> A brilliant tangent that does not change the line is still a tangent. Save it, cut it, or turn it into a separate upload.</p>
+        <p><strong>The fake climax.</strong> A loud reveal without changed understanding is a lighting cue pretending to be structure.</p>
+        <p><strong>The moral fog machine.</strong> If the viewer cannot state who did what, to whom, and with what consequence, the episode is hiding inside mood.</p>
+      </section>
+
+      <div class="quote-strip">
+        <p>"A chapter earns its length by changing the viewer's map."</p>
+        <cite>The Blindspot Almanac working rule</cite>
+      </div>
+
+      <section class="section" id="checklist">
+        <p class="section-kicker">Print View</p>
+        <h2>Just The Checklist</h2>
+        <details class="checklist-panel" open>
+          <summary>
+            <span class="checklist-title">Story Architecture Checklist</span>
+          </summary>
+          <div class="checklist-content">
+            <button class="print-link" type="button" onclick="window.print()">Print Checklist</button>
+            <ol>
+              <li>Write the controlling question before the beat sheet.</li>
+              <li>Choose the path through the subject: person, mechanism, document, place, or decision chain.</li>
+              <li>Write the episode spine: question, cost, mechanism, turn, consequence.</li>
+              <li>Give every act a viewer question and an exit test.</li>
+              <li>Place reset lines after dense sections.</li>
+              <li>Cut scenes that add information without changing the line.</li>
+              <li>Mark chronology-dependent beats separately from optional backstory.</li>
+              <li>Check that each turn reorganizes what came before.</li>
+              <li>Cross-link major story beats to source and visual proof plans.</li>
+              <li>Read only the act headings. If the story vanishes, rebuild the map.</li>
+            </ol>
+          </div>
+        </details>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <p class="footer-copy">The Blindspot Almanac / Story Architecture</p>
+  <p class="footer-copy"><a href="/production-almanac/bibliography/">Source ledger</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distribution &amp; Algorithm - The Blindspot Almanac</title>
+<meta name="description" content="A field-manual chapter on YouTube packaging, retention, CTR, AVD, and distribution diagnostics for The Blindspot.">
+<meta name="theme-color" content="#0D0906">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/production-almanac/styles.css">
+<script defer src="../../shared/gate.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand-link" href="/production-almanac/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M12 4v16"/><circle cx="12" cy="12" r="7"/></svg>
+      </span>
+      <span class="brand-wordmark">The Blindspot Almanac</span>
+    </a>
+    <nav class="top-links" aria-label="Section">
+      <a href="/production-almanac/#workflow">Workflow</a>
+      <a href="/production-almanac/#chapters">Chapters</a>
+      <a href="/production-almanac/case-files/">Cases</a>
+      <a href="/production-almanac/bibliography/">Sources</a>
+      <a href="/production-almanac/components/">Components</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <details class="mobile-toc">
+    <summary>Open contents</summary>
+    <ul class="toc-list">
+      <li><a href="#job">Job</a></li>
+      <li><a href="#promise">Promise</a></li>
+      <li><a href="#diagnostics">Diagnostics</a></li>
+      <li><a href="#tests">Tests</a></li>
+      <li><a href="#postmortem">Postmortem</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+    </ul>
+  </details>
+
+  <div class="layout">
+    <aside class="toc" aria-label="Table of contents">
+      <p class="toc-title">Distribution</p>
+      <ul class="toc-list">
+        <li><a href="#main">Top</a></li>
+        <li><a href="#job">Job</a></li>
+        <li><a href="#promise">Promise</a></li>
+        <li><a href="#diagnostics">Diagnostics</a></li>
+        <li><a href="#tests">Tests</a></li>
+        <li><a href="#postmortem">Postmortem</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+      </ul>
+    </aside>
+
+    <main class="content" id="main">
+      <section class="hero">
+        <div class="breadcrumb">Chapter 09 / Publishing / Live</div>
+        <h1 class="long-title narrow-title">Distribution &amp; Algorithm</h1>
+        <p class="subtitle">Packaging is not the opposite of journalism. It is the promise journalism has to keep in public.</p>
+        <div class="meta-row" aria-label="Chapter metadata">
+          <span class="meta-chip">9 min read</span>
+          <span class="meta-chip">Depth 3 / Build Ready</span>
+          <span class="meta-chip depth-meter" aria-label="Depth three of four"><span class="is-on"></span><span class="is-on"></span><span class="is-on"></span><span></span></span>
+        </div>
+      </section>
+
+      <div class="callout tldr">
+        <span class="callout-label">TL;DR</span>
+        <ul>
+          <li>Title and thumbnail make a promise.</li>
+          <li>The intro proves or breaks it.</li>
+          <li>CTR without AVD is a trap.</li>
+          <li>Diagnose before changing packaging.</li>
+        </ul>
+      </div>
+
+      <section class="section" id="job">
+        <p class="section-kicker">Job To Do</p>
+        <h2>Make The Right Viewer Say Yes</h2>
+        <p class="lede">The algorithm is not one hidden switch. It is a set of systems trying to match viewers with videos they are likely to find satisfying. That makes packaging a creative constraint, not a moral failure.</p>
+        <p>YouTube's recommendation blog lists signals including clicks, watch time, survey responses, sharing, likes, and dislikes. It also says watch time was added to recommendations in 2012 because clicks alone did not prove satisfaction.</p>
+        <p>The Blindspot should treat that as the floor. A title gets the click. The first minutes have to make the click feel wise.</p>
+      </section>
+
+      <div class="callout key-stat">
+        <span class="callout-label">Key Stat</span>
+        <p>YouTube Help says half of all channels and videos have impressions CTR between 2% and 10%, while new videos, small view counts, traffic sources, and broad Home impressions can vary widely. Compare against the channel and traffic source before declaring victory or doom.</p>
+      </div>
+
+      <figure class="visual-figure" role="img" aria-label="A five-step YouTube diagnostic loop from impression to click to intro to average view to next watch.">
+        <p class="figure-title">Distribution Diagnostic Loop</p>
+        <div class="metric-loop">
+          <div class="metric-node"><span>01</span><strong>Impression</strong><p>Was the video shown to the right audience?</p></div>
+          <div class="metric-node"><span>02</span><strong>Click</strong><p>Did title and thumbnail make a credible promise?</p></div>
+          <div class="metric-node"><span>03</span><strong>Intro</strong><p>Did the first 30 seconds match expectation?</p></div>
+          <div class="metric-node"><span>04</span><strong>AVD</strong><p>Did the episode keep earning time?</p></div>
+          <div class="metric-node"><span>05</span><strong>Next Watch</strong><p>Did the channel leave a clean next step?</p></div>
+        </div>
+        <p class="figure-caption">Read the loop as a diagnosis order. Do not fix the thumbnail when the intro is the broken promise.</p>
+      </figure>
+
+      <section class="section" id="promise">
+        <p class="section-kicker">Packaging</p>
+        <h2>Make One Honest Promise</h2>
+        <p>Use Derek Thompson's familiar-surprise frame. The title should point at a story the audience recognizes, then reveal the hidden mechanism that makes it worth the time.</p>
+        <p>Kevin Allocca and Mark Bergen are useful background here because YouTube's metric history punishes empty clickbait over time. YouTube Help is more direct: high CTR with low average view duration and lower-than-expected impressions can signal clickbait.</p>
+        <p>For The Blindspot, the thumbnail should do one of three jobs: show the contradiction, show the object, or show the consequence. If it merely shows Gary looking stunned beside a flag, it is probably asking a face to do a receipt's work.</p>
+      </section>
+
+      <div class="callout steal">
+        <span class="callout-label">Steal This</span>
+        <p>Write the packaging promise in one sentence before scripting: "A viewer who clicks this expects to learn why [familiar story] was really about [hidden mechanism]." Then make the cold open pay that bill.</p>
+      </div>
+
+      <section class="section" id="diagnostics">
+        <p class="section-kicker">Analytics</p>
+        <h2>Read Metrics As Craft Notes</h2>
+        <p>YouTube's retention report defines the intro as the percentage of viewers still watching after the first 30 seconds. A weak intro can mean the opening failed, the title and thumbnail mis-set expectations, or both.</p>
+        <p>Dips are not insults. They are edit notes with witnesses. A dip around a name cluster, history dump, or joke that changes the subject tells you where comprehension broke.</p>
+        <p>Spikes are not always praise. YouTube Help says they can mean viewers rewatched or shared a section, or that the section was unclear. If the spike is on a dense chart, check whether the viewer loved it or had to replay it like a hostage proof-of-life tape.</p>
+        <div class="bar-chart" aria-label="Metric-to-craft diagnosis chart">
+          <div class="bar-row"><span class="bar-label">Low CTR</span><span class="bar-track"><span class="bar-fill" style="--w: 44%"></span></span><span class="bar-value">Promise</span></div>
+          <div class="bar-row"><span class="bar-label">Low Intro</span><span class="bar-track"><span class="bar-fill" style="--w: 62%"></span></span><span class="bar-value">Open</span></div>
+          <div class="bar-row"><span class="bar-label">Mid Dip</span><span class="bar-track"><span class="bar-fill" style="--w: 78%"></span></span><span class="bar-value">Structure</span></div>
+          <div class="bar-row"><span class="bar-label">Low AVD</span><span class="bar-track"><span class="bar-fill" style="--w: 70%"></span></span><span class="bar-value">Pace</span></div>
+        </div>
+      </section>
+
+      <div class="callout reset" id="reset-diagnostics">
+        <span class="callout-label">Reset</span>
+        <p>CTR diagnoses the promise. Retention diagnoses the kept promise. Watch time diagnoses whether the episode kept earning the viewer's life.</p>
+      </div>
+
+      <div class="callout forum-note">
+        <span class="callout-label">Forum Note / r/NewTubers / Anecdotal</span>
+        <p>Creator threads about early drop-off often converge on the same practical warning: do not spend the opening on greetings, logo stings, or self-explanation. Treat that as a field signal, not a benchmark. Official retention data still decides the diagnosis.</p>
+        <p class="source-line">Marked addition: creator-forum friction, not platform documentation.</p>
+      </div>
+
+      <section class="section" id="tests">
+        <p class="section-kicker">Testing</p>
+        <h2>Change One Promise At A Time</h2>
+        <p>YouTube's current Help page says creators can A/B test up to three different titles and thumbnails, with the highest-watch-time option shown to viewers at the end. It also warns that changing the title or thumbnail during a test stops the test.</p>
+        <p>Use tests when the episode has enough distribution to teach something. YouTube's CTR FAQ warns against deciding too early, chasing small changes, or comparing tests across audiences and traffic sources as if they were controlled lab work.</p>
+        <p>Good tests compare promises, not moods. "This was a cover-up" versus "The memo they buried" is a meaningful test. Blue background versus slightly more expensive blue background is a cry for daylight.</p>
+      </section>
+
+      <div class="callout skip">
+        <span class="callout-label">Skip This If</span>
+        <p>The video has too little data, the traffic source changed, or the title no longer matches the episode. A test cannot rescue a false promise.</p>
+      </div>
+
+      <section class="section" id="postmortem">
+        <p class="section-kicker">Postmortem</p>
+        <h2>Do The First Read Calmly</h2>
+        <p>After publish, log the packaging promise, thumbnail concept, title, source of early traffic, intro retention read, major dips, major spikes, and one edit lesson. Keep the postmortem short enough that it actually happens.</p>
+        <p>Do not make a sweeping channel theory from one upload. One video can be mistimed, mispackaged, under-distributed, or just not the one. The pattern matters more than the wound to the ego.</p>
+        <p>The next episode should inherit one operational change. Not ten. Ten changes turn learning into weather.</p>
+      </section>
+
+      <div class="quote-strip">
+        <p>"The algorithm did not betray the promise. The promise either held or it did not."</p>
+        <cite>The Blindspot Almanac working rule</cite>
+      </div>
+
+      <section class="section" id="checklist">
+        <p class="section-kicker">Print View</p>
+        <h2>Just The Checklist</h2>
+        <details class="checklist-panel" open>
+          <summary>
+            <span class="checklist-title">Distribution &amp; Algorithm Checklist</span>
+          </summary>
+          <div class="checklist-content">
+            <button class="print-link" type="button" onclick="window.print()">Print Checklist</button>
+            <ol>
+              <li>Write the title/thumbnail promise before scripting.</li>
+              <li>Make the cold open pay that promise by 30 seconds.</li>
+              <li>Choose a thumbnail job: contradiction, object, or consequence.</li>
+              <li>Compare CTR with traffic source and channel context.</li>
+              <li>Read low intro retention as a promise/opening diagnosis.</li>
+              <li>Review dips for comprehension breaks, not just "boring parts."</li>
+              <li>Review spikes for both interest and confusion.</li>
+              <li>Run title/thumbnail tests only when the data can teach something.</li>
+              <li>Do not change multiple packaging variables unless the test is designed for it.</li>
+              <li>Write one postmortem lesson and carry it into the next episode.</li>
+            </ol>
+          </div>
+        </details>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <p class="footer-copy">The Blindspot Almanac / Distribution &amp; Algorithm</p>
+  <p class="footer-copy"><a href="/production-almanac/bibliography/">Source ledger</a></p>
+</footer>
+</body>
+</html>
