@@ -1,7 +1,12 @@
 (function(){
-  var KEY = 'cc_gate_v1';
+  // v2 — sessionStorage only. localStorage persisted across incognito tabs in
+  // the same window, which let visitors skip the gate after one unlock.
+  // sessionStorage scopes to a single tab; new tabs always re-prompt.
+  var KEY = 'cc_gate_v2';
   var PASS = 'cine';
-  if(sessionStorage.getItem(KEY) === 'ok' || localStorage.getItem(KEY) === 'ok') return;
+  // Clear any v1 caches left over from earlier deploys.
+  try { localStorage.removeItem('cc_gate_v1'); sessionStorage.removeItem('cc_gate_v1'); } catch(e){}
+  if(sessionStorage.getItem(KEY) === 'ok') return;
 
   var style = document.createElement('style');
   style.textContent =
@@ -45,7 +50,6 @@
     function tryUnlock(){
       var v = (input.value || '').trim().toLowerCase();
       if(v === PASS){
-        localStorage.setItem(KEY, 'ok');
         sessionStorage.setItem(KEY, 'ok');
         document.documentElement.classList.remove('cc-locked');
         host.style.transition = 'opacity 0.35s ease';
