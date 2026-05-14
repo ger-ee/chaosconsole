@@ -6,7 +6,7 @@
 <title>Highlights | ChaosConsole</title>
 <script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,0..100&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,0..100&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 [data-theme="dark"] {
   --bg: #171411;
@@ -61,7 +61,7 @@ body {
     radial-gradient(circle at top right, rgba(255, 217, 140, 0.14), transparent 24%),
     linear-gradient(180deg, var(--bg), var(--bg-2) 66%, var(--bg));
   color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Instrument Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
 }
@@ -220,17 +220,19 @@ button { font: inherit; }
 
 .intro-panel h1 {
   margin-top: 0.75rem;
-  font-family: 'Fraunces', serif;
-  font-size: clamp(2.45rem, 3.5vw, 4.6rem);
-  line-height: 0.94;
-  letter-spacing: -0.05em;
+  font-family: 'Space Grotesk', 'Instrument Sans', Inter, sans-serif;
+  font-size: clamp(2.3rem, 3.4vw, 4.05rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 
 .intro-copy {
   margin-top: 1rem;
   color: var(--text-dim);
-  font-size: 1rem;
-  line-height: 1.72;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.58;
   max-width: 34ch;
 }
 

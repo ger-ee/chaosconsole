@@ -1,20 +1,4 @@
 @font-face {
-  font-family: "Archivo Black";
-  src: url("/fonts/archivo-black-subset.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-italic-subset.ttf") format("truetype");
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "JetBrains Mono";
   src: url("/fonts/jetbrains-mono-subset.ttf") format("truetype");
   font-style: normal;
@@ -38,10 +22,11 @@
   --danger: #e4574f;
   --good: #73b979;
   --focus: #d9631e;
-  --display: "Archivo Black", Impact, sans-serif;
-  --editorial: "Fraunces", Georgia, serif;
+  --display: "Space Grotesk", "Instrument Sans", Inter, sans-serif;
+  --editorial: Georgia, serif;
+  --subtitle: var(--sans);
   --mono: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "Instrument Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --measure: 68ch;
 }
@@ -281,31 +266,32 @@ pre,
   max-width: 11ch;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(42px, 9vw, 108px);
-  font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: 0;
+  font-size: clamp(40px, 7vw, 86px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
 }
 
 .hero h1.long-title {
   max-width: 14ch;
-  font-size: clamp(38px, 7vw, 84px);
+  font-size: clamp(36px, 5.8vw, 68px);
 }
 
 .hero h1.narrow-title {
   max-width: 100%;
-  font-size: clamp(34px, 5.6vw, 72px);
+  font-size: clamp(32px, 4.8vw, 56px);
 }
 
 .subtitle {
   max-width: 760px;
   margin: 0;
   color: var(--text-muted);
-  font-family: var(--editorial);
-  font-size: clamp(22px, 3vw, 34px);
-  font-style: italic;
-  line-height: 1.2;
+  font-family: var(--subtitle);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.55;
 }
 
 .meta-row {
@@ -373,8 +359,8 @@ h3 {
 h2 {
   margin: 0 0 16px;
   font-family: var(--display);
-  font-size: clamp(28px, 4vw, 46px);
-  font-weight: 400;
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -687,10 +673,11 @@ tr:last-child td {
 .quote-strip p {
   margin: 0;
   color: var(--text);
-  font-family: var(--editorial);
-  font-size: 1.35rem;
-  font-style: italic;
-  line-height: 1.25;
+  font-family: var(--subtitle);
+  font-size: 1.12rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.55;
 }
 
 .quote-strip cite {
@@ -1099,21 +1086,21 @@ pre {
 
   .hero h1,
   .hero h1.long-title {
-    font-size: clamp(40px, 17vw, 64px);
+    font-size: clamp(38px, 14vw, 58px);
   }
 
   .hero h1.long-title {
     max-width: 100%;
-    font-size: clamp(36px, 13.5vw, 52px);
+    font-size: clamp(34px, 12vw, 48px);
   }
 
   .hero h1.narrow-title {
     max-width: 100%;
-    font-size: clamp(31px, 10.2vw, 40px);
+    font-size: clamp(30px, 9vw, 38px);
   }
 
   .subtitle {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .section {

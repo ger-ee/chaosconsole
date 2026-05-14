@@ -6,26 +6,11 @@
 <title>Playlist Tracker | Chaos Console</title>
 <meta name="description" content="Playlist Tracker is a finished analytics surface for Gary's Spotify playlist portfolio, follower growth, and monthly momentum.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
 <style>
-@font-face {
-  font-family: "Archivo Black";
-  src: url("/fonts/archivo-black-subset.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-italic-subset.ttf") format("truetype");
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-}
-
 @font-face {
   font-family: "JetBrains Mono";
   src: url("/fonts/jetbrains-mono-subset.ttf") format("truetype");
@@ -51,8 +36,10 @@
   --accent-4: #ffd66e;
   --danger: #ff5f7a;
   --shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
-  --display: "Archivo Black", Impact, sans-serif;
-  --editorial: "Fraunces", Georgia, serif;
+  --display: "Space Grotesk", "Instrument Sans", Inter, sans-serif;
+  --body: "Instrument Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --subtitle: var(--body);
+  --editorial: Georgia, serif;
   --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -76,7 +63,7 @@ body {
   min-height: 100vh;
   background: transparent;
   color: var(--text);
-  font-family: var(--editorial);
+  font-family: var(--body);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -275,23 +262,27 @@ select {
 .hero-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(3rem, 7vw, 5.7rem);
-  line-height: 0.92;
-  letter-spacing: -0.05em;
+  font-size: clamp(2.75rem, 6.2vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 
 .hero-title em {
   color: var(--accent-3);
-  font-family: var(--editorial);
-  font-style: italic;
+  font-family: var(--display);
+  font-style: normal;
+  font-weight: 700;
 }
 
 .hero-copy {
   margin: 18px 0 0;
   max-width: 44ch;
   color: var(--muted);
-  font-size: clamp(1rem, 1.6vw, 1.08rem);
-  line-height: 1.7;
+  font-family: var(--subtitle);
+  font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.58;
 }
 
 .hero-status {
@@ -389,9 +380,10 @@ select {
 .spotlight-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2rem, 4vw, 3.3rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  font-size: clamp(1.8rem, 3.3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 
 .spotlight-meta {
@@ -406,7 +398,8 @@ select {
   margin: 0;
   color: var(--muted);
   font-size: 0.98rem;
-  line-height: 1.7;
+  font-weight: 500;
+  line-height: 1.58;
 }
 
 .spotlight-grid {
@@ -473,14 +466,16 @@ select {
   margin: 0;
   font-family: var(--display);
   font-size: 1.4rem;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 .story-copy {
   margin: 10px 0 0;
   color: var(--muted);
   font-size: 0.94rem;
+  font-weight: 500;
   line-height: 1.6;
 }
 
@@ -515,16 +510,18 @@ select {
 .panel-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(1.7rem, 3vw, 2.7rem);
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  font-size: clamp(1.6rem, 2.7vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 
 .panel-copy {
   margin: 10px 0 0;
   color: var(--muted);
   font-size: 0.96rem;
-  line-height: 1.65;
+  font-weight: 500;
+  line-height: 1.58;
   max-width: 54ch;
 }
 
@@ -869,8 +866,9 @@ select {
   margin: 0;
   font-family: var(--display);
   font-size: 1.45rem;
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 
 .playlist-sub {
@@ -1009,8 +1007,9 @@ select {
   margin: 0;
   font-family: var(--display);
   font-size: 2rem;
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 
 .modal-subtitle {
@@ -2099,7 +2098,7 @@ function renderMainChart() {
           bodyColor: "#cfc8e1",
           padding: 12,
           cornerRadius: 16,
-          titleFont: { family: "'Archivo Black'", size: 12 },
+          titleFont: { family: "'Space Grotesk', 'Instrument Sans', sans-serif", size: 12, weight: "700" },
           bodyFont: { family: "'JetBrains Mono'", size: 11 },
           callbacks: {
             label(context) {
@@ -2402,7 +2401,7 @@ function openDetail(name) {
           bodyColor: "#cfc8e1",
           padding: 12,
           cornerRadius: 16,
-          titleFont: { family: "'Archivo Black'", size: 12 },
+          titleFont: { family: "'Space Grotesk', 'Instrument Sans', sans-serif", size: 12, weight: "700" },
           bodyFont: { family: "'JetBrains Mono'", size: 11 }
         }
       },
