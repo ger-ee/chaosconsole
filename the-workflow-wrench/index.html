@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Workflow Wrench | Chaos Console</title>
+<meta name="description" content="A native Chaos Console subpage adapted from The AI-Assisted Workflow Binder: fundamentals, n8n, prompts, agents, client projects, pricing, and reference sheets.">
+<meta name="theme-color" content="#120d0f">
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/fraunces-italic-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<style>
+@font-face {
+  font-family: "Archivo Black";
+  src: url("/fonts/archivo-black-subset.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-italic-subset.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-subset.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --bg: #120d0f;
+  --bg-soft: #171115;
+  --panel: rgba(28, 19, 25, 0.88);
+  --panel-strong: rgba(36, 24, 31, 0.96);
+  --panel-cool: rgba(16, 38, 43, 0.72);
+  --border: rgba(255, 226, 205, 0.12);
+  --border-strong: rgba(255, 226, 205, 0.24);
+  --text: #fff1e3;
+  --muted: #c6b6a6;
+  --subtle: #a19185;
+  --accent: #ff8f43;
+  --accent-2: #58d0bd;
+  --accent-3: #f0d070;
+  --accent-4: #c6a6ff;
+  --danger: #ff7474;
+  --success: #7edc98;
+  --display: "Archivo Black", Impact, sans-serif;
+  --editorial: "Fraunces", Georgia, serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background:
+    radial-gradient(circle at top left, rgba(255, 143, 67, 0.18), transparent 34%),
+    radial-gradient(circle at top right, rgba(88, 208, 189, 0.16), transparent 30%),
+    linear-gradient(180deg, #0f0a0c 0%, #140f12 46%, #120d0f 100%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--editorial);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.68), transparent 92%);
+  pointer-events: none;
+  opacity: 0.23;
+}
+
+a {
+  color: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  transform: translateY(-180%);
+  padding: 12px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--panel-strong);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  z-index: 1000;
+  transition: transform 200ms var(--ease);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.shell {
+  width: min(1180px, calc(100% - 56px));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  background: rgba(18, 13, 15, 0.74);
+  border-bottom: 1px solid rgba(255, 226, 205, 0.06);
+}
+
+.site-header-inner {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand,
+.home-link,
+.nav-chip,
+.button-link,
+.chapter-meta,
+.eyebrow,
+.section-kicker,
+.tag,
+.table-wrap th,
+.mini-label,
+.footer-copy,
+summary::marker {
+  font-family: var(--mono);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--accent);
+}
+
+.brand-wordmark {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.header-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-link {
+  color: var(--accent-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.home-link:hover,
+.home-link:focus-visible {
+  color: var(--text);
+  outline: none;
+}
+
+.hero {
+  padding: 46px 0 28px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.78fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.hero-panel,
+.map-panel,
+.nav-panel,
+.section-panel,
+.part-section,
+.chapter-card,
+.callout,
+.project-card,
+.reference-card,
+.footer-panel {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.hero-panel,
+.map-panel {
+  min-height: 450px;
+  border-radius: 34px;
+  overflow: hidden;
+}
+
+.hero-panel {
+  padding: 36px;
+  display: grid;
+  align-content: space-between;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 143, 67, 0.22), transparent 30%),
+    radial-gradient(circle at 84% 86%, rgba(88, 208, 189, 0.15), transparent 30%),
+    linear-gradient(160deg, rgba(32, 23, 28, 0.95), rgba(19, 14, 17, 0.98));
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--accent-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0;
+  max-width: 8ch;
+  font-family: var(--display);
+  font-size: clamp(3rem, 8vw, 6.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.hero-title strong {
+  color: var(--accent);
+}
+
+.hero-copy {
+  max-width: 60ch;
+}
+
+.hero-copy p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  line-height: 1.7;
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.stat-chip {
+  min-width: 136px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.32rem;
+  letter-spacing: -0.04em;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 6px;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: transform 200ms var(--ease), border-color 200ms var(--ease), background 200ms var(--ease);
+}
+
+.button-link:hover,
+.button-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(255, 143, 67, 0.1);
+  outline: none;
+}
+
+.map-panel {
+  padding: 26px;
+  display: grid;
+  align-content: space-between;
+  background:
+    linear-gradient(160deg, rgba(13, 53, 59, 0.84), rgba(22, 15, 19, 0.94)),
+    linear-gradient(180deg, rgba(255, 143, 67, 0.1), rgba(88, 208, 189, 0.04));
+}
+
+.workflow-visual {
+  display: grid;
+  gap: 12px;
+}
+
+.flow-node {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.flow-node span:first-child {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: var(--bg);
+  background: var(--accent);
+  font-family: var(--display);
+  font-size: 0.95rem;
+}
+
+.flow-node strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.12rem;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.flow-node small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.flow-arrow {
+  width: 2px;
+  height: 18px;
+  margin-left: 35px;
+  background: linear-gradient(180deg, var(--accent), rgba(255, 143, 67, 0));
+}
+
+.map-note {
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.nav-panel {
+  border-radius: 28px;
+  padding: 18px;
+  margin: 10px 0 42px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    linear-gradient(120deg, rgba(255, 143, 67, 0.08), rgba(88, 208, 189, 0.04));
+}
+
+.quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nav-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav-chip:hover,
+.nav-chip:focus-visible {
+  color: var(--text);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.section {
+  padding: 10px 0 44px;
+}
+
+.section-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.section-kicker {
+  margin: 0 0 10px;
+  color: var(--accent-3);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.section-copy {
+  margin: 10px 0 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.section-panel {
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.grid-3,
+.grid-2,
+.project-grid,
+.reference-grid,
+.part-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.reference-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.part-grid {
+  grid-template-columns: 1fr;
+}
+
+.mini-card,
+.path-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.mini-label {
+  display: block;
+  color: var(--accent-2);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.mini-card h3,
+.path-card h3,
+.project-card h3,
+.reference-card h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 2vw, 1.65rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.mini-card p,
+.path-card p,
+.project-card p,
+.reference-card p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tag.time {
+  color: #c7fbff;
+  background: rgba(88, 208, 189, 0.13);
+}
+
+.tag.easy,
+.tag.success {
+  color: #ccffd8;
+  background: rgba(126, 220, 152, 0.13);
+}
+
+.tag.medium {
+  color: #ffe7a7;
+  background: rgba(240, 208, 112, 0.14);
+}
+
+.tag.hard,
+.tag.danger {
+  color: #ffd0d0;
+  background: rgba(255, 116, 116, 0.13);
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 13px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--subtle);
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.68rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+td {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.part-section {
+  border-radius: 28px;
+  padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    linear-gradient(180deg, rgba(255, 143, 67, 0.045), rgba(88, 208, 189, 0.02));
+}
+
+.part-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.part-number {
+  color: var(--accent);
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.part-section h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.part-section > p,
+.part-top p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.chapter-list {
+  display: grid;
+  gap: 12px;
+}
+
+.chapter-card {
+  border-radius: 20px;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: none;
+}
+
+.chapter-card summary {
+  cursor: pointer;
+  list-style-position: inside;
+  padding: 18px;
+  outline: none;
+}
+
+.chapter-card summary:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.chapter-summary-title {
+  display: inline;
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 2vw, 1.42rem);
+  letter-spacing: -0.035em;
+}
+
+.chapter-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chapter-body {
+  padding: 0 18px 20px 18px;
+}
+
+.chapter-body p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.chapter-body ul,
+.chapter-body ol {
+  margin: 12px 0 0;
+  padding-left: 21px;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.chapter-body li + li {
+  margin-top: 6px;
+}
+
+.callout {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  box-shadow: none;
+}
+
+.callout strong {
+  color: var(--text);
+}
+
+.callout.note {
+  border-color: rgba(88, 208, 189, 0.3);
+  background: rgba(88, 208, 189, 0.08);
+}
+
+.callout.project {
+  border-color: rgba(255, 143, 67, 0.32);
+  background: rgba(255, 143, 67, 0.09);
+}
+
+.callout.warning {
+  border-color: rgba(240, 208, 112, 0.32);
+  background: rgba(240, 208, 112, 0.08);
+}
+
+.callout.danger {
+  border-color: rgba(255, 116, 116, 0.32);
+  background: rgba(255, 116, 116, 0.08);
+}
+
+.project-card,
+.reference-card {
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.reference-status {
+  margin-top: 16px;
+}
+
+.project-card {
+  min-height: 220px;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 14px 0 0;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.24);
+  color: #f7e9dc;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+}
+
+.inline-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 14px 0 0;
+  list-style: none;
+}
+
+.inline-list li {
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.site-footer {
+  padding: 14px 0 40px;
+}
+
+.footer-panel {
+  border-radius: 28px;
+  padding: 28px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    linear-gradient(120deg, rgba(255, 143, 67, 0.08), rgba(88, 208, 189, 0.04));
+}
+
+.footer-credit {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.32rem);
+  line-height: 1.55;
+}
+
+.footer-credit strong {
+  color: var(--accent);
+}
+
+.footer-copy {
+  color: var(--subtle);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 1080px) {
+  .hero-grid,
+  .grid-3,
+  .grid-2,
+  .project-grid,
+  .reference-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel,
+  .map-panel {
+    min-height: unset;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    width: min(1180px, calc(100% - 32px));
+  }
+
+  .site-header-inner,
+  .section-header,
+  .part-top,
+  .footer-panel {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-meta {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 28px;
+  }
+
+  .hero-panel,
+  .map-panel,
+  .section-panel,
+  .part-section,
+  .nav-panel {
+    border-radius: 24px;
+  }
+
+  .hero-panel,
+  .map-panel,
+  .section-panel,
+  .part-section {
+    padding: 22px;
+  }
+
+  .flow-node {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .flow-node span:first-child {
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer-copy {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+</style>
+<script defer src="../shared/gate.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" aria-label="Site header">
+  <div class="shell site-header-inner">
+    <a class="brand" href="/index.html" aria-label="Chaos Console home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M41 20C36.8 17.2 30.5 17 25.8 19.5C21.1 22.1 18 26.8 18 32C18 37.2 21.1 41.9 25.8 44.5C30.5 47 36.8 46.8 41 44" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brand-wordmark">Chaos Console</span>
+    </a>
+    <div class="header-meta" aria-label="Page metadata">
+      <span>Automation Manual</span>
+      <span>Edition 1</span>
+      <span>Native Subpage</span>
+    </div>
+    <a class="home-link" href="../index.html">Back Home</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="page-title">
+    <div class="shell hero-grid">
+      <article class="hero-panel">
+        <div>
+          <p class="eyebrow">AI-Assisted Workflow Binder</p>
+          <h1 class="hero-title" id="page-title">The Workflow <strong>Wrench</strong></h1>
+          <div class="hero-copy">
+            <p>Fundamentals first. Hype second. A hands-on automation manual for turning messy business processes into reliable AI-assisted workflows.</p>
+            <div class="stats-row" aria-label="Page summary">
+              <span class="stat-chip">
+                <span class="stat-value">8</span>
+                <span class="stat-label">Parts</span>
+              </span>
+              <span class="stat-chip">
+                <span class="stat-value">31</span>
+                <span class="stat-label">Chapters</span>
+              </span>
+              <span class="stat-chip">
+                <span class="stat-value">12</span>
+                <span class="stat-label">Builds &amp; Templates</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="button-link" href="#start">Start Here</a>
+          <a class="button-link" href="#parts">Open Part Map</a>
+          <a class="button-link" href="#reference">Use Reference</a>
+        </div>
+      </article>
+
+      <aside class="map-panel" aria-labelledby="model-title">
+        <div>
+          <p class="eyebrow">Core model</p>
+          <h2 class="section-title" id="model-title">Messy process to reliable workflow</h2>
+        </div>
+        <div class="workflow-visual" aria-label="Five layer automation model">
+          <div class="flow-node"><span>1</span><div><strong>Trigger</strong><small>What starts it</small></div></div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-node"><span>2</span><div><strong>Inputs</strong><small>What data exists</small></div></div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-node"><span>3</span><div><strong>Decision</strong><small>What changes the path</small></div></div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-node"><span>4</span><div><strong>Action</strong><small>What gets done</small></div></div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-node"><span>5</span><div><strong>Observation</strong><small>How you know it worked</small></div></div>
+        </div>
+        <p class="map-note">The page keeps the PDF's learning ladder, but turns it into a scannable console surface: short chapters, expandable detail, project cards, checklists, tables, and reusable templates.</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="shell">
+    <nav class="nav-panel" aria-label="Page sections">
+      <div class="quick-nav">
+        <a class="nav-chip" href="#start">Start</a>
+        <a class="nav-chip" href="#paths">Learning Paths</a>
+        <a class="nav-chip" href="#models">Models</a>
+        <a class="nav-chip" href="#parts">Part Map</a>
+        <a class="nav-chip" href="#projects">Projects</a>
+        <a class="nav-chip" href="#reference">Reference</a>
+        <a class="nav-chip" href="#cadence">90 Days</a>
+      </div>
+    </nav>
+  </div>
+
+  <section class="section" id="start" aria-labelledby="start-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Front Matter</p>
+          <h2 class="section-title" id="start-title">Use The Binder Without Drowning In It</h2>
+          <p class="section-copy">This is a working manual, not a textbook. The point is to learn the underlying thing, then build a small real automation with it.</p>
+        </div>
+      </div>
+      <div class="section-panel">
+        <div class="grid-3">
+          <article class="mini-card">
+            <span class="mini-label">Premise</span>
+            <h3>Application pays</h3>
+            <p>The paid job is not training models. It is taking an annoying business process and making a workflow run without constant human babysitting.</p>
+          </article>
+          <article class="mini-card">
+            <span class="mini-label">Rule</span>
+            <h3>Build every chapter</h3>
+            <p>Input can feel productive. Output teaches faster. Pair reading with a small build before moving on.</p>
+          </article>
+          <article class="mini-card">
+            <span class="mini-label">Pacing</span>
+            <h3>One chapter per session</h3>
+            <p>Most chapters are sized for 30-90 focused minutes. If you stall, shrink the build. Do not fight the fog.</p>
+          </article>
+        </div>
+        <div class="callout note">
+          <strong>Callout legend:</strong> TL;DR for the core point, Checkpoint for the next action, Project for a shippable build, Pitfall for traps, Resource for named tools/docs, and Pacing notes for attention management.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="paths" aria-labelledby="paths-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Choose Your Route</p>
+          <h2 class="section-title" id="paths-title">Three Ways Through</h2>
+          <p class="section-copy">Pick the path that matches your current energy and background. The order is the tool; guilt is not.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="path-card">
+          <span class="mini-label">Fast portfolio</span>
+          <h3>The Builder</h3>
+          <p>Part 1, then APIs/JSON/webhooks, then n8n projects, business automations, prompts, and AI-native workflows.</p>
+          <div class="tag-row"><span class="tag success">Ship First</span><span class="tag">Skip Python Depth</span></div>
+        </article>
+        <article class="path-card">
+          <span class="mini-label">Stable ground</span>
+          <h3>Foundations-First</h3>
+          <p>Read linearly from mindset through business work. Best if shaky foundations make you anxious.</p>
+          <div class="tag-row"><span class="tag medium">Linear</span><span class="tag">No Skips</span></div>
+        </article>
+        <article class="path-card">
+          <span class="mini-label">Already technical</span>
+          <h3>The Shortcut</h3>
+          <p>Start with the mindset, skim foundations, then move to prompts, agents, real automations, and n8n as a client tool.</p>
+          <div class="tag-row"><span class="tag time">Skim Part 2</span><span class="tag">Use Glossary</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="models" aria-labelledby="models-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Operating Models</p>
+          <h2 class="section-title" id="models-title">The Parts Worth Memorizing</h2>
+          <p class="section-copy">The PDF repeats a small set of decision tools because they transfer across APIs, prompts, n8n, agents, and client discovery.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="section-panel">
+          <h3 class="section-title">Good automation candidate</h3>
+          <p class="section-copy">Score each idea fast. A process should be recurring, structured, annoying, cheap to fail, and already inside a system you can call.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Trait</th><th>Good Sign</th><th>Bad Sign</th></tr></thead>
+              <tbody>
+                <tr><td>Recurring</td><td>At least weekly, or on a critical path.</td><td>Once a quarter with no urgency.</td></tr>
+                <tr><td>Structured</td><td>Same input shape and output shape.</td><td>Every case is a new animal.</td></tr>
+                <tr><td>Annoying</td><td>The user lights up with irritation.</td><td>They kind of enjoy doing it.</td></tr>
+                <tr><td>Cheap to fail</td><td>Mistakes are reviewable and reversible.</td><td>A wrong call creates legal, medical, or money-moving risk.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="section-panel">
+          <h3 class="section-title">Avoid the five stalls</h3>
+          <p class="section-copy">The traps are tutorial loops, hype chasing, premature scaling, perfectionism, and toolchain addiction.</p>
+          <ul class="inline-list" aria-label="Anti-trap rules">
+            <li>Pair 30 minutes of input with 30 minutes of building.</li>
+            <li>Commit to one stack for 90 days.</li>
+            <li>Sell services before inventing a SaaS.</li>
+            <li>Ship at 80% with known gaps named.</li>
+            <li>Choose boring defaults and revisit them rarely.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="parts" aria-labelledby="parts-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Native Page Spine</p>
+          <h2 class="section-title" id="parts-title">The Eight-Part Map</h2>
+          <p class="section-copy">Every PDF part is preserved below, compressed into expandable chapters with the thesis, core claims, checkpoints, and build outputs kept intact.</p>
+        </div>
+      </div>
+
+      <div class="part-grid">
+        <section class="part-section" aria-labelledby="part-1-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part One</p>
+              <h3 id="part-1-title">Mindset</h3>
+              <p>Fundamentals beat hype. Before the tools, learn to see business work as a process you can translate.</p>
+            </div>
+            <div class="part-number">01</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card" open>
+              <summary><span class="chapter-summary-title">1.1 - Why the money is in application</span><span class="chapter-meta"><span class="tag time">~12 min</span><span class="tag easy">Easy</span><span class="tag">Read</span></span></summary>
+              <div class="chapter-body">
+                <p>AI research and AI application are different jobs. Most clients pay for the second: turning messy work into repeatable workflows.</p>
+                <ul>
+                  <li>The daily work is interviewing users, wiring APIs, tuning prompts, handling edge cases, and maintaining the system.</li>
+                  <li>The durable skill stack is APIs, JSON, webhooks, just-enough Python, databases, workflow logic, prompting, n8n, agents/MCPs, and process interviewing.</li>
+                  <li>Small and mid-size businesses still have plenty of manual CRM, invoice, meeting, and lead-response work.</li>
+                </ul>
+                <div class="callout warning"><strong>Pitfall:</strong> Do not wait to learn deep machine learning before shipping useful automation. You need model limits, not model internals.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">1.2 - Draw the five-layer workflow</span><span class="chapter-meta"><span class="tag time">~15 min</span><span class="tag easy">Easy</span><span class="tag">Read + draw</span></span></summary>
+              <div class="chapter-body">
+                <p>Every paying job is a translation problem. Sort the user's story into trigger, inputs, decision, action, and observation.</p>
+                <ul>
+                  <li>A bookkeeper receipt flow becomes email trigger, body/PDF inputs, category decision, sheet append action, and row-count observation.</li>
+                  <li>Reliability means handling failures, bad inputs, repeats, drift, and silence.</li>
+                  <li>The one-page spec answers replacement value, happy path, unhappy paths, and success metrics.</li>
+                </ul>
+                <div class="callout project"><strong>Checkpoint:</strong> Draw one automation idea on paper. If the trigger is not one sentence, the process is not clear yet.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">1.3 - Spot real opportunities</span><span class="chapter-meta"><span class="tag time">~10 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>Good candidates are recurring, structured, annoying, cheap to fail, and accessible through systems you can call.</p>
+                <ul>
+                  <li>Use 30 minutes per week as a rough time-savings floor, while counting context-switching pain when it is real.</li>
+                  <li>High-stakes work can still be useful, but automate preparation and keep the final decision human.</li>
+                  <li>Score ideas 0-3 across frequency, structure, irritation, failure cost, and data access. Under 7 is weak; 9+ is a strong candidate.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">1.4 - Name the traps</span><span class="chapter-meta"><span class="tag time">~10 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>Most stalls come from tutorial loops, hype chasing, premature scaling, perfectionism, and toolchain addiction.</p>
+                <ul>
+                  <li>Follow input with output in the same sitting.</li>
+                  <li>Pick n8n, one LLM, and Python for 90 days before shopping alternatives.</li>
+                  <li>Your first ten projects should be services, not products.</li>
+                  <li>Name unhandled edge cases and ship the version that works enough to test.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-2-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Two</p>
+              <h3 id="part-2-title">Foundations</h3>
+              <p>The boring layer that pays: APIs, JSON, webhooks, Python, databases, and workflow discipline.</p>
+            </div>
+            <div class="part-number">02</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">2.1 - APIs are contracts</span><span class="chapter-meta"><span class="tag time">~45 min</span><span class="tag medium">Intermediate</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>An API is a request/response contract. Most automation work means reading docs, sending HTTP, handling auth, and parsing JSON.</p>
+                <ul>
+                  <li>Requests have method, URL, headers, and optional body.</li>
+                  <li>Responses have status code, headers, and body. Know 2xx, 4xx, 5xx, and especially 401 vs. 403.</li>
+                  <li>Use bearer tokens or OAuth, respect rate limits, and avoid loops that hammer APIs.</li>
+                </ul>
+                <div class="callout project"><strong>Build:</strong> Use <code>curl</code> against GitHub, inspect headers with <code>-i</code>, and provoke a 404 on purpose.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">2.2 - JSON is the language</span><span class="chapter-meta"><span class="tag time">~25 min</span><span class="tag easy">Easy</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>JSON is structured text with six types: string, number, boolean, null, array, and object.</p>
+                <ul>
+                  <li>Most work is navigation: find the value inside nested arrays and objects.</li>
+                  <li>Dots step into objects; brackets step into arrays.</li>
+                  <li>Watch trailing commas, comments, and the difference between null and missing.</li>
+                </ul>
+                <div class="callout project"><strong>Build:</strong> Call <code>wttr.in</code>, extract temperature and forecast values with <code>jq</code>, then reshape the response.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">2.3 - Webhooks invert APIs</span><span class="chapter-meta"><span class="tag time">~30 min</span><span class="tag medium">Intermediate</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>A webhook is a URL you give a service so it can POST to you when something happens.</p>
+                <ul>
+                  <li>Use webhooks when available; poll only when you must.</li>
+                  <li>Develop with workflow tools, webhook.site, RequestBin, ngrok, tunnels, or cloud functions.</li>
+                  <li>Verify signatures when needed and design handlers to be idempotent because providers retry.</li>
+                </ul>
+                <div class="callout project"><strong>Build:</strong> Send a Tally form submission to webhook.site and inspect the headers and body.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">2.4 - Python is the escape hatch</span><span class="chapter-meta"><span class="tag time">~75 min</span><span class="tag medium">Intermediate</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>You need enough Python to read JSON, call APIs, branch, write files or databases, and handle errors.</p>
+                <ul>
+                  <li>Use virtual environments, <code>requests</code>, environment variables, small functions, and explicit exceptions.</li>
+                  <li>Write JSON and CSV with the standard library.</li>
+                  <li>Use pagination and retry with backoff for real APIs.</li>
+                </ul>
+                <div class="callout project"><strong>Build:</strong> A weather-to-CSV script that fetches three cities and appends rows safely.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">2.5 - Databases hold state</span><span class="chapter-meta"><span class="tag time">~40 min</span><span class="tag medium">Intermediate</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>A database stores data between workflow runs. Start with Postgres for business data, SQLite for tiny solo work.</p>
+                <ul>
+                  <li>CRUD maps to SQL: INSERT, SELECT, UPDATE, DELETE.</li>
+                  <li>Joins connect related rows. Aggregates answer questions over groups.</li>
+                  <li>Use parameterized queries. Never concatenate user input into SQL.</li>
+                </ul>
+                <div class="callout project"><strong>Build:</strong> Move the weather script from CSV into Supabase and query average temperature by city.</div>
+              </div>
+            </details>
+
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">2.6 - Workflows need production logic</span><span class="chapter-meta"><span class="tag time">~30 min</span><span class="tag medium">Intermediate</span></span></summary>
+              <div class="chapter-body">
+                <p>A demo runs once. A workflow runs repeatedly, handles ugly inputs, and tells you when it breaks.</p>
+                <ul>
+                  <li>Choose triggers: schedule, webhook, polling, or manual.</li>
+                  <li>Always include an unknown branch and keep branches mutually exclusive.</li>
+                  <li>Add idempotency, retry with jitter, dead-letter queues, logs, and healthchecks.</li>
+                </ul>
+                <div class="callout warning"><strong>Pre-ship check:</strong> name the trigger, inputs, branches, side effects, failure plan, death signal, and user recovery path.</div>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-3-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Three</p>
+              <h3 id="part-3-title">Prompt Engineering</h3>
+              <p>The instruction layer on top of the plumbing: explicit roles, examples, constraints, and structured outputs.</p>
+            </div>
+            <div class="part-number">03</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">3.1 - Prompts are inputs with roles</span><span class="chapter-meta"><span class="tag time">~15 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>A workflow prompt is usually split into stable system instructions and variable user content.</p>
+                <ul>
+                  <li>Control persona, task, constraints, examples, temperature, max tokens, and stop sequences.</li>
+                  <li>Specific verbs beat vague help requests.</li>
+                  <li>Low temperature fits extraction and classification; higher temperature fits drafts.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">3.2 - Five patterns cover most work</span><span class="chapter-meta"><span class="tag time">~25 min</span><span class="tag medium">Intermediate</span><span class="tag">Try each</span></span></summary>
+              <div class="chapter-body">
+                <p>The reliable patterns are role plus task, few-shot examples, stepwise reasoning when judgment is needed, structured output, and delimited input.</p>
+                <ul>
+                  <li>Examples should mirror real production variations, including edge cases.</li>
+                  <li>Use delimiters so user-supplied text is treated as data, not instructions.</li>
+                  <li>Ignore magic phrase folklore. Test against the model you actually use.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">3.3 - Workflows want JSON</span><span class="chapter-meta"><span class="tag time">~20 min</span><span class="tag medium">Intermediate</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>Free text is brittle when another step has to consume it. Use structured output, define a schema, validate, and retry once on failure.</p>
+                <ul>
+                  <li>Fields need names, types, and allowed values.</li>
+                  <li>Native JSON or structured-output modes beat "please format nicely."</li>
+                  <li>Log raw failed output so you can see what broke parsing.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">3.4 - Build a prompt library</span><span class="chapter-meta"><span class="tag time">~45 min</span><span class="tag medium">Intermediate</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>Reusable prompt functions keep the same classifier, summarizer, and reply drafter available across projects.</p>
+                <ul>
+                  <li>Create typed outputs with Pydantic or equivalent validation.</li>
+                  <li>Use one helper to call the model, then one function per prompt pattern.</li>
+                  <li>Start with email classification, meeting summary, and reply drafting.</li>
+                </ul>
+                <div class="callout project"><strong>Build:</strong> <code>prompts.py</code> with three production-shaped prompt functions and validated returns.</div>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-4-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Four</p>
+              <h3 id="part-4-title">Visual Workflows With n8n</h3>
+              <p>The canvas makes every workflow step visible: trigger, data, transform, branch, side effect.</p>
+            </div>
+            <div class="part-number">04</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">4.1 - n8n is a teaching tool</span><span class="chapter-meta"><span class="tag time">~10 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>n8n is open-source, self-hostable, visible, and has a code escape hatch. That combination makes it useful even if a client later prefers another tool.</p>
+                <ul>
+                  <li>Learn n8n deeply; know Zapier and Make enough for client constraints.</li>
+                  <li>Move to cloud functions or agentic coding when the canvas becomes the constraint.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">4.2 - Install and learn the nouns</span><span class="chapter-meta"><span class="tag time">~25 min</span><span class="tag easy">Easy</span><span class="tag">Hands-on</span></span></summary>
+              <div class="chapter-body">
+                <p>Start with n8n Cloud for speed or Docker for free self-hosting. Learn workflow, node, trigger, action, item, expression, and credential.</p>
+                <ul>
+                  <li>Every node has parameters, input JSON, and output JSON.</li>
+                  <li>Expressions in <code>{{ }}</code> reference current or upstream values.</li>
+                  <li>Build in Test mode; switch to Active when shipping.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">4.3 - Project A: RSS to digest</span><span class="chapter-meta"><span class="tag time">~30 min</span><span class="tag easy">Easy</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Schedule a daily run, read RSS, filter items newer than 24 hours, format a digest, and send by email or Slack.</p>
+                <div class="callout project"><strong>Pattern:</strong> trigger, fetch, filter, transform, deliver. Reuse it for anything you check manually each morning.</div>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">4.4 - Project B: Form to sheet to email</span><span class="chapter-meta"><span class="tag time">~35 min</span><span class="tag easy">Easy</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Receive a form webhook, append name/email/topic to Google Sheets, and send a confirmation email.</p>
+                <div class="callout project"><strong>Pattern:</strong> the classic first paid job: capture inbound data, acknowledge instantly, and stop losing submissions.</div>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">4.5 - Project C: AI email classifier</span><span class="chapter-meta"><span class="tag time">~50 min</span><span class="tag medium">Intermediate</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Watch an inbox, classify email as buyer/applicant/partner/spam/other, parse JSON, and route each category to the right place.</p>
+                <div class="callout danger"><strong>Rule:</strong> never auto-act on low confidence. Send uncertain messages to human review.</div>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">4.6 - Project D: Lead enrichment</span><span class="chapter-meta"><span class="tag time">~60 min</span><span class="tag hard">Hard</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Take a lead, derive the email domain, call enrichment APIs, score fit with an LLM, and branch into auto-reply, sales routing, or human review.</p>
+                <div class="callout warning"><strong>Reliability:</strong> let enrichment fail without killing the run. If data is missing, default to human review.</div>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-5-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Five</p>
+              <h3 id="part-5-title">AI-Native Workflows</h3>
+              <p>The LLM becomes the operator: it chooses tools, reads results, stores memory, and sometimes coordinates other LLMs.</p>
+            </div>
+            <div class="part-number">05</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">5.1 - An agent is a loop with tools</span><span class="chapter-meta"><span class="tag time">~20 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>The model sees a goal, chooses a tool, receives the result, and repeats until done or bounded.</p>
+                <ul>
+                  <li>Most paid work still fits one LLM step in a deterministic workflow.</li>
+                  <li>Use tool-using agents when the steps are unknown in advance.</li>
+                  <li>Bound loops, limit tools, validate calls, require approval for dangerous actions, and log each step.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">5.2 - Agentic coding changes the work</span><span class="chapter-meta"><span class="tag time">~25 min</span><span class="tag medium">Intermediate</span></span></summary>
+              <div class="chapter-body">
+                <p>Claude Code, Codex, Cursor, Aider, Continue, and Cline show what an agent loop looks like in a domain where it already works well.</p>
+                <ul>
+                  <li>Give project context through instructions files.</li>
+                  <li>Assign small, well-scoped tasks.</li>
+                  <li>Review diffs and run tests. The assistant is fast, not infallible.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">5.3 - MCP gives models hands</span><span class="chapter-meta"><span class="tag time">~25 min</span><span class="tag medium">Intermediate</span></span></summary>
+              <div class="chapter-body">
+                <p>Model Context Protocol standardizes tools, resources, and prompts that AI clients can discover and call.</p>
+                <ul>
+                  <li>Useful servers include filesystem, GitHub/GitLab, Slack/email, databases, browsers, and internal tools.</li>
+                  <li>MCP servers run on your machine or infrastructure. Vet code and limit credential scope.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">5.4 - Memory is retrieval, not magic</span><span class="chapter-meta"><span class="tag time">~25 min</span><span class="tag medium">Intermediate</span></span></summary>
+              <div class="chapter-body">
+                <p>The model only knows what is in the current context. Memory systems choose what to put back.</p>
+                <ul>
+                  <li>Short-term memory keeps recent turns and trims old ones.</li>
+                  <li>Long-term facts can live in a key-value table.</li>
+                  <li>Episodic memory uses RAG: chunk, embed, retrieve, inject, answer from context.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">5.5 - Multi-agent systems add failure modes</span><span class="chapter-meta"><span class="tag time">~20 min</span><span class="tag hard">Hard</span></span></summary>
+              <div class="chapter-body">
+                <p>Use supervisor/worker, pipeline, or critique topologies only when specialization or criticism clearly helps.</p>
+                <ul>
+                  <li>If one structured prompt works, use one structured prompt.</li>
+                  <li>Each handoff can compound error; validate and keep chains short.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">5.6 - Voice works when the lane is narrow</span><span class="chapter-meta"><span class="tag time">~15 min</span><span class="tag medium">Intermediate</span></span></summary>
+              <div class="chapter-body">
+                <p>Realtime voice agents can handle tight domains: reception, lead qualification, appointment scheduling, and simple orders.</p>
+                <ul>
+                  <li>The stack is telephony, speech-to-text, LLM brain, and text-to-speech.</li>
+                  <li>Latency, interruptions, accents, and human failover decide trust.</li>
+                  <li>A first paid version can collect caller info, schedule a callback, and text the owner a summary.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-6-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Six</p>
+              <h3 id="part-6-title">Real Business Automations</h3>
+              <p>Five sellable workflow patterns with specs, architecture, pitfalls, and pricing baselines.</p>
+            </div>
+            <div class="part-number">06</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">6.1 - Lead routing</span><span class="chapter-meta"><span class="tag time">~50 min</span><span class="tag medium">Intermediate</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>New leads should reach the right owner within 60 seconds. Classify, enrich, assign, notify, log, and draft a reply.</p>
+                <ul>
+                  <li>Success target: 95% assigned within 2 minutes and under 5% weekly misroutes.</li>
+                  <li>Setup baseline: $1,500-3,500; care: $150-300/month.</li>
+                  <li>Never auto-send the first reply. Draft it and let the salesperson send.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">6.2 - CRM auto-update</span><span class="chapter-meta"><span class="tag time">~60 min</span><span class="tag medium">Intermediate</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Watch client email and calendar activity, summarize interactions, match to CRM contacts/deals, and update after human approval.</p>
+                <ul>
+                  <li>Success target: 80%+ meaningful interactions logged automatically and 90%+ rep approval.</li>
+                  <li>Setup baseline: $3,500-7,500; care: $400-800/month per seat.</li>
+                  <li>Email access needs explicit consent, opt-out, and careful data retention.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">6.3 - Meeting summary to tasks</span><span class="chapter-meta"><span class="tag time">~50 min</span><span class="tag medium">Intermediate</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Use meeting transcripts to create summaries, decisions, owner/date action items, tracker tasks, and Slack posts.</p>
+                <ul>
+                  <li>Add a Friday digest grouped by owner for unfinished commitments.</li>
+                  <li>Setup baseline: $2,500-5,000; care: $200-500/month.</li>
+                  <li>Require concrete verbs, deliverables, and due dates. Vague action items go nowhere beautifully.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">6.4 - WhatsApp and email responders</span><span class="chapter-meta"><span class="tag time">~60 min</span><span class="tag medium">Intermediate</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Build a first-line responder that answers from an FAQ, captures structured info, books appointments, and escalates when outside scope.</p>
+                <ul>
+                  <li>Success target: 60%+ conversations resolved without human intervention and zero invented facts.</li>
+                  <li>Setup baseline: $3,000-6,000; care: $400-1,000/month plus conversation costs.</li>
+                  <li>Identify as a bot, ask one question at a time, offer a human, and never argue.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">6.5 - Document processing</span><span class="chapter-meta"><span class="tag time">~70 min</span><span class="tag medium">Intermediate</span><span class="tag">Build</span></span></summary>
+              <div class="chapter-body">
+                <p>Extract invoices, receipts, contracts, and forms into structured data, validate, then store or queue for review.</p>
+                <ul>
+                  <li>Success target: 95%+ field-level accuracy and clear low-confidence review.</li>
+                  <li>Setup baseline: $4,000-10,000; monthly or per-document pricing often $0.10-0.50/document.</li>
+                  <li>Guard against swapped fields with explicit schema descriptions and sanity checks.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-7-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Seven</p>
+              <h3 id="part-7-title">Going Pro</h3>
+              <p>Price the work, find first clients, and run discovery calls that become one-page specs.</p>
+            </div>
+            <div class="part-number">07</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">7.1 - Price for value</span><span class="chapter-meta"><span class="tag time">~12 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>Use setup fee, care retainer, and hourly new-work rate. Quote outcomes, not typing time.</p>
+                <ul>
+                  <li>Setup baseline across projects: $1,500-15,000.</li>
+                  <li>Care baseline: $200-1,500/month for hosting, monitoring, and small changes.</li>
+                  <li>New work: $120-250/hour starting, raised yearly.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">7.2 - Find clients without a network</span><span class="chapter-meta"><span class="tag time">~12 min</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>Start with warm intros, free pilots for accessible businesses, narrow LinkedIn outreach, niche communities, and job boards only when cashflow needs it.</p>
+                <ul>
+                  <li>Be specific: lead routing, CRM updates, document processing, meeting summaries.</li>
+                  <li>Free pilots should be one week, one automation, and tied to a case study and paid continuation offer.</li>
+                  <li>Twenty researched messages beat a cold blast.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">7.3 - Run the discovery call</span><span class="chapter-meta"><span class="tag time">~10 min</span><span class="tag easy">Easy</span><span class="tag">Use live</span></span></summary>
+              <div class="chapter-body">
+                <p>A 30-minute call should end with a spec and next step, not a premature technical proposal.</p>
+                <ol>
+                  <li>Ask them to walk through their week.</li>
+                  <li>Ask which task ruins a day.</li>
+                  <li>Ask what changes if that task disappears.</li>
+                  <li>Ask them to show the current process on screen.</li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="part-section" aria-labelledby="part-8-title">
+          <div class="part-top">
+            <div>
+              <p class="section-kicker">Part Eight</p>
+              <h3 id="part-8-title">Reference</h3>
+              <p>Lookup, not linear reading: glossary, templates, status codes, snippets, resources, and the 90-day cadence.</p>
+            </div>
+            <div class="part-number">08</div>
+          </div>
+          <div class="chapter-list">
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">8.1 - Glossary</span><span class="chapter-meta"><span class="tag">Lookup</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>Keep definitions short enough to use mid-build: agent, API, auth, backoff, branch, CRUD, chunk, context window, credential, curl, dead-letter queue, embedding, endpoint, few-shot, function calling, HMAC, HTTP, idempotent, JSON, JSONB, jq, LLM, MCP, n8n, OAuth, OCR, pagination, polling, prompt, prompt injection, RAG, rate limit, REST, retry, schema, SDK, SQL, structured output, system prompt, temperature, token, tool use, trigger, vector database, webhook.</p>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">8.2 - Cheat sheets</span><span class="chapter-meta"><span class="tag">Copy &amp; reuse</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>The reusable sheets are a one-page spec, proposal one-pager, prompt skeleton, pre-ship checklist, HTTP status table, and Python snippets for API calls, env secrets, retries, and validation.</p>
+              </div>
+            </details>
+            <details class="chapter-card">
+              <summary><span class="chapter-summary-title">8.3 - Keep learning selectively</span><span class="chapter-meta"><span class="tag">Curated list</span><span class="tag easy">Easy</span></span></summary>
+              <div class="chapter-body">
+                <p>The PDF recommends official docs and durable books over tool-chasing. Bookmark Anthropic docs, OpenAI Cookbook, n8n docs, Postgres docs, and MDN. Read Designing Data-Intensive Applications, The Pragmatic Programmer, and Atomic Habits slowly.</p>
+                <p>Useful communities include n8n Community Forum, Indie Hackers, and local or industry-specific business groups. Newsletters are for skimming: Ben's Bites, Latent Space, and The Pragmatic Engineer.</p>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Build Ladder</p>
+          <h2 class="section-title" id="projects-title">Small Wins That Compound</h2>
+          <p class="section-copy">The PDF is hands-on by design. These are the build outputs to finish before calling the material "read."</p>
+        </div>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <span class="mini-label">Foundations</span>
+          <h3>API + JSON drills</h3>
+          <p>Call GitHub with curl, inspect headers, trigger a 404, then use wttr.in and jq to extract nested values.</p>
+        </article>
+        <article class="project-card">
+          <span class="mini-label">Inputs</span>
+          <h3>Webhook capture</h3>
+          <p>Send a real form submission to webhook.site and read the payload before wiring it to production.</p>
+        </article>
+        <article class="project-card">
+          <span class="mini-label">Python</span>
+          <h3>Weather logger</h3>
+          <p>Fetch weather for three cities, append CSV rows, then move the same data into a Postgres table.</p>
+        </article>
+        <article class="project-card">
+          <span class="mini-label">Prompts</span>
+          <h3>Prompt library</h3>
+          <p>Create reusable classifier, meeting summary, and reply draft functions with typed validation.</p>
+        </article>
+        <article class="project-card">
+          <span class="mini-label">n8n</span>
+          <h3>Four canvas builds</h3>
+          <p>Daily digest, form-to-sheet confirmation, AI email classifier, and lead enrichment pipeline.</p>
+        </article>
+        <article class="project-card">
+          <span class="mini-label">Client Work</span>
+          <h3>Five paid patterns</h3>
+          <p>Lead routing, CRM updates, meeting-to-tasks, first-line responders, and document extraction.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reference" aria-labelledby="reference-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Reference Shelf</p>
+          <h2 class="section-title" id="reference-title">Templates To Actually Reuse</h2>
+          <p class="section-copy">These are rewritten as web-native cards so they can be copied into a project note without dragging the whole PDF along.</p>
+        </div>
+      </div>
+      <div class="reference-grid">
+        <article class="reference-card">
+          <span class="mini-label">Spec</span>
+          <h3>One-page project spec</h3>
+          <pre><code># Project
+What this replaces:
+Trigger:
+Inputs:
+- field: type, source, sample
+Decision:
+- happy path
+- branch B
+- fallback
+Side effects:
+Failure handling:
+- retries
+- dead-letter destination
+- monitoring
+Success metrics:
+Out of scope:</code></pre>
+        </article>
+
+        <article class="reference-card">
+          <span class="mini-label">Sales</span>
+          <h3>Proposal one-pager</h3>
+          <pre><code># Proposal: [Project]
+For: [Client]
+
+What this replaces:
+What I will build:
+Timeline:
+- discovery + spec
+- build + iterate
+- handoff + training
+Investment:
+- setup
+- care plan
+- new work rate
+Success looks like:
+Next step:</code></pre>
+        </article>
+
+        <article class="reference-card">
+          <span class="mini-label">Prompting</span>
+          <h3>Reusable prompt skeleton</h3>
+          <pre><code>SYSTEM:
+You are a [role] who [trait].
+You always [hard rule].
+You never [hard rule].
+Return [format].
+
+USER:
+[Task in 1-3 sentences.]
+
+&lt;input&gt;
+{user_text}
+&lt;/input&gt;
+
+Return only JSON matching:
+{
+  "field": "type",
+  "confidence": "low | medium | high"
+}</code></pre>
+        </article>
+
+        <article class="reference-card">
+          <span class="mini-label">Ship Check</span>
+          <h3>Pre-ship workflow checklist</h3>
+          <ol>
+            <li>Trigger documented in one sentence.</li>
+            <li>Input schema tested with at least three real samples.</li>
+            <li>All branches listed, including unknown.</li>
+            <li>Idempotency handled.</li>
+            <li>Retry policy set on external calls.</li>
+            <li>Dead-letter destination configured.</li>
+            <li>Healthcheck ping installed.</li>
+            <li>Five real runs reviewed in logs.</li>
+            <li>Secrets live in environment variables.</li>
+            <li>User runbook covers what to do when something looks wrong.</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="section-panel reference-status">
+        <h3 class="section-title">HTTP status crib sheet</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Code</th><th>Meaning</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>200</td><td>OK</td><td>Process the body.</td></tr>
+              <tr><td>201</td><td>Created</td><td>Process the new resource ID from body or Location header.</td></tr>
+              <tr><td>204</td><td>No content</td><td>Move on.</td></tr>
+              <tr><td>400</td><td>Bad request</td><td>Fix the input. Do not retry blindly.</td></tr>
+              <tr><td>401</td><td>Missing or invalid auth</td><td>Check credentials.</td></tr>
+              <tr><td>403</td><td>No permission</td><td>Ask the account admin.</td></tr>
+              <tr><td>404</td><td>Not found</td><td>Check the URL or resource ID.</td></tr>
+              <tr><td>409</td><td>Conflict</td><td>Re-read, merge, retry.</td></tr>
+              <tr><td>422</td><td>Validation failed</td><td>Read the error and fix the body.</td></tr>
+              <tr><td>429</td><td>Rate limited</td><td>Wait per Retry-After.</td></tr>
+              <tr><td>500/502/503/504</td><td>Server or gateway failure</td><td>Retry with backoff.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cadence" aria-labelledby="cadence-title">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Cadence</p>
+          <h2 class="section-title" id="cadence-title">The Next 90 Days</h2>
+          <p class="section-copy">The PDF ends with a practical pacing plan. It is simple on purpose.</p>
+        </div>
+      </div>
+      <div class="section-panel">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Weeks</th><th>Focus</th><th>Goal</th></tr></thead>
+            <tbody>
+              <tr><td>1-2</td><td>Parts 1-2</td><td>Comfort with APIs, JSON, webhooks, and Python basics.</td></tr>
+              <tr><td>3</td><td>Parts 3-4</td><td>Prompt library built and four n8n projects complete.</td></tr>
+              <tr><td>4-6</td><td>Two real automations</td><td>Build for friends or free pilots using Part 6 patterns.</td></tr>
+              <tr><td>7-8</td><td>Part 5</td><td>One small MCP server and one agent prototype.</td></tr>
+              <tr><td>9-10</td><td>First paid pilot</td><td>Use the discovery and pricing process from Part 7.</td></tr>
+              <tr><td>11-12</td><td>Reflect and iterate</td><td>Update prompt library, refine pricing, plan the next 90 days.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout note">
+          <strong>One sentence to keep:</strong> the stack will change; the fundamentals will not. Build something today.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-panel">
+      <p class="footer-credit">Native Chaos Console edition of <strong>The AI-Assisted Workflow Binder</strong>.</p>
+      <p class="footer-copy">Workflow Wrench · Edition 1</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
