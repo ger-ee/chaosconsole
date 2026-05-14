@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notebook | Chaos Console</title>
+<meta name="description" content="Chaos Console Notebook: working notes, fragments, drafts, links, and open loops in a live public Notion page.">
+<meta name="theme-color" content="#120d0f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<style>
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-subset.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --bg: #120d0f;
+  --bg-soft: #171115;
+  --panel: rgba(28, 19, 25, 0.88);
+  --panel-strong: rgba(36, 24, 31, 0.96);
+  --border: rgba(255, 226, 205, 0.12);
+  --border-strong: rgba(255, 226, 205, 0.24);
+  --text: #fff1e3;
+  --muted: #c6b6a6;
+  --subtle: #87786e;
+  --accent: #ff8f43;
+  --accent-3: #f0d070;
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --display: "Space Grotesk", "Instrument Sans", Inter, sans-serif;
+  --logo: "Bodoni Moda", "Bodoni 72", Didot, "Didot LT STD", "Hoefler Text", Georgia, serif;
+  --body: "Instrument Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background:
+    linear-gradient(180deg, #0f0a0c 0%, #140f12 48%, #120d0f 100%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--body);
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 92%);
+  pointer-events: none;
+  opacity: 0.22;
+}
+
+a {
+  color: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  transform: translateY(-180%);
+  padding: 12px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--panel-strong);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  z-index: 1000;
+  transition: transform 200ms var(--ease);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.notebook-shell {
+  position: relative;
+  width: min(1240px, calc(100% - 56px));
+  margin: 0 auto;
+  padding: 34px 0 42px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 42px;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms var(--ease), transform 180ms var(--ease);
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--text);
+  transform: translateX(-2px);
+  outline: none;
+}
+
+.notebook-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: end;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.eyebrow,
+.metadata,
+.frame-kicker,
+.frame-state,
+.notion-open,
+.fallback-message {
+  font-family: var(--mono);
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--accent-3);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.notebook-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 4.1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 0.94;
+}
+
+.notebook-subtitle {
+  max-width: 58ch;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.58;
+}
+
+.metadata {
+  margin: 18px 0 0;
+  color: var(--subtle);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.notion-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: transform 200ms var(--ease), border-color 200ms var(--ease), background 200ms var(--ease);
+}
+
+.notion-open:hover,
+.notion-open:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(255, 143, 67, 0.1);
+  outline: none;
+}
+
+.notion-open.is-disabled {
+  color: var(--subtle);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.notion-stage {
+  margin-top: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.frame-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.frame-kicker,
+.frame-state {
+  color: var(--subtle);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.frame-kicker {
+  color: var(--accent-3);
+}
+
+.frame-wrap {
+  position: relative;
+  min-height: 560px;
+  background: #f7f1e8;
+}
+
+.notion-frame {
+  display: block;
+  width: 100%;
+  height: 76vh;
+  min-height: 560px;
+  max-height: 920px;
+  border: 0;
+  background: #f7f1e8;
+}
+
+.notion-fallback {
+  display: none;
+  position: absolute;
+  inset: 18px;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border: 1px dashed rgba(255, 226, 205, 0.24);
+  border-radius: 18px;
+  background: rgba(18, 13, 15, 0.92);
+  color: var(--muted);
+  text-align: center;
+}
+
+.frame-wrap.is-unconfigured .notion-frame {
+  display: none;
+}
+
+.frame-wrap.is-unconfigured .notion-fallback,
+.frame-wrap.is-maybe-blocked .notion-fallback {
+  display: flex;
+}
+
+.fallback-message {
+  max-width: 38ch;
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.fallback-message a {
+  color: var(--text);
+  text-decoration-color: rgba(255, 143, 67, 0.7);
+  text-underline-offset: 4px;
+}
+
+.fallback-message a.is-disabled {
+  color: var(--subtle);
+  pointer-events: none;
+  text-decoration: none;
+}
+
+.site-footer {
+  width: min(1240px, calc(100% - 56px));
+  margin: 0 auto;
+  padding: 0 0 40px;
+}
+
+.footer-panel {
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.footer-credit,
+.footer-copy {
+  margin: 0;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer-copy {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .notebook-shell,
+  .site-footer {
+    width: min(1240px, calc(100% - 32px));
+  }
+
+  .notebook-shell {
+    padding-top: 24px;
+  }
+
+  .back-link {
+    margin-bottom: 34px;
+  }
+
+  .notebook-header {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .notebook-title {
+    font-size: 3rem;
+  }
+
+  .notion-open {
+    justify-self: start;
+  }
+
+  .notion-stage {
+    border-radius: 24px;
+  }
+
+  .frame-toolbar,
+  .footer-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .frame-wrap,
+  .notion-frame {
+    min-height: 520px;
+  }
+
+  .notion-frame {
+    height: 72vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#notebook-frame">Skip to notebook</a>
+
+<main class="notebook-shell">
+  <a class="back-link" href="/index.html">← Back to Index</a>
+
+  <header class="notebook-header" aria-labelledby="notebook-title">
+    <div>
+      <p class="eyebrow">CHAOS CONSOLE</p>
+      <h1 class="notebook-title" id="notebook-title">Notebook</h1>
+      <p class="notebook-subtitle">Working notes, fragments, drafts, links, and open loops.</p>
+      <p class="metadata">LOS ANGELES — MMXXVI</p>
+    </div>
+    <a class="notion-open" id="notion-open" href="#" target="_blank" rel="noopener noreferrer">Open in Notion</a>
+  </header>
+
+  <section class="notion-stage" aria-label="Embedded Notebook">
+    <div class="frame-toolbar">
+      <span class="frame-kicker">Live Notion Frame</span>
+      <span class="frame-state" id="frame-state">Awaiting public URL</span>
+    </div>
+    <div class="frame-wrap is-unconfigured" id="frame-wrap">
+      <iframe
+        class="notion-frame"
+        id="notebook-frame"
+        title="Chaos Console Notebook"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="clipboard-write">
+      </iframe>
+      <div class="notion-fallback" id="notion-fallback">
+        <p class="fallback-message">Notebook preview unavailable. <a id="fallback-open" href="#" target="_blank" rel="noopener noreferrer">Open it directly in Notion.</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-panel">
+    <p class="footer-credit">Chaos Console / Notebook / 2026</p>
+    <p class="footer-copy">Notes / System / Capture</p>
+  </div>
+</footer>
+
+<script>
+const NOTION_NOTES_URL = "";
+
+(function initNotebookEmbed() {
+  const frame = document.getElementById("notebook-frame");
+  const frameWrap = document.getElementById("frame-wrap");
+  const frameState = document.getElementById("frame-state");
+  const openLinks = [
+    document.getElementById("notion-open"),
+    document.getElementById("fallback-open")
+  ];
+  const rawUrl = NOTION_NOTES_URL.trim();
+
+  function setOpenLinks(url) {
+    openLinks.forEach(function(link) {
+      if (!link) return;
+      link.href = url || "#";
+      link.classList.toggle("is-disabled", !url);
+      link.setAttribute("aria-disabled", url ? "false" : "true");
+      if (!url) link.removeAttribute("target");
+    });
+  }
+
+  function toEmbedUrl(url) {
+    try {
+      const parsed = new URL(url);
+      if (!parsed.searchParams.has("pvs")) parsed.searchParams.set("pvs", "4");
+      return parsed.toString();
+    } catch (error) {
+      return "";
+    }
+  }
+
+  const embedUrl = toEmbedUrl(rawUrl);
+  setOpenLinks(rawUrl);
+
+  if (!embedUrl) {
+    frameWrap.classList.add("is-unconfigured");
+    frameState.textContent = "Public URL Needed";
+    return;
+  }
+
+  frameWrap.classList.remove("is-unconfigured");
+  frameState.textContent = "Public Notion Page";
+  frame.src = embedUrl;
+
+  let loaded = false;
+  frame.addEventListener("load", function() {
+    loaded = true;
+    frameWrap.classList.remove("is-maybe-blocked");
+    frameState.textContent = "Notebook Preview";
+  });
+
+  window.setTimeout(function() {
+    if (!loaded) {
+      frameWrap.classList.add("is-maybe-blocked");
+      frameState.textContent = "Preview Check";
+    }
+  }, 5000);
+})();
+</script>
+</body>
+</html>
