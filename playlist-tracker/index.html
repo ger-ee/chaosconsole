@@ -1548,14 +1548,14 @@ const SPOTIFY_URLS = {
 const DEFAULT_DATA = {
   months: ["Apr 24","May 24","Jun 24","Sep 24","Oct 24","Nov 24","Dec 24","Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26"],
   playlists: {
-    "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509,511,508],
-    "Groove": [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168,185,190],
+    "Monday's Mixtape": [247,250,251,251,307,322,335,361,465,477,488,493,493,492,497,499,501,499,501,503,503,509,511,509],
+    "Groove": [11,14,14,16,35,55,72,122,140,139,137,136,136,136,136,134,132,132,131,131,132,168,185,193],
     "Guide to Indie": [79,85,85,84,86,89,90,96,102,102,102,104,103,104,106,106,107,106,107,107,107,110,111,112],
     "Ancora": [21,28,28,28,30,31,31,31,33,32,33,36,34,34,35,36,37,37,37,37,38,38,38,38],
     "Thirst": [24,26,26,28,28,28,28,30,30,31,32,32,32,32,32,32,32,32,32,32,33,33,33,34],
     "Potpourri": [3,5,5,7,8,8,9,10,24,26,27,29,27,27,28,32,30,30,30,30,31,31,33,32],
-    "Cloudbuster": [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26,29,28],
-    "Broken": [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,20,22,21],
+    "Cloudbuster": [15,19,19,19,18,18,19,21,21,21,21,21,22,22,21,21,21,21,21,21,21,26,29,27],
+    "Broken": [0,0,0,0,0,0,0,0,0,4,7,8,8,8,7,8,10,11,14,16,19,20,22,22],
     "run": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,16,16],
     "Oddities": [5,13,14,13,13,13,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,14,14],
     "Orpheus": [0,0,0,0,0,0,0,0,0,1,2,3,2,2,4,7,9,9,9,9,10,10,10,10],
@@ -1566,6 +1566,7 @@ const DEFAULT_DATA = {
   }
 };
 
+const SNAPSHOT_UPDATED_AT = "May 17, 2026 at 10:00 AM";
 const STORAGE_KEY = "spotify-tracker-v13";
 
 function cloneDefaultData() {
@@ -1891,7 +1892,8 @@ function renderHero() {
   const strongestSlope = [...names].sort((a, b) => getSlope(b, 6) - getSlope(a, 6))[0];
   document.getElementById("subtitle").innerHTML = `
     ${names.length} playlists across ${data.months.length} monthly snapshots.
-    Portfolio total sits at <strong>${formatNum(totalNow)}</strong> followers as of <strong>${data.months[idx]}</strong>.
+    Portfolio total sits at <strong>${formatNum(totalNow)}</strong> followers in the <strong>${data.months[idx]}</strong> snapshot.
+    Counts checked <strong>${SNAPSHOT_UPDATED_AT}</strong>.
   `;
   document.getElementById("statStrip").innerHTML = `
     <div class="stat-card">
@@ -2138,7 +2140,7 @@ function renderMainChart() {
 function renderLeaderboard() {
   const idx = getCurrentIdx();
   const names = [...getAllNames()].sort((a, b) => data.playlists[b][idx] - data.playlists[a][idx]);
-  document.getElementById("leaderboardMeta").textContent = `${data.months[idx]} snapshot`;
+  document.getElementById("leaderboardMeta").textContent = `${data.months[idx]} snapshot · checked May 17, 10 AM`;
   document.getElementById("leaderboard").innerHTML = names.slice(0, 8).map((name, rank) => {
     const current = data.playlists[name][idx];
     const delta = getDelta(name, idx);
