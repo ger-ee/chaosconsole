@@ -4,43 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaos Console</title>
-<meta name="description" content="Chaos Console is a private editorial intelligence console for craft, systems, wellness, money, archives, notes, and signal maintenance.">
-<meta name="theme-color" content="#080807">
+<meta name="description" content="Chaos Console is Gerald's private operating atlas for money, production, wellness, reading, notes, playlists, AI patterns, and system maintenance.">
+<meta name="theme-color" content="#050505">
 <link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="stylesheet" href="/shared/console-shell.css">
 <style>
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/jetbrains-mono-subset.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Archivo Black";
-  src: url("/fonts/archivo-black-subset.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-}
-
 :root {
-  --ink: #080807;
-  --panel: #11110f;
-  --panel-hover: #171713;
-  --paper: #f0e5d1;
-  --muted: #a49a89;
-  --quiet: #6f675c;
-  --line: rgba(240, 229, 209, 0.14);
-  --line-strong: rgba(240, 229, 209, 0.28);
-  --gold: #d99b2b;
-  --green: #74c982;
-  --blue: #75a8d6;
-  --violet: #a77ad2;
+  --ink: #050505;
+  --ink-2: #0b0b0c;
+  --paper: #f8f4e8;
+  --muted: #a8a29a;
+  --quiet: #706b64;
+  --line: rgba(248, 244, 232, 0.16);
+  --line-strong: rgba(248, 244, 232, 0.32);
+  --hot: #ef3b86;
+  --yellow: #f4c51d;
+  --teal: #2fc5b7;
+  --green: #82ca55;
+  --blue: #36a3df;
+  --lav: #9b72d9;
+  --coral: #f0524d;
+  --orange: #f0601d;
+  --cyan: #69d6e4;
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Archivo Black", Impact, Haettenschweiler, "Arial Narrow", sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
@@ -54,16 +43,20 @@
 
 html {
   background: var(--ink);
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    var(--ink);
+  background-size: 36px 36px;
   color: var(--paper);
   font-family: var(--font-body);
-  background:
-    linear-gradient(180deg, rgba(217, 155, 43, 0.07), transparent 32rem),
-    var(--ink);
+  overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -72,9 +65,13 @@ a {
   color: inherit;
 }
 
+button {
+  font: inherit;
+}
+
 .skip-link {
   position: fixed;
-  left: 20px;
+  left: 18px;
   top: 18px;
   z-index: 20;
   transform: translateY(-160%);
@@ -92,61 +89,74 @@ a {
   transform: translateY(0);
 }
 
-.page {
-  width: min(1120px, calc(100% - 48px));
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+.shell {
+  width: min(1360px, calc(100% - 44px));
   margin: 0 auto;
 }
 
-.site-header {
-  display: flex;
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 28px 0;
+  gap: 18px;
+  min-height: 58px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(5, 5, 5, 0.86);
+  backdrop-filter: blur(16px);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: var(--paper);
+  min-width: 0;
   text-decoration: none;
 }
 
 .mark {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--line-strong);
+  color: var(--hot);
   font-family: var(--font-display);
   font-size: 0.84rem;
 }
 
 .wordmark,
 .nav,
-.brick-kicker,
-.brick-action,
-.footer-links {
+.console-tag,
+.legend,
+.signal,
+.tile-code,
+.tile-meta,
+.quote-meta,
+.loop,
+.footer {
   font-family: var(--font-mono);
-  text-transform: uppercase;
 }
 
 .wordmark {
+  overflow: hidden;
   font-size: 0.74rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav {
   display: flex;
-  gap: 18px;
-  color: var(--muted);
-  font-size: 0.68rem;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 24px);
+  color: rgba(248, 244, 232, 0.7);
+  font-size: 0.66rem;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .nav a {
@@ -155,401 +165,1037 @@ a {
 
 .nav a:hover,
 .nav a:focus-visible {
-  color: var(--gold);
+  color: var(--yellow);
   outline: none;
 }
 
-.main {
-  display: grid;
-  align-content: center;
-  gap: clamp(40px, 7vw, 76px);
-  padding: 32px 0 72px;
+.console-tag {
+  justify-self: end;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  color: var(--hot);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.intro {
-  max-width: 880px;
+.command {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.78fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.masthead {
+  min-height: 330px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 26px;
+  padding: clamp(34px, 5vw, 72px) clamp(0px, 1vw, 14px) 34px 0;
+  border-right: 1px solid var(--line);
 }
 
 .title {
-  max-width: 9ch;
+  max-width: 7.5ch;
   margin: 0;
   color: var(--paper);
   font-family: var(--font-display);
-  font-size: clamp(4.4rem, 11vw, 9.7rem);
+  font-size: clamp(4.8rem, 9.8vw, 10rem);
   font-weight: 900;
+  letter-spacing: 0;
   line-height: 0.78;
   text-transform: uppercase;
 }
 
-.rule {
-  width: min(480px, 100%);
-  height: 2px;
-  margin: 30px 0 24px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-}
-
 .lede {
-  max-width: 58ch;
-  margin: 0;
+  max-width: 35ch;
+  margin: 22px 0 0;
   color: var(--muted);
-  font-size: clamp(1.05rem, 1.6vw, 1.24rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  line-height: 1.58;
 }
 
-.bricks {
+.legend {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(4, minmax(112px, 1fr));
+  gap: 12px 22px;
+  align-self: center;
+  max-width: 720px;
+  padding-right: 26px;
 }
 
-.brick {
-  min-height: 178px;
+.legend button {
+  appearance: none;
+  display: inline-grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(248, 244, 232, 0.78);
+  cursor: pointer;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.legend button::before {
+  width: 14px;
+  height: 14px;
+  background: var(--legend-color);
+  content: "";
+}
+
+.legend button:hover,
+.legend button:focus-visible,
+.legend button.is-active {
+  color: var(--paper);
+  outline: none;
+}
+
+.signals {
+  padding: clamp(24px, 4vw, 44px) 0 34px clamp(22px, 3vw, 40px);
+}
+
+.signals h2 {
+  margin: 0 0 18px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signal-list {
+  display: grid;
+  gap: 0;
+}
+
+.signal {
+  display: grid;
+  grid-template-columns: 4px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 34px;
+  border-bottom: 1px solid rgba(248, 244, 232, 0.13);
+  color: rgba(248, 244, 232, 0.78);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.signal::before {
+  width: 4px;
+  height: 18px;
+  background: var(--signal-color);
+  content: "";
+}
+
+.signal strong {
+  color: var(--signal-color);
+  font-weight: 500;
+}
+
+.signal:hover,
+.signal:focus-visible {
+  color: var(--paper);
+  outline: none;
+}
+
+.cluster-map {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.82fr);
+  grid-template-areas:
+    "creative ops"
+    "creative systems";
+  gap: 10px;
+  padding: 10px 0 0;
+}
+
+.cluster {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(5, 5, 5, 0.62);
+  transition: opacity 180ms ease, filter 180ms ease;
+}
+
+.cluster.is-dimmed {
+  filter: grayscale(0.82);
+  opacity: 0.3;
+}
+
+.cluster.creative {
+  grid-area: creative;
+}
+
+.cluster.ops {
+  grid-area: ops;
+}
+
+.cluster.systems {
+  grid-area: systems;
+}
+
+.cluster-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+  min-height: 92px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cluster-kicker,
+.cluster-count {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cluster-kicker {
+  color: var(--cluster-color);
+}
+
+.cluster-count {
+  color: var(--muted);
+}
+
+.cluster-head h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4vw, 4.7rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.cluster-head p {
+  max-width: 48ch;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.cluster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.creative .cluster-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.tile {
+  position: relative;
+  min-height: 176px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 22px;
-  border: 1px solid var(--line);
-  background: var(--panel);
+  grid-column: auto;
+  padding: clamp(17px, 2vw, 24px);
+  border: 1px solid rgba(5, 5, 5, 0.92);
+  border-radius: 7px;
+  background: var(--tile-color);
+  color: #070707;
+  overflow: hidden;
   text-decoration: none;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease, filter 180ms ease;
 }
 
-.brick:hover,
-.brick:focus-visible {
+.tile.is-dimmed {
+  filter: grayscale(0.82);
+  opacity: 0.26;
+}
+
+.cluster-tile {
+  min-height: 168px;
+}
+
+.creative .cluster-tile {
+  grid-column: span 3;
+}
+
+.creative .cluster-tile.hero-tile {
+  grid-column: span 6;
+  min-height: 230px;
+}
+
+.ops .cluster-tile,
+.systems .cluster-tile {
+  grid-column: span 2;
+}
+
+.systems .cluster-tile.dark {
+  grid-column: span 2;
+}
+
+.tile:hover,
+.tile:focus-visible {
   transform: translateY(-3px);
-  border-color: var(--line-strong);
-  background: var(--panel-hover);
-  outline: none;
+  outline: 2px solid var(--paper);
+  outline-offset: -2px;
 }
 
-.brick.primary {
-  border-color: rgba(217, 155, 43, 0.45);
+.tile.wide {
+  grid-column: span 5;
 }
 
-.brick.finance {
-  --accent: var(--green);
+.tile.medium {
+  grid-column: span 4;
 }
 
-.brick.craft {
-  --accent: var(--gold);
+.tile.tall {
+  min-height: 260px;
 }
 
-.brick.notes {
-  --accent: var(--blue);
-}
-
-.brick.system {
-  --accent: var(--violet);
-}
-
-.brick-kicker {
-  color: var(--accent, var(--gold));
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
-}
-
-.brick-title {
-  display: block;
-  max-width: 12ch;
-  margin-top: 28px;
+.tile.dark {
+  background: #111112;
   color: var(--paper);
-  font-size: clamp(1.45rem, 2.5vw, 2.1rem);
-  font-weight: 800;
-  line-height: 1;
+  border-color: var(--line);
 }
 
-.brick-copy {
-  display: block;
-  max-width: 28ch;
-  margin-top: 12px;
-  color: var(--quiet);
-  font-size: 0.94rem;
-  line-height: 1.45;
-}
-
-.brick-action {
-  margin-top: 24px;
-  color: var(--muted);
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-}
-
-.brick:hover .brick-action,
-.brick:focus-visible .brick-action {
-  color: var(--accent, var(--gold));
-}
-
-.site-footer {
+.tile-top {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 26px 0 34px;
-  border-top: 1px solid var(--line);
-  color: var(--quiet);
+  gap: 14px;
 }
 
-.footer-note {
+.tile-code,
+.tile-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tile-meta {
+  max-width: 18ch;
+  color: rgba(5, 5, 5, 0.72);
+  text-align: right;
+}
+
+.tile.dark .tile-meta {
+  color: rgba(248, 244, 232, 0.62);
+}
+
+.tile h2 {
+  max-width: 10ch;
+  margin: 26px 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.3vw, 4.1rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.cluster-tile h2 {
+  font-size: clamp(1.85rem, 3vw, 3.45rem);
+}
+
+.hero-tile h2 {
+  max-width: 14ch;
+  font-size: clamp(2.45rem, 5vw, 5.4rem);
+}
+
+.tile.medium h2 {
+  font-size: clamp(1.85rem, 3vw, 3.1rem);
+}
+
+.tile.dark h2 {
+  color: var(--paper);
+}
+
+.tile p {
+  max-width: 31ch;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.42;
 }
 
-.footer-links {
+.tile-arrow {
+  align-self: flex-end;
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+}
+
+.quote-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.65fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.quote-panel {
+  min-height: 210px;
+  display: grid;
+  align-content: center;
+  padding: clamp(28px, 5vw, 56px) clamp(24px, 4vw, 44px) clamp(28px, 5vw, 56px) 0;
+  border-right: 1px solid var(--line);
+}
+
+.quote-mark {
+  color: var(--lav);
+  font-family: Georgia, serif;
+  font-size: 4.8rem;
+  line-height: 0.6;
+}
+
+.quote-text {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(1.32rem, 2.5vw, 2.35rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.22;
+}
+
+.quote-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
+  gap: 14px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.footer-links a {
+.quote-actions {
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  padding: clamp(24px, 4vw, 40px);
+}
+
+.quote-actions a,
+.quote-actions button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
-.footer-links a:hover,
-.footer-links a:focus-visible {
-  color: var(--gold);
+.quote-actions button:hover,
+.quote-actions button:focus-visible,
+.quote-actions a:hover,
+.quote-actions a:focus-visible {
+  border-color: var(--lav);
+  color: var(--lav);
   outline: none;
 }
 
-@media (max-width: 900px) {
-  .bricks {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.operations {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(28px, 4vw, 56px);
+  padding: clamp(36px, 6vw, 74px) 0;
+  border-bottom: 1px solid var(--line);
 }
 
-@media (max-width: 680px) {
-  .page {
-    width: min(100% - 30px, 560px);
-  }
+.section-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 5.1rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
 
-  .site-header,
-  .site-footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+.section-copy {
+  max-width: 38ch;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 1.03rem;
+  line-height: 1.6;
+}
 
-  .nav {
-    gap: 14px;
-    flex-wrap: wrap;
-  }
+.loop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
 
-  .main {
-    align-content: start;
-    padding: 36px 0 58px;
-  }
+.loop {
+  min-height: 142px;
+  display: grid;
+  align-content: start;
+  gap: 13px;
+  padding: 18px;
+  background: var(--ink);
+}
 
-  .title {
-    font-size: clamp(3.45rem, 17vw, 5rem);
-  }
+.loop strong {
+  color: var(--loop-color);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-  .bricks {
+.loop span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.house {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: clamp(28px, 5vw, 66px);
+  padding: clamp(40px, 6vw, 78px) 0;
+}
+
+.mini-shell {
+  border: 1px solid var(--line-strong);
+  background: #080808;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+.mini-top {
+  display: grid;
+  grid-template-columns: 0.6fr 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mini-dot {
+  color: var(--hot);
+}
+
+.mini-body {
+  display: grid;
+  grid-template-columns: 0.34fr 1fr;
+  min-height: 260px;
+}
+
+.mini-rail {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px;
+  border-right: 1px solid var(--line);
+}
+
+.mini-rail span {
+  height: 8px;
+  background: rgba(248, 244, 232, 0.32);
+}
+
+.mini-rail span:nth-child(1) {
+  background: var(--hot);
+}
+
+.mini-content {
+  padding: 16px;
+}
+
+.mini-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.mini-kpis span {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  background: rgba(248, 244, 232, 0.05);
+}
+
+.mini-chart {
+  height: 112px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, transparent 0 38%, rgba(239, 59, 134, 0.42) 38% 42%, transparent 42%),
+    linear-gradient(155deg, transparent 0 52%, rgba(244, 197, 29, 0.38) 52% 56%, transparent 56%),
+    rgba(248, 244, 232, 0.04);
+}
+
+.mini-table {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.mini-table span {
+  height: 10px;
+  background: rgba(248, 244, 232, 0.12);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 26px 0 34px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer a:hover,
+.footer a:focus-visible {
+  color: var(--yellow);
+  outline: none;
+}
+
+.footer-center {
+  color: var(--hot);
+  text-align: center;
+}
+
+.footer-right {
+  justify-self: end;
+  text-align: right;
+}
+
+@media (max-width: 1120px) {
+  .command,
+  .masthead,
+  .quote-row,
+  .operations,
+  .house {
     grid-template-columns: 1fr;
   }
 
-  .brick {
-    min-height: 152px;
+  .masthead,
+  .quote-panel {
+    border-right: 0;
+  }
+
+  .signals {
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .cluster-map {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "creative"
+      "ops"
+      "systems";
   }
 }
-.epigraph {
-  max-width: 64ch;
-  padding: 4px 0;
-}
 
-.epigraph-kicker {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
-  color: var(--gold);
-}
+@media (max-width: 760px) {
+  .shell {
+    width: min(100% - 28px, 620px);
+  }
 
-.epigraph-quote {
-  margin: 18px 0 0;
-  color: var(--paper);
-  font-size: clamp(1.45rem, 3vw, 2.25rem);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.24;
-}
+  .topbar {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding: 14px 0;
+  }
 
-.epigraph-cite {
-  margin: 16px 0 0;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
+  .nav {
+    order: 3;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    overflow: visible;
+    padding-bottom: 4px;
+  }
 
-.epigraph-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin-top: 24px;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
-}
+  .console-tag {
+    align-self: start;
+  }
 
-.epigraph-actions a {
-  color: var(--muted);
-  text-decoration: none;
-}
+  .masthead {
+    min-height: auto;
+    padding-top: 38px;
+  }
 
-.epigraph-actions a:hover,
-.epigraph-actions a:focus-visible {
-  color: var(--gold);
-  outline: none;
-}
+  .title {
+    max-width: 100%;
+    font-size: clamp(3.45rem, 15vw, 4.55rem);
+  }
 
-.resurface-btn {
-  appearance: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid rgba(217, 155, 43, 0.4);
-  background: rgba(217, 155, 43, 0.08);
-  color: var(--gold);
-  font: inherit;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: border-color 160ms ease, background 160ms ease;
-}
+  .legend {
+    grid-template-columns: 1fr;
+    padding-right: 0;
+  }
 
-.resurface-btn:hover,
-.resurface-btn:focus-visible {
-  border-color: var(--gold);
-  background: rgba(217, 155, 43, 0.16);
-  outline: none;
+  .signal {
+    grid-template-columns: 4px minmax(0, 1fr);
+    align-items: start;
+    gap: 7px 12px;
+    padding: 9px 0;
+  }
+
+  .signal strong {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .cluster-head {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 14px 12px;
+  }
+
+  .cluster-grid,
+  .creative .cluster-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tile,
+  .tile.medium,
+  .tile.wide,
+  .cluster-tile,
+  .creative .cluster-tile,
+  .creative .cluster-tile.hero-tile,
+  .ops .cluster-tile,
+  .systems .cluster-tile,
+  .systems .cluster-tile.dark {
+    grid-column: 1;
+    min-height: 148px;
+  }
+
+  .tile.tall {
+    min-height: 190px;
+  }
+
+  .loop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-body {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-rail {
+    display: none;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .footer-center,
+  .footer-right {
+    justify-self: start;
+    text-align: left;
+  }
 }
 </style>
-<script defer src="shared/gate.js"></script>
+<script defer src="/shared/gate.js"></script>
+<script defer src="/shared/console-shell.js"></script>
 </head>
-<body>
+<body data-console-home="true">
 <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="page">
-  <header class="site-header" aria-label="Primary">
+<div class="shell">
+  <header class="topbar" aria-label="Primary">
     <a class="brand" href="/index.html" aria-label="Chaos Console home">
       <span class="mark" aria-hidden="true">C</span>
       <span class="wordmark">Chaos Console</span>
     </a>
 
     <nav class="nav" aria-label="Primary navigation">
-      <a href="/notes/">Notes</a>
       <a href="/the-ledger/">Ledger</a>
       <a href="/production-almanac/">Almanac</a>
+      <a href="/notes/">Notebook</a>
+      <a href="/the-workflow-wrench/">Wrench</a>
+      <a href="/playlist-tracker/">Playlists</a>
+      <a href="/wellness-dashboard/">Wellness</a>
     </nav>
+
+    <span class="console-tag">Gary</span>
   </header>
 
-  <main class="main" id="main">
-    <section class="intro" aria-labelledby="home-title">
-      <h1 class="title" id="home-title">Chaos Console</h1>
-      <div class="rule" aria-hidden="true"></div>
-      <p class="lede">A private operating room for the systems behind the work: money, wellness, production, research, notes, playlists, and the signals worth keeping.</p>
+  <main id="main">
+    <section class="command" aria-labelledby="home-title">
+      <div class="masthead">
+        <div>
+          <h1 class="title" id="home-title">Chaos Console</h1>
+          <p class="lede">Gerald's private command atlas for debt, recovery, production craft, reading signal, AI memory, music momentum, and the systems that keep the work from turning into fog.</p>
+        </div>
+
+        <div class="legend" aria-label="Atlas filters">
+          <button class="is-active" type="button" data-filter="all" style="--legend-color: var(--paper)">All rooms</button>
+          <button type="button" data-filter="creative" style="--legend-color: var(--yellow)">Creative Work</button>
+          <button type="button" data-filter="ops" style="--legend-color: var(--hot)">Personal Operations</button>
+          <button type="button" data-filter="systems" style="--legend-color: var(--cyan)">Systems Intelligence</button>
+        </div>
+      </div>
+
+      <aside class="signals" aria-labelledby="signals-title">
+        <h2 id="signals-title">Active signals</h2>
+        <div class="signal-list">
+          <a class="signal" style="--signal-color: var(--yellow)" href="/production-almanac/"><span>Creative cluster</span><strong>6 rooms</strong></a>
+          <a class="signal" style="--signal-color: var(--coral)" href="/the-blindspot-binder/"><span>Binder chapters</span><strong>15</strong></a>
+          <a class="signal" style="--signal-color: var(--lav)" href="/readwise-highlights/"><span>Readwise highlights</span><strong>1,696</strong></a>
+          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/"><span>Operations cluster</span><strong>Ledger + body</strong></a>
+          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/#view-stephen"><span>Stephen contribution</span><strong>$3,925 in</strong></a>
+          <a class="signal" style="--signal-color: var(--green)" href="/wellness-dashboard/"><span>Health sources</span><strong>Apple + RingConn</strong></a>
+          <a class="signal" style="--signal-color: var(--cyan)" href="/ai-intelligence/"><span>Systems cluster</span><strong>3 rooms</strong></a>
+          <a class="signal" style="--signal-color: var(--orange)" href="/digital-ecosystem-refresh/"><span>Maintenance queue</span><strong>V9</strong></a>
+        </div>
+      </aside>
     </section>
 
-    <section class="epigraph" aria-labelledby="rw-label" aria-live="polite">
-      <span class="epigraph-kicker" id="rw-label">Resurfaced &middot; <span id="rw-count">1,696</span> highlights</span>
-      <blockquote class="epigraph-quote" id="rw-quote">It&rsquo;s called the American Dream because you have to be asleep to believe it.</blockquote>
-      <p class="epigraph-cite" id="rw-cite">George Carlin &middot; Last Words</p>
-      <div class="epigraph-actions">
-        <button type="button" class="resurface-btn" id="rw-resurface" aria-controls="rw-quote">&#8635; Resurface</button>
-        <a href="/readwise-highlights/">Open library</a>
+    <section class="cluster-map" aria-label="Console neighborhoods">
+      <article class="cluster creative" data-cluster="creative" style="--cluster-color: var(--yellow)">
+        <div class="cluster-head">
+          <div>
+            <span class="cluster-kicker">Creative Work</span>
+            <h2>The Blindspot Side</h2>
+            <p>Writing, production, research, source memory, visual language, and the places where raw material becomes an episode.</p>
+          </div>
+          <span class="cluster-count">6 rooms</span>
+        </div>
+
+        <div class="cluster-grid">
+          <a class="tile cluster-tile hero-tile" href="/production-almanac/" data-cluster="creative" style="--tile-color: var(--yellow)">
+            <span class="tile-top"><span class="tile-code">01 / Production</span><span class="tile-meta">9 chapters</span></span>
+            <span>
+              <h2>Blindspot Almanac</h2>
+              <p>Story architecture, research-to-script, cold opens, voice, visual system, edit grammar, sound, logistics, and distribution.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/the-blindspot-binder/" data-cluster="creative" style="--tile-color: var(--coral)">
+            <span class="tile-top"><span class="tile-code">02 / Manual</span><span class="tile-meta">15 chapters</span></span>
+            <span>
+              <h2>Binder</h2>
+              <p>The operating manual for positioning, research, production, publishing, legal risk, revenue, and live operations.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/screenwriting-and-film-production/" data-cluster="creative" style="--tile-color: var(--teal)">
+            <span class="tile-top"><span class="tile-code">03 / Film</span><span class="tile-meta">Guide</span></span>
+            <span>
+              <h2>Screenwriting &amp; Film Production</h2>
+              <p>Story foundations, structure, character, directing, visual language, editing, financing, festivals, and exercises.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/notes/" data-cluster="creative" style="--tile-color: var(--teal)">
+            <span class="tile-top"><span class="tile-code">04 / Writing Desk</span><span class="tile-meta">Live notebook</span></span>
+            <span>
+              <h2>Notebook</h2>
+              <p>Working notes, fragments, drafts, links, and open loops held near the creative work instead of exiled to capture.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/readwise-highlights/" data-cluster="creative" style="--tile-color: var(--lav)">
+            <span class="tile-top"><span class="tile-code">05 / Source Shelf</span><span class="tile-meta">1,696 lines</span></span>
+            <span>
+              <h2>Readwise</h2>
+              <p>Saved lines, article fragments, marginalia, source notes, and resurfaced context for arguments and scripts.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/the-color-bible/" data-cluster="creative" style="--tile-color: var(--coral)">
+            <span class="tile-top"><span class="tile-code">06 / Visual System</span><span class="tile-meta">5 colors</span></span>
+            <span>
+              <h2>Color Bible</h2>
+              <p>The shared color logic for tags, folders, projects, topics, platform mapping, and implementation sessions.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="cluster ops" data-cluster="ops" style="--cluster-color: var(--hot)">
+        <div class="cluster-head">
+          <div>
+            <span class="cluster-kicker">Personal Operations</span>
+            <h2>Life Ops</h2>
+            <p>The life-support layer: debt, recovery, and the ongoing playlist portfolio.</p>
+          </div>
+          <span class="cluster-count">3 rooms</span>
+        </div>
+
+        <div class="cluster-grid">
+          <a class="tile cluster-tile" href="/the-ledger/" data-cluster="ops" style="--tile-color: var(--hot)">
+            <span class="tile-top"><span class="tile-code">07 / Money</span><span class="tile-meta">Debt, cards, cash</span></span>
+            <span>
+              <h2>The Ledger</h2>
+              <p>Statement-close balances, payment flow, APR burn, Stephen reconciliation, and the attack order.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/wellness-dashboard/" data-cluster="ops" style="--tile-color: var(--green)">
+            <span class="tile-top"><span class="tile-code">08 / Body</span><span class="tile-meta">Health cache</span></span>
+            <span>
+              <h2>Wellness</h2>
+              <p>Weight, resting heart rate, sleep, HRV, steps, SpO2, and body composition from Apple Health and RingConn.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/playlist-tracker/" data-cluster="ops" style="--tile-color: var(--blue)">
+            <span class="tile-top"><span class="tile-code">09 / Media</span><span class="tile-meta">Monthly snapshots</span></span>
+            <span>
+              <h2>Playlist Tracker</h2>
+              <p>Follower history, portfolio pulse, leaderboard, momentum board, heatmap, and catalog cards.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="cluster systems" data-cluster="systems" style="--cluster-color: var(--cyan)">
+        <div class="cluster-head">
+          <div>
+            <span class="cluster-kicker">Systems Intelligence</span>
+            <h2>Machine Room</h2>
+            <p>The machine room: workflows, AI patterns, accounts, cleanup routines, and the map of what needs attention.</p>
+          </div>
+          <span class="cluster-count">3 rooms</span>
+        </div>
+
+        <div class="cluster-grid">
+          <a class="tile cluster-tile" href="/the-workflow-wrench/" data-cluster="systems" style="--tile-color: var(--orange)">
+            <span class="tile-top"><span class="tile-code">10 / Automation</span><span class="tile-meta">Workflows</span></span>
+            <span>
+              <h2>Workflow Wrench</h2>
+              <p>Prompts, n8n patterns, client project frames, pricing notes, templates, and a 90-day cadence.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile dark" href="/ai-intelligence/" data-cluster="systems" style="--tile-color: var(--cyan)">
+            <span class="tile-top"><span class="tile-code">11 / AI Memory</span><span class="tile-meta">1,578 conversations</span></span>
+            <span>
+              <h2>AI Intelligence</h2>
+              <p>Patterns across ChatGPT and Claude: strengths, stalls, export priorities, Blindspot recurrence, and migration logic.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+
+          <a class="tile cluster-tile" href="/digital-ecosystem-refresh/" data-cluster="systems" style="--tile-color: var(--cyan)">
+            <span class="tile-top"><span class="tile-code">12 / Infrastructure</span><span class="tile-meta">V9</span></span>
+            <span>
+              <h2>Digital Ecosystem</h2>
+              <p>Downloads triage, document root scan, statement intake, dashboard checks, stale purge, risks, and next-session queue.</p>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="quote-row" aria-labelledby="quote-title" aria-live="polite">
+      <div class="quote-panel">
+        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote-text" id="rw-quote">It's called the American Dream because you have to be asleep to believe it.</p>
+        <div class="quote-meta">
+          <span id="rw-cite">George Carlin / Last Words</span>
+          <span id="rw-count">1,696 highlights</span>
+        </div>
+      </div>
+
+      <div class="quote-actions">
+        <button type="button" id="rw-resurface">Resurface</button>
+        <a href="/readwise-highlights/">Open Readwise</a>
+        <a href="/the-blindspot-binder/">Open Binder</a>
       </div>
     </section>
 
-    <section class="bricks" aria-label="Primary console links">
-      <a class="brick primary finance" href="/the-ledger/">
-        <span>
-          <span class="brick-kicker">Money</span>
-          <span class="brick-title">The Ledger</span>
-          <span class="brick-copy">Cash flow, obligations, and the operating picture.</span>
-        </span>
-        <span class="brick-action">Open</span>
-      </a>
+    <section class="operations" aria-labelledby="loops-title">
+      <div>
+        <h2 class="section-title" id="loops-title">Operating Loops</h2>
+        <p class="section-copy">The site is no longer a hallway of doors. It is a map of the work: financial pressure, body signal, production craft, source memory, media momentum, and the maintenance that keeps each layer findable.</p>
+      </div>
 
-      <a class="brick primary craft" href="/production-almanac/">
-        <span>
-          <span class="brick-kicker">Craft</span>
-          <span class="brick-title">Blindspot Almanac</span>
-          <span class="brick-copy">Production notes, case files, research, and field rules.</span>
-        </span>
-        <span class="brick-action">Open</span>
-      </a>
+      <div class="loop-grid">
+        <div class="loop" style="--loop-color: var(--green)"><strong>Morning Check-In</strong><span>Open wellness, scan recovery, then pull one Readwise line before the day gets noisy.</span></div>
+        <div class="loop" style="--loop-color: var(--yellow)"><strong>Deep Work Block</strong><span>Pick one Almanac chapter, one Binder rule, or one script surface. Do not open six rooms to avoid one decision.</span></div>
+        <div class="loop" style="--loop-color: var(--hot)"><strong>Ledger Review</strong><span>Check debt movement, APR burn, account priority, and whether the next payment is attack or defense.</span></div>
+        <div class="loop" style="--loop-color: var(--orange)"><strong>Systems Pass</strong><span>Use the Wrench, Color Bible, and Digital Ecosystem only when the process is becoming expensive.</span></div>
+        <div class="loop" style="--loop-color: var(--blue)"><strong>Media Pulse</strong><span>Read playlist momentum as catalog weather, not identity. Winners get support; quiet shelves get a note.</span></div>
+        <div class="loop" style="--loop-color: var(--lav)"><strong>Archive Capture</strong><span>Push fragments into Notebook or Readwise before they become another heroic pile of almost-memory.</span></div>
+      </div>
+    </section>
 
-      <a class="brick notes" href="/notes/">
-        <span>
-          <span class="brick-kicker">Capture</span>
-          <span class="brick-title">Notebook</span>
-          <span class="brick-copy">Ideas, tasks, scraps, links, and useful fragments.</span>
-        </span>
-        <span class="brick-action">Open</span>
-      </a>
+    <section class="house" aria-labelledby="house-title">
+      <div>
+        <h2 class="section-title" id="house-title">One House, Many Rooms</h2>
+        <p class="section-copy">Dependent pages now share the same console map, while their internal bodies stay intact: Ledger remains a finance dashboard, Almanac remains a chaptered manual, Readwise remains a deck, and long guides stay readable instead of being flattened into tiles.</p>
+      </div>
 
-      <a class="brick system" href="/the-workflow-wrench/">
-        <span>
-          <span class="brick-kicker">Systems</span>
-          <span class="brick-title">Workflow Wrench</span>
-          <span class="brick-copy">Repeatable tools, prompts, SOPs, and working methods.</span>
-        </span>
-        <span class="brick-action">Open</span>
-      </a>
-
-      <a class="brick notes" href="/playlist-tracker/">
-        <span>
-          <span class="brick-kicker">Audio</span>
-          <span class="brick-title">Playlist Tracker</span>
-          <span class="brick-copy">Music lanes for focus, movement, and creative weather.</span>
-        </span>
-        <span class="brick-action">Open</span>
-      </a>
-
-      <a class="brick finance" href="/wellness-dashboard/">
-        <span>
-          <span class="brick-kicker">Body</span>
-          <span class="brick-title">Wellness Dashboard</span>
-          <span class="brick-copy">Sleep, training, energy, recovery, and check-ins.</span>
-        </span>
-        <span class="brick-action">Open</span>
-      </a>
+      <div class="mini-shell" aria-hidden="true">
+        <div class="mini-top"><span>Chaos Console</span><span>Ledger / Almanac / Notebook / Wrench</span><span class="mini-dot">Gary</span></div>
+        <div class="mini-body">
+          <div class="mini-rail"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="mini-content">
+            <div class="mini-kpis"><span></span><span></span><span></span><span></span></div>
+            <div class="mini-chart"></div>
+            <div class="mini-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-note">Private console. Fewer doors. Better signal.</p>
-    <div class="footer-links" aria-label="Secondary links">
-      <a href="/the-blindspot-binder/">Binder</a>
-      <a href="/ai-intelligence/">AI</a>
-      <a href="/readwise-highlights/">Readwise</a>
-      <a href="/the-color-bible/">Color</a>
-    </div>
+  <footer class="footer">
+    <span><a href="/insult-rolodex/">Insult Rolodex</a> / <a href="/wellness-analysis/">Wellness Analysis</a></span>
+    <span class="footer-center">Built by Gary. For Gary.</span>
+    <span class="footer-right">Focus &middot; Discipline &middot; Execution</span>
   </footer>
 </div>
-<script>
-// Live reading surface — curated from data/readwise_cache.json (1,696 highlights / 165 books)
-var RW_STATS = { highlights: 1696, books: 165 };
 
-// Hand-picked, high-signal highlights. Edit / reorder / swap freely — plain text, no fetch.
+<script>
+var RW_STATS = { highlights: 1696, books: 165 };
 var RW_HIGHLIGHTS = [
-  { t: "It’s called the American Dream because you have to be asleep to believe it.", a: "George Carlin", b: "Last Words", cat: "books" },
+  { t: "It's called the American Dream because you have to be asleep to believe it.", a: "George Carlin", b: "Last Words", cat: "books" },
   { t: "We learn from history that we do not learn from history.", a: "Hegel", b: "Lessons From History", cat: "articles" },
   { t: "It is not our remembering the sins of the past that provokes hatred, but the way in which we remember them.", a: "Keith Lowe", b: "Savage Continent", cat: "books" },
   { t: "Plato: comedy comes, essentially, from a lack of self-knowledge.", a: "Jeremy Dauber", b: "Jewish Comedy", cat: "books" },
   { t: "Everyone is unique, but certain values are fundamental to every culture since the birth of civilization.", a: "Charles Duhigg", b: "Supercommunicators", cat: "books" },
-  { t: "Sometimes it seems that only one thing unites Arabs, and that is their inability to get along with each other.", a: "Derek Sivers", b: "Arabs", cat: "articles" },
   { t: "Severance is a show brave enough to ask the question: what is life at Deloitte like?", a: "Work Retire Die", b: "Tweets", cat: "tweets" },
-  { t: "“We have only to kick in the door,” the Führer said of the Russians, “and the whole rotten structure will come crashing down.”", a: "Donovan Webster", b: "Aftermath", cat: "books" },
-  { t: "From infancy, even before we learn to speak, we absorb how to infer people’s emotions from their behaviors.", a: "Charles Duhigg", b: "Supercommunicators", cat: "books" },
-  { t: "Fight an uphill battle — to deal with a difficult situation that becomes harder as you go.", a: "Lingo Mastery", b: "The Great Book of American Idioms", cat: "books" }
+  { t: "Fight an uphill battle: deal with a difficult situation that becomes harder as you go.", a: "Lingo Mastery", b: "The Great Book of American Idioms", cat: "books" }
 ];
 
-// Weighted by signal: books surface most often, tweets least. Tune these knobs freely.
 var RW_WEIGHTS = { books: 3, articles: 2, tweets: 1 };
 
 function pickHighlight(list, exclude) {
@@ -564,19 +1210,19 @@ function pickHighlight(list, exclude) {
 }
 
 (function () {
-  var countEl = document.getElementById("rw-count");
-  if (countEl) countEl.textContent = RW_STATS.highlights.toLocaleString();
-
   var quoteEl = document.getElementById("rw-quote");
   var citeEl = document.getElementById("rw-cite");
+  var countEl = document.getElementById("rw-count");
   var btn = document.getElementById("rw-resurface");
   var current = null;
+
+  if (countEl) countEl.textContent = RW_STATS.highlights.toLocaleString() + " highlights / " + RW_STATS.books.toLocaleString() + " books";
 
   function render(h) {
     if (!h || !quoteEl) return;
     current = h;
     quoteEl.textContent = h.t;
-    if (citeEl) citeEl.textContent = h.a + " · " + h.b;
+    if (citeEl) citeEl.textContent = h.a + " / " + h.b;
   }
 
   if (RW_HIGHLIGHTS.length) {
@@ -587,6 +1233,27 @@ function pickHighlight(list, exclude) {
       });
     }
   }
+})();
+
+(function () {
+  var filterButtons = Array.prototype.slice.call(document.querySelectorAll("[data-filter]"));
+  var tiles = Array.prototype.slice.call(document.querySelectorAll(".tile[data-cluster]"));
+  var clusters = Array.prototype.slice.call(document.querySelectorAll(".cluster[data-cluster]"));
+
+  filterButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var filter = button.getAttribute("data-filter");
+      filterButtons.forEach(function (b) { b.classList.toggle("is-active", b === button); });
+      clusters.forEach(function (cluster) {
+        var match = filter === "all" || cluster.getAttribute("data-cluster") === filter;
+        cluster.classList.toggle("is-dimmed", !match);
+      });
+      tiles.forEach(function (tile) {
+        var match = filter === "all" || tile.getAttribute("data-cluster") === filter;
+        tile.classList.toggle("is-dimmed", !match);
+      });
+    });
+  });
 })();
 </script>
 </body>
