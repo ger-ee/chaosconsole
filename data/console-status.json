@@ -1,0 +1,134 @@
+{
+  "generated": "2026-07-02",
+  "rooms": [
+    {
+      "href": "/the-ledger/",
+      "label": "Ledger",
+      "cluster": "ops",
+      "color": "var(--hot)",
+      "metric": "$12,545 revolving · −$1,893",
+      "updated": "2026-07-02",
+      "dataThrough": "2026-06-30",
+      "cadenceDays": 32,
+      "note": "June close complete — all 8 cards reported"
+    },
+    {
+      "href": "/playlist-tracker/",
+      "label": "Playlists",
+      "cluster": "ops",
+      "color": "var(--blue)",
+      "metric": "1,049 followers · +5 Jul",
+      "updated": "2026-07-02",
+      "dataThrough": "2026-07-02",
+      "cadenceDays": 32,
+      "note": "July snapshot from live Spotify counts"
+    },
+    {
+      "href": "/wellness-dashboard/",
+      "label": "Wellness",
+      "cluster": "ops",
+      "color": "var(--green)",
+      "metric": "sleep → Jun 20 · weight → Apr 23",
+      "updated": "2026-07-02",
+      "dataThrough": "2026-06-21",
+      "cadenceDays": 14,
+      "note": "Health Auto Export stalled — open the app or export manually"
+    },
+    {
+      "href": "/readwise-highlights/",
+      "label": "Readwise",
+      "cluster": "creative",
+      "color": "var(--lav)",
+      "metric": "1,696 highlights · 165 sources",
+      "updated": "2026-04-16",
+      "dataThrough": "2026-04-16",
+      "cadenceDays": 45,
+      "note": "refresh via data/readwise_loader.py"
+    },
+    {
+      "href": "/the-blindspot-binder/",
+      "label": "Binder",
+      "cluster": "creative",
+      "color": "var(--coral)",
+      "metric": "v5 · 15 chapters",
+      "updated": "2026-04-26",
+      "cadenceDays": null,
+      "note": "updates on Pulse ingest"
+    },
+    {
+      "href": "/production-almanac/",
+      "label": "Almanac",
+      "cluster": "creative",
+      "color": "var(--yellow)",
+      "metric": "9 chapters",
+      "updated": "2026-06-08",
+      "cadenceDays": null
+    },
+    {
+      "href": "/screenwriting-and-film-production/",
+      "label": "Film Production",
+      "cluster": "creative",
+      "color": "var(--teal)",
+      "metric": "8-phase guide",
+      "updated": "2026-06-08",
+      "cadenceDays": null
+    },
+    {
+      "href": "/the-color-bible/",
+      "label": "Color Bible",
+      "cluster": "creative",
+      "color": "var(--coral)",
+      "metric": "5 colors",
+      "updated": "2026-03-13",
+      "cadenceDays": null
+    },
+    {
+      "href": "/notes/",
+      "label": "Notebook",
+      "cluster": "creative",
+      "color": "var(--teal)",
+      "metric": "Notion embed unconfigured",
+      "updated": "2026-06-08",
+      "cadenceDays": null,
+      "flag": "attention",
+      "note": "NOTION_NOTES_URL is empty — page shows fallback"
+    },
+    {
+      "href": "/the-workflow-wrench/",
+      "label": "Wrench",
+      "cluster": "systems",
+      "color": "var(--orange)",
+      "metric": "8 parts · 31 chapters",
+      "updated": "2026-06-08",
+      "cadenceDays": null
+    },
+    {
+      "href": "/ai-intelligence/",
+      "label": "AI Intelligence",
+      "cluster": "systems",
+      "color": "var(--cyan)",
+      "metric": "1,578 conversations · data → Nov '25",
+      "updated": "2026-04-20",
+      "cadenceDays": null
+    },
+    {
+      "href": "/digital-ecosystem-refresh/",
+      "label": "Ecosystem",
+      "cluster": "systems",
+      "color": "var(--orange)",
+      "metric": "V9 · Mar 11",
+      "updated": "2026-03-11",
+      "dataThrough": "2026-03-11",
+      "cadenceDays": 90,
+      "note": "quarterly maintenance pass is due"
+    }
+  ],
+  "extra": [
+    {
+      "href": "/the-ledger/#view-stephen",
+      "label": "Stephen contribution",
+      "color": "var(--hot)",
+      "metric": "$7,375 in · net $7,200"
+    }
+  ]
+}

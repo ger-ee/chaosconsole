@@ -305,6 +305,39 @@ button {
   outline: none;
 }
 
+.sig-age {
+  margin-left: 10px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--quiet);
+  white-space: nowrap;
+}
+
+.sig-age.s-due { color: var(--yellow); }
+.sig-age.s-stale, .sig-age.s-attn { color: var(--coral); }
+.sig-age.s-fresh { color: var(--green); }
+
+.tile-stamp {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 3px 7px;
+  border: 1px solid rgba(5, 5, 5, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(5, 5, 5, 0.78);
+}
+
+.tile.dark .tile-stamp {
+  border-color: var(--line-strong);
+  color: rgba(248, 244, 232, 0.72);
+}
+
+.tile-stamp.s-due { border-color: rgba(5, 5, 5, 0.7); font-weight: 700; }
+.tile-stamp.s-stale, .tile-stamp.s-attn { background: rgba(5, 5, 5, 0.82); color: var(--yellow); border-color: transparent; }
+.tile.dark .tile-stamp.s-stale, .tile.dark .tile-stamp.s-attn { background: var(--coral); color: var(--ink); }
+
 .cluster-map {
   display: grid;
   grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.82fr);
@@ -949,7 +982,7 @@ button {
       <div class="masthead">
         <div>
           <h1 class="title" id="home-title">Chaos Console</h1>
-          <p class="lede">Gerald's private command atlas for debt, recovery, production craft, reading signal, AI memory, music momentum, and the systems that keep the work from turning into fog.</p>
+          <p class="lede">Gerald's command atlas: debt, body, production craft, reading signal, music momentum — and a status board that says which room needs attention before you open six of them.</p>
         </div>
 
         <div class="legend" aria-label="Atlas filters">
@@ -961,16 +994,16 @@ button {
       </div>
 
       <aside class="signals" aria-labelledby="signals-title">
-        <h2 id="signals-title">Active signals</h2>
-        <div class="signal-list">
-          <a class="signal" style="--signal-color: var(--yellow)" href="/production-almanac/"><span>Creative cluster</span><strong>6 rooms</strong></a>
-          <a class="signal" style="--signal-color: var(--coral)" href="/the-blindspot-binder/"><span>Binder chapters</span><strong>15</strong></a>
-          <a class="signal" style="--signal-color: var(--lav)" href="/readwise-highlights/"><span>Readwise highlights</span><strong>1,696</strong></a>
-          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/"><span>Operations cluster</span><strong>Ledger + body</strong></a>
-          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/#view-stephen"><span>Stephen contribution</span><strong>$3,925 in</strong></a>
-          <a class="signal" style="--signal-color: var(--green)" href="/wellness-dashboard/"><span>Health sources</span><strong>Apple + RingConn</strong></a>
-          <a class="signal" style="--signal-color: var(--cyan)" href="/ai-intelligence/"><span>Systems cluster</span><strong>3 rooms</strong></a>
-          <a class="signal" style="--signal-color: var(--orange)" href="/digital-ecosystem-refresh/"><span>Maintenance queue</span><strong>V9</strong></a>
+        <h2 id="signals-title">Status board</h2>
+        <div class="signal-list" id="signalList">
+          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/"><span>Ledger · June close</span><strong>$12,545 · −$1,893</strong></a>
+          <a class="signal" style="--signal-color: var(--blue)" href="/playlist-tracker/"><span>Playlists · July</span><strong>1,049 followers</strong></a>
+          <a class="signal" style="--signal-color: var(--green)" href="/wellness-dashboard/"><span>Wellness · data → Jun 21</span><strong>export due</strong></a>
+          <a class="signal" style="--signal-color: var(--lav)" href="/readwise-highlights/"><span>Readwise · Apr 16</span><strong>1,696 highlights</strong></a>
+          <a class="signal" style="--signal-color: var(--orange)" href="/digital-ecosystem-refresh/"><span>Ecosystem · Mar 11</span><strong>pass overdue</strong></a>
+          <a class="signal" style="--signal-color: var(--teal)" href="/notes/"><span>Notebook</span><strong>embed unset</strong></a>
+          <a class="signal" style="--signal-color: var(--coral)" href="/the-blindspot-binder/"><span>Binder</span><strong>v5 · 15 chapters</strong></a>
+          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/#view-stephen"><span>Stephen contribution</span><strong>$7,375 in</strong></a>
         </div>
       </aside>
     </section>
@@ -1233,6 +1266,73 @@ function pickHighlight(list, exclude) {
       });
     }
   }
+})();
+
+/* Status board + tile freshness stamps, driven by data/console-status.json.
+   Update sessions rewrite that manifest; this page just reports it. */
+(function () {
+  var DAY = 86400000;
+
+  function status(room) {
+    if (room.flag === "attention") return { cls: "s-attn", label: "needs attention" };
+    var ref = room.dataThrough || room.updated;
+    if (!ref) return { cls: "s-steady", label: "" };
+    var age = Math.max(0, Math.floor((Date.now() - new Date(ref + "T12:00:00").getTime()) / DAY));
+    if (!room.cadenceDays) return { cls: "s-steady", label: age > 45 ? age + "d" : "" };
+    var ratio = age / room.cadenceDays;
+    if (ratio <= 1) return { cls: "s-fresh", label: age + "d", ratio: ratio };
+    if (ratio <= 2) return { cls: "s-due", label: age + "d · due", ratio: ratio };
+    return { cls: "s-stale", label: age + "d · stale", ratio: ratio };
+  }
+
+  function rank(cls) {
+    return { "s-attn": 0, "s-stale": 1, "s-due": 2, "s-fresh": 3, "s-steady": 4 }[cls];
+  }
+
+  fetch("/data/console-status.json")
+    .then(function (r) { return r.json(); })
+    .then(function (manifest) {
+      var rooms = manifest.rooms.map(function (room) {
+        return { room: room, st: status(room) };
+      });
+
+      // Status board: urgent first, evergreen rooms without signal value last
+      var rows = rooms
+        .filter(function (x) { return x.st.cls !== "s-steady" || x.room.cadenceDays; })
+        .sort(function (a, b) {
+          var d = rank(a.st.cls) - rank(b.st.cls);
+          return d !== 0 ? d : (b.st.ratio || 0) - (a.st.ratio || 0);
+        });
+      (manifest.extra || []).forEach(function (x) {
+        rows.push({ room: x, st: { cls: "s-steady", label: "" } });
+      });
+
+      var list = document.getElementById("signalList");
+      if (list && rows.length) {
+        list.innerHTML = rows.map(function (x) {
+          var age = x.st.label ? '<span class="sig-age ' + x.st.cls + '">' + x.st.label + "</span>" : "";
+          return '<a class="signal" style="--signal-color: ' + (x.room.color || "var(--paper)") + '" href="' + x.room.href + '">' +
+            "<span>" + x.room.label + age + "</span><strong>" + x.room.metric + "</strong></a>";
+        }).join("");
+      }
+
+      // Tile stamps
+      rooms.forEach(function (x) {
+        var tile = document.querySelector('.tile[href="' + x.room.href + '"]');
+        if (!tile) return;
+        var ref = x.room.dataThrough || x.room.updated;
+        var text;
+        if (x.st.cls === "s-attn") text = "needs attention";
+        else if (x.st.cls === "s-steady") text = "updated " + ref;
+        else text = (x.st.cls === "s-fresh" ? "fresh · " : x.st.cls === "s-due" ? "due · " : "stale · ") + ref;
+        var stamp = document.createElement("span");
+        stamp.className = "tile-stamp " + x.st.cls;
+        stamp.textContent = text;
+        var arrow = tile.querySelector(".tile-arrow");
+        tile.insertBefore(stamp, arrow);
+      });
+    })
+    .catch(function () { /* static fallback stays */ });
 })();
 
 (function () {
