@@ -15,7 +15,9 @@ import argparse
 import hashlib
 import json
 import os
+import subprocess
 import sys
+import tempfile
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -50,6 +52,44 @@ DAILY_AGG_METRICS = {
     "walking_running_distance",
 }
 
+# Health Auto Export's second channel: LZFSE-compressed .hae files under
+# AutoSync/HealthMetrics/<metric>/<yyyymmdd>.hae. Used as a gap-filler for
+# dates past each metric's Daily-export coverage (the Daily automation stalls
+# when the app isn't opened; AutoSync keeps running longer).
+AUTOSYNC_DIR = Path(
+    os.environ.get(
+        "HEALTH_AUTOSYNC_DIR",
+        os.path.expanduser(
+            "~/Library/Mobile Documents/"
+            "iCloud~com~ifunography~HealthExport/"
+            "Documents/AutoSync/HealthMetrics"
+        ),
+    )
+)
+
+# Only the metrics the dashboards read.
+AUTOSYNC_METRICS = [
+    "weight_body_mass",
+    "resting_heart_rate",
+    "sleep_analysis",
+    "heart_rate_variability",
+    "step_count",
+    "blood_oxygen_saturation",
+    "body_fat_percentage",
+    "lean_body_mass",
+]
+
+APPLE_EPOCH = 978307200  # 2001-01-01 UTC in unix seconds
+
+SLEEP_STAGE_LABELS = {
+    "awake": "Awake",
+    "core": "Core",
+    "deep": "Deep",
+    "rem": "REM",
+    "asleep": "Asleep",
+    "inBed": "InBed",
+}
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -70,11 +110,16 @@ def extract_date(iso_ts: str) -> str:
 
 
 def build_manifest(export_dir: Path) -> dict:
-    """Map each JSON filename to (size, mtime) for cache invalidation."""
+    """Map each source filename to (size, mtime) for cache invalidation."""
     manifest = {}
     for p in sorted(export_dir.glob("HealthAutoExport-*.json")):
         stat = p.stat()
         manifest[p.name] = {"size": stat.st_size, "mtime": stat.st_mtime}
+    if AUTOSYNC_DIR.exists():
+        for metric in AUTOSYNC_METRICS:
+            for p in sorted((AUTOSYNC_DIR / metric).glob("*.hae")):
+                stat = p.stat()
+                manifest[f"autosync/{metric}/{p.name}"] = {"size": stat.st_size, "mtime": stat.st_mtime}
     return manifest
 
 
@@ -213,6 +258,121 @@ def aggregate_daily(rows: list[dict]) -> list[dict]:
 # Main
 # ---------------------------------------------------------------------------
 
+def _decode_hae(path: Path):
+    """Decode one .hae file (LZFSE via compression_tool, plaintext bvx- fallback)."""
+    with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
+        tmp_path = tmp.name
+    try:
+        r = subprocess.run(
+            ["compression_tool", "-decode", "-i", str(path), "-o", tmp_path],
+            capture_output=True,
+        )
+        if r.returncode == 0:
+            try:
+                return json.loads(Path(tmp_path).read_text())
+            except (json.JSONDecodeError, OSError):
+                pass
+        raw = path.read_bytes()
+        if raw.startswith(b"bvx-"):
+            try:
+                return json.loads(raw[raw.index(b"{"): raw.rindex(b"}") + 1])
+            except (ValueError, json.JSONDecodeError):
+                return None
+        return None
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+
+
+def _apple_ts(seconds: float) -> datetime:
+    return datetime.fromtimestamp(APPLE_EPOCH + seconds).astimezone()
+
+
+def load_autosync(cutoffs: dict) -> list[dict]:
+    """
+    Read AutoSync .hae files for dashboard metrics, keeping only rows dated
+    strictly AFTER that metric's Daily-export coverage (cutoffs: metric -> 'YYYY-MM-DD').
+    DAILY_AGG_METRICS are pre-aggregated to daily sums here to avoid emitting
+    millions of per-second rows.
+    """
+    if not AUTOSYNC_DIR.exists():
+        return []
+
+    rows: list[dict] = []
+    day_buckets: dict = defaultdict(float)
+    day_units: dict = {}
+
+    for metric in AUTOSYNC_METRICS:
+        cutoff = cutoffs.get(metric, "0000-00-00")
+        folder = AUTOSYNC_DIR / metric
+        if not folder.exists():
+            continue
+        for f in sorted(folder.glob("*.hae")):
+            doc = _decode_hae(f)
+            if not doc or not doc.get("data"):
+                continue
+            for p in doc["data"]:
+                start = p.get("start") or p.get("end")
+                if start is None:
+                    continue
+                dt = _apple_ts(start)
+                day = dt.strftime("%Y-%m-%d")
+                if day <= cutoff:
+                    continue
+
+                if metric == "sleep_analysis":
+                    src = "AutoSync"
+                    if p.get("sources"):
+                        src = p["sources"][0].get("name", "AutoSync")
+                    stage_rows = []
+                    for key, label in SLEEP_STAGE_LABELS.items():
+                        val = p.get(key)
+                        if key != "totalSleep" and isinstance(val, (int, float)) and val > 0:
+                            stage_rows.append((label, val))
+                    if not stage_rows and isinstance(p.get("totalSleep"), (int, float)) and p["totalSleep"] > 0:
+                        stage_rows.append(("Asleep", p["totalSleep"]))
+                    for label, val in stage_rows:
+                        rows.append({
+                            "timestamp": dt.isoformat(),
+                            "metric": metric,
+                            "value": round(val, 4),
+                            "unit": p.get("unit", "hr"),
+                            "source": src,
+                            "extra": {"label": label},
+                        })
+                    continue
+
+                qty = p.get("qty", p.get("Avg"))
+                if not isinstance(qty, (int, float)):
+                    continue
+                if metric in DAILY_AGG_METRICS:
+                    day_buckets[(day, metric)] += qty
+                    day_units[(day, metric)] = p.get("unit", "")
+                else:
+                    rows.append({
+                        "timestamp": dt.isoformat(),
+                        "metric": metric,
+                        "value": round(qty, 4),
+                        "unit": p.get("unit", ""),
+                        "source": "AutoSync",
+                        "extra": None,
+                    })
+
+    for (day, metric), total in sorted(day_buckets.items()):
+        rows.append({
+            "timestamp": f"{day}T00:00:00",
+            "metric": metric,
+            "value": round(total, 2),
+            "unit": day_units[(day, metric)],
+            "source": "AutoSync",
+            "extra": {"aggregation": "daily_sum"},
+        })
+
+    return rows
+
+
 def load_historical() -> list[dict]:
     """Load pre-normalized RingConn/Oura historical data if available."""
     if not HISTORICAL_PATH.exists():
@@ -242,6 +402,18 @@ def run(force: bool = False) -> dict:
         print(f"  merged {len(historical):,} historical rows")
         rows.extend(historical)
 
+    # AutoSync gap-fill: only dates past each metric's existing coverage
+    cutoffs: dict = {}
+    for r in rows:
+        day = r["timestamp"][:10]
+        if day > cutoffs.get(r["metric"], "0000-00-00"):
+            cutoffs[r["metric"]] = day
+    print("Scanning AutoSync .hae channel for gap-fill...")
+    autosync = load_autosync(cutoffs)
+    if autosync:
+        print(f"  merged {len(autosync):,} AutoSync rows past Daily-export coverage")
+        rows.extend(autosync)
+
     before = len(rows)
 
     print("Aggregating high-frequency metrics to daily sums...")
@@ -264,7 +436,9 @@ def run(force: bool = False) -> dict:
 
     output = {
         "generated": datetime.now(timezone.utc).isoformat(),
-        "source_files": list(manifest.keys()) + (["ringconn_historical.json"] if historical else []),
+        "source_files": [k for k in manifest.keys() if not k.startswith("autosync/")]
+        + (["ringconn_historical.json"] if historical else [])
+        + (["AutoSync/HealthMetrics (.hae gap-fill)"] if autosync else []),
         "stats": {
             "rows_before_aggregation": before,
             "rows_after_aggregation": len(rows),

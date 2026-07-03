@@ -256,6 +256,23 @@ footer a { color: var(--c-hr); text-decoration: none; }
   padding: 0.5rem 1rem 0;
 }
 
+/* ── Stale-data banner ── */
+.stale-banner {
+  display: none;
+  margin: 0.75rem 0.75rem 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--delta-neg);
+  border-left-width: 4px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 1000px;
+}
+@media (min-width: 640px) { .stale-banner { margin: 1rem auto 0; } }
+.stale-banner strong { color: var(--delta-neg); }
+
 /* ── Desktop: widen to 3-up ── */
 @media (min-width: 640px) {
   .tiles { grid-template-columns: repeat(3, 1fr); gap: 0.8rem; padding: 1.25rem 2rem; }
@@ -284,6 +301,8 @@ footer a { color: var(--c-hr); text-decoration: none; }
     <span class="date-range" id="dateRange">loading...</span>
   </div>
 </header>
+
+<div class="stale-banner" id="staleBanner"></div>
 
 <div class="tiles" id="tiles">
   <!-- 1: Weight -->
@@ -378,7 +397,7 @@ sw.addEventListener('keydown', e => {
 // ═══════════════════════════════════════════
 window._sparkRedraws = [];
 
-fetch('data/health_cache.json')
+fetch('../data/health_cache.json')
   .then(r => r.json())
   .then(cache => {
     const data = cache.data;
@@ -452,6 +471,16 @@ function renderMeta(cache) {
   document.getElementById('dateRange').textContent =
     `${fmtDate(s.date_range.min)} — ${fmtDate(s.date_range.max)} | ${days}d`;
   document.getElementById('cacheAge').textContent = relTime(cache.generated);
+
+  // Surface staleness instead of silently showing old numbers
+  const behind = Math.floor((Date.now() - new Date(s.date_range.max).getTime()) / 86400000);
+  if (behind > 14) {
+    const el = document.getElementById('staleBanner');
+    el.style.display = 'block';
+    el.innerHTML = `<strong>Data is ${behind} days behind.</strong> Newest reading: ${fmtDate(s.date_range.max)}. ` +
+      `Open Health Auto Export on the phone so its automations catch up, then run ` +
+      `<code>python3 data/health_loader.py --force</code> and republish.`;
+  }
 }
 
 // ═══════════════════════════════════════════

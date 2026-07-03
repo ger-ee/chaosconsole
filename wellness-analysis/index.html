@@ -1720,7 +1720,7 @@ function render(cache) {
   renderCharts(completeRows, monthlySummaries);
 }
 
-fetch("data/health_cache.json")
+fetch("../data/health_cache.json")
   .then(response => {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return response.json();
