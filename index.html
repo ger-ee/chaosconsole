@@ -4,116 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaos Console</title>
-<meta name="description" content="Chaos Console is Gerald's private operating atlas for money, production, wellness, reading, notes, playlists, AI patterns, and system maintenance.">
-<meta name="theme-color" content="#050505">
-<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<meta name="description" content="Chaos Console — Gerald's private operating readout: debt, body, catalog, production craft, source memory, and the maintenance that keeps it all findable.">
+<meta name="theme-color" content="#0a0e17">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap">
 <link rel="stylesheet" href="/shared/console-shell.css">
 <style>
 :root {
-  --ink: #050505;
-  --ink-2: #0b0b0c;
-  --paper: #f8f4e8;
-  --muted: #a8a29a;
-  --quiet: #706b64;
-  --line: rgba(248, 244, 232, 0.16);
-  --line-strong: rgba(248, 244, 232, 0.32);
-  --hot: #ef3b86;
-  --yellow: #f4c51d;
-  --teal: #2fc5b7;
-  --green: #82ca55;
-  --blue: #36a3df;
-  --lav: #9b72d9;
-  --coral: #f0524d;
-  --orange: #f0601d;
-  --cyan: #69d6e4;
-  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Archivo Black", Impact, Haettenschweiler, "Arial Narrow", sans-serif;
-  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --bg: #0a0e17;
+  --bg-2: #0d1220;
+  --card: #111826;
+  --card-2: #151d2e;
+  --line: #1d2740;
+  --line-2: #232d45;
+  --text: #e5e9f0;
+  --text-2: #94a3b8;
+  --text-3: #64748b;
+  --gold: #d4a052;
+  --good: #4ade80;
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --sans: "Instrument Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  --disp: "Space Grotesk", var(--sans);
+  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html {
-  background: var(--ink);
-  scroll-behavior: smooth;
-}
+html { background: var(--bg); scroll-behavior: smooth; }
 
 body {
-  min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    var(--ink);
-  background-size: 36px 36px;
-  color: var(--paper);
-  font-family: var(--font-body);
-  overflow-x: hidden;
-  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
-}
-
-button {
-  font: inherit;
-}
+a { color: inherit; }
 
 .skip-link {
   position: fixed;
-  left: 18px;
-  top: 18px;
-  z-index: 20;
-  transform: translateY(-160%);
+  left: 16px;
+  top: 16px;
+  z-index: 40;
+  transform: translateY(-200%);
   padding: 10px 12px;
-  border: 1px solid var(--line-strong);
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11px;
   text-transform: uppercase;
   text-decoration: none;
 }
-
-.skip-link:focus {
-  transform: translateY(0);
-}
+.skip-link:focus { transform: translateY(0); }
 
 .shell {
-  width: min(1360px, calc(100% - 44px));
+  width: min(1240px, calc(100% - 40px));
   margin: 0 auto;
 }
 
+/* ---------- topbar ---------- */
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  z-index: 20;
+  display: flex;
   align-items: center;
-  gap: 18px;
-  min-height: 58px;
+  gap: 20px;
+  min-height: 54px;
+  padding: 8px 0;
   border-bottom: 1px solid var(--line);
-  background: rgba(5, 5, 5, 0.86);
-  backdrop-filter: blur(16px);
+  background: rgba(10, 14, 23, 0.86);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-width: 0;
+  gap: 10px;
   text-decoration: none;
+  flex: none;
 }
 
 .mark {
@@ -121,835 +103,532 @@ button {
   height: 26px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--line-strong);
-  color: var(--hot);
-  font-family: var(--font-display);
-  font-size: 0.84rem;
-}
-
-.wordmark,
-.nav,
-.console-tag,
-.legend,
-.signal,
-.tile-code,
-.tile-meta,
-.quote-meta,
-.loop,
-.footer {
-  font-family: var(--font-mono);
+  border: 1px solid rgba(212, 160, 82, 0.5);
+  border-radius: 7px;
+  color: var(--gold);
+  font-family: var(--disp);
+  font-weight: 700;
+  font-size: 13px;
 }
 
 .wordmark {
-  overflow: hidden;
-  font-size: 0.74rem;
-  letter-spacing: 0.2em;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .nav {
   display: flex;
+  flex: 1;
   justify-content: center;
-  gap: clamp(12px, 2vw, 24px);
-  color: rgba(248, 244, 232, 0.7);
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.nav a {
-  text-decoration: none;
-}
-
-.nav a:hover,
-.nav a:focus-visible {
-  color: var(--yellow);
-  outline: none;
-}
-
-.console-tag {
-  justify-self: end;
-  padding: 8px 10px;
-  border: 1px solid var(--line-strong);
-  color: var(--hot);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.command {
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.78fr);
-  border-bottom: 1px solid var(--line);
-}
-
-.masthead {
-  min-height: 330px;
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: end;
-  gap: 26px;
-  padding: clamp(34px, 5vw, 72px) clamp(0px, 1vw, 14px) 34px 0;
-  border-right: 1px solid var(--line);
-}
-
-.title {
-  max-width: 7.5ch;
-  margin: 0;
-  color: var(--paper);
-  font-family: var(--font-display);
-  font-size: clamp(4.8rem, 9.8vw, 10rem);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 0.78;
-  text-transform: uppercase;
-}
-
-.lede {
-  max-width: 35ch;
-  margin: 22px 0 0;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.3vw, 1.18rem);
-  line-height: 1.58;
-}
-
-.legend {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(112px, 1fr));
-  gap: 12px 22px;
-  align-self: center;
-  max-width: 720px;
-  padding-right: 26px;
-}
-
-.legend button {
-  appearance: none;
-  display: inline-grid;
-  grid-template-columns: 16px minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: rgba(248, 244, 232, 0.78);
-  cursor: pointer;
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
-  text-align: left;
-  text-transform: uppercase;
-}
-
-.legend button::before {
-  width: 14px;
-  height: 14px;
-  background: var(--legend-color);
-  content: "";
-}
-
-.legend button:hover,
-.legend button:focus-visible,
-.legend button.is-active {
-  color: var(--paper);
-  outline: none;
-}
-
-.signals {
-  padding: clamp(24px, 4vw, 44px) 0 34px clamp(22px, 3vw, 40px);
-}
-
-.signals h2 {
-  margin: 0 0 18px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.signal-list {
-  display: grid;
-  gap: 0;
-}
-
-.signal {
-  display: grid;
-  grid-template-columns: 4px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  min-height: 34px;
-  border-bottom: 1px solid rgba(248, 244, 232, 0.13);
-  color: rgba(248, 244, 232, 0.78);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.signal::before {
-  width: 4px;
-  height: 18px;
-  background: var(--signal-color);
-  content: "";
-}
-
-.signal strong {
-  color: var(--signal-color);
-  font-weight: 500;
-}
-
-.signal:hover,
-.signal:focus-visible {
-  color: var(--paper);
-  outline: none;
-}
-
-.sig-age {
-  margin-left: 10px;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: var(--quiet);
-  white-space: nowrap;
-}
-
-.sig-age.s-due { color: var(--yellow); }
-.sig-age.s-stale, .sig-age.s-attn { color: var(--coral); }
-.sig-age.s-fresh { color: var(--green); }
-
-.tile-stamp {
-  align-self: flex-start;
-  margin-top: 10px;
-  padding: 3px 7px;
-  border: 1px solid rgba(5, 5, 5, 0.35);
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  font-family: var(--mono);
+  font-size: 10.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(5, 5, 5, 0.78);
+  color: var(--text-2);
+}
+.nav a { text-decoration: none; padding: 4px 0; }
+.nav a:hover, .nav a:focus-visible { color: var(--gold); outline: none; }
+
+.top-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
 }
 
-.tile.dark .tile-stamp {
-  border-color: var(--line-strong);
-  color: rgba(248, 244, 232, 0.72);
+.gary {
+  padding: 5px 9px;
+  border: 1px solid rgba(212, 160, 82, 0.45);
+  border-radius: 6px;
+  color: var(--gold);
 }
 
-.tile-stamp.s-due { border-color: rgba(5, 5, 5, 0.7); font-weight: 700; }
-.tile-stamp.s-stale, .tile-stamp.s-attn { background: rgba(5, 5, 5, 0.82); color: var(--yellow); border-color: transparent; }
-.tile.dark .tile-stamp.s-stale, .tile.dark .tile-stamp.s-attn { background: var(--coral); color: var(--ink); }
-
-.cluster-map {
-  display: grid;
-  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.82fr);
-  grid-template-areas:
-    "creative ops"
-    "creative systems";
-  gap: 10px;
-  padding: 10px 0 0;
+/* ---------- header ---------- */
+.brief {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 34px 0 22px;
 }
 
-.cluster {
-  position: relative;
-  display: grid;
-  gap: 8px;
-  align-content: start;
-  padding: 8px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(5, 5, 5, 0.62);
-  transition: opacity 180ms ease, filter 180ms ease;
+.brief h1 {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
-.cluster.is-dimmed {
-  filter: grayscale(0.82);
-  opacity: 0.3;
+.brief-line {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.brief-line b { color: var(--text-2); font-weight: 500; }
+
+/* ---------- attention ---------- */
+.attention {
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--bg-2);
+  overflow: hidden;
 }
 
-.cluster.creative {
-  grid-area: creative;
-}
-
-.cluster.ops {
-  grid-area: ops;
-}
-
-.cluster.systems {
-  grid-area: systems;
-}
-
-.cluster-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 16px;
-  align-items: end;
-  min-height: 92px;
-  padding: 16px 16px 12px;
+.attention-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px;
   border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.attention-head .count { color: var(--warn); }
+
+.attn-row {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 0.62fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: background 140ms ease;
+}
+.attn-row:last-child { border-bottom: 0; }
+.attn-row:hover, .attn-row:focus-visible { background: var(--card); outline: none; }
+
+.attn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  justify-self: center;
+}
+.sev-red .attn-dot { background: var(--bad); box-shadow: 0 0 10px rgba(248, 113, 113, 0.55); }
+.sev-amber .attn-dot { background: var(--warn); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+.sev-info .attn-dot { background: var(--text-3); }
+
+.attn-label { font-weight: 600; font-size: 13.5px; }
+.sev-red .attn-label { color: var(--bad); }
+.attn-detail { color: var(--text-2); font-size: 12.5px; }
+.attn-go { color: var(--text-3); font-family: var(--mono); font-size: 12px; }
+.attn-row:hover .attn-go { color: var(--gold); }
+
+/* ---------- KPI band ---------- */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 10px;
+  padding: 22px 0 8px;
 }
 
-.cluster-kicker,
-.cluster-count {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
+.kpi {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 16px 13px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+.kpi::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--k);
+  opacity: 0.9;
+}
+.kpi:hover, .kpi:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--k) 55%, var(--line-2));
+  outline: none;
+}
+
+.kpi-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--text-3);
 }
 
-.cluster-kicker {
-  color: var(--cluster-color);
+.kpi-line { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+
+.kpi-value {
+  font-family: var(--disp);
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
-.cluster-count {
-  color: var(--muted);
+.chip {
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.chip.good { color: var(--good); background: rgba(74, 222, 128, 0.1); }
+.chip.warn { color: var(--warn); background: rgba(251, 191, 36, 0.1); }
+.chip.bad  { color: var(--bad);  background: rgba(248, 113, 113, 0.12); }
+.chip.flat { color: var(--text-2); background: rgba(148, 163, 184, 0.1); }
+
+.kpi svg { display: block; width: 100%; height: 30px; }
+
+.kpi-note {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-3);
+}
+
+/* ---------- clusters ---------- */
+.cluster { padding: 26px 0 4px; }
+
+.cluster-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
 }
 
 .cluster-head h2 {
-  margin: 8px 0 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.1rem, 4vw, 4.7rem);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 0.86;
-  text-transform: uppercase;
+  margin: 0;
+  font-family: var(--disp);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .cluster-head p {
-  max-width: 48ch;
-  margin: 10px 0 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--text-3);
 }
 
-.cluster-grid {
+.room-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 10px;
 }
 
-.creative .cluster-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.tile {
+.room {
   position: relative;
-  min-height: 176px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  grid-column: auto;
-  padding: clamp(17px, 2vw, 24px);
-  border: 1px solid rgba(5, 5, 5, 0.92);
-  border-radius: 7px;
-  background: var(--tile-color);
-  color: #070707;
+  gap: 10px;
+  padding: 16px 16px 13px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--card);
   overflow: hidden;
-  text-decoration: none;
-  transition: opacity 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+.room::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--k);
+  opacity: 0.9;
 }
 
-.tile.is-dimmed {
-  filter: grayscale(0.82);
-  opacity: 0.26;
-}
-
-.cluster-tile {
-  min-height: 168px;
-}
-
-.creative .cluster-tile {
-  grid-column: span 3;
-}
-
-.creative .cluster-tile.hero-tile {
-  grid-column: span 6;
-  min-height: 230px;
-}
-
-.ops .cluster-tile,
-.systems .cluster-tile {
-  grid-column: span 2;
-}
-
-.systems .cluster-tile.dark {
-  grid-column: span 2;
-}
-
-.tile:hover,
-.tile:focus-visible {
-  transform: translateY(-3px);
-  outline: 2px solid var(--paper);
-  outline-offset: -2px;
-}
-
-.tile.wide {
-  grid-column: span 5;
-}
-
-.tile.medium {
-  grid-column: span 4;
-}
-
-.tile.tall {
-  min-height: 260px;
-}
-
-.tile.dark {
-  background: #111112;
-  color: var(--paper);
-  border-color: var(--line);
-}
-
-.tile-top {
+.room-head {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 10px;
 }
 
-.tile-code,
-.tile-meta {
-  font-size: 0.72rem;
+.room-head a {
+  font-family: var(--disp);
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.room-head a::after { content: ""; position: absolute; inset: 0; }
+.room:hover { border-color: color-mix(in srgb, var(--k) 50%, var(--line-2)); }
+.room:hover .room-open { color: var(--k); }
+
+.stamp {
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 9.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+.stamp.good { color: var(--good); }
+.stamp.warn { color: var(--warn); }
+.stamp.bad  { color: var(--bad); }
+.stamp.idle { color: var(--text-3); }
+
+.room-tagline {
+  margin: -4px 0 0;
+  font-size: 12px;
+  color: var(--text-3);
 }
 
-.tile-meta {
-  max-width: 18ch;
-  color: rgba(5, 5, 5, 0.72);
+.room-stats { display: grid; gap: 7px; }
+
+.stat {
+  display: grid;
+  gap: 1px;
+  padding-top: 7px;
+  border-top: 1px solid var(--line);
+}
+
+.stat-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-family: var(--disp);
+  font-size: 13.5px;
+  font-weight: 600;
   text-align: right;
 }
 
-.tile.dark .tile-meta {
-  color: rgba(248, 244, 232, 0.62);
+.stat-sub {
+  font-size: 11px;
+  color: var(--text-3);
+  text-align: right;
 }
 
-.tile h2 {
-  max-width: 10ch;
-  margin: 26px 0 12px;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.3vw, 4.1rem);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 0.86;
-  text-transform: uppercase;
-}
-
-.cluster-tile h2 {
-  font-size: clamp(1.85rem, 3vw, 3.45rem);
-}
-
-.hero-tile h2 {
-  max-width: 14ch;
-  font-size: clamp(2.45rem, 5vw, 5.4rem);
-}
-
-.tile.medium h2 {
-  font-size: clamp(1.85rem, 3vw, 3.1rem);
-}
-
-.tile.dark h2 {
-  color: var(--paper);
-}
-
-.tile p {
-  max-width: 31ch;
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.42;
-}
-
-.tile-arrow {
-  align-self: flex-end;
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-}
-
-.quote-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.65fr);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.quote-panel {
-  min-height: 210px;
-  display: grid;
-  align-content: center;
-  padding: clamp(28px, 5vw, 56px) clamp(24px, 4vw, 44px) clamp(28px, 5vw, 56px) 0;
-  border-right: 1px solid var(--line);
-}
-
-.quote-mark {
-  color: var(--lav);
-  font-family: Georgia, serif;
-  font-size: 4.8rem;
-  line-height: 0.6;
-}
-
-.quote-text {
-  max-width: 58ch;
-  margin: 0;
-  color: var(--paper);
-  font-size: clamp(1.32rem, 2.5vw, 2.35rem);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.22;
-}
-
-.quote-meta {
+.swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 20px;
-  color: var(--muted);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  gap: 6px 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
 }
 
-.quote-actions {
-  display: grid;
-  align-content: center;
-  gap: 14px;
-  padding: clamp(24px, 4vw, 40px);
-}
-
-.quote-actions a,
-.quote-actions button {
-  min-height: 42px;
+.swatch {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 5px;
-  background: transparent;
-  color: var(--paper);
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.quote-actions button:hover,
-.quote-actions button:focus-visible,
-.quote-actions a:hover,
-.quote-actions a:focus-visible {
-  border-color: var(--lav);
-  color: var(--lav);
-  outline: none;
-}
-
-.operations {
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
-  gap: clamp(28px, 4vw, 56px);
-  padding: clamp(36px, 6vw, 74px) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.section-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 5.1rem);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 0.85;
-  text-transform: uppercase;
-}
-
-.section-copy {
-  max-width: 38ch;
-  margin: 20px 0 0;
-  color: var(--muted);
-  font-size: 1.03rem;
-  line-height: 1.6;
-}
-
-.loop-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-}
-
-.loop {
-  min-height: 142px;
-  display: grid;
-  align-content: start;
-  gap: 13px;
-  padding: 18px;
-  background: var(--ink);
-}
-
-.loop strong {
-  color: var(--loop-color);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.loop span {
-  color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.55;
-}
-
-.house {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  gap: clamp(28px, 5vw, 66px);
-  padding: clamp(40px, 6vw, 78px) 0;
-}
-
-.mini-shell {
-  border: 1px solid var(--line-strong);
-  background: #080808;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
-}
-
-.mini-top {
-  display: grid;
-  grid-template-columns: 0.6fr 1fr auto;
-  gap: 12px;
-  align-items: center;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.mini-dot {
-  color: var(--hot);
-}
-
-.mini-body {
-  display: grid;
-  grid-template-columns: 0.34fr 1fr;
-  min-height: 260px;
-}
-
-.mini-rail {
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  padding: 14px;
-  border-right: 1px solid var(--line);
-}
-
-.mini-rail span {
-  height: 8px;
-  background: rgba(248, 244, 232, 0.32);
-}
-
-.mini-rail span:nth-child(1) {
-  background: var(--hot);
-}
-
-.mini-content {
-  padding: 16px;
-}
-
-.mini-kpis {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-  margin-bottom: 14px;
-}
-
-.mini-kpis span {
-  min-height: 44px;
-  border: 1px solid var(--line);
-  background: rgba(248, 244, 232, 0.05);
-}
-
-.mini-chart {
-  height: 112px;
-  border: 1px solid var(--line);
-  background:
-    linear-gradient(135deg, transparent 0 38%, rgba(239, 59, 134, 0.42) 38% 42%, transparent 42%),
-    linear-gradient(155deg, transparent 0 52%, rgba(244, 197, 29, 0.38) 52% 56%, transparent 56%),
-    rgba(248, 244, 232, 0.04);
-}
-
-.mini-table {
-  display: grid;
   gap: 6px;
-  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-2);
 }
-
-.mini-table span {
+.swatch i {
+  width: 10px;
   height: 10px;
-  background: rgba(248, 244, 232, 0.12);
+  border-radius: 3px;
+  background: var(--sw);
 }
+.swatch small { color: var(--text-3); font-size: 9.5px; }
 
-.footer {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 18px;
-  align-items: center;
-  padding: 26px 0 34px;
-  color: var(--muted);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+.room-spark { margin-top: 2px; }
+.room-spark svg { display: block; width: 100%; height: 38px; }
+
+.spark-cap {
+  margin-top: 3px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text-3);
+}
+.spark-cap i {
+  display: inline-block;
+  width: 8px; height: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  border-radius: 2px;
+  background: var(--sw);
+  font-style: normal;
+}
+.spark-cap span + span { margin-left: 12px; }
+
+.room-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
 }
 
-.footer a {
+.room-links a {
+  padding: 4px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
   text-decoration: none;
+  transition: color 140ms ease, border-color 140ms ease;
 }
-
-.footer a:hover,
-.footer a:focus-visible {
-  color: var(--yellow);
+.room-links a:hover, .room-links a:focus-visible {
+  color: var(--k);
+  border-color: color-mix(in srgb, var(--k) 60%, var(--line-2));
   outline: none;
 }
 
-.footer-center {
-  color: var(--hot);
+.room-open {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+/* ---------- quote strip ---------- */
+.resurface {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 26px;
+  align-items: center;
+  margin: 28px 0 4px;
+  padding: 22px 24px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg-2), var(--card));
+}
+
+.rs-quote {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text);
+}
+.rs-quote::before { content: "\201C\2009"; color: var(--gold); }
+.rs-quote::after { content: "\2009\201D"; color: var(--gold); }
+
+.rs-meta {
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.rs-actions { display: grid; gap: 8px; }
+
+.rs-actions button,
+.rs-actions a {
+  min-width: 132px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
   text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+.rs-actions button:hover, .rs-actions a:hover,
+.rs-actions button:focus-visible, .rs-actions a:focus-visible {
+  color: var(--gold);
+  border-color: rgba(212, 160, 82, 0.5);
+  outline: none;
 }
 
-.footer-right {
-  justify-self: end;
-  text-align: right;
+/* ---------- footer ---------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 20px 0 30px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
 }
 
-@media (max-width: 1120px) {
-  .command,
-  .masthead,
-  .quote-row,
-  .operations,
-  .house {
-    grid-template-columns: 1fr;
-  }
-
-  .masthead,
-  .quote-panel {
-    border-right: 0;
-  }
-
-  .signals {
-    padding-left: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .cluster-map {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "creative"
-      "ops"
-      "systems";
-  }
+.annex { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.annex a { text-decoration: none; color: var(--text-2); }
+.annex a:hover, .annex a:focus-visible { color: var(--fk, var(--gold)); outline: none; }
+.annex a i {
+  display: inline-block;
+  width: 7px; height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--fk, var(--text-3));
+  font-style: normal;
+  opacity: 0.85;
 }
 
-@media (max-width: 760px) {
-  .shell {
-    width: min(100% - 28px, 620px);
-  }
+.credo { color: var(--gold); }
 
-  .topbar {
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    padding: 14px 0;
-  }
+@media (max-width: 860px) {
+  .attn-row { grid-template-columns: 14px minmax(0, 1fr) auto; grid-template-rows: auto auto; }
+  .attn-dot { grid-column: 1; grid-row: 1; }
+  .attn-label { grid-column: 2; grid-row: 1; }
+  .attn-detail { grid-column: 2; grid-row: 2; }
+  .attn-go { grid-column: 3; grid-row: 1 / 3; }
+  .resurface { grid-template-columns: 1fr; }
+  .rs-actions { grid-auto-flow: column; }
+}
 
-  .nav {
-    order: 3;
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    overflow: visible;
-    padding-bottom: 4px;
-  }
-
-  .console-tag {
-    align-self: start;
-  }
-
-  .masthead {
-    min-height: auto;
-    padding-top: 38px;
-  }
-
-  .title {
-    max-width: 100%;
-    font-size: clamp(3.45rem, 15vw, 4.55rem);
-  }
-
-  .legend {
-    grid-template-columns: 1fr;
-    padding-right: 0;
-  }
-
-  .signal {
-    grid-template-columns: 4px minmax(0, 1fr);
-    align-items: start;
-    gap: 7px 12px;
-    padding: 9px 0;
-  }
-
-  .signal strong {
-    grid-column: 2;
-    justify-self: start;
-  }
-
-  .cluster-head {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding: 14px 12px;
-  }
-
-  .cluster-grid,
-  .creative .cluster-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tile,
-  .tile.medium,
-  .tile.wide,
-  .cluster-tile,
-  .creative .cluster-tile,
-  .creative .cluster-tile.hero-tile,
-  .ops .cluster-tile,
-  .systems .cluster-tile,
-  .systems .cluster-tile.dark {
-    grid-column: 1;
-    min-height: 148px;
-  }
-
-  .tile.tall {
-    min-height: 190px;
-  }
-
-  .loop-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .mini-body {
-    grid-template-columns: 1fr;
-  }
-
-  .mini-rail {
-    display: none;
-  }
-
-  .footer {
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-
-  .footer-center,
-  .footer-right {
-    justify-self: start;
-    text-align: left;
-  }
+@media (max-width: 620px) {
+  .shell { width: calc(100% - 28px); }
+  .topbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  .brand { grid-column: 1; grid-row: 1; }
+  .top-right { grid-column: 2; grid-row: 1; justify-self: end; }
+  .nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; padding-bottom: 6px; }
+  .brief { padding-top: 24px; }
+  .room-grid { grid-template-columns: 1fr; }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .rs-actions { grid-auto-flow: row; }
 }
 </style>
 <script defer src="/shared/gate.js"></script>
@@ -960,400 +639,1480 @@ button {
 
 <div class="shell">
   <header class="topbar" aria-label="Primary">
-    <a class="brand" href="/index.html" aria-label="Chaos Console home">
+    <a class="brand" href="/" aria-label="Chaos Console home">
       <span class="mark" aria-hidden="true">C</span>
       <span class="wordmark">Chaos Console</span>
     </a>
-
-    <nav class="nav" aria-label="Primary navigation">
+    <nav class="nav" aria-label="Rooms">
       <a href="/the-ledger/">Ledger</a>
-      <a href="/production-almanac/">Almanac</a>
-      <a href="/notes/">Notebook</a>
-      <a href="/the-workflow-wrench/">Wrench</a>
-      <a href="/playlist-tracker/">Playlists</a>
       <a href="/wellness-dashboard/">Wellness</a>
+      <a href="/playlist-tracker/">Playlists</a>
+      <a href="/the-blindspot-binder/">Binder</a>
+      <a href="/production-almanac/">Almanac</a>
+      <a href="/the-workflow-wrench/">Wrench</a>
     </nav>
-
-    <span class="console-tag">Gary</span>
+    <div class="top-right">
+      <span id="today"></span>
+      <span class="gary">Gary</span>
+    </div>
   </header>
 
   <main id="main">
-    <section class="command" aria-labelledby="home-title">
-      <div class="masthead">
-        <div>
-          <h1 class="title" id="home-title">Chaos Console</h1>
-          <p class="lede">Gerald's command atlas: debt, body, production craft, reading signal, music momentum — and a status board that says which room needs attention before you open six of them.</p>
-        </div>
+    <div class="brief">
+      <h1>The Readout</h1>
+      <p class="brief-line" id="briefLine">Loading the board…</p>
+    </div>
 
-        <div class="legend" aria-label="Atlas filters">
-          <button class="is-active" type="button" data-filter="all" style="--legend-color: var(--paper)">All rooms</button>
-          <button type="button" data-filter="creative" style="--legend-color: var(--yellow)">Creative Work</button>
-          <button type="button" data-filter="ops" style="--legend-color: var(--hot)">Personal Operations</button>
-          <button type="button" data-filter="systems" style="--legend-color: var(--cyan)">Systems Intelligence</button>
-        </div>
+    <section class="attention" aria-labelledby="attn-title">
+      <div class="attention-head">
+        <span id="attn-title">Needs a decision</span>
+        <span class="count" id="attnCount"></span>
       </div>
-
-      <aside class="signals" aria-labelledby="signals-title">
-        <h2 id="signals-title">Status board</h2>
-        <div class="signal-list" id="signalList">
-          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/"><span>Ledger · June close</span><strong>$12,545 · −$1,893</strong></a>
-          <a class="signal" style="--signal-color: var(--blue)" href="/playlist-tracker/"><span>Playlists · July</span><strong>1,049 followers</strong></a>
-          <a class="signal" style="--signal-color: var(--green)" href="/wellness-dashboard/"><span>Wellness · data → Jun 21</span><strong>export due</strong></a>
-          <a class="signal" style="--signal-color: var(--lav)" href="/readwise-highlights/"><span>Readwise · Apr 16</span><strong>1,696 highlights</strong></a>
-          <a class="signal" style="--signal-color: var(--orange)" href="/digital-ecosystem-refresh/"><span>Ecosystem · Mar 11</span><strong>pass overdue</strong></a>
-          <a class="signal" style="--signal-color: var(--teal)" href="/notes/"><span>Notebook</span><strong>embed unset</strong></a>
-          <a class="signal" style="--signal-color: var(--coral)" href="/the-blindspot-binder/"><span>Binder</span><strong>v5 · 15 chapters</strong></a>
-          <a class="signal" style="--signal-color: var(--hot)" href="/the-ledger/#view-stephen"><span>Stephen contribution</span><strong>$7,375 in</strong></a>
-        </div>
-      </aside>
+      <div id="attnList"></div>
     </section>
 
-    <section class="cluster-map" aria-label="Console neighborhoods">
-      <article class="cluster creative" data-cluster="creative" style="--cluster-color: var(--yellow)">
-        <div class="cluster-head">
-          <div>
-            <span class="cluster-kicker">Creative Work</span>
-            <h2>The Blindspot Side</h2>
-            <p>Writing, production, research, source memory, visual language, and the places where raw material becomes an episode.</p>
-          </div>
-          <span class="cluster-count">6 rooms</span>
-        </div>
+    <section class="kpis" id="kpiBand" aria-label="Key numbers"></section>
 
-        <div class="cluster-grid">
-          <a class="tile cluster-tile hero-tile" href="/production-almanac/" data-cluster="creative" style="--tile-color: var(--yellow)">
-            <span class="tile-top"><span class="tile-code">01 / Production</span><span class="tile-meta">9 chapters</span></span>
-            <span>
-              <h2>Blindspot Almanac</h2>
-              <p>Story architecture, research-to-script, cold opens, voice, visual system, edit grammar, sound, logistics, and distribution.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
+    <div id="clusters"></div>
 
-          <a class="tile cluster-tile" href="/the-blindspot-binder/" data-cluster="creative" style="--tile-color: var(--coral)">
-            <span class="tile-top"><span class="tile-code">02 / Manual</span><span class="tile-meta">15 chapters</span></span>
-            <span>
-              <h2>Binder</h2>
-              <p>The operating manual for positioning, research, production, publishing, legal risk, revenue, and live operations.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/screenwriting-and-film-production/" data-cluster="creative" style="--tile-color: var(--teal)">
-            <span class="tile-top"><span class="tile-code">03 / Film</span><span class="tile-meta">Guide</span></span>
-            <span>
-              <h2>Screenwriting &amp; Film Production</h2>
-              <p>Story foundations, structure, character, directing, visual language, editing, financing, festivals, and exercises.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/notes/" data-cluster="creative" style="--tile-color: var(--teal)">
-            <span class="tile-top"><span class="tile-code">04 / Writing Desk</span><span class="tile-meta">Live notebook</span></span>
-            <span>
-              <h2>Notebook</h2>
-              <p>Working notes, fragments, drafts, links, and open loops held near the creative work instead of exiled to capture.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/readwise-highlights/" data-cluster="creative" style="--tile-color: var(--lav)">
-            <span class="tile-top"><span class="tile-code">05 / Source Shelf</span><span class="tile-meta">1,696 lines</span></span>
-            <span>
-              <h2>Readwise</h2>
-              <p>Saved lines, article fragments, marginalia, source notes, and resurfaced context for arguments and scripts.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/the-color-bible/" data-cluster="creative" style="--tile-color: var(--coral)">
-            <span class="tile-top"><span class="tile-code">06 / Visual System</span><span class="tile-meta">5 colors</span></span>
-            <span>
-              <h2>Color Bible</h2>
-              <p>The shared color logic for tags, folders, projects, topics, platform mapping, and implementation sessions.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="cluster ops" data-cluster="ops" style="--cluster-color: var(--hot)">
-        <div class="cluster-head">
-          <div>
-            <span class="cluster-kicker">Personal Operations</span>
-            <h2>Life Ops</h2>
-            <p>The life-support layer: debt, recovery, and the ongoing playlist portfolio.</p>
-          </div>
-          <span class="cluster-count">3 rooms</span>
-        </div>
-
-        <div class="cluster-grid">
-          <a class="tile cluster-tile" href="/the-ledger/" data-cluster="ops" style="--tile-color: var(--hot)">
-            <span class="tile-top"><span class="tile-code">07 / Money</span><span class="tile-meta">Debt, cards, cash</span></span>
-            <span>
-              <h2>The Ledger</h2>
-              <p>Statement-close balances, payment flow, APR burn, Stephen reconciliation, and the attack order.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/wellness-dashboard/" data-cluster="ops" style="--tile-color: var(--green)">
-            <span class="tile-top"><span class="tile-code">08 / Body</span><span class="tile-meta">Health cache</span></span>
-            <span>
-              <h2>Wellness</h2>
-              <p>Weight, resting heart rate, sleep, HRV, steps, SpO2, and body composition from Apple Health and RingConn.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/playlist-tracker/" data-cluster="ops" style="--tile-color: var(--blue)">
-            <span class="tile-top"><span class="tile-code">09 / Media</span><span class="tile-meta">Monthly snapshots</span></span>
-            <span>
-              <h2>Playlist Tracker</h2>
-              <p>Follower history, portfolio pulse, leaderboard, momentum board, heatmap, and catalog cards.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="cluster systems" data-cluster="systems" style="--cluster-color: var(--cyan)">
-        <div class="cluster-head">
-          <div>
-            <span class="cluster-kicker">Systems Intelligence</span>
-            <h2>Machine Room</h2>
-            <p>The machine room: workflows, AI patterns, accounts, cleanup routines, and the map of what needs attention.</p>
-          </div>
-          <span class="cluster-count">3 rooms</span>
-        </div>
-
-        <div class="cluster-grid">
-          <a class="tile cluster-tile" href="/the-workflow-wrench/" data-cluster="systems" style="--tile-color: var(--orange)">
-            <span class="tile-top"><span class="tile-code">10 / Automation</span><span class="tile-meta">Workflows</span></span>
-            <span>
-              <h2>Workflow Wrench</h2>
-              <p>Prompts, n8n patterns, client project frames, pricing notes, templates, and a 90-day cadence.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile dark" href="/ai-intelligence/" data-cluster="systems" style="--tile-color: var(--cyan)">
-            <span class="tile-top"><span class="tile-code">11 / AI Memory</span><span class="tile-meta">1,578 conversations</span></span>
-            <span>
-              <h2>AI Intelligence</h2>
-              <p>Patterns across ChatGPT and Claude: strengths, stalls, export priorities, Blindspot recurrence, and migration logic.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-
-          <a class="tile cluster-tile" href="/digital-ecosystem-refresh/" data-cluster="systems" style="--tile-color: var(--cyan)">
-            <span class="tile-top"><span class="tile-code">12 / Infrastructure</span><span class="tile-meta">V9</span></span>
-            <span>
-              <h2>Digital Ecosystem</h2>
-              <p>Downloads triage, document root scan, statement intake, dashboard checks, stale purge, risks, and next-session queue.</p>
-            </span>
-            <span class="tile-arrow" aria-hidden="true">-&gt;</span>
-          </a>
-        </div>
-      </article>
-    </section>
-
-    <section class="quote-row" aria-labelledby="quote-title" aria-live="polite">
-      <div class="quote-panel">
-        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-        <p class="quote-text" id="rw-quote">It's called the American Dream because you have to be asleep to believe it.</p>
-        <div class="quote-meta">
-          <span id="rw-cite">George Carlin / Last Words</span>
-          <span id="rw-count">1,696 highlights</span>
-        </div>
-      </div>
-
-      <div class="quote-actions">
-        <button type="button" id="rw-resurface">Resurface</button>
-        <a href="/readwise-highlights/">Open Readwise</a>
-        <a href="/the-blindspot-binder/">Open Binder</a>
-      </div>
-    </section>
-
-    <section class="operations" aria-labelledby="loops-title">
-      <div>
-        <h2 class="section-title" id="loops-title">Operating Loops</h2>
-        <p class="section-copy">The site is no longer a hallway of doors. It is a map of the work: financial pressure, body signal, production craft, source memory, media momentum, and the maintenance that keeps each layer findable.</p>
-      </div>
-
-      <div class="loop-grid">
-        <div class="loop" style="--loop-color: var(--green)"><strong>Morning Check-In</strong><span>Open wellness, scan recovery, then pull one Readwise line before the day gets noisy.</span></div>
-        <div class="loop" style="--loop-color: var(--yellow)"><strong>Deep Work Block</strong><span>Pick one Almanac chapter, one Binder rule, or one script surface. Do not open six rooms to avoid one decision.</span></div>
-        <div class="loop" style="--loop-color: var(--hot)"><strong>Ledger Review</strong><span>Check debt movement, APR burn, account priority, and whether the next payment is attack or defense.</span></div>
-        <div class="loop" style="--loop-color: var(--orange)"><strong>Systems Pass</strong><span>Use the Wrench, Color Bible, and Digital Ecosystem only when the process is becoming expensive.</span></div>
-        <div class="loop" style="--loop-color: var(--blue)"><strong>Media Pulse</strong><span>Read playlist momentum as catalog weather, not identity. Winners get support; quiet shelves get a note.</span></div>
-        <div class="loop" style="--loop-color: var(--lav)"><strong>Archive Capture</strong><span>Push fragments into Notebook or Readwise before they become another heroic pile of almost-memory.</span></div>
-      </div>
-    </section>
-
-    <section class="house" aria-labelledby="house-title">
-      <div>
-        <h2 class="section-title" id="house-title">One House, Many Rooms</h2>
-        <p class="section-copy">Dependent pages now share the same console map, while their internal bodies stay intact: Ledger remains a finance dashboard, Almanac remains a chaptered manual, Readwise remains a deck, and long guides stay readable instead of being flattened into tiles.</p>
-      </div>
-
-      <div class="mini-shell" aria-hidden="true">
-        <div class="mini-top"><span>Chaos Console</span><span>Ledger / Almanac / Notebook / Wrench</span><span class="mini-dot">Gary</span></div>
-        <div class="mini-body">
-          <div class="mini-rail"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="mini-content">
-            <div class="mini-kpis"><span></span><span></span><span></span><span></span></div>
-            <div class="mini-chart"></div>
-            <div class="mini-table"><span></span><span></span><span></span><span></span><span></span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <footer class="footer">
+      <div class="annex" id="annex"></div>
+      <span class="credo">Built by Gary. For Gary.</span>
+      <span id="stampLine"></span>
+    </footer>
   </main>
-
-  <footer class="footer">
-    <span><a href="/insult-rolodex/">Insult Rolodex</a> / <a href="/wellness-analysis/">Wellness Analysis</a></span>
-    <span class="footer-center">Built by Gary. For Gary.</span>
-    <span class="footer-right">Focus &middot; Discipline &middot; Execution</span>
-  </footer>
 </div>
 
 <script>
-var RW_STATS = { highlights: 1696, books: 165 };
-var RW_HIGHLIGHTS = [
-  { t: "It's called the American Dream because you have to be asleep to believe it.", a: "George Carlin", b: "Last Words", cat: "books" },
-  { t: "We learn from history that we do not learn from history.", a: "Hegel", b: "Lessons From History", cat: "articles" },
-  { t: "It is not our remembering the sins of the past that provokes hatred, but the way in which we remember them.", a: "Keith Lowe", b: "Savage Continent", cat: "books" },
-  { t: "Plato: comedy comes, essentially, from a lack of self-knowledge.", a: "Jeremy Dauber", b: "Jewish Comedy", cat: "books" },
-  { t: "Everyone is unique, but certain values are fundamental to every culture since the birth of civilization.", a: "Charles Duhigg", b: "Supercommunicators", cat: "books" },
-  { t: "Severance is a show brave enough to ask the question: what is life at Deloitte like?", a: "Work Retire Die", b: "Tweets", cat: "tweets" },
-  { t: "Fight an uphill battle: deal with a difficult situation that becomes harder as you go.", a: "Lingo Mastery", b: "The Great Book of American Idioms", cat: "books" }
-];
-
-var RW_WEIGHTS = { books: 3, articles: 2, tweets: 1 };
-
-function pickHighlight(list, exclude) {
-  var pool = list.filter(function (h) { return h !== exclude; });
-  if (!pool.length) pool = list;
-  var bag = [];
-  pool.forEach(function (h) {
-    var n = RW_WEIGHTS[h.cat] || 1;
-    for (var i = 0; i < n; i++) bag.push(h);
-  });
-  return bag[Math.floor(Math.random() * bag.length)];
-}
-
-(function () {
-  var quoteEl = document.getElementById("rw-quote");
-  var citeEl = document.getElementById("rw-cite");
-  var countEl = document.getElementById("rw-count");
-  var btn = document.getElementById("rw-resurface");
-  var current = null;
-
-  if (countEl) countEl.textContent = RW_STATS.highlights.toLocaleString() + " highlights / " + RW_STATS.books.toLocaleString() + " books";
-
-  function render(h) {
-    if (!h || !quoteEl) return;
-    current = h;
-    quoteEl.textContent = h.t;
-    if (citeEl) citeEl.textContent = h.a + " / " + h.b;
+/* Chaos Console readout.
+   Single source of truth: /data/console-status.json (schema v2).
+   The same manifest is inlined below as a fallback so the page renders
+   offline / on file:// — the fetched copy wins when it loads. */
+var FALLBACK = {
+ "version": 2,
+ "generated": "2026-07-04",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
+ "attention": [
+  {
+   "severity": "red",
+   "label": "Capital One 0623 is over its limit",
+   "detail": "$2,145.21 on a $2,000 line, $0 available — freeze it; it gained $1,589 this period",
+   "href": "/the-ledger/#view-accounts"
+  },
+  {
+   "severity": "amber",
+   "label": "Ecosystem pass V10 is overdue",
+   "detail": "V9 closed Mar 11; quarterly cadence ran out ~25 days ago. 5-item queue incl. rebuilding financial-consolidation.html",
+   "href": "/digital-ecosystem-refresh/"
+  },
+  {
+   "severity": "amber",
+   "label": "Health exports are stalling",
+   "detail": "Resting HR / HRV stuck at May 25 (40d), weight at Apr 23 (72d) — open Health Auto Export to un-stall the feed",
+   "href": "/wellness-dashboard/"
+  },
+  {
+   "severity": "amber",
+   "label": "Readwise cache is 79 days old",
+   "detail": "Newest highlight Mar 19 — rerun data/readwise_loader.py",
+   "href": "/readwise-highlights/"
+  },
+  {
+   "severity": "info",
+   "label": "Two cards ready to kill",
+   "detail": "US Bank Ralphs $29.78 + PayPal Credit $14.87 — one payment each and two statements disappear",
+   "href": "/the-ledger/#view-accounts"
+  },
+  {
+   "severity": "info",
+   "label": "Notebook embed unconfigured",
+   "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) — paste the public Notion URL and the room comes alive",
+   "href": "/notes/"
   }
-
-  if (RW_HIGHLIGHTS.length) {
-    render(pickHighlight(RW_HIGHLIGHTS, null));
-    if (btn) {
-      btn.addEventListener("click", function () {
-        render(pickHighlight(RW_HIGHLIGHTS, current));
-      });
+ ],
+ "kpis": [
+  {
+   "label": "Revolving debt",
+   "value": "$12,545",
+   "delta": "−$756 MoM",
+   "tone": "good",
+   "note": "June close · the 9-month arc is finally bending down",
+   "color": "#d4a052",
+   "href": "/the-ledger/",
+   "spark": [
+    14437.9,
+    15256.52,
+    14151.7,
+    14419.82,
+    13530.41,
+    14112.98,
+    13310.73,
+    13301.04,
+    12544.91
+   ]
+  },
+  {
+   "label": "Interest bleed",
+   "value": "$289",
+   "delta": "lowest of the run",
+   "tone": "good",
+   "note": "June · $2,841 burned since Oct",
+   "color": "#fb923c",
+   "href": "/the-ledger/#view-interest",
+   "spark": [
+    330.25,
+    355.33,
+    330.6,
+    324.36,
+    303.9,
+    303.15,
+    297.57,
+    307.32,
+    288.57
+   ]
+  },
+  {
+   "label": "Playlist followers",
+   "value": "1,049",
+   "delta": "+5 Jul",
+   "tone": "good",
+   "note": "15 playlists · top 3 hold 78.6%",
+   "color": "#8c7bff",
+   "href": "/playlist-tracker/",
+   "spark": [
+    457,
+    461,
+    542,
+    581,
+    613,
+    703,
+    848,
+    868,
+    884,
+    898,
+    896,
+    896,
+    904,
+    913,
+    918,
+    916,
+    921,
+    925,
+    933,
+    1001,
+    1030,
+    1033,
+    1044,
+    1049
+   ]
+  },
+  {
+   "label": "Recovery score",
+   "value": "53",
+   "delta": "Under Pressure",
+   "tone": "warn",
+   "note": "RHR running +18 bpm over baseline",
+   "color": "#4ade80",
+   "href": "/wellness-analysis/",
+   "spark": [
+    70,
+    58.7,
+    50.1,
+    57.3,
+    34.9,
+    58.8,
+    42.4,
+    39.7,
+    48.5,
+    64.8
+   ]
+  },
+  {
+   "label": "Highlights banked",
+   "value": "1,696",
+   "delta": "cache 79d old",
+   "tone": "warn",
+   "note": "165 sources · newest highlight Mar 19",
+   "color": "#f4b942",
+   "href": "/readwise-highlights/",
+   "spark": [
+    9,
+    5,
+    1,
+    2,
+    6,
+    0,
+    0,
+    36,
+    4,
+    27,
+    26,
+    12,
+    19,
+    9,
+    21,
+    15,
+    3,
+    17,
+    3,
+    0,
+    8,
+    19,
+    3,
+    3
+   ]
+  },
+  {
+   "label": "Binder",
+   "value": "v9",
+   "delta": "15 chapters",
+   "tone": "flat",
+   "note": "76 PDFs folded in across v6–v9 on Apr 24",
+   "color": "#f0524d",
+   "href": "/the-blindspot-binder/"
+  }
+ ],
+ "clusters": [
+  {
+   "key": "ops",
+   "title": "Life Ops",
+   "blurb": "Money, body, catalog — the numbers that move whether you look or not."
+  },
+  {
+   "key": "creative",
+   "title": "Creative Work",
+   "blurb": "The Blindspot side: manuals, sources, and the visual system."
+  },
+  {
+   "key": "systems",
+   "title": "Systems",
+   "blurb": "The machine room: automation, AI patterns, maintenance."
+  }
+ ],
+ "rooms": [
+  {
+   "href": "/the-ledger/",
+   "label": "The Ledger",
+   "cluster": "ops",
+   "color": "#d4a052",
+   "metric": "$12,544.91 revolving",
+   "updated": "2026-07-02",
+   "dataThrough": "2026-06-30",
+   "cadenceDays": 32,
+   "tagline": "8 cards · avalanche order · Stephen ledger",
+   "stats": [
+    {
+     "label": "Attack next",
+     "value": "Apple Card · $4,987.85",
+     "sub": "25.49% APR · $115 interest in June, broke under $5K"
+    },
+    {
+     "label": "Kill shots",
+     "value": "$29.78 + $14.87",
+     "sub": "US Bank Ralphs + PayPal Credit — two statements gone"
+    },
+    {
+     "label": "Over limit",
+     "value": "CapOne 0623 · $2,145",
+     "sub": "$2,000 limit · $0 available · freeze"
+    },
+    {
+     "label": "Stephen",
+     "value": "net $7,200 in",
+     "sub": "7 Zelle payments Mar–Jun · $175 returned"
     }
+   ],
+   "series": [
+    {
+     "label": "Total revolving debt",
+     "unit": "USD",
+     "points": [
+      [
+       "2025-10",
+       14437.9
+      ],
+      [
+       "2025-11",
+       15256.52
+      ],
+      [
+       "2025-12",
+       14151.7
+      ],
+      [
+       "2026-01",
+       14419.82
+      ],
+      [
+       "2026-02",
+       13530.41
+      ],
+      [
+       "2026-03",
+       14112.98
+      ],
+      [
+       "2026-04",
+       13310.73
+      ],
+      [
+       "2026-05",
+       13301.04
+      ],
+      [
+       "2026-06",
+       12544.91
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-ledger/#view-accounts",
+     "label": "The Attack"
+    },
+    {
+     "href": "/the-ledger/#view-stephen",
+     "label": "Stephen"
+    },
+    {
+     "href": "/the-ledger/#view-interest",
+     "label": "Interest Trap"
+    },
+    {
+     "href": "/the-ledger/#view-checking",
+     "label": "Transactions"
+    }
+   ]
+  },
+  {
+   "href": "/wellness-dashboard/",
+   "label": "Wellness",
+   "cluster": "ops",
+   "color": "#4ade80",
+   "metric": "recovery 53 · Under Pressure",
+   "updated": "2026-07-02",
+   "dataThrough": "2026-06-21",
+   "cadenceDays": 14,
+   "tagline": "Apple Health + RingConn — each metric ages on its own clock",
+   "stats": [
+    {
+     "label": "Sleep · last on record",
+     "value": "6:43",
+     "sub": "Jun 20 · 7-night avg 8:13 across gaps"
+    },
+    {
+     "label": "Steps",
+     "value": "3,897",
+     "sub": "Jun 21 · 7-day avg 4,793"
+    },
+    {
+     "label": "Resting HR",
+     "value": "78 bpm avg",
+     "sub": "stuck at May 25 · last single reading 84"
+    },
+    {
+     "label": "Weight",
+     "value": "180.8 lb",
+     "sub": "Apr 23 · scale silent 72 days"
+    }
+   ],
+   "series": [
+    {
+     "label": "monthly recovery score",
+     "unit": "score (0-100)",
+     "points": [
+      [
+       "2025-09-01",
+       70
+      ],
+      [
+       "2025-10-01",
+       58.7
+      ],
+      [
+       "2025-11-01",
+       50.1
+      ],
+      [
+       "2025-12-01",
+       57.3
+      ],
+      [
+       "2026-01-01",
+       34.9
+      ],
+      [
+       "2026-02-01",
+       58.8
+      ],
+      [
+       "2026-03-01",
+       42.4
+      ],
+      [
+       "2026-04-01",
+       39.7
+      ],
+      [
+       "2026-05-01",
+       48.5
+      ],
+      [
+       "2026-06-01",
+       64.8
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/wellness-analysis/",
+     "label": "Deep analysis"
+    },
+    {
+     "href": "/wellness-dashboard/#tSleep",
+     "label": "Sleep tile"
+    }
+   ]
+  },
+  {
+   "href": "/playlist-tracker/",
+   "label": "Playlist Tracker",
+   "cluster": "ops",
+   "color": "#8c7bff",
+   "metric": "1,049 followers · +5 Jul",
+   "updated": "2026-07-02",
+   "dataThrough": "2026-07-01",
+   "cadenceDays": 32,
+   "tagline": "15 playlists · 26 monthly snapshots since Apr 2024",
+   "stats": [
+    {
+     "label": "Anchor",
+     "value": "Monday's Mixtape · 510",
+     "sub": "48.6% of the whole portfolio"
+    },
+    {
+     "label": "Growth engine",
+     "value": "Groove · 204",
+     "sub": "+68 of the last 154 gained · 6-month streak"
+    },
+    {
+     "label": "Velocity",
+     "value": "cooling · +19 in 3 mo",
+     "sub": "vs +105 the three before — rebrand spike fading"
+    },
+    {
+     "label": "Asleep",
+     "value": "7 lanes flat 3+ months",
+     "sub": "Ancora quiet 5 mo · Masterpiece 17 mo"
+    }
+   ],
+   "series": [
+    {
+     "label": "Portfolio total followers",
+     "unit": "followers",
+     "points": [
+      [
+       "2024-06-01",
+       457
+      ],
+      [
+       "2024-09-01",
+       461
+      ],
+      [
+       "2024-10-01",
+       542
+      ],
+      [
+       "2024-11-01",
+       581
+      ],
+      [
+       "2024-12-01",
+       613
+      ],
+      [
+       "2025-01-01",
+       703
+      ],
+      [
+       "2025-02-01",
+       848
+      ],
+      [
+       "2025-03-01",
+       868
+      ],
+      [
+       "2025-04-01",
+       884
+      ],
+      [
+       "2025-05-01",
+       898
+      ],
+      [
+       "2025-06-01",
+       896
+      ],
+      [
+       "2025-07-01",
+       896
+      ],
+      [
+       "2025-08-01",
+       904
+      ],
+      [
+       "2025-09-01",
+       913
+      ],
+      [
+       "2025-10-01",
+       918
+      ],
+      [
+       "2025-11-01",
+       916
+      ],
+      [
+       "2025-12-01",
+       921
+      ],
+      [
+       "2026-01-01",
+       925
+      ],
+      [
+       "2026-02-01",
+       933
+      ],
+      [
+       "2026-03-01",
+       1001
+      ],
+      [
+       "2026-04-01",
+       1030
+      ],
+      [
+       "2026-05-01",
+       1033
+      ],
+      [
+       "2026-06-01",
+       1044
+      ],
+      [
+       "2026-07-01",
+       1049
+      ]
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "href": "/the-blindspot-binder/",
+   "label": "Blindspot Binder",
+   "cluster": "creative",
+   "color": "#f0524d",
+   "metric": "v9 · 15 chapters",
+   "updated": "2026-04-24",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "The channel operating manual, compiled from 357+ Pulse PDFs",
+   "stats": [
+    {
+     "label": "Version",
+     "value": "v9 · Apr 2026",
+     "sub": "four ingest runs closed the 76-PDF sweep on Apr 24"
+    },
+    {
+     "label": "Body",
+     "value": "15 chapters + appendix",
+     "sub": "Architecture · Performance & Production · Publishing, Risk & Revenue"
+    },
+    {
+     "label": "Last ingest",
+     "value": "2026-04-24",
+     "sub": "Ch 14 gained the Anti-Perfectionism Loop"
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-blindspot-binder/#part-1",
+     "label": "Part I"
+    },
+    {
+     "href": "/the-blindspot-binder/#part-2",
+     "label": "Part II"
+    },
+    {
+     "href": "/the-blindspot-binder/#part-3",
+     "label": "Part III"
+    },
+    {
+     "href": "/the-blindspot-binder/#appendix",
+     "label": "Appendix"
+    }
+   ]
+  },
+  {
+   "href": "/production-almanac/",
+   "label": "Production Almanac",
+   "cluster": "creative",
+   "color": "#f4c51d",
+   "metric": "9 chapters · Build Ready",
+   "updated": "2026-05-04",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "Long-form craft manual — Shape, Hook, Build, Ship",
+   "stats": [
+    {
+     "label": "Chapters",
+     "value": "9 · all Depth 3",
+     "sub": "75 min total read"
+    },
+    {
+     "label": "Source ledger",
+     "value": "34 live sources",
+     "sub": "17 screened & held · 10 newly surfaced"
+    },
+    {
+     "label": "Case files",
+     "value": "3 theft maps",
+     "sub": "FRONTLINE · Last Week Tonight · Vox Borders"
+    }
+   ],
+   "links": [
+    {
+     "href": "/production-almanac/story-architecture/",
+     "label": "Story"
+    },
+    {
+     "href": "/production-almanac/cold-open/",
+     "label": "Cold Open"
+    },
+    {
+     "href": "/production-almanac/distribution-algorithm/",
+     "label": "Distribution"
+    },
+    {
+     "href": "/production-almanac/bibliography/",
+     "label": "Sources"
+    }
+   ]
+  },
+  {
+   "href": "/screenwriting-and-film-production/",
+   "label": "Film School",
+   "cluster": "creative",
+   "color": "#2fc5b7",
+   "metric": "8 phases · 66 sections",
+   "updated": "2026-06-08",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "Blank page to final cut — the standing curriculum",
+   "stats": [
+    {
+     "label": "Syllabus",
+     "value": "8 phases · 66 sections",
+     "sub": "story foundations → industry knowledge"
+    },
+    {
+     "label": "Practice",
+     "value": "22 exercises · 5 capstones",
+     "sub": "from a 2-hr scene to a 4–8-week TV pilot"
+    }
+   ],
+   "links": [
+    {
+     "href": "/screenwriting-and-film-production/#phase-1",
+     "label": "Phase 1"
+    },
+    {
+     "href": "/screenwriting-and-film-production/#phase-8",
+     "label": "Capstones"
+    }
+   ]
+  },
+  {
+   "href": "/readwise-highlights/",
+   "label": "Readwise Shelf",
+   "cluster": "creative",
+   "color": "#f4b942",
+   "metric": "1,696 highlights · 165 sources",
+   "updated": "2026-04-16",
+   "dataThrough": "2026-04-16",
+   "cadenceDays": 45,
+   "tagline": "The source memory — shuffle deck over everything saved",
+   "stats": [
+    {
+     "label": "Shelves",
+     "value": "953 supp · 637 books",
+     "sub": "60 articles · 46 tweets"
+    },
+    {
+     "label": "Most-highlighted",
+     "value": "Harari · 157",
+     "sub": "Kissinger 140 close behind"
+    },
+    {
+     "label": "Cache",
+     "value": "79 days old",
+     "sub": "rerun data/readwise_loader.py"
+    }
+   ],
+   "series": [
+    {
+     "label": "dated highlights per month",
+     "unit": "highlights",
+     "points": [
+      [
+       "2024-04",
+       9
+      ],
+      [
+       "2024-05",
+       5
+      ],
+      [
+       "2024-06",
+       1
+      ],
+      [
+       "2024-07",
+       2
+      ],
+      [
+       "2024-08",
+       6
+      ],
+      [
+       "2024-09",
+       0
+      ],
+      [
+       "2024-10",
+       0
+      ],
+      [
+       "2024-11",
+       36
+      ],
+      [
+       "2024-12",
+       4
+      ],
+      [
+       "2025-01",
+       27
+      ],
+      [
+       "2025-02",
+       26
+      ],
+      [
+       "2025-03",
+       12
+      ],
+      [
+       "2025-04",
+       19
+      ],
+      [
+       "2025-05",
+       9
+      ],
+      [
+       "2025-06",
+       21
+      ],
+      [
+       "2025-07",
+       15
+      ],
+      [
+       "2025-08",
+       3
+      ],
+      [
+       "2025-09",
+       17
+      ],
+      [
+       "2025-10",
+       3
+      ],
+      [
+       "2025-11",
+       0
+      ],
+      [
+       "2025-12",
+       8
+      ],
+      [
+       "2026-01",
+       19
+      ],
+      [
+       "2026-02",
+       3
+      ],
+      [
+       "2026-03",
+       3
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/readwise-highlights/#quoteCard",
+     "label": "Shuffle deck"
+    }
+   ]
+  },
+  {
+   "href": "/the-color-bible/",
+   "label": "Color Bible",
+   "cluster": "creative",
+   "color": "#a78bfa",
+   "metric": "5 colors · 21 tags",
+   "updated": "2026-03-13",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "One color, one meaning — across the whole digital life",
+   "swatches": [
+    {
+     "hex": "#DC2626",
+     "name": "Hot",
+     "sub": "now"
+    },
+    {
+     "hex": "#D97706",
+     "name": "In Flight",
+     "sub": "started"
+    },
+    {
+     "hex": "#16A34A",
+     "name": "Done",
+     "sub": "shipped"
+    },
+    {
+     "hex": "#0077BC",
+     "name": "Waiting",
+     "sub": "blocked"
+    },
+    {
+     "hex": "#009866",
+     "name": "Reference",
+     "sub": "evergreen"
+    }
+   ],
+   "stats": [
+    {
+     "label": "Audit · Mar 14",
+     "value": "largely unapplied",
+     "sub": "zero files tagged Done or In Flight system-wide"
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-color-bible/#five-colors",
+     "label": "The Five"
+    },
+    {
+     "href": "/the-color-bible/#tags-master",
+     "label": "21 tags"
+    },
+    {
+     "href": "/the-color-bible/#implementation",
+     "label": "Audit"
+    }
+   ]
+  },
+  {
+   "href": "/notes/",
+   "label": "Notebook",
+   "cluster": "creative",
+   "color": "#94a3b8",
+   "metric": "embed unconfigured",
+   "updated": "2026-06-08",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "flag": "attention",
+   "tagline": "Notion window — currently showing the fallback panel",
+   "stats": [
+    {
+     "label": "Status",
+     "value": "Public URL needed",
+     "sub": "NOTION_NOTES_URL empty at notes/index.html:450"
+    },
+    {
+     "label": "Fix",
+     "value": "one line",
+     "sub": "paste the public Notion share URL and redeploy"
+    }
+   ],
+   "links": []
+  },
+  {
+   "href": "/the-workflow-wrench/",
+   "label": "Workflow Wrench",
+   "cluster": "systems",
+   "color": "#fb923c",
+   "metric": "8 parts · 31 chapters",
+   "updated": "2026-05-14",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "The n8n consulting manual — patterns, pricing, cadence",
+   "stats": [
+    {
+     "label": "Money frame",
+     "value": "$1.5K–15K setup",
+     "sub": "care $200–1.5K/mo · $120–250/hr"
+    },
+    {
+     "label": "Priced patterns",
+     "value": "5 sellable builds",
+     "sub": "lead routing → document processing"
+    },
+    {
+     "label": "Cadence",
+     "value": "90 days · 6 phases",
+     "sub": "first paid pilot lands weeks 9–10"
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-workflow-wrench/#part-6-title",
+     "label": "Patterns"
+    },
+    {
+     "href": "/the-workflow-wrench/#reference",
+     "label": "Templates"
+    },
+    {
+     "href": "/the-workflow-wrench/#cadence",
+     "label": "90 days"
+    }
+   ]
+  },
+  {
+   "href": "/ai-intelligence/",
+   "label": "AI Intelligence",
+   "cluster": "systems",
+   "color": "#22d3ee",
+   "metric": "1,578 conversations",
+   "updated": "2026-04-20",
+   "dataThrough": "2026-03-31",
+   "cadenceDays": null,
+   "tagline": "ChatGPT vs Claude — the migration, mapped",
+   "stats": [
+    {
+     "label": "Corpus",
+     "value": "1,578 convos · 383K words",
+     "sub": "Jul 2024 – Mar 2026"
+    },
+    {
+     "label": "Crossover",
+     "value": "Feb 2026",
+     "sub": "GPT fell 83→17/mo · Claude hit 30"
+    },
+    {
+     "label": "Blindspot share",
+     "value": "361 convos · 23%",
+     "sub": "the most persistent creative thread"
+    },
+    {
+     "label": "Snapshot",
+     "value": "Mar 2026",
+     "sub": "one-time analysis, not a live feed"
+    }
+   ],
+   "series": [
+    {
+     "label": "ChatGPT / month",
+     "unit": "conversations",
+     "points": [
+      [
+       "2024-07",
+       7
+      ],
+      [
+       "2024-08",
+       13
+      ],
+      [
+       "2024-09",
+       45
+      ],
+      [
+       "2024-10",
+       54
+      ],
+      [
+       "2024-11",
+       66
+      ],
+      [
+       "2024-12",
+       40
+      ],
+      [
+       "2025-01",
+       43
+      ],
+      [
+       "2025-02",
+       49
+      ],
+      [
+       "2025-03",
+       59
+      ],
+      [
+       "2025-04",
+       66
+      ],
+      [
+       "2025-05",
+       43
+      ],
+      [
+       "2025-06",
+       106
+      ],
+      [
+       "2025-07",
+       54
+      ],
+      [
+       "2025-08",
+       58
+      ],
+      [
+       "2025-09",
+       90
+      ],
+      [
+       "2025-10",
+       83
+      ],
+      [
+       "2025-11",
+       74
+      ],
+      [
+       "2025-12",
+       51
+      ],
+      [
+       "2026-01",
+       51
+      ],
+      [
+       "2026-02",
+       32
+      ],
+      [
+       "2026-03",
+       17
+      ]
+     ]
+    },
+    {
+     "label": "Claude / month",
+     "unit": "conversations",
+     "points": [
+      [
+       "2024-11",
+       3
+      ],
+      [
+       "2025-05",
+       1
+      ],
+      [
+       "2025-06",
+       4
+      ],
+      [
+       "2025-11",
+       13
+      ],
+      [
+       "2025-12",
+       21
+      ],
+      [
+       "2026-01",
+       15
+      ],
+      [
+       "2026-02",
+       30
+      ],
+      [
+       "2026-03",
+       17
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/ai-intelligence/#section-merged",
+     "label": "Merged report"
+    },
+    {
+     "href": "/ai-intelligence/#merged-prescription",
+     "label": "Prescription"
+    }
+   ]
+  },
+  {
+   "href": "/digital-ecosystem-refresh/",
+   "label": "Digital Ecosystem",
+   "cluster": "systems",
+   "color": "#69d6e4",
+   "metric": "V9 · V10 overdue",
+   "updated": "2026-03-11",
+   "dataThrough": "2026-03-11",
+   "cadenceDays": 90,
+   "tagline": "Quarterly maintenance — the only room whose value is a deadline",
+   "stats": [
+    {
+     "label": "Pass",
+     "value": "V9 · Mar 11",
+     "sub": "MAINTAIN phase after 9 cleanup sessions"
+    },
+    {
+     "label": "V10 queue",
+     "value": "5 items",
+     "sub": "incl. rebuild financial-consolidation.html"
+    },
+    {
+     "label": "Risks",
+     "value": "1 red · 1 yellow · 2 watch",
+     "sub": "iCloud 0-byte incident tops the list"
+    },
+    {
+     "label": "Hygiene",
+     "value": "0 loose · 1 download",
+     "sub": "Documents root still clean"
+    }
+   ],
+   "links": []
   }
-})();
+ ],
+ "annex": [
+  {
+   "href": "/insult-rolodex/",
+   "label": "Insult Rolodex",
+   "metric": "202 burns · 7 categories",
+   "color": "#f472b6"
+  },
+  {
+   "href": "/wellness-analysis/",
+   "label": "Wellness Analysis",
+   "metric": "recovery 53 · 256 days tracked",
+   "color": "#4ade80"
+  },
+  {
+   "href": "/the-ledger/#view-stephen",
+   "label": "Stephen ledger",
+   "metric": "$7,375 in · net $7,200",
+   "color": "#d4a052"
+  }
+ ],
+ "quote_stats": {
+  "highlights": 1696,
+  "sources": 165,
+  "cache_date": "2026-04-16"
+ },
+ "quotes": [
+  {
+   "text": "We learn from history that we do not learn from history.",
+   "author": "Hegel",
+   "source": "Lessons From History"
+  },
+  {
+   "text": "As F. Scott Fitzgerald wrote in “The Great Gatsby,” rich people are careless. They break things.",
+   "author": "David Brooks",
+   "source": "Opinion | Trump Is No Populist - The New York Times"
+  },
+  {
+   "text": "Money is accordingly a system of mutual trust, and not just any system of mutual trust: money is the most universal and most efficient system of mutual trust ever devised.",
+   "author": "Yuval Noah Harari",
+   "source": "Sapiens"
+  },
+  {
+   "text": "Property is a prerequisite for long-term inequality.",
+   "author": "Yuval Noah Harari",
+   "source": "21 Lessons for the 21st Century"
+  },
+  {
+   "text": "Humanity has advanced, when it has advanced, not because it has been sober, responsible, and cautious, but because it has been playful, rebellious, and immature.",
+   "author": "Tom Robbins",
+   "source": "Still Life With Woodpecker"
+  },
+  {
+   "text": "Personally, I am quite comfortable with chemicals, anywhere in the universe. My favorite stars, as well as my best friends, are all made of them.",
+   "author": "Neil deGrasse Tyson",
+   "source": "Astrophysics for People in a Hurry"
+  },
+  {
+   "text": "“The people who love you are the only ones that count,” he said to me. Then, tearing up, he added, “Don’t waste your time on anyone else.” And then, wonder of wonders, he gave me a hug.",
+   "author": "Kara Swisher",
+   "source": "Burn Book"
+  },
+  {
+   "text": "So the conventional wisdom in Galbraith’s view must be simple, convenient, comfortable, and comforting—though not necessarily true.",
+   "author": "Steven D. Levitt and Stephen J. Dubner",
+   "source": "Freakonomics"
+  },
+  {
+   "text": "I cure paralysis because I’m tired of watching skateboarders race down the wheelchair ramps, and I cure muscular dystrophy just to get rid of the Jerry Lewis telethon.",
+   "author": "David Sedaris",
+   "source": "Me Talk Pretty One Day"
+  },
+  {
+   "text": "As the economist Abba Lerner noted in the 1970s, “Economics has gained the title Queen of the Social Sciences by choosing solved political problems as its domain.”",
+   "author": "Daron Acemoglu",
+   "source": "Why Nations Fail"
+  },
+  {
+   "text": "In the thought world there’s always something you can do to control the experience.",
+   "author": "Singer, Michael A.",
+   "source": "The Untethered Soul"
+  },
+  {
+   "text": "Plato: comedy comes, essentially, from a lack of self-knowledge.",
+   "author": "Jeremy Dauber",
+   "source": "Jewish Comedy"
+  },
+  {
+   "text": "Apologies for the late response, instead of spending three minutes answering your email I ignored it and felt anxious for two weeks",
+   "author": "@NC_Renic on Twitter",
+   "source": "Tweets From Neil Renic"
+  },
+  {
+   "text": "Andrew Scott hot priest. Adam Brody hot rabbi. Is the world ready for Riz Ahmed hot imam",
+   "author": "@hannnahmmarie on Twitter",
+   "source": "Tweets From Hannah Mullen"
+  }
+ ]
+};
 
-/* Status board + tile freshness stamps, driven by data/console-status.json.
-   Update sessions rewrite that manifest; this page just reports it. */
 (function () {
-  var DAY = 86400000;
+  "use strict";
 
-  function status(room) {
-    if (room.flag === "attention") return { cls: "s-attn", label: "needs attention" };
-    var ref = room.dataThrough || room.updated;
-    if (!ref) return { cls: "s-steady", label: "" };
-    var age = Math.max(0, Math.floor((Date.now() - new Date(ref + "T12:00:00").getTime()) / DAY));
-    if (!room.cadenceDays) return { cls: "s-steady", label: age > 45 ? age + "d" : "" };
-    var ratio = age / room.cadenceDays;
-    if (ratio <= 1) return { cls: "s-fresh", label: age + "d", ratio: ratio };
-    if (ratio <= 2) return { cls: "s-due", label: age + "d · due", ratio: ratio };
-    return { cls: "s-stale", label: age + "d · stale", ratio: ratio };
-  }
-
-  function rank(cls) {
-    return { "s-attn": 0, "s-stale": 1, "s-due": 2, "s-fresh": 3, "s-steady": 4 }[cls];
-  }
-
-  fetch("/data/console-status.json")
-    .then(function (r) { return r.json(); })
-    .then(function (manifest) {
-      var rooms = manifest.rooms.map(function (room) {
-        return { room: room, st: status(room) };
-      });
-
-      // Status board: urgent first, evergreen rooms without signal value last
-      var rows = rooms
-        .filter(function (x) { return x.st.cls !== "s-steady" || x.room.cadenceDays; })
-        .sort(function (a, b) {
-          var d = rank(a.st.cls) - rank(b.st.cls);
-          return d !== 0 ? d : (b.st.ratio || 0) - (a.st.ratio || 0);
-        });
-      (manifest.extra || []).forEach(function (x) {
-        rows.push({ room: x, st: { cls: "s-steady", label: "" } });
-      });
-
-      var list = document.getElementById("signalList");
-      if (list && rows.length) {
-        list.innerHTML = rows.map(function (x) {
-          var age = x.st.label ? '<span class="sig-age ' + x.st.cls + '">' + x.st.label + "</span>" : "";
-          return '<a class="signal" style="--signal-color: ' + (x.room.color || "var(--paper)") + '" href="' + x.room.href + '">' +
-            "<span>" + x.room.label + age + "</span><strong>" + x.room.metric + "</strong></a>";
-        }).join("");
-      }
-
-      // Tile stamps
-      rooms.forEach(function (x) {
-        var tile = document.querySelector('.tile[href="' + x.room.href + '"]');
-        if (!tile) return;
-        var ref = x.room.dataThrough || x.room.updated;
-        var text;
-        if (x.st.cls === "s-attn") text = "needs attention";
-        else if (x.st.cls === "s-steady") text = "updated " + ref;
-        else text = (x.st.cls === "s-fresh" ? "fresh · " : x.st.cls === "s-due" ? "due · " : "stale · ") + ref;
-        var stamp = document.createElement("span");
-        stamp.className = "tile-stamp " + x.st.cls;
-        stamp.textContent = text;
-        var arrow = tile.querySelector(".tile-arrow");
-        tile.insertBefore(stamp, arrow);
-      });
-    })
-    .catch(function () { /* static fallback stays */ });
-})();
-
-(function () {
-  var filterButtons = Array.prototype.slice.call(document.querySelectorAll("[data-filter]"));
-  var tiles = Array.prototype.slice.call(document.querySelectorAll(".tile[data-cluster]"));
-  var clusters = Array.prototype.slice.call(document.querySelectorAll(".cluster[data-cluster]"));
-
-  filterButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      var filter = button.getAttribute("data-filter");
-      filterButtons.forEach(function (b) { b.classList.toggle("is-active", b === button); });
-      clusters.forEach(function (cluster) {
-        var match = filter === "all" || cluster.getAttribute("data-cluster") === filter;
-        cluster.classList.toggle("is-dimmed", !match);
-      });
-      tiles.forEach(function (tile) {
-        var match = filter === "all" || tile.getAttribute("data-cluster") === filter;
-        tile.classList.toggle("is-dimmed", !match);
-      });
+  var NOW = Date.now();
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
     });
-  });
+  };
+
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function shortDate(iso) {
+    if (!iso) return "";
+    var p = iso.split("-");
+    return MONTHS[+p[1] - 1] + " " + (+p[2]);
+  }
+
+  function freshness(room) {
+    if (room.flag === "attention") return { cls: "bad", txt: "needs attention" };
+    var ref = room.dataThrough || room.updated;
+    if (!ref) return { cls: "idle", txt: "" };
+    var age = Math.max(0, Math.floor((NOW - new Date(ref + "T12:00:00").getTime()) / 864e5));
+    if (!room.cadenceDays) return { cls: "idle", txt: "updated " + shortDate(room.updated || ref) };
+    var r = age / room.cadenceDays;
+    if (r <= 1) return { cls: "good", txt: "fresh · " + age + "d" };
+    if (r <= 2) return { cls: "warn", txt: "due · " + age + "d" };
+    return { cls: "bad", txt: "stale · " + age + "d" };
+  }
+
+  /* series: [{points:[[t,v],...], color, dashed}] normalized on a shared scale */
+  function sparkSVG(seriesArr, height, fill) {
+    var W = 100, H = 28, P = 2.5;
+    var vals = [];
+    seriesArr.forEach(function (s) { s.points.forEach(function (p) { vals.push(p[1]); }); });
+    if (!vals.length) return "";
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    var span = (max - min) || 1;
+    var out = "";
+    seriesArr.forEach(function (s, si) {
+      var n = s.points.length;
+      if (n < 2) return;
+      var pts = s.points.map(function (p, i) {
+        var x = P + i * (W - 2 * P) / (n - 1);
+        var y = H - P - (p[1] - min) / span * (H - 2 * P);
+        return [x.toFixed(2), y.toFixed(2)];
+      });
+      var poly = pts.map(function (q) { return q.join(","); }).join(" ");
+      if (fill && si === 0) {
+        out += '<polygon points="' + P + ',' + (H - P) + ' ' + poly + ' ' + (W - P) + ',' + (H - P) +
+          '" fill="' + s.color + '" opacity="0.09"></polygon>';
+      }
+      out += '<polyline points="' + poly + '" fill="none" stroke="' + s.color +
+        '" stroke-width="1.6" vector-effect="non-scaling-stroke"' +
+        (s.dashed ? ' stroke-dasharray="3 3"' : "") + ' stroke-linejoin="round" stroke-linecap="round"></polyline>';
+      var last = pts[pts.length - 1];
+      out += '<circle cx="' + last[0] + '" cy="' + last[1] + '" r="1.9" fill="' + s.color + '"></circle>';
+    });
+    return '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" style="height:' +
+      height + 'px" aria-hidden="true">' + out + "</svg>";
+  }
+
+  function render(m) {
+    /* header line */
+    document.getElementById("briefLine").innerHTML =
+      "Readout <b>" + esc(shortDate(m.generated)) + "</b> · <b>" + m.rooms.length +
+      " rooms</b> · <b>" + m.attention.length + " flags</b> on the board";
+    document.getElementById("stampLine").textContent =
+      "readout v" + (m.version || 2) + " · " + m.generated;
+
+    /* attention */
+    document.getElementById("attnCount").textContent = m.attention.length + " open";
+    document.getElementById("attnList").innerHTML = m.attention.map(function (a) {
+      return '<a class="attn-row sev-' + esc(a.severity) + '" href="' + esc(a.href) + '">' +
+        '<span class="attn-dot" aria-hidden="true"></span>' +
+        '<span class="attn-label">' + esc(a.label) + "</span>" +
+        '<span class="attn-detail">' + esc(a.detail) + "</span>" +
+        '<span class="attn-go" aria-hidden="true">-&gt;</span></a>';
+    }).join("");
+
+    /* KPI band */
+    document.getElementById("kpiBand").innerHTML = m.kpis.map(function (k) {
+      var spark = k.spark && k.spark.length > 1
+        ? sparkSVG([{ points: k.spark.map(function (v, i) { return [i, v]; }), color: k.color }], 30, true)
+        : "";
+      return '<a class="kpi" href="' + esc(k.href) + '" style="--k:' + esc(k.color) + '">' +
+        '<span class="kpi-label">' + esc(k.label) + "</span>" +
+        '<span class="kpi-line"><span class="kpi-value">' + esc(k.value) + "</span>" +
+        '<span class="chip ' + esc(k.tone || "flat") + '">' + esc(k.delta) + "</span></span>" +
+        spark +
+        '<span class="kpi-note">' + esc(k.note) + "</span></a>";
+    }).join("");
+
+    /* clusters */
+    var byCluster = {};
+    m.rooms.forEach(function (r) { (byCluster[r.cluster] = byCluster[r.cluster] || []).push(r); });
+
+    document.getElementById("clusters").innerHTML = m.clusters.map(function (c) {
+      var rooms = byCluster[c.key] || [];
+      var cards = rooms.map(function (r) {
+        var st = freshness(r);
+        var stats = (r.stats || []).map(function (s) {
+          return '<div class="stat"><div class="stat-line">' +
+            '<span class="stat-label">' + esc(s.label) + "</span>" +
+            '<span class="stat-value">' + esc(s.value) + "</span></div>" +
+            (s.sub ? '<div class="stat-sub">' + esc(s.sub) + "</div>" : "") + "</div>";
+        }).join("");
+
+        var swatches = r.swatches && r.swatches.length
+          ? '<div class="swatches">' + r.swatches.map(function (w) {
+              return '<span class="swatch" style="--sw:' + esc(w.hex) + '"><i></i>' +
+                esc(w.name) + " <small>" + esc(w.sub) + "</small></span>";
+            }).join("") + "</div>"
+          : "";
+
+        var sparkBlock = "";
+        if (r.series && r.series.length) {
+          var palette = r.series.length > 1 ? ["#64748b", r.color] : [r.color];
+          var sers = r.series.map(function (s, i) {
+            return { points: s.points, color: palette[i % palette.length], dashed: r.series.length > 1 && i === 0 };
+          });
+          var cap = r.series.map(function (s, i) {
+            return '<span><i style="--sw:' + palette[i % palette.length] + '"></i>' + esc(s.label) + "</span>";
+          }).join("");
+          sparkBlock = '<div class="room-spark">' + sparkSVG(sers, 38, r.series.length === 1) +
+            '<div class="spark-cap">' + cap + "</div></div>";
+        }
+
+        var links = (r.links || []).map(function (l) {
+          return '<a href="' + esc(l.href) + '">' + esc(l.label) + "</a>";
+        }).join("");
+
+        return '<article class="room" style="--k:' + esc(r.color) + '">' +
+          '<div class="room-head"><a href="' + esc(r.href) + '">' + esc(r.label) + "</a>" +
+          '<span class="stamp ' + st.cls + '">' + esc(st.txt) + "</span></div>" +
+          (r.tagline ? '<p class="room-tagline">' + esc(r.tagline) + "</p>" : "") +
+          '<div class="room-stats">' + stats + "</div>" + swatches + sparkBlock +
+          '<div class="room-links">' + links + '<span class="room-open" aria-hidden="true">open -&gt;</span></div>' +
+          "</article>";
+      }).join("");
+
+      return '<section class="cluster" aria-label="' + esc(c.title) + '">' +
+        '<div class="cluster-head"><h2>' + esc(c.title) + "</h2><p>" + esc(c.blurb) + "</p></div>" +
+        '<div class="room-grid">' + cards + "</div>" +
+        (c.key === "ops" ? quoteStrip(m) : "") +
+        "</section>";
+    }).join("");
+
+    /* footer annex */
+    document.getElementById("annex").innerHTML = (m.annex || []).map(function (x) {
+      return '<a href="' + esc(x.href) + '" style="--fk:' + esc(x.color) + '"><i></i>' +
+        esc(x.label) + " · " + esc(x.metric) + "</a>";
+    }).join("");
+
+    wireQuote(m);
+  }
+
+  /* ---------- resurface strip ---------- */
+  function quoteStrip(m) {
+    var qs = m.quote_stats || {};
+    return '<div class="resurface" aria-live="polite">' +
+      '<div><p class="rs-quote" id="rsQuote"></p>' +
+      '<p class="rs-meta" id="rsMeta"></p></div>' +
+      '<div class="rs-actions">' +
+      '<button type="button" id="rsBtn">Resurface</button>' +
+      '<a href="/readwise-highlights/">Open the shelf</a>' +
+      "</div></div>";
+  }
+
+  var currentQuote = null;
+  function wireQuote(m) {
+    var pool = m.quotes || [];
+    var qEl = document.getElementById("rsQuote");
+    var mEl = document.getElementById("rsMeta");
+    var btn = document.getElementById("rsBtn");
+    if (!qEl || !pool.length) return;
+    var qs = m.quote_stats || {};
+
+    function pick() {
+      var options = pool.filter(function (q) { return q !== currentQuote; });
+      if (!options.length) options = pool;
+      return options[Math.floor(Math.random() * options.length)];
+    }
+    function show(q) {
+      currentQuote = q;
+      qEl.textContent = q.text;
+      mEl.textContent = q.author + (q.source ? " · " + q.source : "") +
+        (qs.highlights ? "  ·  1 of " + qs.highlights.toLocaleString() + " banked" : "");
+    }
+    show(pick());
+    if (btn) btn.onclick = function () { show(pick()); };
+  }
+
+  /* ---------- boot ---------- */
+  var d = new Date();
+  var DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  document.getElementById("today").textContent =
+    DAYS[d.getDay()] + " · " + MONTHS[d.getMonth()].toUpperCase() + " " + d.getDate();
+
+  render(FALLBACK);
+  fetch("/data/console-status.json")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (m) { if (m && m.version >= 2) render(m); })
+    .catch(function () { /* fallback already rendered */ });
 })();
 </script>
 </body>

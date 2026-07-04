@@ -1,134 +1,1221 @@
 {
-  "generated": "2026-07-02",
-  "rooms": [
+ "version": 2,
+ "generated": "2026-07-04",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
+ "attention": [
+  {
+   "severity": "red",
+   "label": "Capital One 0623 is over its limit",
+   "detail": "$2,145.21 on a $2,000 line, $0 available — freeze it; it gained $1,589 this period",
+   "href": "/the-ledger/#view-accounts"
+  },
+  {
+   "severity": "amber",
+   "label": "Ecosystem pass V10 is overdue",
+   "detail": "V9 closed Mar 11; quarterly cadence ran out ~25 days ago. 5-item queue incl. rebuilding financial-consolidation.html",
+   "href": "/digital-ecosystem-refresh/"
+  },
+  {
+   "severity": "amber",
+   "label": "Health exports are stalling",
+   "detail": "Resting HR / HRV stuck at May 25 (40d), weight at Apr 23 (72d) — open Health Auto Export to un-stall the feed",
+   "href": "/wellness-dashboard/"
+  },
+  {
+   "severity": "amber",
+   "label": "Readwise cache is 79 days old",
+   "detail": "Newest highlight Mar 19 — rerun data/readwise_loader.py",
+   "href": "/readwise-highlights/"
+  },
+  {
+   "severity": "info",
+   "label": "Two cards ready to kill",
+   "detail": "US Bank Ralphs $29.78 + PayPal Credit $14.87 — one payment each and two statements disappear",
+   "href": "/the-ledger/#view-accounts"
+  },
+  {
+   "severity": "info",
+   "label": "Notebook embed unconfigured",
+   "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) — paste the public Notion URL and the room comes alive",
+   "href": "/notes/"
+  }
+ ],
+ "kpis": [
+  {
+   "label": "Revolving debt",
+   "value": "$12,545",
+   "delta": "−$756 MoM",
+   "tone": "good",
+   "note": "June close · the 9-month arc is finally bending down",
+   "color": "#d4a052",
+   "href": "/the-ledger/",
+   "spark": [
+    14437.9,
+    15256.52,
+    14151.7,
+    14419.82,
+    13530.41,
+    14112.98,
+    13310.73,
+    13301.04,
+    12544.91
+   ]
+  },
+  {
+   "label": "Interest bleed",
+   "value": "$289",
+   "delta": "lowest of the run",
+   "tone": "good",
+   "note": "June · $2,841 burned since Oct",
+   "color": "#fb923c",
+   "href": "/the-ledger/#view-interest",
+   "spark": [
+    330.25,
+    355.33,
+    330.6,
+    324.36,
+    303.9,
+    303.15,
+    297.57,
+    307.32,
+    288.57
+   ]
+  },
+  {
+   "label": "Playlist followers",
+   "value": "1,049",
+   "delta": "+5 Jul",
+   "tone": "good",
+   "note": "15 playlists · top 3 hold 78.6%",
+   "color": "#8c7bff",
+   "href": "/playlist-tracker/",
+   "spark": [
+    457,
+    461,
+    542,
+    581,
+    613,
+    703,
+    848,
+    868,
+    884,
+    898,
+    896,
+    896,
+    904,
+    913,
+    918,
+    916,
+    921,
+    925,
+    933,
+    1001,
+    1030,
+    1033,
+    1044,
+    1049
+   ]
+  },
+  {
+   "label": "Recovery score",
+   "value": "53",
+   "delta": "Under Pressure",
+   "tone": "warn",
+   "note": "RHR running +18 bpm over baseline",
+   "color": "#4ade80",
+   "href": "/wellness-analysis/",
+   "spark": [
+    70,
+    58.7,
+    50.1,
+    57.3,
+    34.9,
+    58.8,
+    42.4,
+    39.7,
+    48.5,
+    64.8
+   ]
+  },
+  {
+   "label": "Highlights banked",
+   "value": "1,696",
+   "delta": "cache 79d old",
+   "tone": "warn",
+   "note": "165 sources · newest highlight Mar 19",
+   "color": "#f4b942",
+   "href": "/readwise-highlights/",
+   "spark": [
+    9,
+    5,
+    1,
+    2,
+    6,
+    0,
+    0,
+    36,
+    4,
+    27,
+    26,
+    12,
+    19,
+    9,
+    21,
+    15,
+    3,
+    17,
+    3,
+    0,
+    8,
+    19,
+    3,
+    3
+   ]
+  },
+  {
+   "label": "Binder",
+   "value": "v9",
+   "delta": "15 chapters",
+   "tone": "flat",
+   "note": "76 PDFs folded in across v6–v9 on Apr 24",
+   "color": "#f0524d",
+   "href": "/the-blindspot-binder/"
+  }
+ ],
+ "clusters": [
+  {
+   "key": "ops",
+   "title": "Life Ops",
+   "blurb": "Money, body, catalog — the numbers that move whether you look or not."
+  },
+  {
+   "key": "creative",
+   "title": "Creative Work",
+   "blurb": "The Blindspot side: manuals, sources, and the visual system."
+  },
+  {
+   "key": "systems",
+   "title": "Systems",
+   "blurb": "The machine room: automation, AI patterns, maintenance."
+  }
+ ],
+ "rooms": [
+  {
+   "href": "/the-ledger/",
+   "label": "The Ledger",
+   "cluster": "ops",
+   "color": "#d4a052",
+   "metric": "$12,544.91 revolving",
+   "updated": "2026-07-02",
+   "dataThrough": "2026-06-30",
+   "cadenceDays": 32,
+   "tagline": "8 cards · avalanche order · Stephen ledger",
+   "stats": [
     {
-      "href": "/the-ledger/",
-      "label": "Ledger",
-      "cluster": "ops",
-      "color": "var(--hot)",
-      "metric": "$12,545 revolving · −$1,893",
-      "updated": "2026-07-02",
-      "dataThrough": "2026-06-30",
-      "cadenceDays": 32,
-      "note": "June close complete — all 8 cards reported"
+     "label": "Attack next",
+     "value": "Apple Card · $4,987.85",
+     "sub": "25.49% APR · $115 interest in June, broke under $5K"
     },
     {
-      "href": "/playlist-tracker/",
-      "label": "Playlists",
-      "cluster": "ops",
-      "color": "var(--blue)",
-      "metric": "1,049 followers · +5 Jul",
-      "updated": "2026-07-02",
-      "dataThrough": "2026-07-02",
-      "cadenceDays": 32,
-      "note": "July snapshot from live Spotify counts"
+     "label": "Kill shots",
+     "value": "$29.78 + $14.87",
+     "sub": "US Bank Ralphs + PayPal Credit — two statements gone"
     },
     {
-      "href": "/wellness-dashboard/",
-      "label": "Wellness",
-      "cluster": "ops",
-      "color": "var(--green)",
-      "metric": "sleep → Jun 20 · weight → Apr 23",
-      "updated": "2026-07-02",
-      "dataThrough": "2026-06-21",
-      "cadenceDays": 14,
-      "note": "Health Auto Export stalled — open the app or export manually"
+     "label": "Over limit",
+     "value": "CapOne 0623 · $2,145",
+     "sub": "$2,000 limit · $0 available · freeze"
     },
     {
-      "href": "/readwise-highlights/",
-      "label": "Readwise",
-      "cluster": "creative",
-      "color": "var(--lav)",
-      "metric": "1,696 highlights · 165 sources",
-      "updated": "2026-04-16",
-      "dataThrough": "2026-04-16",
-      "cadenceDays": 45,
-      "note": "refresh via data/readwise_loader.py"
-    },
-    {
-      "href": "/the-blindspot-binder/",
-      "label": "Binder",
-      "cluster": "creative",
-      "color": "var(--coral)",
-      "metric": "v5 · 15 chapters",
-      "updated": "2026-04-26",
-      "cadenceDays": null,
-      "note": "updates on Pulse ingest"
-    },
-    {
-      "href": "/production-almanac/",
-      "label": "Almanac",
-      "cluster": "creative",
-      "color": "var(--yellow)",
-      "metric": "9 chapters",
-      "updated": "2026-06-08",
-      "cadenceDays": null
-    },
-    {
-      "href": "/screenwriting-and-film-production/",
-      "label": "Film Production",
-      "cluster": "creative",
-      "color": "var(--teal)",
-      "metric": "8-phase guide",
-      "updated": "2026-06-08",
-      "cadenceDays": null
-    },
-    {
-      "href": "/the-color-bible/",
-      "label": "Color Bible",
-      "cluster": "creative",
-      "color": "var(--coral)",
-      "metric": "5 colors",
-      "updated": "2026-03-13",
-      "cadenceDays": null
-    },
-    {
-      "href": "/notes/",
-      "label": "Notebook",
-      "cluster": "creative",
-      "color": "var(--teal)",
-      "metric": "Notion embed unconfigured",
-      "updated": "2026-06-08",
-      "cadenceDays": null,
-      "flag": "attention",
-      "note": "NOTION_NOTES_URL is empty — page shows fallback"
-    },
-    {
-      "href": "/the-workflow-wrench/",
-      "label": "Wrench",
-      "cluster": "systems",
-      "color": "var(--orange)",
-      "metric": "8 parts · 31 chapters",
-      "updated": "2026-06-08",
-      "cadenceDays": null
-    },
-    {
-      "href": "/ai-intelligence/",
-      "label": "AI Intelligence",
-      "cluster": "systems",
-      "color": "var(--cyan)",
-      "metric": "1,578 conversations · data → Nov '25",
-      "updated": "2026-04-20",
-      "cadenceDays": null
-    },
-    {
-      "href": "/digital-ecosystem-refresh/",
-      "label": "Ecosystem",
-      "cluster": "systems",
-      "color": "var(--orange)",
-      "metric": "V9 · Mar 11",
-      "updated": "2026-03-11",
-      "dataThrough": "2026-03-11",
-      "cadenceDays": 90,
-      "note": "quarterly maintenance pass is due"
+     "label": "Stephen",
+     "value": "net $7,200 in",
+     "sub": "7 Zelle payments Mar–Jun · $175 returned"
     }
-  ],
-  "extra": [
+   ],
+   "series": [
     {
-      "href": "/the-ledger/#view-stephen",
-      "label": "Stephen contribution",
-      "color": "var(--hot)",
-      "metric": "$7,375 in · net $7,200"
+     "label": "Total revolving debt",
+     "unit": "USD",
+     "points": [
+      [
+       "2025-10",
+       14437.9
+      ],
+      [
+       "2025-11",
+       15256.52
+      ],
+      [
+       "2025-12",
+       14151.7
+      ],
+      [
+       "2026-01",
+       14419.82
+      ],
+      [
+       "2026-02",
+       13530.41
+      ],
+      [
+       "2026-03",
+       14112.98
+      ],
+      [
+       "2026-04",
+       13310.73
+      ],
+      [
+       "2026-05",
+       13301.04
+      ],
+      [
+       "2026-06",
+       12544.91
+      ]
+     ]
     }
-  ]
+   ],
+   "links": [
+    {
+     "href": "/the-ledger/#view-accounts",
+     "label": "The Attack"
+    },
+    {
+     "href": "/the-ledger/#view-stephen",
+     "label": "Stephen"
+    },
+    {
+     "href": "/the-ledger/#view-interest",
+     "label": "Interest Trap"
+    },
+    {
+     "href": "/the-ledger/#view-checking",
+     "label": "Transactions"
+    }
+   ]
+  },
+  {
+   "href": "/wellness-dashboard/",
+   "label": "Wellness",
+   "cluster": "ops",
+   "color": "#4ade80",
+   "metric": "recovery 53 · Under Pressure",
+   "updated": "2026-07-02",
+   "dataThrough": "2026-06-21",
+   "cadenceDays": 14,
+   "tagline": "Apple Health + RingConn — each metric ages on its own clock",
+   "stats": [
+    {
+     "label": "Sleep · last on record",
+     "value": "6:43",
+     "sub": "Jun 20 · 7-night avg 8:13 across gaps"
+    },
+    {
+     "label": "Steps",
+     "value": "3,897",
+     "sub": "Jun 21 · 7-day avg 4,793"
+    },
+    {
+     "label": "Resting HR",
+     "value": "78 bpm avg",
+     "sub": "stuck at May 25 · last single reading 84"
+    },
+    {
+     "label": "Weight",
+     "value": "180.8 lb",
+     "sub": "Apr 23 · scale silent 72 days"
+    }
+   ],
+   "series": [
+    {
+     "label": "monthly recovery score",
+     "unit": "score (0-100)",
+     "points": [
+      [
+       "2025-09-01",
+       70
+      ],
+      [
+       "2025-10-01",
+       58.7
+      ],
+      [
+       "2025-11-01",
+       50.1
+      ],
+      [
+       "2025-12-01",
+       57.3
+      ],
+      [
+       "2026-01-01",
+       34.9
+      ],
+      [
+       "2026-02-01",
+       58.8
+      ],
+      [
+       "2026-03-01",
+       42.4
+      ],
+      [
+       "2026-04-01",
+       39.7
+      ],
+      [
+       "2026-05-01",
+       48.5
+      ],
+      [
+       "2026-06-01",
+       64.8
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/wellness-analysis/",
+     "label": "Deep analysis"
+    },
+    {
+     "href": "/wellness-dashboard/#tSleep",
+     "label": "Sleep tile"
+    }
+   ]
+  },
+  {
+   "href": "/playlist-tracker/",
+   "label": "Playlist Tracker",
+   "cluster": "ops",
+   "color": "#8c7bff",
+   "metric": "1,049 followers · +5 Jul",
+   "updated": "2026-07-02",
+   "dataThrough": "2026-07-01",
+   "cadenceDays": 32,
+   "tagline": "15 playlists · 26 monthly snapshots since Apr 2024",
+   "stats": [
+    {
+     "label": "Anchor",
+     "value": "Monday's Mixtape · 510",
+     "sub": "48.6% of the whole portfolio"
+    },
+    {
+     "label": "Growth engine",
+     "value": "Groove · 204",
+     "sub": "+68 of the last 154 gained · 6-month streak"
+    },
+    {
+     "label": "Velocity",
+     "value": "cooling · +19 in 3 mo",
+     "sub": "vs +105 the three before — rebrand spike fading"
+    },
+    {
+     "label": "Asleep",
+     "value": "7 lanes flat 3+ months",
+     "sub": "Ancora quiet 5 mo · Masterpiece 17 mo"
+    }
+   ],
+   "series": [
+    {
+     "label": "Portfolio total followers",
+     "unit": "followers",
+     "points": [
+      [
+       "2024-06-01",
+       457
+      ],
+      [
+       "2024-09-01",
+       461
+      ],
+      [
+       "2024-10-01",
+       542
+      ],
+      [
+       "2024-11-01",
+       581
+      ],
+      [
+       "2024-12-01",
+       613
+      ],
+      [
+       "2025-01-01",
+       703
+      ],
+      [
+       "2025-02-01",
+       848
+      ],
+      [
+       "2025-03-01",
+       868
+      ],
+      [
+       "2025-04-01",
+       884
+      ],
+      [
+       "2025-05-01",
+       898
+      ],
+      [
+       "2025-06-01",
+       896
+      ],
+      [
+       "2025-07-01",
+       896
+      ],
+      [
+       "2025-08-01",
+       904
+      ],
+      [
+       "2025-09-01",
+       913
+      ],
+      [
+       "2025-10-01",
+       918
+      ],
+      [
+       "2025-11-01",
+       916
+      ],
+      [
+       "2025-12-01",
+       921
+      ],
+      [
+       "2026-01-01",
+       925
+      ],
+      [
+       "2026-02-01",
+       933
+      ],
+      [
+       "2026-03-01",
+       1001
+      ],
+      [
+       "2026-04-01",
+       1030
+      ],
+      [
+       "2026-05-01",
+       1033
+      ],
+      [
+       "2026-06-01",
+       1044
+      ],
+      [
+       "2026-07-01",
+       1049
+      ]
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "href": "/the-blindspot-binder/",
+   "label": "Blindspot Binder",
+   "cluster": "creative",
+   "color": "#f0524d",
+   "metric": "v9 · 15 chapters",
+   "updated": "2026-04-24",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "The channel operating manual, compiled from 357+ Pulse PDFs",
+   "stats": [
+    {
+     "label": "Version",
+     "value": "v9 · Apr 2026",
+     "sub": "four ingest runs closed the 76-PDF sweep on Apr 24"
+    },
+    {
+     "label": "Body",
+     "value": "15 chapters + appendix",
+     "sub": "Architecture · Performance & Production · Publishing, Risk & Revenue"
+    },
+    {
+     "label": "Last ingest",
+     "value": "2026-04-24",
+     "sub": "Ch 14 gained the Anti-Perfectionism Loop"
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-blindspot-binder/#part-1",
+     "label": "Part I"
+    },
+    {
+     "href": "/the-blindspot-binder/#part-2",
+     "label": "Part II"
+    },
+    {
+     "href": "/the-blindspot-binder/#part-3",
+     "label": "Part III"
+    },
+    {
+     "href": "/the-blindspot-binder/#appendix",
+     "label": "Appendix"
+    }
+   ]
+  },
+  {
+   "href": "/production-almanac/",
+   "label": "Production Almanac",
+   "cluster": "creative",
+   "color": "#f4c51d",
+   "metric": "9 chapters · Build Ready",
+   "updated": "2026-05-04",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "Long-form craft manual — Shape, Hook, Build, Ship",
+   "stats": [
+    {
+     "label": "Chapters",
+     "value": "9 · all Depth 3",
+     "sub": "75 min total read"
+    },
+    {
+     "label": "Source ledger",
+     "value": "34 live sources",
+     "sub": "17 screened & held · 10 newly surfaced"
+    },
+    {
+     "label": "Case files",
+     "value": "3 theft maps",
+     "sub": "FRONTLINE · Last Week Tonight · Vox Borders"
+    }
+   ],
+   "links": [
+    {
+     "href": "/production-almanac/story-architecture/",
+     "label": "Story"
+    },
+    {
+     "href": "/production-almanac/cold-open/",
+     "label": "Cold Open"
+    },
+    {
+     "href": "/production-almanac/distribution-algorithm/",
+     "label": "Distribution"
+    },
+    {
+     "href": "/production-almanac/bibliography/",
+     "label": "Sources"
+    }
+   ]
+  },
+  {
+   "href": "/screenwriting-and-film-production/",
+   "label": "Film School",
+   "cluster": "creative",
+   "color": "#2fc5b7",
+   "metric": "8 phases · 66 sections",
+   "updated": "2026-06-08",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "Blank page to final cut — the standing curriculum",
+   "stats": [
+    {
+     "label": "Syllabus",
+     "value": "8 phases · 66 sections",
+     "sub": "story foundations → industry knowledge"
+    },
+    {
+     "label": "Practice",
+     "value": "22 exercises · 5 capstones",
+     "sub": "from a 2-hr scene to a 4–8-week TV pilot"
+    }
+   ],
+   "links": [
+    {
+     "href": "/screenwriting-and-film-production/#phase-1",
+     "label": "Phase 1"
+    },
+    {
+     "href": "/screenwriting-and-film-production/#phase-8",
+     "label": "Capstones"
+    }
+   ]
+  },
+  {
+   "href": "/readwise-highlights/",
+   "label": "Readwise Shelf",
+   "cluster": "creative",
+   "color": "#f4b942",
+   "metric": "1,696 highlights · 165 sources",
+   "updated": "2026-04-16",
+   "dataThrough": "2026-04-16",
+   "cadenceDays": 45,
+   "tagline": "The source memory — shuffle deck over everything saved",
+   "stats": [
+    {
+     "label": "Shelves",
+     "value": "953 supp · 637 books",
+     "sub": "60 articles · 46 tweets"
+    },
+    {
+     "label": "Most-highlighted",
+     "value": "Harari · 157",
+     "sub": "Kissinger 140 close behind"
+    },
+    {
+     "label": "Cache",
+     "value": "79 days old",
+     "sub": "rerun data/readwise_loader.py"
+    }
+   ],
+   "series": [
+    {
+     "label": "dated highlights per month",
+     "unit": "highlights",
+     "points": [
+      [
+       "2024-04",
+       9
+      ],
+      [
+       "2024-05",
+       5
+      ],
+      [
+       "2024-06",
+       1
+      ],
+      [
+       "2024-07",
+       2
+      ],
+      [
+       "2024-08",
+       6
+      ],
+      [
+       "2024-09",
+       0
+      ],
+      [
+       "2024-10",
+       0
+      ],
+      [
+       "2024-11",
+       36
+      ],
+      [
+       "2024-12",
+       4
+      ],
+      [
+       "2025-01",
+       27
+      ],
+      [
+       "2025-02",
+       26
+      ],
+      [
+       "2025-03",
+       12
+      ],
+      [
+       "2025-04",
+       19
+      ],
+      [
+       "2025-05",
+       9
+      ],
+      [
+       "2025-06",
+       21
+      ],
+      [
+       "2025-07",
+       15
+      ],
+      [
+       "2025-08",
+       3
+      ],
+      [
+       "2025-09",
+       17
+      ],
+      [
+       "2025-10",
+       3
+      ],
+      [
+       "2025-11",
+       0
+      ],
+      [
+       "2025-12",
+       8
+      ],
+      [
+       "2026-01",
+       19
+      ],
+      [
+       "2026-02",
+       3
+      ],
+      [
+       "2026-03",
+       3
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/readwise-highlights/#quoteCard",
+     "label": "Shuffle deck"
+    }
+   ]
+  },
+  {
+   "href": "/the-color-bible/",
+   "label": "Color Bible",
+   "cluster": "creative",
+   "color": "#a78bfa",
+   "metric": "5 colors · 21 tags",
+   "updated": "2026-03-13",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "One color, one meaning — across the whole digital life",
+   "swatches": [
+    {
+     "hex": "#DC2626",
+     "name": "Hot",
+     "sub": "now"
+    },
+    {
+     "hex": "#D97706",
+     "name": "In Flight",
+     "sub": "started"
+    },
+    {
+     "hex": "#16A34A",
+     "name": "Done",
+     "sub": "shipped"
+    },
+    {
+     "hex": "#0077BC",
+     "name": "Waiting",
+     "sub": "blocked"
+    },
+    {
+     "hex": "#009866",
+     "name": "Reference",
+     "sub": "evergreen"
+    }
+   ],
+   "stats": [
+    {
+     "label": "Audit · Mar 14",
+     "value": "largely unapplied",
+     "sub": "zero files tagged Done or In Flight system-wide"
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-color-bible/#five-colors",
+     "label": "The Five"
+    },
+    {
+     "href": "/the-color-bible/#tags-master",
+     "label": "21 tags"
+    },
+    {
+     "href": "/the-color-bible/#implementation",
+     "label": "Audit"
+    }
+   ]
+  },
+  {
+   "href": "/notes/",
+   "label": "Notebook",
+   "cluster": "creative",
+   "color": "#94a3b8",
+   "metric": "embed unconfigured",
+   "updated": "2026-06-08",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "flag": "attention",
+   "tagline": "Notion window — currently showing the fallback panel",
+   "stats": [
+    {
+     "label": "Status",
+     "value": "Public URL needed",
+     "sub": "NOTION_NOTES_URL empty at notes/index.html:450"
+    },
+    {
+     "label": "Fix",
+     "value": "one line",
+     "sub": "paste the public Notion share URL and redeploy"
+    }
+   ],
+   "links": []
+  },
+  {
+   "href": "/the-workflow-wrench/",
+   "label": "Workflow Wrench",
+   "cluster": "systems",
+   "color": "#fb923c",
+   "metric": "8 parts · 31 chapters",
+   "updated": "2026-05-14",
+   "dataThrough": null,
+   "cadenceDays": null,
+   "tagline": "The n8n consulting manual — patterns, pricing, cadence",
+   "stats": [
+    {
+     "label": "Money frame",
+     "value": "$1.5K–15K setup",
+     "sub": "care $200–1.5K/mo · $120–250/hr"
+    },
+    {
+     "label": "Priced patterns",
+     "value": "5 sellable builds",
+     "sub": "lead routing → document processing"
+    },
+    {
+     "label": "Cadence",
+     "value": "90 days · 6 phases",
+     "sub": "first paid pilot lands weeks 9–10"
+    }
+   ],
+   "links": [
+    {
+     "href": "/the-workflow-wrench/#part-6-title",
+     "label": "Patterns"
+    },
+    {
+     "href": "/the-workflow-wrench/#reference",
+     "label": "Templates"
+    },
+    {
+     "href": "/the-workflow-wrench/#cadence",
+     "label": "90 days"
+    }
+   ]
+  },
+  {
+   "href": "/ai-intelligence/",
+   "label": "AI Intelligence",
+   "cluster": "systems",
+   "color": "#22d3ee",
+   "metric": "1,578 conversations",
+   "updated": "2026-04-20",
+   "dataThrough": "2026-03-31",
+   "cadenceDays": null,
+   "tagline": "ChatGPT vs Claude — the migration, mapped",
+   "stats": [
+    {
+     "label": "Corpus",
+     "value": "1,578 convos · 383K words",
+     "sub": "Jul 2024 – Mar 2026"
+    },
+    {
+     "label": "Crossover",
+     "value": "Feb 2026",
+     "sub": "GPT fell 83→17/mo · Claude hit 30"
+    },
+    {
+     "label": "Blindspot share",
+     "value": "361 convos · 23%",
+     "sub": "the most persistent creative thread"
+    },
+    {
+     "label": "Snapshot",
+     "value": "Mar 2026",
+     "sub": "one-time analysis, not a live feed"
+    }
+   ],
+   "series": [
+    {
+     "label": "ChatGPT / month",
+     "unit": "conversations",
+     "points": [
+      [
+       "2024-07",
+       7
+      ],
+      [
+       "2024-08",
+       13
+      ],
+      [
+       "2024-09",
+       45
+      ],
+      [
+       "2024-10",
+       54
+      ],
+      [
+       "2024-11",
+       66
+      ],
+      [
+       "2024-12",
+       40
+      ],
+      [
+       "2025-01",
+       43
+      ],
+      [
+       "2025-02",
+       49
+      ],
+      [
+       "2025-03",
+       59
+      ],
+      [
+       "2025-04",
+       66
+      ],
+      [
+       "2025-05",
+       43
+      ],
+      [
+       "2025-06",
+       106
+      ],
+      [
+       "2025-07",
+       54
+      ],
+      [
+       "2025-08",
+       58
+      ],
+      [
+       "2025-09",
+       90
+      ],
+      [
+       "2025-10",
+       83
+      ],
+      [
+       "2025-11",
+       74
+      ],
+      [
+       "2025-12",
+       51
+      ],
+      [
+       "2026-01",
+       51
+      ],
+      [
+       "2026-02",
+       32
+      ],
+      [
+       "2026-03",
+       17
+      ]
+     ]
+    },
+    {
+     "label": "Claude / month",
+     "unit": "conversations",
+     "points": [
+      [
+       "2024-11",
+       3
+      ],
+      [
+       "2025-05",
+       1
+      ],
+      [
+       "2025-06",
+       4
+      ],
+      [
+       "2025-11",
+       13
+      ],
+      [
+       "2025-12",
+       21
+      ],
+      [
+       "2026-01",
+       15
+      ],
+      [
+       "2026-02",
+       30
+      ],
+      [
+       "2026-03",
+       17
+      ]
+     ]
+    }
+   ],
+   "links": [
+    {
+     "href": "/ai-intelligence/#section-merged",
+     "label": "Merged report"
+    },
+    {
+     "href": "/ai-intelligence/#merged-prescription",
+     "label": "Prescription"
+    }
+   ]
+  },
+  {
+   "href": "/digital-ecosystem-refresh/",
+   "label": "Digital Ecosystem",
+   "cluster": "systems",
+   "color": "#69d6e4",
+   "metric": "V9 · V10 overdue",
+   "updated": "2026-03-11",
+   "dataThrough": "2026-03-11",
+   "cadenceDays": 90,
+   "tagline": "Quarterly maintenance — the only room whose value is a deadline",
+   "stats": [
+    {
+     "label": "Pass",
+     "value": "V9 · Mar 11",
+     "sub": "MAINTAIN phase after 9 cleanup sessions"
+    },
+    {
+     "label": "V10 queue",
+     "value": "5 items",
+     "sub": "incl. rebuild financial-consolidation.html"
+    },
+    {
+     "label": "Risks",
+     "value": "1 red · 1 yellow · 2 watch",
+     "sub": "iCloud 0-byte incident tops the list"
+    },
+    {
+     "label": "Hygiene",
+     "value": "0 loose · 1 download",
+     "sub": "Documents root still clean"
+    }
+   ],
+   "links": []
+  }
+ ],
+ "annex": [
+  {
+   "href": "/insult-rolodex/",
+   "label": "Insult Rolodex",
+   "metric": "202 burns · 7 categories",
+   "color": "#f472b6"
+  },
+  {
+   "href": "/wellness-analysis/",
+   "label": "Wellness Analysis",
+   "metric": "recovery 53 · 256 days tracked",
+   "color": "#4ade80"
+  },
+  {
+   "href": "/the-ledger/#view-stephen",
+   "label": "Stephen ledger",
+   "metric": "$7,375 in · net $7,200",
+   "color": "#d4a052"
+  }
+ ],
+ "quote_stats": {
+  "highlights": 1696,
+  "sources": 165,
+  "cache_date": "2026-04-16"
+ },
+ "quotes": [
+  {
+   "text": "We learn from history that we do not learn from history.",
+   "author": "Hegel",
+   "source": "Lessons From History"
+  },
+  {
+   "text": "As F. Scott Fitzgerald wrote in “The Great Gatsby,” rich people are careless. They break things.",
+   "author": "David Brooks",
+   "source": "Opinion | Trump Is No Populist - The New York Times"
+  },
+  {
+   "text": "Money is accordingly a system of mutual trust, and not just any system of mutual trust: money is the most universal and most efficient system of mutual trust ever devised.",
+   "author": "Yuval Noah Harari",
+   "source": "Sapiens"
+  },
+  {
+   "text": "Property is a prerequisite for long-term inequality.",
+   "author": "Yuval Noah Harari",
+   "source": "21 Lessons for the 21st Century"
+  },
+  {
+   "text": "Humanity has advanced, when it has advanced, not because it has been sober, responsible, and cautious, but because it has been playful, rebellious, and immature.",
+   "author": "Tom Robbins",
+   "source": "Still Life With Woodpecker"
+  },
+  {
+   "text": "Personally, I am quite comfortable with chemicals, anywhere in the universe. My favorite stars, as well as my best friends, are all made of them.",
+   "author": "Neil deGrasse Tyson",
+   "source": "Astrophysics for People in a Hurry"
+  },
+  {
+   "text": "“The people who love you are the only ones that count,” he said to me. Then, tearing up, he added, “Don’t waste your time on anyone else.” And then, wonder of wonders, he gave me a hug.",
+   "author": "Kara Swisher",
+   "source": "Burn Book"
+  },
+  {
+   "text": "So the conventional wisdom in Galbraith’s view must be simple, convenient, comfortable, and comforting—though not necessarily true.",
+   "author": "Steven D. Levitt and Stephen J. Dubner",
+   "source": "Freakonomics"
+  },
+  {
+   "text": "I cure paralysis because I’m tired of watching skateboarders race down the wheelchair ramps, and I cure muscular dystrophy just to get rid of the Jerry Lewis telethon.",
+   "author": "David Sedaris",
+   "source": "Me Talk Pretty One Day"
+  },
+  {
+   "text": "As the economist Abba Lerner noted in the 1970s, “Economics has gained the title Queen of the Social Sciences by choosing solved political problems as its domain.”",
+   "author": "Daron Acemoglu",
+   "source": "Why Nations Fail"
+  },
+  {
+   "text": "In the thought world there’s always something you can do to control the experience.",
+   "author": "Singer, Michael A.",
+   "source": "The Untethered Soul"
+  },
+  {
+   "text": "Plato: comedy comes, essentially, from a lack of self-knowledge.",
+   "author": "Jeremy Dauber",
+   "source": "Jewish Comedy"
+  },
+  {
+   "text": "Apologies for the late response, instead of spending three minutes answering your email I ignored it and felt anxious for two weeks",
+   "author": "@NC_Renic on Twitter",
+   "source": "Tweets From Neil Renic"
+  },
+  {
+   "text": "Andrew Scott hot priest. Adam Brody hot rabbi. Is the world ready for Riz Ahmed hot imam",
+   "author": "@hannnahmmarie on Twitter",
+   "source": "Tweets From Hannah Mullen"
+  }
+ ]
 }
