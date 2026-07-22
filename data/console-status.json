@@ -1,6 +1,6 @@
 {
  "version": 2,
- "generated": "2026-07-04",
+ "generated": "2026-07-22",
  "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
  "attention": [
   {
@@ -43,10 +43,10 @@
  "kpis": [
   {
    "label": "Revolving debt",
-   "value": "$12,545",
-   "delta": "−$756 MoM",
-   "tone": "good",
-   "note": "June close · the 9-month arc is finally bending down",
+   "value": "$12,822",
+   "delta": "+$277 MoM",
+   "tone": "warn",
+   "note": "July close (Amazon only) · rug purchase reversed the trend",
    "color": "#d4a052",
    "href": "/the-ledger/",
    "spark": [
@@ -58,15 +58,16 @@
     14112.98,
     13310.73,
     13301.04,
-    12544.91
+    12544.91,
+    12821.78
    ]
   },
   {
    "label": "Interest bleed",
    "value": "$289",
-   "delta": "lowest of the run",
-   "tone": "good",
-   "note": "June · $2,841 burned since Oct",
+   "delta": "+$48 Jul partial",
+   "tone": "warn",
+   "note": "Jun full-month · Jul has Amazon only ($48) so far · $2,890 burned since Oct",
    "color": "#fb923c",
    "href": "/the-ledger/#view-interest",
    "spark": [
@@ -205,21 +206,21 @@
    "label": "The Ledger",
    "cluster": "ops",
    "color": "#d4a052",
-   "metric": "$12,544.91 revolving",
-   "updated": "2026-07-02",
-   "dataThrough": "2026-06-30",
+   "metric": "$12,821.78 revolving",
+   "updated": "2026-07-22",
+   "dataThrough": "2026-07-05",
    "cadenceDays": 32,
    "tagline": "8 cards · avalanche order · Stephen ledger",
    "stats": [
     {
-     "label": "Attack next",
-     "value": "Apple Card · $4,987.85",
-     "sub": "25.49% APR · $115 interest in June, broke under $5K"
+     "label": "July story",
+     "value": "Amazon +$277",
+     "sub": "$504 rug purchase (0% installment) pushed balance from $2,495 to $2,772"
     },
     {
-     "label": "Kill shots",
-     "value": "$29.78 + $14.87",
-     "sub": "US Bank Ralphs + PayPal Credit — two statements gone"
+     "label": "Attack next",
+     "value": "Apple Card · $4,987.85",
+     "sub": "25.49% APR · largest exposure, still carrying Jun balance"
     },
     {
      "label": "Over limit",
@@ -272,6 +273,10 @@
       [
        "2026-06",
        12544.91
+      ],
+      [
+       "2026-07",
+       12821.78
       ]
      ]
     }

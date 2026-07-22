@@ -690,13 +690,13 @@ a { color: inherit; }
    offline / on file:// — the fetched copy wins when it loads. */
 var FALLBACK = {
  "version": 2,
- "generated": "2026-07-04",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
+ "generated": "2026-07-22",
+ "note": "Schema v2 \u2014 everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
  "attention": [
   {
    "severity": "red",
    "label": "Capital One 0623 is over its limit",
-   "detail": "$2,145.21 on a $2,000 line, $0 available — freeze it; it gained $1,589 this period",
+   "detail": "$2,145.21 on a $2,000 line, $0 available \u2014 freeze it; it gained $1,589 this period",
    "href": "/the-ledger/#view-accounts"
   },
   {
@@ -708,35 +708,35 @@ var FALLBACK = {
   {
    "severity": "amber",
    "label": "Health exports are stalling",
-   "detail": "Resting HR / HRV stuck at May 25 (40d), weight at Apr 23 (72d) — open Health Auto Export to un-stall the feed",
+   "detail": "Resting HR / HRV stuck at May 25 (40d), weight at Apr 23 (72d) \u2014 open Health Auto Export to un-stall the feed",
    "href": "/wellness-dashboard/"
   },
   {
    "severity": "amber",
    "label": "Readwise cache is 79 days old",
-   "detail": "Newest highlight Mar 19 — rerun data/readwise_loader.py",
+   "detail": "Newest highlight Mar 19 \u2014 rerun data/readwise_loader.py",
    "href": "/readwise-highlights/"
   },
   {
    "severity": "info",
    "label": "Two cards ready to kill",
-   "detail": "US Bank Ralphs $29.78 + PayPal Credit $14.87 — one payment each and two statements disappear",
+   "detail": "US Bank Ralphs $29.78 + PayPal Credit $14.87 \u2014 one payment each and two statements disappear",
    "href": "/the-ledger/#view-accounts"
   },
   {
    "severity": "info",
    "label": "Notebook embed unconfigured",
-   "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) — paste the public Notion URL and the room comes alive",
+   "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) \u2014 paste the public Notion URL and the room comes alive",
    "href": "/notes/"
   }
  ],
  "kpis": [
   {
    "label": "Revolving debt",
-   "value": "$12,545",
-   "delta": "−$756 MoM",
-   "tone": "good",
-   "note": "June close · the 9-month arc is finally bending down",
+   "value": "$12,822",
+   "delta": "+$277 MoM",
+   "tone": "warn",
+   "note": "July close (Amazon only) \u00b7 rug purchase reversed the trend",
    "color": "#d4a052",
    "href": "/the-ledger/",
    "spark": [
@@ -748,15 +748,16 @@ var FALLBACK = {
     14112.98,
     13310.73,
     13301.04,
-    12544.91
+    12544.91,
+    12821.78
    ]
   },
   {
    "label": "Interest bleed",
    "value": "$289",
-   "delta": "lowest of the run",
-   "tone": "good",
-   "note": "June · $2,841 burned since Oct",
+   "delta": "+$48 Jul partial",
+   "tone": "warn",
+   "note": "Jun full-month \u00b7 Jul has Amazon only ($48) so far \u00b7 $2,890 burned since Oct",
    "color": "#fb923c",
    "href": "/the-ledger/#view-interest",
    "spark": [
@@ -776,7 +777,7 @@ var FALLBACK = {
    "value": "1,049",
    "delta": "+5 Jul",
    "tone": "good",
-   "note": "15 playlists · top 3 hold 78.6%",
+   "note": "15 playlists \u00b7 top 3 hold 78.6%",
    "color": "#8c7bff",
    "href": "/playlist-tracker/",
    "spark": [
@@ -832,7 +833,7 @@ var FALLBACK = {
    "value": "1,696",
    "delta": "cache 79d old",
    "tone": "warn",
-   "note": "165 sources · newest highlight Mar 19",
+   "note": "165 sources \u00b7 newest highlight Mar 19",
    "color": "#f4b942",
    "href": "/readwise-highlights/",
    "spark": [
@@ -867,7 +868,7 @@ var FALLBACK = {
    "value": "v9",
    "delta": "15 chapters",
    "tone": "flat",
-   "note": "76 PDFs folded in across v6–v9 on Apr 24",
+   "note": "76 PDFs folded in across v6\u2013v9 on Apr 24",
    "color": "#f0524d",
    "href": "/the-blindspot-binder/"
   }
@@ -876,7 +877,7 @@ var FALLBACK = {
   {
    "key": "ops",
    "title": "Life Ops",
-   "blurb": "Money, body, catalog — the numbers that move whether you look or not."
+   "blurb": "Money, body, catalog \u2014 the numbers that move whether you look or not."
   },
   {
    "key": "creative",
@@ -895,31 +896,31 @@ var FALLBACK = {
    "label": "The Ledger",
    "cluster": "ops",
    "color": "#d4a052",
-   "metric": "$12,544.91 revolving",
-   "updated": "2026-07-02",
-   "dataThrough": "2026-06-30",
+   "metric": "$12,821.78 revolving",
+   "updated": "2026-07-22",
+   "dataThrough": "2026-07-05",
    "cadenceDays": 32,
-   "tagline": "8 cards · avalanche order · Stephen ledger",
+   "tagline": "8 cards \u00b7 avalanche order \u00b7 Stephen ledger",
    "stats": [
     {
-     "label": "Attack next",
-     "value": "Apple Card · $4,987.85",
-     "sub": "25.49% APR · $115 interest in June, broke under $5K"
+     "label": "July story",
+     "value": "Amazon +$277",
+     "sub": "$504 rug purchase (0% installment) pushed balance from $2,495 to $2,772"
     },
     {
-     "label": "Kill shots",
-     "value": "$29.78 + $14.87",
-     "sub": "US Bank Ralphs + PayPal Credit — two statements gone"
+     "label": "Attack next",
+     "value": "Apple Card \u00b7 $4,987.85",
+     "sub": "25.49% APR \u00b7 largest exposure, still carrying Jun balance"
     },
     {
      "label": "Over limit",
-     "value": "CapOne 0623 · $2,145",
-     "sub": "$2,000 limit · $0 available · freeze"
+     "value": "CapOne 0623 \u00b7 $2,145",
+     "sub": "$2,000 limit \u00b7 $0 available \u00b7 freeze"
     },
     {
      "label": "Stephen",
      "value": "net $7,200 in",
-     "sub": "7 Zelle payments Mar–Jun · $175 returned"
+     "sub": "7 Zelle payments Mar\u2013Jun \u00b7 $175 returned"
     }
    ],
    "series": [
@@ -962,6 +963,10 @@ var FALLBACK = {
       [
        "2026-06",
        12544.91
+      ],
+      [
+       "2026-07",
+       12821.78
       ]
      ]
     }
@@ -990,31 +995,31 @@ var FALLBACK = {
    "label": "Wellness",
    "cluster": "ops",
    "color": "#4ade80",
-   "metric": "recovery 53 · Under Pressure",
+   "metric": "recovery 53 \u00b7 Under Pressure",
    "updated": "2026-07-02",
    "dataThrough": "2026-06-21",
    "cadenceDays": 14,
-   "tagline": "Apple Health + RingConn — each metric ages on its own clock",
+   "tagline": "Apple Health + RingConn \u2014 each metric ages on its own clock",
    "stats": [
     {
-     "label": "Sleep · last on record",
+     "label": "Sleep \u00b7 last on record",
      "value": "6:43",
-     "sub": "Jun 20 · 7-night avg 8:13 across gaps"
+     "sub": "Jun 20 \u00b7 7-night avg 8:13 across gaps"
     },
     {
      "label": "Steps",
      "value": "3,897",
-     "sub": "Jun 21 · 7-day avg 4,793"
+     "sub": "Jun 21 \u00b7 7-day avg 4,793"
     },
     {
      "label": "Resting HR",
      "value": "78 bpm avg",
-     "sub": "stuck at May 25 · last single reading 84"
+     "sub": "stuck at May 25 \u00b7 last single reading 84"
     },
     {
      "label": "Weight",
      "value": "180.8 lb",
-     "sub": "Apr 23 · scale silent 72 days"
+     "sub": "Apr 23 \u00b7 scale silent 72 days"
     }
    ],
    "series": [
@@ -1081,31 +1086,31 @@ var FALLBACK = {
    "label": "Playlist Tracker",
    "cluster": "ops",
    "color": "#8c7bff",
-   "metric": "1,049 followers · +5 Jul",
+   "metric": "1,049 followers \u00b7 +5 Jul",
    "updated": "2026-07-02",
    "dataThrough": "2026-07-01",
    "cadenceDays": 32,
-   "tagline": "15 playlists · 26 monthly snapshots since Apr 2024",
+   "tagline": "15 playlists \u00b7 26 monthly snapshots since Apr 2024",
    "stats": [
     {
      "label": "Anchor",
-     "value": "Monday's Mixtape · 510",
+     "value": "Monday's Mixtape \u00b7 510",
      "sub": "48.6% of the whole portfolio"
     },
     {
      "label": "Growth engine",
-     "value": "Groove · 204",
-     "sub": "+68 of the last 154 gained · 6-month streak"
+     "value": "Groove \u00b7 204",
+     "sub": "+68 of the last 154 gained \u00b7 6-month streak"
     },
     {
      "label": "Velocity",
-     "value": "cooling · +19 in 3 mo",
-     "sub": "vs +105 the three before — rebrand spike fading"
+     "value": "cooling \u00b7 +19 in 3 mo",
+     "sub": "vs +105 the three before \u2014 rebrand spike fading"
     },
     {
      "label": "Asleep",
      "value": "7 lanes flat 3+ months",
-     "sub": "Ancora quiet 5 mo · Masterpiece 17 mo"
+     "sub": "Ancora quiet 5 mo \u00b7 Masterpiece 17 mo"
     }
    ],
    "series": [
@@ -1219,7 +1224,7 @@ var FALLBACK = {
    "label": "Blindspot Binder",
    "cluster": "creative",
    "color": "#f0524d",
-   "metric": "v9 · 15 chapters",
+   "metric": "v9 \u00b7 15 chapters",
    "updated": "2026-04-24",
    "dataThrough": null,
    "cadenceDays": null,
@@ -1227,13 +1232,13 @@ var FALLBACK = {
    "stats": [
     {
      "label": "Version",
-     "value": "v9 · Apr 2026",
+     "value": "v9 \u00b7 Apr 2026",
      "sub": "four ingest runs closed the 76-PDF sweep on Apr 24"
     },
     {
      "label": "Body",
      "value": "15 chapters + appendix",
-     "sub": "Architecture · Performance & Production · Publishing, Risk & Revenue"
+     "sub": "Architecture \u00b7 Performance & Production \u00b7 Publishing, Risk & Revenue"
     },
     {
      "label": "Last ingest",
@@ -1265,26 +1270,26 @@ var FALLBACK = {
    "label": "Production Almanac",
    "cluster": "creative",
    "color": "#f4c51d",
-   "metric": "9 chapters · Build Ready",
+   "metric": "9 chapters \u00b7 Build Ready",
    "updated": "2026-05-04",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "Long-form craft manual — Shape, Hook, Build, Ship",
+   "tagline": "Long-form craft manual \u2014 Shape, Hook, Build, Ship",
    "stats": [
     {
      "label": "Chapters",
-     "value": "9 · all Depth 3",
+     "value": "9 \u00b7 all Depth 3",
      "sub": "75 min total read"
     },
     {
      "label": "Source ledger",
      "value": "34 live sources",
-     "sub": "17 screened & held · 10 newly surfaced"
+     "sub": "17 screened & held \u00b7 10 newly surfaced"
     },
     {
      "label": "Case files",
      "value": "3 theft maps",
-     "sub": "FRONTLINE · Last Week Tonight · Vox Borders"
+     "sub": "FRONTLINE \u00b7 Last Week Tonight \u00b7 Vox Borders"
     }
    ],
    "links": [
@@ -1311,21 +1316,21 @@ var FALLBACK = {
    "label": "Film School",
    "cluster": "creative",
    "color": "#2fc5b7",
-   "metric": "8 phases · 66 sections",
+   "metric": "8 phases \u00b7 66 sections",
    "updated": "2026-06-08",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "Blank page to final cut — the standing curriculum",
+   "tagline": "Blank page to final cut \u2014 the standing curriculum",
    "stats": [
     {
      "label": "Syllabus",
-     "value": "8 phases · 66 sections",
-     "sub": "story foundations → industry knowledge"
+     "value": "8 phases \u00b7 66 sections",
+     "sub": "story foundations \u2192 industry knowledge"
     },
     {
      "label": "Practice",
-     "value": "22 exercises · 5 capstones",
-     "sub": "from a 2-hr scene to a 4–8-week TV pilot"
+     "value": "22 exercises \u00b7 5 capstones",
+     "sub": "from a 2-hr scene to a 4\u20138-week TV pilot"
     }
    ],
    "links": [
@@ -1344,20 +1349,20 @@ var FALLBACK = {
    "label": "Readwise Shelf",
    "cluster": "creative",
    "color": "#f4b942",
-   "metric": "1,696 highlights · 165 sources",
+   "metric": "1,696 highlights \u00b7 165 sources",
    "updated": "2026-04-16",
    "dataThrough": "2026-04-16",
    "cadenceDays": 45,
-   "tagline": "The source memory — shuffle deck over everything saved",
+   "tagline": "The source memory \u2014 shuffle deck over everything saved",
    "stats": [
     {
      "label": "Shelves",
-     "value": "953 supp · 637 books",
-     "sub": "60 articles · 46 tweets"
+     "value": "953 supp \u00b7 637 books",
+     "sub": "60 articles \u00b7 46 tweets"
     },
     {
      "label": "Most-highlighted",
-     "value": "Harari · 157",
+     "value": "Harari \u00b7 157",
      "sub": "Kissinger 140 close behind"
     },
     {
@@ -1482,11 +1487,11 @@ var FALLBACK = {
    "label": "Color Bible",
    "cluster": "creative",
    "color": "#a78bfa",
-   "metric": "5 colors · 21 tags",
+   "metric": "5 colors \u00b7 21 tags",
    "updated": "2026-03-13",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "One color, one meaning — across the whole digital life",
+   "tagline": "One color, one meaning \u2014 across the whole digital life",
    "swatches": [
     {
      "hex": "#DC2626",
@@ -1516,7 +1521,7 @@ var FALLBACK = {
    ],
    "stats": [
     {
-     "label": "Audit · Mar 14",
+     "label": "Audit \u00b7 Mar 14",
      "value": "largely unapplied",
      "sub": "zero files tagged Done or In Flight system-wide"
     }
@@ -1546,7 +1551,7 @@ var FALLBACK = {
    "dataThrough": null,
    "cadenceDays": null,
    "flag": "attention",
-   "tagline": "Notion window — currently showing the fallback panel",
+   "tagline": "Notion window \u2014 currently showing the fallback panel",
    "stats": [
     {
      "label": "Status",
@@ -1566,26 +1571,26 @@ var FALLBACK = {
    "label": "Workflow Wrench",
    "cluster": "systems",
    "color": "#fb923c",
-   "metric": "8 parts · 31 chapters",
+   "metric": "8 parts \u00b7 31 chapters",
    "updated": "2026-05-14",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "The n8n consulting manual — patterns, pricing, cadence",
+   "tagline": "The n8n consulting manual \u2014 patterns, pricing, cadence",
    "stats": [
     {
      "label": "Money frame",
-     "value": "$1.5K–15K setup",
-     "sub": "care $200–1.5K/mo · $120–250/hr"
+     "value": "$1.5K\u201315K setup",
+     "sub": "care $200\u20131.5K/mo \u00b7 $120\u2013250/hr"
     },
     {
      "label": "Priced patterns",
      "value": "5 sellable builds",
-     "sub": "lead routing → document processing"
+     "sub": "lead routing \u2192 document processing"
     },
     {
      "label": "Cadence",
-     "value": "90 days · 6 phases",
-     "sub": "first paid pilot lands weeks 9–10"
+     "value": "90 days \u00b7 6 phases",
+     "sub": "first paid pilot lands weeks 9\u201310"
     }
    ],
    "links": [
@@ -1612,21 +1617,21 @@ var FALLBACK = {
    "updated": "2026-04-20",
    "dataThrough": "2026-03-31",
    "cadenceDays": null,
-   "tagline": "ChatGPT vs Claude — the migration, mapped",
+   "tagline": "ChatGPT vs Claude \u2014 the migration, mapped",
    "stats": [
     {
      "label": "Corpus",
-     "value": "1,578 convos · 383K words",
-     "sub": "Jul 2024 – Mar 2026"
+     "value": "1,578 convos \u00b7 383K words",
+     "sub": "Jul 2024 \u2013 Mar 2026"
     },
     {
      "label": "Crossover",
      "value": "Feb 2026",
-     "sub": "GPT fell 83→17/mo · Claude hit 30"
+     "sub": "GPT fell 83\u219217/mo \u00b7 Claude hit 30"
     },
     {
      "label": "Blindspot share",
-     "value": "361 convos · 23%",
+     "value": "361 convos \u00b7 23%",
      "sub": "the most persistent creative thread"
     },
     {
@@ -1781,15 +1786,15 @@ var FALLBACK = {
    "label": "Digital Ecosystem",
    "cluster": "systems",
    "color": "#69d6e4",
-   "metric": "V9 · V10 overdue",
+   "metric": "V9 \u00b7 V10 overdue",
    "updated": "2026-03-11",
    "dataThrough": "2026-03-11",
    "cadenceDays": 90,
-   "tagline": "Quarterly maintenance — the only room whose value is a deadline",
+   "tagline": "Quarterly maintenance \u2014 the only room whose value is a deadline",
    "stats": [
     {
      "label": "Pass",
-     "value": "V9 · Mar 11",
+     "value": "V9 \u00b7 Mar 11",
      "sub": "MAINTAIN phase after 9 cleanup sessions"
     },
     {
@@ -1799,12 +1804,12 @@ var FALLBACK = {
     },
     {
      "label": "Risks",
-     "value": "1 red · 1 yellow · 2 watch",
+     "value": "1 red \u00b7 1 yellow \u00b7 2 watch",
      "sub": "iCloud 0-byte incident tops the list"
     },
     {
      "label": "Hygiene",
-     "value": "0 loose · 1 download",
+     "value": "0 loose \u00b7 1 download",
      "sub": "Documents root still clean"
     }
    ],
@@ -1815,19 +1820,19 @@ var FALLBACK = {
   {
    "href": "/insult-rolodex/",
    "label": "Insult Rolodex",
-   "metric": "202 burns · 7 categories",
+   "metric": "202 burns \u00b7 7 categories",
    "color": "#f472b6"
   },
   {
    "href": "/wellness-analysis/",
    "label": "Wellness Analysis",
-   "metric": "recovery 53 · 256 days tracked",
+   "metric": "recovery 53 \u00b7 256 days tracked",
    "color": "#4ade80"
   },
   {
    "href": "/the-ledger/#view-stephen",
    "label": "Stephen ledger",
-   "metric": "$7,375 in · net $7,200",
+   "metric": "$7,375 in \u00b7 net $7,200",
    "color": "#d4a052"
   }
  ],
@@ -1843,7 +1848,7 @@ var FALLBACK = {
    "source": "Lessons From History"
   },
   {
-   "text": "As F. Scott Fitzgerald wrote in “The Great Gatsby,” rich people are careless. They break things.",
+   "text": "As F. Scott Fitzgerald wrote in \u201cThe Great Gatsby,\u201d rich people are careless. They break things.",
    "author": "David Brooks",
    "source": "Opinion | Trump Is No Populist - The New York Times"
   },
@@ -1868,27 +1873,27 @@ var FALLBACK = {
    "source": "Astrophysics for People in a Hurry"
   },
   {
-   "text": "“The people who love you are the only ones that count,” he said to me. Then, tearing up, he added, “Don’t waste your time on anyone else.” And then, wonder of wonders, he gave me a hug.",
+   "text": "\u201cThe people who love you are the only ones that count,\u201d he said to me. Then, tearing up, he added, \u201cDon\u2019t waste your time on anyone else.\u201d And then, wonder of wonders, he gave me a hug.",
    "author": "Kara Swisher",
    "source": "Burn Book"
   },
   {
-   "text": "So the conventional wisdom in Galbraith’s view must be simple, convenient, comfortable, and comforting—though not necessarily true.",
+   "text": "So the conventional wisdom in Galbraith\u2019s view must be simple, convenient, comfortable, and comforting\u2014though not necessarily true.",
    "author": "Steven D. Levitt and Stephen J. Dubner",
    "source": "Freakonomics"
   },
   {
-   "text": "I cure paralysis because I’m tired of watching skateboarders race down the wheelchair ramps, and I cure muscular dystrophy just to get rid of the Jerry Lewis telethon.",
+   "text": "I cure paralysis because I\u2019m tired of watching skateboarders race down the wheelchair ramps, and I cure muscular dystrophy just to get rid of the Jerry Lewis telethon.",
    "author": "David Sedaris",
    "source": "Me Talk Pretty One Day"
   },
   {
-   "text": "As the economist Abba Lerner noted in the 1970s, “Economics has gained the title Queen of the Social Sciences by choosing solved political problems as its domain.”",
+   "text": "As the economist Abba Lerner noted in the 1970s, \u201cEconomics has gained the title Queen of the Social Sciences by choosing solved political problems as its domain.\u201d",
    "author": "Daron Acemoglu",
    "source": "Why Nations Fail"
   },
   {
-   "text": "In the thought world there’s always something you can do to control the experience.",
+   "text": "In the thought world there\u2019s always something you can do to control the experience.",
    "author": "Singer, Michael A.",
    "source": "The Untethered Soul"
   },
