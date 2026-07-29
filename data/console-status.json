@@ -1,12 +1,18 @@
 {
  "version": 2,
- "generated": "2026-07-22",
+ "generated": "2026-07-29",
  "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
  "attention": [
   {
-   "severity": "red",
-   "label": "Capital One 0623 is over its limit",
-   "detail": "$2,145.21 on a $2,000 line, $0 available — freeze it; it gained $1,589 this period",
+   "severity": "amber",
+   "label": "PayPal Credit promo clock is running",
+   "detail": "$1,090 Austrian Air ticket on deferred interest — clear it by 02/10/27 (~$182/mo) or 29.64% APR applies retroactively",
+   "href": "/the-ledger/#view-interest"
+  },
+  {
+   "severity": "amber",
+   "label": "Second bounced ACH on Capital One 0623",
+   "detail": "$429 payment returned 07/08, second returned ACH in two months — verify the funding account behind autopay",
    "href": "/the-ledger/#view-accounts"
   },
   {
@@ -29,45 +35,45 @@
   },
   {
    "severity": "info",
-   "label": "Two cards ready to kill",
-   "detail": "US Bank Ralphs $29.78 + PayPal Credit $14.87 — one payment each and two statements disappear",
-   "href": "/the-ledger/#view-accounts"
-  },
-  {
-   "severity": "info",
    "label": "Notebook embed unconfigured",
    "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) — paste the public Notion URL and the room comes alive",
    "href": "/notes/"
+  },
+  {
+   "severity": "info",
+   "label": "First card killed",
+   "detail": "US Bank Ralphs closed July at $0.00 — Capital One 4540 is $38.65 from being the second",
+   "href": "/the-ledger/#view-accounts"
   }
  ],
  "kpis": [
   {
    "label": "Revolving debt",
-   "value": "$12,822",
-   "delta": "+$277 MoM",
-   "tone": "warn",
-   "note": "July close (Amazon only) · rug purchase reversed the trend",
+   "value": "$12,285",
+   "delta": "−$260 MoM",
+   "tone": "good",
+   "note": "July close · 6 of 8 cards reported · first card killed",
    "color": "#d4a052",
    "href": "/the-ledger/",
    "spark": [
     14437.9,
     15256.52,
     14151.7,
-    14419.82,
+    14416.3,
     13530.41,
     14112.98,
     13310.73,
-    13301.04,
+    13316.74,
     12544.91,
-    12821.78
+    12284.57
    ]
   },
   {
    "label": "Interest bleed",
-   "value": "$289",
-   "delta": "+$48 Jul partial",
-   "tone": "warn",
-   "note": "Jun full-month · Jul has Amazon only ($48) so far · $2,890 burned since Oct",
+   "value": "$138",
+   "delta": "Jul partial · Apple pending",
+   "tone": "good",
+   "note": "6 of 8 closed · $2,995 burned since Oct",
    "color": "#fb923c",
    "href": "/the-ledger/#view-interest",
    "spark": [
@@ -206,31 +212,31 @@
    "label": "The Ledger",
    "cluster": "ops",
    "color": "#d4a052",
-   "metric": "$12,821.78 revolving",
-   "updated": "2026-07-22",
-   "dataThrough": "2026-07-05",
+   "metric": "$12,284.57 revolving",
+   "updated": "2026-07-29",
+   "dataThrough": "2026-07-23",
    "cadenceDays": 32,
    "tagline": "8 cards · avalanche order · Stephen ledger",
    "stats": [
     {
-     "label": "July story",
-     "value": "Amazon +$277",
-     "sub": "$504 rug purchase (0% installment) pushed balance from $2,495 to $2,772"
+     "label": "First kill",
+     "value": "US Bank · $0.00",
+     "sub": "0623 crisis also over: $2,145 → $1,245, back under its limit"
+    },
+    {
+     "label": "Promo clock",
+     "value": "$1,090 by 02/10/27",
+     "sub": "Austrian Air on PayPal Credit deferred interest — ~$182/mo or 29.64% retroactive"
     },
     {
      "label": "Attack next",
      "value": "Apple Card · $4,987.85",
-     "sub": "25.49% APR · largest exposure, still carrying Jun balance"
-    },
-    {
-     "label": "Over limit",
-     "value": "CapOne 0623 · $2,145",
-     "sub": "$2,000 limit · $0 available · freeze"
+     "sub": "25.49% APR · largest exposure · July statement pending"
     },
     {
      "label": "Stephen",
-     "value": "net $7,200 in",
-     "sub": "7 Zelle payments Mar–Jun · $175 returned"
+     "value": "net $9,900 in",
+     "sub": "8 Zelle payments Mar–Jul · July's $2,700 traced to rent"
     }
    ],
    "series": [
@@ -252,7 +258,7 @@
       ],
       [
        "2026-01",
-       14419.82
+       14416.3
       ],
       [
        "2026-02",
@@ -268,7 +274,7 @@
       ],
       [
        "2026-05",
-       13301.04
+       13316.74
       ],
       [
        "2026-06",
@@ -276,7 +282,7 @@
       ],
       [
        "2026-07",
-       12821.78
+       12284.57
       ]
      ]
     }
@@ -1142,7 +1148,7 @@
   {
    "href": "/the-ledger/#view-stephen",
    "label": "Stephen ledger",
-   "metric": "$7,375 in · net $7,200",
+   "metric": "$10,075 in · net $9,900",
    "color": "#d4a052"
   }
  ],
