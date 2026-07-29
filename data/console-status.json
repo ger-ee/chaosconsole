@@ -216,7 +216,7 @@
    "updated": "2026-07-29",
    "dataThrough": "2026-07-23",
    "cadenceDays": 32,
-   "tagline": "8 cards · avalanche order · Stephen ledger",
+   "tagline": "8 cards · avalanche order · payoff simulator · Stephen ledger",
    "stats": [
     {
      "label": "First kill",
@@ -288,6 +288,10 @@
     }
    ],
    "links": [
+    {
+     "href": "/the-ledger/#view-lab",
+     "label": "Payoff Lab"
+    },
     {
      "href": "/the-ledger/#view-accounts",
      "label": "The Attack"
