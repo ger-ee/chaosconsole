@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Hearing Room | Chaos Console</title>
+<meta name="description" content="Sixteen-day operating board: counsel selection, call sheet, scripts, procedural deadlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+@font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrains-mono-subset.ttf") format("truetype");font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:"Archivo Black";src:url("/fonts/archivo-black-subset.ttf") format("truetype");font-style:normal;font-weight:900;font-display:swap}
+
+:root{
+  --bg:#07070a;
+  --bg-soft:#0d0d12;
+  --panel:rgba(17,17,23,0.86);
+  --panel-solid:#141419;
+  --panel-lift:rgba(26,26,34,0.94);
+  --border:rgba(248,244,232,0.10);
+  --border-strong:rgba(248,244,232,0.22);
+  --text:#f8f4e8;
+  --muted:#a8a29a;
+  --subtle:#75716b;
+  --accent:#f0524d;
+  --amber:#f4c51d;
+  --green:#82ca55;
+  --blue:#36a3df;
+  --teal:#2fc5b7;
+  --lav:#9b72d9;
+  --display:"Archivo Black",Impact,"Arial Narrow",sans-serif;
+  --head:"Space Grotesk","Instrument Sans",Inter,sans-serif;
+  --body:"Instrument Sans",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  background:
+    radial-gradient(circle at 12% 0%,rgba(240,82,77,.20),transparent 34%),
+    radial-gradient(circle at 88% 4%,rgba(244,197,29,.10),transparent 30%),
+    linear-gradient(180deg,#05050a 0%,#0a0a10 34%,#07070a 100%);
+}
+
+body{
+  margin:0;min-height:100vh;background:transparent;color:var(--text);
+  font-family:var(--body);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(248,244,232,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(248,244,232,.022) 1px,transparent 1px);
+  background-size:44px 44px;opacity:.4;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%);
+}
+
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+
+.shell{position:relative;z-index:1;width:min(1240px,calc(100% - 40px));margin:0 auto}
+
+/* ─── section furniture ─────────────────────────────────── */
+.sec{margin:0 0 clamp(40px,5vw,68px)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding-bottom:12px;margin-bottom:22px;border-bottom:1px solid var(--border)}
+.sec-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.sec-title{font-family:var(--display);font-size:clamp(26px,3.4vw,40px);line-height:.94;
+  text-transform:uppercase;letter-spacing:0;margin:6px 0 0}
+.sec-note{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);text-align:right}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px 22px}
+
+/* ─── hero ──────────────────────────────────────────────── */
+.hero{padding:clamp(38px,5vw,64px) 0 clamp(28px,3.5vw,44px)}
+.hero-top{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-family:var(--display);font-size:clamp(44px,8.4vw,104px);line-height:.86;margin:0;
+  text-transform:uppercase;letter-spacing:-.005em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{max-width:62ch;margin:20px 0 0;color:var(--muted);font-size:16px}
+
+.countbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:32px;
+  background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.count{background:var(--panel-solid);padding:18px 20px}
+.count-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+.count-v{font-family:var(--display);font-size:clamp(28px,3.6vw,44px);line-height:1;margin-top:8px}
+.count-v.hot{color:var(--accent)}
+.count-v.warn{color:var(--amber)}
+.count-d{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:7px;letter-spacing:.04em}
+
+/* ─── alerts ────────────────────────────────────────────── */
+.alerts{display:grid;gap:10px}
+.alert{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;
+  background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--sev,var(--amber));
+  border-radius:8px;padding:15px 18px}
+.alert-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--sev,var(--amber));white-space:nowrap;padding-top:2px;min-width:76px}
+.alert-l{font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
+.alert-d{color:var(--muted);font-size:13.5px;margin-top:5px}
+.alert-d code{font-family:var(--mono);font-size:12px;color:var(--text);background:rgba(248,244,232,.07);padding:1px 5px;border-radius:3px}
+
+/* ─── today ─────────────────────────────────────────────── */
+.slots{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.slot{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:18px;align-items:start;
+  background:var(--panel-solid);padding:16px 20px;transition:background .18s var(--ease)}
+.slot:hover{background:var(--panel-lift)}
+.slot.past{opacity:.42}
+.slot.now{background:rgba(240,82,77,.09);box-shadow:inset 3px 0 0 var(--accent)}
+.slot-t{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);padding-top:2px;white-space:nowrap}
+.slot.past .slot-t{color:var(--subtle)}
+.slot-b h4{font-family:var(--head);font-weight:700;font-size:15px;margin:0;line-height:1.3}
+.slot-b p{margin:5px 0 0;color:var(--muted);font-size:13.5px}
+.slot-b p strong{color:var(--text);font-weight:600}
+.slot-why{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--subtle);margin-top:7px;display:block}
+
+.tick{appearance:none;flex:none;width:22px;height:22px;margin:1px 0 0;border:1px solid var(--border-strong);
+  border-radius:5px;background:transparent;cursor:pointer;position:relative;transition:all .18s var(--ease)}
+.tick:hover{border-color:var(--accent)}
+.tick:checked{background:var(--accent);border-color:var(--accent)}
+.tick:checked::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
+  border:solid #0a0a0d;border-width:0 2px 2px 0;transform:rotate(42deg)}
+
+/* ─── call sheet ────────────────────────────────────────── */
+.firms{display:grid;gap:12px}
+.firm{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  border-left:3px solid var(--rank,var(--subtle))}
+.firm-h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 20px;cursor:pointer}
+.firm-n{font-family:var(--display);font-size:22px;line-height:1;color:var(--rank,var(--muted));min-width:30px}
+.firm-t{min-width:0}
+.firm-t h4{font-family:var(--head);font-weight:700;font-size:16px;margin:0;line-height:1.25}
+.firm-m{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:.02em}
+.firm-m .ph{color:var(--text)}
+.firm-m .sep{color:var(--subtle);margin:0 7px}
+.firm-when{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 10px;border:1px solid var(--border-strong);border-radius:20px;color:var(--muted);white-space:nowrap}
+.firm-when.open{color:var(--green);border-color:rgba(130,202,85,.4)}
+.firm-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border);margin-top:0}
+.firm.is-open .firm-body{display:block;padding-top:16px}
+.firm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:16px}
+.fg-k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:5px}
+.fg-v{font-size:13.5px;color:var(--muted);line-height:1.5}
+.fg-v strong{color:var(--text);font-weight:600}
+.probe{background:rgba(244,197,29,.06);border:1px solid rgba(244,197,29,.22);border-radius:7px;padding:13px 15px;margin-bottom:14px}
+.probe .fg-k{color:var(--amber)}
+.probe .fg-v{color:var(--text);font-size:13.5px}
+
+.log{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+.log label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:6px}
+.log input,.log select,.log textarea{width:100%;background:rgba(5,5,8,.6);border:1px solid var(--border);
+  border-radius:6px;padding:9px 11px;font-size:13px;font-family:var(--body);outline:none;transition:border-color .18s}
+.log input:focus,.log select:focus,.log textarea:focus{border-color:var(--accent)}
+.log textarea{resize:vertical;min-height:56px;font-size:13px}
+.log .wide{grid-column:1/-1}
+
+/* ─── script ────────────────────────────────────────────── */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
+.script{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:22px 24px}
+.script h4{font-family:var(--display);font-size:19px;text-transform:uppercase;margin:0 0 4px;line-height:1}
+.script .cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);margin-bottom:18px}
+.line{border-left:2px solid var(--border-strong);padding:2px 0 2px 16px;margin:0 0 15px}
+.line em{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);font-style:normal;margin-bottom:6px}
+.line p{margin:0;font-size:14.5px;line-height:1.62}
+.line p + p{margin-top:9px}
+.fill{color:var(--amber);font-family:var(--mono);font-size:13px}
+
+.rules{list-style:none;padding:0;margin:16px 0 0}
+.rules li{position:relative;padding:9px 0 9px 26px;border-top:1px solid var(--border);font-size:13.5px;color:var(--muted)}
+.rules li::before{content:"×";position:absolute;left:6px;top:8px;color:var(--accent);font-family:var(--mono);font-size:14px}
+.rules li strong{color:var(--text);font-weight:600}
+.rules.do li::before{content:"→";color:var(--green)}
+
+/* ─── questions ─────────────────────────────────────────── */
+.qs{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.q{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;background:var(--panel-solid);padding:14px 18px}
+.q-n{font-family:var(--display);font-size:17px;color:var(--accent);line-height:1.15}
+.q-t{font-size:14px;line-height:1.5}
+.q-w{font-family:var(--mono);font-size:10.5px;color:var(--subtle);margin-top:5px;letter-spacing:.02em}
+
+/* ─── plan ──────────────────────────────────────────────── */
+.days{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.day{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:18px;align-items:start;background:var(--panel-solid);padding:15px 20px}
+.day.past{opacity:.4}
+.day.today{background:rgba(240,82,77,.09);box-shadow:inset 3px 0 0 var(--accent)}
+.day.hearing{background:rgba(244,197,29,.10);box-shadow:inset 3px 0 0 var(--amber)}
+.day-d{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;padding-top:2px}
+.day-d b{display:block;font-family:var(--display);font-size:15px;letter-spacing:.01em;color:var(--text);text-transform:uppercase}
+.day-d span{color:var(--subtle);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.day.today .day-d b{color:var(--accent)}
+.day.hearing .day-d b{color:var(--amber)}
+.day-b h4{font-family:var(--head);font-weight:700;font-size:14.5px;margin:0;line-height:1.3}
+.day-b p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.pill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 8px;border-radius:20px;border:1px solid var(--border-strong);color:var(--subtle);margin-top:8px}
+.pill.hard{color:var(--accent);border-color:rgba(240,82,77,.42)}
+
+/* ─── checklist ─────────────────────────────────────────── */
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.cl{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.cl h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+.cl ul{list-style:none;padding:0;margin:0}
+.cl li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px;align-items:start;
+  padding:9px 0;border-top:1px solid var(--border);font-size:13.5px;line-height:1.45}
+.cl li:first-child{border-top:none;padding-top:0}
+.cl li small{display:block;color:var(--subtle);font-size:11.5px;margin-top:3px;font-family:var(--mono);letter-spacing:.02em}
+
+/* ─── notice ────────────────────────────────────────────── */
+.notice{background:rgba(240,82,77,.07);border:1px solid rgba(240,82,77,.28);border-radius:10px;padding:18px 22px;margin-bottom:34px}
+.notice h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 9px}
+.notice p{margin:0;color:var(--muted);font-size:13.5px;max-width:88ch}
+.notice p + p{margin-top:8px}
+.notice strong{color:var(--text);font-weight:600}
+
+footer{border-top:1px solid var(--border);margin-top:60px;padding:26px 0 46px;
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle)}
+
+.saved{position:fixed;right:20px;bottom:20px;z-index:400;background:var(--panel-lift);
+  border:1px solid rgba(130,202,85,.4);color:var(--green);border-radius:7px;padding:9px 15px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  opacity:0;transform:translateY(8px);transition:all .3s var(--ease);pointer-events:none}
+.saved.on{opacity:1;transform:translateY(0)}
+
+@media (max-width:820px){
+  .countbar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .slot,.day{grid-template-columns:74px minmax(0,1fr) auto;gap:12px;padding:14px}
+  .day-d b{font-size:13px}
+  .firm-h{grid-template-columns:auto minmax(0,1fr);gap:12px}
+  .firm-when{display:none}
+  .alert{grid-template-columns:1fr;gap:7px}
+}
+@media (max-width:520px){
+  .shell{width:calc(100% - 24px)}
+  .countbar{grid-template-columns:1fr}
+  .slot,.day{grid-template-columns:60px minmax(0,1fr);gap:10px}
+  .slot .tick,.day .pill{grid-column:2}
+}
+@media print{
+  body::before,.saved{display:none}
+  .firm-body{display:block!important}
+  .slot,.day,.firm,.card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="hero-top">Chaos Console · Hearing Room · Private</div>
+  <h1>Sixteen<br>Days <em>Out</em></h1>
+  <p class="hero-sub">One contested hearing, one decision that has to land first: who stands up on the 19th. Everything below is sequenced backwards from that. Tick as you go — the board remembers.</p>
+
+  <div class="countbar">
+    <div class="count">
+      <div class="count-k">Hearing</div>
+      <div class="count-v hot" id="cd">—</div>
+      <div class="count-d">Wed 19 Aug · 8:30 AM · Dept 547</div>
+    </div>
+    <div class="count">
+      <div class="count-k">Retain counsel by</div>
+      <div class="count-v warn">Aug 5</div>
+      <div class="count-d">Two full working days from now</div>
+    </div>
+    <div class="count">
+      <div class="count-k">Bench officer</div>
+      <div class="count-v" style="font-size:clamp(20px,2.4vw,28px)">A. DAVIS</div>
+      <div class="count-d">Judge Angela J. Davis · verified 2026</div>
+    </div>
+    <div class="count">
+      <div class="count-k">Calls logged</div>
+      <div class="count-v" id="tally">0<span style="color:var(--subtle);font-size:.5em">/11</span></div>
+      <div class="count-d">Outcome recorded on the call sheet</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ NOTICE ══ -->
+<div class="notice">
+  <h4>Read this once</h4>
+  <p><strong>This page is served from a public repository.</strong> The four-letter gate is JavaScript running in your browser — it hides the page from a casual visitor, it does not hide it from anyone who fetches the URL directly or reads the source. Treat everything here as publishable.</p>
+  <p>So: no case number, no party names, no strategy analysis, no medical history, and nothing about what to withhold from anybody. Those live in the private file, not here. What is here is <strong>logistics</strong> — who to call, when they open, what to say, what the calendar demands. That is the part you need in your hand while the phone is ringing.</p>
+</div>
+
+<!-- ══ ALERTS ══ -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-kicker">Standing alerts</div><h2 class="sec-title">Things the calendar already decided</h2></div>
+    <div class="sec-note">Verified against LASC &amp; statute · 03 Aug 2026</div>
+  </div>
+  <div class="alerts">
+
+    <div class="alert" style="--sev:var(--accent)">
+      <div class="alert-tag">Correction</div>
+      <div>
+        <div class="alert-l">The judge is Angela J. Davis, not David W. Swift</div>
+        <div class="alert-d">The directory naming Judge Swift in Dept 547 is dated 2022 and is stale — Swift now sits at Santa Monica. Two current LASC sources (departments directory rev. 5/5/26, judicial directory w/c 7/27/26) both place <strong>Judge Angela J. Davis</strong> in 547. Clerk line <code>(213) 633-5859</code>. Do not walk into a consultation naming the wrong bench officer.</div>
+      </div>
+    </div>
+
+    <div class="alert" style="--sev:var(--accent)">
+      <div class="alert-tag">Trap</div>
+      <div>
+        <div class="alert-l">Filing the written response may cost you the free continuance</div>
+        <div class="alert-d">Family Code <code>§245(a)</code> gives a respondent one continuance <em>as of right</em> — worded as being "to respond to the petition." Practitioner guidance reads that right as spent once you file a response. The written response is itself <strong>optional and has no deadline</strong>. So the order of operations is a real decision with real cost. <strong>Put this question to the first attorney who picks up, before anything gets filed.</strong></div>
+      </div>
+    </div>
+
+    <div class="alert" style="--sev:var(--amber)">
+      <div class="alert-tag">Closed</div>
+      <div>
+        <div class="alert-l">Discovery is barred by default in these cases since 2024</div>
+        <div class="alert-d">Family Code <code>§6309</code> (SB 741) shuts off the Civil Discovery Act in restraining-order matters except on a good-cause showing to the judge. You cannot simply issue subpoenas to a bank, a carrier, or a building manager and expect them to bite. Practical consequence: <strong>gather the records you are personally entitled to yourself</strong> — your own statements, your own logs, your own account exports — which needs no subpoena and no leave of court.</div>
+      </div>
+    </div>
+
+    <div class="alert" style="--sev:var(--amber)">
+      <div class="alert-tag">Tomorrow</div>
+      <div>
+        <div class="alert-l">Aug 4 is the last mail date for a consumer-records notice</div>
+        <div class="alert-d">A records subpoena returnable on the 19th needs its <code>CCP §1985.3</code> Notice to Consumer served 10 days out, +5 for mail. Mailed after tomorrow, the arithmetic fails. The business-records deposition route (<code>SUBP-020</code>, 20 days from issuance) is <strong>already foreclosed</strong> for this hearing date.</div>
+      </div>
+    </div>
+
+    <div class="alert" style="--sev:var(--amber)">
+      <div class="alert-tag">Wed Aug 5</div>
+      <div>
+        <div class="alert-l">Remote-appearance notice deadline, if any witness needs one</div>
+        <div class="alert-d">A contested hearing is an evidentiary hearing, so <code>CRC 3.672</code> wants notice 10 court days out — <strong>Wednesday</strong>. For yourself, appear in person regardless: these hearings turn on credibility and remote is a discretionary ask you do not need to make.</div>
+      </div>
+    </div>
+
+    <div class="alert" style="--sev:var(--blue)">
+      <div class="alert-tag">Required</div>
+      <div>
+        <div class="alert-l">A witness list is the one thing genuinely mandatory before the hearing</div>
+        <div class="alert-d">Family Code <code>§217(c)</code> requires a witness list with a brief description of anticipated testimony, filed and served before the hearing, for any non-party witness. Form <code>FL-321</code>. Without it the judge can demand an offer of proof before letting anyone testify. No filing fee applies — <code>§6222</code> exempts these filings.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TODAY ══ -->
+<section class="sec" id="today">
+  <div class="sec-head">
+    <div><div class="sec-kicker">Monday 03 August</div><h2 class="sec-title">Today, hour by hour</h2></div>
+    <div class="sec-note">Ticks save locally · <span id="clock">—</span></div>
+  </div>
+
+  <div class="slots" id="slots">
+
+    <div class="slot" data-from="08:00" data-to="08:30">
+      <div class="slot-t">08:00–08:30</div>
+      <div class="slot-b">
+        <h4>Set the board. Coffee, paper, phone charged.</h4>
+        <p>Numbers written by hand on one sheet. You want to be reading, not scrolling, when someone picks up.</p>
+        <span class="slot-why">Nothing is open yet. This is the only quiet half-hour you get.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t1">
+    </div>
+
+    <div class="slot" data-from="08:30" data-to="09:00">
+      <div class="slot-t">08:30–09:00</div>
+      <div class="slot-b">
+        <h4>Call the clerk of Dept 547 — <strong>(213) 633-5859</strong></h4>
+        <p>Court opens 8:30. Four questions, nothing more: does the department have a standing order or written courtroom rules; does it require exhibit and witness-list exchange before a contested hearing, and how many days; is the 19th set as a full evidentiary hearing or a setting; is remote appearance permitted.</p>
+        <span class="slot-why">Highest-value five minutes of the day. Nothing about this is published anywhere.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t2">
+    </div>
+
+    <div class="slot" data-from="09:00" data-to="10:15">
+      <div class="slot-t">09:00–10:15</div>
+      <div class="slot-b">
+        <h4>The first calling block — work the sheet top to bottom</h4>
+        <p>Nine o'clock is when the firms with no published hours actually answer. Do not wait on a callback before making the next call; you are trying to fill a calendar, not have a conversation.</p>
+        <span class="slot-why">Book slots. Log every outcome on the call sheet as you hang up, not later.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t3">
+    </div>
+
+    <div class="slot" data-from="10:15" data-to="10:45">
+      <div class="slot-t">10:15–10:45</div>
+      <div class="slot-b">
+        <h4>Lawyer referral service — <strong>1-866-762-7852</strong></h4>
+        <p>LACBA SmartLaw, open 8:45–5:00. Referral is free; the consultation is stated as free for 20 minutes, though one directory disputes that — <strong>ask what it costs before you agree to it</strong>. Use the twenty minutes on the response-versus-continuance question.</p>
+        <span class="slot-why">A second independent read on the one decision that has a deadline attached.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t4">
+    </div>
+
+    <div class="slot" data-from="10:45" data-to="12:00">
+      <div class="slot-t">10:45–12:00</div>
+      <div class="slot-b">
+        <h4>Second calling block, plus the first in-person if one has landed</h4>
+        <p>Chase anyone who took a message. If a Beverly Hills or West LA slot has opened up, take it now rather than this afternoon — the drive is shorter before noon and you will be sharper.</p>
+        <span class="slot-why">Two consultations today is a good day. Three is a very good day.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t5">
+    </div>
+
+    <div class="slot" data-from="12:00" data-to="12:45">
+      <div class="slot-t">12:00–12:45</div>
+      <div class="slot-b">
+        <h4>Eat. Away from the screen.</h4>
+        <p>Not optional and not negotiable.</p>
+        <span class="slot-why">You are deciding who represents you and how to spend a large sum, across several conversations. Tired judgment is expensive here.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t6">
+    </div>
+
+    <div class="slot" data-from="12:45" data-to="15:30">
+      <div class="slot-t">12:45–15:30</div>
+      <div class="slot-b">
+        <h4>Consultation window — the meetings themselves</h4>
+        <p>Same questions, same order, every firm. Score each one before you start the engine. Ask every single one for a <strong>written fee, quoted by phase, with an installment schedule, before you leave the room</strong>. A number said out loud on Monday is worth nothing on Wednesday.</p>
+        <span class="slot-why">Comparability is the entire point. Do not improvise a different conversation with each of them.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t7">
+    </div>
+
+    <div class="slot" data-from="15:30" data-to="16:30">
+      <div class="slot-t">15:30–16:30</div>
+      <div class="slot-b">
+        <h4>Courthouse self-help, if the morning left a gap</h4>
+        <p>Stanley Mosk, Room 426F, 4th floor — open until 4:00, and the neutral one that will actually help a respondent. Call <strong>(213) 830-0845</strong> first; the room number and hours differ between two of the court's own documents.</p>
+        <span class="slot-why">Free, procedural, and it will not tell you anything strategic — which is fine, procedure is what you need.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t8">
+    </div>
+
+    <div class="slot" data-from="16:30" data-to="18:00">
+      <div class="slot-t">16:30–18:00</div>
+      <div class="slot-b">
+        <h4>Gather your own records — the route that has no gatekeeper</h4>
+        <p>Given <code style="font-family:var(--mono);font-size:12px">§6309</code>, this is the realistic path to documents. Everything you are personally entitled to: your own statements, your own carrier logs, your own account exports, your own photographs. Download rather than screenshot; keep the originals.</p>
+        <span class="slot-why">No subpoena, no leave of court, no notice period. Nobody can stop you doing this tonight.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t9">
+    </div>
+
+    <div class="slot" data-from="18:00" data-to="19:30">
+      <div class="slot-t">18:00–19:30</div>
+      <div class="slot-b">
+        <h4>Score the day and pick the shortlist</h4>
+        <p>Two names, ranked, with the fee each one quoted next to them. If nobody cleared the bar, the morning list restarts tomorrow one tier down.</p>
+        <span class="slot-why">Retention target is Wednesday. That only works if tonight ends with a shortlist rather than a feeling.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t10">
+    </div>
+
+    <div class="slot" data-from="19:30" data-to="21:00">
+      <div class="slot-t">19:30–21:00</div>
+      <div class="slot-b">
+        <h4>Written follow-up to everyone you spoke to</h4>
+        <p>Short email, same text: thank you, here is the hearing date, please confirm your fee by phase and your availability in writing. Address it to the individual, never to <em>info@</em> alone. Put nothing confidential in a web contact form.</p>
+        <span class="slot-why">It lands at the top of Tuesday's inbox and it creates a paper trail of what was quoted.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t11">
+    </div>
+
+    <div class="slot" data-from="21:00" data-to="23:59">
+      <div class="slot-t">21:00 →</div>
+      <div class="slot-b">
+        <h4>Hard stop</h4>
+        <p>Nothing case-related after nine. Tomorrow starts at 8:30 with whatever did not get answered today.</p>
+        <span class="slot-why">Sixteen days is a sprint you can lose by burning out on day one.</span>
+      </div>
+      <input class="tick" type="checkbox" data-k="t12">
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CALL SHEET ══ -->
+<section class="sec" id="calls">
+  <div class="sec-head">
+    <div><div class="sec-kicker">The call sheet</div><h2 class="sec-title">Who to call, and when they open</h2></div>
+    <div class="sec-note">Tap a row to open · outcomes save locally</div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="fg-k" style="color:var(--accent)">How this list was built, and what it is worth</div>
+    <div class="fg-v" style="margin-top:8px">Every credential below was checked against the <strong>State Bar's own licensee and certified-specialist registry</strong>, not against firm marketing — and the registry contradicts the marketing more often than not. Directory badges (Super Lawyers, Avvo, Lawyers of Distinction) are advertising placements and carry no quality signal; they are ignored here. Nobody on this list has been contacted, no fee is confirmed, and none of this is a recommendation. <strong>Two facts do most of the sorting: who is actually certified, and who actually defends respondents in family court rather than defendants in criminal court.</strong> Those are different jobs in different buildings.</div>
+  </div>
+
+  <div class="firms" id="firms">
+
+    <!-- 1 -->
+    <div class="firm" style="--rank:var(--accent)" data-id="f1">
+      <div class="firm-h">
+        <div class="firm-n">01</div>
+        <div class="firm-t">
+          <h4>Provinziano &amp; Associates — Alphonse Provinziano</h4>
+          <div class="firm-m"><span class="ph">(310) 820-3500</span><span class="sep">·</span>Beverly Hills, 8888 W Olympic<span class="sep">·</span>free evaluation</div>
+        </div>
+        <div class="firm-when">Call 09:00</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why first</div><div class="fg-v">The only firm found running a <strong>dedicated respondent-side defence page in family court</strong>, and it says so plainly. Also states it takes cases on short notice and begins immediately on signing. Thirteen attorneys, so there is depth to absorb a compressed timeline.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Certified Family Law Specialist — confirmed on the State Bar registry.</strong> Bar #233231, admitted Dec 2004. Former Deputy District Attorney — the only former prosecutor on the family side of this list.</div></div>
+          <div><div class="fg-k">Money, as published</div><div class="fg-v">$950/hr him, $510–$740 associates, <strong>initial retainer $7,500–$15,000 "or more"</strong>, replenished if exceeded. This is an evergreen structure, not a flat fee.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">The fee model is the problem, not the lawyer. Ask directly for a <strong>limited-scope, flat fee by phase</strong> — response and evidence, preparation, the appearance — rather than a replenishing retainer. Ask who appears on the 19th and whether that name goes in the agreement. Ask the response-versus-continuance question first, before anything else.</div>
+        </div>
+        <div class="log" data-log="f1">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when" placeholder="Mon 2:00pm"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee" placeholder="$ / structure"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes" placeholder="Who you spoke to, what they said, what they would not say…"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="firm" style="--rank:var(--amber)" data-id="f2">
+      <div class="firm-h">
+        <div class="firm-n">02</div>
+        <div class="firm-t">
+          <h4>FMBK Law — Anthony W. Lai (Alex Grager supervising)</h4>
+          <div class="firm-m"><span class="ph">(310) 447-8675</span><span class="sep">·</span>West LA · Pasadena · Calabasas<span class="sep">·</span>consult fee not published</div>
+        </div>
+        <div class="firm-when">Call 09:00</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why here</div><div class="fg-v">The best individual fit on substance anywhere on this list. Lai's own bio positions him as <strong>lead trial counsel specifically on contested restraining-order matters</strong>, and he has published on discovery in exactly these cases — which is the live issue given §6309. Grager has presented CLE on the evidentiary hearing itself. 25 lawyers, 12 of them certified.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Both are Certified Family Law Specialists — confirmed.</strong> Lai bar #316254 (2017), Grager bar #234994 (2004), AAML Fellow.</div></div>
+          <div><div class="fg-k">The catch</div><div class="fg-v">FMBK publishes <strong>nothing</strong> — no hours, no fee, no consultation policy, no restraining-order page at all. Every material term has to come out of the phone call. You cannot even confirm when the line opens.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Everything, because nothing is published. Is the consultation free. What does Lai's hour cost as a senior associate rather than a partner. Will they scope this as a bounded engagement through the 19th. Ask whether Lai personally appears — his specialization is the reason to be there at all.</div>
+        </div>
+        <div class="log" data-log="f2">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when" placeholder="Mon 2:00pm"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee" placeholder="$ / structure"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="firm" style="--rank:var(--amber)" data-id="f3">
+      <div class="firm-h">
+        <div class="firm-n">03</div>
+        <div class="firm-t">
+          <h4>Power Trial Lawyers — Matthew Barhoma</h4>
+          <div class="firm-m"><span class="ph">(888) 808-2179</span><span class="sep">·</span>835 Wilshire, downtown<span class="sep">·</span>free consult · answers 24/7</div>
+        </div>
+        <div class="firm-when open">Answering now</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why here</div><div class="fg-v">By far the deepest published treatment of <strong>respondent-side restraining-order defence</strong> — names the family court, the Family Code sections, and the actual form numbers. Separate pages for defending a permanent order, defending a temporary one, and false-allegation defence. Handles criminal work in the same building, which is the single-firm configuration.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Not a certified specialist</strong> in either criminal or family law — and firm-wide there are none. Bar #319339, admitted Dec 2017, so roughly eight years in.</div></div>
+          <div><div class="fg-k">The numbers, carefully</div><div class="fg-v">The only firm publishing figures: <strong>$4,000–$12,000 flat through the hearing</strong>, $350–$650 hourly, payment plans. Read the framing — it sits inside a marketing FAQ describing <em>typical market</em> pricing, not a firm quote. Treat it as an anchor to test, not a price.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">This is a very large lead-generation operation — geo-targeted landing pages across four counties, including one for this exact courthouse. That is a marketing signal, not a capability signal. So: <strong>how many contested family-court hearings to decision in the last 24 months, and how many in this district?</strong> And who other than Barhoma appears. Then hold them to the $4k–$12k figure in writing.</div>
+        </div>
+        <div class="log" data-log="f3">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="firm" style="--rank:var(--blue)" data-id="f4">
+      <div class="firm-h">
+        <div class="firm-n">04</div>
+        <div class="firm-t">
+          <h4>Reuben Raucher &amp; Blum — Stephanie Blum</h4>
+          <div class="firm-m"><span class="ph">(310) 777-1990</span><span class="sep">·</span>12400 Wilshire, West LA<span class="sep">·</span>sblum@rrbattorneys.com</div>
+        </div>
+        <div class="firm-when">Call 09:00</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why here</div><div class="fg-v">A genuinely credentialed trial lawyer with <strong>a real respondent-side result on the record</strong> — the firm lists having persuaded a court to vacate an order obtained without notice once the accusations were shown to be unsubstantiated. Also a custody win where the other side had falsely alleged violence. Closest office to you of the serious candidates.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Certified Family Law Specialist — confirmed</strong>, certified 2003. Bar #174099, admitted Dec 1994, so 31 years.</div></div>
+          <div><div class="fg-k">The catch</div><div class="fg-v">Six-lawyer <strong>general civil litigation</strong> firm — business, real estate, employment, entertainment — where family law is a minority practice and Blum is effectively the whole department. Four of their five listed restraining-order results are on the other side. And the intake plumbing is broken: the contact page 404s, no form, no hours, no consultation policy.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Capacity, bluntly — can one lawyer carry a contested hearing 16 days out alongside a civil litigation docket, and who is the second chair. Run a conflict check early given they work both sides of these. Email her directly rather than fighting the website.</div>
+        </div>
+        <div class="log" data-log="f4">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="firm" style="--rank:var(--blue)" data-id="f5">
+      <div class="firm-h">
+        <div class="firm-n">05</div>
+        <div class="firm-t">
+          <h4>Berenji Divorce &amp; Family Law — Hossein Berenji</h4>
+          <div class="firm-m"><span class="ph">(310) 271-6290</span><span class="sep">·</span>Beverly Hills · Pasadena<span class="sep">·</span>opens 08:30, appointment only</div>
+        </div>
+        <div class="firm-when open">Open now</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why here</div><div class="fg-v">Explicit false-accusation defence language, and one of only two firms publishing an actual opening time. Earliest realistic pickup of the family-side candidates.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Not a Certified Family Law Specialist</strong> — the registry returns no match, despite heavy marketing. Bar #217369, admitted Dec 2001. Five to seven attorneys depending which page of their own site you read.</div></div>
+          <div><div class="fg-k">Watch for</div><div class="fg-v">Six different tracking phone numbers, a downtown address that reads like a mailbox suite, and hours that contradict themselves across their own pages — "8:30–5:30, appointment only" on one, "available 24/7" on another. The 24/7 is scheduling intake, not a lawyer.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Whether the consultation is actually free — that claim appears only in a page's hidden metadata and in third-party directories, never in the visible copy. And who personally appears, given the firm is small and the marketing is large.</div>
+        </div>
+        <div class="log" data-log="f5">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="firm" style="--rank:var(--lav)" data-id="f6">
+      <div class="firm-h">
+        <div class="firm-n">06</div>
+        <div class="firm-t">
+          <h4>Eisner Gorin — Dmitry Gorin / Alan Eisner <span style="color:var(--lav);font-family:var(--mono);font-size:11px">· criminal track</span></h4>
+          <div class="firm-m"><span class="ph">(818) 781-1570</span><span class="sep">·</span>Century City · Van Nuys<span class="sep">·</span>consultation is PAID</div>
+        </div>
+        <div class="firm-when open">Answering now</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Different job</div><div class="fg-v">This is the <strong>criminal-side</strong> call, not the hearing call. They run an explicit pre-filing intervention practice, which is the right posture if there is exposure before anything is charged.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Both are Certified Criminal Law Specialists — confirmed.</strong> Gorin bar #178353 (1995), a former senior prosecutor whose areas included domestic violence; Eisner bar #127119 (1986). Two of a small number in the county.</div></div>
+          <div><div class="fg-k">Two warnings</div><div class="fg-v">Their site states plainly that <strong>formal consultations require a retainer in advance</strong> — the only paid consultation on this list. And their restraining-order material is criminal-forum: it explains the family-court track but nowhere offers to appear there. <strong>Do not assume they cover the 19th.</strong></div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Ask outright whether they appear at family-court hearings or only handle the criminal side. Ask whether they will scope a <strong>bounded pre-charge engagement</strong> rather than a full defence retainer, and what the consultation costs before you book it. Ask how they coordinate with separate family counsel and who decides what gets said under oath.</div>
+        </div>
+        <div class="log" data-log="f6">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="firm" style="--rank:var(--lav)" data-id="f7">
+      <div class="firm-h">
+        <div class="firm-n">07</div>
+        <div class="firm-t">
+          <h4>Werksman Jackson &amp; Quinn <span style="color:var(--lav);font-family:var(--mono);font-size:11px">· criminal track, premium</span></h4>
+          <div class="firm-m"><span class="ph">(213) 688-0460</span><span class="sep">·</span>888 W Sixth St, downtown<span class="sep">·</span>nothing published</div>
+        </div>
+        <div class="firm-when">Call 09:00</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">When this becomes right</div><div class="fg-v">The moment criminal risk stops being theoretical — a detective's call, a subpoena, a letter from the District Attorney. Until then it is expensive insurance against a hypothetical.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v">Top reputational criminal firm, but <strong>neither Werksman (#120767) nor Jackson (#173647) is a certified criminal law specialist</strong>, and firm-wide there are none. Both are long-admitted — 1985 and 1994 — and Jackson is a former senior county prosecutor.</div></div>
+          <div><div class="fg-k">Opacity</div><div class="fg-v">No hours, no fees, no booking, no statement on whether consultations cost anything. Expect a gatekeeper and a high number. Their restraining-order page is filed under violent crime and does not distinguish the family-court track at all.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Whether a partner or an associate actually carries the file, and whether they will scope something bounded rather than a full defence retainer that eats the budget before the hearing happens.</div>
+        </div>
+        <div class="log" data-log="f7">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="firm" style="--rank:var(--teal)" data-id="f8">
+      <div class="firm-h">
+        <div class="firm-n">08</div>
+        <div class="firm-t">
+          <h4>Land Legal Group — Joseph Land</h4>
+          <div class="firm-m"><span class="ph">(310) 552-3500</span><span class="sep">·</span>1900 Ave of the Stars, Century City<span class="sep">·</span>free consult</div>
+        </div>
+        <div class="firm-when open">24/7 claimed</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why on the list</div><div class="fg-v">A real family-law firm, so the forum is right, and it explicitly represents people defending against orders. Free initial consultation. A reasonable fourth or fifth call.</div></div>
+          <div><div class="fg-k">Credential (verified)</div><div class="fg-v"><strong>Not a Certified Family Law Specialist</strong> — and none across the whole roster. Bar #266657, admitted Dec 2009. To their credit they are the only firm here publishing their own bar number.</div></div>
+          <div><div class="fg-k">Thin where it counts</div><div class="fg-v">Their restraining-order material never names a form or describes the response mechanics — noticeably lighter than the firms above it.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Contested-hearing volume specifically, and who besides Land could appear on the 19th.</div>
+        </div>
+        <div class="log" data-log="f8">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="firm" style="--rank:var(--teal)" data-id="f9">
+      <div class="firm-h">
+        <div class="firm-n">09</div>
+        <div class="firm-t">
+          <h4>Wallin &amp; Klarich <span style="color:var(--teal);font-family:var(--mono);font-size:11px">· call for the payment terms</span></h4>
+          <div class="firm-m"><span class="ph">(877) 466-5245</span><span class="sep">·</span>opens 09:00 (published)<span class="sep">·</span>free consult</div>
+        </div>
+        <div class="firm-when">Call 09:00</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">Why call at all</div><div class="fg-v">Not for the representation — for the <strong>benchmark</strong>. They publish real financing terms in the open: 50% down with the balance over three to six monthly payments at zero interest, or as little as 10% down financed over two to five years through a third party with no prepayment penalty. Knowing those exist lets you hold better firms to comparable terms.</div></div>
+          <div><div class="fg-k">Correction worth knowing</div><div class="fg-v">This firm is often cited as the flat-fee model. It is not. What they publish is <strong>retainer plus installments</strong>, with no dollar figures anywhere. Different thing.</div></div>
+          <div><div class="fg-k">Capability signal</div><div class="fg-v">Thin. Their restraining-order page addresses both sides but names no forms and gets the temporary-order duration wrong. Volume criminal shop.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">Just get the payment structure in concrete terms and take it with you. You are shopping for a financing template, not a lawyer.</div>
+        </div>
+        <div class="log" data-log="f9">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Terms captured</option><option>Left message</option><option>Callback promised</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Terms</label><input type="text" data-f="fee" placeholder="down % / installments"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="firm" style="--rank:var(--subtle)" data-id="f10">
+      <div class="firm-h">
+        <div class="firm-n">10</div>
+        <div class="firm-t">
+          <h4>Goldman Flores — Jennifer Goldman <span style="color:var(--subtle);font-family:var(--mono);font-size:11px">· verify location first</span></h4>
+          <div class="firm-m"><span class="ph">(213) 341-4087</span><span class="sep">·</span>same-day appointments claimed<span class="sep">·</span>free consult</div>
+        </div>
+        <div class="firm-when open">24/7 claimed</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">The appeal</div><div class="fg-v">A practice confined to restraining orders on both sides, advertising same-day appointments and after-hours visits. Correctly framed as family-court work. Useful as a fast second opinion even if never retained.</div></div>
+          <div><div class="fg-k">The problem</div><div class="fg-v"><strong>Her State Bar address of record is San Diego</strong>, with a San Diego phone, while the Los Angeles number and Grand Avenue suite sit on a separate marketing layer. Bar #286281, admitted Dec 2012. Not a certified specialist; none at the firm.</div></div>
+          <div><div class="fg-k">Also</div><div class="fg-v">They take both petitioners and respondents, so <strong>run the conflict check early</strong>.</div></div>
+        </div>
+        <div class="probe">
+          <div class="fg-k">Probe hard on</div>
+          <div class="fg-v">One question decides it: <strong>who physically walks into Dept 547 on the 19th</strong>, and are they local counsel or is somebody driving up from San Diego. Everything else is secondary.</div>
+        </div>
+        <div class="log" data-log="f10">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Booked consult</option><option>Left message</option><option>Callback promised</option><option>No capacity</option><option>Declined</option><option>Ruled out</option></select></div>
+          <div><label>Consult set for</label><input type="text" data-f="when"></div>
+          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="firm" style="--rank:var(--subtle)" data-id="f11">
+      <div class="firm-h">
+        <div class="firm-n">11</div>
+        <div class="firm-t">
+          <h4>LACBA SmartLaw referral <span style="color:var(--subtle);font-family:var(--mono);font-size:11px">· free second opinion</span></h4>
+          <div class="firm-m"><span class="ph">1-866-762-7852</span><span class="sep">·</span>Mon–Fri 08:45–17:00<span class="sep">·</span>referral free</div>
+        </div>
+        <div class="firm-when open">Open now</div>
+      </div>
+      <div class="firm-body">
+        <div class="firm-grid">
+          <div><div class="fg-k">What it is</div><div class="fg-v">The county bar's certified referral service. The referral itself is free; the consultation is stated as free for 20 minutes, though at least one directory says a small charge applies. <strong>Ask the cost before agreeing.</strong> Referrals go to private paid attorneys — this is not legal aid.</div></div>
+          <div><div class="fg-k">Use the 20 minutes on</div><div class="fg-v">The one question with a deadline attached: does filing the written response before the hearing forfeit the automatic continuance. Then the discovery bar, and whether a hearing subpoena survives it.</div></div>
+          <div><div class="fg-k">Worth knowing</div><div class="fg-v">Nearly every free domestic-violence legal service in the county serves petitioners only. The neutral options are the court's own self-help centre and the county law library's monthly free clinic — <strong>check this month's date, it moves</strong>.</div></div>
+        </div>
+        <div class="log" data-log="f11">
+          <div><label>Called at</label><input type="time" data-f="time"></div>
+          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Referral received</option><option>Consult booked</option><option>Left message</option><option>No use</option></select></div>
+          <div><label>Referred to</label><input type="text" data-f="when" placeholder="name"></div>
+          <div><label>Cost</label><input type="text" data-f="fee" placeholder="free / $"></div>
+          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:16px;border-color:rgba(240,82,77,.28);background:rgba(240,82,77,.05)">
+    <div class="fg-k" style="color:var(--accent)">Ruled out, so you do not spend a morning on them</div>
+    <div class="fg-v" style="margin-top:8px"><strong>Walzer Melcher Yoda</strong> — Melcher has the strongest paper credentials of anyone surveyed (dual certified in family law and appellate law, board certified in family trial law, 32 years). That is precisely why it is wrong: domestic violence is <strong>not a listed practice area</strong> and their entire output on it is appellate commentary. Their own site describes the typical client as a business owner, executive, athlete, celebrity or trust-fund beneficiary in complex divorce litigation. You would be buying appellate horsepower for a trial-level hearing, from Woodland Hills.<br><br>
+    <strong>Brot Gross Fishbein</strong> — no restraining-order page at all, and neither Brot nor Wolff is a certified specialist despite the assumption. Wolff <em>taught</em> the certification prep course, which is easy to misread as holding it. Their live site carries placeholder text in the FAQ and a dummy phone number and email in the header, and an active associate is missing from the attorney index. That is a fair predictor of how fast intake moves.</div>
+  </div>
+</section>
+
+<!-- ══ SCRIPTS ══ -->
+<section class="sec" id="scripts">
+  <div class="sec-head">
+    <div><div class="sec-kicker">What you actually say</div><h2 class="sec-title">The scripts</h2></div>
+    <div class="sec-note">Read it aloud once before the first call</div>
+  </div>
+
+  <div class="two">
+
+    <div class="script">
+      <h4>On the phone</h4>
+      <div class="cap">Ninety seconds · you are booking a slot, not consulting</div>
+
+      <div class="line">
+        <em>Open — flat, unhurried</em>
+        <p>"Good morning. My name is <span class="fill">[name]</span>. I'm the respondent in a contested domestic-violence restraining order matter in family court, and I need a consultation today or tomorrow."</p>
+      </div>
+
+      <div class="line">
+        <em>The three facts that get you triaged correctly</em>
+        <p>"The hearing is <strong>Wednesday the nineteenth of August, eight thirty, Department 547 at Stanley Mosk.</strong> I was personally served on the thirtieth of July. I'm defending, not filing."</p>
+      </div>
+
+      <div class="line">
+        <em>Why you are worth a slot</em>
+        <p>"The case is documentary rather than testimonial — the central evidence is a very large message archive between the parties, which is already indexed and analysed. I have a prepared exhibit-ready analysis I can bring with me."</p>
+        <p>"I'm prepared to retain quickly, and I'm looking for a flat fee quoted by phase with a written installment schedule rather than an hourly retainer."</p>
+      </div>
+
+      <div class="line">
+        <em>Ask, then stop talking</em>
+        <p>"Can you tell me your earliest availability, and the name of the attorney I'd be seeing?"</p>
+      </div>
+
+      <div class="line">
+        <em>Before you hang up — every time</em>
+        <p>"Two quick things. Is the consultation free or is there a fee? And can I get that appointment confirmed by email?"</p>
+      </div>
+
+      <ul class="rules">
+        <li><strong>Do not consult the screener.</strong> Intake staff are not lawyers and the conversation is not protected the way you need it to be. Book the slot; save the facts for the attorney.</li>
+        <li><strong>Do not describe the allegations on an intake call.</strong> "Contested restraining order, respondent, hearing on the nineteenth" is the whole of it.</li>
+        <li><strong>Do not put anything sensitive in a web contact form.</strong> At least one of these firms warns on its own site that its form is unencrypted. Assume the rest are too.</li>
+        <li><strong>Do not accept a verbal fee.</strong> Written, by phase, or it did not happen.</li>
+      </ul>
+    </div>
+
+    <div class="script">
+      <h4>In the room</h4>
+      <div class="cap">Forty minutes · the difficult part comes from you, first</div>
+
+      <div class="line">
+        <em>Frame it in the first thirty seconds</em>
+        <p>"Before anything else — I want to walk you through the parts of this that are bad for me, because I'd rather you hear them from me now than find them in the file later. Then I'd like to ask you the same set of questions I'm asking everyone."</p>
+      </div>
+
+      <div class="line">
+        <em>Then do exactly that</em>
+        <p>Give them the unfavourable material plainly and without softening it. <strong>An attorney who hears the worst of it up front and stays engaged is worth more than one who is impressed by the favourable half.</strong> Their reaction in that first ten minutes is the most useful data you will collect all week.</p>
+      </div>
+
+      <div class="line">
+        <em>Watch for the ones who disqualify themselves</em>
+        <p>Any guarantee of outcome ends the interview. So does refusing to name who appears on the nineteenth, hourly-only billing with no cap, no visible reaction to the criminal dimension, or eagerness to start filing things immediately.</p>
+      </div>
+
+      <div class="line">
+        <em>Close, every time</em>
+        <p>"Can you put the fee in writing before I leave — quoted by phase, with the installment schedule and the name of the attorney appearing on the nineteenth?"</p>
+      </div>
+
+      <ul class="rules do">
+        <li><strong>Same ten questions, same order, every firm.</strong> The comparability is the whole point of doing three of these.</li>
+        <li><strong>Score each one in the car, before the next.</strong> Impressions decay within the hour and blur into each other by evening.</li>
+        <li><strong>Bring the documents and let them read.</strong> Describing an archive is worthless; showing one is not.</li>
+        <li><strong>Ask what they think the fight is really about.</strong> The good answer is specific and slightly uncomfortable. The bad answer is a brochure.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ QUESTIONS ══ -->
+<section class="sec" id="questions">
+  <div class="sec-head">
+    <div><div class="sec-kicker">The scorecard</div><h2 class="sec-title">Ten questions, unchanged</h2></div>
+    <div class="sec-note">Ask all ten · score all ten · compare</div>
+  </div>
+
+  <div class="qs">
+    <div class="q"><div class="q-n">01</div><div><div class="q-t">How many contested hearings of this kind have you tried to decision in the last 24 months — and how many in this district?</div><div class="q-w">Wrong answer: a number about the practice area generally. You want hearings, to decision, here.</div></div></div>
+    <div class="q"><div class="q-n">02</div><div><div class="q-t">Who personally appears on the nineteenth? Will that name go in the fee agreement?</div><div class="q-w">Refusal to name it, or to write it down, is disqualifying.</div></div></div>
+    <div class="q"><div class="q-n">03</div><div><div class="q-t">Will you quote a flat fee for this phase — and what exactly does it include? A continuance, a second session, a moot?</div><div class="q-w">"It depends" is an answer about them, not about the case.</div></div></div>
+    <div class="q"><div class="q-n">04</div><div><div class="q-t">Will you take a down payment with the balance on a written installment schedule — and what happens if one is late?</div><div class="q-w">An evergreen retainer is not an installment plan. An empty trust account mid-case invites a motion to withdraw at the worst moment.</div></div></div>
+    <div class="q"><div class="q-n">05</div><div><div class="q-t">The petition quotes selectively from a very long record. Walk me through how you force in the surrounding context.</div><div class="q-w">You are listening for completeness doctrine, unprompted. This is the technical question that separates them.</div></div></div>
+    <div class="q"><div class="q-n">06</div><div><div class="q-t">Discovery is largely shut off in these cases since 2024. How do you get documents in front of the court by the nineteenth?</div><div class="q-w">If they do not know §6309 exists, that is the end of it. The good answer involves records you already hold.</div></div></div>
+    <div class="q"><div class="q-n">07</div><div><div class="q-t">Would you take the continuance here, and why? Does filing a response first cost me the automatic one?</div><div class="q-w">The single most consequential procedural question on the board. Ask it first if you only get one.</div></div></div>
+    <div class="q"><div class="q-n">08</div><div><div class="q-t">How would you coordinate with separate criminal counsel — and who decides what I say under oath?</div><div class="q-w">The right answer names someone other than themselves as holding that veto.</div></div></div>
+    <div class="q"><div class="q-n">09</div><div><div class="q-t">Having skimmed this, what outcome bands do you see?</div><div class="q-w">Any guarantee, in either direction, ends the interview on the spot.</div></div></div>
+    <div class="q"><div class="q-n">10</div><div><div class="q-t">What is the written worst-case total through the hearing?</div><div class="q-w">Ask for it as a number on paper. Watch what happens to their face.</div></div></div>
+  </div>
+</section>
+
+<!-- ══ 16 DAYS ══ -->
+<section class="sec" id="plan">
+  <div class="sec-head">
+    <div><div class="sec-kicker">03 → 19 August</div><h2 class="sec-title">The sixteen days</h2></div>
+    <div class="sec-note">Everything sequenced backwards from the hearing</div>
+  </div>
+
+  <div class="days" id="days">
+
+    <div class="day" data-d="2026-08-03">
+      <div class="day-d"><b>Mon 3</b><span>Day 1</span></div>
+      <div class="day-b"><h4>Call everyone. Book everything.</h4><p>Clerk at 8:30, then the sheet top to bottom. Two consultations today is a good day.</p></div>
+      <span class="pill hard">Anchor day</span>
+    </div>
+
+    <div class="day" data-d="2026-08-04">
+      <div class="day-d"><b>Tue 4</b><span>Day 2</span></div>
+      <div class="day-b"><h4>Second consultations · records-notice cutoff</h4><p>Last day to mail a consumer notice for any records subpoena returnable on the 19th. If counsel is not retained yet, this decision is being made without them — which is itself a reason to move faster today.</p></div>
+      <span class="pill hard">Mail cutoff</span>
+    </div>
+
+    <div class="day" data-d="2026-08-05">
+      <div class="day-d"><b>Wed 5</b><span>Day 3</span></div>
+      <div class="day-b"><h4>Retain. Sign. Pay the first tranche.</h4><p>Also the remote-appearance notice deadline if any witness needs one. Retention slipping past today compresses everything downstream into a fortnight that does not have room for it.</p></div>
+      <span class="pill hard">Retention target</span>
+    </div>
+
+    <div class="day" data-d="2026-08-06">
+      <div class="day-d"><b>Thu 6</b><span>Day 4</span></div>
+      <div class="day-b"><h4>Full handover to counsel</h4><p>Everything, on a drive, organised. The travel question gets decided today — a trip against a contested hearing date is counsel's call, not yours, and they need the date in front of them.</p></div>
+      <span class="pill">Decision point</span>
+    </div>
+
+    <div class="day" data-d="2026-08-07">
+      <div class="day-d"><b>Fri 7</b><span>Day 5</span></div>
+      <div class="day-b"><h4>Strategy session · response-or-continuance decided</h4><p>The fork gets closed today, in writing, with reasons. Check whether the law library's free clinic falls this month — it runs one Friday, first come, no appointment.</p></div>
+      <span class="pill">Fork closes</span>
+    </div>
+
+    <div class="day" data-d="2026-08-08">
+      <div class="day-d"><b>Sat 8</b><span>Day 6</span></div>
+      <div class="day-b"><h4>Assemble your own records</h4><p>The documents you are personally entitled to, downloaded as originals rather than screenshots. No gatekeeper on any of it.</p></div>
+      <span class="pill">Deep work</span>
+    </div>
+
+    <div class="day" data-d="2026-08-09">
+      <div class="day-d"><b>Sun 9</b><span>Day 7</span></div>
+      <div class="day-b"><h4>Off. Genuinely off.</h4><p>One full day away from it, banked deliberately, because the last week will not have one.</p></div>
+      <span class="pill">Rest</span>
+    </div>
+
+    <div class="day" data-d="2026-08-10">
+      <div class="day-d"><b>Mon 10</b><span>Day 8</span></div>
+      <div class="day-b"><h4>Draft the response, if filing</h4><p>Counsel drafts; you verify every factual assertion against a source. Nothing goes in that you cannot point at.</p></div>
+      <span class="pill">Drafting</span>
+    </div>
+
+    <div class="day" data-d="2026-08-11">
+      <div class="day-d"><b>Tue 11</b><span>Day 9</span></div>
+      <div class="day-b"><h4>Exhibits pre-marked · witness list prepared</h4><p>Tabbed binder, consecutively numbered, working copy for the bench. The witness list is the one genuinely mandatory pre-hearing filing.</p></div>
+      <span class="pill">Assembly</span>
+    </div>
+
+    <div class="day" data-d="2026-08-12">
+      <div class="day-d"><b>Wed 12</b><span>Day 10</span></div>
+      <div class="day-b"><h4>Conservative exchange date</h4><p>Five court days out. No local rule sets an exchange deadline for a first-setting hearing, but this is the date to work to unless the clerk told you otherwise on day one.</p></div>
+      <span class="pill hard">Exchange target</span>
+    </div>
+
+    <div class="day" data-d="2026-08-13">
+      <div class="day-d"><b>Thu 13</b><span>Day 11</span></div>
+      <div class="day-b"><h4>File and serve</h4><p>By mail, by an adult who is not you, with proof of service filed. No filing fee applies to any of it.</p></div>
+      <span class="pill hard">Filing</span>
+    </div>
+
+    <div class="day" data-d="2026-08-14">
+      <div class="day-d"><b>Fri 14</b><span>Day 12</span></div>
+      <div class="day-b"><h4>First moot — direct examination</h4><p>Rehearsed, out loud, with counsel. Record-first. "I don't recall" when it is true, and only when it is true.</p></div>
+      <span class="pill">Rehearsal</span>
+    </div>
+
+    <div class="day" data-d="2026-08-15">
+      <div class="day-d"><b>Sat 15</b><span>Day 13</span></div>
+      <div class="day-b"><h4>Second moot — hostile cross</h4><p>Have someone play it badly and unfairly. The point is not to win the practice round; it is to have already felt it.</p></div>
+      <span class="pill">Rehearsal</span>
+    </div>
+
+    <div class="day" data-d="2026-08-16">
+      <div class="day-d"><b>Sun 16</b><span>Day 14</span></div>
+      <div class="day-b"><h4>Light. Logistics only.</h4><p>Clothes, route, parking, arrival time. Nothing substantive.</p></div>
+      <span class="pill">Rest</span>
+    </div>
+
+    <div class="day" data-d="2026-08-17">
+      <div class="day-d"><b>Mon 17</b><span>Day 15</span></div>
+      <div class="day-b"><h4>Final counsel session</h4><p>Order of exhibits, order of witnesses, the three sentences that matter most, and what happens under each outcome.</p></div>
+      <span class="pill">Final prep</span>
+    </div>
+
+    <div class="day" data-d="2026-08-18">
+      <div class="day-d"><b>Tue 18</b><span>Day 16</span></div>
+      <div class="day-b"><h4>Pack the room and stop</h4><p>Binder, copies, ID, notepad, pen, water. Then stop working. Early night, alarm set twice.</p></div>
+      <span class="pill">Stop</span>
+    </div>
+
+    <div class="day hearing" data-d="2026-08-19">
+      <div class="day-d"><b>Wed 19</b><span>Hearing</span></div>
+      <div class="day-b"><h4>8:30 AM · Department 547 · Stanley Mosk</h4><p>111 North Hill Street. In person. Arrive by 7:45 — parking and the security line are both worse than you expect. Judge Angela J. Davis.</p></div>
+      <span class="pill hard">The day</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CHECKLISTS ══ -->
+<section class="sec" id="checklists">
+  <div class="sec-head">
+    <div><div class="sec-kicker">Standing</div><h2 class="sec-title">Two lists that do not change</h2></div>
+    <div class="sec-note">Ticks save locally</div>
+  </div>
+
+  <div class="checks">
+
+    <div class="cl">
+      <h4>Bring to every consultation</h4>
+      <ul>
+        <li><input class="tick" type="checkbox" data-k="b1"><span>The served packet, complete<small>everything handed to you, in the order received</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="b2"><span>The archive analysis, printed<small>the thing that makes you a cheap client to represent</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="b3"><span>The chronology<small>dated, sourced, one page per phase</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="b4"><span>Your written intake answers<small>completed before the first meeting, not during it</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="b5"><span>The full archive on a drive<small>hand it over; do not describe it</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="b6"><span>This page, printed<small>the ten questions and a pen beat a good memory</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="b7"><span>Means of payment<small>if the right one says yes, sign in the room</small></span></li>
+      </ul>
+    </div>
+
+    <div class="cl">
+      <h4>Every day until the nineteenth</h4>
+      <ul>
+        <li><input class="tick" type="checkbox" data-k="d1"><span>Zero contact, in either direction<small>no message, no email, no third party carrying one. Nothing is worth this.</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="d2"><span>Assume the order stays in force<small>a continuance extends it rather than ending it — plan around that</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="d3"><span>Nothing new said in writing anywhere<small>everything you type between now and then is potentially an exhibit</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="d4"><span>Originals preserved, never edited<small>keep the file as it came; work on copies</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="d5"><span>Sleep and one meal away from the screen<small>on the list because it is load-bearing, not because it is nice</small></span></li>
+        <li><input class="tick" type="checkbox" data-k="d6"><span>One line in the log each night<small>what happened, what moved, what is stuck</small></span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span>Chaos Console · Hearing Room</span>
+  <span>Logistics only · not legal advice · verify before relying</span>
+  <span>Built 03 Aug 2026</span>
+</footer>
+
+</div>
+
+<div class="saved" id="saved">Saved</div>
+
+<script>
+(function(){
+  "use strict";
+  var NS = "cc_tro_v1";
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(NS) || "{}"); } catch(e){ store = {}; }
+
+  var savedEl = document.getElementById("saved"), savedT;
+  function flash(){
+    savedEl.classList.add("on");
+    clearTimeout(savedT);
+    savedT = setTimeout(function(){ savedEl.classList.remove("on"); }, 1100);
+  }
+  function persist(){
+    try { localStorage.setItem(NS, JSON.stringify(store)); flash(); } catch(e){}
+  }
+
+  /* ── checkboxes ─────────────────────────────── */
+  var ticks = document.querySelectorAll(".tick[data-k]");
+  ticks.forEach(function(box){
+    var k = box.getAttribute("data-k");
+    if (store[k]) box.checked = true;
+    box.addEventListener("change", function(){
+      store[k] = box.checked ? 1 : 0;
+      if (!box.checked) delete store[k];
+      persist();
+    });
+  });
+
+  /* ── call logs ──────────────────────────────── */
+  var tallyEl = document.getElementById("tally");
+  function tally(){
+    var n = 0;
+    document.querySelectorAll("[data-log]").forEach(function(g){
+      var sel = g.querySelector('[data-f="out"]');
+      if (sel && sel.value) n++;
+    });
+    tallyEl.innerHTML = n + '<span style="color:var(--subtle);font-size:.5em">/11</span>';
+  }
+
+  document.querySelectorAll("[data-log]").forEach(function(group){
+    var id = group.getAttribute("data-log");
+    group.querySelectorAll("[data-f]").forEach(function(field){
+      var key = id + "." + field.getAttribute("data-f");
+      if (store[key] != null) field.value = store[key];
+      var ev = field.tagName === "SELECT" ? "change" : "input";
+      var t;
+      field.addEventListener(ev, function(){
+        clearTimeout(t);
+        t = setTimeout(function(){
+          if (field.value) store[key] = field.value; else delete store[key];
+          persist();
+          tally();
+        }, 260);
+      });
+    });
+  });
+  tally();
+
+  /* ── accordion ──────────────────────────────── */
+  document.querySelectorAll(".firm").forEach(function(firm){
+    var head = firm.querySelector(".firm-h");
+    var id = firm.getAttribute("data-id");
+    if (store["open." + id]) firm.classList.add("is-open");
+    head.addEventListener("click", function(e){
+      if (e.target.closest(".log")) return;
+      var open = firm.classList.toggle("is-open");
+      if (open) store["open." + id] = 1; else delete store["open." + id];
+      persist();
+    });
+  });
+
+  /* ── countdown + clock ──────────────────────── */
+  var HEARING = new Date("2026-08-19T08:30:00-07:00");
+  function pad(n){ return n < 10 ? "0" + n : "" + n; }
+
+  function tick(){
+    var now = new Date();
+    var ms = HEARING - now;
+    var cd = document.getElementById("cd");
+    if (ms <= 0) { cd.textContent = "TODAY"; }
+    else {
+      var d = Math.floor(ms / 86400000);
+      var h = Math.floor(ms % 86400000 / 3600000);
+      cd.innerHTML = d + '<span style="font-size:.42em;color:var(--muted)">d</span> ' + h + '<span style="font-size:.42em;color:var(--muted)">h</span>';
+    }
+    var la = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+    document.getElementById("clock").textContent = pad(la.getHours()) + ":" + pad(la.getMinutes()) + " PT";
+    return la;
+  }
+
+  /* ── mark past / current ────────────────────── */
+  function mark(la){
+    var mins = la.getHours() * 60 + la.getMinutes();
+    var isToday = la.getFullYear() === 2026 && la.getMonth() === 7 && la.getDate() === 3;
+    document.querySelectorAll(".slot").forEach(function(s){
+      var f = s.getAttribute("data-from").split(":");
+      var t = s.getAttribute("data-to").split(":");
+      var from = +f[0] * 60 + +f[1], to = +t[0] * 60 + +t[1];
+      s.classList.remove("past", "now");
+      if (!isToday) return;
+      if (mins >= to) s.classList.add("past");
+      else if (mins >= from) s.classList.add("now");
+    });
+    var todayISO = la.getFullYear() + "-" + pad(la.getMonth() + 1) + "-" + pad(la.getDate());
+    document.querySelectorAll(".day").forEach(function(d){
+      var iso = d.getAttribute("data-d");
+      d.classList.remove("past", "today");
+      if (iso < todayISO) d.classList.add("past");
+      else if (iso === todayISO && !d.classList.contains("hearing")) d.classList.add("today");
+    });
+  }
+
+  function loop(){ mark(tick()); }
+  loop();
+  setInterval(loop, 30000);
+})();
+</script>
+
+<script defer src="/shared/gate.js"></script>
+<link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/console-shell.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@
   if (document.querySelector(".cc-console-bar")) return;
 
   var pages = [
+    { title: "Hearing Room", short: "Hearing", href: "/hearing-room/", color: "#f0524d", note: "Counsel, calendar, deadlines." },
     { title: "Ledger", short: "Ledger", href: "/the-ledger/", color: "#ef3b86", note: "Debt, cash flow, accounts, APRs." },
     { title: "Blindspot Almanac", short: "Almanac", href: "/production-almanac/", color: "#f4c51d", note: "Production chapters, cases, sources." },
     { title: "Notebook", short: "Notebook", href: "/notes/", color: "#2fc5b7", note: "Fragments, drafts, links, open loops." },

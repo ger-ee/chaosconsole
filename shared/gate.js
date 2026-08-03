@@ -3,7 +3,7 @@
   // the same window, which let visitors skip the gate after one unlock.
   // sessionStorage scopes to a single tab; new tabs always re-prompt.
   var KEY = 'cc_gate_v2';
-  var PASS = 'cine';
+  var PASS = 'trop';
   // Clear any v1 caches left over from earlier deploys.
   try { localStorage.removeItem('cc_gate_v1'); sessionStorage.removeItem('cc_gate_v1'); } catch(e){}
   if(sessionStorage.getItem(KEY) === 'ok') return;
