@@ -5,8 +5,8 @@
  "attention": [
   {
    "severity": "red",
-   "label": "Contested hearing in 16 days \u2014 counsel not yet retained",
-   "detail": "Wed 19 Aug, 8:30 AM, Dept 547 Stanley Mosk (Judge Angela J. Davis). Retention target Wed 5 Aug. Call sheet, scripts and the day-by-day plan are live in the Hearing Room",
+   "label": "Hearing in 15 days \u2014 2 consults done, 0 counsel retained",
+   "detail": "Wed 19 Aug, 8:30, Dept 547 (Judge Angela J. Davis). Tue 4 Aug is decision day: Blum callback 08:30, criminal lane 08:50, new Marvin/palimony firm 09:20, paid consultation 15:00. Full board in the Hearing Room",
    "href": "/hearing-room/"
   },
   {
@@ -218,49 +218,49 @@
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "16 days out \u00b7 0 counsel retained",
+   "metric": "15 days out \u00b7 0 retained",
    "updated": "2026-08-03",
    "dataThrough": "2026-08-03",
    "cadenceDays": 1,
-   "tagline": "Counsel call sheet \u00b7 phone and consult scripts \u00b7 procedural deadlines \u00b7 16-day plan",
+   "tagline": "Day log \u00b7 tomorrow hour by hour \u00b7 call sheet with scripts \u00b7 scorecard \u00b7 16-day plan",
    "stats": [
     {
-     "label": "Hearing",
-     "value": "Wed 19 Aug \u00b7 8:30",
-     "sub": "Dept 547, Stanley Mosk \u00b7 Judge Angela J. Davis (not Swift \u2014 2022 directory is stale)"
+     "label": "Tomorrow 15:00",
+     "value": "Paid consultation",
+     "sub": "Certified family law specialist, $500, Zoom \u2014 must beat 4.8/10 and 50% question coverage"
     },
     {
-     "label": "Retain by",
-     "value": "Wed 5 Aug",
-     "sub": "11 firms on the sheet, credentials checked against the State Bar registry"
+     "label": "Best score so far",
+     "value": "4.8 / 10",
+     "sub": "Only 5 of 10 questions reached. Candour 9, capability 7, fee fit 2, availability 3"
     },
     {
-     "label": "Hard cutoffs",
-     "value": "Aug 4 \u00b7 Aug 5",
-     "sub": "Consumer-records notice must mail the 4th; remote-appearance notice due the 5th"
+     "label": "New theory",
+     "value": "Marvin claim",
+     "sub": "Palimony \u2014 a second, larger case. Separate civil action; 4-yr limit on written promises"
     },
     {
-     "label": "Open question",
-     "value": "Response vs. continuance",
-     "sub": "Filing the written response may forfeit the automatic continuance \u2014 ask counsel first"
+     "label": "Still open",
+     "value": "Criminal lane",
+     "sub": "Nobody called yet. Shield must exist before anything is filed under oath"
     }
    ],
    "links": [
     {
-     "href": "/hearing-room/#today",
-     "label": "Today"
+     "href": "/hearing-room/#log",
+     "label": "Day log"
+    },
+    {
+     "href": "/hearing-room/#tomorrow",
+     "label": "Tomorrow"
     },
     {
      "href": "/hearing-room/#calls",
      "label": "Call sheet"
     },
     {
-     "href": "/hearing-room/#scripts",
-     "label": "Scripts"
-    },
-    {
-     "href": "/hearing-room/#questions",
-     "label": "Ten questions"
+     "href": "/hearing-room/#score",
+     "label": "Scorecard"
     },
     {
      "href": "/hearing-room/#plan",
