@@ -14,7 +14,7 @@
     { title: "Readwise", short: "Readwise", href: "/readwise-highlights/", color: "#9b72d9", note: "Highlights, marginalia, sources." },
     { title: "AI Intelligence", short: "AI Intel", href: "/ai-intelligence/", color: "#a77adf", note: "Conversation patterns and exports." },
     { title: "Binder", short: "Binder", href: "/the-blindspot-binder/", color: "#f0524d", note: "Channel operating manual." },
-    { title: "Eastern Front", short: "E. Front", href: "/eastern-front-map/", color: "#f0563c", note: "Assembly bench, highlight map, revenge arc." },
+    { title: "Eastern Front", short: "E. Front", href: "/easternfront/", color: "#f0563c", note: "Assembly bench, highlight map, revenge arc." },
     { title: "Color Bible", short: "Color", href: "/the-color-bible/", color: "#f0524d", note: "Five-color taxonomy." },
     { title: "Digital Ecosystem", short: "Ecosystem", href: "/digital-ecosystem-refresh/", color: "#69d6e4", note: "Maintenance routines and risks." },
     { title: "Screenwriting & Film Production", short: "Film Prod", href: "/screenwriting-and-film-production/", color: "#2fc5b7", note: "Story, directing, production." }
