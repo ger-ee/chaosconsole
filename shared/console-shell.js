@@ -6,18 +6,17 @@
   var pages = [
     { title: "Hearing Room", short: "Hearing", href: "/hearing-room/", color: "#f0524d", note: "Counsel, calendar, deadlines." },
     { title: "Ledger", short: "Ledger", href: "/the-ledger/", color: "#ef3b86", note: "Debt, cash flow, accounts, APRs." },
-    { title: "Blindspot Almanac", short: "Almanac", href: "/production-almanac/", color: "#f4c51d", note: "Production chapters, cases, sources." },
-    { title: "Notebook", short: "Notebook", href: "/notes/", color: "#2fc5b7", note: "Fragments, drafts, links, open loops." },
-    { title: "Workflow Wrench", short: "Wrench", href: "/the-workflow-wrench/", color: "#f0601d", note: "Prompts, automations, SOPs." },
-    { title: "Playlist Tracker", short: "Playlists", href: "/playlist-tracker/", color: "#36a3df", note: "Spotify portfolio and momentum." },
     { title: "Wellness", short: "Wellness", href: "/wellness-dashboard/", color: "#82ca55", note: "Apple Health and RingConn signal." },
+    { title: "Playlist Tracker", short: "Playlists", href: "/playlist-tracker/", color: "#36a3df", note: "Spotify portfolio and momentum." },
+    { title: "Eastern Front", short: "E. Front", href: "/easternfront/", color: "#f0563c", note: "Assembly bench, highlight map, revenge arc." },
+    { title: "Blindspot Almanac", short: "Almanac", href: "/production-almanac/", color: "#f4c51d", note: "Production craft, cases, sources." },
+    { title: "Binder", short: "Binder", href: "/the-blindspot-binder/", color: "#f0524d", note: "Channel operating manual." },
     { title: "Readwise", short: "Readwise", href: "/readwise-highlights/", color: "#9b72d9", note: "Highlights, marginalia, sources." },
     { title: "AI Intelligence", short: "AI Intel", href: "/ai-intelligence/", color: "#a77adf", note: "Conversation patterns and exports." },
-    { title: "Binder", short: "Binder", href: "/the-blindspot-binder/", color: "#f0524d", note: "Channel operating manual." },
-    { title: "Eastern Front", short: "E. Front", href: "/easternfront/", color: "#f0563c", note: "Assembly bench, highlight map, revenge arc." },
     { title: "Color Bible", short: "Color", href: "/the-color-bible/", color: "#f0524d", note: "Five-color taxonomy." },
     { title: "Digital Ecosystem", short: "Ecosystem", href: "/digital-ecosystem-refresh/", color: "#69d6e4", note: "Maintenance routines and risks." },
-    { title: "Screenwriting & Film Production", short: "Film Prod", href: "/screenwriting-and-film-production/", color: "#2fc5b7", note: "Story, directing, production." }
+    { title: "Screenwriting & Film Production", short: "Film Prod", href: "/screenwriting-and-film-production/", color: "#2fc5b7", note: "Story, directing, production." },
+    { title: "Insult Rolodex", short: "Rolodex", href: "/insult-rolodex/", color: "#f472b6", note: "202 burns, seven categories." }
   ];
 
   function normalized(href) {

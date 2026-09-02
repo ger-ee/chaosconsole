@@ -4,681 +4,194 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaos Console</title>
-<meta name="description" content="Chaos Console — Gerald's private operating readout: debt, body, catalog, production craft, source memory, and the maintenance that keeps it all findable.">
+<meta name="description" content="Chaos Console — Gerald's private operating readout: the courtroom, debt, body, catalog, production craft, source memory, and the maintenance that keeps it all findable.">
 <meta name="theme-color" content="#0a0e17">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap">
 <link rel="stylesheet" href="/shared/console-shell.css">
 <style>
-:root {
-  --bg: #0a0e17;
-  --bg-2: #0d1220;
-  --card: #111826;
-  --card-2: #151d2e;
-  --line: #1d2740;
-  --line-2: #232d45;
-  --text: #e5e9f0;
-  --text-2: #94a3b8;
-  --text-3: #64748b;
-  --gold: #d4a052;
-  --good: #4ade80;
-  --warn: #fbbf24;
-  --bad: #f87171;
-  --sans: "Instrument Sans", Inter, ui-sans-serif, system-ui, sans-serif;
-  --disp: "Space Grotesk", var(--sans);
-  --mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+:root{
+  --bg:#0a0e17; --bg-2:#0d1220; --card:#111826; --card-2:#151d2e; --line:#1d2740; --line-2:#263153;
+  --text:#e5e9f0; --text-2:#94a3b8; --text-3:#64748b;
+  --gold:#d4a052; --good:#4ade80; --warn:#fbbf24; --bad:#f87171; --info:#60a5fa;
+  --sans:"Instrument Sans",Inter,ui-sans-serif,system-ui,sans-serif; --disp:"Space Grotesk",var(--sans);
+  --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace; --serif:"Fraunces",Georgia,serif;
 }
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(900px 520px at 8% -10%, rgba(212,160,82,.16), transparent 60%),
+    radial-gradient(700px 420px at 92% 0%, rgba(240,82,77,.10), transparent 60%),
+    radial-gradient(600px 400px at 50% 110%, rgba(140,123,255,.08), transparent 60%),
+    var(--bg)}
+a{color:inherit}
+.skip-link{position:fixed;left:16px;top:16px;z-index:40;transform:translateY(-200%);padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--card);color:var(--text);font-family:var(--mono);font-size:11px;text-transform:uppercase;text-decoration:none}
+.skip-link:focus{transform:translateY(0)}
+.shell{width:min(1280px,calc(100% - 40px));margin:0 auto}
 
-* { box-sizing: border-box; }
+/* topbar */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:20px;min-height:56px;padding:8px 0;border-bottom:1px solid var(--line);background:rgba(10,14,23,.82);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.mark{width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(212,160,82,.55);border-radius:8px;color:var(--gold);font-family:var(--disp);font-weight:700;font-size:14px;background:rgba(212,160,82,.08)}
+.wordmark{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.nav{display:flex;align-items:center;gap:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--text-2);padding:7px 10px;border-radius:6px;white-space:nowrap}
+.nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.top-right{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);flex:none}
+.gary{padding:5px 9px;border:1px solid var(--line-2);border-radius:999px;color:var(--gold)}
 
-html { background: var(--bg); scroll-behavior: smooth; }
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);gap:22px;align-items:end;padding:44px 0 26px}
+.hello{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.2vw,26px);color:var(--gold);margin:0 0 8px}
+h1{margin:0;font-family:var(--disp);font-size:clamp(46px,7vw,86px);line-height:.92;letter-spacing:-.02em;font-weight:700}
+h1 span{color:var(--text-3)}
+.brief-line{margin:14px 0 0;color:var(--text-2);font-size:16px;max-width:64ch}
+.brief-line b{color:var(--text);font-weight:600}
+.next{display:grid;gap:8px}
+.next-h{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin:0 0 2px}
+.next a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(17,24,38,.7);text-decoration:none;transition:border-color .15s}
+.next a:hover{border-color:var(--nk)}
+.next .nd{font-family:var(--disp);font-size:22px;font-weight:700;line-height:1;color:var(--nk);min-width:64px}
+.next .nd small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-top:3px;font-weight:500}
+.next .nl{font-size:13.5px;font-weight:600}
+.next .ns{display:block;font-size:12px;color:var(--text-3);font-weight:400;margin-top:1px}
+.next .nw{font-family:var(--mono);font-size:10.5px;color:var(--text-2)}
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+/* section heads */
+.sec{margin-top:34px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+.sec-head h2{margin:0;font-family:var(--disp);font-size:22px;letter-spacing:-.01em}
+.sec-head p{margin:4px 0 0;color:var(--text-3);font-size:13.5px}
+.sec-head .count{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
 
-a { color: inherit; }
+/* attention */
+.attn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.attn-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);text-decoration:none;transition:transform .15s,border-color .15s;position:relative;overflow:hidden}
+.attn-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sev)}
+.attn-row:hover{transform:translateY(-2px);border-color:var(--sev)}
+.attn-row.sev-red{--sev:var(--bad)} .attn-row.sev-amber{--sev:var(--warn)} .attn-row.sev-info{--sev:var(--info)}
+.attn-row.sev-red{grid-column:span 3;background:linear-gradient(90deg,rgba(248,113,113,.10),var(--card) 40%)}
+.attn-dot{width:10px;height:10px;border-radius:50%;background:var(--sev);margin-top:6px;box-shadow:0 0 0 4px color-mix(in srgb,var(--sev) 18%,transparent)}
+.attn-label{display:block;font-weight:600;font-size:14.5px;line-height:1.3}
+.attn-detail{display:block;color:var(--text-2);font-size:12.5px;margin-top:4px}
+.sev-red .attn-label{font-size:16px}
 
-.skip-link {
-  position: fixed;
-  left: 16px;
-  top: 16px;
-  z-index: 40;
-  transform: translateY(-200%);
-  padding: 10px 12px;
-  border: 1px solid var(--line-2);
-  border-radius: 8px;
-  background: var(--card);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.skip-link:focus { transform: translateY(0); }
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:4px;padding:16px 16px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);text-decoration:none;overflow:hidden;transition:transform .15s,border-color .15s}
+.kpi::after{content:"";position:absolute;inset:auto -30% -50% auto;width:60%;height:100%;background:radial-gradient(closest-side,color-mix(in srgb,var(--k) 22%,transparent),transparent);pointer-events:none}
+.kpi:hover{transform:translateY(-2px);border-color:var(--k)}
+.kpi-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kpi-line{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.kpi-value{font-family:var(--disp);font-size:30px;line-height:1;font-weight:700;color:var(--text)}
+.chip{font-family:var(--mono);font-size:10px;padding:3px 7px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-2)}
+.chip.good{color:var(--good);border-color:rgba(74,222,128,.35)} .chip.warn{color:var(--warn);border-color:rgba(251,191,36,.35)} .chip.bad{color:var(--bad);border-color:rgba(248,113,113,.35)}
+.kpi svg{width:100%;margin-top:6px}
+.kpi-note{font-size:12px;color:var(--text-3);position:relative}
 
-.shell {
-  width: min(1240px, calc(100% - 40px));
-  margin: 0 auto;
-}
+/* clusters + rooms */
+.cluster{margin-top:36px}
+.cluster-head{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.cluster-head h2{margin:0;font-family:var(--disp);font-size:20px}
+.cluster-head p{margin:0;color:var(--text-3);font-size:13px}
+.room-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.room{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;transition:transform .15s,border-color .15s}
+.room:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--k) 55%,var(--line))}
+.room-band{padding:16px 18px 14px;background:linear-gradient(135deg,color-mix(in srgb,var(--k) 26%,var(--card-2)),var(--card-2) 70%);border-bottom:1px solid var(--line)}
+.room-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.room-head a{font-family:var(--disp);font-size:19px;font-weight:700;text-decoration:none;color:var(--text)}
+.room-head a:hover{color:var(--k)}
+.stamp{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 7px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-3);white-space:nowrap}
+.stamp.good{color:var(--good);border-color:rgba(74,222,128,.35)} .stamp.warn{color:var(--warn);border-color:rgba(251,191,36,.35)} .stamp.bad{color:var(--bad);border-color:rgba(248,113,113,.35)}
+.room-metric{margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--k)}
+.room-tagline{margin:6px 0 0;color:var(--text-2);font-size:12.5px}
+.room-body{padding:12px 18px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+.room-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+.stat{min-width:0}
+.stat-label{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.stat-value{display:block;font-weight:600;font-size:13.5px;margin-top:1px}
+.stat-sub{display:block;font-size:11.5px;color:var(--text-3);margin-top:1px}
+.swatches{display:flex;flex-wrap:wrap;gap:6px}
+.swatch{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;padding:3px 8px 3px 4px;border:1px solid var(--line);border-radius:999px;color:var(--text-2)}
+.swatch i{width:12px;height:12px;border-radius:50%;background:var(--sw)} .swatch small{color:var(--text-3)}
+.room-spark svg{width:100%}
+.spark-cap{display:flex;gap:12px;font-family:var(--mono);font-size:9.5px;color:var(--text-3)}
+.spark-cap i{display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--sw);margin-right:5px}
+.room-links{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:8px;border-top:1px solid var(--line)}
+.room-links a{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--text-2);padding:4px 8px;border-radius:6px;border:1px solid var(--line)}
+.room-links a:hover{color:var(--k);border-color:var(--k)}
+.room-open{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--k)}
 
-/* ---------- topbar ---------- */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 54px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
-  background: rgba(10, 14, 23, 0.86);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-}
+/* resurface */
+.resurface{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;margin-top:14px;padding:22px 26px;border:1px solid rgba(212,160,82,.28);border-radius:14px;background:linear-gradient(135deg,rgba(212,160,82,.10),var(--card) 60%)}
+.rs-quote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.6vw,21px);line-height:1.4;color:var(--text)}
+.rs-meta{margin:8px 0 0;font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.rs-actions{display:flex;flex-direction:column;gap:8px}
+.rs-actions button,.rs-actions a{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:8px;border:1px solid rgba(212,160,82,.5);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;text-align:center}
+.rs-actions button:hover{background:rgba(212,160,82,.12)}
 
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex: none;
-}
-
-.mark {
-  width: 26px;
-  height: 26px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(212, 160, 82, 0.5);
-  border-radius: 7px;
-  color: var(--gold);
-  font-family: var(--disp);
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.wordmark {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.nav {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 4px 18px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-2);
-}
-.nav a { text-decoration: none; padding: 4px 0; }
-.nav a:hover, .nav a:focus-visible { color: var(--gold); outline: none; }
-
-.top-right {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  flex: none;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.gary {
-  padding: 5px 9px;
-  border: 1px solid rgba(212, 160, 82, 0.45);
-  border-radius: 6px;
-  color: var(--gold);
-}
-
-/* ---------- header ---------- */
-.brief {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 18px;
-  flex-wrap: wrap;
-  padding: 34px 0 22px;
-}
-
-.brief h1 {
-  margin: 0;
-  font-family: var(--disp);
-  font-size: clamp(26px, 3.4vw, 36px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-}
-
-.brief-line {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-.brief-line b { color: var(--text-2); font-weight: 500; }
-
-/* ---------- attention ---------- */
-.attention {
-  border: 1px solid var(--line-2);
-  border-radius: 12px;
-  background: var(--bg-2);
-  overflow: hidden;
-}
-
-.attention-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 11px 16px;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-2);
-}
-.attention-head .count { color: var(--warn); }
-
-.attn-row {
-  display: grid;
-  grid-template-columns: 14px minmax(0, 0.62fr) minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-  transition: background 140ms ease;
-}
-.attn-row:last-child { border-bottom: 0; }
-.attn-row:hover, .attn-row:focus-visible { background: var(--card); outline: none; }
-
-.attn-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  justify-self: center;
-}
-.sev-red .attn-dot { background: var(--bad); box-shadow: 0 0 10px rgba(248, 113, 113, 0.55); }
-.sev-amber .attn-dot { background: var(--warn); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
-.sev-info .attn-dot { background: var(--text-3); }
-
-.attn-label { font-weight: 600; font-size: 13.5px; }
-.sev-red .attn-label { color: var(--bad); }
-.attn-detail { color: var(--text-2); font-size: 12.5px; }
-.attn-go { color: var(--text-3); font-family: var(--mono); font-size: 12px; }
-.attn-row:hover .attn-go { color: var(--gold); }
-
-/* ---------- KPI band ---------- */
-.kpis {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-  gap: 10px;
-  padding: 22px 0 8px;
-}
-
-.kpi {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px 16px 13px;
-  border: 1px solid var(--line-2);
-  border-radius: 12px;
-  background: var(--card);
-  overflow: hidden;
-  text-decoration: none;
-  transition: transform 160ms ease, border-color 160ms ease;
-}
-.kpi::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--k);
-  opacity: 0.9;
-}
-.kpi:hover, .kpi:focus-visible {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--k) 55%, var(--line-2));
-  outline: none;
-}
-
-.kpi-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.kpi-line { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-
-.kpi-value {
-  font-family: var(--disp);
-  font-size: 27px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.chip {
-  padding: 2px 7px;
-  border-radius: 5px;
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-.chip.good { color: var(--good); background: rgba(74, 222, 128, 0.1); }
-.chip.warn { color: var(--warn); background: rgba(251, 191, 36, 0.1); }
-.chip.bad  { color: var(--bad);  background: rgba(248, 113, 113, 0.12); }
-.chip.flat { color: var(--text-2); background: rgba(148, 163, 184, 0.1); }
-
-.kpi svg { display: block; width: 100%; height: 30px; }
-
-.kpi-note {
-  font-size: 11px;
-  line-height: 1.45;
-  color: var(--text-3);
-}
-
-/* ---------- clusters ---------- */
-.cluster { padding: 26px 0 4px; }
-
-.cluster-head {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  flex-wrap: wrap;
-  padding-bottom: 12px;
-}
-
-.cluster-head h2 {
-  margin: 0;
-  font-family: var(--disp);
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.cluster-head p {
-  margin: 0;
-  font-size: 12.5px;
-  color: var(--text-3);
-}
-
-.room-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 10px;
-}
-
-.room {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px 16px 13px;
-  border: 1px solid var(--line-2);
-  border-radius: 12px;
-  background: var(--card);
-  overflow: hidden;
-}
-.room::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--k);
-  opacity: 0.9;
-}
-
-.room-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.room-head a {
-  font-family: var(--disp);
-  font-size: 16.5px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  text-decoration: none;
-}
-.room-head a::after { content: ""; position: absolute; inset: 0; }
-.room:hover { border-color: color-mix(in srgb, var(--k) 50%, var(--line-2)); }
-.room:hover .room-open { color: var(--k); }
-
-.stamp {
-  position: relative;
-  z-index: 1;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.stamp.good { color: var(--good); }
-.stamp.warn { color: var(--warn); }
-.stamp.bad  { color: var(--bad); }
-.stamp.idle { color: var(--text-3); }
-
-.room-tagline {
-  margin: -4px 0 0;
-  font-size: 12px;
-  color: var(--text-3);
-}
-
-.room-stats { display: grid; gap: 7px; }
-
-.stat {
-  display: grid;
-  gap: 1px;
-  padding-top: 7px;
-  border-top: 1px solid var(--line);
-}
-
-.stat-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.stat-label {
-  font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  white-space: nowrap;
-}
-
-.stat-value {
-  font-family: var(--disp);
-  font-size: 13.5px;
-  font-weight: 600;
-  text-align: right;
-}
-
-.stat-sub {
-  font-size: 11px;
-  color: var(--text-3);
-  text-align: right;
-}
-
-.swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 12px;
-  padding-top: 8px;
-  border-top: 1px solid var(--line);
-}
-
-.swatch {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--text-2);
-}
-.swatch i {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  background: var(--sw);
-}
-.swatch small { color: var(--text-3); font-size: 9.5px; }
-
-.room-spark { margin-top: 2px; }
-.room-spark svg { display: block; width: 100%; height: 38px; }
-
-.spark-cap {
-  margin-top: 3px;
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-.spark-cap i {
-  display: inline-block;
-  width: 8px; height: 2px;
-  margin-right: 5px;
-  vertical-align: middle;
-  border-radius: 2px;
-  background: var(--sw);
-  font-style: normal;
-}
-.spark-cap span + span { margin-left: 12px; }
-
-.room-links {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: auto;
-  padding-top: 10px;
-}
-
-.room-links a {
-  padding: 4px 9px;
-  border: 1px solid var(--line-2);
-  border-radius: 6px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--text-2);
-  text-decoration: none;
-  transition: color 140ms ease, border-color 140ms ease;
-}
-.room-links a:hover, .room-links a:focus-visible {
-  color: var(--k);
-  border-color: color-mix(in srgb, var(--k) 60%, var(--line-2));
-  outline: none;
-}
-
-.room-open {
-  margin-left: auto;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-3);
-}
-
-/* ---------- quote strip ---------- */
-.resurface {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px 26px;
-  align-items: center;
-  margin: 28px 0 4px;
-  padding: 22px 24px;
-  border: 1px solid var(--line-2);
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--bg-2), var(--card));
-}
-
-.rs-quote {
-  margin: 0;
-  font-family: "Fraunces", Georgia, serif;
-  font-style: italic;
-  font-size: clamp(16px, 2vw, 20px);
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--text);
-}
-.rs-quote::before { content: "\201C\2009"; color: var(--gold); }
-.rs-quote::after { content: "\2009\201D"; color: var(--gold); }
-
-.rs-meta {
-  margin-top: 6px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.rs-actions { display: grid; gap: 8px; }
-
-.rs-actions button,
-.rs-actions a {
-  min-width: 132px;
-  padding: 8px 14px;
-  border: 1px solid var(--line-2);
-  border-radius: 7px;
-  background: transparent;
-  color: var(--text-2);
-  cursor: pointer;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-align: center;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: color 140ms ease, border-color 140ms ease;
-}
-.rs-actions button:hover, .rs-actions a:hover,
-.rs-actions button:focus-visible, .rs-actions a:focus-visible {
-  color: var(--gold);
-  border-color: rgba(212, 160, 82, 0.5);
-  outline: none;
-}
-
-/* ---------- footer ---------- */
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 24px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-  padding: 20px 0 30px;
-  border-top: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.annex { display: flex; flex-wrap: wrap; gap: 6px 16px; }
-.annex a { text-decoration: none; color: var(--text-2); }
-.annex a:hover, .annex a:focus-visible { color: var(--fk, var(--gold)); outline: none; }
-.annex a i {
-  display: inline-block;
-  width: 7px; height: 7px;
-  margin-right: 6px;
-  border-radius: 50%;
-  background: var(--fk, var(--text-3));
-  font-style: normal;
-  opacity: 0.85;
-}
-
-.credo { color: var(--gold); }
-
-@media (max-width: 860px) {
-  .attn-row { grid-template-columns: 14px minmax(0, 1fr) auto; grid-template-rows: auto auto; }
-  .attn-dot { grid-column: 1; grid-row: 1; }
-  .attn-label { grid-column: 2; grid-row: 1; }
-  .attn-detail { grid-column: 2; grid-row: 2; }
-  .attn-go { grid-column: 3; grid-row: 1 / 3; }
-  .resurface { grid-template-columns: 1fr; }
-  .rs-actions { grid-auto-flow: column; }
-}
-
-@media (max-width: 620px) {
-  .shell { width: calc(100% - 28px); }
-  .topbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
-  .brand { grid-column: 1; grid-row: 1; }
-  .top-right { grid-column: 2; grid-row: 1; justify-self: end; }
-  .nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; padding-bottom: 6px; }
-  .brief { padding-top: 24px; }
-  .room-grid { grid-template-columns: 1fr; }
-  .kpis { grid-template-columns: repeat(2, 1fr); }
-  .rs-actions { grid-auto-flow: row; }
-}
+/* footer */
+.footer{margin-top:44px;padding:20px 0 40px;border-top:1px solid var(--line);display:grid;gap:14px}
+.annex{display:flex;flex-wrap:wrap;gap:8px}
+.annex a{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--text-2)}
+.annex a:hover{color:var(--text);border-color:var(--fk)}
+.annex i{width:8px;height:8px;border-radius:50%;background:var(--fk)}
+.foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.credo{color:var(--gold)}
+@media (max-width:1080px){.attn{grid-template-columns:repeat(2,minmax(0,1fr))}.attn-row.sev-red{grid-column:span 2}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.attn{grid-template-columns:1fr}.attn-row.sev-red{grid-column:span 1}.room-grid{grid-template-columns:1fr}.resurface{grid-template-columns:1fr}.top-right #today{display:none}}
+@media (max-width:520px){.kpis{grid-template-columns:1fr}}
 </style>
-<script defer src="/shared/gate.js"></script>
-<script defer src="/shared/console-shell.js"></script>
 </head>
 <body data-console-home="true">
 <a class="skip-link" href="#main">Skip to content</a>
-
 <div class="shell">
   <header class="topbar" aria-label="Primary">
-    <a class="brand" href="/" aria-label="Chaos Console home">
-      <span class="mark" aria-hidden="true">C</span>
-      <span class="wordmark">Chaos Console</span>
-    </a>
+    <a class="brand" href="/" aria-label="Chaos Console home"><span class="mark" aria-hidden="true">C</span><span class="wordmark">Chaos Console</span></a>
     <nav class="nav" aria-label="Rooms">
+      <a href="/hearing-room/">Hearing</a>
       <a href="/the-ledger/">Ledger</a>
       <a href="/wellness-dashboard/">Wellness</a>
       <a href="/playlist-tracker/">Playlists</a>
-      <a href="/the-blindspot-binder/">Binder</a>
+      <a href="/easternfront/">Eastern Front</a>
       <a href="/production-almanac/">Almanac</a>
-      <a href="/the-workflow-wrench/">Wrench</a>
+      <a href="/the-blindspot-binder/">Binder</a>
+      <a href="/readwise-highlights/">Readwise</a>
     </nav>
-    <div class="top-right">
-      <span id="today"></span>
-      <span class="gary">Gary</span>
-    </div>
+    <div class="top-right"><span id="today"></span><span class="gary">Gary</span></div>
   </header>
 
   <main id="main">
-    <div class="brief">
-      <h1>The Readout</h1>
-      <p class="brief-line" id="briefLine">Loading the board…</p>
-    </div>
-
-    <section class="attention" aria-labelledby="attn-title">
-      <div class="attention-head">
-        <span id="attn-title">Needs a decision</span>
-        <span class="count" id="attnCount"></span>
+    <section class="hero">
+      <div>
+        <p class="hello" id="hello">Good morning.</p>
+        <h1>The Readout<span>.</span></h1>
+        <p class="brief-line" id="briefLine">Loading the board…</p>
       </div>
-      <div id="attnList"></div>
+      <div class="next" id="nextUp"><p class="next-h">Next up</p></div>
     </section>
 
-    <section class="kpis" id="kpiBand" aria-label="Key numbers"></section>
+    <section class="sec" aria-labelledby="attn-title">
+      <div class="sec-head"><div><h2 id="attn-title">Needs a decision</h2><p>Flags carry a link to the room that clears them.</p></div><span class="count" id="attnCount"></span></div>
+      <div class="attn" id="attnList"></div>
+    </section>
+
+    <section class="sec" aria-label="Key numbers">
+      <div class="sec-head"><div><h2>Key numbers</h2><p>Each tile opens its room.</p></div><span class="count">8 gauges</span></div>
+      <div class="kpis" id="kpiBand"></div>
+    </section>
 
     <div id="clusters"></div>
 
     <footer class="footer">
       <div class="annex" id="annex"></div>
-      <span class="credo">Built by Gary. For Gary.</span>
-      <span id="stampLine"></span>
+      <div class="foot-line"><span class="credo">Built by Gary. For Gary.</span><span id="stampLine"></span></div>
     </footer>
   </main>
 </div>
@@ -690,20 +203,26 @@ a { color: inherit; }
    offline / on file:// — the fetched copy wins when it loads. */
 var FALLBACK = {
  "version": 2,
- "generated": "2026-08-21",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
+ "generated": "2026-09-02",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar.",
  "attention": [
   {
    "severity": "red",
-   "label": "Hearing Wednesday 8/19 — counsel retained, $10k in trust",
-   "detail": "Dept 547, 8:30, Judge Angela J. Davis. Lai fee agreement signed 8/12 (Case 26STRO04931); $10,000 retainer sent 8/13 — trust-deposit confirmation still pending at last check. Continuance settled in principle; retained counsel files it formally. Travel pushed to Sep 15.",
-   "href": "/hearing-room/"
+   "label": "Hearing continued to Wed Oct 28 — twelve days of silence from counsel",
+   "detail": "Lai took the continuance in person on 8/19; DV-115 signed 8/21; civil retainer ($5k) paid 8/21. Since then: no conformed order, no onboarding request, no readout on the negotiation. Break the silence this week — you leave Sep 15.",
+   "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "August close will absorb a $10.5k legal outflow",
-   "detail": "$10,000 Lai retainer (8/13) + $500 consult (8/4) hit this month on top of July's $12,285 revolving close — re-run the ledger close when August statements land",
+   "label": "August close absorbed $15,515 in legal outflow",
+   "detail": "$515 consult (8/4) + $10,000 DVRO retainer (8/12) + $5,000 civil retainer (8/21), on top of July's $12,285 revolving close — re-run the Ledger close when August statements land and ask the firm for a trust statement",
    "href": "/the-ledger/"
+  },
+  {
+   "severity": "amber",
+   "label": "Health feed stalled Aug 11 — ring channel silent since Jun 12",
+   "detail": "Incremental refresh pulled AutoSync through Aug 11 (sleep to Aug 8, steps to Aug 11) but resting HR / HRV stop Jun 12 and SpO2 Jun 7. Open Health Auto Export on the phone, then run data/health_refresh.py. RENPHO scans are current to Sep 1.",
+   "href": "/wellness-dashboard/"
   },
   {
    "severity": "amber",
@@ -714,32 +233,26 @@ var FALLBACK = {
   {
    "severity": "amber",
    "label": "Second bounced ACH on Capital One 0623",
-   "detail": "$429 payment returned 07/08, second returned ACH in two months — verify the funding account behind autopay",
+   "detail": "$429 payment returned 07/08, second returned ACH in two months — verify the funding account behind autopay before the next cycle",
    "href": "/the-ledger/#view-accounts"
   },
   {
    "severity": "amber",
-   "label": "Ecosystem pass V10 is overdue",
-   "detail": "V9 closed Mar 11; quarterly cadence ran out ~25 days ago. 5-item queue incl. rebuilding financial-consolidation.html",
+   "label": "Ecosystem pass V10 is 85 days overdue",
+   "detail": "V9 closed Mar 11; the 90-day cadence ran out Jun 9. 5-item queue incl. rebuilding financial-consolidation.html — and this rebuild retired two rooms, so the room inventory needs re-listing",
    "href": "/digital-ecosystem-refresh/"
   },
   {
    "severity": "amber",
-   "label": "Health exports are stalling",
-   "detail": "Resting HR / HRV stuck at May 25 (40d), weight at Apr 23 (72d) — open Health Auto Export to un-stall the feed",
-   "href": "/wellness-dashboard/"
-  },
-  {
-   "severity": "amber",
-   "label": "Readwise cache is 79 days old",
-   "detail": "Newest highlight Mar 19 — rerun data/readwise_loader.py",
+   "label": "Readwise cache is 139 days old",
+   "detail": "Cache built Apr 16, newest highlight Mar 19 — rerun data/readwise_loader.py (the Eastern Front map already pulls 157 quotes from Readwise directly)",
    "href": "/readwise-highlights/"
   },
   {
    "severity": "info",
-   "label": "Notebook embed unconfigured",
-   "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) — paste the public Notion URL and the room comes alive",
-   "href": "/notes/"
+   "label": "Sep 2 rebuild shipped",
+   "detail": "Notebook and Workflow Wrench retired · Wellness Analysis merged into the Wellness Desk · Almanac collapsed to one page with 9 figures · Eastern Front in the top bar · playlist counts synced",
+   "href": "/production-almanac/"
   },
   {
    "severity": "info",
@@ -791,20 +304,28 @@ var FALLBACK = {
    ]
   },
   {
-   "label": "Legal war chest",
-   "value": "$10,000",
-   "delta": "retained 8/13",
+   "label": "Legal outflow",
+   "value": "$15,515",
+   "delta": "2 retainers",
    "tone": "warn",
-   "note": "Lai · Case 26STRO04931 · hearing Wed 8/19 · Dept 547",
+   "note": "Lai · both matters · hearing Wed Oct 28 · 56 days out",
    "color": "#f0524d",
-   "href": "/hearing-room/"
+   "href": "/hearing-room/",
+   "spark": [
+    0,
+    515,
+    515,
+    10515,
+    10515,
+    15515
+   ]
   },
   {
    "label": "Playlist followers",
-   "value": "1,049",
-   "delta": "+5 Jul",
+   "value": "1,062",
+   "delta": "+13 since Jul",
    "tone": "good",
-   "note": "15 playlists · top 3 hold 78.6% · last synced Jul 2",
+   "note": "15 playlists · top 3 hold 78.7% · synced Sep 2",
    "color": "#8c7bff",
    "href": "/playlist-tracker/",
    "spark": [
@@ -831,17 +352,33 @@ var FALLBACK = {
     1030,
     1033,
     1044,
-    1049
+    1049,
+    1062
+   ]
+  },
+  {
+   "label": "Body fat",
+   "value": "19.2%",
+   "delta": "−3.0 pts since Mar",
+   "tone": "good",
+   "note": "RENPHO Sep 1 · 184.2 lb · WHR 0.86 · score 84",
+   "color": "#fb923c",
+   "href": "/wellness-dashboard/#body",
+   "spark": [
+    22.2,
+    19.9,
+    19.8,
+    19.2
    ]
   },
   {
    "label": "Recovery score",
-   "value": "53",
+   "value": "41",
    "delta": "Under Pressure",
    "tone": "warn",
-   "note": "RHR running +18 bpm over baseline",
+   "note": "last 14 cardio-backed days · ring quiet since Jun 12",
    "color": "#4ade80",
-   "href": "/wellness-analysis/",
+   "href": "/wellness-dashboard/#analysis",
    "spark": [
     70,
     58.7,
@@ -852,13 +389,14 @@ var FALLBACK = {
     42.4,
     39.7,
     48.5,
-    64.8
+    56.2,
+    31.4
    ]
   },
   {
    "label": "Highlights banked",
    "value": "1,696",
-   "delta": "cache 79d old",
+   "delta": "cache 139d old",
    "tone": "warn",
    "note": "165 sources · newest highlight Mar 19",
    "color": "#f4b942",
@@ -891,20 +429,20 @@ var FALLBACK = {
    ]
   },
   {
-   "label": "Binder",
-   "value": "v9",
-   "delta": "15 chapters",
+   "label": "Eastern Front",
+   "value": "157",
+   "delta": "quotes mapped",
    "tone": "flat",
-   "note": "76 PDFs folded in across v6–v9 on Apr 24",
-   "color": "#f0524d",
-   "href": "/the-blindspot-binder/"
+   "note": "title-free assembly · 21 events · shipped Sep 2",
+   "color": "#f0563c",
+   "href": "/easternfront/"
   }
  ],
  "clusters": [
   {
    "key": "ops",
    "title": "Life Ops",
-   "blurb": "Money, body, catalog — the numbers that move whether you look or not."
+   "blurb": "Money, body, catalog, the courtroom — the numbers that move whether you look or not."
   },
   {
    "key": "creative",
@@ -912,14 +450,14 @@ var FALLBACK = {
    "blurb": "The Blindspot side: manuals, sources, and the visual system."
   },
   {
-   "key": "systems",
-   "title": "Systems",
-   "blurb": "The machine room: automation, AI patterns, maintenance."
-  },
-  {
    "key": "eastern",
    "title": "Eastern Front",
    "blurb": "The Blindspot's opening campaign — the assembly bench, the source map, and the revenge arc."
+  },
+  {
+   "key": "systems",
+   "title": "Systems",
+   "blurb": "The machine room: AI patterns and maintenance."
   }
  ],
  "rooms": [
@@ -928,48 +466,53 @@ var FALLBACK = {
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "2 days out · counsel retained",
-   "updated": "2026-08-17",
-   "dataThrough": "2026-08-03",
-   "cadenceDays": 1,
-   "tagline": "Day log · tomorrow hour by hour · call sheet with scripts · scorecard · 16-day plan",
+   "metric": "Oct 28 · 56 days out",
+   "updated": "2026-09-02",
+   "dataThrough": "2026-09-02",
+   "cadenceDays": 7,
+   "tagline": "Status board · what happened 5 Aug → 2 Sep · open loops · 56-day calendar · money · rules",
    "stats": [
     {
-     "label": "Wed 8:30",
-     "value": "Hearing — Dept 547",
-     "sub": "Judge Angela J. Davis · Stanley Mosk · continuance to be formalized by counsel"
+     "label": "Wed 28 Oct · 8:30",
+     "value": "Dept 547 — continued",
+     "sub": "Judge Angela J. Davis · farthest date the court would give · one continuance used"
     },
     {
      "label": "Counsel",
-     "value": "Lai — retained",
-     "sub": "fee agreement signed 8/12 · $10,000 to trust 8/13 · Case 26STRO04931"
+     "value": "Lai, CFLS · both matters",
+     "sub": "$10k DVRO 8/12 + $5k civil 8/21 · conflict check cleared 8/13 · MC-050 signed 8/19"
+    },
+    {
+     "label": "Silence",
+     "value": "12 days",
+     "sub": "last word from the firm Aug 21 · conformed order and onboarding still owed"
     },
     {
      "label": "Travel",
-     "value": "pushed to Sep 15",
-     "sub": "flight moved off 8/15 so the hearing window is clear"
+     "value": "Sep 15 – 29",
+     "sub": "inside the prep window · reachable · no signatures abroad"
     }
    ],
    "links": [
     {
+     "href": "/hearing-room/#status",
+     "label": "Status"
+    },
+    {
      "href": "/hearing-room/#log",
-     "label": "Day log"
+     "label": "Log"
     },
     {
-     "href": "/hearing-room/#tomorrow",
-     "label": "Tomorrow"
+     "href": "/hearing-room/#loops",
+     "label": "Open loops"
     },
     {
-     "href": "/hearing-room/#calls",
-     "label": "Call sheet"
+     "href": "/hearing-room/#calendar",
+     "label": "Calendar"
     },
     {
-     "href": "/hearing-room/#score",
-     "label": "Scorecard"
-    },
-    {
-     "href": "/hearing-room/#plan",
-     "label": "16 days"
+     "href": "/hearing-room/#money",
+     "label": "Money"
     }
    ]
   },
@@ -1078,34 +621,34 @@ var FALLBACK = {
   },
   {
    "href": "/wellness-dashboard/",
-   "label": "Wellness",
+   "label": "Wellness Desk",
    "cluster": "ops",
    "color": "#4ade80",
-   "metric": "recovery 53 · Under Pressure",
-   "updated": "2026-07-02",
-   "dataThrough": "2026-06-21",
+   "metric": "BF 19.2% · WHR 0.86 · recovery 41",
+   "updated": "2026-09-02",
+   "dataThrough": "2026-08-11",
    "cadenceDays": 14,
-   "tagline": "Apple Health + RingConn — each metric ages on its own clock",
+   "tagline": "Tiles + RENPHO body composition + the recovery analysis, merged onto one page",
    "stats": [
     {
+     "label": "Body comp · Sep 1",
+     "value": "184.2 lb · 19.2% fat",
+     "sub": "muscle 138.8 · visceral 5 · metabolic age 34 · four scans since Mar"
+    },
+    {
      "label": "Sleep · last on record",
-     "value": "6:43",
-     "sub": "Jun 20 · 7-night avg 8:13 across gaps"
+     "value": "10:21",
+     "sub": "Aug 8 · 7-night avg 7:20 · staging sparse (56 nights)"
     },
     {
      "label": "Steps",
-     "value": "3,897",
-     "sub": "Jun 21 · 7-day avg 4,793"
+     "value": "2,548",
+     "sub": "Aug 11 · 7-day avg 3,278"
     },
     {
      "label": "Resting HR",
-     "value": "78 bpm avg",
-     "sub": "stuck at May 25 · last single reading 84"
-    },
-    {
-     "label": "Weight",
-     "value": "180.8 lb",
-     "sub": "Apr 23 · scale silent 72 days"
+     "value": "75 bpm avg",
+     "sub": "ring channel silent since Jun 12 · last 62"
     }
    ],
    "series": [
@@ -1151,19 +694,27 @@ var FALLBACK = {
       ],
       [
        "2026-06-01",
-       64.8
+       56.2
+      ],
+      [
+       "2026-07-01",
+       31.4
       ]
      ]
     }
    ],
    "links": [
     {
-     "href": "/wellness-analysis/",
-     "label": "Deep analysis"
+     "href": "/wellness-dashboard/#body",
+     "label": "Body composition"
     },
     {
-     "href": "/wellness-dashboard/#tSleep",
-     "label": "Sleep tile"
+     "href": "/wellness-dashboard/#analysis",
+     "label": "Analysis"
+    },
+    {
+     "href": "/wellness-dashboard/#months",
+     "label": "Monthly ledger"
     }
    ]
   },
@@ -1172,31 +723,31 @@ var FALLBACK = {
    "label": "Playlist Tracker",
    "cluster": "ops",
    "color": "#8c7bff",
-   "metric": "1,049 followers · +5 Jul",
-   "updated": "2026-07-02",
-   "dataThrough": "2026-07-01",
+   "metric": "1,062 followers · +13 since Jul",
+   "updated": "2026-09-02",
+   "dataThrough": "2026-09-02",
    "cadenceDays": 32,
-   "tagline": "15 playlists · 26 monthly snapshots since Apr 2024",
+   "tagline": "15 playlists · 27 monthly snapshots since Apr 2024",
    "stats": [
     {
      "label": "Anchor",
      "value": "Monday's Mixtape · 510",
-     "sub": "48.6% of the whole portfolio"
+     "sub": "48.0% of the whole portfolio · flat since Jul"
     },
     {
      "label": "Growth engine",
-     "value": "Groove · 204",
-     "sub": "+68 of the last 154 gained · 6-month streak"
+     "value": "Groove · 215",
+     "sub": "+11 since Jul · +83 in six months · the only lane really moving"
     },
     {
      "label": "Velocity",
-     "value": "cooling · +19 in 3 mo",
-     "sub": "vs +105 the three before — rebrand spike fading"
+     "value": "+13 in 2 mo",
+     "sub": "Broken +1 · run −1 · everything else flat"
     },
     {
      "label": "Asleep",
-     "value": "7 lanes flat 3+ months",
-     "sub": "Ancora quiet 5 mo · Masterpiece 17 mo"
+     "value": "11 lanes flat since Jul",
+     "sub": "Ancora quiet 7 mo · Masterpiece 19 mo"
     }
    ],
    "series": [
@@ -1299,6 +850,10 @@ var FALLBACK = {
       [
        "2026-07-01",
        1049
+      ],
+      [
+       "2026-09-01",
+       1062
       ]
      ]
     }
@@ -1356,21 +911,26 @@ var FALLBACK = {
    "label": "Production Almanac",
    "cluster": "creative",
    "color": "#f4c51d",
-   "metric": "9 chapters · Build Ready",
-   "updated": "2026-05-04",
+   "metric": "9 chapters · one page",
+   "updated": "2026-09-02",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "Long-form craft manual — Shape, Hook, Build, Ship",
+   "tagline": "The whole craft manual on one page — 9 figures, 12 tables, 90 checklist items",
    "stats": [
     {
      "label": "Chapters",
      "value": "9 · all Depth 3",
-     "sub": "75 min total read"
+     "sub": "key rule, main table, failure modes and checklist inline · 18 min full read"
+    },
+    {
+     "label": "Figures",
+     "value": "mind map + 8",
+     "sub": "spine graph · claim ladder · 30-second map · edit funnel · sound pyramid · diagnostic loop"
     },
     {
      "label": "Source ledger",
      "value": "34 live sources",
-     "sub": "17 screened & held · 10 newly surfaced"
+     "sub": "8 craft books · 7 wider shelf · 5 YouTube official · 5 marked forum"
     },
     {
      "label": "Case files",
@@ -1380,19 +940,23 @@ var FALLBACK = {
    ],
    "links": [
     {
-     "href": "/production-almanac/story-architecture/",
-     "label": "Story"
+     "href": "/production-almanac/#map",
+     "label": "Map"
     },
     {
-     "href": "/production-almanac/cold-open/",
+     "href": "/production-almanac/#ch-03",
      "label": "Cold Open"
     },
     {
-     "href": "/production-almanac/distribution-algorithm/",
+     "href": "/production-almanac/#ch-09",
      "label": "Distribution"
     },
     {
-     "href": "/production-almanac/bibliography/",
+     "href": "/production-almanac/#case-files",
+     "label": "Cases"
+    },
+    {
+     "href": "/production-almanac/#source-rule",
      "label": "Sources"
     }
    ]
@@ -1453,7 +1017,7 @@ var FALLBACK = {
     },
     {
      "label": "Cache",
-     "value": "79 days old",
+     "value": "139 days old",
      "sub": "rerun data/readwise_loader.py"
     }
    ],
@@ -1628,69 +1192,44 @@ var FALLBACK = {
    ]
   },
   {
-   "href": "/notes/",
-   "label": "Notebook",
-   "cluster": "creative",
-   "color": "#94a3b8",
-   "metric": "embed unconfigured",
-   "updated": "2026-06-08",
+   "href": "/easternfront/",
+   "label": "Eastern Front",
+   "cluster": "eastern",
+   "color": "#f0563c",
+   "metric": "157 highlights · assembly v2",
+   "updated": "2026-09-02",
    "dataThrough": null,
    "cadenceDays": null,
-   "flag": "attention",
-   "tagline": "Notion window — currently showing the fallback panel",
+   "tagline": "The Blindspot's Eastern Front — 157 quotes on a title-free assembly map, Snyder and Grossman folded in",
    "stats": [
     {
-     "label": "Status",
-     "value": "Public URL needed",
-     "sub": "NOTION_NOTES_URL empty at notes/index.html:450"
+     "label": "What it is",
+     "value": "Interactive assembly",
+     "sub": "title-free redesign shipped Sep 2 · full-screen app behind the gate"
     },
     {
-     "label": "Fix",
-     "value": "one line",
-     "sub": "paste the public Notion share URL and redeploy"
-    }
-   ],
-   "links": []
-  },
-  {
-   "href": "/the-workflow-wrench/",
-   "label": "Workflow Wrench",
-   "cluster": "systems",
-   "color": "#fb923c",
-   "metric": "8 parts · 31 chapters",
-   "updated": "2026-05-14",
-   "dataThrough": null,
-   "cadenceDays": null,
-   "tagline": "The n8n consulting manual — patterns, pricing, cadence",
-   "stats": [
-    {
-     "label": "Money frame",
-     "value": "$1.5K–15K setup",
-     "sub": "care $200–1.5K/mo · $120–250/hr"
+     "label": "Feeds",
+     "value": "Revenge: Soviet-Style",
+     "sub": "E1–E5 · the revenge arc — debt, rage, collection, loot, bill"
     },
     {
-     "label": "Priced patterns",
-     "value": "5 sellable builds",
-     "sub": "lead routing → document processing"
-    },
-    {
-     "label": "Cadence",
-     "value": "90 days · 6 phases",
-     "sub": "first paid pilot lands weeks 9–10"
+     "label": "Companion",
+     "value": "Highlight Map",
+     "sub": "the Assembly carries all 157 · the standalone map holds 137 · every quote linked back to Readwise"
     }
    ],
    "links": [
     {
-     "href": "/the-workflow-wrench/#part-6-title",
-     "label": "Patterns"
+     "href": "/easternfront/#beginning",
+     "label": "Beginning"
     },
     {
-     "href": "/the-workflow-wrench/#reference",
-     "label": "Templates"
+     "href": "/easternfront/#middle",
+     "label": "Middle"
     },
     {
-     "href": "/the-workflow-wrench/#cadence",
-     "label": "90 days"
+     "href": "/easternfront/#end",
+     "label": "End"
     }
    ]
   },
@@ -1872,7 +1411,7 @@ var FALLBACK = {
    "label": "Digital Ecosystem",
    "cluster": "systems",
    "color": "#69d6e4",
-   "metric": "V9 · V10 overdue",
+   "metric": "V9 · V10 85 days overdue",
    "updated": "2026-03-11",
    "dataThrough": "2026-03-11",
    "cadenceDays": 90,
@@ -1885,8 +1424,8 @@ var FALLBACK = {
     },
     {
      "label": "V10 queue",
-     "value": "5 items",
-     "sub": "incl. rebuild financial-consolidation.html"
+     "value": "6 items",
+     "sub": "incl. financial-consolidation.html rebuild + re-listing rooms after the Sep 2 retirements"
     },
     {
      "label": "Risks",
@@ -1902,44 +1441,40 @@ var FALLBACK = {
    "links": []
   },
   {
-   "href": "/easternfront/",
-   "label": "Eastern Front",
+   "href": "/eastern-front-map/highlight-map.html",
+   "label": "Highlight Map",
    "cluster": "eastern",
-   "color": "#f0563c",
-   "metric": "157 highlights · new look",
-   "updated": "2026-08-21",
+   "color": "#d8b04c",
+   "metric": "137 highlights · 21 events",
+   "updated": "2026-08-17",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "The Blindspot's Eastern Front — 157 quotes on a title-free assembly map",
+   "tagline": "Every Readwise quote pinned to the event it belongs to — the older map the Assembly grew out of",
    "stats": [
     {
-     "label": "What it is",
-     "value": "Interactive assembly",
-     "sub": "uploaded 8/17 · full-screen app behind the gate"
+     "label": "Highlights",
+     "value": "137 mapped",
+     "sub": "Beevor-heavy · Grossman folded in Aug 17"
     },
     {
-     "label": "Feeds",
-     "value": "Revenge: Soviet-Style",
-     "sub": "E1–E5 · the revenge arc — debt, rage, collection, loot, bill"
+     "label": "Events",
+     "value": "21 on the arc",
+     "sub": "The Debt · The Rage and the Collection · The Bill · parking lot"
     },
     {
-     "label": "Companion",
-     "value": "Highlight Map",
-     "sub": "157 quotes · 21 events · every quote linked back to Readwise"
+     "label": "Source of truth",
+     "value": "eastern-front-map/data.json",
+     "sub": "edit in GitHub, the site redeploys"
     }
    ],
    "links": [
     {
-     "href": "/easternfront/#beginning",
-     "label": "Beginning"
+     "href": "/eastern-front-map/assembly.html",
+     "label": "Assembly"
     },
     {
-     "href": "/easternfront/#middle",
-     "label": "Middle"
-    },
-    {
-     "href": "/easternfront/#end",
-     "label": "End"
+     "href": "/eastern-front-map/",
+     "label": "Map index"
     }
    ]
   }
@@ -1952,16 +1487,22 @@ var FALLBACK = {
    "color": "#f472b6"
   },
   {
-   "href": "/wellness-analysis/",
-   "label": "Wellness Analysis",
-   "metric": "recovery 53 · 256 days tracked",
-   "color": "#4ade80"
+   "href": "/wellness-dashboard/#body",
+   "label": "Body composition",
+   "metric": "RENPHO 84/100 · WHR 0.86",
+   "color": "#fb923c"
   },
   {
    "href": "/the-ledger/#view-stephen",
    "label": "Stephen ledger",
    "metric": "$10,075 in · net $9,900",
    "color": "#d4a052"
+  },
+  {
+   "href": "/eastern-front-map/highlight-map.html",
+   "label": "Highlight Map",
+   "metric": "137 highlights · 21 events",
+   "color": "#d8b04c"
   }
  ],
  "quote_stats": {
@@ -2040,25 +1581,46 @@ var FALLBACK = {
    "author": "@hannnahmmarie on Twitter",
    "source": "Tweets From Hannah Mullen"
   }
+ ],
+ "next": [
+  {
+   "label": "Hearing · Dept 547",
+   "date": "2026-10-28",
+   "sub": "8:30 · Stanley Mosk · counsel appears with you",
+   "href": "/hearing-room/",
+   "color": "#f0524d"
+  },
+  {
+   "label": "Abroad",
+   "date": "2026-09-15",
+   "sub": "through Sep 29 · reachable, no signatures",
+   "href": "/hearing-room/#calendar",
+   "color": "#36a3df"
+  },
+  {
+   "label": "PayPal promo deadline",
+   "date": "2027-02-10",
+   "sub": "$1,090 Austrian Air · ~$182/mo clears it",
+   "href": "/the-ledger/#view-interest",
+   "color": "#d4a052"
+  },
+  {
+   "label": "Ecosystem pass V10",
+   "date": "2026-06-09",
+   "sub": "was due 90 days after V9 (Mar 11)",
+   "href": "/digital-ecosystem-refresh/",
+   "color": "#69d6e4"
+  }
  ]
 };
 
 (function () {
   "use strict";
-
   var NOW = Date.now();
-  var esc = function (s) {
-    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
-    });
-  };
-
-  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  function shortDate(iso) {
-    if (!iso) return "";
-    var p = iso.split("-");
-    return MONTHS[+p[1] - 1] + " " + (+p[2]);
-  }
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function shortDate(iso) { if (!iso) return ""; var p = iso.split("-"); return MONTHS[+p[1] - 1] + " " + (+p[2]); }
+  function daysUntil(iso) { var d = new Date(); var t = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()); var p = iso.split("-"); return Math.round((Date.UTC(+p[0], +p[1] - 1, +p[2]) - t) / 864e5); }
 
   function freshness(room) {
     if (room.flag === "attention") return { cls: "bad", txt: "needs attention" };
@@ -2072,181 +1634,98 @@ var FALLBACK = {
     return { cls: "bad", txt: "stale · " + age + "d" };
   }
 
-  /* series: [{points:[[t,v],...], color, dashed}] normalized on a shared scale */
   function sparkSVG(seriesArr, height, fill) {
-    var W = 100, H = 28, P = 2.5;
-    var vals = [];
+    var W = 100, H = 28, P = 2.5, vals = [];
     seriesArr.forEach(function (s) { s.points.forEach(function (p) { vals.push(p[1]); }); });
     if (!vals.length) return "";
-    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
-    var span = (max - min) || 1;
-    var out = "";
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals), span = (max - min) || 1, out = "";
     seriesArr.forEach(function (s, si) {
-      var n = s.points.length;
-      if (n < 2) return;
-      var pts = s.points.map(function (p, i) {
-        var x = P + i * (W - 2 * P) / (n - 1);
-        var y = H - P - (p[1] - min) / span * (H - 2 * P);
-        return [x.toFixed(2), y.toFixed(2)];
-      });
+      var n = s.points.length; if (n < 2) return;
+      var pts = s.points.map(function (p, i) { return [(P + i * (W - 2 * P) / (n - 1)).toFixed(2), (H - P - (p[1] - min) / span * (H - 2 * P)).toFixed(2)]; });
       var poly = pts.map(function (q) { return q.join(","); }).join(" ");
-      if (fill && si === 0) {
-        out += '<polygon points="' + P + ',' + (H - P) + ' ' + poly + ' ' + (W - P) + ',' + (H - P) +
-          '" fill="' + s.color + '" opacity="0.09"></polygon>';
-      }
-      out += '<polyline points="' + poly + '" fill="none" stroke="' + s.color +
-        '" stroke-width="1.6" vector-effect="non-scaling-stroke"' +
-        (s.dashed ? ' stroke-dasharray="3 3"' : "") + ' stroke-linejoin="round" stroke-linecap="round"></polyline>';
+      if (fill && si === 0) out += '<polygon points="' + P + ',' + (H - P) + ' ' + poly + ' ' + (W - P) + ',' + (H - P) + '" fill="' + s.color + '" opacity="0.12"></polygon>';
+      out += '<polyline points="' + poly + '" fill="none" stroke="' + s.color + '" stroke-width="1.7" vector-effect="non-scaling-stroke"' + (s.dashed ? ' stroke-dasharray="3 3"' : "") + ' stroke-linejoin="round" stroke-linecap="round"></polyline>';
       var last = pts[pts.length - 1];
       out += '<circle cx="' + last[0] + '" cy="' + last[1] + '" r="1.9" fill="' + s.color + '"></circle>';
     });
-    return '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" style="height:' +
-      height + 'px" aria-hidden="true">' + out + "</svg>";
+    return '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" style="height:' + height + 'px" aria-hidden="true">' + out + "</svg>";
   }
 
   function render(m) {
-    /* header line */
-    document.getElementById("briefLine").innerHTML =
-      "Readout <b>" + esc(shortDate(m.generated)) + "</b> · <b>" + m.rooms.length +
-      " rooms</b> · <b>" + m.attention.length + " flags</b> on the board";
-    document.getElementById("stampLine").textContent =
-      "readout v" + (m.version || 2) + " · " + m.generated;
+    var d = new Date(), h = d.getHours();
+    var greet = h < 5 ? "Still up." : h < 12 ? "Good morning." : h < 18 ? "Good afternoon." : "Good evening.";
+    var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var hearing = (m.next || []).filter(function (n) { return /hearing/i.test(n.label); })[0];
+    document.getElementById("hello").textContent = greet + " It's " + DAYS[d.getDay()] + ", " + MONTHS[d.getMonth()] + " " + d.getDate() + (hearing ? " — " + daysUntil(hearing.date) + " days to the hearing." : ".");
+    document.getElementById("briefLine").innerHTML = "Readout <b>" + esc(shortDate(m.generated)) + "</b> · <b>" + m.rooms.length + " rooms</b> · <b>" + m.attention.length + " flags</b> on the board · <b>" + m.attention.filter(function (a) { return a.severity === "red"; }).length + " red</b>";
+    document.getElementById("stampLine").textContent = "readout v" + (m.version || 2) + " · " + m.generated;
+
+    /* next up */
+    var nx = document.getElementById("nextUp");
+    nx.innerHTML = '<p class="next-h">Next up</p>' + (m.next || []).map(function (n) {
+      var du = daysUntil(n.date), when = du > 0 ? du + "<small>days</small>" : du === 0 ? "today" : Math.abs(du) + "<small>days late</small>";
+      return '<a href="' + esc(n.href) + '" style="--nk:' + esc(n.color) + '"><span class="nd">' + when + '</span><span class="nl">' + esc(n.label) + '<span class="ns">' + esc(n.sub) + '</span></span><span class="nw">' + esc(shortDate(n.date)) + '</span></a>';
+    }).join("");
 
     /* attention */
     document.getElementById("attnCount").textContent = m.attention.length + " open";
     document.getElementById("attnList").innerHTML = m.attention.map(function (a) {
-      return '<a class="attn-row sev-' + esc(a.severity) + '" href="' + esc(a.href) + '">' +
-        '<span class="attn-dot" aria-hidden="true"></span>' +
-        '<span class="attn-label">' + esc(a.label) + "</span>" +
-        '<span class="attn-detail">' + esc(a.detail) + "</span>" +
-        '<span class="attn-go" aria-hidden="true">-&gt;</span></a>';
+      return '<a class="attn-row sev-' + esc(a.severity) + '" href="' + esc(a.href) + '"><span class="attn-dot" aria-hidden="true"></span><span><span class="attn-label">' + esc(a.label) + '</span><span class="attn-detail">' + esc(a.detail) + '</span></span></a>';
     }).join("");
 
-    /* KPI band */
+    /* KPIs */
     document.getElementById("kpiBand").innerHTML = m.kpis.map(function (k) {
-      var spark = k.spark && k.spark.length > 1
-        ? sparkSVG([{ points: k.spark.map(function (v, i) { return [i, v]; }), color: k.color }], 30, true)
-        : "";
-      return '<a class="kpi" href="' + esc(k.href) + '" style="--k:' + esc(k.color) + '">' +
-        '<span class="kpi-label">' + esc(k.label) + "</span>" +
-        '<span class="kpi-line"><span class="kpi-value">' + esc(k.value) + "</span>" +
-        '<span class="chip ' + esc(k.tone || "flat") + '">' + esc(k.delta) + "</span></span>" +
-        spark +
-        '<span class="kpi-note">' + esc(k.note) + "</span></a>";
+      var spark = k.spark && k.spark.length > 1 ? sparkSVG([{ points: k.spark.map(function (v, i) { return [i, v]; }), color: k.color }], 32, true) : "";
+      return '<a class="kpi" href="' + esc(k.href) + '" style="--k:' + esc(k.color) + '"><span class="kpi-label">' + esc(k.label) + '</span><span class="kpi-line"><span class="kpi-value">' + esc(k.value) + '</span><span class="chip ' + esc(k.tone || "flat") + '">' + esc(k.delta) + '</span></span>' + spark + '<span class="kpi-note">' + esc(k.note) + '</span></a>';
     }).join("");
 
     /* clusters */
     var byCluster = {};
     m.rooms.forEach(function (r) { (byCluster[r.cluster] = byCluster[r.cluster] || []).push(r); });
-
     document.getElementById("clusters").innerHTML = m.clusters.map(function (c) {
       var rooms = byCluster[c.key] || [];
       var cards = rooms.map(function (r) {
         var st = freshness(r);
-        var stats = (r.stats || []).map(function (s) {
-          return '<div class="stat"><div class="stat-line">' +
-            '<span class="stat-label">' + esc(s.label) + "</span>" +
-            '<span class="stat-value">' + esc(s.value) + "</span></div>" +
-            (s.sub ? '<div class="stat-sub">' + esc(s.sub) + "</div>" : "") + "</div>";
-        }).join("");
-
-        var swatches = r.swatches && r.swatches.length
-          ? '<div class="swatches">' + r.swatches.map(function (w) {
-              return '<span class="swatch" style="--sw:' + esc(w.hex) + '"><i></i>' +
-                esc(w.name) + " <small>" + esc(w.sub) + "</small></span>";
-            }).join("") + "</div>"
-          : "";
-
+        var stats = (r.stats || []).map(function (s) { return '<div class="stat"><span class="stat-label">' + esc(s.label) + '</span><span class="stat-value">' + esc(s.value) + '</span>' + (s.sub ? '<span class="stat-sub">' + esc(s.sub) + '</span>' : "") + '</div>'; }).join("");
+        var swatches = r.swatches && r.swatches.length ? '<div class="swatches">' + r.swatches.map(function (w) { return '<span class="swatch" style="--sw:' + esc(w.hex) + '"><i></i>' + esc(w.name) + ' <small>' + esc(w.sub) + '</small></span>'; }).join("") + '</div>' : "";
         var sparkBlock = "";
         if (r.series && r.series.length) {
           var palette = r.series.length > 1 ? ["#64748b", r.color] : [r.color];
-          var sers = r.series.map(function (s, i) {
-            return { points: s.points, color: palette[i % palette.length], dashed: r.series.length > 1 && i === 0 };
-          });
-          var cap = r.series.map(function (s, i) {
-            return '<span><i style="--sw:' + palette[i % palette.length] + '"></i>' + esc(s.label) + "</span>";
-          }).join("");
-          sparkBlock = '<div class="room-spark">' + sparkSVG(sers, 38, r.series.length === 1) +
-            '<div class="spark-cap">' + cap + "</div></div>";
+          var sers = r.series.map(function (s, i) { return { points: s.points, color: palette[i % palette.length], dashed: r.series.length > 1 && i === 0 }; });
+          var cap = r.series.map(function (s, i) { return '<span><i style="--sw:' + palette[i % palette.length] + '"></i>' + esc(s.label) + '</span>'; }).join("");
+          sparkBlock = '<div class="room-spark">' + sparkSVG(sers, 40, r.series.length === 1) + '<div class="spark-cap">' + cap + '</div></div>';
         }
-
-        var links = (r.links || []).map(function (l) {
-          return '<a href="' + esc(l.href) + '">' + esc(l.label) + "</a>";
-        }).join("");
-
-        return '<article class="room" style="--k:' + esc(r.color) + '">' +
-          '<div class="room-head"><a href="' + esc(r.href) + '">' + esc(r.label) + "</a>" +
-          '<span class="stamp ' + st.cls + '">' + esc(st.txt) + "</span></div>" +
-          (r.tagline ? '<p class="room-tagline">' + esc(r.tagline) + "</p>" : "") +
-          '<div class="room-stats">' + stats + "</div>" + swatches + sparkBlock +
-          '<div class="room-links">' + links + '<span class="room-open" aria-hidden="true">open -&gt;</span></div>' +
-          "</article>";
+        var links = (r.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join("");
+        return '<article class="room" style="--k:' + esc(r.color) + '"><div class="room-band"><div class="room-head"><a href="' + esc(r.href) + '">' + esc(r.label) + '</a><span class="stamp ' + st.cls + '">' + esc(st.txt) + '</span></div>' +
+          (r.metric ? '<div class="room-metric">' + esc(r.metric) + '</div>' : "") + (r.tagline ? '<p class="room-tagline">' + esc(r.tagline) + '</p>' : "") + '</div>' +
+          '<div class="room-body"><div class="room-stats">' + stats + '</div>' + swatches + sparkBlock + '<div class="room-links">' + links + '<a class="room-open" href="' + esc(r.href) + '">open →</a></div></div></article>';
       }).join("");
-
-      return '<section class="cluster" aria-label="' + esc(c.title) + '">' +
-        '<div class="cluster-head"><h2>' + esc(c.title) + "</h2><p>" + esc(c.blurb) + "</p></div>" +
-        '<div class="room-grid">' + cards + "</div>" +
-        (c.key === "ops" ? quoteStrip(m) : "") +
-        "</section>";
+      return '<section class="cluster" aria-label="' + esc(c.title) + '"><div class="cluster-head"><h2>' + esc(c.title) + '</h2><p>' + esc(c.blurb) + '</p></div><div class="room-grid">' + cards + '</div>' + (c.key === "ops" ? quoteStrip(m) : "") + '</section>';
     }).join("");
 
-    /* footer annex */
-    document.getElementById("annex").innerHTML = (m.annex || []).map(function (x) {
-      return '<a href="' + esc(x.href) + '" style="--fk:' + esc(x.color) + '"><i></i>' +
-        esc(x.label) + " · " + esc(x.metric) + "</a>";
-    }).join("");
-
+    document.getElementById("annex").innerHTML = (m.annex || []).map(function (x) { return '<a href="' + esc(x.href) + '" style="--fk:' + esc(x.color) + '"><i></i>' + esc(x.label) + ' · ' + esc(x.metric) + '</a>'; }).join("");
     wireQuote(m);
   }
 
-  /* ---------- resurface strip ---------- */
   function quoteStrip(m) {
-    var qs = m.quote_stats || {};
-    return '<div class="resurface" aria-live="polite">' +
-      '<div><p class="rs-quote" id="rsQuote"></p>' +
-      '<p class="rs-meta" id="rsMeta"></p></div>' +
-      '<div class="rs-actions">' +
-      '<button type="button" id="rsBtn">Resurface</button>' +
-      '<a href="/readwise-highlights/">Open the shelf</a>' +
-      "</div></div>";
+    return '<div class="resurface" aria-live="polite"><div><p class="rs-quote" id="rsQuote"></p><p class="rs-meta" id="rsMeta"></p></div><div class="rs-actions"><button type="button" id="rsBtn">Resurface</button><a href="/readwise-highlights/">Open the shelf</a></div></div>';
   }
-
   var currentQuote = null;
   function wireQuote(m) {
-    var pool = m.quotes || [];
-    var qEl = document.getElementById("rsQuote");
-    var mEl = document.getElementById("rsMeta");
-    var btn = document.getElementById("rsBtn");
+    var pool = m.quotes || [], qEl = document.getElementById("rsQuote"), mEl = document.getElementById("rsMeta"), btn = document.getElementById("rsBtn");
     if (!qEl || !pool.length) return;
     var qs = m.quote_stats || {};
-
-    function pick() {
-      var options = pool.filter(function (q) { return q !== currentQuote; });
-      if (!options.length) options = pool;
-      return options[Math.floor(Math.random() * options.length)];
-    }
-    function show(q) {
-      currentQuote = q;
-      qEl.textContent = q.text;
-      mEl.textContent = q.author + (q.source ? " · " + q.source : "") +
-        (qs.highlights ? "  ·  1 of " + qs.highlights.toLocaleString() + " banked" : "");
-    }
-    show(pick());
-    if (btn) btn.onclick = function () { show(pick()); };
+    function pick() { var o = pool.filter(function (q) { return q !== currentQuote; }); if (!o.length) o = pool; return o[Math.floor(Math.random() * o.length)]; }
+    function show(q) { currentQuote = q; qEl.textContent = q.text; mEl.textContent = q.author + (q.source ? " · " + q.source : "") + (qs.highlights ? "  ·  1 of " + qs.highlights.toLocaleString() + " banked" : ""); }
+    show(pick()); if (btn) btn.onclick = function () { show(pick()); };
   }
 
-  /* ---------- boot ---------- */
-  var d = new Date();
-  var DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-  document.getElementById("today").textContent =
-    DAYS[d.getDay()] + " · " + MONTHS[d.getMonth()].toUpperCase() + " " + d.getDate();
-
+  var d = new Date(), DAYS3 = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+  document.getElementById("today").textContent = DAYS3[d.getDay()] + " · " + MONTHS[d.getMonth()].toUpperCase() + " " + d.getDate();
   render(FALLBACK);
-  fetch("/data/console-status.json")
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (m) { if (m && m.version >= 2) render(m); })
-    .catch(function () { /* fallback already rendered */ });
+  fetch("/data/console-status.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (m) { if (m && m.version >= 2) render(m); }).catch(function () {});
 })();
 </script>
+<script defer src="/shared/gate.js"></script>
 </body>
 </html>

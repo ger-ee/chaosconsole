@@ -1,19 +1,25 @@
 {
  "version": 2,
- "generated": "2026-08-21",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates.",
+ "generated": "2026-09-02",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar.",
  "attention": [
   {
    "severity": "red",
-   "label": "Hearing Wednesday 8/19 — counsel retained, $10k in trust",
-   "detail": "Dept 547, 8:30, Judge Angela J. Davis. Lai fee agreement signed 8/12 (Case 26STRO04931); $10,000 retainer sent 8/13 — trust-deposit confirmation still pending at last check. Continuance settled in principle; retained counsel files it formally. Travel pushed to Sep 15.",
-   "href": "/hearing-room/"
+   "label": "Hearing continued to Wed Oct 28 — twelve days of silence from counsel",
+   "detail": "Lai took the continuance in person on 8/19; DV-115 signed 8/21; civil retainer ($5k) paid 8/21. Since then: no conformed order, no onboarding request, no readout on the negotiation. Break the silence this week — you leave Sep 15.",
+   "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "August close will absorb a $10.5k legal outflow",
-   "detail": "$10,000 Lai retainer (8/13) + $500 consult (8/4) hit this month on top of July's $12,285 revolving close — re-run the ledger close when August statements land",
+   "label": "August close absorbed $15,515 in legal outflow",
+   "detail": "$515 consult (8/4) + $10,000 DVRO retainer (8/12) + $5,000 civil retainer (8/21), on top of July's $12,285 revolving close — re-run the Ledger close when August statements land and ask the firm for a trust statement",
    "href": "/the-ledger/"
+  },
+  {
+   "severity": "amber",
+   "label": "Health feed stalled Aug 11 — ring channel silent since Jun 12",
+   "detail": "Incremental refresh pulled AutoSync through Aug 11 (sleep to Aug 8, steps to Aug 11) but resting HR / HRV stop Jun 12 and SpO2 Jun 7. Open Health Auto Export on the phone, then run data/health_refresh.py. RENPHO scans are current to Sep 1.",
+   "href": "/wellness-dashboard/"
   },
   {
    "severity": "amber",
@@ -24,32 +30,26 @@
   {
    "severity": "amber",
    "label": "Second bounced ACH on Capital One 0623",
-   "detail": "$429 payment returned 07/08, second returned ACH in two months — verify the funding account behind autopay",
+   "detail": "$429 payment returned 07/08, second returned ACH in two months — verify the funding account behind autopay before the next cycle",
    "href": "/the-ledger/#view-accounts"
   },
   {
    "severity": "amber",
-   "label": "Ecosystem pass V10 is overdue",
-   "detail": "V9 closed Mar 11; quarterly cadence ran out ~25 days ago. 5-item queue incl. rebuilding financial-consolidation.html",
+   "label": "Ecosystem pass V10 is 85 days overdue",
+   "detail": "V9 closed Mar 11; the 90-day cadence ran out Jun 9. 5-item queue incl. rebuilding financial-consolidation.html — and this rebuild retired two rooms, so the room inventory needs re-listing",
    "href": "/digital-ecosystem-refresh/"
   },
   {
    "severity": "amber",
-   "label": "Health exports are stalling",
-   "detail": "Resting HR / HRV stuck at May 25 (40d), weight at Apr 23 (72d) — open Health Auto Export to un-stall the feed",
-   "href": "/wellness-dashboard/"
-  },
-  {
-   "severity": "amber",
-   "label": "Readwise cache is 79 days old",
-   "detail": "Newest highlight Mar 19 — rerun data/readwise_loader.py",
+   "label": "Readwise cache is 139 days old",
+   "detail": "Cache built Apr 16, newest highlight Mar 19 — rerun data/readwise_loader.py (the Eastern Front map already pulls 157 quotes from Readwise directly)",
    "href": "/readwise-highlights/"
   },
   {
    "severity": "info",
-   "label": "Notebook embed unconfigured",
-   "detail": "NOTION_NOTES_URL is empty (notes/index.html:450) — paste the public Notion URL and the room comes alive",
-   "href": "/notes/"
+   "label": "Sep 2 rebuild shipped",
+   "detail": "Notebook and Workflow Wrench retired · Wellness Analysis merged into the Wellness Desk · Almanac collapsed to one page with 9 figures · Eastern Front in the top bar · playlist counts synced",
+   "href": "/production-almanac/"
   },
   {
    "severity": "info",
@@ -101,20 +101,28 @@
    ]
   },
   {
-   "label": "Legal war chest",
-   "value": "$10,000",
-   "delta": "retained 8/13",
+   "label": "Legal outflow",
+   "value": "$15,515",
+   "delta": "2 retainers",
    "tone": "warn",
-   "note": "Lai · Case 26STRO04931 · hearing Wed 8/19 · Dept 547",
+   "note": "Lai · both matters · hearing Wed Oct 28 · 56 days out",
    "color": "#f0524d",
-   "href": "/hearing-room/"
+   "href": "/hearing-room/",
+   "spark": [
+    0,
+    515,
+    515,
+    10515,
+    10515,
+    15515
+   ]
   },
   {
    "label": "Playlist followers",
-   "value": "1,049",
-   "delta": "+5 Jul",
+   "value": "1,062",
+   "delta": "+13 since Jul",
    "tone": "good",
-   "note": "15 playlists · top 3 hold 78.6% · last synced Jul 2",
+   "note": "15 playlists · top 3 hold 78.7% · synced Sep 2",
    "color": "#8c7bff",
    "href": "/playlist-tracker/",
    "spark": [
@@ -141,17 +149,33 @@
     1030,
     1033,
     1044,
-    1049
+    1049,
+    1062
+   ]
+  },
+  {
+   "label": "Body fat",
+   "value": "19.2%",
+   "delta": "−3.0 pts since Mar",
+   "tone": "good",
+   "note": "RENPHO Sep 1 · 184.2 lb · WHR 0.86 · score 84",
+   "color": "#fb923c",
+   "href": "/wellness-dashboard/#body",
+   "spark": [
+    22.2,
+    19.9,
+    19.8,
+    19.2
    ]
   },
   {
    "label": "Recovery score",
-   "value": "53",
+   "value": "41",
    "delta": "Under Pressure",
    "tone": "warn",
-   "note": "RHR running +18 bpm over baseline",
+   "note": "last 14 cardio-backed days · ring quiet since Jun 12",
    "color": "#4ade80",
-   "href": "/wellness-analysis/",
+   "href": "/wellness-dashboard/#analysis",
    "spark": [
     70,
     58.7,
@@ -162,13 +186,14 @@
     42.4,
     39.7,
     48.5,
-    64.8
+    56.2,
+    31.4
    ]
   },
   {
    "label": "Highlights banked",
    "value": "1,696",
-   "delta": "cache 79d old",
+   "delta": "cache 139d old",
    "tone": "warn",
    "note": "165 sources · newest highlight Mar 19",
    "color": "#f4b942",
@@ -201,20 +226,20 @@
    ]
   },
   {
-   "label": "Binder",
-   "value": "v9",
-   "delta": "15 chapters",
+   "label": "Eastern Front",
+   "value": "157",
+   "delta": "quotes mapped",
    "tone": "flat",
-   "note": "76 PDFs folded in across v6–v9 on Apr 24",
-   "color": "#f0524d",
-   "href": "/the-blindspot-binder/"
+   "note": "title-free assembly · 21 events · shipped Sep 2",
+   "color": "#f0563c",
+   "href": "/easternfront/"
   }
  ],
  "clusters": [
   {
    "key": "ops",
    "title": "Life Ops",
-   "blurb": "Money, body, catalog — the numbers that move whether you look or not."
+   "blurb": "Money, body, catalog, the courtroom — the numbers that move whether you look or not."
   },
   {
    "key": "creative",
@@ -222,14 +247,14 @@
    "blurb": "The Blindspot side: manuals, sources, and the visual system."
   },
   {
-   "key": "systems",
-   "title": "Systems",
-   "blurb": "The machine room: automation, AI patterns, maintenance."
-  },
-  {
    "key": "eastern",
    "title": "Eastern Front",
    "blurb": "The Blindspot's opening campaign — the assembly bench, the source map, and the revenge arc."
+  },
+  {
+   "key": "systems",
+   "title": "Systems",
+   "blurb": "The machine room: AI patterns and maintenance."
   }
  ],
  "rooms": [
@@ -238,48 +263,53 @@
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "2 days out · counsel retained",
-   "updated": "2026-08-17",
-   "dataThrough": "2026-08-03",
-   "cadenceDays": 1,
-   "tagline": "Day log · tomorrow hour by hour · call sheet with scripts · scorecard · 16-day plan",
+   "metric": "Oct 28 · 56 days out",
+   "updated": "2026-09-02",
+   "dataThrough": "2026-09-02",
+   "cadenceDays": 7,
+   "tagline": "Status board · what happened 5 Aug → 2 Sep · open loops · 56-day calendar · money · rules",
    "stats": [
     {
-     "label": "Wed 8:30",
-     "value": "Hearing — Dept 547",
-     "sub": "Judge Angela J. Davis · Stanley Mosk · continuance to be formalized by counsel"
+     "label": "Wed 28 Oct · 8:30",
+     "value": "Dept 547 — continued",
+     "sub": "Judge Angela J. Davis · farthest date the court would give · one continuance used"
     },
     {
      "label": "Counsel",
-     "value": "Lai — retained",
-     "sub": "fee agreement signed 8/12 · $10,000 to trust 8/13 · Case 26STRO04931"
+     "value": "Lai, CFLS · both matters",
+     "sub": "$10k DVRO 8/12 + $5k civil 8/21 · conflict check cleared 8/13 · MC-050 signed 8/19"
+    },
+    {
+     "label": "Silence",
+     "value": "12 days",
+     "sub": "last word from the firm Aug 21 · conformed order and onboarding still owed"
     },
     {
      "label": "Travel",
-     "value": "pushed to Sep 15",
-     "sub": "flight moved off 8/15 so the hearing window is clear"
+     "value": "Sep 15 – 29",
+     "sub": "inside the prep window · reachable · no signatures abroad"
     }
    ],
    "links": [
     {
+     "href": "/hearing-room/#status",
+     "label": "Status"
+    },
+    {
      "href": "/hearing-room/#log",
-     "label": "Day log"
+     "label": "Log"
     },
     {
-     "href": "/hearing-room/#tomorrow",
-     "label": "Tomorrow"
+     "href": "/hearing-room/#loops",
+     "label": "Open loops"
     },
     {
-     "href": "/hearing-room/#calls",
-     "label": "Call sheet"
+     "href": "/hearing-room/#calendar",
+     "label": "Calendar"
     },
     {
-     "href": "/hearing-room/#score",
-     "label": "Scorecard"
-    },
-    {
-     "href": "/hearing-room/#plan",
-     "label": "16 days"
+     "href": "/hearing-room/#money",
+     "label": "Money"
     }
    ]
   },
@@ -388,34 +418,34 @@
   },
   {
    "href": "/wellness-dashboard/",
-   "label": "Wellness",
+   "label": "Wellness Desk",
    "cluster": "ops",
    "color": "#4ade80",
-   "metric": "recovery 53 · Under Pressure",
-   "updated": "2026-07-02",
-   "dataThrough": "2026-06-21",
+   "metric": "BF 19.2% · WHR 0.86 · recovery 41",
+   "updated": "2026-09-02",
+   "dataThrough": "2026-08-11",
    "cadenceDays": 14,
-   "tagline": "Apple Health + RingConn — each metric ages on its own clock",
+   "tagline": "Tiles + RENPHO body composition + the recovery analysis, merged onto one page",
    "stats": [
     {
+     "label": "Body comp · Sep 1",
+     "value": "184.2 lb · 19.2% fat",
+     "sub": "muscle 138.8 · visceral 5 · metabolic age 34 · four scans since Mar"
+    },
+    {
      "label": "Sleep · last on record",
-     "value": "6:43",
-     "sub": "Jun 20 · 7-night avg 8:13 across gaps"
+     "value": "10:21",
+     "sub": "Aug 8 · 7-night avg 7:20 · staging sparse (56 nights)"
     },
     {
      "label": "Steps",
-     "value": "3,897",
-     "sub": "Jun 21 · 7-day avg 4,793"
+     "value": "2,548",
+     "sub": "Aug 11 · 7-day avg 3,278"
     },
     {
      "label": "Resting HR",
-     "value": "78 bpm avg",
-     "sub": "stuck at May 25 · last single reading 84"
-    },
-    {
-     "label": "Weight",
-     "value": "180.8 lb",
-     "sub": "Apr 23 · scale silent 72 days"
+     "value": "75 bpm avg",
+     "sub": "ring channel silent since Jun 12 · last 62"
     }
    ],
    "series": [
@@ -461,19 +491,27 @@
       ],
       [
        "2026-06-01",
-       64.8
+       56.2
+      ],
+      [
+       "2026-07-01",
+       31.4
       ]
      ]
     }
    ],
    "links": [
     {
-     "href": "/wellness-analysis/",
-     "label": "Deep analysis"
+     "href": "/wellness-dashboard/#body",
+     "label": "Body composition"
     },
     {
-     "href": "/wellness-dashboard/#tSleep",
-     "label": "Sleep tile"
+     "href": "/wellness-dashboard/#analysis",
+     "label": "Analysis"
+    },
+    {
+     "href": "/wellness-dashboard/#months",
+     "label": "Monthly ledger"
     }
    ]
   },
@@ -482,31 +520,31 @@
    "label": "Playlist Tracker",
    "cluster": "ops",
    "color": "#8c7bff",
-   "metric": "1,049 followers · +5 Jul",
-   "updated": "2026-07-02",
-   "dataThrough": "2026-07-01",
+   "metric": "1,062 followers · +13 since Jul",
+   "updated": "2026-09-02",
+   "dataThrough": "2026-09-02",
    "cadenceDays": 32,
-   "tagline": "15 playlists · 26 monthly snapshots since Apr 2024",
+   "tagline": "15 playlists · 27 monthly snapshots since Apr 2024",
    "stats": [
     {
      "label": "Anchor",
      "value": "Monday's Mixtape · 510",
-     "sub": "48.6% of the whole portfolio"
+     "sub": "48.0% of the whole portfolio · flat since Jul"
     },
     {
      "label": "Growth engine",
-     "value": "Groove · 204",
-     "sub": "+68 of the last 154 gained · 6-month streak"
+     "value": "Groove · 215",
+     "sub": "+11 since Jul · +83 in six months · the only lane really moving"
     },
     {
      "label": "Velocity",
-     "value": "cooling · +19 in 3 mo",
-     "sub": "vs +105 the three before — rebrand spike fading"
+     "value": "+13 in 2 mo",
+     "sub": "Broken +1 · run −1 · everything else flat"
     },
     {
      "label": "Asleep",
-     "value": "7 lanes flat 3+ months",
-     "sub": "Ancora quiet 5 mo · Masterpiece 17 mo"
+     "value": "11 lanes flat since Jul",
+     "sub": "Ancora quiet 7 mo · Masterpiece 19 mo"
     }
    ],
    "series": [
@@ -609,6 +647,10 @@
       [
        "2026-07-01",
        1049
+      ],
+      [
+       "2026-09-01",
+       1062
       ]
      ]
     }
@@ -666,21 +708,26 @@
    "label": "Production Almanac",
    "cluster": "creative",
    "color": "#f4c51d",
-   "metric": "9 chapters · Build Ready",
-   "updated": "2026-05-04",
+   "metric": "9 chapters · one page",
+   "updated": "2026-09-02",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "Long-form craft manual — Shape, Hook, Build, Ship",
+   "tagline": "The whole craft manual on one page — 9 figures, 12 tables, 90 checklist items",
    "stats": [
     {
      "label": "Chapters",
      "value": "9 · all Depth 3",
-     "sub": "75 min total read"
+     "sub": "key rule, main table, failure modes and checklist inline · 18 min full read"
+    },
+    {
+     "label": "Figures",
+     "value": "mind map + 8",
+     "sub": "spine graph · claim ladder · 30-second map · edit funnel · sound pyramid · diagnostic loop"
     },
     {
      "label": "Source ledger",
      "value": "34 live sources",
-     "sub": "17 screened & held · 10 newly surfaced"
+     "sub": "8 craft books · 7 wider shelf · 5 YouTube official · 5 marked forum"
     },
     {
      "label": "Case files",
@@ -690,19 +737,23 @@
    ],
    "links": [
     {
-     "href": "/production-almanac/story-architecture/",
-     "label": "Story"
+     "href": "/production-almanac/#map",
+     "label": "Map"
     },
     {
-     "href": "/production-almanac/cold-open/",
+     "href": "/production-almanac/#ch-03",
      "label": "Cold Open"
     },
     {
-     "href": "/production-almanac/distribution-algorithm/",
+     "href": "/production-almanac/#ch-09",
      "label": "Distribution"
     },
     {
-     "href": "/production-almanac/bibliography/",
+     "href": "/production-almanac/#case-files",
+     "label": "Cases"
+    },
+    {
+     "href": "/production-almanac/#source-rule",
      "label": "Sources"
     }
    ]
@@ -763,7 +814,7 @@
     },
     {
      "label": "Cache",
-     "value": "79 days old",
+     "value": "139 days old",
      "sub": "rerun data/readwise_loader.py"
     }
    ],
@@ -938,69 +989,44 @@
    ]
   },
   {
-   "href": "/notes/",
-   "label": "Notebook",
-   "cluster": "creative",
-   "color": "#94a3b8",
-   "metric": "embed unconfigured",
-   "updated": "2026-06-08",
+   "href": "/easternfront/",
+   "label": "Eastern Front",
+   "cluster": "eastern",
+   "color": "#f0563c",
+   "metric": "157 highlights · assembly v2",
+   "updated": "2026-09-02",
    "dataThrough": null,
    "cadenceDays": null,
-   "flag": "attention",
-   "tagline": "Notion window — currently showing the fallback panel",
+   "tagline": "The Blindspot's Eastern Front — 157 quotes on a title-free assembly map, Snyder and Grossman folded in",
    "stats": [
     {
-     "label": "Status",
-     "value": "Public URL needed",
-     "sub": "NOTION_NOTES_URL empty at notes/index.html:450"
+     "label": "What it is",
+     "value": "Interactive assembly",
+     "sub": "title-free redesign shipped Sep 2 · full-screen app behind the gate"
     },
     {
-     "label": "Fix",
-     "value": "one line",
-     "sub": "paste the public Notion share URL and redeploy"
-    }
-   ],
-   "links": []
-  },
-  {
-   "href": "/the-workflow-wrench/",
-   "label": "Workflow Wrench",
-   "cluster": "systems",
-   "color": "#fb923c",
-   "metric": "8 parts · 31 chapters",
-   "updated": "2026-05-14",
-   "dataThrough": null,
-   "cadenceDays": null,
-   "tagline": "The n8n consulting manual — patterns, pricing, cadence",
-   "stats": [
-    {
-     "label": "Money frame",
-     "value": "$1.5K–15K setup",
-     "sub": "care $200–1.5K/mo · $120–250/hr"
+     "label": "Feeds",
+     "value": "Revenge: Soviet-Style",
+     "sub": "E1–E5 · the revenge arc — debt, rage, collection, loot, bill"
     },
     {
-     "label": "Priced patterns",
-     "value": "5 sellable builds",
-     "sub": "lead routing → document processing"
-    },
-    {
-     "label": "Cadence",
-     "value": "90 days · 6 phases",
-     "sub": "first paid pilot lands weeks 9–10"
+     "label": "Companion",
+     "value": "Highlight Map",
+     "sub": "the Assembly carries all 157 · the standalone map holds 137 · every quote linked back to Readwise"
     }
    ],
    "links": [
     {
-     "href": "/the-workflow-wrench/#part-6-title",
-     "label": "Patterns"
+     "href": "/easternfront/#beginning",
+     "label": "Beginning"
     },
     {
-     "href": "/the-workflow-wrench/#reference",
-     "label": "Templates"
+     "href": "/easternfront/#middle",
+     "label": "Middle"
     },
     {
-     "href": "/the-workflow-wrench/#cadence",
-     "label": "90 days"
+     "href": "/easternfront/#end",
+     "label": "End"
     }
    ]
   },
@@ -1182,7 +1208,7 @@
    "label": "Digital Ecosystem",
    "cluster": "systems",
    "color": "#69d6e4",
-   "metric": "V9 · V10 overdue",
+   "metric": "V9 · V10 85 days overdue",
    "updated": "2026-03-11",
    "dataThrough": "2026-03-11",
    "cadenceDays": 90,
@@ -1195,8 +1221,8 @@
     },
     {
      "label": "V10 queue",
-     "value": "5 items",
-     "sub": "incl. rebuild financial-consolidation.html"
+     "value": "6 items",
+     "sub": "incl. financial-consolidation.html rebuild + re-listing rooms after the Sep 2 retirements"
     },
     {
      "label": "Risks",
@@ -1212,44 +1238,40 @@
    "links": []
   },
   {
-   "href": "/easternfront/",
-   "label": "Eastern Front",
+   "href": "/eastern-front-map/highlight-map.html",
+   "label": "Highlight Map",
    "cluster": "eastern",
-   "color": "#f0563c",
-   "metric": "157 highlights · new look",
-   "updated": "2026-08-21",
+   "color": "#d8b04c",
+   "metric": "137 highlights · 21 events",
+   "updated": "2026-08-17",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "The Blindspot's Eastern Front — 157 quotes on a title-free assembly map",
+   "tagline": "Every Readwise quote pinned to the event it belongs to — the older map the Assembly grew out of",
    "stats": [
     {
-     "label": "What it is",
-     "value": "Interactive assembly",
-     "sub": "uploaded 8/17 · full-screen app behind the gate"
+     "label": "Highlights",
+     "value": "137 mapped",
+     "sub": "Beevor-heavy · Grossman folded in Aug 17"
     },
     {
-     "label": "Feeds",
-     "value": "Revenge: Soviet-Style",
-     "sub": "E1–E5 · the revenge arc — debt, rage, collection, loot, bill"
+     "label": "Events",
+     "value": "21 on the arc",
+     "sub": "The Debt · The Rage and the Collection · The Bill · parking lot"
     },
     {
-     "label": "Companion",
-     "value": "Highlight Map",
-     "sub": "157 quotes · 21 events · every quote linked back to Readwise"
+     "label": "Source of truth",
+     "value": "eastern-front-map/data.json",
+     "sub": "edit in GitHub, the site redeploys"
     }
    ],
    "links": [
     {
-     "href": "/easternfront/#beginning",
-     "label": "Beginning"
+     "href": "/eastern-front-map/assembly.html",
+     "label": "Assembly"
     },
     {
-     "href": "/easternfront/#middle",
-     "label": "Middle"
-    },
-    {
-     "href": "/easternfront/#end",
-     "label": "End"
+     "href": "/eastern-front-map/",
+     "label": "Map index"
     }
    ]
   }
@@ -1262,16 +1284,22 @@
    "color": "#f472b6"
   },
   {
-   "href": "/wellness-analysis/",
-   "label": "Wellness Analysis",
-   "metric": "recovery 53 · 256 days tracked",
-   "color": "#4ade80"
+   "href": "/wellness-dashboard/#body",
+   "label": "Body composition",
+   "metric": "RENPHO 84/100 · WHR 0.86",
+   "color": "#fb923c"
   },
   {
    "href": "/the-ledger/#view-stephen",
    "label": "Stephen ledger",
    "metric": "$10,075 in · net $9,900",
    "color": "#d4a052"
+  },
+  {
+   "href": "/eastern-front-map/highlight-map.html",
+   "label": "Highlight Map",
+   "metric": "137 highlights · 21 events",
+   "color": "#d8b04c"
   }
  ],
  "quote_stats": {
@@ -1349,6 +1377,36 @@
    "text": "Andrew Scott hot priest. Adam Brody hot rabbi. Is the world ready for Riz Ahmed hot imam",
    "author": "@hannnahmmarie on Twitter",
    "source": "Tweets From Hannah Mullen"
+  }
+ ],
+ "next": [
+  {
+   "label": "Hearing · Dept 547",
+   "date": "2026-10-28",
+   "sub": "8:30 · Stanley Mosk · counsel appears with you",
+   "href": "/hearing-room/",
+   "color": "#f0524d"
+  },
+  {
+   "label": "Abroad",
+   "date": "2026-09-15",
+   "sub": "through Sep 29 · reachable, no signatures",
+   "href": "/hearing-room/#calendar",
+   "color": "#36a3df"
+  },
+  {
+   "label": "PayPal promo deadline",
+   "date": "2027-02-10",
+   "sub": "$1,090 Austrian Air · ~$182/mo clears it",
+   "href": "/the-ledger/#view-interest",
+   "color": "#d4a052"
+  },
+  {
+   "label": "Ecosystem pass V10",
+   "date": "2026-06-09",
+   "sub": "was due 90 days after V9 (Mar 11)",
+   "href": "/digital-ecosystem-refresh/",
+   "color": "#69d6e4"
   }
  ]
 }

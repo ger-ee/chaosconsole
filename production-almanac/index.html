@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Blindspot Almanac - Production Craft Field Manual</title>
-<meta name="description" content="A field manual for long-form YouTube and prestige documentary production craft for The Blindspot.">
+<meta name="description" content="The Blindspot Almanac: nine method chapters, three case files and the source ledger on one page — story architecture, research, cold open, voice, visuals, edit, sound, logistics, distribution.">
 <meta name="theme-color" content="#0D0906">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,94 @@
 <script defer src="../shared/gate.js"></script>
 <link rel="stylesheet" href="/shared/console-shell.css">
 <script defer src="/shared/console-shell.js"></script>
+<style>
+/* ---------- v2 single-page additions (inherit styles.css tokens) ---------- */
+.hero-stats { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:10px; margin-top:6px; }
+.hero-stat { padding:12px 14px; border:1px solid var(--border-hairline); border-radius:8px; background:var(--surface); }
+.hero-stat b { display:block; font-family:var(--display); font-size:clamp(22px,2.4vw,30px); line-height:1; color:var(--text); }
+.hero-stat span { display:block; margin-top:6px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-subtle); }
+
+.fig { margin:22px 0; padding:16px; border:1px solid var(--border-hairline); border-radius:8px; background:var(--bg-elev); }
+.fig svg { width:100%; height:auto; display:block; }
+.fig .figure-title { margin:0 0 10px; }
+.fig .figure-caption { margin:10px 0 0; }
+.fig text { font-family:var(--sans); }
+.fig .mono, .fig text.mono { font-family:var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+
+.chapter { margin:56px 0 0; padding-top:28px; border-top:1px solid var(--border-strong); scroll-margin-top:96px; }
+.chapter-head { display:grid; grid-template-columns: minmax(0,1fr) auto; gap:18px; align-items:end; }
+.chapter-head h2 { margin:0; }
+.chapter-kicker { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin-bottom:10px; color:var(--text-subtle); font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
+.chapter-kicker .stage { color:var(--accent); }
+.chapter-thesis { max-width:var(--measure); margin:10px 0 0; color:var(--text); font-size:1.08rem; font-weight:500; }
+.deep-link { display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border:1px solid var(--border-strong); border-radius:6px; color:var(--text); font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; white-space:nowrap; }
+.deep-link:hover { border-color:var(--accent); color:var(--accent); }
+
+.two-col { display:grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap:20px; align-items:start; margin-top:18px; }
+.two-col > * { min-width:0; }
+.two-col .callout { margin:0 0 14px; max-width:none; }
+.two-col .fig { margin:0 0 14px; }
+
+.tl { display:grid; gap:6px; margin:14px 0 0; padding:0; list-style:none; }
+.tl li { position:relative; padding-left:18px; color:var(--text-muted); font-size:.95rem; }
+.tl li::before { content:""; position:absolute; left:0; top:.55em; width:8px; height:8px; border-radius:2px; background:var(--accent); }
+
+.table-wrap { overflow-x:auto; margin:14px 0 0; border:1px solid var(--border-hairline); border-radius:8px; }
+.table-mini { width:100%; border-collapse:collapse; font-family:var(--sans); font-size:.9rem; }
+.table-mini th { text-align:left; padding:10px 12px; background:var(--surface-2); color:var(--text-subtle); font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; border-bottom:1px solid var(--border-strong); }
+.table-mini td { padding:10px 12px; vertical-align:top; border-bottom:1px solid var(--border-hairline); color:var(--text-muted); }
+.table-mini td:first-child { color:var(--text); font-weight:600; white-space:nowrap; }
+.table-mini tr:last-child td { border-bottom:0; }
+.two-col .table-mini { min-width:0; }
+.two-col .table-mini td:first-child { white-space:normal; }
+
+.kill { margin:16px 0 0; padding:0; list-style:none; display:grid; gap:8px; }
+.kill li { padding:10px 12px 10px 14px; border-left:3px solid var(--danger); background:rgba(228,87,79,.06); border-radius:0 6px 6px 0; color:var(--text-muted); font-size:.93rem; }
+.kill li b { color:var(--text); }
+
+details.checklist { margin:16px 0 0; border:1px solid var(--border-hairline); border-radius:8px; background:var(--surface); }
+details.checklist summary { cursor:pointer; padding:12px 14px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; justify-content:space-between; }
+details.checklist summary::after { content:"open"; color:var(--text-subtle); }
+details.checklist[open] summary::after { content:"close"; }
+details.checklist ol { margin:0; padding:0 16px 14px 36px; color:var(--text-muted); font-size:.92rem; }
+details.checklist li { margin:0 0 6px; }
+
+.rule-quote { margin:18px 0 0; padding:14px 18px; border-left:4px solid var(--accent-3); background:#20180d; border-radius:8px; }
+.rule-quote p { margin:0; color:var(--text); font-family:var(--editorial); font-style:italic; font-size:1.05rem; }
+.rule-quote span { display:block; margin-top:6px; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-subtle); }
+
+.case-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; margin-top:18px; }
+.case-card { padding:16px; border:1px solid var(--border-strong); border-radius:8px; background:var(--surface); display:grid; gap:10px; }
+.case-card h3 { margin:0; font-size:1.1rem; }
+.case-card h4 { margin:8px 0 2px; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+.case-card p { margin:0; font-size:.92rem; }
+
+.matrix { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
+.matrix-cell { padding:16px; border:1px solid var(--border-hairline); border-radius:8px; background:var(--surface); }
+.matrix-cell b { display:block; font-family:var(--display); font-size:1.15rem; text-transform:uppercase; }
+.matrix-cell span { color:var(--text-muted); font-size:.9rem; }
+.matrix-cell.blind { border-color:var(--accent); background:#1d130c; }
+
+.source-bars { display:grid; gap:8px; margin-top:12px; }
+.source-bar { display:grid; grid-template-columns: 150px minmax(0,1fr) 34px; gap:10px; align-items:center; font-size:.88rem; color:var(--text-muted); }
+.source-bar i { display:block; height:12px; border-radius:3px; background:var(--accent); }
+.source-bar b { text-align:right; font-family:var(--mono); color:var(--text); font-weight:500; }
+
+.jump { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.jump a { padding:8px 10px; border:1px solid var(--border-hairline); border-radius:6px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; color:var(--text-muted); }
+.jump a:hover { border-color:var(--accent); color:var(--accent); }
+
+@media (max-width: 900px) {
+  .hero-stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .two-col, .case-grid { grid-template-columns: 1fr; }
+  .chapter-head { grid-template-columns: 1fr; }
+}
+@media print {
+  .site-header, .toc, .mobile-toc, .cc-console-bar, .cc-console-map, .deep-link, .jump { display:none !important; }
+  details.checklist { break-inside:avoid; } details.checklist[open] summary::after { content:""; }
+  .layout { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -27,10 +115,10 @@
       <span class="brand-wordmark">The Blindspot Almanac</span>
     </a>
     <nav class="top-links" aria-label="Section">
-      <a href="#workflow">Workflow</a>
+      <a href="#map">Map</a>
       <a href="#chapters">Chapters</a>
-      <a href="/production-almanac/case-files/">Cases</a>
-      <a href="/production-almanac/bibliography/">Sources</a>
+      <a href="#case-files">Cases</a>
+      <a href="#source-rule">Sources</a>
       <a href="/production-almanac/components/">Components</a>
     </nav>
   </div>
@@ -40,11 +128,19 @@
   <details class="mobile-toc">
     <summary>Open contents</summary>
     <ul class="toc-list">
-      <li><a href="#scope">Scope</a></li>
+      <li><a href="#map">The Map</a></li>
       <li><a href="#workflow">Workflow</a></li>
-      <li><a href="#chapters">Chapters</a></li>
+      <li><a href="#ch-01">01 Story</a></li>
+      <li><a href="#ch-02">02 Research</a></li>
+      <li><a href="#ch-03">03 Cold Open</a></li>
+      <li><a href="#ch-04">04 Voice</a></li>
+      <li><a href="#ch-05">05 Visuals</a></li>
+      <li><a href="#ch-06">06 Edit</a></li>
+      <li><a href="#ch-07">07 Sound</a></li>
+      <li><a href="#ch-08">08 Logistics</a></li>
+      <li><a href="#ch-09">09 Distribution</a></li>
       <li><a href="#case-files">Case Files</a></li>
-      <li><a href="#source-rule">Source Rule</a></li>
+      <li><a href="#source-rule">Sources</a></li>
     </ul>
   </details>
 
@@ -53,9 +149,17 @@
       <p class="toc-title">Almanac Menu</p>
       <ul class="toc-list">
         <li><a href="#main">Top</a></li>
-        <li><a href="#scope">Scope</a></li>
+        <li><a href="#map">The Map</a></li>
         <li><a href="#workflow">Workflow</a></li>
-        <li><a href="#chapters">Chapters</a></li>
+        <li><a href="#ch-01">01 · Story</a></li>
+        <li><a href="#ch-02">02 · Research</a></li>
+        <li><a href="#ch-03">03 · Cold Open</a></li>
+        <li><a href="#ch-04">04 · Voice</a></li>
+        <li><a href="#ch-05">05 · Visuals</a></li>
+        <li><a href="#ch-06">06 · Edit</a></li>
+        <li><a href="#ch-07">07 · Sound</a></li>
+        <li><a href="#ch-08">08 · Logistics</a></li>
+        <li><a href="#ch-09">09 · Distribution</a></li>
         <li><a href="#case-files">Case Files</a></li>
         <li><a href="#source-rule">Source Rule</a></li>
       </ul>
@@ -63,32 +167,144 @@
 
     <main class="content" id="main">
       <section class="hero">
-        <div class="breadcrumb">The Blindspot / Production Craft / Complete Almanac</div>
+        <div class="breadcrumb">The Blindspot / Production Craft / Complete Almanac · Rev. 2 · Sep 2026</div>
         <h1 class="long-title">The Blindspot Almanac</h1>
-        <p class="subtitle">A field manual for long-form YouTube that wants the rhythm of John Oliver and the spine of Frontline.</p>
+        <p class="subtitle">A field manual for long-form YouTube that wants the rhythm of John Oliver and the spine of Frontline. Everything load-bearing is now on this page; the chapter pages hold the long prose.</p>
         <div class="meta-row" aria-label="Page metadata">
-          <span class="meta-chip">8 min read</span>
-          <span class="meta-chip">Depth 2 / Field Map</span>
+          <span class="meta-chip">18 min read · full page</span>
+          <span class="meta-chip">Depth 3 / Build Ready</span>
           <span class="meta-chip">Owner: Gary Elbasani</span>
+        </div>
+        <div class="hero-stats" aria-label="Almanac at a glance">
+          <div class="hero-stat"><b>9</b><span>method chapters</span></div>
+          <div class="hero-stat"><b>3</b><span>case files · theft maps</span></div>
+          <div class="hero-stat"><b>34</b><span>live sources · 5 marked forum</span></div>
+          <div class="hero-stat"><b>90</b><span>checklist items · 10 per chapter</span></div>
         </div>
       </section>
 
       <div class="callout tldr">
         <span class="callout-label">TL;DR</span>
         <ul>
-          <li>Nine method chapters are live.</li>
-          <li>Read in production order or jump by problem.</li>
-          <li>Case files translate craft into theft maps.</li>
-          <li>Every load-bearing claim traces to the source ledger.</li>
+          <li>Shape the question, prove the promise, build the edit, ship the lesson.</li>
+          <li>Every chapter below carries its key rule, its main table, its failure modes and its checklist — no click required.</li>
+          <li>Case files translate FRONTLINE, Oliver and Vox into moves, not costumes.</li>
+          <li>Every load-bearing claim traces to the source ledger at the bottom.</li>
         </ul>
       </div>
 
-      <section class="section" id="scope">
-        <p class="section-kicker">Scope</p>
-        <h2>What This Is</h2>
-        <p class="lede">This is not another screenwriting syllabus. It is a workbench for The Blindspot: long-form geopolitical, historical, and investigative episodes made by a small team or one stubborn adult in Los Angeles.</p>
-        <p>The manual is built to be entered at random. A reader can start with the cold open, a research problem, a sound problem, a packaging problem, or a case file.</p>
-        <p>The structure is still ordered. Shape the story, build the proof, cut the argument, finish the episode, then learn from the upload.</p>
+      <!-- ================= THE MAP ================= -->
+      <section class="section wide" id="map">
+        <p class="section-kicker">The Map</p>
+        <h2>The Whole Manual On One Screen</h2>
+        <p class="lede">Four production stages, nine chapters, one rule each. Start wherever the episode is failing.</p>
+        <figure class="fig" role="img" aria-label="Mind map of the Blindspot Almanac: a centre node connected to four stages — Shape, Hook, Build, Ship — each fanning out to its chapters and the one rule per chapter.">
+          <p class="figure-title">Almanac mind map</p>
+          <svg viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .ln{stroke:rgba(240,229,208,.28);stroke-width:1.5;fill:none}
+                .ln2{stroke:rgba(240,229,208,.16);stroke-width:1.2;fill:none}
+                .stage{fill:#241910;stroke:rgba(240,229,208,.34);stroke-width:1.2}
+                .leaf{fill:#1b130d;stroke:rgba(240,229,208,.14);stroke-width:1}
+                .t{fill:#f0e5d0;font-size:13px;font-weight:600}
+                .k{fill:#d9631e;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+                .s{fill:#a89a83;font-size:11px}
+                .c{fill:#756958;font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+              </style>
+            </defs>
+            <!-- centre -->
+            <circle cx="550" cy="280" r="64" fill="#1d130c" stroke="#d9631e" stroke-width="2"/>
+            <text x="550" y="272" text-anchor="middle" class="t" style="font-size:15px">THE BLINDSPOT</text>
+            <text x="550" y="292" text-anchor="middle" class="k">ALMANAC</text>
+            <text x="550" y="310" text-anchor="middle" class="c">9 CH · 3 CASES</text>
+
+            <!-- spokes to stages -->
+            <path class="ln" d="M494 250 C 420 230, 360 200, 300 150"/>
+            <path class="ln" d="M606 250 C 680 230, 740 200, 800 150"/>
+            <path class="ln" d="M494 312 C 420 330, 360 360, 300 410"/>
+            <path class="ln" d="M606 312 C 680 330, 740 360, 800 410"/>
+
+            <!-- SHAPE (top-left) -->
+            <rect class="stage" x="220" y="118" width="160" height="64" rx="8"/>
+            <text x="300" y="142" text-anchor="middle" class="k">01 · SHAPE</text>
+            <text x="300" y="164" text-anchor="middle" class="t">Story + Research</text>
+            <path class="ln2" d="M220 150 L 150 90"/>
+            <path class="ln2" d="M220 150 L 150 200"/>
+            <rect class="leaf" x="10" y="62" width="140" height="56" rx="6"/>
+            <text x="20" y="82" class="t" style="font-size:12px">Story Architecture</text>
+            <text x="20" y="98" class="s">Every act changes</text>
+            <text x="20" y="111" class="s">the viewer's answer.</text>
+            <rect class="leaf" x="10" y="172" width="140" height="56" rx="6"/>
+            <text x="20" y="192" class="t" style="font-size:12px">Research-To-Script</text>
+            <text x="20" y="208" class="s">No sentence without</text>
+            <text x="20" y="221" class="s">source, proof, risk.</text>
+
+            <!-- HOOK (top-right) -->
+            <rect class="stage" x="720" y="118" width="160" height="64" rx="8"/>
+            <text x="800" y="142" text-anchor="middle" class="k">02 · HOOK</text>
+            <text x="800" y="164" text-anchor="middle" class="t">Cold Open + Voice</text>
+            <path class="ln2" d="M880 150 L 950 90"/>
+            <path class="ln2" d="M880 150 L 950 200"/>
+            <rect class="leaf" x="950" y="62" width="140" height="56" rx="6"/>
+            <text x="960" y="82" class="t" style="font-size:12px">The Cold Open</text>
+            <text x="960" y="98" class="s">Proof by 0:05.</text>
+            <text x="960" y="111" class="s">Promise by 0:30.</text>
+            <rect class="leaf" x="950" y="172" width="140" height="56" rx="6"/>
+            <text x="960" y="192" class="t" style="font-size:12px">Voice &amp; Cadence</text>
+            <text x="960" y="208" class="s">Gravity in the receipt,</text>
+            <text x="960" y="221" class="s">not the sentence.</text>
+
+            <!-- BUILD (bottom-left) -->
+            <rect class="stage" x="220" y="378" width="160" height="64" rx="8"/>
+            <text x="300" y="402" text-anchor="middle" class="k">03 · BUILD</text>
+            <text x="300" y="424" text-anchor="middle" class="t">Visual + Edit + Sound</text>
+            <path class="ln2" d="M220 410 L 150 330"/>
+            <path class="ln2" d="M220 410 L 150 410"/>
+            <path class="ln2" d="M220 410 L 150 490"/>
+            <rect class="leaf" x="10" y="302" width="140" height="56" rx="6"/>
+            <text x="20" y="322" class="t" style="font-size:12px">Visual System</text>
+            <text x="20" y="338" class="s">Every shot has a job:</text>
+            <text x="20" y="351" class="s">receipt · orient · compress.</text>
+            <rect class="leaf" x="10" y="382" width="140" height="56" rx="6"/>
+            <text x="20" y="402" class="t" style="font-size:12px">Edit Grammar</text>
+            <text x="20" y="418" class="s">Cut on argument first,</text>
+            <text x="20" y="431" class="s">rhythm second.</text>
+            <rect class="leaf" x="10" y="462" width="140" height="56" rx="6"/>
+            <text x="20" y="482" class="t" style="font-size:12px">Sound &amp; Finish</text>
+            <text x="20" y="498" class="s">Clarity pass before</text>
+            <text x="20" y="511" class="s">taste pass.</text>
+
+            <!-- SHIP (bottom-right) -->
+            <rect class="stage" x="720" y="378" width="160" height="64" rx="8"/>
+            <text x="800" y="402" text-anchor="middle" class="k">04 · SHIP</text>
+            <text x="800" y="424" text-anchor="middle" class="t">Logistics + Distribution</text>
+            <path class="ln2" d="M880 410 L 950 350"/>
+            <path class="ln2" d="M880 410 L 950 470"/>
+            <rect class="leaf" x="950" y="322" width="140" height="56" rx="6"/>
+            <text x="960" y="342" class="t" style="font-size:12px">Production Logistics</text>
+            <text x="960" y="358" class="s">One folder shape.</text>
+            <text x="960" y="371" class="s">Ship at 70%.</text>
+            <rect class="leaf" x="950" y="442" width="140" height="56" rx="6"/>
+            <text x="960" y="462" class="t" style="font-size:12px">Distribution</text>
+            <text x="960" y="478" class="s">CTR = promise.</text>
+            <text x="960" y="491" class="s">Retention = kept promise.</text>
+
+            <!-- side nodes -->
+            <path class="ln2" d="M550 344 L 550 470"/>
+            <rect class="leaf" x="470" y="470" width="160" height="50" rx="6"/>
+            <text x="550" y="490" text-anchor="middle" class="k">CASE FILES</text>
+            <text x="550" y="508" text-anchor="middle" class="s">FRONTLINE · Oliver · Vox</text>
+            <path class="ln2" d="M550 216 L 550 90"/>
+            <rect class="leaf" x="470" y="40" width="160" height="50" rx="6"/>
+            <text x="550" y="60" text-anchor="middle" class="k">SOURCE LEDGER</text>
+            <text x="550" y="78" text-anchor="middle" class="s">34 live · forum notes marked</text>
+          </svg>
+          <p class="figure-caption">Read clockwise for production order. Read by branch when one stage is the problem.</p>
+        </figure>
+        <div class="jump" aria-label="Jump to chapter">
+          <a href="#ch-01">01 Story</a><a href="#ch-02">02 Research</a><a href="#ch-03">03 Cold Open</a><a href="#ch-04">04 Voice</a><a href="#ch-05">05 Visuals</a><a href="#ch-06">06 Edit</a><a href="#ch-07">07 Sound</a><a href="#ch-08">08 Logistics</a><a href="#ch-09">09 Distribution</a><a href="#case-files">Cases</a><a href="#source-rule">Sources</a>
+        </div>
       </section>
 
       <div class="callout key-stat">
@@ -96,8 +312,9 @@
         <p>Reuters Institute's 2025 Digital News Report says 30% of the global sample uses YouTube for news weekly, and social video news consumption rose from 52% in 2020 to 65% in 2025. The audience is already in the room. The work is to arrive with standards intact.</p>
       </div>
 
+      <!-- ================= WORKFLOW ================= -->
       <section class="section wide" id="workflow">
-        <p class="section-kicker">Main Menu</p>
+        <p class="section-kicker">Workflow</p>
         <h2>Read By Production Stage</h2>
         <figure class="visual-figure" role="img" aria-label="A four-stage Almanac workflow from shape to hook to build to ship.">
           <p class="figure-title">The Blindspot Workflow Map</p>
@@ -107,107 +324,831 @@
             <div class="workflow-step"><span>Build</span><strong>Visual + Edit + Sound</strong><p>Turn evidence into a watchable argument.</p></div>
             <div class="workflow-step"><span>Ship</span><strong>Logistics + Distribution</strong><p>Finish clean, publish honestly, and read the upload calmly.</p></div>
           </div>
-          <p class="figure-caption">Use this as the subpage's main menu: production order for planning, chapter cards for problem-solving, case files for pattern theft.</p>
+          <p class="figure-caption">Production order for planning, chapter blocks for problem-solving, case files for pattern theft.</p>
+        </figure>
+
+        <figure class="fig" role="img" aria-label="The weekly production loop as a ring of eight steps: shape, source, write, cut, finish, package, publish, learn — with the postmortem feeding the next shape.">
+          <p class="figure-title">The week loop — eight steps, one direction</p>
+          <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#d9631e"/></marker></defs>
+            <g font-family="Instrument Sans, sans-serif">
+              <!-- nodes -->
+              <g id="loopnodes">
+                <rect x="20" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="70" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">01</text>
+                <text x="70" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Shape</text>
+                <rect x="145" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="195" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">02</text>
+                <text x="195" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Source</text>
+                <rect x="270" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="320" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">03</text>
+                <text x="320" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Write</text>
+                <rect x="395" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="445" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">04</text>
+                <text x="445" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Cut</text>
+                <rect x="520" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="570" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">05</text>
+                <text x="570" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Finish</text>
+                <rect x="645" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="695" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">06</text>
+                <text x="695" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Package</text>
+                <rect x="770" y="100" width="100" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+                <text x="820" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">07</text>
+                <text x="820" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Publish</text>
+                <rect x="895" y="100" width="90" height="70" rx="8" fill="#1d130c" stroke="#d9631e"/>
+                <text x="940" y="128" text-anchor="middle" fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">08</text>
+                <text x="940" y="150" text-anchor="middle" fill="#f0e5d0" font-size="14" font-weight="600">Learn</text>
+              </g>
+              <!-- arrows -->
+              <g stroke="#d9631e" stroke-width="1.6" fill="none" marker-end="url(#arr)">
+                <path d="M120 135 L143 135"/><path d="M245 135 L268 135"/><path d="M370 135 L393 135"/><path d="M495 135 L518 135"/><path d="M620 135 L643 135"/><path d="M745 135 L768 135"/><path d="M870 135 L893 135"/>
+              </g>
+              <!-- return arc -->
+              <path d="M940 172 C 940 250, 70 250, 70 172" stroke="#d8b04c" stroke-width="1.6" fill="none" stroke-dasharray="5 5" marker-end="url(#arr)"/>
+              <text x="500" y="240" text-anchor="middle" fill="#d8b04c" font-size="11" font-family="JetBrains Mono, monospace" letter-spacing="2">ONE POSTMORTEM LESSON → NEXT EPISODE</text>
+              <!-- sublabels -->
+              <g fill="#756958" font-size="10.5">
+                <text x="70" y="84" text-anchor="middle">question · line · promise</text>
+                <text x="195" y="84" text-anchor="middle">ledger · dissent · proof</text>
+                <text x="320" y="84" text-anchor="middle">aloud · breath · risk</text>
+                <text x="445" y="84" text-anchor="middle">spine · evidence · pace</text>
+                <text x="570" y="84" text-anchor="middle">sound · captions · export</text>
+                <text x="695" y="84" text-anchor="middle">title · thumb · pinned</text>
+                <text x="820" y="84" text-anchor="middle">upload · first read</text>
+                <text x="940" y="84" text-anchor="middle">postmortem · archive</text>
+              </g>
+            </g>
+          </svg>
+          <p class="figure-caption">The time blocks will move. The order should not. Ten lessons per episode turn learning into weather; carry one.</p>
         </figure>
       </section>
 
-      <div class="callout reset" id="reset-workflow">
+      <div class="callout reset">
         <span class="callout-label">Reset</span>
         <p>The route is simple: shape the question, prove the promise, build the edit, ship the lesson.</p>
       </div>
 
-      <section class="section wide" id="chapters">
-        <p class="section-kicker">Chapter Deck</p>
-        <h2>Nine Method Chapters</h2>
-        <div class="grid chapter-grid">
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">01 / Shape</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Story Architecture</h3>
-            <p>Controlling question, episode spine, act turns, resets, and viewer-load discipline.</p>
-            <a class="small-link" href="/production-almanac/story-architecture/">Read chapter</a>
+      <!-- ================= CHAPTERS ================= -->
+      <div id="chapters"></div>
+
+      <!-- ---------- 01 STORY ARCHITECTURE ---------- -->
+      <section class="chapter" id="ch-01">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 01 · Shape</span><span>Architecture</span><span>Depth 3 · Build Ready</span><span>9 min deep-dive</span></div>
+            <h2>Story Architecture</h2>
+            <p class="chapter-thesis">A long episode holds when every turn changes the question the viewer is carrying.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/story-architecture/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Choose the controlling question first.</li>
+          <li>Build acts around changed understanding.</li>
+          <li>Reset before the viewer gets lost.</li>
+          <li>Cut brilliance that leaves the spine.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>Every act must change the viewer's answer to the same question. If an act only adds information, it is probably a folder, not a story turn.</p>
+            </div>
+            <p><b>Question</b> is the thing the episode is actually investigating — not the topic. <b>Line</b> is the path through the subject: a person, memo, shipment, border, court case, agency decision or money trail. <b>Turn</b> is the moment understanding changes; a good turn reorganizes the facts already on the table rather than adding one.</p>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Before research gets pretty, write the sentence: "This is the story of [mechanism] told through [path], because [cost]." Then make every chapter beat defend its right to stay.</p>
+            </div>
+          </div>
+          <figure class="fig" role="img" aria-label="Episode spine: five nodes in a rising line — Question, Cost, Mechanism, Turn, Consequence.">
+            <p class="figure-title">Episode spine graph</p>
+            <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <polyline points="40,210 130,170 220,150 310,80 400,110" fill="none" stroke="#d9631e" stroke-width="2.5" stroke-linejoin="round"/>
+              <polyline points="40,210 130,170 220,150 310,80 400,110" fill="none" stroke="#d9631e" stroke-opacity=".18" stroke-width="12" stroke-linejoin="round"/>
+              <g fill="#d9631e"><circle cx="40" cy="210" r="6"/><circle cx="130" cy="170" r="6"/><circle cx="220" cy="150" r="6"/><circle cx="310" cy="80" r="7.5"/><circle cx="400" cy="110" r="6"/></g>
+              <g fill="#f0e5d0" font-size="12" font-weight="600" text-anchor="middle">
+                <text x="40" y="236">Question</text><text x="130" y="196">Cost</text><text x="220" y="176">Mechanism</text><text x="310" y="62">Turn</text><text x="400" y="136">Consequence</text>
+              </g>
+              <g fill="#756958" font-size="9.5" text-anchor="middle">
+                <text x="40" y="250">what is happening?</text><text x="130" y="210">who pays?</text><text x="220" y="190">how does it work?</text><text x="310" y="48">what changes the read?</text><text x="400" y="150">what stays true?</text>
+              </g>
+              <text x="12" y="20" fill="#756958" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1.5">TENSION</text>
+              <line x1="12" y1="26" x2="12" y2="230" stroke="rgba(240,229,208,.16)"/>
+            </svg>
+            <p class="figure-caption">A tension map, not a formula. Some episodes start on consequence; the viewer still needs the path.</p>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Act</th><th>Viewer question</th><th>Exit test</th></tr></thead>
+          <tbody>
+            <tr><td>Cold open</td><td>Why should I trust this click?</td><td>The wound and proof are visible.</td></tr>
+            <tr><td>Setup</td><td>What did the public story claim?</td><td>The official version is clear.</td></tr>
+            <tr><td>Mechanism</td><td>How did the system behave?</td><td>The viewer can explain the engine.</td></tr>
+            <tr><td>Reversal</td><td>What did we miss?</td><td>A new fact changes the read.</td></tr>
+            <tr><td>Consequence</td><td>Who lived with the result?</td><td>The cost is specific, not atmospheric.</td></tr>
+            <tr><td>Landing</td><td>What remains unsettled?</td><td>The viewer knows what was proved and what was not.</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:14px">Use resets as mercy: after two dense sequences, one plain line that says which door the viewer is about to walk through. Pinker's curse of knowledge belongs in the edit bay — you know the acronyms; the viewer gets them one at a time while eating cereal.</p>
+        <ul class="kill">
+          <li><b>The chronology trap.</b> Time order is not story order. Use chronology when cause depends on sequence, not because the folder starts in 1947.</li>
+          <li><b>The all-star sidebar.</b> A brilliant tangent that does not change the line is still a tangent. Save it, cut it, or make it a separate upload.</li>
+          <li><b>The fake climax.</b> A loud reveal without changed understanding is a lighting cue pretending to be structure.</li>
+          <li><b>The moral fog machine.</b> If the viewer cannot state who did what, to whom, with what consequence, the episode is hiding inside mood.</li>
+        </ul>
+        <div class="rule-quote"><p>"A chapter earns its length by changing the viewer's map."</p><span>Almanac working rule</span></div>
+        <details class="checklist"><summary>Story Architecture checklist · 10 items</summary><ol>
+          <li>Write the controlling question before the beat sheet.</li><li>Choose the path through the subject: person, mechanism, document, place, or decision chain.</li><li>Write the episode spine: question, cost, mechanism, turn, consequence.</li><li>Give every act a viewer question and an exit test.</li><li>Place reset lines after dense sections.</li><li>Cut scenes that add information without changing the line.</li><li>Mark chronology-dependent beats separately from optional backstory.</li><li>Check that each turn reorganizes what came before.</li><li>Cross-link major story beats to source and visual proof plans.</li><li>Read only the act headings. If the story vanishes, rebuild the map.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 02 RESEARCH-TO-SCRIPT ---------- -->
+      <section class="chapter" id="ch-02">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 02 · Shape</span><span>Reporting</span><span>Depth 3 · Build Ready</span><span>8 min deep-dive</span></div>
+            <h2>Research-To-Script</h2>
+            <p class="chapter-thesis">Research is not a pile. It is a chain of claims that can survive a hostile read.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/research-to-script/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Turn every beat into a checkable claim.</li>
+          <li>Separate evidence from interpretation.</li>
+          <li>Write the source stack before the script sings.</li>
+          <li>Stop researching when the risk is mapped.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>No load-bearing sentence enters the script without a source, a visual proof plan, and a risk label. If it cannot meet that bar, it becomes opinion, narration, or trash.</p>
+            </div>
+            <p>The script is not the first artifact. The first artifact is a claim ledger. Kovach and Rosenstiel put verification at the centre; Harrower turns it into behaviour — check names, titles, numbers, spellings, claims, attribution and disputed facts before the sentence hardens into copy.</p>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Create <code>_Sources.md</code> before the first draft with four headings: Primary, Context, Dissent, Visual Proof. If Dissent is empty, the episode is still shopping for confirmation.</p>
+            </div>
+          </div>
+          <figure class="fig" role="img" aria-label="Claim ladder: four stacked tiers — the script beat on top, then visual proof, then risk and status, then source and provenance at the base.">
+            <p class="figure-title">Claim ladder — the sentence sits on top, the stack does the lifting</p>
+            <svg viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <g stroke="rgba(240,229,208,.3)">
+                <rect x="140" y="20" width="140" height="42" rx="6" fill="#d9631e"/>
+                <rect x="105" y="72" width="210" height="42" rx="6" fill="#2b1d12"/>
+                <rect x="70" y="124" width="280" height="42" rx="6" fill="#241910"/>
+                <rect x="35" y="176" width="350" height="42" rx="6" fill="#1b130d"/>
+              </g>
+              <g text-anchor="middle" font-size="13" font-weight="600" fill="#f0e5d0">
+                <text x="210" y="46" fill="#0d0906">Script beat</text>
+                <text x="210" y="98">Visual proof</text>
+                <text x="210" y="150">Risk + status</text>
+                <text x="210" y="202">Source + provenance</text>
+              </g>
+              <g font-size="9.5" fill="#756958" text-anchor="end">
+                <text x="130" y="46">the sentence</text>
+                <text x="95" y="98">zoom · map · chart</text>
+                <text x="60" y="150">legal · factual · tone</text>
+              </g>
+              <text x="395" y="202" font-size="9.5" fill="#756958" text-anchor="start">verified · disputed · inferred</text>
+            </svg>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Stage</th><th>Output</th><th>Exit test</th></tr></thead>
+          <tbody>
+            <tr><td>Seed</td><td>One question and one suspected mechanism.</td><td>You can state what the episode tests.</td></tr>
+            <tr><td>Claim map</td><td>Chronological or causal list of claims.</td><td>Every beat can be true or false.</td></tr>
+            <tr><td>Source stack</td><td>Primary, expert, context, and dissenting sources.</td><td>No source is doing a job it cannot do.</td></tr>
+            <tr><td>Beat sheet</td><td>Story order with proof images assigned.</td><td>The viewer can follow without a footnote cloud.</td></tr>
+            <tr><td>Fact pass</td><td>Marked copy: fact, interpretation, opinion, joke.</td><td>A hostile reader knows what you know and how.</td></tr>
+            <tr><td>Script lock</td><td>VO draft ready for visual planning.</td><td>No unresolved red claims remain.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Ledger column</th><th>What goes there</th><th>Why it exists</th></tr></thead>
+          <tbody>
+            <tr><td>Claim</td><td>The exact sentence or beat.</td><td>Prevents vague sourcing.</td></tr>
+            <tr><td>Source</td><td>Document, interview, book, dataset, or clip.</td><td>Shows where the claim came from.</td></tr>
+            <tr><td>Status</td><td>Verified, disputed, inferred, opinion.</td><td>Stops uncertainty from wearing a tie.</td></tr>
+            <tr><td>Visual proof</td><td>Document zoom, map, chart, archive, quote card.</td><td>Hands the editor something real.</td></tr>
+            <tr><td>Risk</td><td>Legal, factual, ethical, tone, rights.</td><td>Moves danger upstream.</td></tr>
+            <tr><td>Script beat</td><td>Cold open, setup, turn, consequence, release.</td><td>Keeps research attached to story.</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:14px"><b>Fact pass</b> is a behaviour pass, not copyediting: ask what a motivated critic would attack. "Led to" is stronger than "was followed by"; "proved" is stronger than "suggested". If the evidence only supports "suggested", write that and let the edit carry the pressure. <b>Stop rules:</b> every main claim has a source and a status; every disputed claim has the dispute represented fairly; every visual-proof need has an asset or an honest placeholder. Then stop — production needs a version it can test.</p>
+        <div class="rule-quote"><p>"If the source cannot change the script, it is probably not research anymore."</p><span>Almanac working rule</span></div>
+        <details class="checklist"><summary>Research-To-Script checklist · 10 items</summary><ol>
+          <li>Write the seed question in one sentence.</li><li>Create _Sources.md with Primary, Context, Dissent, and Visual Proof headings.</li><li>Convert every major beat into a checkable claim.</li><li>Mark each claim as verified, disputed, inferred, opinion, or joke.</li><li>Assign one visual proof plan to every load-bearing claim.</li><li>Run a hostile read for causality, names, titles, numbers, dates, and attribution.</li><li>Represent the strongest dissenting source where the topic is contested.</li><li>Move legal, rights, or defamation risks into the ledger before the edit.</li><li>Cut claims that cannot be sourced at the needed risk level.</li><li>Lock the beat sheet once new research stops changing the story order.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 03 COLD OPEN ---------- -->
+      <section class="chapter" id="ch-03">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 03 · Hook</span><span>Openings</span><span>Depth 3 · Build Ready</span><span>8 min deep-dive</span></div>
+            <h2>The Cold Open</h2>
+            <p class="chapter-thesis">The first job is not to be clever. The first job is to prove the viewer did not make a mistake.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/cold-open/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Open on the wound, not the throat-clear.</li>
+          <li>Show proof by 0:05. Name the question by 0:15. Promise the argument by 0:30.</li>
+          <li>Familiar story, hidden mechanism, concrete proof.</li>
+          <li>Dry speed, not panic speed.</li>
+        </ul>
+        <figure class="fig" role="img" aria-label="A 30-second timeline: proof image at 0:00–0:05, contradiction at 0:05–0:12, controlling question at 0:12–0:20, investigation promise at 0:20–0:30, context only after 0:30.">
+          <p class="figure-title">0:00–0:30 pressure map</p>
+          <svg viewBox="0 0 1000 170" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+            <line x1="40" y1="70" x2="960" y2="70" stroke="rgba(240,229,208,.22)" stroke-width="2"/>
+            <g fill="#d9631e">
+              <rect x="40" y="58" width="140" height="24" rx="4" fill-opacity=".95"/>
+              <rect x="180" y="58" width="196" height="24" rx="4" fill-opacity=".75"/>
+              <rect x="376" y="58" width="224" height="24" rx="4" fill-opacity=".55"/>
+              <rect x="600" y="58" width="280" height="24" rx="4" fill-opacity=".38"/>
+              <rect x="880" y="58" width="80" height="24" rx="4" fill="#4db6ac" fill-opacity=".45"/>
+            </g>
+            <g fill="#f0e5d0" font-size="12" font-weight="600">
+              <text x="40" y="44">0:00</text><text x="180" y="44">0:05</text><text x="376" y="44">0:12</text><text x="600" y="44">0:20</text><text x="880" y="44">0:30 +</text>
+            </g>
+            <g fill="#f0e5d0" font-size="12.5" font-weight="600">
+              <text x="40" y="108">Proof image</text><text x="180" y="108">Visible contradiction</text><text x="376" y="108">Controlling question</text><text x="600" y="108">Investigation promise</text><text x="880" y="108">Context</text>
+            </g>
+            <g fill="#756958" font-size="10.5">
+              <text x="40" y="126">no logo sting, no title card</text><text x="180" y="126">one sentence, no clause pile-up</text><text x="376" y="126">answerable beats atmospheric</text><text x="600" y="126">what the episode will prove or test</text><text x="880" y="126">history after why</text>
+            </g>
+            <text x="40" y="158" fill="#4db6ac" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="1.5">YOUTUBE "INTRO" RETENTION = SHARE STILL WATCHING AT 0:30 · THE PLATFORM'S FIRST DIAGNOSTIC</text>
+          </svg>
+          <p class="figure-caption">The open is a promise test, not a trailer. If the proof arrives late, the viewer has already started voting.</p>
+        </figure>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Operating model · Promise, Proof, Pressure</span>
+              <p><b>Promise</b>: what the viewer came for. <b>Proof</b>: one concrete image, document, quote, map or number that shows this is not vibes in a blazer. <b>Pressure</b>: why the question cannot stay academic. One visual idea per beat — when the screen becomes a document, the viewer reads instead of listens (Duarte).</p>
+            </div>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Draft the cold open before the full script. If the first 30 seconds cannot state the wound, the evidence, and the turn, the episode is still research, not story.</p>
+            </div>
+            <div class="callout skip">
+              <span class="callout-label">Skip This If</span>
+              <p>You already have a proof-first opening that works without music, titles, or explanation. If it collapses when muted or read as plain text, keep cutting.</p>
+            </div>
+          </div>
+          <div>
+            <div class="table-wrap" style="margin-top:0"><table class="table-mini">
+              <thead><tr><th>Five opens that fit</th><th>The move</th></tr></thead>
+              <tbody>
+                <tr><td>The contradiction</td><td>Two facts that should not coexist. The friction is the story.</td></tr>
+                <tr><td>The object</td><td>A document, map, bottle, memo, gate, filing or archival clip carries authority before the narrator litigates.</td></tr>
+                <tr><td>The false promise</td><td>Let the audience hear the pitch or myth, then cut to the receipt that makes it rot in public.</td></tr>
+                <tr><td>Scene of consequence</td><td>Begin after the damage. Walk backward. Built for war, policy failure, fraud, capture.</td></tr>
+                <tr><td>Personal calibration</td><td>Gary's stake only when it sharpens the reporting — why the question matters, not why the host is special.</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <ul class="kill">
+          <li><b>The throat-clear.</b> "To understand X, we have to go back…" Usually true. Still a bad first sentence.</li>
+          <li><b>The lecture title.</b> "Today we are discussing…" is a meeting agenda wearing foundation.</li>
+          <li><b>The fake question.</b> A question the title already answered is filler.</li>
+          <li><b>The oversold tease.</b> Promise a scandal, deliver a policy nuance, and viewers punish the gap.</li>
+          <li><b>The montage tax.</b> Rapid cuts create pace, not argument. If every shot is a vibe, the viewer learns the editor owns plugins.</li>
+        </ul>
+        <div class="rule-quote"><p>"Familiar story. Hidden mechanism. Concrete proof. That is the open."</p><span>Almanac working rule · cadence reference: Camp 14 (controlled compression, not frantic)</span></div>
+        <details class="checklist"><summary>Cold Open checklist · 10 items</summary><ol>
+          <li>Write the title and thumbnail promise in one plain sentence.</li><li>Choose one proof image that appears before 0:05.</li><li>State the contradiction before 0:12.</li><li>Ask one controlling question before 0:20.</li><li>Promise the investigation before 0:30.</li><li>Remove logo stings, greetings, channel housekeeping, and "today we are talking about."</li><li>Read the open aloud. If it sounds written, rewrite it.</li><li>Mute the timeline. If the visuals do not clarify the argument, simplify them.</li><li>Run the no-oversell test: does the full episode deliver exactly what the open implies?</li><li>After publish, compare intro retention against the title/thumbnail promise before blaming the algorithm.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 04 VOICE & CADENCE ---------- -->
+      <section class="chapter" id="ch-04">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 04 · Hook</span><span>Performance</span><span>Depth 3 · Build Ready</span><span>9 min deep-dive</span></div>
+            <h2>Voice &amp; Cadence</h2>
+            <p class="chapter-thesis">The voiceover is not narration poured over the edit. It is the edit's spine, breath, and traffic control.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/voice-cadence/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Write for the ear, then cut for the breath.</li>
+          <li>Slow down around names, numbers, and turns.</li>
+          <li>Let receipts carry the weight.</li>
+          <li>Delete jokes that do not expose the system.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>Do not score gravity into the sentence. Put gravity in the evidence, then read the sentence like the evidence is enough.</p>
+            </div>
+            <p>The host has three jobs: point to the proof, name the moral math, keep the viewer oriented while the archive, map, document or timeline does the heavy lift. Alburger's voice work keeps returning to intent, breath, posture and emphasis; Weldon's NPR guide adds the small-team habit — read aloud, mark breath breaks, test the room, listen while recording.</p>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Before recording, mark every page with three symbols: slash for breath, box for evidence on screen, underline for the word that cannot blur. An untouched page is not ready for the mic.</p>
+            </div>
+          </div>
+          <figure class="fig" role="img" aria-label="Three linked blocks — Line, Breath, Receipt — showing that a spoken idea, a pause, and on-screen proof form one unit.">
+            <p class="figure-title">Line / Breath / Receipt — one script markup pass</p>
+            <svg viewBox="0 0 420 210" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <rect x="20" y="30" width="120" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+              <rect x="150" y="30" width="120" height="70" rx="8" fill="#241910" stroke="rgba(240,229,208,.34)"/>
+              <rect x="280" y="30" width="120" height="70" rx="8" fill="#1d130c" stroke="#d9631e"/>
+              <g fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2" text-anchor="middle">
+                <text x="80" y="52">/ LINE</text><text x="210" y="52">/ BREATH</text><text x="340" y="52">▢ RECEIPT</text>
+              </g>
+              <g fill="#f0e5d0" font-size="11.5" text-anchor="middle">
+                <text x="80" y="74">one spoken idea</text><text x="80" y="90">no sentence gets two jobs</text>
+                <text x="210" y="74">pause where the</text><text x="210" y="90">thought changes</text>
+                <text x="340" y="74">proof on screen when</text><text x="340" y="90">the claim needs proof</text>
+              </g>
+              <g stroke="#d9631e" stroke-width="1.6"><line x1="140" y1="65" x2="150" y2="65"/><line x1="270" y1="65" x2="280" y2="65"/></g>
+              <g fill="#756958" font-size="10.5" text-anchor="middle">
+                <text x="210" y="135">The line tells the viewer where to look.</text>
+                <text x="210" y="152">The breath tells them when to think.</text>
+                <text x="210" y="169">The receipt tells them why to believe you.</text>
+              </g>
+              <text x="210" y="196" text-anchor="middle" fill="#4db6ac" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="1.5">CATCHES MOST FAKE FLUENCY</text>
+            </svg>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Beat</th><th>Voice move</th><th>Picture move</th></tr></thead>
+          <tbody>
+            <tr><td>Known fact</td><td>Keep it plain. Do not inflate.</td><td>Quickest visual confirmation.</td></tr>
+            <tr><td>New name</td><td>Give it air, repeat only if necessary.</td><td>Show spelling, face, place, or title.</td></tr>
+            <tr><td>Number</td><td>Slow the setup, not the whole paragraph.</td><td>One graph idea, not six.</td></tr>
+            <tr><td>Turn</td><td>Stop before the reversal. Let the viewer feel the hinge.</td><td>Cut to the receipt on the turn.</td></tr>
+            <tr><td>Joke</td><td>Dry read. No laugh-track rhythm.</td><td>Let the image do half the insult.</td></tr>
+            <tr><td>Aftermath</td><td>Drop the performance. Speak like the bill arrived.</td><td>Hold longer than comfort wants.</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:14px"><b>Comedy pressure.</b> Kaplan's Straight Line / Wavy Line: the institution is the straight line, the evidence is the wavy line, Gary names the mismatch. "Serious fact, then joke, then serious fact" turns comedy into garnish. If the joke can be removed and the argument gets stronger, it was a hat. <b>Recording:</b> stand when possible; run one technical pass (room, mic position, plosives, sibilance, level, headphones); when a line breaks, restart from the nearest clean thought, not the nearest word.</p>
+        <ul class="kill">
+          <li><b>The podcast paragraph.</b> Works in a notebook, dies in the cut. Break it into beats.</li>
+          <li><b>The courtroom voice.</b> Moral clarity does not require a bass drop.</li>
+          <li><b>The name blizzard.</b> Three unfamiliar people in one sentence is a receipt jam.</li>
+          <li><b>The joke after the proof.</b> If the evidence already made the point, the joke reads as insecurity.</li>
+          <li><b>The wall-to-wall read.</b> Leave room for natural sound, testimony and silence.</li>
+        </ul>
+        <div class="rule-quote"><p>"A good Blindspot line sounds inevitable after the receipt appears."</p><span>Almanac working rule</span></div>
+        <details class="checklist"><summary>Voice &amp; Cadence checklist · 10 items</summary><ol>
+          <li>Read the whole script aloud before recording.</li><li>Split any sentence that needs two breaths.</li><li>Mark breath slashes, proof boxes, and emphasis underlines.</li><li>Circle every proper noun and number.</li><li>Slow down only where comprehension needs it.</li><li>Place a receipt on screen for every load-bearing claim.</li><li>Delete jokes that do not expose a contradiction.</li><li>Record standing, or sit forward with a clean breath path.</li><li>Monitor with headphones and check plosives before the real take.</li><li>Listen to the VO-only export before locking the picture.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 05 VISUAL SYSTEM ---------- -->
+      <section class="chapter" id="ch-05">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 05 · Build</span><span>Picture</span><span>Depth 3 · Build Ready</span><span>8 min deep-dive</span></div>
+            <h2>Visual System</h2>
+            <p class="chapter-thesis">A graphic is useful when it argues. It is expensive wallpaper when it merely glows.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/visual-system/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Use visuals as proof, orientation, compression, or consequence.</li>
+          <li>One idea per screen beat.</li>
+          <li>Maps need people, not just borders.</li>
+          <li>Archive choices are editorial claims.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>Before adding motion, name the visual job in the timeline: receipt, orientation, compression, or consequence. If you cannot name it, the shot is probably decoration.</p>
+            </div>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Put the visual job in the asset filename or marker: <code>receipt_fcc_order</code>, <code>orientation_hong_kong_map</code>, <code>consequence_worker_testimony</code>. It keeps the edit honest when the timeline gets ugly.</p>
+            </div>
+            <p><b>Shot logic:</b> Mascelli's continuity grammar survives archival, screen-captured and self-shot footage — a sequence needs a wide idea, a specific detail and a bridge. If Gary is on camera, capture the anchor take, close details, hands, desk objects, document inserts, monitor glow and a clean room-tone plate. <b>Motion graphics</b> work when movement reveals causality: money flows, borders shift, permits appear, names connect.</p>
+          </div>
+          <figure class="fig" role="img" aria-label="Four visual jobs arranged as quadrants: Receipt, Orientation, Compression, Consequence, each with its best use.">
+            <p class="figure-title">Four jobs for every visual</p>
+            <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <g stroke="rgba(240,229,208,.2)">
+                <rect x="15" y="15" width="190" height="110" rx="8" fill="#241910"/>
+                <rect x="215" y="15" width="190" height="110" rx="8" fill="#241910"/>
+                <rect x="15" y="135" width="190" height="110" rx="8" fill="#241910"/>
+                <rect x="215" y="135" width="190" height="110" rx="8" fill="#1d130c" stroke="#d8b04c"/>
+              </g>
+              <g fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2">
+                <text x="28" y="36">RECEIPT</text><text x="228" y="36">ORIENTATION</text><text x="28" y="156">COMPRESSION</text><text x="228" y="156" fill="#d8b04c">CONSEQUENCE</text>
+              </g>
+              <g fill="#f0e5d0" font-size="11.5">
+                <text x="28" y="58">Document · clip · chart ·</text><text x="28" y="74">testimony · artifact.</text><text x="28" y="96" fill="#a89a83">Belongs next to the</text><text x="28" y="110" fill="#a89a83">sentence it supports.</text>
+                <text x="228" y="58">Map · timeline · cast card ·</text><text x="228" y="74">chapter card.</text><text x="228" y="96" fill="#a89a83">Cognitive infrastructure,</text><text x="228" y="110" fill="#a89a83">not filler.</text>
+                <text x="28" y="178">A shape that replaces</text><text x="28" y="194">a tax form of prose.</text><text x="28" y="216" fill="#a89a83">Use when relationships</text><text x="28" y="230" fill="#a89a83">would become homework.</text>
+                <text x="228" y="178">The human or institutional</text><text x="228" y="194">aftermath.</text><text x="228" y="216" fill="#a89a83">Where the edit slows down</text><text x="228" y="230" fill="#a89a83">and stops being clever.</text>
+              </g>
+            </svg>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Visual beat</th><th>Best use</th><th>Danger</th></tr></thead>
+          <tbody>
+            <tr><td>Document zoom</td><td>Exact language, date, name, or contradiction.</td><td>Too much text makes VO disappear.</td></tr>
+            <tr><td>Map</td><td>Orient power, geography, route, supply, or border pressure.</td><td>A map without people turns politics into furniture.</td></tr>
+            <tr><td>Timeline</td><td>Sequence, delay, escalation, or cover-up.</td><td>Too many nodes creates homework.</td></tr>
+            <tr><td>Lower third</td><td>Speaker, role, date, and relevance.</td><td>Job titles can launder authority.</td></tr>
+            <tr><td>Archive clip</td><td>What people saw or said at the time.</td><td>Nostalgia can soften horror.</td></tr>
+            <tr><td>Data card</td><td>One number readable at speed.</td><td>Charts are not moral conclusions.</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:14px"><b>Asset hygiene is part of the look.</b> Keep rights notes with the asset, not in memory — memory lies under deadline. Fewer fonts, fewer transitions, fewer fake-paper overlays, more readable citations. Put source, date and mode on screen when the visual makes an evidentiary claim; a lower-third can be beautiful and still behave like a receipt. Every map answers two questions: what is the viewer supposed to understand geographically, and who experiences that geography as pressure?</p>
+        <div class="rule-quote"><p>"The grade is evidence. Restraint reads as credibility."</p><span>Blindspot Binder operating note</span></div>
+        <details class="checklist"><summary>Visual System checklist · 10 items</summary><ol>
+          <li>Assign every visual beat one job: receipt, orientation, compression, or consequence.</li><li>Pair every load-bearing claim with a visual proof plan.</li><li>Use one idea per screen beat.</li><li>Keep document cards short enough to read while listening.</li><li>Build sequences: wide context, specific proof, bridge, aftermath.</li><li>Make maps answer both geography and human pressure.</li><li>Keep rights notes, source URLs, and dates beside the asset.</li><li>Put source/date/mode on screen for evidentiary visuals.</li><li>Delete stock footage that can be swapped without changing meaning.</li><li>Run the mute test: if the visual track cannot explain the argument skeleton, rebuild it.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 06 EDIT GRAMMAR ---------- -->
+      <section class="chapter" id="ch-06">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 06 · Build</span><span>Assembly</span><span>Depth 3 · Build Ready</span><span>8 min deep-dive</span></div>
+            <h2>Edit Grammar</h2>
+            <p class="chapter-thesis">Cut on argument first. Rhythm is what happens after the spine exists.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/edit-grammar/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Build a spine cut before a pretty cut.</li>
+          <li>Cut anything off the controlling line.</li>
+          <li>Use pace to protect comprehension.</li>
+          <li>Lock only after picture and proof agree.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>The cut is not approved because it is smooth. It is approved when the viewer can state what changed, why it mattered, and what proof made it credible.</p>
+            </div>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Colour-code markers by job: claim, proof, turn, breath, risk. Five proof markers in a row and no breath means the viewer is drowning politely.</p>
+            </div>
+            <p><b>Pace:</b> fast edits when the viewer already understands the category; slow edits when a new name, number, causal link or moral consequence must land. Use a consequence hold after the big reveal — dryness works when the edit is brave enough to stop moving. <b>Lock rules:</b> never polish a sequence with an unresolved claim; colour, sound and lower thirds make a weak argument harder to kill because it starts looking expensive. Before lock, export a VO-only pass, a mute-picture pass and a full pass.</p>
+          </div>
+          <figure class="fig" role="img" aria-label="Five-pass edit funnel narrowing from Paper to Spine to Evidence to Pace to Finish.">
+            <p class="figure-title">Five-pass edit funnel</p>
+            <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <g stroke="rgba(240,229,208,.28)">
+                <path d="M20 20 H400 L370 62 H50 Z" fill="#241910"/>
+                <path d="M50 66 H370 L340 108 H80 Z" fill="#261a11"/>
+                <path d="M80 112 H340 L310 154 H110 Z" fill="#2b1d12"/>
+                <path d="M110 158 H310 L280 200 H140 Z" fill="#33220f"/>
+                <path d="M140 204 H280 L250 240 H170 Z" fill="#d9631e"/>
+              </g>
+              <g fill="#f0e5d0" font-size="12" font-weight="600" text-anchor="middle">
+                <text x="210" y="46">01 Paper cut — does the argument work as text?</text>
+                <text x="210" y="92">02 Spine cut — does every sequence move the line?</text>
+                <text x="210" y="138">03 Evidence cut — does proof arrive on the claim?</text>
+                <text x="210" y="184">04 Pace cut — enough air at each turn?</text>
+                <text x="210" y="226" fill="#0d0906">05 Finish — QC, master, upload</text>
+              </g>
+            </svg>
+            <p class="figure-caption">Each pass narrows the chaos. Do not make the finish pass do the spine pass's job.</p>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Cut</th><th>Use it for</th><th>Do not use it for</th></tr></thead>
+          <tbody>
+            <tr><td>Receipt cut</td><td>Document, quote, chart, screen capture.</td><td>Hiding an unsupported claim.</td></tr>
+            <tr><td>Orientation cut</td><td>Map, timeline, cast card, location.</td><td>Filling dead air.</td></tr>
+            <tr><td>Consequence hold</td><td>Aftermath, silence, testimony, human cost.</td><td>Sentimental overreach.</td></tr>
+            <tr><td>Comic cut</td><td>Expose a contradiction faster than explanation.</td><td>Changing the subject.</td></tr>
+            <tr><td>Bridge cut</td><td>Move over time, place, or missing coverage.</td><td>Smearing chronology.</td></tr>
+            <tr><td>Compression montage</td><td>Pattern, scale, repetition.</td><td>Pretending pace equals evidence.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="rule-quote"><p>"Smooth is not structure. Pace is not proof."</p><span>Almanac working rule · Audette / FRONTLINE: if a scene does not affect the straight line, it can go</span></div>
+        <details class="checklist"><summary>Edit Grammar checklist · 10 items</summary><ol>
+          <li>Build the paper cut before the timeline gets beautiful.</li><li>Write the controlling line on the sequence marker.</li><li>Delete scenes that do not change the controlling line.</li><li>Assign every cut a job: receipt, orientation, consequence, comic, bridge, or compression.</li><li>Place proof at the sentence that needs proof.</li><li>Slow down for new names, numbers, causal turns, and aftermath.</li><li>Colour-code markers for claim, proof, turn, breath, and risk.</li><li>Run a VO-only pass for breath and syntax.</li><li>Run a mute-picture pass for visual argument.</li><li>Lock the sequence before colour, sound, titles, and export polish.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 07 SOUND & FINISH ---------- -->
+      <section class="chapter" id="ch-07">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 07 · Build</span><span>Delivery</span><span>Depth 3 · Build Ready</span><span>8 min deep-dive</span></div>
+            <h2>Sound &amp; Finish</h2>
+            <p class="chapter-thesis">If the viewer strains to hear the argument, the argument has already lost authority.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/sound-finish/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Dialogue clarity beats cinematic mud.</li>
+          <li>Room tone is production insurance.</li>
+          <li>Music should frame proof, not bully it.</li>
+          <li>Export to YouTube's stated specs.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>Do the clarity pass before the taste pass. If dialogue, citations, captions, and source clips are not intelligible, music choice is a distraction with better branding.</p>
+            </div>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Record a 20-second room-tone strip for every VO session and label it with date, mic, room and project. Put it in <code>01_sources/audio</code>, not in the editor's memory.</p>
+            </div>
+            <p><b>Capture:</b> quietest room available; kill HVAC, fridge, desk rattles, chair squeaks, browser pings, fabric noise; then record room tone before moving anything. <b>Mix:</b> silence after a document reveal can do more than a swell. Keep foley literal — typewriter, paper, projector — precision, not spy-trailer cosplay. <b>Captions are editorial:</b> auto-captions are a draft; build a term sheet for recurring names and use it across SRTs, lower thirds, title cards and descriptions.</p>
+          </div>
+          <figure class="fig" role="img" aria-label="Sound priority pyramid with VO clarity at the base, then source audio, then music, then texture at the top.">
+            <p class="figure-title">Sound priority pyramid — build from the bottom</p>
+            <svg viewBox="0 0 420 230" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <g stroke="rgba(240,229,208,.28)">
+                <path d="M180 20 H240 L262 62 H158 Z" fill="#241910"/>
+                <path d="M158 66 H262 L286 108 H134 Z" fill="#2b1d12"/>
+                <path d="M134 112 H286 L312 154 H108 Z" fill="#33220f"/>
+                <path d="M108 158 H312 L340 205 H80 Z" fill="#d9631e"/>
+              </g>
+              <g fill="#f0e5d0" font-size="12" font-weight="600" text-anchor="middle">
+                <text x="210" y="46">Texture</text><text x="210" y="92">Music</text><text x="210" y="138">Source audio</text><text x="210" y="186" fill="#0d0906">VO clarity</text>
+              </g>
+              <g fill="#756958" font-size="10">
+                <text x="272" y="46">stays in the back seat</text><text x="296" y="92">manages pressure</text><text x="320" y="138">proves the world</text><text x="346" y="186" fill="#a89a83">tells the path</text>
+              </g>
+            </svg>
+            <p class="figure-caption">If VO clarity fails, everything above it becomes expensive fog.</p>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Export check</th><th>YouTube-safe default</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>Container</td><td>MP4, fast-start behaviour where available.</td><td>YouTube Help</td></tr>
+            <tr><td>Video</td><td>H.264, progressive, High Profile, 4:2:0. 8 Mbps at 1080p standard frame rate; 35–45 Mbps at 4K.</td><td>YouTube Help</td></tr>
+            <tr><td>Frame rate</td><td>Upload at the same frame rate recorded.</td><td>YouTube Help</td></tr>
+            <tr><td>Audio</td><td>AAC-LC, 48 kHz sample rate, stereo listed at 384 kbps.</td><td>YouTube Help</td></tr>
+            <tr><td>Colour</td><td>BT.709 for SDR uploads.</td><td>YouTube Help</td></tr>
+            <tr><td>Archive</td><td>High-quality master + project files + SRT in the episode folder.</td><td>Anderson / Binder</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:14px">Do not treat YouTube's encoding page as a loudness spec. Use it for container, codec, colour, frame rate and bitrate. Loudness targets belong in the local QC workflow and should be tested against real playback.</p>
+        <div class="rule-quote"><p>"Sound finish is not polish. It is proof that the episode can survive playback."</p><span>Almanac working rule</span></div>
+        <details class="checklist"><summary>Sound &amp; Finish checklist · 10 items</summary><ol>
+          <li>Kill room noise before recording.</li><li>Record and label room tone for every VO session.</li><li>Restart failed takes from a complete thought.</li><li>Check VO intelligibility before music taste.</li><li>Keep source audio audible when it carries proof.</li><li>Use silence after major receipts or consequences.</li><li>Hand-check captions for names, dates, agencies, and acronyms.</li><li>Export a high-quality master and a platform upload file.</li><li>Match YouTube's current upload recommendations for codec, frame rate, audio sample rate, and colour.</li><li>Archive master, SRT, source notes, project files, and upload file in the episode folder.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 08 PRODUCTION LOGISTICS ---------- -->
+      <section class="chapter" id="ch-08">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 08 · Ship</span><span>Operations</span><span>Depth 3 · Build Ready</span><span>8 min deep-dive</span></div>
+            <h2>Production Logistics</h2>
+            <p class="chapter-thesis">The solo workflow has to be boring on purpose. Boring is where the episode survives.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/production-logistics/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Make folders before inspiration arrives.</li>
+          <li>Separate source, work, export, and social assets.</li>
+          <li>Shoot for the edit, not the ego.</li>
+          <li>Ship a clean version before polishing the ghost.</li>
+        </ul>
+        <div class="two-col">
+          <div>
+            <div class="callout">
+              <span class="callout-label">Key Rule</span>
+              <p>The episode is not "in production" until its folder, source ledger, working edit, thumbnail draft, and export target exist. Otherwise the project is still a pile with a dramatic name.</p>
+            </div>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Name files <code>blindspot_YYYYMMDD_episode_slug_v01.ext</code>. Version numbers are not glamorous. Neither is rebuilding a lost lower third at midnight.</p>
+            </div>
+            <p><b>The 70% rule</b> is a local operating heuristic, not an empirical law: once the episode is source-safe, coherent, audible and visually legible, ship the best clean version instead of waiting for the perfect one to walk in holding a lav mic. <b>Solo capture:</b> sound first — bad picture can become style, bad audio becomes distrust. Light for consistency before drama; a repeatable desk setup beats a heroic look that cannot be rebuilt next Tuesday. <b>Handoff:</b> every review export answers three questions — what changed, what feedback is needed, what is locked. Never ask for "thoughts" when you need a fact check.</p>
+          </div>
+          <figure class="fig" role="img" aria-label="Folder tree for one episode: 01_sources, 02_work, 03_exports, 04_social, _archive, plus the _Sources.md ledger.">
+            <p class="figure-title">One folder shape, every episode</p>
+            <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace" font-size="12">
+              <g fill="#f0e5d0">
+                <text x="20" y="30" fill="#d9631e" font-weight="600">blindspot_ep_slug/</text>
+                <text x="44" y="58">├─ _Sources.md</text><text x="220" y="58" fill="#756958" font-family="Instrument Sans, sans-serif" font-size="10.5">links · provenance · rights · risk · proof</text>
+                <text x="44" y="84">├─ 01_sources/</text><text x="220" y="84" fill="#756958" font-family="Instrument Sans, sans-serif" font-size="10.5">PDFs · clips · interview audio · captures</text>
+                <text x="44" y="110">├─ 02_work/</text><text x="220" y="110" fill="#756958" font-family="Instrument Sans, sans-serif" font-size="10.5">project files · scripts · graphics · sessions</text>
+                <text x="44" y="136">├─ 03_exports/</text><text x="220" y="136" fill="#756958" font-family="Instrument Sans, sans-serif" font-size="10.5">masters · review · captions · upload files</text>
+                <text x="44" y="162">├─ 04_social/</text><text x="220" y="162" fill="#756958" font-family="Instrument Sans, sans-serif" font-size="10.5">thumbnails · shorts · titles · pinned drafts</text>
+                <text x="44" y="188">└─ _archive/</text><text x="220" y="188" fill="#756958" font-family="Instrument Sans, sans-serif" font-size="10.5">old versions · killed sequences · superseded</text>
+              </g>
+              <rect x="20" y="206" width="380" height="30" rx="6" fill="#1d130c" stroke="#d8b04c"/>
+              <text x="210" y="226" text-anchor="middle" fill="#d8b04c" font-size="10" letter-spacing="1.5">MINIMUM KIT: SOURCE LEDGER · VISUAL PROOF MAP · TIMELINE SPINE</text>
+            </svg>
+            <p class="figure-caption">A source living only inside a browser tab is not a source. It is a future apology.</p>
+          </figure>
+        </div>
+        <div class="table-wrap"><table class="table-mini">
+          <thead><tr><th>Folder</th><th>What goes there</th><th>Exit test</th></tr></thead>
+          <tbody>
+            <tr><td>01_sources</td><td>PDFs, clips, interview audio, screen captures, rights notes.</td><td>Every load-bearing asset has provenance.</td></tr>
+            <tr><td>02_work</td><td>Project files, scripts, graphics, audio sessions, edit files.</td><td>Current version is obvious.</td></tr>
+            <tr><td>03_exports</td><td>Masters, review files, captions, upload files.</td><td>Public, review, and archive files are separated.</td></tr>
+            <tr><td>04_social</td><td>Thumbnails, shorts, clips, titles, pinned-comment drafts.</td><td>Packaging is not an afterthought.</td></tr>
+            <tr><td>_archive</td><td>Old versions, killed sequences, superseded research.</td><td>Nothing important is deleted under stress.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="rule-quote"><p>"A clean folder is not admin. It is future evidence."</p><span>Almanac working rule</span></div>
+        <details class="checklist"><summary>Production Logistics checklist · 10 items</summary><ol>
+          <li>Create the episode folder before drafting.</li><li>Add 01_sources, 02_work, 03_exports, 04_social, and _archive.</li><li>Create _Sources.md with provenance, rights, risk, and visual proof notes.</li><li>Use date, slug, and version number in every production file.</li><li>Draft title and thumbnail promise during shaping, not after export.</li><li>Capture anchor, detail, insert, empty plate, and room tone for self-shot scenes.</li><li>Monitor audio with headphones before real takes.</li><li>Label exports by use: review, master, upload, social, caption.</li><li>Ask reviewers for one specific kind of feedback.</li><li>Archive the master, upload, SRT, thumbnail, source ledger, and postmortem after publish.</li>
+        </ol></details>
+      </section>
+
+      <!-- ---------- 09 DISTRIBUTION ---------- -->
+      <section class="chapter" id="ch-09">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Chapter 09 · Ship</span><span>Publishing</span><span>Depth 3 · Build Ready</span><span>9 min deep-dive</span></div>
+            <h2>Distribution &amp; Algorithm</h2>
+            <p class="chapter-thesis">Packaging is not the opposite of journalism. It is the promise journalism has to keep in public.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/distribution-algorithm/">Full chapter →</a>
+        </div>
+        <ul class="tl">
+          <li>Title and thumbnail make a promise. The intro proves or breaks it.</li>
+          <li>CTR without AVD is a trap.</li>
+          <li>Diagnose before changing packaging.</li>
+          <li>One postmortem lesson per upload.</li>
+        </ul>
+        <figure class="fig" role="img" aria-label="Distribution diagnostic loop: Impression, Click, Intro, Average view duration, Next watch — with the metric that diagnoses each step.">
+          <p class="figure-title">Distribution diagnostic loop — read it as a diagnosis order</p>
+          <svg viewBox="0 0 1000 190" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+            <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4db6ac"/></marker></defs>
+            <g>
+              <circle cx="100" cy="70" r="44" fill="#241910" stroke="rgba(240,229,208,.34)"/><circle cx="300" cy="70" r="44" fill="#241910" stroke="rgba(240,229,208,.34)"/><circle cx="500" cy="70" r="44" fill="#241910" stroke="rgba(240,229,208,.34)"/><circle cx="700" cy="70" r="44" fill="#241910" stroke="rgba(240,229,208,.34)"/><circle cx="900" cy="70" r="44" fill="#1d130c" stroke="#4db6ac"/>
+            </g>
+            <g fill="#4db6ac" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="2" text-anchor="middle">
+              <text x="100" y="58">01</text><text x="300" y="58">02</text><text x="500" y="58">03</text><text x="700" y="58">04</text><text x="900" y="58">05</text>
+            </g>
+            <g fill="#f0e5d0" font-size="13" font-weight="600" text-anchor="middle">
+              <text x="100" y="80">Impression</text><text x="300" y="80">Click</text><text x="500" y="80">Intro</text><text x="700" y="80">AVD</text><text x="900" y="80">Next watch</text>
+            </g>
+            <g stroke="#4db6ac" stroke-width="1.6" fill="none" marker-end="url(#arr2)"><path d="M146 70 L254 70"/><path d="M346 70 L454 70"/><path d="M546 70 L654 70"/><path d="M746 70 L854 70"/></g>
+            <g fill="#a89a83" font-size="11" text-anchor="middle">
+              <text x="100" y="140">right audience?</text><text x="300" y="140">credible promise?</text><text x="500" y="140">expectation matched at 0:30?</text><text x="700" y="140">kept earning time?</text><text x="900" y="140">clean next step?</text>
+            </g>
+            <g fill="#d9631e" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="1.5" text-anchor="middle">
+              <text x="100" y="164">FIX: TOPIC / TRAFFIC</text><text x="300" y="164">FIX: PROMISE</text><text x="500" y="164">FIX: OPEN</text><text x="700" y="164">FIX: STRUCTURE · PACE</text><text x="900" y="164">FIX: END SCREEN</text>
+            </g>
+          </svg>
+          <p class="figure-caption">Do not fix the thumbnail when the intro is the broken promise. CTR diagnoses the promise; retention diagnoses the kept promise; watch time diagnoses whether the episode kept earning the viewer's life.</p>
+        </figure>
+        <div class="two-col">
+          <div>
+            <div class="callout key-stat">
+              <span class="callout-label">Key Stat</span>
+              <p>YouTube Help says half of all channels and videos have impressions CTR between 2% and 10%. New videos, small view counts, traffic sources and broad Home impressions vary widely. Compare against the channel and traffic source before declaring victory or doom. High CTR with low average view duration is the platform's own definition of clickbait.</p>
+            </div>
+            <div class="callout steal">
+              <span class="callout-label">Steal This</span>
+              <p>Write the packaging promise in one sentence before scripting: "A viewer who clicks this expects to learn why [familiar story] was really about [hidden mechanism]." Then make the cold open pay that bill.</p>
+            </div>
+          </div>
+          <div>
+            <div class="table-wrap" style="margin-top:0"><table class="table-mini">
+              <thead><tr><th>Signal</th><th>Read it as</th></tr></thead>
+              <tbody>
+                <tr><td>Low CTR</td><td>Promise problem — title/thumbnail. Thumbnail does one job: contradiction, object, or consequence. Not Gary stunned beside a flag.</td></tr>
+                <tr><td>Low intro</td><td>Opening problem, packaging mismatch, or both.</td></tr>
+                <tr><td>Mid dip</td><td>Structure — a name cluster, history dump, or a joke that changed the subject. Dips are edit notes with witnesses.</td></tr>
+                <tr><td>Low AVD</td><td>Pace. Spikes are not always praise: rewatch or confusion — check whether they replayed a dense chart like a hostage proof-of-life tape.</td></tr>
+                <tr><td>A/B tests</td><td>Up to three title/thumbnail variants; highest watch time wins; changing either mid-test stops the test. Compare promises, not moods.</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <p style="margin-top:14px"><b>Postmortem:</b> log the packaging promise, thumbnail concept, title, source of early traffic, intro retention read, major dips, major spikes and one edit lesson. Keep it short enough that it happens. Do not build a channel theory from one upload; the next episode inherits one operational change, not ten.</p>
+        <div class="rule-quote"><p>"The algorithm did not betray the promise. The promise either held or it did not."</p><span>Almanac working rule · YouTube added watch time to recommendations in 2012 because clicks alone did not prove satisfaction</span></div>
+        <details class="checklist"><summary>Distribution &amp; Algorithm checklist · 10 items</summary><ol>
+          <li>Write the title/thumbnail promise before scripting.</li><li>Make the cold open pay that promise by 30 seconds.</li><li>Choose a thumbnail job: contradiction, object, or consequence.</li><li>Compare CTR with traffic source and channel context.</li><li>Read low intro retention as a promise/opening diagnosis.</li><li>Review dips for comprehension breaks, not just "boring parts."</li><li>Review spikes for both interest and confusion.</li><li>Run title/thumbnail tests only when the data can teach something.</li><li>Do not change multiple packaging variables unless the test is designed for it.</li><li>Write one postmortem lesson and carry it into the next episode.</li>
+        </ol></details>
+      </section>
+
+      <!-- ================= CASE FILES ================= -->
+      <section class="chapter" id="case-files">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Case Files</span><span>Production patterns</span><span>Depth 3 · Case Lab</span><span>9 min deep-dive</span></div>
+            <h2>Applied Theft Maps</h2>
+            <p class="chapter-thesis">Not tributes. What they did, why it worked, and what The Blindspot can steal without wearing the costume.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/case-files/">Full case files →</a>
+        </div>
+        <div class="two-col">
+          <div class="matrix" aria-label="Theft matrix">
+            <div class="matrix-cell"><b>FRONTLINE</b><span>One line through a giant system.</span></div>
+            <div class="matrix-cell"><b>Oliver</b><span>Jargon translated into action.</span></div>
+            <div class="matrix-cell"><b>Vox</b><span>Maps corrected by people inside them.</span></div>
+            <div class="matrix-cell blind"><b>Blindspot</b><span>Steal the method. Leave the costume.</span></div>
+          </div>
+          <figure class="fig" role="img" aria-label="Bar chart: FCC net-neutrality comments rose from 3,076 in the week before John Oliver's June 2014 segment to 79,838 in the week after.">
+            <p class="figure-title">Case 02 · the Oliver spike (Pew Research)</p>
+            <svg viewBox="0 0 420 170" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+              <line x1="60" y1="130" x2="400" y2="130" stroke="rgba(240,229,208,.22)"/>
+              <rect x="90" y="125" width="110" height="5" rx="2" fill="#a89a83"/>
+              <rect x="250" y="20" width="110" height="110" rx="4" fill="#d9631e"/>
+              <g fill="#f0e5d0" font-size="12" font-weight="600" text-anchor="middle">
+                <text x="145" y="116">3,076</text><text x="305" y="14" font-size="13">79,838</text>
+              </g>
+              <g fill="#a89a83" font-size="10.5" text-anchor="middle">
+                <text x="145" y="150">week before the sketch</text><text x="305" y="150">week after · Jun 2014</text>
+              </g>
+              <text x="230" y="166" text-anchor="middle" fill="#756958" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1">FCC COMMENTS · CORRELATION, NOT PROVEN CAUSATION</text>
+            </svg>
+          </figure>
+        </div>
+        <div class="case-grid">
+          <article class="case-card">
+            <span class="card-number">Case 01</span>
+            <h3>FRONTLINE — the straight line through a large subject</h3>
+            <h4>What they did</h4><p>Editor Steve Audette (Frame.io interview) reduced pre-9/11 intelligence failure to one character-driven path: John O'Neill in <i>The Man Who Knew</i>. Story boxes on paper; if a scene does not change the line, cut it, even when it is strong.</p>
+            <h4>Why it worked</h4><p>A single line lets the audience forgive omission. They are promised a coherent way through, not everything.</p>
+            <h4>Steal it</h4><p>Choose the line before the edit language. Write "This is the story of [mechanism] through [path]" on frame one. Any scene that cannot answer it gets marked red.</p>
           </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">02 / Reporting</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Research-To-Script</h3>
-            <p>Seed, beat map, source stack, fact pass, legal language, and research stop rules.</p>
-            <a class="small-link" href="/production-almanac/research-to-script/">Read chapter</a>
+          <article class="case-card">
+            <span class="card-number">Case 02</span>
+            <h3>Last Week Tonight — make the boring thing usable</h3>
+            <h4>What they did</h4><p>The 2014 net-neutrality segment renamed the stakes, ridiculed the incentive structure and sent viewers to a concrete action. Pew's language is careful: strong correlation, not sole cause.</p>
+            <h4>Why it worked</h4><p>Comedy made attention possible; specificity made action possible. Identify the gatekeeper phrase, translate it into human consequence, give an exact next move.</p>
+            <h4>Steal it</h4><p>Use comedy when the system hides inside jargon. The joke exposes camouflage, not decorates outrage — then the edit needs a receipt and, when apt, an action.</p>
           </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">03 / Hook</span><span class="meta-chip">Depth 3</span></div>
-            <h3>The Cold Open</h3>
-            <p>First 30 seconds. Promise the argument, prove the tone, and remove every ceremonial throat-clear.</p>
-            <a class="small-link" href="/production-almanac/cold-open/">Read chapter</a>
+          <article class="case-card">
+            <span class="card-number">Case 03</span>
+            <h3>Vox Borders — make the map answer to people</h3>
+            <h4>What they did</h4><p>Per Nieman Lab, season one gathered 7,000 suggestions in a month; for Hong Kong the team expected 40 responses and got 700+, then ran structured callouts before the trip.</p>
+            <h4>Why it worked</h4><p>Maps make lived politics look clean. Local networks add friction back: how people move, wait, adapt, and read the border from inside.</p>
+            <h4>Steal it</h4><p>Every map-heavy episode gets a people-layer before the map gets beautiful: who lives inside it, who profits, who is trapped, whose account falsifies the easy explanation.</p>
           </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">04 / Voice</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Voice &amp; Cadence</h3>
-            <p>Writing for the ear, pause discipline, teleprompter defaults, and dry lines that do not beg.</p>
-            <a class="small-link" href="/production-almanac/voice-cadence/">Read chapter</a>
-          </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">05 / Picture</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Visual System</h3>
-            <p>Archival logic, data cards, maps, lower thirds, document zooms, and graphics that argue.</p>
-            <a class="small-link" href="/production-almanac/visual-system/">Read chapter</a>
-          </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">06 / Assembly</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Edit Grammar</h3>
-            <p>Cut on argument first, rhythm second. Slow down when the proof needs air.</p>
-            <a class="small-link" href="/production-almanac/edit-grammar/">Read chapter</a>
-          </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">07 / Delivery</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Sound &amp; Finish</h3>
-            <p>Dialogue clarity, natural sound, silence, captions, export specs, and source-integrity QC.</p>
-            <a class="small-link" href="/production-almanac/sound-finish/">Read chapter</a>
-          </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">08 / Operations</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Production Logistics</h3>
-            <p>Solo shooting, folder shape, file naming, review handoff, and the local 70% ship rule.</p>
-            <a class="small-link" href="/production-almanac/production-logistics/">Read chapter</a>
-          </article>
-          <article class="chapter-card is-live">
-            <div class="card-top"><span class="card-number">09 / Publishing</span><span class="meta-chip">Depth 3</span></div>
-            <h3>Distribution &amp; Algorithm</h3>
-            <p>CTR, AVD, intro retention, title/thumb tests, postmortems, and honest promise mechanics.</p>
-            <a class="small-link" href="/production-almanac/distribution-algorithm/">Read chapter</a>
-          </article>
+        </div>
+        <div class="callout skip">
+          <span class="callout-label">What not to steal</span>
+          <p>Not FRONTLINE's institutional distance when the episode needs a host voice. Not Oliver's performance size when the evidence is not comic. Not Vox's visual language when the map becomes cleaner than the politics. Steal the production logic; leave the costumes on the rack.</p>
+        </div>
+        <details class="checklist"><summary>Case File theft checklist · 10 items</summary><ol>
+          <li>Identify the case's reusable production move.</li><li>Separate structure from style.</li><li>State the Blindspot adaptation in one sentence.</li><li>For FRONTLINE-style subjects, choose a single path through the system.</li><li>For Oliver-style subjects, translate jargon into consequence and action.</li><li>For Vox-style maps, build the local-source layer before final graphics.</li><li>Mark correlation claims as correlation unless the source proves causation.</li><li>Write what not to steal before the episode copies the wrong surface.</li><li>Add one case-file lesson to the episode checklist.</li><li>Delete homage that does not improve proof, clarity, or retention.</li>
+        </ol></details>
+      </section>
+
+      <!-- ================= SOURCE RULE ================= -->
+      <section class="chapter" id="source-rule">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-kicker"><span class="stage">Source Rule</span><span>Bibliography</span><span>Depth 2 · Research Map</span><span>8 min deep-dive</span></div>
+            <h2>No Vibes Wearing A Citation Hat</h2>
+            <p class="chapter-thesis">Books supplied craft. YouTube supplied platform mechanics. Operator interviews supplied case patterns. Forum notes supplied friction, and are marked anecdotal in-page.</p>
+          </div>
+          <a class="deep-link" href="/production-almanac/bibliography/">Full source ledger →</a>
+        </div>
+        <div class="two-col">
+          <div>
+            <p class="figure-title" style="margin:0 0 6px">34 live sources by kind</p>
+            <div class="source-bars" role="img" aria-label="Bar chart of live sources by kind: 8 craft books, 7 wider-shelf books, 5 official YouTube pages, 4 operator interviews and analyses, 4 Blindspot documents, 5 marked forum notes, 1 industry report.">
+              <div class="source-bar"><span>Craft books</span><i style="width:100%"></i><b>8</b></div>
+              <div class="source-bar"><span>Wider shelf</span><i style="width:87.5%"></i><b>7</b></div>
+              <div class="source-bar"><span>YouTube official</span><i style="width:62.5%;background:#4db6ac"></i><b>5</b></div>
+              <div class="source-bar"><span>Forum · marked</span><i style="width:62.5%;background:#b7a7ff"></i><b>5</b></div>
+              <div class="source-bar"><span>Interviews · analysis</span><i style="width:50%;background:#d8b04c"></i><b>4</b></div>
+              <div class="source-bar"><span>Blindspot docs</span><i style="width:50%;background:#73b979"></i><b>4</b></div>
+              <div class="source-bar"><span>Industry report</span><i style="width:12.5%;background:#a89a83"></i><b>1</b></div>
+            </div>
+            <p style="margin-top:14px">Screened and held: The Content Trap, The Powers That Be, Amusing Ourselves to Death, Manufacturing Consent, The Business of Television, Considering Aaron Sorkin, Win Every Argument, Hardcore History. Dropped: Crushing YouTube (generic growth material). Excluded: the Make Noise EPUB (an HTML error stub). Two PDFs still need OCR before they are claim-safe.</p>
+          </div>
+          <div>
+            <div class="table-wrap" style="margin-top:0"><table class="table-mini">
+              <thead><tr><th>Source</th><th>What it supplied</th></tr></thead>
+              <tbody>
+                <tr><td>Kovach &amp; Rosenstiel</td><td>Verification at the centre; evidence vs assertion.</td></tr>
+                <tr><td>Harrower</td><td>Check names, titles, numbers, disputed facts before copy lock.</td></tr>
+                <tr><td>Fang</td><td>Lead-ins, teases, writing for the ear, never oversell.</td></tr>
+                <tr><td>Hewitt</td><td>Tell a story; audio and clarity beat household distraction.</td></tr>
+                <tr><td>Alburger · Weldon</td><td>Breath, posture, intent; read aloud, monitor what the mic hears.</td></tr>
+                <tr><td>Duarte · Mascelli · Anderson</td><td>One idea per screen; shot grammar; staged post workflow.</td></tr>
+                <tr><td>Pinker · Kaplan · Thompson</td><td>Curse of knowledge; straight line / wavy line; familiar surprise.</td></tr>
+                <tr><td>Allocca · Bergen</td><td>Watch-time history; why deceptive packaging fails.</td></tr>
+                <tr><td>YouTube Help × 4 · Blog</td><td>Intro retention, CTR FAQs, A/B tests, upload specs, 2012 watch-time shift.</td></tr>
+                <tr><td>Frame.io · Pew · Nieman Lab</td><td>Audette's story boxes; the Oliver spike; Vox's local callouts.</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <div class="callout reset">
+          <span class="callout-label">Reset</span>
+          <p>Distribution claims were checked against current official YouTube Help and the recommendation-system blog before this pass shipped. No Medium summaries, SEO listicles or generic creator advice made it into the live chapters. The reference video, <i>Camp 14</i>, is cadence reference only — never a factual source.</p>
         </div>
       </section>
 
-      <section class="section wide" id="case-files">
-        <p class="section-kicker">Case Files</p>
-        <h2>Applied Theft Maps</h2>
-        <div class="matrix-grid">
-          <div class="matrix-cell"><span>FRONTLINE</span><p>Follow one line through a large subject. Cut the impressive material that leaves the line.</p></div>
-          <div class="matrix-cell"><span>Oliver</span><p>Turn civic tedium into a usable action without pretending correlation proves causation.</p></div>
-          <div class="matrix-cell"><span>Vox Borders</span><p>Make maps answer to local sources before they become beautiful.</p></div>
-          <div class="matrix-cell"><span>Blindspot Rule</span><p>Steal production logic, not surface mannerisms. No tribute-band editing.</p></div>
-        </div>
-        <p><a class="small-link" href="/production-almanac/case-files/">Open case files</a></p>
-      </section>
-
-      <div class="callout steal">
-        <span class="callout-label">Steal This</span>
-        <p>Use the workflow map as the subpage menu during production reviews. Start with the stage that is failing, then jump to the matching checklist.</p>
-      </div>
-
-      <section class="section" id="source-rule">
-        <p class="section-kicker">Source Rule</p>
-        <h2>No Vibes Wearing A Citation Hat</h2>
-        <p>Books supplied craft. YouTube supplied current platform mechanics. Operator interviews supplied case patterns. Forum notes supplied friction and are marked anecdotal in-page.</p>
-        <p>Distribution claims were checked against current official YouTube Help and YouTube's recommendation-system blog before this pass shipped. The source ledger tracks every live source and why it was allowed into the manual.</p>
-        <p><a class="small-link" href="/production-almanac/bibliography/">Open source ledger</a></p>
-      </section>
+      <footer class="page-footer">
+        <p class="footer-copy">The Blindspot Almanac / Complete Chapter Map · Rev. 2 · Sep 2026</p>
+        <p class="footer-copy">© MMXXVI - Chaosconsole.com</p>
+      </footer>
     </main>
   </div>
 </div>
-
-<footer class="page-footer">
-  <p class="footer-copy">The Blindspot Almanac / Complete Chapter Map</p>
-  <p class="footer-copy">&copy; MMXXVI - Chaosconsole.com</p>
-</footer>
 </body>
 </html>

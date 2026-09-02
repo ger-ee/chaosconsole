@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>Hearing Room | Chaos Console</title>
-<meta name="description" content="Sixteen-day operating board: counsel selection, call sheet, scripts, procedural deadlines.">
+<meta name="description" content="Operating board for the October 28 hearing: counsel, calendar, money in trust, open loops, and the log of what happened.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
 <style>
 @font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrains-mono-subset.ttf") format("truetype");font-style:normal;font-weight:500;font-display:swap}
 @font-face{font-family:"Archivo Black";src:url("/fonts/archivo-black-subset.ttf") format("truetype");font-style:normal;font-weight:900;font-display:swap}
-
 :root{
   --bg:#07070a; --panel:rgba(17,17,23,0.86); --panel-solid:#141419; --panel-lift:rgba(26,26,34,0.94);
   --border:rgba(248,244,232,0.10); --border-strong:rgba(248,244,232,0.22);
@@ -24,872 +23,356 @@
   --head:"Space Grotesk","Instrument Sans",Inter,sans-serif;
   --body:"Instrument Sans",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
-  --ease:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;background:
   radial-gradient(circle at 12% 0%,rgba(240,82,77,.20),transparent 34%),
   radial-gradient(circle at 88% 4%,rgba(244,197,29,.10),transparent 30%),
   linear-gradient(180deg,#05050a 0%,#0a0a10 34%,#07070a 100%)}
-body{margin:0;min-height:100vh;background:transparent;color:var(--text);font-family:var(--body);
-  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;background:transparent;color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:linear-gradient(rgba(248,244,232,.022) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(248,244,232,.022) 1px,transparent 1px);
-  background-size:44px 44px;opacity:.4;
-  mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%);
-  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%)}
-a{color:inherit} button,input,select,textarea{font:inherit;color:inherit}
+  background-image:linear-gradient(rgba(248,244,232,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(248,244,232,.022) 1px,transparent 1px);
+  background-size:44px 44px;opacity:.4;mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%)}
+a{color:inherit} button,input{font:inherit;color:inherit}
 .shell{position:relative;z-index:1;width:min(1240px,calc(100% - 40px));margin:0 auto}
-
-.sec{margin:0 0 clamp(40px,5vw,68px)}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding-bottom:12px;margin-bottom:22px;border-bottom:1px solid var(--border)}
+.sec{margin:0 0 clamp(40px,5vw,68px);scroll-margin-top:70px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:22px;border-bottom:1px solid var(--border)}
 .sec-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
 .sec-title{font-family:var(--display);font-size:clamp(26px,3.4vw,40px);line-height:.94;text-transform:uppercase;margin:6px 0 0}
 .sec-note{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);text-align:right}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px 22px}
-
+.card p{margin:0 0 10px;color:var(--muted)} .card p:last-child{margin-bottom:0}
+.card b,.card strong{color:var(--text)}
 .hero{padding:clamp(38px,5vw,64px) 0 clamp(28px,3.5vw,44px)}
 .hero-top{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
 .hero h1{font-family:var(--display);font-size:clamp(40px,7.6vw,94px);line-height:.86;margin:0;text-transform:uppercase;letter-spacing:-.005em}
 .hero h1 em{font-style:normal;color:var(--accent)}
-.hero-sub{max-width:64ch;margin:20px 0 0;color:var(--muted);font-size:16px}
-.countbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:32px;
-  background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.hero-sub{max-width:66ch;margin:20px 0 0;color:var(--muted);font-size:16px}
+.countbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin-top:32px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .count{background:var(--panel-solid);padding:18px 20px}
 .count-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
-.count-v{font-family:var(--display);font-size:clamp(26px,3.4vw,42px);line-height:1;margin-top:8px}
+.count-v{font-family:var(--display);font-size:clamp(22px,2.6vw,34px);line-height:1;margin-top:8px}
 .count-v.hot{color:var(--accent)} .count-v.warn{color:var(--amber)} .count-v.ok{color:var(--green)}
-.count-d{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:7px;letter-spacing:.04em}
+.count-d{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:7px;letter-spacing:.04em;line-height:1.5}
+.notice{border-left:3px solid var(--amber)}
+.notice .card-k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
 
-.alerts{display:grid;gap:10px}
-.alert{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;
-  background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--sev,var(--amber));
-  border-radius:8px;padding:15px 18px}
-.alert-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--sev,var(--amber));white-space:nowrap;padding-top:2px;min-width:78px}
-.alert-l{font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
-.alert-d{color:var(--muted);font-size:13.5px;margin-top:5px}
-.alert-d code{font-family:var(--mono);font-size:12px;color:var(--text);background:rgba(248,244,232,.07);padding:1px 5px;border-radius:3px}
+/* status board */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;border-top:3px solid var(--tone,var(--border-strong))}
+.tile-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+.tile-v{font-family:var(--head);font-weight:700;font-size:18px;line-height:1.25;margin-top:8px}
+.tile-d{color:var(--muted);font-size:13.5px;margin-top:8px}
+.tile-d code{font-family:var(--mono);font-size:12px;color:var(--text);background:rgba(248,244,232,.07);padding:1px 5px;border-radius:3px}
 
-/* log */
-.logs{display:grid;gap:10px}
-.logrow{display:grid;grid-template-columns:92px auto minmax(0,1fr);gap:16px;align-items:start;
-  background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 18px}
-.logrow.win{border-left:3px solid var(--green)}
-.logrow.part{border-left:3px solid var(--amber)}
-.logrow.open{border-left:3px solid var(--accent)}
-.logrow.dead{border-left:3px solid var(--subtle);opacity:.62}
-.log-t{font-family:var(--mono);font-size:11px;color:var(--subtle);letter-spacing:.04em;padding-top:2px}
-.badge{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;
-  border-radius:20px;white-space:nowrap;border:1px solid currentColor}
-.b-win{color:var(--green)} .b-part{color:var(--amber)} .b-open{color:var(--accent)} .b-dead{color:var(--subtle)}
-.log-b h4{font-family:var(--head);font-weight:700;font-size:14.5px;margin:0;line-height:1.3}
-.log-b p{margin:5px 0 0;color:var(--muted);font-size:13.5px}
-.log-b p strong{color:var(--text);font-weight:600}
+/* timeline */
+.tl{position:relative;display:grid;gap:12px;padding-left:26px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--accent),var(--amber) 60%,var(--subtle))}
+.ev{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px}
+.ev::before{content:"";position:absolute;left:-23px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--dot,var(--amber));box-shadow:0 0 0 3px var(--bg)}
+.ev.win{--dot:var(--green)} .ev.hot{--dot:var(--accent)} .ev.quiet{--dot:var(--subtle);opacity:.85}
+.ev-when{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--subtle);line-height:1.5}
+.ev-when b{display:block;color:var(--text);font-weight:500;font-size:12px}
+.ev-t{font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
+.ev-d{color:var(--muted);font-size:13.5px;margin-top:5px}
+.ev-d q{color:var(--text);font-style:italic}
 
-/* slots */
-.slots{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.slot{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:18px;align-items:start;
-  background:var(--panel-solid);padding:16px 20px;transition:background .18s var(--ease)}
-.slot:hover{background:var(--panel-lift)}
-.slot.past{opacity:.42}
-.slot.now{background:rgba(240,82,77,.09);box-shadow:inset 3px 0 0 var(--accent)}
-.slot.anchor{background:rgba(244,197,29,.09);box-shadow:inset 3px 0 0 var(--amber)}
-.slot-t{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);padding-top:2px;white-space:nowrap}
-.slot.anchor .slot-t{color:var(--amber)}
-.slot-b h4{font-family:var(--head);font-weight:700;font-size:15px;margin:0;line-height:1.3}
-.slot-b p{margin:5px 0 0;color:var(--muted);font-size:13.5px}
-.slot-b p strong{color:var(--text);font-weight:600}
-.slot-why{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--subtle);margin-top:7px;display:block}
-.tick{appearance:none;flex:none;width:22px;height:22px;margin:1px 0 0;border:1px solid var(--border-strong);
-  border-radius:5px;background:transparent;cursor:pointer;position:relative;transition:all .18s var(--ease)}
-.tick:hover{border-color:var(--accent)}
-.tick:checked{background:var(--accent);border-color:var(--accent)}
-.tick:checked::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
-  border:solid #0a0a0d;border-width:0 2px 2px 0;transform:rotate(42deg)}
+/* loops */
+.loops{display:grid;gap:10px}
+.loop{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:14px;align-items:start;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--sev,var(--amber));border-radius:8px;padding:14px 18px}
+.loop input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.loop-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--sev,var(--amber));white-space:nowrap;padding-top:3px;min-width:74px}
+.loop-l{display:block;font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
+.loop-d{display:block;color:var(--muted);font-size:13.5px;margin-top:5px}
+.loop.done .loop-l{text-decoration:line-through;color:var(--muted)}
+.loop.done{opacity:.6}
+.savenote{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);margin-top:10px}
 
-/* firms */
-.firms{display:grid;gap:12px}
-.firm{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;border-left:3px solid var(--rank,var(--subtle))}
-.firm-h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 20px;cursor:pointer}
-.firm-n{font-family:var(--display);font-size:22px;line-height:1;color:var(--rank,var(--muted));min-width:30px}
-.firm-t{min-width:0}
-.firm-t h4{font-family:var(--head);font-weight:700;font-size:16px;margin:0;line-height:1.25}
-.firm-m{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:.02em}
-.firm-m .ph{color:var(--text)} .firm-m .sep{color:var(--subtle);margin:0 7px}
-.firm-when{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  padding:5px 10px;border:1px solid var(--border-strong);border-radius:20px;color:var(--muted);white-space:nowrap}
-.firm-when.open{color:var(--green);border-color:rgba(130,202,85,.4)}
-.firm-when.done{color:var(--subtle);border-color:var(--border)}
-.firm-when.new{color:var(--amber);border-color:rgba(244,197,29,.4)}
-.firm-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border)}
-.firm.is-open .firm-body{display:block;padding-top:16px}
-.firm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:16px}
-.fg-k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:5px}
-.fg-v{font-size:13.5px;color:var(--muted);line-height:1.5}
-.fg-v strong{color:var(--text);font-weight:600}
-.probe{background:rgba(244,197,29,.06);border:1px solid rgba(244,197,29,.22);border-radius:7px;padding:13px 15px;margin-bottom:14px}
-.probe .fg-k{color:var(--amber)} .probe .fg-v{color:var(--text)}
-.say{background:rgba(248,244,232,.055);border:1px solid var(--border);border-radius:7px;padding:13px 15px;margin-bottom:14px}
-.say .fg-k{color:var(--teal)} .say .fg-v{color:var(--text);font-size:14px;line-height:1.6}
-.result{background:rgba(130,202,85,.06);border:1px solid rgba(130,202,85,.24);border-radius:7px;padding:13px 15px;margin-bottom:14px}
-.result .fg-k{color:var(--green)} .result .fg-v{color:var(--text)}
-.log2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
-.log2 label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:6px}
-.log2 input,.log2 select,.log2 textarea{width:100%;background:rgba(5,5,8,.6);border:1px solid var(--border);
-  border-radius:6px;padding:9px 11px;font-size:13px;font-family:var(--body);outline:none;transition:border-color .18s}
-.log2 input:focus,.log2 select:focus,.log2 textarea:focus{border-color:var(--accent)}
-.log2 textarea{resize:vertical;min-height:56px}
-.log2 .wide{grid-column:1/-1}
+/* calendar strip */
+.cal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cal-block{background:var(--panel-solid);padding:16px 18px;border-top:3px solid var(--tone,var(--border-strong))}
+.cal-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+.cal-t{font-family:var(--head);font-weight:700;font-size:15px;margin-top:6px}
+.cal-d{color:var(--muted);font-size:13px;margin-top:6px}
+.cal-days{font-family:var(--display);font-size:26px;margin-top:8px;line-height:1}
+.svgwrap{margin-top:16px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px}
+.svgwrap svg{width:100%;height:auto;display:block}
 
-/* score */
-.scores{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.srow{display:grid;grid-template-columns:34px minmax(0,1fr) 72px 72px;gap:12px;align-items:center;background:var(--panel-solid);padding:11px 16px}
-.srow.head{background:rgba(248,244,232,.05)}
-.srow.head span{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle)}
-.s-n{font-family:var(--display);font-size:14px;color:var(--accent)}
-.s-q{font-size:13px;line-height:1.4}
-.s-v{font-family:var(--display);font-size:17px;text-align:center}
-.s-v.na{color:var(--subtle);font-size:13px;font-family:var(--mono)}
-.s-v.hi{color:var(--green)} .s-v.mid{color:var(--amber)} .s-v.lo{color:var(--accent)}
-.s-in{width:100%;background:rgba(5,5,8,.6);border:1px solid var(--border);border-radius:5px;
-  padding:5px;text-align:center;font-family:var(--display);font-size:15px;outline:none}
-.s-in:focus{border-color:var(--accent)}
+/* money */
+.money{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.ledger{width:100%;border-collapse:collapse;font-size:13.5px}
+.ledger th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);padding:8px 10px;border-bottom:1px solid var(--border-strong)}
+.ledger td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--muted)}
+.ledger td:first-child{color:var(--text)} .ledger td:last-child{text-align:right;font-family:var(--mono);color:var(--text)}
+.ledger tr.total td{border-top:1px solid var(--border-strong);color:var(--text);font-weight:600}
 
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
-.script{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:22px 24px}
-.script h4{font-family:var(--display);font-size:19px;text-transform:uppercase;margin:0 0 4px;line-height:1}
-.script .cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);margin-bottom:18px}
-.line{border-left:2px solid var(--border-strong);padding:2px 0 2px 16px;margin:0 0 15px}
-.line em{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-style:normal;margin-bottom:6px}
-.line p{margin:0;font-size:14.5px;line-height:1.62}
-.line p+p{margin-top:9px}
-.rules{list-style:none;padding:0;margin:16px 0 0}
-.rules li{position:relative;padding:9px 0 9px 26px;border-top:1px solid var(--border);font-size:13.5px;color:var(--muted)}
-.rules li::before{content:"×";position:absolute;left:6px;top:8px;color:var(--accent);font-family:var(--mono);font-size:14px}
-.rules li strong{color:var(--text);font-weight:600}
-.rules.do li::before{content:"→";color:var(--green)}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rule{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 18px}
+.rule b{display:block;font-family:var(--head);font-size:14.5px;margin-bottom:4px}
+.rule span{color:var(--muted);font-size:13.5px}
+.say{background:rgba(248,244,232,.04);border:1px dashed var(--border-strong);border-radius:8px;padding:12px 16px;margin-top:10px;color:var(--text);font-size:14px}
+.say i{color:var(--muted)}
 
-.days{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.day{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:18px;align-items:start;background:var(--panel-solid);padding:15px 20px}
-.day.past{opacity:.4}
-.day.today{background:rgba(240,82,77,.09);box-shadow:inset 3px 0 0 var(--accent)}
-.day.hearing{background:rgba(244,197,29,.10);box-shadow:inset 3px 0 0 var(--amber)}
-.day-d{font-family:var(--mono);font-size:11.5px;padding-top:2px}
-.day-d b{display:block;font-family:var(--display);font-size:15px;color:var(--text);text-transform:uppercase}
-.day-d span{color:var(--subtle);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-.day.today .day-d b{color:var(--accent)} .day.hearing .day-d b{color:var(--amber)}
-.day-b h4{font-family:var(--head);font-weight:700;font-size:14.5px;margin:0;line-height:1.3}
-.day-b p{margin:5px 0 0;color:var(--muted);font-size:13px}
-.pill{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
-  padding:3px 8px;border-radius:20px;border:1px solid var(--border-strong);color:var(--subtle);margin-top:8px}
-.pill.hard{color:var(--accent);border-color:rgba(240,82,77,.42)}
-
-.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.cl{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
-.cl h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
-.cl ul{list-style:none;padding:0;margin:0}
-.cl li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px;align-items:start;
-  padding:9px 0;border-top:1px solid var(--border);font-size:13.5px;line-height:1.45}
-.cl li:first-child{border-top:none;padding-top:0}
-.cl li small{display:block;color:var(--subtle);font-size:11.5px;margin-top:3px;font-family:var(--mono)}
-
-.notice{background:rgba(240,82,77,.07);border:1px solid rgba(240,82,77,.28);border-radius:10px;padding:18px 22px;margin-bottom:34px}
-.notice h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 9px}
-.notice p{margin:0;color:var(--muted);font-size:13.5px;max-width:88ch}
-.notice p+p{margin-top:8px}
-.notice strong{color:var(--text);font-weight:600}
-
-footer{border-top:1px solid var(--border);margin-top:60px;padding:26px 0 46px;
-  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle)}
-.saved{position:fixed;right:20px;bottom:20px;z-index:400;background:var(--panel-lift);
-  border:1px solid rgba(130,202,85,.4);color:var(--green);border-radius:7px;padding:9px 15px;
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  opacity:0;transform:translateY(8px);transition:all .3s var(--ease);pointer-events:none}
-.saved.on{opacity:1;transform:translateY(0)}
-
-@media (max-width:820px){
-  .countbar{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .slot,.day{grid-template-columns:74px minmax(0,1fr) auto;gap:12px;padding:14px}
-  .logrow{grid-template-columns:76px auto;gap:10px}
-  .logrow .log-b{grid-column:1/-1}
-  .firm-h{grid-template-columns:auto minmax(0,1fr);gap:12px}
-  .firm-when{display:none}
-  .alert{grid-template-columns:1fr;gap:7px}
-  .srow{grid-template-columns:28px minmax(0,1fr) 56px 56px;gap:8px}
-}
-@media (max-width:520px){
-  .shell{width:calc(100% - 24px)}
-  .countbar{grid-template-columns:1fr}
-  .slot,.day{grid-template-columns:60px minmax(0,1fr)}
-  .slot .tick,.day .pill{grid-column:2}
-}
-@media print{body::before,.saved{display:none} .firm-body{display:block!important} .slot,.day,.firm,.card{break-inside:avoid}}
+details.arch{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:0}
+details.arch summary{cursor:pointer;padding:16px 20px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);list-style:none;display:flex;justify-content:space-between}
+details.arch summary::after{content:"open"} details.arch[open] summary::after{content:"close"}
+details.arch .inner{padding:0 20px 20px;color:var(--muted);font-size:14px}
+details.arch .inner p{margin:0 0 10px}
+.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.mini th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);padding:6px 8px;border-bottom:1px solid var(--border-strong)}
+.mini td{padding:7px 8px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+.mini td:first-child{color:var(--text)}
+.foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:24px 0 48px;border-top:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle)}
+.nav-in{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.nav-in a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:8px 10px}
+.nav-in a:hover{color:var(--accent);border-color:var(--accent)}
+@media (max-width:980px){.countbar{grid-template-columns:repeat(2,minmax(0,1fr))}.board,.cal{grid-template-columns:repeat(2,minmax(0,1fr))}.money,.rules{grid-template-columns:1fr}}
+@media (max-width:640px){.countbar,.board,.cal{grid-template-columns:1fr}.ev{grid-template-columns:1fr;gap:6px}.loop{grid-template-columns:auto minmax(0,1fr)}.loop-tag{display:none}}
 </style>
 </head>
 <body>
 <div class="shell">
 
-<header class="hero">
-  <div class="hero-top">Chaos Console · Hearing Room · Private · Updated Tue 4 Aug, evening</div>
-  <h1>Day Two<br><em>One Hour Spent Well</em></h1>
-  <p class="hero-sub">The paid consultation was worth the money — the best legal thinking anyone has produced on this case, from a lawyer attached to the wrong deal. But the morning never happened: six calls planned, none made. Two firms moved on their own while you were in the Zoom. Retention target is tomorrow.</p>
-
-  <div class="countbar">
-    <div class="count"><div class="count-k">Hearing</div><div class="count-v hot" id="cd">—</div>
-      <div class="count-d">Wed 19 Aug · 8:30 · Dept 547 · Judge Davis</div></div>
-    <div class="count"><div class="count-k">Consults held</div><div class="count-v ok">2</div>
-      <div class="count-d">Provinziano (free) · Lai (63 min, $500, no credit)</div></div>
-    <div class="count"><div class="count-k">Retained</div><div class="count-v warn">0</div>
-      <div class="count-d">Target is tomorrow · nobody clears both bars yet</div></div>
-    <div class="count"><div class="count-k">Best score</div><div class="count-v ok" style="font-size:clamp(22px,2.6vw,32px)">6.3<span style="color:var(--subtle);font-size:.5em">/10</span></div>
-      <div class="count-d">Lai · 8 of 10 reached · Prov 4.8 on 5</div></div>
+<header class="hero" id="top">
+  <div class="hero-top">Chaos Console · Hearing Room · Private · Updated Wed 2 Sep 2026</div>
+  <h1>The clock now runs<br>to <em>October 28</em></h1>
+  <p class="hero-sub">Counsel retained on both matters, $15,000 in trust, the August 19 hearing continued to the farthest date the court would give. The consultation sprint is over. What is left is preparation, one negotiation running through counsel, and a twelve-day silence that needs breaking this week.</p>
+  <div class="countbar" aria-label="Key numbers">
+    <div class="count"><div class="count-k">Hearing</div><div class="count-v hot">Wed 28 Oct</div><div class="count-d">8:30 · Dept 547 · Stanley Mosk<br>Judge Angela J. Davis</div></div>
+    <div class="count"><div class="count-k">Days out</div><div class="count-v warn" id="daysOut">56</div><div class="count-d">from Sep 2 · minus 15 abroad<br>= <span id="daysHome">41</span> working days at home</div></div>
+    <div class="count"><div class="count-k">Counsel</div><div class="count-v ok">Lai · CFLS</div><div class="count-d">The Zhou Law Group · Senior Counsel<br>both matters · conflict check cleared 8/13</div></div>
+    <div class="count"><div class="count-k">In trust</div><div class="count-v">$15,000</div><div class="count-d">$10,000 DVRO 8/12 · $5,000 civil 8/21<br>+ $515 consult · total out $15,515</div></div>
+    <div class="count"><div class="count-k">Last word from counsel</div><div class="count-v warn" id="silence">12 days</div><div class="count-d">Aug 21 · Yaling Li: "civil matter opens on receipt"<br>nothing since</div></div>
   </div>
+  <nav class="nav-in" aria-label="On this page">
+    <a href="#status">Status board</a><a href="#log">What happened</a><a href="#loops">Open loops</a><a href="#calendar">Calendar</a><a href="#money">Money</a><a href="#rules">Rules</a><a href="#archive">Archive</a>
+  </nav>
 </header>
 
-<div class="notice">
-  <h4>Read this once</h4>
-  <p><strong>This page is served from a public repository.</strong> The four-letter gate is JavaScript in your browser — it hides the page from a casual visitor, not from anyone who fetches the URL or reads the source. Treat everything here as publishable.</p>
-  <p>No case number, no party names, no strategy analysis, no medical history. Those live in the private file. What is here is <strong>logistics</strong> — who to call, what to say, what the calendar demands, and what happened when you called.</p>
-</div>
-
-<!-- ══ ALERTS ══ -->
 <section class="sec">
-  <div class="sec-head">
-    <div><div class="sec-kicker">Standing alerts</div><h2 class="sec-title">What changed today</h2></div>
-    <div class="sec-note">Revised 4 Aug, evening</div>
-  </div>
-  <div class="alerts">
-
-    <div class="alert" style="--sev:var(--green)">
-      <div class="alert-tag">Verdict</div>
-      <div>
-        <div class="alert-l">A retain-grade lawyer attached to a wrong-shaped deal</div>
-        <div class="alert-d">Sixty-three minutes, on documents he had barely opened, and he produced more than anyone has so far: <strong>he raised <code>§6309</code> himself</strong>, named the motion, and supplied the step nobody had — the informal meet-and-confer that has to happen <em>before</em> it, which is the mechanical reason the 19th will slip. <strong>6.3 on the eight questions he was asked, against Provinziano's 4.8 on five.</strong> Split by subject the number tells it better: roughly <strong>85% on law and strategy, 20% on money</strong>.</div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--green)">
-      <div class="alert-l" style="grid-column:2">He found a structural weakness in the petition that nobody had spotted</div>
-      <div class="alert-tag">New angle</div>
-      <div>
-        <div class="alert-d">The strongest thing said in the hour, and it reframes the posture of the whole matter. It is in no document written so far — and it came out of <strong>your</strong> question, not his analysis. <strong>The substance stays in the private file</strong>, per the rule at the top of this page. What belongs here is the lesson: <em>ask the question early and ask it plainly.</em> You buried it at minute fifty behind three sentences of preamble and it nearly went unasked. It still produced more than everything before it.</div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--accent)">
-      <div class="alert-tag">Availability</div>
-      <div>
-        <div class="alert-l">He is unreachable from today until the 11th — and he is not at the firm you wrote to</div>
-        <div class="alert-d">He left FMBK and is now <strong>Senior Counsel at The Zhou Law Group</strong>, based Pasadena. The firm confirmed <strong>in writing</strong> that he personally appears at Stanley Mosk on the 19th — that is a real win and the one thing Provinziano cannot match. But he goes dark <strong>5–11 August</strong>, seven of the fifteen days and most of the preparation window, reachable only by intermittent email: <em>“if you don't hear from me, just send me another one.”</em> He is also new to the firm — <em>“still sort of figuring out the way that this firm works”</em> — and <strong>no conflict check has been run</strong>. Asked, he said only <em>“I think they're going to be cleared out.”</em> That is not a conflict check.</div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--amber)">
-      <div class="alert-tag">The money</div>
-      <div>
-        <div class="alert-l">$15,000 evergreen, no cap, no phases — the exact structure the budget memo rejected</div>
-        <div class="alert-d"><em>“A minimum of a combined total of $15,000 in your accounts at all times. So $5,000 for the civil case, and then $10,000 for the family law case.”</em> Plus a replenishment obligation, and his own view that these matters <em>“do tend to run a bit on the higher end.”</em> The $500 consultation <strong>does not credit</strong> against a retainer — confirmed in writing. <strong>Two things soften it:</strong> the hour returned more than it cost, and evergreen is <em>not</em> a differentiator — nobody on either list publishes a flat fee, and Provinziano's own published terms are $7,500–15,000 "or more," replenished. Negotiate against it; don't walk over it. <strong>You did not negotiate today. That moment was live and it passed.</strong></div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--amber)">
-      <div class="alert-tag">Decided</div>
-      <div>
-        <div class="alert-l">The continuance is settled in principle — it sits in the positive column now</div>
-        <div class="alert-d">Three specialists have now landed there independently, and today's made it concrete: the <code>§6309</code> meet-and-confer has to happen first, which is the <em>mechanical</em> reason the date moves. He also said the 15th trip can proceed, because counsel can appear where no fact is being adjudicated. <strong>The formal call stays with retained counsel — Thursday the 6th.</strong> Price it honestly: <code>§245(c)</code> keeps the temporary order in force to the new date, and <code>§6309(e)(1)(B)</code> <em>requires</em> extension on a discovery continuance. It buys preparation at the cost of living under the order longer. <strong>Nobody has yet answered <code>§245(a)</code></strong> — whether filing the response forfeits the automatic continuance. Three consultations, still unanswered.</div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--accent)">
-      <div class="alert-tag">Do not sign</div>
-      <div>
-        <div class="alert-l">A retainer agreement is sitting in your inbox from the firm with the unresolved conflict</div>
-        <div class="alert-d">Provinziano &amp; Associates sent a <strong>retainer agreement for e-signature on Monday night</strong>. It is still unsigned, and it should stay that way this minute. An attorney at that firm previously worked where the other side's spouse was a partner, and volunteered that the other side may be interested in settling. That may be ordinary inference. It may not be. <strong>Three questions answered in writing before any money moves:</strong> did you work with him directly and on what; will the firm run a formal conflict check and give me the result in writing; and how do you know what the other side wants — inference or information? <strong>A signature request is a sales step, not a deadline.</strong></div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--accent)">
-      <div class="alert-tag">New thread</div>
-      <div>
-        <div class="alert-l">FMBK came back on its own — his old firm wants the matter</div>
-        <div class="alert-d">At 16:04, an hour after the consultation ended: <em>“Anthony is no longer with the firm and has asked us to please reach out to you on his behalf.”</em> <strong>Amy Holzknecht</strong>, assistant to <strong>Steven A. Mindel, CFLS</strong>, at Feinberg Mindel Brandt &amp; Klein — 12424 Wilshire, Ninth Floor. She wants a 10–15 minute intake call, then an attorney call. <strong>Consultations are 1–2 hours, flat $1,000.</strong> She is free Wednesday 10:00–16:00 PT. Worth the intake call, which is free. <strong>Ask before booking anything paid:</strong> which attorney, is he a certified specialist, does the $1,000 credit against a retainer, and does he appear on the 19th. You have already paid $500 to a lawyer who left this firm; do not pay $1,000 to find out who replaced him.</div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--accent)">
-      <div class="alert-tag">Not done</div>
-      <div>
-        <div class="alert-l">The morning did not happen — six calls planned, none made</div>
-        <div class="alert-d"><strong>Blum's office is now two days unanswered</strong>, and her assistant's email is still sitting unread. The <strong>criminal lane is still untouched since Sunday</strong> — and anything filed in family court is discoverable by a prosecutor, so that shield has to exist before anything is filed under oath. Goldstein | Clark, Power Trial and the Dept 547 clerk are all still unmade. So are the <strong>financial annex</strong> and the <strong>relationship timeline</strong> — the two documents the civil claim needs first. Today bought one excellent hour. It did not buy a shortlist.</div>
-      </div>
-    </div>
-
-    <div class="alert" style="--sev:var(--blue)">
-      <div class="alert-tag">Unchanged</div>
-      <div>
-        <div class="alert-l">The bench officer, the discovery bar, the witness list</div>
-        <div class="alert-d">Judge <strong>Angela J. Davis</strong>, Dept 547, clerk <code>(213) 633-5859</code> — not Judge Swift, that directory is from 2022. <code>§6309</code> shuts off discovery absent good cause, so the route that works is gathering records you are personally entitled to. A witness list under <code>§217(c)</code> (form <code>FL-321</code>) is the one genuinely mandatory pre-hearing filing. No filing fee applies to any of it — <code>§6222</code>.</div>
-      </div>
-    </div>
-
+  <div class="card notice">
+    <div class="card-k">Read this once</div>
+    <p>This page is served from a public repository. The four-letter gate is JavaScript in your browser — it hides the page from a casual visitor, not from anyone who fetches the URL or reads the source. <b>Treat everything here as publishable.</b></p>
+    <p>No case number, no party names, no strategy analysis, no medical history. Those live in the private file and in counsel's hands. What is here is logistics — who is retained, what was paid, what the calendar demands, what happened, and what still needs chasing.</p>
   </div>
 </section>
 
-<!-- ══ DAY LOG ══ -->
+<!-- ================= STATUS ================= -->
+<section class="sec" id="status">
+  <div class="sec-head"><div><div class="sec-kicker">Where it stands</div><h2 class="sec-title">Status board</h2></div><div class="sec-note">as of Wed 2 Sep · morning</div></div>
+  <div class="board">
+    <div class="tile" style="--tone:var(--accent)">
+      <div class="tile-k">Restraining-order matter</div>
+      <div class="tile-v">Continued to Oct 28 · temporary order stays in force</div>
+      <div class="tile-d">Lai appeared in person on 8/19 and took the continuance. Your one continuance as a matter of course is now used (DV-115 item 4b / DV-116 item 6b). The court asked for a DV-116; the clerk also wanted a DV-115. You signed the DV-115 on 8/21. <b>Conformed copies not yet in hand.</b></div>
+    </div>
+    <div class="tile" style="--tone:var(--green)">
+      <div class="tile-k">Counsel</div>
+      <div class="tile-v">Anthony Lai, CFLS · The Zhou Law Group</div>
+      <div class="tile-d">Fee agreement signed 8/12 via Clio; $10,000 retainer by eCheck; firm confirmed receipt 8/17. Conflict check completed and cleared in writing 8/13. Substitution of Attorney (MC-050) signed 8/19. Team: Yaling Li (client care), Paul Torres (senior paralegal), Joanne Zhou (signatures). Office line <code>(408) 289-9688</code>. He is based Pasadena; the office was still being set up on 8/17 — Zoom is the default.</div>
+    </div>
+    <div class="tile" style="--tone:var(--amber)">
+      <div class="tile-k">Civil matter</div>
+      <div class="tile-v">Retained 8/21 · onboarding not yet started</div>
+      <div class="tile-d">Separate $5,000 retainer, same payment terms as the family-law agreement ("two retainers to keep the billing separate — that is the only difference"). Deposit went out 8/21; the firm said the matter opens once receipt is confirmed and "we will let you know if the team needs any additional documents." No one has asked for anything yet.</div>
+    </div>
+    <div class="tile" style="--tone:var(--amber)">
+      <div class="tile-k">Negotiation</div>
+      <div class="tile-v">One proposal in · your written answer out 8/19 · no update since</div>
+      <div class="tile-d">Opposing counsel reached you directly on 8/18 at 15:20 wanting to "informally handle" the matter before the hearing. You said only that you are represented and sent the voicemail transcript and text to Lai; he spoke to her the same hour. Their proposal came through him. Your position went back to him in writing the night of 8/19: structure fixed, number flexible, prepared to go on the 28th. The terms stay in the private file.</div>
+    </div>
+    <div class="tile" style="--tone:var(--blue)">
+      <div class="tile-k">Travel</div>
+      <div class="tile-v">Abroad Sep 15 – Sep 29</div>
+      <div class="tile-d">The August flight was postponed so you could appear on 8/19 in person; the trip now sits inside the preparation window. Counsel knows the dates (8/16 email) and that you are reachable by call, text and email throughout. Re-confirm before you leave.</div>
+    </div>
+    <div class="tile" style="--tone:var(--subtle)">
+      <div class="tile-k">The field</div>
+      <div class="tile-v">Closed · counsel retained</div>
+      <div class="tile-d">Provinziano declined any change to its standard retainer on 8/7 — that ended it. FMBK, Blum, Goldstein | Clark, Power Trial and Saei were never booked. The scorecard and call sheet from the sprint are archived at the bottom of this page.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOG ================= -->
 <section class="sec" id="log">
-  <div class="sec-head">
-    <div><div class="sec-kicker">Tuesday 4 August</div><h2 class="sec-title">What actually happened</h2></div>
-    <div class="sec-note">1 consult · 2 inbound · 6 calls not made</div>
-  </div>
-  <div class="logs">
-
-    <div class="logrow win">
-      <div class="log-t">15:30 → 16:33</div><div class="badge b-win">Consult held</div>
-      <div class="log-b"><h4>Anthony Lai, CFLS — Zoom · 63 minutes · $500 paid, no credit</h4>
-        <p>Pushed from 15:00 to 15:30 by him, an hour late in a fifteen-day window. Then the best legal hour anyone has produced: <strong><code>§6309</code> raised unprompted</strong> with the motion named and the meet-and-confer step supplied; the <strong>protected-party inversion</strong> (see alerts); and a theory of the case rather than a defence — a civil dispute dressed as a restraining order, conversion one way, promissory estoppel and Marvin the other, and explicitly <em>“neither of you acted in a way that's consistent with your obligation under the law.”</em> He refused to work from the prepared analysis — <em>“I can't go based off of what AI is telling. I have to verify on my own”</em> — and asked twice for the raw archive. <strong>6.3/10 across the eight questions reached.</strong> Weak spots: Penal Code 632 got garbled on a live exhibit, and the completeness doctrine never came up.</p></div>
-    </div>
-
-    <div class="logrow win">
-      <div class="log-t">13:35</div><div class="badge b-win">In writing</div>
-      <div class="log-b"><h4>The Zhou Law Group answered the two gating questions — in writing, before the call</h4>
-        <p>Ya-Ling Li, Client Care Coordinator: <strong>“Mr. Lai will be based in our Pasadena office, and he will personally appear at Stanley Mosk on August 19.”</strong> That is the single hardest thing to get out of a firm and you have it in an email, unprompted, before paying for strategy. Same message, the other way: <strong>“the $500 consultation fee will not be credited toward the retainer.”</strong> Asking both in advance is what made the hour usable — bank the technique.</p></div>
-    </div>
-
-    <div class="logrow part">
-      <div class="log-t">12:24</div><div class="badge b-part">Sent</div>
-      <div class="log-b"><h4>The packet went over — five documents, view-only, archive held back</h4>
-        <p>The secure upload link never arrived, so the material went as a view-only Drive folder instead: fact sheet, status log, master chronology, archive analysis, served packet. You told him where to spend the time — <em>“if you read only two, please read 1 and 4”</em> — which is why he could work at all on ninety minutes' notice. <strong>The 2,849-page raw archive was deliberately withheld.</strong> He asked for it twice in the call and said plainly he cannot form a view without it. <strong>That is now the blocking item on his side.</strong></p></div>
-    </div>
-
-    <div class="logrow open">
-      <div class="log-t">16:04</div><div class="badge b-open">Inbound</div>
-      <div class="log-b"><h4>FMBK — Amy Holzknecht, for Steven A. Mindel, CFLS — unprompted</h4>
-        <p>An hour after the consultation ended, his old firm wrote on its own initiative: <em>“Anthony is no longer with the firm and has asked us to please reach out to you on his behalf.”</em> <strong>10–15 minute intake call first, then an attorney call. Consultations 1–2 hours, flat $1,000.</strong> Free Wednesday 10:00–16:00 PT. Take the free intake; do not book the $1,000 until you know which attorney, whether he is a certified specialist, whether it credits, and whether he appears on the 19th.</p></div>
-    </div>
-
-    <div class="logrow open">
-      <div class="log-t">Mon 21:02</div><div class="badge b-open">Unsigned</div>
-      <div class="log-b"><h4>Provinziano sent a retainer agreement for e-signature</h4>
-        <p>It landed Monday night and it is still unsigned, which is correct. <strong>This is the firm with the unanswered conflict question.</strong> Nothing gets signed there until the three questions come back in writing. Read the withdrawal clause before anything else in it.</p></div>
-    </div>
-
-    <div class="logrow dead">
-      <div class="log-t">08:00 → 15:00</div><div class="badge b-dead">Not done</div>
-      <div class="log-b"><h4>Six calls planned. None made. Two documents planned. Neither built.</h4>
-        <p><strong>Blum, Eisner Gorin, Goldstein | Clark, Power Trial, the Dept 547 clerk, Saei</strong> — all still open, all carried to Wednesday. Blum's assistant has now been waiting two days and her email is still unread. The <strong>financial annex</strong> and the <strong>relationship timeline</strong> were listed to Lai on Monday as packet items 6 and 7 and did not go, because they do not exist yet. No blame in it — but it is why tonight is not a shortlist.</p></div>
-    </div>
-
+  <div class="sec-head"><div><div class="sec-kicker">Since the last entry</div><h2 class="sec-title">What happened · 5 Aug → 2 Sep</h2></div><div class="sec-note">reconstructed from the mailbox · 29 days</div></div>
+  <div class="tl">
+    <div class="ev"><div class="ev-when"><b>Tue 5 Aug</b>evening</div><div><div class="ev-t">Two Zhou fee agreements arrive via Clio — $10,000 family law, $5,000 civil</div><div class="ev-d">The "$15,000 evergreen combined" from the consultation, now as paper. A Provinziano retainer sits unsigned in the other inbox. Lai goes on vacation 5–10 Aug (auto-reply confirms it).</div></div></div>
+    <div class="ev"><div class="ev-when"><b>Fri 7 Aug</b>13:31</div><div><div class="ev-t">Three questions sent before signing: what each retainer covers and whether they can be sequenced; the 8/15 flight; an in-person session in Pasadena</div><div class="ev-d">Sent to Yaling Li with Lai copied. The ask: open the DVRO engagement alone now, hold the civil one until after the hearing. Same day, Provinziano answers your three items: <q>our firm uses the same standard retainer</q> — no changes. That is the end of Provinziano.</div></div></div>
+    <div class="ev quiet"><div class="ev-when"><b>Tue 11 Aug</b>09:00</div><div><div class="ev-t">Nudge to Lai on his first day back</div><div class="ev-d">Pointing him at the 7 Aug email; offering a call.</div></div></div>
+    <div class="ev win"><div class="ev-when"><b>Wed 12 Aug</b>17:55</div><div><div class="ev-t">DVRO fee agreement signed · $10,000 sent by eCheck through LawPay</div><div class="ev-d">Retained. Three requests went with it: confirm receipt and countersign, confirm the conflict check in writing, reconfirm Lai appears in person on the 19th. Civil agreement held back — "I did not want that to hold up the restraining order engagement."</div></div></div>
+    <div class="ev win"><div class="ev-when"><b>Thu 13 Aug</b>13:43</div><div><div class="ev-t">Firm answers all three in writing</div><div class="ev-d">Executed copy attached. <q>The Firm's conflict check has been completed and cleared.</q> <q>Attorney Lai will personally appear at Stanley Mosk Courthouse, Department 547, on August 19.</q> Trust deposit not yet visible on their side — processing.</div></div></div>
+    <div class="ev"><div class="ev-when"><b>Sat 15 Aug</b></div><div><div class="ev-t">Flight not taken · Clio reminder about the unsigned civil agreement</div><div class="ev-d">You stayed. The trip moves to Sep 15–29.</div></div></div>
+    <div class="ev"><div class="ev-when"><b>Sun 16 Aug</b>07:25</div><div><div class="ev-t">Travel update sent: in town for the 19th, can appear in person, available any day this week for a sit-down</div><div class="ev-d">Travel "no longer needs to factor into any decision about a continuance."</div></div></div>
+    <div class="ev win"><div class="ev-when"><b>Mon 17 Aug</b>16:05</div><div><div class="ev-t">Retainer receipt confirmed · Zoom set for Tue 18 Aug 10:00</div><div class="ev-d">Lai is "transitioning to his new office, which has not yet been fully set up." Zoom instead of Pasadena.</div></div></div>
+    <div class="ev hot"><div class="ev-when"><b>Tue 18 Aug</b>10:00 · 15:20</div><div><div class="ev-t">Prep Zoom with Lai · then opposing counsel calls you directly</div><div class="ev-d">At 15:20 she phoned wanting to "informally handle" the matter before tomorrow. You said you are represented and directed her to Lai; the voicemail transcript and text went to him at 15:34 with Yaling copied. 15:44: <q>Thanks, I just spoke to her. Will update you as to the discussion when I'm back in front of my desk.</q></div></div></div>
+    <div class="ev hot"><div class="ev-when"><b>Wed 19 Aug</b>08:30 → 09:28</div><div><div class="ev-t">Hearing day · continued to October 28, 2026</div><div class="ev-d">Lai in person at Stanley Mosk. 09:28: <q>Hearing is continued to October 28, 2026, this was the farthest date the court was willing to give. I'm available to meet now at the cafeteria on the 9th floor.</q> MC-050 substitution of attorney signed through AdobeSign by 14:00. 09:41: Lai notes the civil retainer and deposit are still outstanding — <q>in order for me to negotiate those issues as a part of settlement of the case, we need to be engaged as to that issue.</q></div></div></div>
+    <div class="ev"><div class="ev-when"><b>Wed 19 Aug</b>18:05</div><div><div class="ev-t">Your answer, in writing: in on the civil matter, two contract points, and the position on their proposal</div><div class="ev-d">Asked to strike the paragraph-10 lien (or take the independent review the paragraph describes), and to confirm the paragraph-3 "other clients" language is template. Then one paragraph putting the negotiation position in one place — structure fixed, number flexible, ready for the 28th — with a request to be corrected if the proposal had been misread.</div></div></div>
+    <div class="ev"><div class="ev-when"><b>Thu 20 Aug</b>15:40 · 16:49</div><div><div class="ev-t">Paul Torres sends DV-115 and DV-116 drafts · you approve with three corrections</div><div class="ev-d">The court asked for the proposed order (DV-116); the clerk's office wants the request (DV-115) as well. Your notes: item 6b not 6c on the DV-116, consistent with 4b on the DV-115 — this uses the one continuance as a matter of course; how to date item 2b given signing after the 19th; a duplicated "111 North Hill Street" line. Torres: will confer with Lai before sending for signature.</div></div></div>
+    <div class="ev win"><div class="ev-when"><b>Fri 21 Aug</b>11:31 → 15:35</div><div><div class="ev-t">Civil retainer signed · $5,000 paid · DV-115 signed and completed</div><div class="ev-d">18:45 the night before, Lai: <q>You may assume that the payment terms of the family law retainer will apply to the civil matter. We need two retainers to keep the billing in these two matters separate. That is the only difference.</q> LawPay receipt for $5,000 at 11:31; Clio confirms the signed agreement at 14:43; AdobeSign completes the DV-115 at 15:35. Yaling Li, 13:54: the civil matter opens once receipt is confirmed; onboarding to follow; <q>we will let you know if the team needs any additional documents or information.</q></div></div></div>
+    <div class="ev quiet"><div class="ev-when"><b>22 Aug → 2 Sep</b>12 days</div><div><div class="ev-t">Silence</div><div class="ev-d">No conformed DV-115/116, no onboarding request, no readout on the negotiation. Not alarming three days after a payment. It is now twelve, with your departure thirteen days away. That is this week's job.</div></div></div>
   </div>
 </section>
 
-<!-- ══ TOMORROW ══ -->
-<section class="sec" id="tomorrow">
-  <div class="sec-head">
-    <div><div class="sec-kicker">Wednesday 5 August</div><h2 class="sec-title">Retention day</h2></div>
-    <div class="sec-note">Ticks save locally · <span id="clock">—</span></div>
+<!-- ================= OPEN LOOPS ================= -->
+<section class="sec" id="loops">
+  <div class="sec-head"><div><div class="sec-kicker">This week · Sep 2–5</div><h2 class="sec-title">Open loops</h2></div><div class="sec-note">ticks save locally · one email covers the first five</div></div>
+  <div class="loops" id="loopList">
+    <label class="loop" style="--sev:var(--accent)"><input type="checkbox" data-k="readout"><span class="loop-tag">Counsel</span><span><span class="loop-l">Ask Lai for the readout he promised on 8/18 — what opposing counsel said, and where the proposal stands after your 8/19 letter</span><span class="loop-d">"Will update you as to the discussion when I'm back in front of my desk" is fifteen days old. Ask for it in writing, plus his read on whether anything moves before Oct 28.</span></span></label>
+    <label class="loop" style="--sev:var(--accent)"><input type="checkbox" data-k="conformed"><span class="loop-tag">Court</span><span><span class="loop-l">Get the conformed DV-115 / DV-116 — confirm Oct 28, 8:30, Dept 547 is on the docket</span><span class="loop-d">Ask Paul Torres. Until the court's stamped order is in the folder, the date is an email, not a fact. Also ask which box the minute order actually used (6b vs 6c) so the record matches what you signed.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="onboard"><span class="loop-tag">Civil</span><span><span class="loop-l">Confirm the civil matter is open and ask what the team needs from you before Sep 15</span><span class="loop-d">You offered documents, records, a full account of events on 8/21. Nobody has taken you up on it. Offer the relationship timeline and the financial annex — the two documents that were still unbuilt on 5 Aug. Build them before the flight; they are recall work and they do not get easier abroad.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="archive"><span class="loop-tag">Evidence</span><span><span class="loop-l">Confirm Lai has the full message archive and has read it</span><span class="loop-d">He asked for it twice on 8/4 and said he cannot form a view without it. The 2,849-page PDF has been in the shared Drive folder since the hearing morning. Get a yes in writing — it is the blocking item on his side.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="travel"><span class="loop-tag">Travel</span><span><span class="loop-l">Re-confirm Sep 15–29 with the firm and ask what can land in that window</span><span class="loop-d">Meet-and-confer, a response draft, an exchange date — anything that needs a signature or a decision should be scheduled before the 15th or after the 29th. Give them the number that works abroad.</span></span></label>
+    <label class="loop" style="--sev:var(--blue)"><input type="checkbox" data-k="countersign"><span class="loop-tag">Paper</span><span><span class="loop-l">Countersigned civil agreement + trust confirmation for the $5,000</span><span class="loop-d">You have the LawPay receipt and the Clio "thank you for signing." You do not have the firm's countersigned copy or a written confirmation the deposit landed in trust. Same request that worked on 8/12.</span></span></label>
+    <label class="loop" style="--sev:var(--blue)"><input type="checkbox" data-k="procedure"><span class="loop-tag">Procedure</span><span><span class="loop-l">Ask counsel for the Dept 547 rules that drive the back half of the calendar</span><span class="loop-d">Exhibit and witness-list exchange (form FL-321 under §217(c)), how many court days before the 28th, whether the response gets filed and when, and whether a moot is in the plan. The clerk call on the old sheet was never made; counsel can answer it now.</span></span></label>
+    <label class="loop" style="--sev:var(--green)"><input type="checkbox" data-k="ledger"><span class="loop-tag">Money</span><span><span class="loop-l">Post the $10,515 + $5,000 to the Ledger and ask the firm for a first statement</span><span class="loop-d">Evergreen means replenishment. Know the trust balance before the October work starts drawing it down.</span></span></label>
+    <label class="loop" style="--sev:var(--subtle)"><input type="checkbox" data-k="declines"><span class="loop-tag">Courtesy</span><span><span class="loop-l">Close the threads you left open in August</span><span class="loop-d">Blum's assistant (Juliana Contreras) and FMBK (Amy Holzknecht) both reached out first and were never answered. One line each: retained elsewhere, thank you. No thread dies by silence.</span></span></label>
   </div>
+  <div class="savenote" id="saveNote">Ticks save in this browser only</div>
+</section>
 
-  <div class="card" style="margin-bottom:16px">
-    <div class="fg-k" style="color:var(--accent)">The shape of today</div>
-    <div class="fg-v" style="margin-top:8px">Monday was discovery. Tuesday was one excellent hour and nothing else. <strong>Today is closing.</strong> Two hard constraints shape it: <strong>Lai goes dark today until the 11th</strong>, so anything you need from him has to be in his inbox this morning — and <strong>the criminal lane is now three days untouched</strong>, which is the one gap that cannot be fixed later, because the shield has to exist before anything is filed under oath. The morning is calls. The afternoon is paper. <strong>Do not sign anything before the conflict answers are in writing.</strong></div>
+<!-- ================= CALENDAR ================= -->
+<section class="sec" id="calendar">
+  <div class="sec-head"><div><div class="sec-kicker">2 Sep → 28 Oct</div><h2 class="sec-title">Fifty-six days</h2></div><div class="sec-note">three blocks and a wall</div></div>
+  <div class="cal">
+    <div class="cal-block" style="--tone:var(--amber)"><div class="cal-k">Block 1 · Sep 2–14</div><div class="cal-days">13</div><div class="cal-t">Chase, then build</div><div class="cal-d">Break the silence (Tue). Conformed order in hand. Civil onboarding started. Relationship timeline and financial annex written and sent. Counsel's procedure answers logged here.</div></div>
+    <div class="cal-block" style="--tone:var(--blue)"><div class="cal-k">Block 2 · Sep 15–29</div><div class="cal-days">15</div><div class="cal-t">Abroad · reachable</div><div class="cal-d">Nothing that needs a wet signature or a same-day decision. Counsel has your number. Check email daily; answer within 24 hours; no new commitments.</div></div>
+    <div class="cal-block" style="--tone:var(--accent)"><div class="cal-k">Block 3 · Sep 30 – Oct 27</div><div class="cal-days">28</div><div class="cal-t">Preparation proper</div><div class="cal-d">Response drafted by counsel, every factual assertion verified by you against a source. Exhibits pre-marked. FL-321 witness list. Two moots — direct, then hostile cross. Final counsel session Mon 26. Pack and stop Tue 27.</div></div>
+    <div class="cal-block" style="--tone:var(--accent)"><div class="cal-k">Wed 28 Oct</div><div class="cal-days">8:30</div><div class="cal-t">Department 547</div><div class="cal-d">111 North Hill Street. In person. Arrive 7:45 — parking and security are both worse than you expect. Judge Angela J. Davis. Counsel appears with you.</div></div>
   </div>
-
-  <div class="slots" id="slots">
-
-    <div class="slot anchor" data-from="07:45" data-to="08:30">
-      <div class="slot-t">07:45–08:30</div>
-      <div class="slot-b"><h4>Email Zhou before he disappears — one message, five things</h4>
-        <p>He is gone from today until the 11th and answers email intermittently. Send: <strong>the uncompressed archive</strong> (he asked twice and cannot advise without it); the <strong>written conflict check</strong> demanded from <em>The Zhou Law Group</em>, not FMBK; the <strong>§245(a)</strong> question; <strong>contested hearings tried to decision</strong> in 24 months and in LASC central; a <strong>written worst-case total</strong> and an installment schedule; and <strong>who covers the matter 5–11 August.</strong></p>
-        <span class="slot-why">This is the only slot today that expires. After this morning he is a mailbox.</span></div>
-      <input class="tick" type="checkbox" data-k="w1">
-    </div>
-
-    <div class="slot" data-from="08:30" data-to="08:55">
-      <div class="slot-t">08:30–08:55</div>
-      <div class="slot-b"><h4>Call Juliana Contreras — <strong>(310) 954-8502</strong></h4>
-        <p>Blum's assistant, who called and emailed on Monday afternoon and has now been waiting <strong>two days</strong>. Open by owning it plainly and move on — no long explanation. Stephanie Blum is a verified certified specialist with a real respondent-side result on record.</p>
-        <span class="slot-why">Oldest thread on the board, and it slipped once already. Losing it costs a candidate.</span></div>
-      <input class="tick" type="checkbox" data-k="w2">
-    </div>
-
-    <div class="slot" data-from="08:55" data-to="09:25">
-      <div class="slot-t">08:55–09:25</div>
-      <div class="slot-b"><h4>Eisner Gorin — <strong>(818) 781-1570</strong> — the criminal lane</h4>
-        <p>Ask three things and get off: does the firm appear at family-court restraining-order hearings or only criminal; will they scope a <strong>bounded pre-charge engagement</strong> rather than a full defence retainer; what does the consultation cost. Their site says formal consultations require a retainer in advance, so expect a number.</p>
-        <span class="slot-why">Three days untouched. One attorney has said there is no criminal element — that is his opinion, untested, and it is not the shield.</span></div>
-      <input class="tick" type="checkbox" data-k="w3">
-    </div>
-
-    <div class="slot" data-from="09:25" data-to="09:55">
-      <div class="slot-t">09:25–09:55</div>
-      <div class="slot-b"><h4>Goldstein | Clark — <strong>(310) 935-0711</strong> — ask for Sarah Clark</h4>
-        <p><strong>Still the most interesting call on the sheet, and still unmade.</strong> Palimony is their core practice — Sarah Clark co-taught the Beverly Hills Bar's Marvin CLE this January, alongside Provinziano. They also run respondent-side "falsely accused" DVRO defence. <strong>Ask directly whether the Marvin claim can go on contingency with a separate flat fee for the 19th.</strong></p>
-        <span class="slot-why">If yes, that changes the entire budget: the fund goes to the defence and the claim pays for itself.</span></div>
-      <input class="tick" type="checkbox" data-k="w4">
-    </div>
-
-    <div class="slot" data-from="09:55" data-to="10:20">
-      <div class="slot-t">09:55–10:20</div>
-      <div class="slot-b"><h4>FMBK intake — <strong>(310) 447-8675 ext 147</strong> — Amy Holzknecht</h4>
-        <p>She offered 10:00–16:00. The intake call is free; the consultation behind it is <strong>$1,000 flat</strong>. Four questions before you agree to anything paid: <strong>which attorney</strong>, is that attorney a <strong>certified specialist</strong>, does the $1,000 <strong>credit against a retainer</strong>, and does he <strong>appear on the 19th</strong>. Mindel is a CFLS, which is why this is worth twenty minutes.</p>
-        <span class="slot-why">You have already paid $500 to a lawyer who left this firm. Do not pay $1,000 to meet his replacement blind.</span></div>
-      <input class="tick" type="checkbox" data-k="w5">
-    </div>
-
-    <div class="slot" data-from="10:20" data-to="10:50">
-      <div class="slot-t">10:20–10:50</div>
-      <div class="slot-b"><h4>Power Trial Lawyers — <strong>(888) 808-2179</strong></h4>
-        <p>The price anchor, still unmade after two days. Free, answers immediately, and the only firm publishing a flat range through the hearing. Every fee conversation you have from here is worse without that number.</p>
-        <span class="slot-why">Skepticism stays switched on — it's a large lead-gen operation. But the number is real leverage.</span></div>
-      <input class="tick" type="checkbox" data-k="w6">
-    </div>
-
-    <div class="slot" data-from="10:50" data-to="11:10">
-      <div class="slot-t">10:50–11:10</div>
-      <div class="slot-b"><h4>Dept 547 clerk — <strong>(213) 633-5859</strong></h4>
-        <p>Four questions: standing order or written courtroom rules; exhibit and witness-list exchange required, and how many days; is the 19th a full evidentiary hearing or a setting; is remote appearance permitted. Procedural only — they will not give advice, and asking for it ends the call.</p>
-        <span class="slot-why">Nothing about this department is published anywhere, and it drives the whole back half of the calendar.</span></div>
-      <input class="tick" type="checkbox" data-k="w7">
-    </div>
-
-    <div class="slot" data-from="11:10" data-to="12:30">
-      <div class="slot-t">11:10–12:30</div>
-      <div class="slot-b"><h4>Read both retainer agreements — the withdrawal clause first</h4>
-        <p>Provinziano's is already in your inbox awaiting signature. Ask Zhou for theirs. In each, find one thing before anything else: <strong>what happens if the balance is not maintained, and whether the firm can move to withdraw before 19 August.</strong> An empty trust account mid-case invites a withdrawal motion at the worst possible moment — that is the whole reason the budget memo rejected evergreen.</p>
-        <span class="slot-why">Neither is signed. Reading them is free and it is the only leverage you get before you commit.</span></div>
-      <input class="tick" type="checkbox" data-k="w8">
-    </div>
-
-    <div class="slot" data-from="12:30" data-to="13:30">
-      <div class="slot-t">12:30–13:30</div>
-      <div class="slot-b"><h4>Eat. Away from the screen.</h4>
-        <p>Same rule as the last two days, same reason.</p>
-        <span class="slot-why">The afternoon is recall work and a decision. Neither survives a skipped meal.</span></div>
-      <input class="tick" type="checkbox" data-k="w9">
-    </div>
-
-    <div class="slot" data-from="13:30" data-to="15:30">
-      <div class="slot-t">13:30–15:30</div>
-      <div class="slot-b"><h4>Build the two documents that still don't exist</h4>
-        <p>Third day on this list. <strong>The financial annex</strong> — the transfers, the arrears, the notices, in one folder. <strong>The relationship timeline</strong> — when it began, whether and where you cohabited and between what dates, what was promised and in whose words, what was actually paid, when it ended.</p>
-        <span class="slot-why">The timeline is the first thing a Marvin claim needs, and it is recall work — do it rested, not at midnight. It has now been deferred twice.</span></div>
-      <input class="tick" type="checkbox" data-k="w10">
-    </div>
-
-    <div class="slot" data-from="15:30" data-to="16:10">
-      <div class="slot-t">15:30–16:10</div>
-      <div class="slot-b"><h4>Overflow — Atousa Saei <strong>(310) 855-3386</strong> if there's road left</h4>
-        <p>Two verified certified specialists in one small West LA firm, with palimony named specifically in their same-sex family law practice. Ask whether they act for <em>respondents</em> in restraining-order matters — their site lists the practice but doesn't say which side.</p>
-        <span class="slot-why">Optional. Skip it without guilt if the morning already produced two live candidates.</span></div>
-      <input class="tick" type="checkbox" data-k="w11">
-    </div>
-
-    <div class="slot" data-from="16:10" data-to="17:00">
-      <div class="slot-t">16:10–17:00</div>
-      <div class="slot-b"><h4>Update the board — score anyone new, rank the field</h4>
-        <p>Lai's column is graded below. Add a column for anyone consulted today. Then rank on the three things that decide it: <strong>who appears on the 19th, what it costs with a ceiling, and who is reachable next week.</strong></p>
-        <span class="slot-why">Impressions decay within the hour. Do it before dinner, not after.</span></div>
-      <input class="tick" type="checkbox" data-k="w12">
-    </div>
-
-    <div class="slot anchor" data-from="17:00" data-to="18:30">
-      <div class="slot-t">17:00–18:30</div>
-      <div class="slot-b"><h4>The decision</h4>
-        <p>Ranked names, each quoted fee beside them, the appearing attorney named, and the conflict position stated. <strong>Right now the field is one lawyer who is excellent and absent, and one firm that is available and conflicted.</strong> If neither clears, the answer is a short continuance and a wider search — that is a legitimate outcome, not a failure, and the continuance is already settled in principle.</p>
-        <span class="slot-why">This was the target. Missing it by a day is survivable; drifting past it without deciding is not.</span></div>
-      <input class="tick" type="checkbox" data-k="w13">
-    </div>
-
-    <div class="slot" data-from="18:30" data-to="19:00">
-      <div class="slot-t">18:30–19:00</div>
-      <div class="slot-b"><h4>Send whatever the decision requires — tonight</h4>
-        <p>If you are retaining: the signed agreement and the first payment. If you are not: the short, courteous decline to whoever is waiting, so no thread dies by silence. Either way the <strong>handover pack for Thursday</strong> gets assembled tonight.</p>
-        <span class="slot-why">Thursday is full handover and the formal continuance call. It only works if today ends cleanly.</span></div>
-      <input class="tick" type="checkbox" data-k="w14">
-    </div>
-
-    <div class="slot" data-from="19:00" data-to="23:59">
-      <div class="slot-t">19:00 →</div>
-      <div class="slot-b"><h4>Hard stop</h4>
-        <p>Nothing case-related after seven.</p>
-        <span class="slot-why">Fourteen days left. Pace is the whole game now.</span></div>
-      <input class="tick" type="checkbox" data-k="w15">
-    </div>
-
+  <div class="svgwrap" role="img" aria-label="Horizontal timeline from September 2 to October 28 showing the three preparation blocks, the travel window, projected exchange and filing dates, and the hearing.">
+    <svg viewBox="0 0 1000 150" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif">
+      <line x1="30" y1="70" x2="970" y2="70" stroke="rgba(248,244,232,.18)" stroke-width="2"/>
+      <!-- 56 days across 940px = 16.79px/day. Sep2=30 -->
+      <rect x="30" y="60" width="218" height="20" rx="3" fill="#f4c51d" fill-opacity=".55"/>
+      <rect x="248" y="60" width="252" height="20" rx="3" fill="#36a3df" fill-opacity=".45"/>
+      <rect x="500" y="60" width="470" height="20" rx="3" fill="#f0524d" fill-opacity=".45"/>
+      <g fill="#f8f4e8" font-size="11" font-weight="600">
+        <text x="30" y="46">Sep 2</text><text x="248" y="46">Sep 15</text><text x="500" y="46">Sep 30</text><text x="955" y="46" text-anchor="end">Oct 28</text>
+      </g>
+      <g fill="#a8a29a" font-size="10.5">
+        <text x="30" y="100">chase · conformed order · timeline + annex</text>
+        <text x="256" y="100">abroad — reachable, no signatures</text>
+        <text x="508" y="100">response · exhibits · FL-321 · two moots</text>
+      </g>
+      <!-- projected markers -->
+      <g stroke="#f8f4e8" stroke-width="1.5">
+        <line x1="852" y1="52" x2="852" y2="88"/><line x1="869" y1="52" x2="869" y2="88"/><line x1="936" y1="52" x2="936" y2="88"/>
+      </g>
+      <g fill="#f8f4e8" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1">
+        <text x="852" y="122" text-anchor="middle">~OCT 21</text><text x="852" y="134" text-anchor="middle" fill="#a8a29a">EXCHANGE</text>
+        <text x="900" y="122" text-anchor="middle">~OCT 22</text><text x="900" y="134" text-anchor="middle" fill="#a8a29a">FILE+SERVE</text>
+        <text x="946" y="122" text-anchor="middle">OCT 26</text><text x="946" y="134" text-anchor="middle" fill="#a8a29a">FINAL PREP</text>
+      </g>
+      <circle cx="970" cy="70" r="7" fill="#f0524d"/>
+      <text x="30" y="24" fill="#75716b" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1.5">PROJECTED FROM THE OLD 16-DAY PLAN · EXCHANGE FIVE COURT DAYS OUT UNLESS DEPT 547 SAYS OTHERWISE · COUNSEL SETS THE REAL DATES</text>
+    </svg>
   </div>
 </section>
 
-<!-- ══ SCORECARD ══ -->
-<section class="sec" id="score">
-  <div class="sec-head">
-    <div><div class="sec-kicker">The comparison</div><h2 class="sec-title">Scorecard</h2></div>
-    <div class="sec-note">Both graded · closed 4 Aug</div>
-  </div>
-
-  <div class="card" style="margin-bottom:16px">
-    <div class="fg-v">Each question scored 0–10 <em>where it was actually answered</em>. <strong>Coverage is tracked separately, because a question not reached is a question not answered.</strong> Lai reached eight of ten and won on every question about law; he lost every question about money. <strong>Two questions have now gone unasked in both consultations — 01 and 04 — and they are the two that decide whether he can actually win and whether you can actually pay.</strong> Put them in writing today.</div>
-  </div>
-
-  <div class="scores" id="scores">
-    <div class="srow head"><span>#</span><span>Question</span><span style="text-align:center">Prov</span><span style="text-align:center">Lai</span></div>
-    <div class="srow"><div class="s-n">01</div><div class="s-q">Contested hearings tried to decision in 24 months — how many in this district?</div><div class="s-v na">—</div><div class="s-v na">—</div></div>
-    <div class="srow"><div class="s-n">02</div><div class="s-q">Who personally appears on the 19th? Does that name go in the agreement?</div><div class="s-v lo">3</div><div class="s-v hi">8</div></div>
-    <div class="srow"><div class="s-n">03</div><div class="s-q">Flat fee for this phase — and what does it include?</div><div class="s-v lo">2</div><div class="s-v lo">2</div></div>
-    <div class="srow"><div class="s-n">04</div><div class="s-q">Down payment plus a written installment schedule?</div><div class="s-v lo">3</div><div class="s-v na">—</div></div>
-    <div class="srow"><div class="s-n">05</div><div class="s-q">How do you force in the surrounding context around their excerpts?</div><div class="s-v na">—</div><div class="s-v mid">6</div></div>
-    <div class="srow"><div class="s-n">06</div><div class="s-q">Discovery is shut off since 2024 — how do documents reach the court?</div><div class="s-v na">—</div><div class="s-v hi">10</div></div>
-    <div class="srow"><div class="s-n">07</div><div class="s-q">Continuance — and does filing the response cost the automatic one?</div><div class="s-v mid">7</div><div class="s-v hi">8</div></div>
-    <div class="srow"><div class="s-n">08</div><div class="s-q">Coordination with criminal counsel — who decides what I say under oath?</div><div class="s-v na">—</div><div class="s-v mid">4</div></div>
-    <div class="srow"><div class="s-n">09</div><div class="s-q">What outcome bands do you see?</div><div class="s-v hi">9</div><div class="s-v hi">10</div></div>
-    <div class="srow"><div class="s-n">10</div><div class="s-q">The written worst-case total through the hearing.</div><div class="s-v na">—</div><div class="s-v lo">2</div></div>
-    <div class="srow head"><span></span><span>Average on answered · coverage</span><span style="text-align:center;font-family:var(--display);font-size:15px;color:var(--amber)">4.8 · 5/10</span><span style="text-align:center;font-family:var(--display);font-size:15px;color:var(--green)">6.3 · 8/10</span></div>
-  </div>
-
-  <div class="checks" style="margin-top:16px">
-    <div class="cl">
-      <h4>Firm-fit axes — Provinziano</h4>
-      <ul>
-        <li><span><strong>Candour — 9.</strong> The standout of the call. No promises, no overconfidence, honest that they're premium.<small>trust this one</small></span></li>
-        <li><span><strong>Capability — 7.</strong> Knew Marvin cold, understood the continuance calculus.<small>real</small></span></li>
-        <li><span><strong>Fee fit — 2.</strong> No flat fee, no cap, scope creep with Marvin.<small>the disqualifier, if there is one</small></span></li>
-        <li><span><strong>Availability — 3.</strong> Al travelling, timing unknown, 14 days out.<small>still can't name your lawyer</small></span></li>
-        <li><span><strong>Conflict clarity — flagged, and now urgent.</strong> A retainer agreement was sent for signature on Monday night while the question is still unanswered.<small>do not sign first</small></span></li>
-      </ul>
+<!-- ================= MONEY ================= -->
+<section class="sec" id="money">
+  <div class="sec-head"><div><div class="sec-kicker">Legal outflow</div><h2 class="sec-title">Money</h2></div><div class="sec-note">all through LawPay · receipts in the mailbox</div></div>
+  <div class="money">
+    <div class="card">
+      <table class="ledger">
+        <thead><tr><th>Date</th><th>What</th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Aug 4</td><td>Consultation · Lai · 63 min · card +3% surcharge · no credit against retainer</td><td>$515.00</td></tr>
+          <tr><td>Aug 12</td><td>DVRO retainer · eCheck · confirmed received Aug 17</td><td>$10,000.00</td></tr>
+          <tr><td>Aug 21</td><td>Civil retainer · confirmation of trust receipt still owed</td><td>$5,000.00</td></tr>
+          <tr class="total"><td></td><td>Out the door since Aug 4</td><td>$15,515.00</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="cl">
-      <h4>Firm-fit axes — Lai · The Zhou Law Group</h4>
-      <ul>
-        <li><span><strong>Candour — 9.</strong> Volunteered the adverse read unprompted, refused to work from the prepared analysis, and pushed back rather than agreeing.<small>“I can't really formulate a final decision until I actually see the source documents”</small></span></li>
-        <li><span><strong>Capability — 9.</strong> §6309 and the meet-and-confer unprompted; the protected-party inversion; a theory of the case, not a defence.<small>weak spots: Penal Code 632 garbled, completeness never named</small></span></li>
-        <li><span><strong>Fee fit — 2.</strong> $15,000 evergreen combined, no cap, no phases, replenishment obligation. The $500 does not credit.<small>identical failure to Provinziano — it's a market condition</small></span></li>
-        <li><span><strong>Availability — 4.</strong> Appears in person on the 19th, confirmed in writing. But dark 5–11 August and new to the firm.<small>seven of the fifteen days, and most of the prep window</small></span></li>
-        <li><span><strong>Conflict clarity — not run.</strong> <em>“I think they're going to be cleared out”</em> is not a conflict check. Demand it in writing <strong>from Zhou, not FMBK</strong>.<small>condition of proceeding</small></span></li>
-      </ul>
+    <div class="card">
+      <p><b>The structure you signed.</b> Evergreen: a combined $15,000 minimum across the two matters, replenished as it draws down. The $5,000 civil line is what lets counsel negotiate the financial side inside a settlement. Same payment terms on both agreements.</p>
+      <p><b>What that means for the Ledger.</b> August absorbed $15,515 on top of the revolving-debt program, and October will draw against trust. The ceiling from the budget memo still stands; the number itself stays in the private file. Track the trust balance like a card balance — ask for a statement now, not after the moots.</p>
+      <p><b>Not paid, not owed.</b> Provinziano ($7,500–15,000 quoted, unsigned). FMBK's $1,000 consultation (never booked).</p>
     </div>
   </div>
 </section>
 
-<!-- ══ CALL SHEET ══ -->
-<section class="sec" id="calls">
-  <div class="sec-head">
-    <div><div class="sec-kicker">The call sheet</div><h2 class="sec-title">Live threads &amp; new candidates</h2></div>
-    <div class="sec-note">Tap to open · outcomes save locally</div>
+<!-- ================= RULES ================= -->
+<section class="sec" id="rules">
+  <div class="sec-head"><div><div class="sec-kicker">Still true</div><h2 class="sec-title">Rules for the room</h2></div><div class="sec-note">earned in August · they apply on the 28th</div></div>
+  <div class="rules">
+    <div class="rule"><b>Everything goes through counsel.</b><span>Opposing counsel already tried you directly once. If it happens again: "I'm represented — please contact Anthony Lai at The Zhou Law Group," then forward the voicemail, text or email to him within the hour, Yaling copied. Nothing else.</span></div>
+    <div class="rule"><b>Zero contact with the petitioner or any protected person.</b><span>In either direction, through anyone. The order is in force until Oct 28 at least.</span></div>
+    <div class="rule"><b>Answer, then stop.</b><span>One sentence. If they want more they'll ask. The clause after the comma is where cases are lost.</span></div>
+    <div class="rule"><b>Never characterise your own intent.</b><span>"I was worried about rent" is a fact. "I never meant it as a threat" is an argument, and it invites the follow-up that hurts.</span></div>
+    <div class="rule"><b>Never say their word for them.</b><span>Make them say it. Silence is not yours to fix — count to three.</span></div>
+    <div class="rule"><b>Ask before you explain.</b><span>Lead with the question; add context only if it's wanted. The best analysis of the whole sprint came from one plain question asked late.</span></div>
+    <div class="rule"><b>Budget for the moot.</b><span>Two of them — direct, then hostile cross. It is the line item that matters most for you specifically. Do not let it be the one cut for cost.</span></div>
+    <div class="rule"><b>Never accept a verbal anything.</b><span>Fees, dates, positions: written, or it didn't happen. The 8/13 conflict-check letter and the 8/19 "continued to October 28" email are the model.</span></div>
   </div>
-
-  <div class="firms" id="firms">
-
-    <div class="firm" style="--rank:var(--accent)" data-id="g1">
-      <div class="firm-h"><div class="firm-n">01</div>
-        <div class="firm-t"><h4>Reuben Raucher &amp; Blum — Juliana Contreras, for Stephanie Blum</h4>
-          <div class="firm-m"><span class="ph">(310) 954-8502</span><span class="sep">·</span>direct callback line<span class="sep">·</span>12400 Wilshire, West LA</div></div>
-        <div class="firm-when open">Call first</div></div>
-      <div class="firm-body">
-        <div class="result"><div class="fg-k">Where it stands</div><div class="fg-v">Her assistant called and emailed <strong>Monday at 13:53</strong> asking for a callback on this direct number. <strong>Still unanswered, and the email is still unread — two days.</strong> <strong>Blum is a verified Certified Family Law Specialist</strong>, admitted 1994, and the firm lists a genuine respondent-side result — an order obtained without notice, vacated once the accusations were shown unsubstantiated. This is the only candidate who responded first and has been made to wait.</div></div>
-        <div class="say"><div class="fg-k">Say this</div><div class="fg-v">“Good morning, this is Gerald Elbasani returning Juliana's call about the restraining order matter. I owe you an apology — she reached out on Monday and I'm two days late coming back to her. I'm the respondent, the hearing is Wednesday the nineteenth in Department 547 at Stanley Mosk, and I'd like to book a consultation with Ms. Blum as soon as she has anything.”<br><br><em>Own it in one sentence and move straight to the ask. Do not explain the two days — an explanation invites a follow-up question and there is no answer that improves on the apology.</em></div></div>
-        <div class="probe"><div class="fg-k">Probe hard on</div><div class="fg-v">Capacity, bluntly — a six-lawyer general civil litigation firm where family law is a minority practice and she is effectively the department. Who is second chair. And run the <strong>conflict check early</strong>, since they act for petitioners too.</div></div>
-        <div class="log2" data-log="g1">
-          <div><label>Called at</label><input type="time" data-f="time"></div>
-          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Consult booked</option><option>Callback promised</option><option>Left message</option><option>No capacity</option><option>Ruled out</option></select></div>
-          <div><label>Consult set for</label><input type="text" data-f="when"></div>
-          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
-          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="firm" style="--rank:var(--amber)" data-id="g6">
-      <div class="firm-h"><div class="firm-n">02</div>
-        <div class="firm-t"><h4>FMBK — Amy Holzknecht, for Steven A. Mindel, CFLS <span style="color:var(--amber);font-family:var(--mono);font-size:11px">· INBOUND</span></h4>
-          <div class="firm-m"><span class="ph">(310) 447-8675 ext 147</span><span class="sep">·</span>12424 Wilshire, Ninth Floor<span class="sep">·</span>aholzknecht@fmbklaw.com</div></div>
-        <div class="firm-when new">They called you</div></div>
-      <div class="firm-body">
-        <div class="result"><div class="fg-k">Where it came from</div><div class="fg-v">Unprompted, at 16:04 on Tuesday, an hour after the Lai consultation ended: <em>“Anthony is no longer with the firm and has asked us to please reach out to you on his behalf. We have a few attorneys at FMBK who may be available to assist you.”</em> This is <strong>Lai's former firm</strong> — the address Monday's outreach was sent to before the move was known. <strong>Steven A. Mindel is a verified CFLS.</strong></div></div>
-        <div class="result" style="background:rgba(244,197,29,.06);border-color:rgba(244,197,29,.24)"><div class="fg-k" style="color:var(--amber)">The terms as stated</div><div class="fg-v"><strong>10–15 minute intake call with the assistant first</strong>, then a call with an attorney. Consultations are <strong>1–2 hours, in person or Zoom, flat $1,000</strong>. She offered <strong>Wednesday 10:00–16:00 PT</strong>. The intake is free; the $1,000 is not.</div></div>
-        <div class="say"><div class="fg-k">Say this</div><div class="fg-v">“Hello Amy — Gerald Elbasani, returning your email about the restraining order matter. Thank you for reaching out; I know Anthony has moved on.”<br><br>“Before we book the consultation I want to make sure it's the right use of a thousand dollars, so four quick questions. <strong>Which attorney would I be seeing, and is that attorney a certified family law specialist? Would that same attorney personally appear at Stanley Mosk on the nineteenth? Does the thousand credit against a retainer if I engage? And has that attorney taken contested restraining-order hearings to decision — on the respondent side?</strong>”</div></div>
-        <div class="probe"><div class="fg-k">Probe hard on</div><div class="fg-v">Whether this is a real match or a file being recycled after an attorney's departure. <strong>You have already paid $500 to a lawyer who left this firm</strong> — say so, politely, and ask whether that is recognised. Also run the conflict check here: it is a 25-lawyer firm on the same Wilshire corridor as half this list.</div></div>
-        <div class="log2" data-log="g6">
-          <div><label>Called at</label><input type="time" data-f="time"></div>
-          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Intake done</option><option>Consult booked</option><option>Attorney named</option><option>Left message</option><option>Ruled out</option></select></div>
-          <div><label>Attorney named</label><input type="text" data-f="when"></div>
-          <div><label>Credits?</label><input type="text" data-f="fee" placeholder="Y/N"></div>
-          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="firm" style="--rank:var(--lav)" data-id="g2">
-      <div class="firm-h"><div class="firm-n">03</div>
-        <div class="firm-t"><h4>Eisner Gorin — Dmitry Gorin / Alan Eisner <span style="color:var(--lav);font-family:var(--mono);font-size:11px">· criminal track</span></h4>
-          <div class="firm-m"><span class="ph">(818) 781-1570</span><span class="sep">·</span>Century City · Van Nuys<span class="sep">·</span>consultation is PAID</div></div>
-        <div class="firm-when open">Answering now</div></div>
-      <div class="firm-body">
-        <div class="result"><div class="fg-k">Why it's now urgent</div><div class="fg-v">The entire criminal lane, <strong>now three days untouched</strong> and slipped twice. Family firms correctly say they don't do this — that was always the plan. One family attorney has now said flatly that <em>“there is no criminal element to it”</em>; that is one untested opinion, and it is not a shield. But anything filed in family court is discoverable by a prosecutor, so <strong>the shield must exist before anything is filed under oath</strong>. Both are verified Certified Criminal Law Specialists; Gorin is a former senior prosecutor whose areas included domestic violence.</div></div>
-        <div class="say"><div class="fg-k">Say this</div><div class="fg-v">“Good morning. My name is Gerald Elbasani. I have a contested restraining order hearing in family court on the nineteenth of August, and there's a parallel criminal dimension — the petition raises allegations that could be charged. I'm looking for pre-charge representation.”<br><br>“Two things before we book anything. Does the firm appear at family-court restraining-order hearings, or only on the criminal side? And what does a consultation cost — I understand from your site that it isn't free.”</div></div>
-        <div class="probe"><div class="fg-k">Probe hard on</div><div class="fg-v">Whether they'll scope a <strong>bounded pre-charge engagement</strong> rather than a full defence retainer, and how they'd coordinate with separate family counsel — specifically who decides what you say under oath.</div></div>
-        <div class="log2" data-log="g2">
-          <div><label>Called at</label><input type="time" data-f="time"></div>
-          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Consult booked</option><option>Callback promised</option><option>Left message</option><option>Declined</option><option>Ruled out</option></select></div>
-          <div><label>Consult set for</label><input type="text" data-f="when"></div>
-          <div><label>Consult cost</label><input type="text" data-f="fee"></div>
-          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="firm" style="--rank:var(--green)" data-id="g3">
-      <div class="firm-h"><div class="firm-n">04</div>
-        <div class="firm-t"><h4>Goldstein | Clark — ask for Sarah Clark <span style="color:var(--green);font-family:var(--mono);font-size:11px">· NEW</span></h4>
-          <div class="firm-m"><span class="ph">(310) 935-0711</span><span class="sep">·</span>alt (310) 273-7777<span class="sep">·</span>8840 Wilshire, Beverly Hills</div></div>
-        <div class="firm-when new">New — top pick</div></div>
-      <div class="firm-body">
-        <div class="firm-grid">
-          <div><div class="fg-k">Why this is the most interesting call</div><div class="fg-v">Palimony is not a sideline here, it is <strong>the core practice</strong> — the firm handles Marvin actions for both claimants and defendants. <strong>Sarah Clark co-taught the Beverly Hills Bar Association's CLE on Marvin actions this January</strong>; the other speaker was Provinziano. Those two are what the local family bar treats as the authorities. The founder worked with the attorney who brought the original <em>Marvin</em> case.</div></div>
-          <div><div class="fg-k">And they defend respondents</div><div class="fg-v">Their own domestic violence page is written for the accused: <em>“If you have been falsely accused of domestic abuse…”</em> and describes contesting a false accusation through evidence and witness statements. Clark has also handled <strong>appellate</strong> DVRO matters.</div></div>
-          <div><div class="fg-k">The fee finding that could change everything</div><div class="fg-v">Their directory profile states <strong>contingent fees on plaintiff-side palimony cases</strong>, and a free consultation on palimony matters. If the Marvin claim can go on contingency, <strong>the whole fund goes to the defence for the 19th</strong> and the claim funds itself. Three attorneys — small shops flex on fees more than platforms do.</div></div>
-        </div>
-        <div class="say"><div class="fg-k">Say this</div><div class="fg-v">“Good morning — could I speak with Sarah Clark? I'm calling because of the palimony work specifically.”<br><br>“My name is Gerald Elbasani. I'm the respondent in a contested domestic-violence restraining order in family court — the hearing is Wednesday the nineteenth of August, eight thirty, Department 547 at Stanley Mosk. Separately, I appear to have a Marvin claim arising from a long cohabiting relationship with written promises of support and payments actually made.”<br><br>“<strong>My question is whether you could take the Marvin claim on contingency and quote a separate flat fee for the restraining order defence.</strong> I understand you also defend people who've been falsely accused.”</div></div>
-        <div class="probe"><div class="fg-k">Probe hard on</div><div class="fg-v">Neither named attorney is a certified family law specialist — ask about contested family-court hearings to decision, because the Marvin expertise is not in doubt and the DVRO trial record is. Ask who appears on the 19th. And confirm the contingency in the engagement letter, not on the phone: it's a directory field, not a signed term.</div></div>
-        <div class="log2" data-log="g3">
-          <div><label>Called at</label><input type="time" data-f="time"></div>
-          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Consult booked</option><option>Callback promised</option><option>Left message</option><option>No capacity</option><option>Ruled out</option></select></div>
-          <div><label>Consult set for</label><input type="text" data-f="when"></div>
-          <div><label>Contingency?</label><input type="text" data-f="fee" placeholder="Y/N + terms"></div>
-          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="firm" style="--rank:var(--amber)" data-id="g4">
-      <div class="firm-h"><div class="firm-n">05</div>
-        <div class="firm-t"><h4>Power Trial Lawyers — Matthew Barhoma</h4>
-          <div class="firm-m"><span class="ph">(888) 808-2179</span><span class="sep">·</span>835 Wilshire, downtown<span class="sep">·</span>free · answers 24/7</div></div>
-        <div class="firm-when open">Answering now</div></div>
-      <div class="firm-body">
-        <div class="result"><div class="fg-k">Still the price anchor</div><div class="fg-v">The only firm publishing a number: <strong>$4,000–$12,000 flat through the hearing</strong>. Read the framing — it sits in a marketing FAQ describing typical market pricing, not a firm quote. But <strong>both consultations have now produced "hourly, evergreen, no cap"</strong> — so this is the only competing structure in existence, and every fee conversation from here is weaker without it.</div></div>
-        <div class="say"><div class="fg-k">Say this</div><div class="fg-v">“Good morning. I'm the respondent in a contested domestic-violence restraining order in family court — hearing Wednesday the nineteenth of August, Department 547 at Stanley Mosk. Your site says you defend respondents in family court and that consultations are free, so I'd like to book one today.”<br><br>“Two questions while I have you. Who would actually appear on the nineteenth — Mr. Barhoma or someone else? And your site lists a flat fee of four to twelve thousand through the hearing. Does that apply to a case like mine?”</div></div>
-        <div class="probe"><div class="fg-k">Probe hard on</div><div class="fg-v">Contested <strong>family-court</strong> hearings to decision in the last 24 months, and how many in this district. Not a certified specialist — firm-wide none. Hold them to the published figure in writing.</div></div>
-        <div class="log2" data-log="g4">
-          <div><label>Called at</label><input type="time" data-f="time"></div>
-          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Consult booked</option><option>Quote captured</option><option>Left message</option><option>Ruled out</option></select></div>
-          <div><label>Consult set for</label><input type="text" data-f="when"></div>
-          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
-          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="firm" style="--rank:var(--teal)" data-id="g5">
-      <div class="firm-h"><div class="firm-n">06</div>
-        <div class="firm-t"><h4>Law Offices of Atousa Saei <span style="color:var(--teal);font-family:var(--mono);font-size:11px">· NEW · overflow</span></h4>
-          <div class="firm-m"><span class="ph">(310) 855-3386</span><span class="sep">·</span>12424 Wilshire, 9th Floor, West LA<span class="sep">·</span>info@saeilaw.com</div></div>
-        <div class="firm-when new">New</div></div>
-      <div class="firm-body">
-        <div class="firm-grid">
-          <div><div class="fg-k">Why it's on the sheet</div><div class="fg-v"><strong>Two verified Certified Family Law Specialists in a four-attorney firm</strong> — Atousa Saei (admitted 2006) and Barbara Tyson (2006), both confirmed on the State Bar registry, neither with any discipline. That density is unusual at this size.</div></div>
-          <div><div class="fg-k">The Marvin fit</div><div class="fg-v">Their same-sex family law page names <strong>palimony</strong> specifically, alongside cohabitation agreements and litigation — which matches this fact pattern more precisely than a generic family practice does.</div></div>
-          <div><div class="fg-k">The gap</div><div class="fg-v">They list restraining orders as a practice area but <strong>never say which side they act for</strong>. That's the first question, and if the answer is petitioners, the call ends politely.</div></div>
-        </div>
-        <div class="probe"><div class="fg-k">Probe hard on</div><div class="fg-v">Respondent side, yes or no, in the first minute. Then whether the consultation is free — not published — and whether either specialist has taken a contested DVRO to decision.</div></div>
-        <div class="log2" data-log="g5">
-          <div><label>Called at</label><input type="time" data-f="time"></div>
-          <div><label>Outcome</label><select data-f="out"><option value="">—</option><option>Consult booked</option><option>Callback promised</option><option>Left message</option><option>Petitioner-side only</option><option>Ruled out</option></select></div>
-          <div><label>Consult set for</label><input type="text" data-f="when"></div>
-          <div><label>Fee quoted</label><input type="text" data-f="fee"></div>
-          <div class="wide"><label>Notes</label><textarea data-f="notes"></textarea></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="card" style="margin-top:16px;border-color:rgba(240,82,77,.28);background:rgba(240,82,77,.05)">
-    <div class="fg-k" style="color:var(--accent)">Checked and eliminated — do not spend a call</div>
-    <div class="fg-v" style="margin-top:8px">
-      <strong>Kelly Chang Rickert</strong> — strong on Marvin, but her own site states plainly that the office <em>does not handle restraining orders</em>. Categorical disqualifier for the 19th.<br><br>
-      <strong>Meyer, Olson, Lowy &amp; Meyers</strong> — covers both, but the named partner carries a <strong>public reproval from March 2024</strong> that the firm site doesn't mention, and an eighteen-lawyer Century City platform marketing "multimillion-dollar estates" will not fit this budget.<br><br>
-      <strong>Counts Law Firm</strong> — explicit on defending restraining orders, nothing on Marvin, and a <strong>2017 discipline and probation record</strong> not disclosed on the site.<br><br>
-      <strong>Warren Shiell</strong> — verified specialist with a real LGBTQ+ practice, but no respondent-side DVRO language and no Marvin work. Covers one axis, not two.<br><br>
-      <strong>Claery &amp; Hammond</strong> — petitioner-side only. <strong>Walzer Melcher</strong> and <strong>Brot Gross Fishbein</strong> — ruled out yesterday, reasons unchanged.
-    </div>
-  </div>
+  <div class="say"><i>If you lose your place on the phone with the firm:</i> "I'm the respondent, the hearing is October twenty-eighth, and I need [the conformed order / the readout / the onboarding list] in writing this week." Then stop, and let them ask.</div>
 </section>
 
-<!-- ══ SCRIPTS ══ -->
-<section class="sec" id="scripts">
-  <div class="sec-head">
-    <div><div class="sec-kicker">Still true</div><h2 class="sec-title">How to run a call</h2></div>
-    <div class="sec-note">Read once before the first one</div>
-  </div>
-  <div class="two">
-    <div class="script">
-      <h4>The recovery line</h4>
-      <div class="cap">For when it goes sideways — and it will</div>
-      <div class="line"><em>If you lose your place entirely</em>
-        <p>“I'm the respondent in a contested restraining order case, my hearing is the nineteenth, and I need a consultation this week.”</p>
-        <p>That sentence alone does the whole job. Then stop, and let them ask.</p></div>
-      <div class="line"><em>If they ask what the case is about</em>
-        <p>“It's a contested restraining order and I'm the respondent. I'd rather give the detail to the attorney than over the phone — but I can tell you it's a documentary case and the evidence is already organised.”</p></div>
-      <div class="line"><em>If you get voicemail</em>
-        <p>Name, respondent, contested hearing Wednesday the nineteenth, Department 547 Stanley Mosk, need a consultation this week, ready to retain. <strong>Say your number twice, slowly — then again at the end.</strong></p></div>
-      <div class="line"><em>If they ask your budget</em>
-        <p>“I have a substantial amount available at signing and can pay the balance on a schedule. I'd rather hear your number first than anchor you to mine.”</p></div>
+<!-- ================= ARCHIVE ================= -->
+<section class="sec" id="archive">
+  <div class="sec-head"><div><div class="sec-kicker">Closed 13 Aug</div><h2 class="sec-title">Archive · the consultation sprint</h2></div><div class="sec-note">3 → 13 Aug · kept for the record</div></div>
+  <details class="arch">
+    <summary>How counsel was chosen — the scorecard and the field</summary>
+    <div class="inner">
+      <p>Served Thu 30 Jul, 17:01. Two consultations by 4 Aug: Provinziano (free, Amy Nielsen) and Anthony Lai (63 minutes, $500, then at FMBK — he had already moved to The Zhou Law Group, which his old firm confirmed by trying to reclaim the file the same afternoon). Lai reached eight of ten questions and won every one about law; he lost every one about money. Provinziano knew Marvin cold, was candid about being premium, could not name the appearing attorney, and had an unanswered conflict question — then refused any change to its standard retainer on 7 Aug.</p>
+      <table class="mini">
+        <thead><tr><th>#</th><th>Question</th><th>Prov</th><th>Lai</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>Contested hearings tried to decision in 24 months in this district</td><td>—</td><td>—</td></tr>
+          <tr><td>02</td><td>Who personally appears? Does that name go in the agreement?</td><td>3</td><td>8 · confirmed in writing 8/4 and 8/13</td></tr>
+          <tr><td>03</td><td>Flat fee for this phase and what it includes</td><td>2</td><td>2 · evergreen, no cap</td></tr>
+          <tr><td>04</td><td>Down payment plus a written installment schedule</td><td>3</td><td>— · "same terms on both retainers"</td></tr>
+          <tr><td>05</td><td>Forcing in the context around their excerpts</td><td>—</td><td>6</td></tr>
+          <tr><td>06</td><td>Discovery shut off since 2024 — how documents reach the court</td><td>—</td><td>10 · §6309 raised unprompted</td></tr>
+          <tr><td>07</td><td>Continuance, and whether filing the response costs the automatic one</td><td>7</td><td>8 · continuance delivered 8/19</td></tr>
+          <tr><td>08</td><td>Coordination with criminal counsel — who decides what you say under oath</td><td>—</td><td>4 · still open</td></tr>
+          <tr><td>09</td><td>Outcome bands</td><td>9</td><td>10</td></tr>
+          <tr><td>10</td><td>Written worst-case total through the hearing</td><td>—</td><td>2</td></tr>
+          <tr><td></td><td>Average on answered · coverage</td><td>4.8 · 5/10</td><td>6.3 · 8/10</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px"><b>What decided it.</b> The two gating questions were answered in writing before money moved — the appearing attorney named, the conflict check cleared — and the firm delivered exactly what it promised on 19 Aug. The money structure was identical everywhere; nobody on either list publishes a flat fee. Two questions were never answered by anyone: 01 (trial record in this district) and 04 (an installment schedule). Question 08 — the criminal lane — is the one untested opinion still on the board; it belongs in the September conversation with counsel, not on this page.</p>
+      <p><b>Never called:</b> Reuben Raucher &amp; Blum (Juliana Contreras, for Stephanie Blum, CFLS — they called first), FMBK (Amy Holzknecht, for Steven A. Mindel, CFLS — $1,000 flat consult), Goldstein | Clark (Sarah Clark — Marvin on contingency was the interesting question), Power Trial (the $4,000–12,000 published anchor), Law Offices of Atousa Saei (two CFLS), Eisner Gorin (criminal, paid consult). <b>Checked and eliminated:</b> Kelly Chang Rickert, Meyer Olson Lowy &amp; Meyers, Counts Law Firm, Warren Shiell, Claery &amp; Hammond, Walzer Melcher, Brot Gross Fishbein.</p>
+      <p><b>Technique to keep.</b> Put the gating questions in writing before the meeting. Own the adverse side of the ledger yourself, unforced. Ask the one plain question early — you buried it at minute fifty and it still produced the best analysis of the week.</p>
     </div>
-
-    <div class="script">
-      <h4>Six rules for the room</h4>
-      <div class="cap">Earned in Tuesday's hour · they apply to the 19th too</div>
-      <div class="line"><em>What worked, and keep doing</em>
-        <p>You put the two gating questions <strong>in writing before the meeting</strong> and got both answered before you paid for strategy. You made the hardest disclosure yourself, unforced. You owned the adverse side of the ledger without hedging. And you asked one question that produced the best analysis of the week.</p></div>
-      <div class="line"><em>What cost you</em>
-        <p><strong>Every damaging moment in the hour arrived in a pause that you closed.</strong> The answer was already complete; the silence after it was not yours to fill. Detail sits in the private file — the pattern is the point here, and the pattern is executional, which means it is fixable in two weeks.</p></div>
-      <ul class="rules do">
-        <li><strong>Answer, then stop.</strong> One sentence. If they want more they'll ask. The clause after the comma is where cases are lost.</li>
-        <li><strong>Never characterise your own intent.</strong> “I was worried about rent” is a fact. “I never meant it as a threat” is an argument, and it invites the follow-up that hurts.</li>
-        <li><strong>Never say their word for them.</strong> Don't utter extortion, threat, immigration, or fraud. Make them say it.</li>
-        <li><strong>Silence is not yours to fix.</strong> Count to three.</li>
-        <li><strong>Ask before you explain.</strong> Lead with the question; add context only if it's wanted.</li>
-        <li><strong>Budget for the moot.</strong> It is the line item that matters most for you specifically. Don't let it be the one cut for cost.</li>
-      </ul>
-      <ul class="rules">
-        <li><strong>Never accept a verbal fee.</strong> Written, quoted by phase, or it didn't happen.</li>
-        <li><strong>Never tell one firm another's number</strong> before you have both in writing.</li>
-        <li><strong>Zero contact</strong> with the petitioner or any protected person, in either direction, through anyone.</li>
-      </ul>
-    </div>
-  </div>
+  </details>
 </section>
 
-<!-- ══ 16 DAYS ══ -->
-<section class="sec" id="plan">
-  <div class="sec-head">
-    <div><div class="sec-kicker">5 → 19 August</div><h2 class="sec-title">What's left</h2></div>
-    <div class="sec-note">Continuance settled in principle · formal call Thu 6</div>
-  </div>
-  <div class="days" id="days">
-    <div class="day" data-d="2026-08-03"><div class="day-d"><b>Mon 3</b><span>Done</span></div>
-      <div class="day-b"><h4>Two consults, three threads, one new theory</h4><p>Discovery day. Logged in the archive.</p></div><span class="pill">Closed</span></div>
-    <div class="day" data-d="2026-08-04"><div class="day-d"><b>Tue 4</b><span>Done</span></div>
-      <div class="day-b"><h4>One excellent hour · six calls missed · two firms moved on their own</h4><p>Lai consultation held and scored. FMBK came inbound. A Provinziano retainer arrived unsigned. Logged above.</p></div><span class="pill">Closed</span></div>
-    <div class="day" data-d="2026-08-05"><div class="day-d"><b>Wed 5</b><span>Day 3</span></div>
-      <div class="day-b"><h4>Retention day · the missed calls, then decide</h4><p>Email Zhou before he goes dark. Blum, the criminal lane, FMBK intake, Goldstein, Power Trial, the clerk. Read both retainers. Decide by evening.</p></div><span class="pill hard">Retention target</span></div>
-    <div class="day" data-d="2026-08-06"><div class="day-d"><b>Thu 6</b><span>Day 4</span></div>
-      <div class="day-b"><h4>Full handover · continuance call made formally</h4><p>Everything on a drive. <strong>The continuance is settled in principle; retained counsel makes it formal</strong> — in writing, with reasons, and with the §245(a) question answered before any response is filed.</p></div><span class="pill">Fork closes</span></div>
-    <div class="day" data-d="2026-08-07"><div class="day-d"><b>Fri 7</b><span>Day 5</span></div>
-      <div class="day-b"><h4>Strategy session · Marvin scoped separately</h4><p>The civil claim gets its own timeline and its own fee structure. It must never read as leverage on the restraining order.</p></div><span class="pill">Strategy</span></div>
-    <div class="day" data-d="2026-08-08"><div class="day-d"><b>Sat 8</b><span>Day 6</span></div>
-      <div class="day-b"><h4>Gather your own records</h4><p>The route with no gatekeeper. Download originals, not screenshots.</p></div><span class="pill">Deep work</span></div>
-    <div class="day" data-d="2026-08-09"><div class="day-d"><b>Sun 9</b><span>Day 7</span></div>
-      <div class="day-b"><h4>Off. Genuinely off.</h4><p>Banked deliberately, because the last week won't have one.</p></div><span class="pill">Rest</span></div>
-    <div class="day" data-d="2026-08-10"><div class="day-d"><b>Mon 10</b><span>Day 8</span></div>
-      <div class="day-b"><h4>Response drafted, if filing</h4><p>Counsel drafts; you verify every factual assertion against a source.</p></div><span class="pill">Drafting</span></div>
-    <div class="day" data-d="2026-08-11"><div class="day-d"><b>Tue 11</b><span>Day 9</span></div>
-      <div class="day-b"><h4>Exhibits pre-marked · witness list prepared</h4><p>Tabbed binder, numbered, working copy for the bench.</p></div><span class="pill">Assembly</span></div>
-    <div class="day" data-d="2026-08-12"><div class="day-d"><b>Wed 12</b><span>Day 10</span></div>
-      <div class="day-b"><h4>Conservative exchange date</h4><p>Five court days out — unless the clerk told you otherwise.</p></div><span class="pill hard">Exchange</span></div>
-    <div class="day" data-d="2026-08-13"><div class="day-d"><b>Thu 13</b><span>Day 11</span></div>
-      <div class="day-b"><h4>File and serve</h4><p>By mail, by an adult who is not you, proof of service filed. No fee applies.</p></div><span class="pill hard">Filing</span></div>
-    <div class="day" data-d="2026-08-14"><div class="day-d"><b>Fri 14</b><span>Day 12</span></div>
-      <div class="day-b"><h4>First moot — direct examination</h4><p>Out loud, with counsel. Record-first.</p></div><span class="pill">Rehearsal</span></div>
-    <div class="day" data-d="2026-08-15"><div class="day-d"><b>Sat 15</b><span>Day 13</span></div>
-      <div class="day-b"><h4>Second moot — hostile cross</h4><p>Have someone play it unfairly. Feel it before the room does it to you.</p></div><span class="pill">Rehearsal</span></div>
-    <div class="day" data-d="2026-08-16"><div class="day-d"><b>Sun 16</b><span>Day 14</span></div>
-      <div class="day-b"><h4>Light. Logistics only.</h4><p>Clothes, route, parking, arrival time.</p></div><span class="pill">Rest</span></div>
-    <div class="day" data-d="2026-08-17"><div class="day-d"><b>Mon 17</b><span>Day 15</span></div>
-      <div class="day-b"><h4>Final counsel session</h4><p>Order of exhibits, order of witnesses, the three sentences that matter, and what happens under each outcome.</p></div><span class="pill">Final prep</span></div>
-    <div class="day" data-d="2026-08-18"><div class="day-d"><b>Tue 18</b><span>Day 16</span></div>
-      <div class="day-b"><h4>Pack the room and stop</h4><p>Binder, copies, ID, notepad, pen, water. Early night, alarm set twice.</p></div><span class="pill">Stop</span></div>
-    <div class="day hearing" data-d="2026-08-19"><div class="day-d"><b>Wed 19</b><span>Hearing</span></div>
-      <div class="day-b"><h4>8:30 · Department 547 · Stanley Mosk</h4><p>111 North Hill Street. In person. Arrive 7:45 — parking and security are both worse than you expect. Judge Angela J. Davis.</p></div><span class="pill hard">The day</span></div>
-  </div>
-</section>
-
-<footer>
+<footer class="foot">
   <span>Chaos Console · Hearing Room</span>
   <span>Logistics only · not legal advice · verify before relying</span>
-  <span>Rev. 4 Aug 2026, evening</span>
+  <span>Rev. 2 Sep 2026 · next revision when counsel answers</span>
 </footer>
 </div>
 
-<div class="saved" id="saved">Saved</div>
-
 <script>
 (function(){
-  "use strict";
-  var NS="cc_tro_v2", store={};
+  var NS="cc-hearing-v2", store={};
   try{store=JSON.parse(localStorage.getItem(NS)||"{}")}catch(e){store={}}
-  var savedEl=document.getElementById("saved"),savedT;
-  function flash(){savedEl.classList.add("on");clearTimeout(savedT);
-    savedT=setTimeout(function(){savedEl.classList.remove("on")},1100)}
-  function persist(){try{localStorage.setItem(NS,JSON.stringify(store));flash()}catch(e){}}
-
-  document.querySelectorAll(".tick[data-k]").forEach(function(b){
-    var k=b.getAttribute("data-k");
-    if(store[k])b.checked=true;
-    b.addEventListener("change",function(){
-      if(b.checked)store[k]=1;else delete store[k];persist();});
-  });
-
-  document.querySelectorAll("[data-log]").forEach(function(g){
-    var id=g.getAttribute("data-log");
-    g.querySelectorAll("[data-f]").forEach(function(f){
-      var key=id+"."+f.getAttribute("data-f"),t;
-      if(store[key]!=null)f.value=store[key];
-      f.addEventListener(f.tagName==="SELECT"?"change":"input",function(){
-        clearTimeout(t);t=setTimeout(function(){
-          if(f.value)store[key]=f.value;else delete store[key];persist();},260);});
+  var boxes=document.querySelectorAll('#loopList input[type=checkbox]');
+  boxes.forEach(function(b){
+    var k=b.getAttribute('data-k');
+    if(store[k]){b.checked=true;b.closest('.loop').classList.add('done')}
+    b.addEventListener('change',function(){
+      store[k]=b.checked; b.closest('.loop').classList.toggle('done',b.checked);
+      try{localStorage.setItem(NS,JSON.stringify(store))}catch(e){}
+      var n=document.querySelectorAll('#loopList input:checked').length;
+      document.getElementById('saveNote').textContent=n+' of '+boxes.length+' closed · saved in this browser';
     });
   });
-
-  /* scorecard: both columns graded and static as of 4 Aug — no live inputs */
-
-  document.querySelectorAll(".firm").forEach(function(f){
-    var h=f.querySelector(".firm-h"),id=f.getAttribute("data-id");
-    if(store["open."+id])f.classList.add("is-open");
-    h.addEventListener("click",function(e){
-      if(e.target.closest(".log2"))return;
-      if(f.classList.toggle("is-open"))store["open."+id]=1;else delete store["open."+id];
-      persist();});
-  });
-
-  var HEARING=new Date("2026-08-19T08:30:00-07:00");
-  function pad(n){return n<10?"0"+n:""+n}
-  function tick(){
-    var now=new Date(),ms=HEARING-now,cd=document.getElementById("cd");
-    if(ms<=0)cd.textContent="TODAY";
-    else{var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);
-      cd.innerHTML=d+'<span style="font-size:.42em;color:var(--muted)">d</span> '+h+'<span style="font-size:.42em;color:var(--muted)">h</span>';}
-    var la=new Date(now.toLocaleString("en-US",{timeZone:"America/Los_Angeles"}));
-    document.getElementById("clock").textContent=pad(la.getHours())+":"+pad(la.getMinutes())+" PT";
-    return la;
-  }
-  function mark(la){
-    var mins=la.getHours()*60+la.getMinutes(),
-        isPlanDay=la.getFullYear()===2026&&la.getMonth()===7&&la.getDate()===5;
-    document.querySelectorAll(".slot").forEach(function(s){
-      var f=s.getAttribute("data-from").split(":"),t=s.getAttribute("data-to").split(":"),
-          from=+f[0]*60+ +f[1],to=+t[0]*60+ +t[1];
-      s.classList.remove("past","now");
-      if(!isPlanDay)return;
-      if(mins>=to)s.classList.add("past");
-      else if(mins>=from)s.classList.add("now");
-    });
-    var iso=la.getFullYear()+"-"+pad(la.getMonth()+1)+"-"+pad(la.getDate());
-    document.querySelectorAll(".day").forEach(function(d){
-      var v=d.getAttribute("data-d");
-      d.classList.remove("past","today");
-      if(v<iso)d.classList.add("past");
-      else if(v===iso&&!d.classList.contains("hearing"))d.classList.add("today");
-    });
-  }
-  function loop(){mark(tick())}
-  loop();setInterval(loop,30000);
+  var n=document.querySelectorAll('#loopList input:checked').length;
+  if(n)document.getElementById('saveNote').textContent=n+' of '+boxes.length+' closed · saved in this browser';
+  // live day counts
+  var now=new Date(), today=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+  var hearing=Date.UTC(2026,9,28), lastWord=Date.UTC(2026,7,21);
+  var days=Math.round((hearing-today)/864e5); if(days>0){document.getElementById('daysOut').textContent=days;}
+  var away=15, home=Math.max(0,days-away); document.getElementById('daysHome').textContent=home;
+  var sil=Math.round((today-lastWord)/864e5); if(sil>=0){document.getElementById('silence').textContent=sil+' days';}
 })();
 </script>
-
 <script defer src="/shared/gate.js"></script>
 <link rel="stylesheet" href="/shared/console-shell.css">
 <script defer src="/shared/console-shell.js"></script>
