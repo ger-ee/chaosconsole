@@ -1,0 +1,67 @@
+name: Readwise refresh
+
+# Re-pulls the Readwise library on the first of every month, rebuilds the
+# Reading Atlas, refreshes the landing-page status, and commits whatever
+# changed. GitHub Pages redeploys from main on the push.
+#
+# One-time setup: add the Readwise access token as a repository secret named
+# READWISE_TOKEN (Settings → Secrets and variables → Actions). Get the token
+# at https://readwise.io/access_token. Run on demand from the Actions tab.
+
+on:
+  schedule:
+    - cron: "17 6 1 * *"   # 06:17 UTC on the 1st of each month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: readwise-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pull the Readwise library
+        env:
+          READWISE_TOKEN: ${{ secrets.READWISE_TOKEN }}
+        run: |
+          if [ -z "$READWISE_TOKEN" ]; then
+            echo "::error::READWISE_TOKEN secret is not set — add it under Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+          python3 data/readwise_loader.py --force
+
+      - name: Rebuild the Reading Atlas
+        run: python3 data/atlas_build.py --stats
+
+      - name: Refresh landing-page status
+        run: python3 data/readwise_status.py
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "readwise-refresh[bot]"
+          git config user.email "readwise-refresh@users.noreply.github.com"
+          git add data/readwise_cache.json data/reading_atlas.json data/console-status.json index.html
+          if git diff --cached --quiet; then
+            echo "Library unchanged — nothing to commit."
+            exit 0
+          fi
+          n=$(python3 -c "import json;print(json.load(open('data/readwise_cache.json'))['stats']['total_highlights'])")
+          git commit -m "readwise: monthly refresh — ${n} highlights, atlas rebuilt ($(date -u +%Y-%m-%d))"
+          git push
+
+      - name: Ask Pages to rebuild
+        if: success()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" >/dev/null && echo "Pages build requested"

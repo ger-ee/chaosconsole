@@ -1,1163 +1,825 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Highlights | ChaosConsole</title>
-<script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Atlas | Chaos Console</title>
+<script>(function(){var t='dark';try{var s=localStorage.getItem('cc-theme');if(s==='dark'||s==='light')t=s}catch(e){}document.documentElement.setAttribute('data-theme',t)})()</script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,0..100&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-[data-theme="dark"] {
-  --bg: #171411;
-  --bg-2: #231c16;
-  --surface: rgba(34, 27, 20, 0.82);
-  --surface-2: rgba(44, 34, 25, 0.94);
-  --paper: #fff6e8;
-  --paper-2: #f0debf;
-  --paper-line: rgba(110, 83, 40, 0.16);
-  --text: #f8f0e5;
-  --text-dim: #c9b699;
-  --text-muted: #9f8665;
-  --border: rgba(233, 196, 133, 0.14);
-  --accent: #f4b942;
-  --accent-2: #ffd98c;
-  --link: #9ec5ff;
-  --shadow: 0 28px 84px rgba(0, 0, 0, 0.38);
-  --chip: rgba(255, 255, 255, 0.05);
-  --chip-border: rgba(255, 255, 255, 0.08);
-  --live-accent: var(--accent);
-}
-
-[data-theme="light"] {
-  --bg: #f6ecd8;
-  --bg-2: #ecd7b6;
-  --surface: rgba(255, 249, 239, 0.84);
-  --surface-2: rgba(255, 252, 246, 0.95);
-  --paper: #fffbf4;
-  --paper-2: #f3e3c9;
-  --paper-line: rgba(110, 83, 40, 0.14);
-  --text: #2a2118;
-  --text-dim: #725b3c;
-  --text-muted: #9b8160;
-  --border: rgba(129, 95, 52, 0.12);
-  --accent: #ef9f22;
-  --accent-2: #8b5a1e;
-  --link: #245cb3;
-  --shadow: 0 24px 64px rgba(129, 95, 52, 0.12);
-  --chip: rgba(255, 255, 255, 0.72);
-  --chip-border: rgba(129, 95, 52, 0.12);
-  --live-accent: var(--accent);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { min-height: 100%; }
-
-body {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(244, 185, 66, 0.16), transparent 28%),
-    radial-gradient(circle at top right, rgba(255, 217, 140, 0.14), transparent 24%),
-    linear-gradient(180deg, var(--bg), var(--bg-2) 66%, var(--bg));
-  color: var(--text);
-  font-family: 'Instrument Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.5;
-  overflow-x: hidden;
-}
-
-body::before,
-body::after {
-  content: '';
-  position: fixed;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(20px);
-}
-
-body::before {
-  left: -8%;
-  bottom: 8%;
-  width: 30rem;
-  height: 30rem;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(244, 185, 66, 0.14), transparent 68%);
-}
-
-body::after {
-  right: -8%;
-  top: 5%;
-  width: 24rem;
-  height: 24rem;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 217, 140, 0.16), transparent 70%);
-}
-
-.noise {
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  opacity: 0.46;
-  z-index: 10;
-}
-
-a { color: inherit; }
-button { font: inherit; }
-
-.site-head,
-.page-shell,
-.site-foot {
-  position: relative;
-  z-index: 1;
-  max-width: 1380px;
-  margin: 0 auto;
-}
-
-.site-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.25rem 1rem 0;
-}
-
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.back-link:hover {
-  color: var(--accent);
-}
-
-.theme-switch {
-  position: relative;
-  width: 132px;
-  height: 52px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  color: var(--text);
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.theme-switch-track {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  height: 100%;
-  padding: 0 0.35rem;
-}
-
-.theme-label {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.73rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.theme-knob {
-  position: absolute;
-  top: 0.32rem;
-  left: 0.35rem;
-  width: calc(50% - 0.35rem);
-  height: calc(100% - 0.64rem);
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(244, 185, 66, 0.95), rgba(255, 217, 140, 0.92));
-  transition: transform 220ms ease;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-
-[data-theme="light"] .theme-knob {
-  transform: translateX(100%);
-}
-
-.page-shell {
-  display: grid;
-  grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
-  gap: 1.5rem;
-  padding: 1rem 1rem 4rem;
-  align-items: start;
-}
-
-.intro-panel,
-.deck-panel,
-.note-card {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
-}
-
-.intro-panel {
-  position: sticky;
-  top: 1rem;
-  padding: 1.6rem;
-  border-radius: 30px;
-}
-
-.eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.intro-panel h1 {
-  margin-top: 0.75rem;
-  font-family: 'Space Grotesk', 'Instrument Sans', Inter, sans-serif;
-  font-size: clamp(2.3rem, 3.4vw, 4.05rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.035em;
-}
-
-.intro-copy {
-  margin-top: 1rem;
-  color: var(--text-dim);
-  font-size: 1.05rem;
-  font-weight: 500;
-  line-height: 1.58;
-  max-width: 34ch;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.9rem;
-  margin-top: 1.4rem;
-}
-
-.stat-card {
-  min-width: 0;
-  padding: 0.95rem 1rem;
-  border-radius: 20px;
-  border: 1px solid var(--chip-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-}
-
-.stat-label,
-.card-label,
-.note-label {
-  display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.stat-card strong,
-.note-value {
-  display: block;
-  margin-top: 0.42rem;
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.control-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.45rem;
-}
-
-.action-btn,
-.filter-chip,
-.source-link {
-  border: 1px solid var(--chip-border);
-  border-radius: 999px;
-  background: var(--chip);
-  color: var(--text);
-  cursor: pointer;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
-}
-
-.action-btn {
-  padding: 0.82rem 1.1rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.action-btn.primary {
-  background: linear-gradient(135deg, rgba(244, 185, 66, 0.22), rgba(255, 217, 140, 0.18));
-  border-color: rgba(255, 217, 140, 0.3);
-}
-
-.action-btn:hover,
-.filter-chip:hover,
-.source-link:hover {
-  transform: translateY(-1px);
-  border-color: rgba(255, 217, 140, 0.38);
-}
-
-.action-btn:disabled,
-.source-link.is-disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.helper-line {
-  margin-top: 1rem;
-  color: var(--text-muted);
-  font-size: 0.83rem;
-}
-
-kbd {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.7em;
-  padding: 0.1rem 0.35rem;
-  border-radius: 8px;
-  border: 1px solid var(--chip-border);
-  background: rgba(255, 255, 255, 0.06);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78em;
-  color: var(--text);
-}
-
-.deck-panel {
-  padding: 1.15rem;
-  border-radius: 34px;
-}
-
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.filter-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.78rem 1rem;
-  font-size: 0.88rem;
-  font-weight: 700;
-}
-
-.filter-chip em {
-  font-style: normal;
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-}
-
-.filter-chip.is-active {
-  background: linear-gradient(135deg, rgba(244, 185, 66, 0.22), rgba(255, 217, 140, 0.18));
-  border-color: rgba(255, 217, 140, 0.42);
-  color: var(--accent);
-}
-
-.deck-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 1rem;
-  align-items: start;
-  margin-top: 1.15rem;
-}
-
-.deck-stage {
-  position: relative;
-  padding: 2.1rem 0 0.6rem;
-  min-height: 680px;
-}
-
-.stack {
-  position: absolute;
-  inset: 1rem 1rem 0 auto;
-  width: calc(100% - 2rem);
-  border-radius: 28px;
-  border: 1px solid rgba(110, 83, 40, 0.08);
-  background: linear-gradient(180deg, var(--paper), var(--paper-2));
-  box-shadow: var(--shadow);
-}
-
-.stack-back {
-  transform: translate(14px, -10px) rotate(1.8deg);
-  opacity: 0.42;
-}
-
-.stack-mid {
-  transform: translate(7px, -4px) rotate(0.9deg);
-  opacity: 0.74;
-}
-
-.quote-card {
-  --local-accent: var(--live-accent);
-  position: relative;
-  min-height: 620px;
-  padding: 1.8rem 1.8rem 1.5rem;
-  border-radius: 28px;
-  border: 1px solid var(--paper-line);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.62), transparent 18%),
-    linear-gradient(180deg, var(--paper), var(--paper-2));
-  color: #271d12;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: transform 220ms ease;
-}
-
-.quote-card::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 8px;
-  background: linear-gradient(180deg, var(--local-accent), rgba(255, 255, 255, 0));
-}
-
-.quote-card::after {
-  content: '';
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--local-accent) 24%, transparent), transparent 72%);
-  opacity: 0.65;
-}
-
-.quote-card.is-fresh {
-  animation: settle 320ms ease;
-}
-
-@keyframes settle {
-  0% { transform: translateY(10px) rotate(-1deg) scale(0.99); }
-  100% { transform: translateY(0) rotate(0deg) scale(1); }
-}
-
-.card-tabs {
-  display: flex;
-  gap: 0.8rem;
-  margin-bottom: 1.1rem;
-}
-
-.card-tabs span {
-  width: 3.4rem;
-  height: 0.72rem;
-  border-radius: 999px;
-  border: 1px solid rgba(110, 83, 40, 0.16);
-  background: rgba(255, 255, 255, 0.55);
-}
-
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: start;
-}
-
-.quote-category {
-  margin-top: 0.4rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.55rem 0.8rem;
-  border-radius: 999px;
-  border: 1px solid rgba(110, 83, 40, 0.14);
-  background: rgba(255, 255, 255, 0.55);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--local-accent);
-}
-
-.quote-idx {
-  padding: 0.55rem 0.8rem;
-  border-radius: 999px;
-  border: 1px solid rgba(110, 83, 40, 0.14);
-  background: rgba(255, 255, 255, 0.55);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  color: #71583a;
-}
-
-.quote-text {
-  position: relative;
-  z-index: 1;
-  margin-top: 1.55rem;
-  font-family: 'Fraunces', serif;
-  font-size: clamp(1.45rem, 2.25vw, 2.45rem);
-  line-height: 1.18;
-  letter-spacing: -0.03em;
-}
-
-.quote-text .ellipsis {
-  color: #a48866;
-}
-
-.quote-note {
-  margin-top: 1.3rem;
-  padding: 1rem 1rem 1rem 1.1rem;
-  border-radius: 20px;
-  border: 1px solid rgba(110, 83, 40, 0.14);
-  background: rgba(255, 255, 255, 0.52);
-}
-
-.quote-note[hidden] {
-  display: none !important;
-}
-
-.quote-note strong {
-  display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--local-accent);
-}
-
-.quote-note p {
-  margin-top: 0.55rem;
-  color: #684e3a;
-  font-size: 0.96rem;
-  line-height: 1.62;
-}
-
-.quote-source {
-  display: grid;
-  gap: 0.4rem;
-  margin-top: 1.5rem;
-  padding-top: 1.2rem;
-  border-top: 1px dashed rgba(110, 83, 40, 0.18);
-}
-
-.quote-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #2d2217;
-}
-
-.quote-author {
-  color: #755b3d;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.76rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.source-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-top: 0.45rem;
-}
-
-.source-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.72rem 0.92rem;
-  text-decoration: none;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.side-notes {
-  display: grid;
-  gap: 0.9rem;
-}
-
-.note-card {
-  border-radius: 24px;
-  padding: 1rem;
-}
-
-.note-copy {
-  margin-top: 0.55rem;
-  color: var(--text-dim);
-  font-size: 0.92rem;
-  line-height: 1.65;
-}
-
-.empty-state {
-  margin-top: 1rem;
-  padding: 2.2rem 1.2rem;
-  border-radius: 28px;
-  border: 1px dashed var(--border);
-  background: var(--surface-2);
-  color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  line-height: 1.8;
-  text-align: center;
-}
-
-.site-foot {
-  padding: 0 1rem 2.4rem;
-}
-
-.site-foot-inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--border);
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.site-foot-inner a {
-  text-decoration: none;
-  color: var(--accent);
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 1.25rem;
-  transform: translate(-50%, 120%);
-  padding: 0.85rem 1rem;
-  border-radius: 999px;
-  background: rgba(23, 20, 17, 0.94);
-  color: #fff8ee;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transition: opacity 180ms ease, transform 180ms ease;
-  z-index: 20;
-}
-
-.toast.is-visible {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-@media (max-width: 1120px) {
-  .page-shell {
-    grid-template-columns: 1fr;
+  :root {
+    --paper: #E9EBEE;
+    --plate: #E1E4E9;
+    --panel: #F4F5F7;
+    --ink: #12161C;
+    --ink-2: #3D4650;
+    --ink-3: #6E7883;
+    --rule: #C9CED6;
+    --rule-soft: #D8DCE3;
+    --grid: rgba(18, 22, 28, 0.045);
+    --brass: #A8752B;
+    --oxblood: #99453D;
+    --plum: #6E5287;
+    --teal: #2F6E7C;
+    --accent: #A8752B;
+    --edge: rgba(61, 70, 80, 0.30);
+    --edge-hot: rgba(168, 117, 43, 0.85);
+    --shadow: 0 1px 2px rgba(18,22,28,.06), 0 8px 24px rgba(18,22,28,.07);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1116;
+      --plate: #10141A;
+      --panel: #161B22;
+      --ink: #E7EAEE;
+      --ink-2: #A8B1BC;
+      --ink-3: #737D89;
+      --rule: #262D37;
+      --rule-soft: #1D232B;
+      --grid: rgba(231, 234, 238, 0.05);
+      --brass: #D2A055;
+      --oxblood: #C4736A;
+      --plum: #A188BC;
+      --teal: #5AA0B0;
+      --accent: #D2A055;
+      --edge: rgba(168, 177, 188, 0.26);
+      --edge-hot: rgba(210, 160, 85, 0.9);
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0E1116;
+    --plate: #10141A;
+    --panel: #161B22;
+    --ink: #E7EAEE;
+    --ink-2: #A8B1BC;
+    --ink-3: #737D89;
+    --rule: #262D37;
+    --rule-soft: #1D232B;
+    --grid: rgba(231, 234, 238, 0.05);
+    --brass: #D2A055;
+    --oxblood: #C4736A;
+    --plum: #A188BC;
+    --teal: #5AA0B0;
+    --accent: #D2A055;
+    --edge: rgba(168, 177, 188, 0.26);
+    --edge-hot: rgba(210, 160, 85, 0.9);
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.35);
+    color-scheme: dark;
   }
 
-  .intro-panel {
-    position: static;
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 22px 24px 64px; }
+
+  /* ---- console strip ---- */
+  .strip {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 10px 18px; margin-bottom: 18px;
+    font-size: 12px; color: var(--ink-3);
+  }
+  .strip a { color: var(--ink-2); text-decoration: none; }
+  .strip a:hover { color: var(--ink); text-decoration: underline; }
+  .strip .crumbs { display: flex; align-items: center; gap: 8px; }
+  .strip .crumbs .sep { color: var(--rule); }
+  .strip .tools { display: flex; align-items: center; gap: 14px; }
+  .strip .stamp { font-family: var(--mono); font-size: 11px; letter-spacing: .02em; }
+  .strip .stamp.stale { color: var(--oxblood); }
+  .theme-btn {
+    appearance: none; font: inherit; font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+    cursor: pointer; background: var(--panel); color: var(--ink-2);
+    border: 1px solid var(--rule); border-radius: 2px; padding: 4px 9px;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  /* ---- masthead ---- */
+  .masthead {
+    display: flex; flex-wrap: wrap; align-items: flex-end;
+    justify-content: space-between; gap: 20px;
+    padding-bottom: 18px; border-bottom: 1px solid var(--rule);
+  }
+  .brand h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(30px, 4.4vw, 44px); line-height: 1.05;
+    margin: 0 0 6px; letter-spacing: -0.015em; text-wrap: balance;
+  }
+  .brand p { margin: 0; color: var(--ink-3); font-size: 14px; max-width: 56ch; }
+  .stats { display: flex; gap: 26px; }
+  .stat { text-align: right; }
+  .stat .n {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: 21px; font-weight: 500; color: var(--ink); display: block; line-height: 1.1;
+  }
+  .stat .l {
+    font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--ink-3); margin-top: 3px; display: block;
   }
 
-  .deck-layout {
-    grid-template-columns: 1fr;
+  /* ---- legend ---- */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 16px 0 14px;
+  }
+  .fam {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 5px 11px 5px 9px; border: 1px solid var(--rule);
+    border-radius: 2px; background: var(--panel);
+    font-size: 12px; color: var(--ink-2); cursor: pointer;
+    transition: border-color .15s, color .15s, opacity .15s;
+  }
+  .fam:hover { border-color: var(--ink-3); color: var(--ink); }
+  .fam[aria-pressed="false"] { opacity: .42; }
+  .fam .sw { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .fam:focus-visible, .node-btn:focus-visible, .bridge:focus-visible,
+  .tab:focus-visible, input:focus-visible, .bookrow:focus-visible, .theme-btn:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
   }
 
-  .side-notes {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
+  /* ---- main split ---- */
+  .split { display: grid; grid-template-columns: minmax(0,1.32fr) minmax(0,1fr); gap: 20px; }
+  @media (max-width: 940px) { .split { grid-template-columns: 1fr; } }
 
-@media (max-width: 720px) {
-  .site-head,
-  .page-shell,
-  .site-foot {
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
+  .mapcol { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .index { display: flex; flex-wrap: wrap; gap: 5px; }
+  .node-btn {
+    appearance: none; font: inherit; font-size: 11.5px; cursor: pointer;
+    background: var(--panel); color: var(--ink-2);
+    border: 1px solid var(--rule); border-left-width: 3px; border-radius: 2px;
+    padding: 4px 8px; display: inline-flex; align-items: baseline; gap: 6px;
+    transition: color .15s, border-color .15s, opacity .15s;
+  }
+  .node-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+  .node-btn[aria-pressed="true"] { color: var(--ink); background: var(--plate); }
+  .node-btn[hidden] { display: none; }
+  .node-btn .c {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .plate {
+    position: relative; background: var(--plate);
+    border: 1px solid var(--rule); border-radius: 3px;
+    min-height: 560px; overflow: hidden;
+  }
+  .plate canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+  .plate canvas:active { cursor: grabbing; }
+  .plate-hint {
+    position: absolute; right: 12px; top: 10px; z-index: 2;
+    font-size: 11px; color: var(--ink-3); pointer-events: none;
+    letter-spacing: .02em; background: var(--plate);
+    padding: 2px 6px; border-radius: 2px;
+  }
+  .tip {
+    position: absolute; z-index: 3; pointer-events: none; opacity: 0;
+    background: var(--panel); border: 1px solid var(--rule);
+    box-shadow: var(--shadow); border-radius: 3px;
+    padding: 7px 10px; font-size: 12px; color: var(--ink);
+    transition: opacity .12s; max-width: 220px;
+  }
+  .tip .tn { font-weight: 600; display: block; margin-bottom: 2px; }
+  .tip .tm { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
+
+  /* ---- reading panel ---- */
+  .panel {
+    background: var(--panel); border: 1px solid var(--rule);
+    border-radius: 3px; display: flex; flex-direction: column;
+    min-height: 560px; max-height: 78vh;
+  }
+  .panel-head { padding: 16px 18px 0; border-bottom: 1px solid var(--rule-soft); }
+  .panel-title {
+    font-family: var(--serif); font-size: 22px; font-weight: 400;
+    margin: 0 0 3px; letter-spacing: -.01em; text-wrap: balance;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .panel-title .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .panel-sub { color: var(--ink-3); font-size: 12.5px; margin: 0 0 12px; }
+  .tabs { display: flex; gap: 2px; }
+  .tab {
+    appearance: none; background: none; border: 0; cursor: pointer;
+    font: inherit; font-size: 12px; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--ink-3); padding: 8px 11px; border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .panel-body { overflow-y: auto; padding: 14px 18px 20px; flex: 1; }
+
+  .searchbar { padding: 10px 18px; border-bottom: 1px solid var(--rule-soft); }
+  input[type="search"] {
+    width: 100%; font: inherit; font-size: 13px; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 2px; padding: 7px 10px;
+  }
+  input[type="search"]::placeholder { color: var(--ink-3); }
+
+  /* passages */
+  .passage { padding: 14px 0; border-bottom: 1px solid var(--rule-soft); }
+  .passage:last-child { border-bottom: 0; }
+  .passage blockquote {
+    margin: 0 0 8px; font-family: var(--serif); font-size: 15.5px;
+    line-height: 1.62; color: var(--ink);
+  }
+  .cite { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; font-size: 11.5px; }
+  .cite .bk { color: var(--ink-2); font-style: italic; }
+  .cite .au { color: var(--ink-3); }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto; }
+  .chip {
+    font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 2px; border: 1px solid currentColor;
+    opacity: .8; white-space: nowrap;
+  }
+  mark { background: color-mix(in srgb, var(--accent) 30%, transparent); color: var(--ink); border-radius: 1px; }
+
+  /* books */
+  .bookrow {
+    display: block; width: 100%; text-align: left; appearance: none;
+    background: none; border: 0; border-bottom: 1px solid var(--rule-soft);
+    padding: 11px 0; cursor: default; font: inherit;
+  }
+  .bookrow:last-child { border-bottom: 0; }
+  .bookrow .bt { font-family: var(--serif); font-size: 15px; color: var(--ink); }
+  .bookrow .ba { color: var(--ink-3); font-size: 12px; margin-left: 6px; }
+  .bookrow .bn {
+    float: right; font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); font-variant-numeric: tabular-nums;
+  }
+  .spread { display: flex; height: 5px; margin-top: 7px; gap: 1px; border-radius: 1px; overflow: hidden; }
+  .spread span { display: block; }
+
+  /* bridges */
+  .bridges { margin-top: 22px; }
+  .bridges h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .11em;
+    color: var(--ink-3); margin: 0 0 4px; font-weight: 600;
+  }
+  .bridges .lede { color: var(--ink-3); font-size: 13px; margin: 0 0 12px; max-width: 68ch; }
+  .bridge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 8px; }
+  .bridge {
+    appearance: none; text-align: left; font: inherit; cursor: pointer;
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 11px 13px; display: flex; align-items: center; gap: 10px;
+    transition: border-color .15s, transform .15s;
+  }
+  .bridge:hover { border-color: var(--ink-3); transform: translateY(-1px); }
+  .bridge .pair { flex: 1; min-width: 0; }
+  .bridge .pair span { display: block; font-size: 12.5px; color: var(--ink); line-height: 1.35; }
+  .bridge .pair span + span { color: var(--ink-2); }
+  .bridge .w {
+    font-family: var(--mono); font-size: 15px; color: var(--accent);
+    font-variant-numeric: tabular-nums; flex: none;
   }
 
-  .site-head {
-    flex-wrap: wrap;
+  .empty { color: var(--ink-3); font-size: 13.5px; padding: 22px 0; max-width: 52ch; }
+  .method {
+    margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--rule);
+    color: var(--ink-3); font-size: 12.5px; max-width: 78ch; line-height: 1.6;
   }
-
-  .theme-switch {
-    width: 100%;
+  .method b { color: var(--ink-2); font-weight: 600; }
+  .method a { color: var(--ink-2); }
+  .loading { color: var(--ink-3); font-size: 13px; padding: 40px 0; text-align: center; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
   }
-
-  .intro-panel,
-  .deck-panel {
-    border-radius: 24px;
-    padding: 1rem;
-  }
-
-  .intro-panel h1 {
-    font-size: 2.3rem;
-  }
-
-  .stats-grid,
-  .side-notes {
-    grid-template-columns: 1fr;
-  }
-
-  .deck-stage {
-    min-height: 0;
-    padding-top: 1.4rem;
-  }
-
-  .quote-card {
-    min-height: 0;
-    padding: 1.25rem 1.15rem 1.15rem;
-  }
-
-  .card-head {
-    flex-direction: column;
-    align-items: start;
-  }
-
-  .quote-text {
-    font-size: 1.45rem;
-  }
-}
 </style>
-  <script defer src="../shared/gate.js"></script>
+<script defer src="/shared/gate.js"></script>
 <link rel="stylesheet" href="/shared/console-shell.css">
 <script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
-<div class="noise"></div>
-
-<header class="site-head">
-  <a class="back-link" href="../index.html">← Chaos Console</a>
-  <button class="theme-switch" id="themeSwitch" type="button" aria-label="Toggle theme">
-    <span class="theme-switch-track">
-      <span class="theme-label">Dark</span>
-      <span class="theme-label">Light</span>
-      <span class="theme-knob" aria-hidden="true"></span>
-    </span>
-  </button>
-</header>
-
-<main class="page-shell">
-  <section class="intro-panel">
-    <p class="eyebrow">Readwise / Highlight Shelf</p>
-    <h1>Readwise Highlights</h1>
-    <p class="intro-copy">A rolling shelf of saved lines, article fragments, marginalia, and source notes pulled from the Readwise archive and restaged as a clean reading deck.</p>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-label">Highlights</span>
-        <strong id="stats">Loading...</strong>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">Sources</span>
-        <strong id="sourceCount">--</strong>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">Shelf</span>
-        <strong id="activeFilterLabel">All shelves</strong>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">Visible</span>
-        <strong id="poolSize">--</strong>
-      </div>
+<div class="wrap">
+  <div class="strip">
+    <div class="crumbs">
+      <a href="/">← Chaos Console</a><span class="sep">/</span><span>Readwise</span>
     </div>
-
-    <div class="control-row">
-      <button class="action-btn primary" id="shuffleBtn" type="button" disabled>Pull Another</button>
-      <button class="action-btn" id="prevBtn" type="button" disabled>Previous Pull</button>
-      <button class="action-btn" id="copyBtn" type="button" disabled>Copy Highlight</button>
+    <div class="tools">
+      <span class="stamp" id="stamp">Loading the library…</span>
+      <a href="/readwise-highlights/deck/">Shuffle deck →</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark or light theme">Theme</button>
     </div>
-
-    <p class="helper-line">Keyboard: <kbd>→</kbd> next, <kbd>←</kbd> previous, <kbd>C</kbd> copy. The layout borrows warm paper and amber accents from the Readwise ecosystem without turning into a fake app clone.</p>
-  </section>
-
-  <section class="deck-panel">
-    <div class="filter-bar" id="filterBar" aria-label="Highlight filters"></div>
-
-    <div id="emptyState" class="empty-state" hidden>
-      No highlights loaded.<br>
-      Run <code>python3 data/readwise_loader.py</code> and refresh.
-    </div>
-
-    <div id="deckLayout" class="deck-layout" hidden>
-      <div class="deck-stage">
-        <div class="stack stack-back" aria-hidden="true"></div>
-        <div class="stack stack-mid" aria-hidden="true"></div>
-
-        <article class="quote-card" id="quoteCard">
-          <div class="card-tabs" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-
-          <div class="card-head">
-            <div>
-              <span class="card-label">Shelf</span>
-              <div class="quote-category" id="quoteCategory">Books</div>
-            </div>
-            <div class="quote-idx" id="quoteIdx">0001 / 0001</div>
-          </div>
-
-          <div class="quote-text" id="quoteText"></div>
-
-          <section class="quote-note" id="quoteNote" hidden>
-            <strong>Attached Note</strong>
-            <p id="quoteNoteText"></p>
-          </section>
-
-          <div class="quote-source">
-            <div class="quote-title" id="quoteTitle">Loading…</div>
-            <div class="quote-author" id="quoteAuthor"></div>
-            <div class="source-actions">
-              <a class="source-link" id="readwiseLink" target="_blank" rel="noopener">Open In Readwise</a>
-              <a class="source-link" id="sourceLink" target="_blank" rel="noopener">Open Source</a>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <aside class="side-notes">
-        <div class="note-card">
-          <span class="note-label">Current Pull</span>
-          <div class="note-value" id="currentPosition">000 / 000</div>
-        </div>
-        <div class="note-card">
-          <span class="note-label">Author</span>
-          <div class="note-value" id="authorValue">Unknown</div>
-        </div>
-        <div class="note-card">
-          <span class="note-label">Note Status</span>
-          <div class="note-value" id="noteStatus">No marginal note</div>
-        </div>
-        <div class="note-card">
-          <span class="note-label">Last Action</span>
-          <p class="note-copy" id="historyDepth">Waiting for data.</p>
-        </div>
-      </aside>
-    </div>
-  </section>
-</main>
-
-<footer class="site-foot">
-  <div class="site-foot-inner">
-    <span>Chaos Console / Readwise Highlights / 2026</span>
-    <a href="../index.html">chaosconsole.com</a>
   </div>
-</footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <header class="masthead">
+    <div class="brand">
+      <h1>Reading Atlas</h1>
+      <p>Every highlight in the library, sorted into the ideas it belongs to — and the places those ideas touch.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="n" id="s-hl">—</span><span class="l">Passages</span></div>
+      <div class="stat"><span class="n" id="s-bk">—</span><span class="l">Sources</span></div>
+      <div class="stat"><span class="n" id="s-th">—</span><span class="l">Themes</span></div>
+      <div class="stat"><span class="n" id="s-ln">—</span><span class="l">Links</span></div>
+    </div>
+  </header>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="split">
+    <div class="mapcol">
+    <div class="plate" id="plate">
+      <canvas id="cv"></canvas>
+      <div class="tip" id="tip"></div>
+      <div class="plate-hint">Click a theme to read it · drag to rearrange</div>
+    </div>
+    <div class="index" id="index" role="group" aria-label="Themes, largest first"></div>
+    </div>
+
+    <aside class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title" id="p-title"><span class="dot" id="p-dot" hidden></span><span id="p-name">The whole library</span></h2>
+        <p class="panel-sub" id="p-sub">Select a theme on the map, or search every passage below.</p>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-tab="passages">Passages</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="books">Sources</button>
+        </div>
+      </div>
+      <div class="searchbar">
+        <input type="search" id="q" placeholder="Search passages…" aria-label="Search passages">
+      </div>
+      <div class="panel-body" id="p-body"><p class="loading">Loading the atlas…</p></div>
+    </aside>
+  </div>
+
+  <section class="bridges">
+    <h2>Where themes meet</h2>
+    <p class="lede">Passages that carry two ideas at once. These are the seams of the library — where one subject stops being separate from another.</p>
+    <div class="bridge-grid" id="bridges"></div>
+  </section>
+
+  <p class="method">
+    <b>How this was built.</b> <span id="m-raw">—</span> Readwise highlights were pulled from the library on
+    <span id="m-pulled">—</span>; onboarding boilerplate and an idiom reference were removed and duplicate passages
+    collapsed, leaving <span id="m-corpus">—</span> passages of real reading. Each was scored against a weighted lexicon
+    for sixteen themes — strong terms counted triple, supporting terms singly — and assigned to as many as three whose
+    score cleared the bar. <span id="m-themed">—</span> passages matched at least one theme; <span id="m-un">—</span> did
+    not, which is the honest result for narrative and memoir that carries no strong conceptual vocabulary. Node size is
+    passage count; a link means two themes co-occur in the same passage at least three times. Classification is lexical,
+    not semantic — it is a map of the library's vocabulary, and a passage that gestures at power without ever naming it
+    will sit outside the cluster it belongs to. The library is re-pulled from Readwise on the first of every month and
+    the map rebuilt from it; the newest highlight in this build is dated <span id="m-newest">—</span>.
+  </p>
+</div>
 
 <script>
-const sw = document.getElementById('themeSwitch');
-function toggleTheme() {
-  const html = document.documentElement;
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('cc-theme', next);
-  sw.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
-}
-sw.addEventListener('click', toggleTheme);
-sw.setAttribute('aria-pressed', document.documentElement.getAttribute('data-theme') === 'light' ? 'true' : 'false');
+/* ---------- theme switch (shared cc-theme key) ---------- */
+(function () {
+  const root = document.documentElement, btn = document.getElementById('themeBtn');
+  const sys = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const cur = () => root.getAttribute('data-theme') || sys();
+  const label = () => { btn.textContent = cur() === 'dark' ? 'Light' : 'Dark'; };
+  btn.onclick = () => {
+    const next = cur() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('cc-theme', next); } catch (e) {}
+    label();
+  };
+  label();
+})();
 
-const CATEGORY_META = {
-  all: { label: 'All shelves', color: '#f4b942' },
-  books: { label: 'Books', color: '#f4b942' },
-  articles: { label: 'Articles', color: '#60a5fa' },
-  supplementals: { label: 'Supplementals', color: '#fb7185' },
-  tweets: { label: 'Tweets', color: '#22c55e' },
-  unknown: { label: 'Unknown', color: '#a78bfa' }
+/* ---------- theme families: color encodes kind, not identity ---------- */
+const FAMILY = {
+  "Power & Order": { key: "power", css: "--brass", themes: [
+    "Power & Political Order","Democracy & Law","Empire & Geopolitics","Capitalism & Inequality"] },
+  "Conflict & Rupture": { key: "conflict", css: "--oxblood", themes: [
+    "War & Mass Violence","Totalitarianism & Complicity","Revolution & Social Change","Race, Caste & Identity"] },
+  "Belief & Belonging": { key: "belief", css: "--plum", themes: [
+    "Religion & Belief","Nationalism & Civilization","Human Nature & Morality","Memory & History"] },
+  "Mind & World": { key: "mind", css: "--teal", themes: [
+    "Cognition & Storytelling","Science & Cosmos","Language & Literature","Technology & Media"] },
+};
+const themeFamily = {};
+for (const [famName, f] of Object.entries(FAMILY)) for (const t of f.themes) themeFamily[t] = famName;
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmtDate = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso.length === 10 ? iso + 'T12:00:00Z' : iso);
+  return isNaN(d) ? iso : d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 };
 
-const state = {
-  items: [],
-  filter: 'all',
-  currentId: null,
-  history: [],
-  historyCursor: -1,
-  sourceCount: 0
-};
-
-const els = {
-  stats: document.getElementById('stats'),
-  sourceCount: document.getElementById('sourceCount'),
-  activeFilterLabel: document.getElementById('activeFilterLabel'),
-  poolSize: document.getElementById('poolSize'),
-  filterBar: document.getElementById('filterBar'),
-  emptyState: document.getElementById('emptyState'),
-  deckLayout: document.getElementById('deckLayout'),
-  quoteCard: document.getElementById('quoteCard'),
-  quoteCategory: document.getElementById('quoteCategory'),
-  quoteIdx: document.getElementById('quoteIdx'),
-  quoteText: document.getElementById('quoteText'),
-  quoteNote: document.getElementById('quoteNote'),
-  quoteNoteText: document.getElementById('quoteNoteText'),
-  quoteTitle: document.getElementById('quoteTitle'),
-  quoteAuthor: document.getElementById('quoteAuthor'),
-  readwiseLink: document.getElementById('readwiseLink'),
-  sourceLink: document.getElementById('sourceLink'),
-  currentPosition: document.getElementById('currentPosition'),
-  authorValue: document.getElementById('authorValue'),
-  noteStatus: document.getElementById('noteStatus'),
-  historyDepth: document.getElementById('historyDepth'),
-  shuffleBtn: document.getElementById('shuffleBtn'),
-  prevBtn: document.getElementById('prevBtn'),
-  copyBtn: document.getElementById('copyBtn'),
-  toast: document.getElementById('toast')
-};
-
-let toastTimer = null;
-
-function pad(n) {
-  return String(n).padStart(4, '0');
-}
-
-function escHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-function showToast(message) {
-  els.toast.textContent = message;
-  els.toast.classList.add('is-visible');
-  window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => {
-    els.toast.classList.remove('is-visible');
-  }, 1800);
-}
-
-function getPool() {
-  if (state.filter === 'all') return state.items;
-  return state.items.filter(item => item.category === state.filter);
-}
-
-function getItemById(id) {
-  return state.items.find(item => item.id === id) || null;
-}
-
-function truncateText(text, limit) {
-  if (!text) return { text: '', truncated: false };
-  if (text.length <= limit) return { text, truncated: false };
-  const cut = text.lastIndexOf(' ', limit);
-  return { text: text.slice(0, cut > 0 ? cut : limit), truncated: true };
-}
-
-function chooseRandom(pool, excludeId) {
-  if (!pool.length) return null;
-  if (pool.length === 1) return pool[0];
-  let next = pool[Math.floor(Math.random() * pool.length)];
-  while (next.id === excludeId) {
-    next = pool[Math.floor(Math.random() * pool.length)];
+function boot(DATA) {
+  let COLORS = {};
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    COLORS = { edge: cs.getPropertyValue('--edge').trim(), edgeHot: cs.getPropertyValue('--edge-hot').trim(),
+               grid: cs.getPropertyValue('--grid').trim(), plate: cs.getPropertyValue('--plate').trim(),
+               ink: cs.getPropertyValue('--ink').trim(), ink3: cs.getPropertyValue('--ink-3').trim() };
+    for (const [n, f] of Object.entries(FAMILY)) COLORS[n] = cs.getPropertyValue(f.css).trim();
   }
-  return next;
-}
+  readColors();
+  const famColor = t => COLORS[themeFamily[t]] || COLORS.ink;
 
-function setLinkState(anchor, url) {
-  if (url) {
-    anchor.href = url;
-    anchor.classList.remove('is-disabled');
-    anchor.setAttribute('aria-disabled', 'false');
-    anchor.tabIndex = 0;
-  } else {
-    anchor.removeAttribute('href');
-    anchor.classList.add('is-disabled');
-    anchor.setAttribute('aria-disabled', 'true');
-    anchor.tabIndex = -1;
+  /* ---------- stats ---------- */
+  const M = DATA.meta;
+  document.getElementById('s-hl').textContent = M.themed.toLocaleString();
+  document.getElementById('s-bk').textContent = M.n_books.toLocaleString();
+  document.getElementById('s-th').textContent = M.n_themes;
+  document.getElementById('s-ln').textContent = M.n_links;
+  document.getElementById('m-raw').textContent = (M.raw_highlights || M.total_highlights).toLocaleString();
+  document.getElementById('m-pulled').textContent = fmtDate(M.source_generated || M.generated);
+  document.getElementById('m-corpus').textContent = M.total_highlights.toLocaleString();
+  document.getElementById('m-themed').textContent = M.themed.toLocaleString();
+  document.getElementById('m-un').textContent = M.unthemed.toLocaleString();
+  document.getElementById('m-newest').textContent = fmtDate(M.newest_highlight);
+  const stamp = document.getElementById('stamp');
+  const pulled = new Date(M.source_generated || M.generated);
+  const ageDays = isNaN(pulled) ? null : Math.floor((Date.now() - pulled.getTime()) / 86400000);
+  stamp.textContent = `Library pulled ${fmtDate(M.source_generated || M.generated)}` +
+    (ageDays === null ? '' : ageDays === 0 ? ' · today' : ` · ${ageDays} day${ageDays === 1 ? '' : 's'} ago`) +
+    ` · ${(M.raw_highlights || M.total_highlights).toLocaleString()} highlights · rebuilt monthly`;
+  if (ageDays !== null && ageDays > 45) stamp.classList.add('stale');
+
+  /* ---------- legend / family filter ---------- */
+  const active = new Set(Object.keys(FAMILY));
+  const legend = document.getElementById('legend');
+  for (const name of Object.keys(FAMILY)) {
+    const b = document.createElement('button');
+    b.className = 'fam'; b.type = 'button'; b.setAttribute('aria-pressed', 'true');
+    b.innerHTML = `<span class="sw"></span>${name}`;
+    b.querySelector('.sw').style.background = famColor(FAMILY[name].themes[0]);
+    b.onclick = () => {
+      if (active.has(name)) { if (active.size === 1) return; active.delete(name); }
+      else active.add(name);
+      b.setAttribute('aria-pressed', String(active.has(name)));
+      if (selected && !active.has(themeFamily[selected.name])) selectTheme(null);
+      syncIndex(); render(); draw();
+    };
+    legend.appendChild(b);
   }
-}
 
-function buildFilters() {
-  const counts = state.items.reduce((map, item) => {
-    map[item.category] = (map[item.category] || 0) + 1;
-    return map;
-  }, {});
+  /* ---------- force layout ---------- */
+  const nodes = DATA.nodes.map(n => ({ ...n, x: 0, y: 0, vx: 0, vy: 0,
+    r: 11 + Math.sqrt(n.count) * 1.55 }));
+  const byId = Object.fromEntries(nodes.map(n => [n.id, n]));
+  const links = DATA.links.map(l => ({ ...l, s: byId[l.source], t: byId[l.target] }));
+  const neighbors = {};
+  nodes.forEach(n => neighbors[n.id] = new Set());
+  links.forEach(l => { neighbors[l.source].add(l.target); neighbors[l.target].add(l.source); });
 
-  const order = ['all', 'books', 'articles', 'supplementals', 'tweets', 'unknown'];
-  els.filterBar.innerHTML = '';
+  const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  const plate = document.getElementById('plate');
+  let W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  order.forEach(filterId => {
-    const count = filterId === 'all' ? state.items.length : (counts[filterId] || 0);
-    if (!count && filterId !== 'all') return;
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'filter-chip';
-    if (state.filter === filterId) button.classList.add('is-active');
-    button.dataset.filter = filterId;
-    button.innerHTML = `<span>${CATEGORY_META[filterId].label}</span><em>${pad(count)}</em>`;
-    button.addEventListener('click', () => {
-      state.filter = filterId;
-      buildFilters();
-      syncFilter();
-    });
-    els.filterBar.appendChild(button);
+  nodes.forEach((n, i) => {
+    const a = (i / nodes.length) * Math.PI * 2;
+    n.x = Math.cos(a) * 150; n.y = Math.sin(a) * 150;
   });
-}
 
-function animateCard() {
-  els.quoteCard.classList.remove('is-fresh');
-  void els.quoteCard.offsetWidth;
-  els.quoteCard.classList.add('is-fresh');
-}
-
-function render(item, actionLabel) {
-  const pool = getPool();
-  const position = Math.max(0, pool.findIndex(entry => entry.id === item.id)) + 1;
-  const meta = CATEGORY_META[item.category] || CATEGORY_META.unknown;
-  const truncated = truncateText(item.text, 560);
-  const author = item.author || 'Unknown author';
-
-  document.documentElement.style.setProperty('--live-accent', meta.color);
-
-  els.activeFilterLabel.textContent = meta.label && state.filter !== 'all' ? meta.label : CATEGORY_META[state.filter].label;
-  els.poolSize.textContent = pad(pool.length);
-  els.quoteCategory.textContent = meta.label;
-  els.quoteIdx.textContent = `${pad(item.id + 1)} / ${pad(state.items.length)}`;
-  els.quoteText.innerHTML = escHtml(truncated.text) + (truncated.truncated ? '<span class="ellipsis"> ...</span>' : '');
-  els.currentPosition.textContent = `${pad(position)} / ${pad(pool.length)}`;
-  els.authorValue.textContent = author;
-  els.historyDepth.textContent = actionLabel;
-  els.quoteTitle.textContent = item.book_title || 'Unknown source';
-  els.quoteAuthor.textContent = author;
-  els.prevBtn.disabled = state.historyCursor <= 0;
-
-  if (item.note) {
-    els.quoteNote.hidden = false;
-    els.quoteNoteText.textContent = item.note;
-    els.noteStatus.textContent = 'Includes note';
-  } else {
-    els.quoteNote.hidden = true;
-    els.quoteNoteText.textContent = '';
-    els.noteStatus.textContent = 'No marginal note';
+  function resize() {
+    const r = plate.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
   }
 
-  setLinkState(els.readwiseLink, item.readwise_url || '');
-  setLinkState(els.sourceLink, item.source_url || '');
-  animateCard();
-}
-
-function setCurrent(item, actionLabel, pushHistory) {
-  if (!item) return;
-
-  state.currentId = item.id;
-  if (pushHistory) {
-    state.history = state.history.slice(0, state.historyCursor + 1);
-    state.history.push(item.id);
-    state.historyCursor = state.history.length - 1;
-  }
-  render(item, actionLabel);
-}
-
-function pullAnother() {
-  setCurrent(chooseRandom(getPool(), state.currentId), 'Fresh pull', true);
-}
-
-function showPrevious() {
-  if (state.historyCursor <= 0) return;
-  state.historyCursor -= 1;
-  const item = getItemById(state.history[state.historyCursor]);
-  state.currentId = item.id;
-  render(item, 'Backtracked one pull');
-}
-
-function syncFilter() {
-  const pool = getPool();
-  const currentInPool = pool.some(item => item.id === state.currentId);
-
-  if (!pool.length) {
-    els.deckLayout.hidden = true;
-    els.emptyState.hidden = false;
-    els.emptyState.innerHTML = 'This shelf is empty.';
-    return;
+  const maxW = Math.max(1, ...links.map(l => l.weight));
+  function tick() {
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let d2 = dx * dx + dy * dy || 0.01;
+        const min = (a.r + b.r + 26);
+        const f = 14000 / d2;
+        const d = Math.sqrt(d2);
+        let fx = (dx / d) * f, fy = (dy / d) * f;
+        if (d < min) { const push = (min - d) * 0.5; fx += (dx / d) * push; fy += (dy / d) * push; }
+        a.vx -= fx; a.vy -= fy; b.vx += fx; b.vy += fy;
+      }
+    }
+    for (const l of links) {
+      const dx = l.t.x - l.s.x, dy = l.t.y - l.s.y;
+      const d = Math.hypot(dx, dy) || 0.01;
+      const rest = 190 - (l.weight / maxW) * 105;
+      const f = (d - rest) * 0.012 * (0.4 + l.weight / maxW);
+      l.s.vx += (dx / d) * f; l.s.vy += (dy / d) * f;
+      l.t.vx -= (dx / d) * f; l.t.vy -= (dy / d) * f;
+    }
+    for (const n of nodes) {
+      if (n === dragging) continue;
+      n.vx -= n.x * 0.0016; n.vy -= n.y * 0.0016;
+      n.vx *= 0.82; n.vy *= 0.82;
+      n.x += n.vx; n.y += n.vy;
+    }
   }
 
-  els.emptyState.hidden = true;
-  els.deckLayout.hidden = false;
+  let hovered = null, selected = null, dragging = null;
+  const isDim = n => !active.has(themeFamily[n.name]);
 
-  if (!currentInPool) {
-    setCurrent(chooseRandom(pool), `Shelf: ${CATEGORY_META[state.filter].label}`, true);
-    return;
+  function fit() {
+    const maxR = Math.max(...nodes.map(n => n.r));
+    const padX = maxR + 44, padTop = maxR + 12, padBot = maxR + 34;
+    const xs = nodes.map(n => n.x), ys = nodes.map(n => n.y);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const sx = (W - padX * 2) / Math.max(maxX - minX, 1);
+    const sy = (H - padTop - padBot) / Math.max(maxY - minY, 1);
+    const s = Math.max(Math.min(sx, sy, 1.4), 0.12);
+    return {
+      s,
+      cx: W / 2 - ((minX + maxX) / 2) * s,
+      cy: (padTop + (H - padBot)) / 2 - ((minY + maxY) / 2) * s,
+    };
+  }
+  let view = { s: 1, cx: 0, cy: 0 };
+  const toScreen = n => ({ x: n.x * view.s + view.cx, y: n.y * view.s + view.cy });
+
+  function draw() {
+    if (!W) return;
+    view = fit();
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.strokeStyle = COLORS.grid; ctx.lineWidth = 1;
+    for (let x = 0; x <= W; x += 32) { ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, H); ctx.stroke(); }
+    for (let y = 0; y <= H; y += 32) { ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(W, y + .5); ctx.stroke(); }
+    ctx.restore();
+
+    const focus = hovered || selected;
+    const lit = focus ? neighbors[focus.id] : null;
+
+    for (const l of links) {
+      const dim = isDim(l.s) || isDim(l.t);
+      const on = focus && (l.s === focus || l.t === focus);
+      const a = toScreen(l.s), b = toScreen(l.t);
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      ctx.lineWidth = 0.6 + (l.weight / maxW) * 3.4;
+      ctx.strokeStyle = on ? COLORS.edgeHot : COLORS.edge;
+      ctx.globalAlpha = dim ? 0.07 : (focus ? (on ? 1 : 0.13) : 0.55);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    for (const n of nodes) {
+      const p = toScreen(n), c = famColor(n.name);
+      const dim = isDim(n);
+      const near = !focus || n === focus || (lit && lit.has(n.id));
+      ctx.globalAlpha = dim ? 0.13 : (near ? 1 : 0.22);
+
+      ctx.beginPath(); ctx.arc(p.x, p.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = c; ctx.globalAlpha *= (n === focus ? 0.95 : 0.72); ctx.fill();
+      ctx.globalAlpha = dim ? 0.13 : (near ? 1 : 0.22);
+      ctx.lineWidth = n === selected ? 2.5 : 1.2;
+      ctx.strokeStyle = c; ctx.stroke();
+
+      if (near && !dim) {
+        const label = n.name;
+        ctx.font = `${n === focus ? '600 ' : '500 '}11.5px -apple-system, "Helvetica Neue", sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        const words = label.split(' ');
+        const lines = []; let cur = '';
+        for (const w of words) {
+          if ((cur + ' ' + w).trim().length > 15 && cur) { lines.push(cur); cur = w; }
+          else cur = (cur + ' ' + w).trim();
+        }
+        if (cur) lines.push(cur);
+        lines.forEach((ln, i) => {
+          const y = p.y + n.r + 5 + i * 13;
+          ctx.lineWidth = 3; ctx.strokeStyle = COLORS.plate;
+          ctx.strokeText(ln, p.x, y);
+          ctx.fillStyle = COLORS.ink; ctx.fillText(ln, p.x, y);
+        });
+      }
+    }
+    ctx.globalAlpha = 1;
   }
 
-  render(getItemById(state.currentId), `Shelf: ${CATEGORY_META[state.filter].label}`);
-}
-
-async function copyCurrentHighlight() {
-  const item = getItemById(state.currentId);
-  if (!item) return;
-  try {
-    await navigator.clipboard.writeText(item.text || '');
-    showToast('Copied');
-    els.historyDepth.textContent = 'Copied to clipboard';
-  } catch (err) {
-    showToast('Copy failed');
+  function hit(mx, my) {
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      const n = nodes[i]; if (isDim(n)) continue;
+      const p = toScreen(n);
+      if (Math.hypot(mx - p.x, my - p.y) <= n.r + 4) return n;
+    }
+    return null;
   }
-}
 
-fetch('../data/readwise_cache.json')
-  .then(response => response.json())
-  .then(cache => {
-    const data = Array.isArray(cache.data) ? cache.data : [];
-    const stats = cache.stats || {};
+  const tip = document.getElementById('tip');
+  let downOn = null, downPt = null;
 
-    state.items = data.map((item, index) => ({
-      id: index,
-      text: item.text || '',
-      note: item.note || '',
-      book_title: item.book_title || 'Unknown source',
-      author: item.author || '',
-      category: item.category || 'unknown',
-      source_url: item.source_url || '',
-      readwise_url: item.readwise_url || ''
-    }));
+  cv.addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect();
+    const mx = e.clientX - r.left, my = e.clientY - r.top;
+    if (dragging) {
+      dragging.x = (mx - view.cx) / view.s; dragging.y = (my - view.cy) / view.s;
+      dragging.vx = dragging.vy = 0; draw(); return;
+    }
+    const h = hit(mx, my);
+    if (h !== hovered) { hovered = h; draw(); }
+    if (h) {
+      tip.innerHTML = `<span class="tn">${esc(h.name)}</span><span class="tm">${h.count} passages · ${neighbors[h.id].size} links</span>`;
+      tip.style.opacity = 1;
+      tip.style.left = Math.min(mx + 14, r.width - 232) + 'px';
+      tip.style.top = Math.max(my - 46, 6) + 'px';
+    } else tip.style.opacity = 0;
+  });
+  cv.addEventListener('pointerdown', e => {
+    const r = cv.getBoundingClientRect();
+    downPt = { x: e.clientX - r.left, y: e.clientY - r.top };
+    downOn = hit(downPt.x, downPt.y);
+    if (downOn) { dragging = downOn; try { cv.setPointerCapture(e.pointerId); } catch (_) {} }
+  });
+  cv.addEventListener('pointerup', e => {
+    const r = cv.getBoundingClientRect();
+    const up = { x: e.clientX - r.left, y: e.clientY - r.top };
+    if (downOn && downPt && Math.hypot(up.x - downPt.x, up.y - downPt.y) < 5) {
+      selectTheme(downOn === selected ? null : downOn);
+    }
+    dragging = null; downOn = null; downPt = null;
+  });
+  cv.addEventListener('pointerleave', () => { hovered = null; tip.style.opacity = 0; draw(); });
 
-    state.sourceCount = Number(stats.total_books || new Set(state.items.map(item => item.book_title)).size);
-    els.stats.textContent = pad(state.items.length);
-    els.sourceCount.textContent = pad(state.sourceCount);
-    els.shuffleBtn.disabled = !state.items.length;
-    els.copyBtn.disabled = !state.items.length;
+  /* ---------- theme index (keyboard route to every node) ---------- */
+  const indexEl = document.getElementById('index');
+  const nodeBtns = new Map();
+  for (const n of [...nodes].sort((a, b) => b.count - a.count)) {
+    const b = document.createElement('button');
+    b.className = 'node-btn'; b.type = 'button'; b.setAttribute('aria-pressed', 'false');
+    b.style.borderLeftColor = famColor(n.name);
+    b.innerHTML = `${esc(n.name)}<span class="c">${n.count}</span>`;
+    b.onclick = () => selectTheme(n === selected ? null : n);
+    b.onmouseenter = () => { hovered = n; draw(); };
+    b.onmouseleave = () => { hovered = null; draw(); };
+    b.onfocus = () => { hovered = n; draw(); };
+    b.onblur = () => { hovered = null; draw(); };
+    indexEl.appendChild(b);
+    nodeBtns.set(n.id, b);
+  }
+  function syncIndex() {
+    for (const n of nodes) {
+      const b = nodeBtns.get(n.id);
+      b.setAttribute('aria-pressed', String(selected === n));
+      b.hidden = !active.has(themeFamily[n.name]);
+      b.style.borderLeftColor = famColor(n.name);
+    }
+  }
 
-    if (!state.items.length) {
-      els.emptyState.hidden = false;
-      els.deckLayout.hidden = true;
-      buildFilters();
+  /* ---------- panel ---------- */
+  const pName = document.getElementById('p-name'), pSub = document.getElementById('p-sub'),
+        pDot = document.getElementById('p-dot'), pBody = document.getElementById('p-body'),
+        qEl = document.getElementById('q');
+  let tab = 'passages', pairFilter = null;
+
+  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+    tab = t.dataset.tab;
+    document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', String(x === t)));
+    render();
+  });
+
+  function allHighlights() {
+    const out = [];
+    for (const t of Object.keys(DATA.highlights)) for (const h of DATA.highlights[t]) out.push(h);
+    return out;
+  }
+  const ALL = allHighlights();
+
+  function selectTheme(n) {
+    selected = n; pairFilter = null;
+    if (n) {
+      pDot.hidden = false; pDot.style.background = famColor(n.name);
+      pName.textContent = n.name;
+      pSub.textContent = `${n.count} passages · ${themeFamily[n.name]} · connects to ${neighbors[n.id].size} other themes`;
+      if (location.hash !== '#' + encodeURIComponent(n.name)) history.replaceState(null, '', '#' + encodeURIComponent(n.name));
+    } else {
+      pDot.hidden = true; pName.textContent = 'The whole library';
+      pSub.textContent = 'Select a theme on the map, or search every passage below.';
+      if (location.hash) history.replaceState(null, '', location.pathname);
+    }
+    syncIndex(); render(); draw();
+  }
+
+  function mark(s, q) {
+    if (!q) return esc(s);
+    const i = s.toLowerCase().indexOf(q.toLowerCase());
+    if (i < 0) return esc(s);
+    return esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + q.length)) + '</mark>' + esc(s.slice(i + q.length));
+  }
+
+  function currentSet() {
+    let set;
+    if (pairFilter) {
+      set = ALL.filter(h => h.th.includes(pairFilter[0]) && h.th.includes(pairFilter[1]));
+    } else if (selected) {
+      set = ALL.filter(h => h.th.includes(selected.name));
+    } else {
+      set = ALL.filter(h => active.has(themeFamily[h.th[0]]));
+    }
+    const q = qEl.value.trim();
+    if (q) set = set.filter(h => h.t.toLowerCase().includes(q.toLowerCase()) ||
+                                 h.b.toLowerCase().includes(q.toLowerCase()));
+    return set;
+  }
+
+  function render() {
+    const q = qEl.value.trim();
+    const set = currentSet();
+
+    if (tab === 'books') {
+      const counts = {};
+      for (const h of set) { counts[h.b] = counts[h.b] || { n: 0, a: h.a, th: {} };
+        counts[h.b].n++; for (const t of h.th) counts[h.b].th[t] = (counts[h.b].th[t] || 0) + 1; }
+      const rows = Object.entries(counts).sort((a, b) => b[1].n - a[1].n).slice(0, 60);
+      if (!rows.length) { pBody.innerHTML = `<p class="empty">No sources match.</p>`; return; }
+      pBody.innerHTML = rows.map(([title, d]) => {
+        const parts = Object.entries(d.th).sort((a, b) => b[1] - a[1]);
+        const bar = parts.map(([t, n]) =>
+          `<span style="flex:${n};background:${famColor(t)};opacity:.85" title="${esc(t)}: ${n}"></span>`).join('');
+        return `<div class="bookrow"><span class="bn">${d.n}</span>
+          <span class="bt">${esc(title)}</span>${d.a ? `<span class="ba">${esc(d.a)}</span>` : ''}
+          <div class="spread">${bar}</div></div>`;
+      }).join('');
       return;
     }
 
-    buildFilters();
-    els.deckLayout.hidden = false;
-    pullAnother();
-  })
-  .catch(() => {
-    els.stats.textContent = 'Error';
-    els.sourceCount.textContent = '--';
-    els.emptyState.hidden = false;
-    els.deckLayout.hidden = true;
+    if (!set.length) {
+      pBody.innerHTML = `<p class="empty">No passages match${q ? ` “${esc(q)}”` : ''}.</p>`;
+      return;
+    }
+    const shown = set.slice(0, 220);
+    pBody.innerHTML =
+      (pairFilter ? `<p class="empty" style="padding:0 0 12px">${set.length} passages carry both
+          <b>${esc(pairFilter[0])}</b> and <b>${esc(pairFilter[1])}</b>.</p>` : '') +
+      shown.map(h => `<article class="passage">
+        <blockquote>${mark(h.t, q)}</blockquote>
+        <div class="cite"><span class="bk">${esc(h.b)}</span>${h.a ? `<span class="au">${esc(h.a)}</span>` : ''}
+        <span class="chips">${h.th.map(t =>
+          `<span class="chip" style="color:${famColor(t)}">${esc(t.split(' & ')[0])}</span>`).join('')}</span></div>
+      </article>`).join('') +
+      (set.length > shown.length
+        ? `<p class="empty">Showing ${shown.length} of ${set.length}. Narrow with search.</p>` : '');
+  }
+
+  qEl.addEventListener('input', render);
+
+  /* ---------- bridges ---------- */
+  const topLinks = [...DATA.links].sort((a, b) => b.weight - a.weight).slice(0, 9);
+  document.getElementById('bridges').innerHTML = topLinks.map(l => {
+    const a = byId[l.source].name, b = byId[l.target].name;
+    return `<button class="bridge" type="button" data-a="${esc(a)}" data-b="${esc(b)}">
+      <span class="w">${l.weight}</span>
+      <span class="pair"><span>${esc(a)}</span><span>${esc(b)}</span></span></button>`;
+  }).join('');
+  document.querySelectorAll('.bridge').forEach(btn => btn.onclick = () => {
+    selected = null; pDot.hidden = true;
+    pairFilter = [btn.dataset.a, btn.dataset.b];
+    pName.textContent = 'Shared ground';
+    pSub.textContent = `${btn.dataset.a} × ${btn.dataset.b}`;
+    tab = 'passages';
+    document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', String(x.dataset.tab === 'passages')));
+    syncIndex(); render(); draw();
+    document.querySelector('.panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 
-els.shuffleBtn.addEventListener('click', pullAnother);
-els.prevBtn.addEventListener('click', showPrevious);
-els.copyBtn.addEventListener('click', copyCurrentHighlight);
+  /* ---------- boot ---------- */
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for (let i = 0; i < 420; i++) tick();
+  new ResizeObserver(resize).observe(plate);
+  resize(); syncIndex(); render();
 
-window.addEventListener('keydown', event => {
-  if (event.metaKey || event.ctrlKey || event.altKey) return;
-  if (event.key === 'ArrowRight') {
-    event.preventDefault();
-    if (!els.shuffleBtn.disabled) pullAnother();
-  } else if (event.key === 'ArrowLeft') {
-    event.preventDefault();
-    showPrevious();
-  } else if (event.key.toLowerCase() === 'c') {
-    if (!els.copyBtn.disabled) copyCurrentHighlight();
+  // deep link: /readwise-highlights/#Theme%20Name
+  try {
+    const want = decodeURIComponent(location.hash.slice(1));
+    const n = want && nodes.find(x => x.name === want);
+    if (n) selectTheme(n);
+  } catch (e) {}
+
+  if (!reduce) {
+    let frames = 0;
+    (function loop() { if (frames++ > 90) return; tick(); draw(); requestAnimationFrame(loop); })();
   }
-});
+  function rePaintSwatches() {
+    document.querySelectorAll('.fam').forEach((b, i) => {
+      b.querySelector('.sw').style.background = famColor(Object.values(FAMILY)[i].themes[0]);
+    });
+    for (const n of nodes) nodeBtns.get(n.id).style.borderLeftColor = famColor(n.name);
+    if (selected) pDot.style.background = famColor(selected.name);
+    render();
+  }
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readColors(); draw(); rePaintSwatches(); });
+  new MutationObserver(() => { readColors(); draw(); rePaintSwatches(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+}
+
+fetch('../data/reading_atlas.json', { cache: 'no-cache' })
+  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  .then(boot)
+  .catch(err => {
+    document.getElementById('p-body').innerHTML =
+      `<p class="empty">The atlas data did not load (${esc(err.message)}). Rebuild it with
+       <code>python3 data/atlas_build.py</code> or wait for the monthly refresh.</p>`;
+    document.getElementById('stamp').textContent = 'Atlas data unavailable';
+  });
 </script>
 </body>
 </html>

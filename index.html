@@ -243,12 +243,6 @@ var FALLBACK = {
    "href": "/digital-ecosystem-refresh/"
   },
   {
-   "severity": "amber",
-   "label": "Readwise cache is 139 days old",
-   "detail": "Cache built Apr 16, newest highlight Mar 19 — rerun data/readwise_loader.py (the Eastern Front map already pulls 157 quotes from Readwise directly)",
-   "href": "/readwise-highlights/"
-  },
-  {
    "severity": "info",
    "label": "Sep 2 rebuild shipped",
    "detail": "Notebook and Workflow Wrench retired · Wellness Analysis merged into the Wellness Desk · Almanac collapsed to one page with 9 figures · Eastern Front in the top bar (Sep 3: The Rundown at /easternfront/, Highlight Map moved to /easternfront/map/) · playlist counts synced",
@@ -395,19 +389,13 @@ var FALLBACK = {
   },
   {
    "label": "Highlights banked",
-   "value": "1,696",
-   "delta": "cache 139d old",
-   "tone": "warn",
-   "note": "165 sources · newest highlight Mar 19",
+   "value": "2,165",
+   "delta": "1,081 themed",
+   "tone": "good",
+   "note": "236 sources · 16 themes · newest highlight Aug 25",
    "color": "#f4b942",
    "href": "/readwise-highlights/",
    "spark": [
-    9,
-    5,
-    1,
-    2,
-    6,
-    0,
     0,
     36,
     4,
@@ -422,10 +410,16 @@ var FALLBACK = {
     17,
     3,
     0,
-    8,
+    13,
     19,
     3,
-    3
+    3,
+    2,
+    8,
+    8,
+    8,
+    20,
+    0
    ]
   },
   {
@@ -996,29 +990,29 @@ var FALLBACK = {
   },
   {
    "href": "/readwise-highlights/",
-   "label": "Readwise Shelf",
+   "label": "Reading Atlas",
    "cluster": "creative",
    "color": "#f4b942",
-   "metric": "1,696 highlights · 165 sources",
-   "updated": "2026-04-16",
-   "dataThrough": "2026-04-16",
-   "cadenceDays": 45,
-   "tagline": "The source memory — shuffle deck over everything saved",
+   "metric": "2,165 highlights · 236 sources · 16 themes",
+   "updated": "2026-09-03",
+   "dataThrough": "2026-09-03",
+   "cadenceDays": 31,
+   "tagline": "Every highlight sorted into the ideas it belongs to — sixteen themes, the books behind them, and where they meet",
    "stats": [
     {
-     "label": "Shelves",
-     "value": "953 supp · 637 books",
-     "sub": "60 articles · 46 tweets"
+     "label": "Atlas",
+     "value": "1,081 themed",
+     "sub": "of 1,967 passages · 78 theme links · 886 outside the lexicon"
     },
     {
      "label": "Most-highlighted",
-     "value": "Harari · 157",
-     "sub": "Kissinger 140 close behind"
+     "value": "21 Lessons for the 21st Century · 83",
+     "sub": "God Is Not Great · 79 next"
     },
     {
-     "label": "Cache",
-     "value": "139 days old",
-     "sub": "rerun data/readwise_loader.py"
+     "label": "Library pull",
+     "value": "pulled today",
+     "sub": "Sep 3 · 673 book · 1351 supp · 73 article · 68 tweet · refreshed monthly by GitHub Action"
     }
    ],
    "series": [
@@ -1026,30 +1020,6 @@ var FALLBACK = {
      "label": "dated highlights per month",
      "unit": "highlights",
      "points": [
-      [
-       "2024-04",
-       9
-      ],
-      [
-       "2024-05",
-       5
-      ],
-      [
-       "2024-06",
-       1
-      ],
-      [
-       "2024-07",
-       2
-      ],
-      [
-       "2024-08",
-       6
-      ],
-      [
-       "2024-09",
-       0
-      ],
       [
        "2024-10",
        0
@@ -1108,7 +1078,7 @@ var FALLBACK = {
       ],
       [
        "2025-12",
-       8
+       13
       ],
       [
        "2026-01",
@@ -1121,13 +1091,41 @@ var FALLBACK = {
       [
        "2026-03",
        3
+      ],
+      [
+       "2026-04",
+       2
+      ],
+      [
+       "2026-05",
+       8
+      ],
+      [
+       "2026-06",
+       8
+      ],
+      [
+       "2026-07",
+       8
+      ],
+      [
+       "2026-08",
+       20
+      ],
+      [
+       "2026-09",
+       0
       ]
      ]
     }
    ],
    "links": [
     {
-     "href": "/readwise-highlights/#quoteCard",
+     "href": "/readwise-highlights/",
+     "label": "Open the atlas"
+    },
+    {
+     "href": "/readwise-highlights/deck/",
      "label": "Shuffle deck"
     }
    ]
@@ -1708,7 +1706,7 @@ var FALLBACK = {
   }
 
   function quoteStrip(m) {
-    return '<div class="resurface" aria-live="polite"><div><p class="rs-quote" id="rsQuote"></p><p class="rs-meta" id="rsMeta"></p></div><div class="rs-actions"><button type="button" id="rsBtn">Resurface</button><a href="/readwise-highlights/">Open the shelf</a></div></div>';
+    return '<div class="resurface" aria-live="polite"><div><p class="rs-quote" id="rsQuote"></p><p class="rs-meta" id="rsMeta"></p></div><div class="rs-actions"><button type="button" id="rsBtn">Resurface</button><a href="/readwise-highlights/">Open the atlas</a></div></div>';
   }
   var currentQuote = null;
   function wireQuote(m) {

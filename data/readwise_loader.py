@@ -178,6 +178,8 @@ def run(force: bool = False) -> dict:
         book = book_map.get(h.get("book_id", 0), {})
 
         highlights.append({
+            "id": h.get("id"),
+            "book_id": h.get("book_id"),
             "text": text,
             "note": (h.get("note") or "").strip(),
             "book_title": book.get("title", ""),
@@ -187,6 +189,8 @@ def run(force: bool = False) -> dict:
             "highlighted_at": h.get("highlighted_at", ""),
             "color": h.get("color", ""),
             "readwise_url": h.get("readwise_url") or h.get("url", ""),
+            "updated": h.get("updated", ""),
+            "tags": [t.get("name", "") for t in (h.get("tags") or []) if t.get("name")],
         })
 
     # Sort by highlight date (newest first)
