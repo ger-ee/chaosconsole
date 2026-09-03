@@ -8,7 +8,7 @@
     { title: "Ledger", short: "Ledger", href: "/the-ledger/", color: "#ef3b86", note: "Debt, cash flow, accounts, APRs." },
     { title: "Wellness", short: "Wellness", href: "/wellness-dashboard/", color: "#82ca55", note: "Apple Health and RingConn signal." },
     { title: "Playlist Tracker", short: "Playlists", href: "/playlist-tracker/", color: "#36a3df", note: "Spotify portfolio and momentum." },
-    { title: "Eastern Front", short: "E. Front", href: "/easternfront/", color: "#f0563c", note: "Assembly bench, highlight map, revenge arc." },
+    { title: "Eastern Front", short: "E. Front", href: "/easternfront/", color: "#f0563c", note: "Series rundown, highlight map, revenge arc." },
     { title: "Blindspot Almanac", short: "Almanac", href: "/production-almanac/", color: "#f4c51d", note: "Production craft, cases, sources." },
     { title: "Binder", short: "Binder", href: "/the-blindspot-binder/", color: "#f0524d", note: "Channel operating manual." },
     { title: "Readwise", short: "Readwise", href: "/readwise-highlights/", color: "#9b72d9", note: "Highlights, marginalia, sources." },
