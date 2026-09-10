@@ -1,7 +1,7 @@
 {
  "version": 2,
- "generated": "2026-09-03",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar.",
+ "generated": "2026-09-10",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated).",
  "attention": [
   {
    "severity": "red",
@@ -11,8 +11,8 @@
   },
   {
    "severity": "amber",
-   "label": "August close absorbed $15,515 in legal outflow",
-   "detail": "$515 consult (8/4) + $10,000 DVRO retainer (8/12) + $5,000 civil retainer (8/21), on top of July's $12,285 revolving close — re-run the Ledger close when August statements land and ask the firm for a trust statement",
+   "label": "Ledger re-closed on August — revolving debt jumped to $15,646",
+   "detail": "+$3,436 in one cycle. Roughly $3,282 of it is payments that bounced for insufficient funds (Apple $1,605, Citi $1,207, PayPal Credit $470 + a $14.87 fee) and came straight back onto the balances. Legal outflow of $15,515 passed through checking against a $15,000 family wire on 8/11. Amazon's August statement is still unavailable and is carried as an estimate.",
    "href": "/the-ledger/"
   },
   {
@@ -24,13 +24,13 @@
   {
    "severity": "amber",
    "label": "PayPal Credit promo clock is running",
-   "detail": "$1,090 Austrian Air ticket on deferred interest — clear it by 02/10/27 (~$182/mo) or 29.64% APR applies retroactively",
+   "detail": "$1,090.33 Austrian Air balance on deferred interest, expiring 02/10/27. Shadow interest is now $35.79 and accruing $28.69/mo — clear it at ~$182/mo or 29.64% APR applies retroactively from the purchase date.",
    "href": "/the-ledger/#view-interest"
   },
   {
-   "severity": "amber",
-   "label": "Second bounced ACH on Capital One 0623",
-   "detail": "$429 payment returned 07/08, second returned ACH in two months — verify the funding account behind autopay before the next cycle",
+   "severity": "red",
+   "label": "Apple Card is past due — $174 unpaid, $359 minimum by 9/30",
+   "detail": "No payment cleared the August cycle after four July ACH reversals. Balance $4,988 → $6,103. Goldman reports to the bureaus, so this is the one payment that stops a cash-flow problem becoming a credit-file problem.",
    "href": "/the-ledger/#view-accounts"
   },
   {
@@ -46,19 +46,19 @@
    "href": "/production-almanac/"
   },
   {
-   "severity": "info",
-   "label": "First card killed",
-   "detail": "US Bank Ralphs closed July at $0.00 — Capital One 4540 is $38.65 from being the second",
+   "severity": "amber",
+   "label": "The first kill un-killed itself",
+   "detail": "US Bank Ralphs reopened at $205.47 (close 9/1, $40 min due 9/28) and Capital One 4540 went $38.65 → $806.38 on an $515 legal retainer, then bounced its $806.38 autopay on 9/9. Checking closed 9/9 overdrawn at −$7.37.",
    "href": "/the-ledger/#view-accounts"
   }
  ],
  "kpis": [
   {
    "label": "Revolving debt",
-   "value": "$12,285",
-   "delta": "−$260 MoM",
-   "tone": "good",
-   "note": "July close · Aug close pending · first card killed",
+   "value": "$15,646",
+   "delta": "+$3,436 MoM",
+   "tone": "warn",
+   "note": "Aug close · Amazon estimated · ~$3,282 of it bounced payments",
    "color": "#d4a052",
    "href": "/the-ledger/",
    "spark": [
@@ -71,27 +71,30 @@
     13310.73,
     13316.74,
     12544.91,
-    12284.57
+    12209.51,
+    15645.97
    ]
   },
   {
    "label": "Interest bleed",
-   "value": "$138",
-   "delta": "Jul partial · Apple pending",
-   "tone": "good",
-   "note": "6 of 8 closed · $2,995 burned since Oct",
+   "value": "$305",
+   "delta": "Aug close · all 8 cards",
+   "tone": "warn",
+   "note": "$3,424 burned since Oct · avg $311/mo",
    "color": "#fb923c",
    "href": "/the-ledger/#view-interest",
    "spark": [
     330.25,
     355.33,
     330.6,
-    324.36,
+    340.49,
     303.9,
     303.15,
     297.57,
     307.32,
-    288.57
+    288.57,
+    262.46,
+    304.8
    ]
   },
   {
@@ -312,31 +315,31 @@
    "label": "The Ledger",
    "cluster": "ops",
    "color": "#d4a052",
-   "metric": "$12,284.57 revolving",
-   "updated": "2026-07-29",
-   "dataThrough": "2026-07-23",
+   "metric": "$15,645.97 revolving",
+   "updated": "2026-09-10",
+   "dataThrough": "2026-09-09",
    "cadenceDays": 32,
    "tagline": "8 cards · avalanche order · payoff simulator · Stephen ledger",
    "stats": [
     {
-     "label": "First kill",
-     "value": "US Bank · $0.00",
-     "sub": "0623 crisis also over: $2,145 → $1,245, back under its limit"
+     "label": "August break",
+     "value": "+$3,436 in one cycle",
+     "sub": "$3,282 of it is returned ACH payments re-added as purchases across Apple, Citi and PayPal Credit"
+    },
+    {
+     "label": "Cure first",
+     "value": "Apple Card · $359 by 9/30",
+     "sub": "$174 already past due · balance $6,103.26 at 25.49% · the only credit-file risk on the board"
     },
     {
      "label": "Promo clock",
-     "value": "$1,090 by 02/10/27",
-     "sub": "Austrian Air on PayPal Credit deferred interest — ~$182/mo or 29.64% retroactive"
-    },
-    {
-     "label": "Attack next",
-     "value": "Apple Card · $4,987.85",
-     "sub": "25.49% APR · largest exposure · July statement pending"
+     "value": "$1,090.33 by 02/10/27",
+     "sub": "Austrian Air on PayPal Credit deferred interest — $35.79 accrued, +$28.69/mo, ~$182/mo to clear"
     },
     {
      "label": "Stephen",
-     "value": "net $9,900 in",
-     "sub": "8 Zelle payments Mar–Jul · July's $2,700 traced to rent"
+     "value": "net $12,600 in",
+     "sub": "9 Zelle payments Mar–Jul · nothing since 07/23 · Mar–Aug inflow covered cards + living almost exactly"
     }
    ],
    "series": [
@@ -382,7 +385,11 @@
       ],
       [
        "2026-07",
-       12284.57
+       12209.51
+      ],
+      [
+       "2026-08",
+       15645.97
       ]
      ]
     }
