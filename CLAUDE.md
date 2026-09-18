@@ -1,3 +1,47 @@
+# Chaos Console — site brief
+
+Read this first in every session. It is the standing brief for the whole site; the Binder ingest protocol that follows applies only to `/the-blindspot-binder/`.
+
+chaosconsole.com is Gary's private operating dashboard, deployed by GitHub Pages from `main` of `ger-ee/chaosconsole` (CNAME `chaosconsole.com`). The gate in `shared/gate.js` is client-side: treat every page as publishable.
+
+**This is the real clone.** `~/Documents/Claude/chaosconsole/`. Not `Documents/Claude/Source Code/Website/gary-dashboard/Chaos Console` (empty), not `Documents/Codex/ChaosConsole/site/` (old), not the nested `gary-dashboard/` here (legacy, not deployed). The folder is iCloud-synced: a file that reads as empty or "Resource deadlock avoided" is dataless — `ls -lO` shows it; `brctl download <file>` fixes it. Do that from a native shell (Desktop Commander), not the Cowork mount.
+
+## The refresh, in one line
+
+The full procedure lives in the **`chaos-console-refresh` skill** (Cowork skills). Invoke it for any "refresh / bring up to speed / close the Ledger / update the Hearing Room / sync playlists" request. This file only fixes what the skill assumes.
+
+## Layout
+
+- Landing: `index.html` renders `data/console-status.json` (schema v2); the same JSON is inlined after `var FALLBACK = ` so the page works offline. **Edit the JSON, then `python3 data/status_build.py`** (validates, re-inlines). Never hand-edit the FALLBACK blob.
+- Rooms: `/<slug>/index.html`, one self-contained page each. Shared chrome in `shared/console-shell.{css,js}`; Chart.js and the sankey plugin are vendored in `shared/vendor/` — no CDNs.
+- Data and scripts in `data/`: `ledger_close.py` (Ledger blob: dump / extract / apply / check), `status_build.py` (manifest → FALLBACK), `render_check.py` (headless render, screenshots, page errors), `readwise_loader.py` + `atlas_build.py` + `readwise_status.py` (monthly, also run by `.github/workflows/readwise-refresh.yml` on the 1st), `health_refresh.py` / `health_loader.py` (Wellness; see the health notes in memory — never `--force` the loader casually, it needs 7 GB).
+
+## Rooms and their sources
+
+| Room | Source of truth | Cadence |
+|---|---|---|
+| `/the-ledger/` | `~/Documents/Finances/Statements/<issuer>/…pdf` (7 cards, Citi checking, BMW Financial) | monthly, run on the 10th |
+| `/hearing-room/` | Gmail (counsel domain, opposing counsel, Clio bills) + the TRO memory | weekly while the case is live |
+| `/playlist-tracker/` | open.spotify.com follower counts (JS-rendered; use the built-in browser) | monthly, or on request |
+| `/wellness-dashboard/` | Health Auto Export → iCloud AutoSync `.hae`; RENPHO PDFs in `~/Documents/Health Records/` | when the phone app has synced |
+| `/readwise-highlights/` | Readwise API (`data/.env`) | monthly by GitHub Action |
+| everything else | edited by hand when the underlying work moves | as needed |
+
+## Rules that do not bend
+
+- **Hearing Room is logistics only**: dates, filings, deadlines, money, who owes what. No case number, no party names, no strategy analysis, no medical history. Counsel and firm names are fine.
+- **Ledger month key = calendar month of the statement close date.** No statement → null row, balance carries forward. Returned payments show up on statements as purchases — read the detail. Amazon August 2026 is an estimate until the statement exists; say so wherever the number appears.
+- **The landing page shows less on purpose.** Four flags, six gauges, one line per room. Do not add gauges or room stats back; put detail in the room.
+- **Binder updates commit locally and never push** (protocol below). Everything else: "make it live" means commit + push; otherwise stage and report.
+- **Git only from a native shell.** The Cowork mount has no identity or credentials and cannot delete files. Commit and push through Desktop Commander; confirm the Pages build by fetching `https://chaosconsole.com/data/console-status.json` and checking `generated`.
+- **Verify before shipping**: `python3 data/ledger_close.py check`, `python3 data/status_build.py --check`, `python3 data/render_check.py` (zero page errors, and look at the screenshots).
+
+## Memory
+
+Durable facts and gotchas live in Cowork memory under the Chaos Console project (`project_chaos_console.md`, `ledger_close.md`, `health_pipeline.md`). Add to them in the same session you learn something; do not repeat what this file already says.
+
+---
+
 # The Blindspot Binder — Update Protocol
 
 This file governs updates to `the-blindspot-binder/index.html` in this repo. It is the standing brief Claude Code reads at the start of every session. The workflow has two phases — **Sort** and **Ingest** — which run independently on separate invocations.
