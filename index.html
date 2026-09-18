@@ -20,136 +20,173 @@
   --gold:#d4a052; --good:#4ade80; --warn:#fbbf24; --bad:#f87171; --info:#60a5fa;
   --sans:"Instrument Sans",Inter,ui-sans-serif,system-ui,sans-serif; --disp:"Space Grotesk",var(--sans);
   --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace; --serif:"Fraunces",Georgia,serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box}
 html{background:var(--bg);scroll-behavior:smooth}
-body{margin:0;min-height:100vh;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
-  background:
-    radial-gradient(900px 520px at 8% -10%, rgba(212,160,82,.16), transparent 60%),
-    radial-gradient(700px 420px at 92% 0%, rgba(240,82,77,.10), transparent 60%),
-    radial-gradient(600px 400px at 50% 110%, rgba(140,123,255,.08), transparent 60%),
-    var(--bg)}
+body{margin:0;min-height:100vh;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;background:var(--bg);overflow-x:hidden}
 a{color:inherit}
+::selection{background:rgba(212,160,82,.35)}
+
+/* ambient field — two slow blobs + grain, all CSS, paused under reduced motion */
+.field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.field i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform}
+.field .a{width:70vw;height:70vw;max-width:900px;max-height:900px;left:-18vw;top:-32vw;background:radial-gradient(circle,rgba(212,160,82,.32),transparent 62%);animation:driftA 28s var(--ease) infinite alternate}
+.field .b{width:60vw;height:60vw;max-width:760px;max-height:760px;right:-20vw;top:-10vw;background:radial-gradient(circle,rgba(240,82,77,.22),transparent 62%);animation:driftB 34s var(--ease) infinite alternate}
+.field .c{width:55vw;height:55vw;max-width:700px;max-height:700px;left:30vw;bottom:-40vw;background:radial-gradient(circle,rgba(140,123,255,.18),transparent 62%);animation:driftA 40s var(--ease) infinite alternate-reverse}
+.field::after{content:"";position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+@keyframes driftA{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(6vw,4vw,0) scale(1.08)}}
+@keyframes driftB{from{transform:translate3d(0,0,0) scale(1.05)}to{transform:translate3d(-5vw,6vw,0) scale(.96)}}
+
 .skip-link{position:fixed;left:16px;top:16px;z-index:40;transform:translateY(-200%);padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--card);color:var(--text);font-family:var(--mono);font-size:11px;text-transform:uppercase;text-decoration:none}
 .skip-link:focus{transform:translateY(0)}
-.shell{width:min(1280px,calc(100% - 40px));margin:0 auto}
+.shell{position:relative;z-index:1;width:min(1200px,calc(100% - 40px));margin:0 auto}
 
 /* topbar */
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:20px;min-height:56px;padding:8px 0;border-bottom:1px solid var(--line);background:rgba(10,14,23,.82);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:20px;min-height:56px;padding:8px 0;border-bottom:1px solid var(--line);background:rgba(10,14,23,.78);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
 .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;flex:none}
 .mark{width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(212,160,82,.55);border-radius:8px;color:var(--gold);font-family:var(--disp);font-weight:700;font-size:14px;background:rgba(212,160,82,.08)}
 .wordmark{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
-.nav{display:flex;align-items:center;gap:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.nav{display:flex;align-items:center;gap:2px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--text-2);padding:7px 10px;border-radius:6px;white-space:nowrap}
+.nav a{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--text-2);padding:7px 10px;border-radius:6px;white-space:nowrap;transition:color .15s,background .15s}
 .nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
-.top-right{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);flex:none}
-.gary{padding:5px 9px;border:1px solid var(--line-2);border-radius:999px;color:var(--gold)}
+.top-right{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);flex:none}
+.kbd{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line-2);border-radius:999px;color:var(--text-2);background:transparent;cursor:pointer;font:inherit;letter-spacing:.12em;text-transform:uppercase}
+.kbd:hover{color:var(--text);border-color:var(--gold)}
+.kbd b{font-weight:600;color:var(--gold)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);gap:22px;align-items:end;padding:44px 0 26px}
-.hello{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.2vw,26px);color:var(--gold);margin:0 0 8px}
-h1{margin:0;font-family:var(--disp);font-size:clamp(46px,7vw,86px);line-height:.92;letter-spacing:-.02em;font-weight:700}
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.9fr);gap:28px;align-items:center;padding:44px 0 30px}
+.hello{font-family:var(--serif);font-style:italic;font-size:clamp(19px,2vw,24px);color:var(--gold);margin:0 0 8px}
+h1{margin:0;font-family:var(--disp);font-size:clamp(50px,7.5vw,92px);line-height:.9;letter-spacing:-.025em;font-weight:700}
 h1 span{color:var(--text-3)}
-.brief-line{margin:14px 0 0;color:var(--text-2);font-size:16px;max-width:64ch}
+.brief-line{margin:16px 0 0;color:var(--text-2);font-size:15.5px;max-width:58ch}
 .brief-line b{color:var(--text);font-weight:600}
-.next{display:grid;gap:8px}
-.next-h{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin:0 0 2px}
-.next a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(17,24,38,.7);text-decoration:none;transition:border-color .15s}
-.next a:hover{border-color:var(--nk)}
-.next .nd{font-family:var(--disp);font-size:22px;font-weight:700;line-height:1;color:var(--nk);min-width:64px}
-.next .nd small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-top:3px;font-weight:500}
-.next .nl{font-size:13.5px;font-weight:600}
-.next .ns{display:block;font-size:12px;color:var(--text-3);font-weight:400;margin-top:1px}
-.next .nw{font-family:var(--mono);font-size:10.5px;color:var(--text-2)}
+
+/* countdown */
+.clock{position:relative;display:grid;gap:12px;padding:20px 22px 18px;border:1px solid rgba(240,82,77,.35);border-radius:16px;background:linear-gradient(160deg,rgba(240,82,77,.14),rgba(17,24,38,.85) 55%);overflow:hidden;text-decoration:none;transition:border-color .2s,transform .2s var(--ease)}
+.clock:hover{border-color:rgba(240,82,77,.7);transform:translateY(-2px)}
+.clock::before{content:"";position:absolute;inset:-40% -20% auto auto;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(240,82,77,.28),transparent 65%);pointer-events:none}
+.clock-k{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3)}
+.clock-k b{color:var(--bad);font-weight:600}
+.clock-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cu{text-align:left}
+.cu-v{font-family:var(--disp);font-size:clamp(30px,3.4vw,42px);font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cu-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-top:4px}
+.clock-s{font-size:12.5px;color:var(--text-2)}
+.clock-s b{color:var(--text);font-weight:600}
+.upnext{margin-top:10px;display:grid;gap:4px}
+.upnext a{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:7px 10px;border-radius:9px;text-decoration:none;color:var(--text-2);font-size:13px;transition:background .15s}
+.upnext a:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.upnext .d{font-family:var(--mono);font-size:11px;color:var(--nk);font-weight:600;letter-spacing:.04em}
+.upnext .w{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
 
 /* section heads */
-.sec{margin-top:34px}
+.sec{margin-top:40px}
 .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
-.sec-head h2{margin:0;font-family:var(--disp);font-size:22px;letter-spacing:-.01em}
-.sec-head p{margin:4px 0 0;color:var(--text-3);font-size:13.5px}
+.sec-head h2{margin:0;font-family:var(--disp);font-size:20px;letter-spacing:-.01em;font-weight:700}
+.sec-head p{margin:3px 0 0;color:var(--text-3);font-size:13px}
 .sec-head .count{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
 
-/* attention */
-.attn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.attn-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);text-decoration:none;transition:transform .15s,border-color .15s;position:relative;overflow:hidden}
-.attn-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sev)}
-.attn-row:hover{transform:translateY(-2px);border-color:var(--sev)}
-.attn-row.sev-red{--sev:var(--bad)} .attn-row.sev-amber{--sev:var(--warn)} .attn-row.sev-info{--sev:var(--info)}
-.attn-row.sev-red{grid-column:span 3;background:linear-gradient(90deg,rgba(248,113,113,.10),var(--card) 40%)}
-.attn-dot{width:10px;height:10px;border-radius:50%;background:var(--sev);margin-top:6px;box-shadow:0 0 0 4px color-mix(in srgb,var(--sev) 18%,transparent)}
-.attn-label{display:block;font-weight:600;font-size:14.5px;line-height:1.3}
-.attn-detail{display:block;color:var(--text-2);font-size:12.5px;margin-top:4px}
-.sev-red .attn-label{font-size:16px}
+/* flags */
+.flags{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.flag{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:15px 18px;border:1px solid var(--line);border-radius:14px;background:rgba(17,24,38,.75);text-decoration:none;position:relative;overflow:hidden;transition:transform .2s var(--ease),border-color .2s}
+.flag::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sev)}
+.flag:hover{transform:translateY(-2px);border-color:var(--sev)}
+.flag.red{--sev:var(--bad);grid-column:1/-1;background:linear-gradient(90deg,rgba(248,113,113,.12),rgba(17,24,38,.85) 45%)}
+.flag.amber{--sev:var(--warn)} .flag.info{--sev:var(--info)}
+.flag-dot{width:9px;height:9px;border-radius:50%;background:var(--sev);margin-top:7px;box-shadow:0 0 0 4px color-mix(in srgb,var(--sev) 16%,transparent)}
+.flag.red .flag-dot{animation:pulse 2.4s ease-in-out infinite}
+.flag-l{display:block;font-weight:600;font-size:14.5px;line-height:1.35}
+.flag.red .flag-l{font-size:16px}
+.flag-d{display:block;color:var(--text-2);font-size:12.5px;margin-top:4px;line-height:1.45}
+.flag.hidden{display:none}
+.more{grid-column:1/-1;justify-self:center;margin-top:2px;font:inherit;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:8px 14px;cursor:pointer;transition:color .15s,border-color .15s}
+.more:hover{color:var(--text);border-color:var(--gold)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px color-mix(in srgb,var(--sev) 16%,transparent)}50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--sev) 4%,transparent)}}
 
-/* kpis */
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.kpi{position:relative;display:flex;flex-direction:column;gap:4px;padding:16px 16px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);text-decoration:none;overflow:hidden;transition:transform .15s,border-color .15s}
-.kpi::after{content:"";position:absolute;inset:auto -30% -50% auto;width:60%;height:100%;background:radial-gradient(closest-side,color-mix(in srgb,var(--k) 22%,transparent),transparent);pointer-events:none}
-.kpi:hover{transform:translateY(-2px);border-color:var(--k)}
-.kpi-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
-.kpi-line{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.kpi-value{font-family:var(--disp);font-size:30px;line-height:1;font-weight:700;color:var(--text)}
-.chip{font-family:var(--mono);font-size:10px;padding:3px 7px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-2)}
-.chip.good{color:var(--good);border-color:rgba(74,222,128,.35)} .chip.warn{color:var(--warn);border-color:rgba(251,191,36,.35)} .chip.bad{color:var(--bad);border-color:rgba(248,113,113,.35)}
-.kpi svg{width:100%;margin-top:6px}
-.kpi-note{font-size:12px;color:var(--text-3);position:relative}
+/* gauges */
+.gauges{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.gauge{position:relative;display:flex;flex-direction:column;gap:6px;min-height:118px;padding:14px 15px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(17,24,38,.8);text-decoration:none;overflow:hidden;transition:transform .2s var(--ease),border-color .2s}
+.gauge:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--k) 60%,var(--line))}
+.gauge svg{position:absolute;left:0;right:0;bottom:0;width:100%;height:46px;opacity:.9;pointer-events:none}
+.g-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);position:relative}
+.g-value{font-family:var(--disp);font-size:clamp(24px,2.2vw,30px);line-height:1;font-weight:700;color:var(--text);letter-spacing:-.02em;position:relative;font-variant-numeric:tabular-nums}
+.g-delta{font-family:var(--mono);font-size:10px;color:var(--text-2);position:relative}
+.g-delta.good{color:var(--good)} .g-delta.warn{color:var(--warn)} .g-delta.bad{color:var(--bad)}
+.g-note{position:absolute;inset:0;padding:14px 15px;display:flex;align-items:flex-end;font-size:11.5px;line-height:1.4;color:var(--text-2);background:linear-gradient(180deg,rgba(17,24,38,0),rgba(17,24,38,.96) 45%);opacity:0;transition:opacity .2s;pointer-events:none}
+.gauge:hover .g-note,.gauge:focus-visible .g-note{opacity:1}
 
-/* clusters + rooms */
-.cluster{margin-top:36px}
-.cluster-head{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.cluster-head h2{margin:0;font-family:var(--disp);font-size:20px}
-.cluster-head p{margin:0;color:var(--text-3);font-size:13px}
-.room-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.room{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;transition:transform .15s,border-color .15s}
-.room:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--k) 55%,var(--line))}
-.room-band{padding:16px 18px 14px;background:linear-gradient(135deg,color-mix(in srgb,var(--k) 26%,var(--card-2)),var(--card-2) 70%);border-bottom:1px solid var(--line)}
-.room-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.room-head a{font-family:var(--disp);font-size:19px;font-weight:700;text-decoration:none;color:var(--text)}
-.room-head a:hover{color:var(--k)}
-.stamp{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 7px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-3);white-space:nowrap}
-.stamp.good{color:var(--good);border-color:rgba(74,222,128,.35)} .stamp.warn{color:var(--warn);border-color:rgba(251,191,36,.35)} .stamp.bad{color:var(--bad);border-color:rgba(248,113,113,.35)}
-.room-metric{margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--k)}
-.room-tagline{margin:6px 0 0;color:var(--text-2);font-size:12.5px}
-.room-body{padding:12px 18px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
-.room-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
-.stat{min-width:0}
-.stat-label{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
-.stat-value{display:block;font-weight:600;font-size:13.5px;margin-top:1px}
-.stat-sub{display:block;font-size:11.5px;color:var(--text-3);margin-top:1px}
-.swatches{display:flex;flex-wrap:wrap;gap:6px}
-.swatch{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;padding:3px 8px 3px 4px;border:1px solid var(--line);border-radius:999px;color:var(--text-2)}
-.swatch i{width:12px;height:12px;border-radius:50%;background:var(--sw)} .swatch small{color:var(--text-3)}
-.room-spark svg{width:100%}
-.spark-cap{display:flex;gap:12px;font-family:var(--mono);font-size:9.5px;color:var(--text-3)}
-.spark-cap i{display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--sw);margin-right:5px}
-.room-links{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:8px;border-top:1px solid var(--line)}
-.room-links a{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--text-2);padding:4px 8px;border-radius:6px;border:1px solid var(--line)}
-.room-links a:hover{color:var(--k);border-color:var(--k)}
-.room-open{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--k)}
+/* rooms */
+.group{margin-top:34px}
+.group-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+.group-head h2{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);font-weight:500}
+.group-head span{flex:1;height:1px;background:var(--line)}
+.rooms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.rooms .room:nth-last-child(1):nth-child(4n+1){grid-column:span 2}
+.rooms .room:nth-last-child(2):nth-child(4n+1),.rooms .room:nth-last-child(1):nth-child(4n+2){grid-column:span 2}
+.room{position:relative;display:flex;flex-direction:column;gap:6px;min-height:132px;padding:16px 18px 14px;border:1px solid var(--line);border-radius:16px;background:rgba(17,24,38,.78);text-decoration:none;overflow:hidden;transition:transform .2s var(--ease),border-color .2s,background .2s}
+.room::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,color-mix(in srgb,var(--k) 14%,transparent),transparent 55%);opacity:.8;pointer-events:none}
+.room:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--k) 60%,var(--line));background:rgba(21,29,46,.9)}
+.room>*{position:relative}
+.room-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.room-name{font-family:var(--disp);font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--text)}
+.room-name small{font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.14em;color:var(--text-3);margin-left:8px;vertical-align:middle}
+.fresh{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);white-space:nowrap}
+.fresh i{width:7px;height:7px;border-radius:50%;background:var(--text-3)}
+.fresh.good i{background:var(--good);box-shadow:0 0 0 3px rgba(74,222,128,.15)} .fresh.good{color:var(--good)}
+.fresh.warn i{background:var(--warn)} .fresh.warn{color:var(--warn)}
+.fresh.bad i{background:var(--bad)} .fresh.bad{color:var(--bad)}
+.room-metric{font-family:var(--mono);font-size:12px;color:var(--k)}
+.room-stat{margin-top:2px;font-size:13px;color:var(--text-2);line-height:1.4}
+.room-stat b{color:var(--text);font-weight:600;display:block}
+.room-spark{position:absolute;left:0;right:0;bottom:0;height:34px;opacity:.55;pointer-events:none}
+.room-spark svg{width:100%;height:100%}
+.room .arrow{position:absolute;right:16px;bottom:12px;font-family:var(--mono);font-size:11px;color:var(--k);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s var(--ease)}
+.room:hover .arrow{opacity:1;transform:translateX(0)}
+.room.hasSpark{padding-bottom:36px}
 
 /* resurface */
-.resurface{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;margin-top:14px;padding:22px 26px;border:1px solid rgba(212,160,82,.28);border-radius:14px;background:linear-gradient(135deg,rgba(212,160,82,.10),var(--card) 60%)}
-.rs-quote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.6vw,21px);line-height:1.4;color:var(--text)}
+.resurface{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;margin-top:40px;padding:24px 28px;border:1px solid rgba(212,160,82,.26);border-radius:16px;background:linear-gradient(135deg,rgba(212,160,82,.10),rgba(17,24,38,.85) 60%)}
+.rs-quote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.5vw,21px);line-height:1.45;color:var(--text)}
 .rs-meta{margin:8px 0 0;font-family:var(--mono);font-size:11px;color:var(--text-3)}
 .rs-actions{display:flex;flex-direction:column;gap:8px}
-.rs-actions button,.rs-actions a{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:8px;border:1px solid rgba(212,160,82,.5);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;text-align:center}
-.rs-actions button:hover{background:rgba(212,160,82,.12)}
+.rs-actions button,.rs-actions a{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:8px;border:1px solid rgba(212,160,82,.5);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;text-align:center;transition:background .15s}
+.rs-actions button:hover,.rs-actions a:hover{background:rgba(212,160,82,.12)}
 
 /* footer */
-.footer{margin-top:44px;padding:20px 0 40px;border-top:1px solid var(--line);display:grid;gap:14px}
+.footer{margin-top:44px;padding:20px 0 44px;border-top:1px solid var(--line);display:grid;gap:14px}
 .annex{display:flex;flex-wrap:wrap;gap:8px}
-.annex a{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--text-2)}
+.annex a{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--text-2);transition:color .15s,border-color .15s}
 .annex a:hover{color:var(--text);border-color:var(--fk)}
 .annex i{width:8px;height:8px;border-radius:50%;background:var(--fk)}
 .foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
 .credo{color:var(--gold)}
-@media (max-width:1080px){.attn{grid-template-columns:repeat(2,minmax(0,1fr))}.attn-row.sev-red{grid-column:span 2}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:760px){.hero{grid-template-columns:1fr}.attn{grid-template-columns:1fr}.attn-row.sev-red{grid-column:span 1}.room-grid{grid-template-columns:1fr}.resurface{grid-template-columns:1fr}.top-right #today{display:none}}
-@media (max-width:520px){.kpis{grid-template-columns:1fr}}
+
+/* jump palette */
+.jump{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px;background:rgba(6,9,15,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.jump.open{display:flex}
+.jump-box{width:min(560px,100%);border:1px solid var(--line-2);border-radius:16px;background:var(--card);box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}
+.jump-box input{width:100%;padding:16px 18px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);font:inherit;font-size:16px;outline:none}
+.jump-list{max-height:52vh;overflow:auto;padding:6px}
+.jump-list a{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--text-2);font-size:14px}
+.jump-list a.on,.jump-list a:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.jump-list a i{width:8px;height:8px;border-radius:50%;background:var(--k);justify-self:center}
+.jump-list a small{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.06em}
+.jump-hint{padding:8px 14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);display:flex;gap:14px}
+
+/* reveal */
+[data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+[data-reveal].in{opacity:1;transform:none}
+
+@media (max-width:1080px){.gauges{grid-template-columns:repeat(3,minmax(0,1fr))}.rooms{grid-template-columns:repeat(2,minmax(0,1fr))}.rooms .room{grid-column:auto!important}}
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:36px}.room-name small{display:none}.flags{grid-template-columns:1fr}.rooms{grid-template-columns:1fr}.resurface{grid-template-columns:1fr}.top-right #today{display:none}.gauges{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.field i{animation:none}.flag.red .flag-dot{animation:none}[data-reveal]{opacity:1;transform:none;transition:none}.gauge,.room,.flag,.clock{transition:none}}
 </style>
 </head>
 <body data-console-home="true">
+<div class="field" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="shell">
   <header class="topbar" aria-label="Primary">
@@ -164,7 +201,7 @@ h1 span{color:var(--text-3)}
       <a href="/the-blindspot-binder/">Binder</a>
       <a href="/readwise-highlights/">Readwise</a>
     </nav>
-    <div class="top-right"><span id="today"></span><span class="gary">Gary</span></div>
+    <div class="top-right"><span id="today"></span><button class="kbd" id="jumpBtn" type="button" aria-label="Jump to a room"><b>⌘K</b> jump</button></div>
   </header>
 
   <main id="main">
@@ -174,26 +211,48 @@ h1 span{color:var(--text-3)}
         <h1>The Readout<span>.</span></h1>
         <p class="brief-line" id="briefLine">Loading the board…</p>
       </div>
-      <div class="next" id="nextUp"><p class="next-h">Next up</p></div>
+      <div>
+        <a class="clock" id="clock" href="/hearing-room/">
+          <div class="clock-k"><span>Until the hearing</span><b id="clockDate"></b></div>
+          <div class="clock-row">
+            <div class="cu"><div class="cu-v" id="cd">—</div><div class="cu-l">days</div></div>
+            <div class="cu"><div class="cu-v" id="ch">—</div><div class="cu-l">hours</div></div>
+            <div class="cu"><div class="cu-v" id="cm">—</div><div class="cu-l">min</div></div>
+            <div class="cu"><div class="cu-v" id="cs">—</div><div class="cu-l">sec</div></div>
+          </div>
+          <div class="clock-s" id="clockSub"></div>
+        </a>
+        <div class="upnext" id="upnext"></div>
+      </div>
     </section>
 
-    <section class="sec" aria-labelledby="attn-title">
-      <div class="sec-head"><div><h2 id="attn-title">Needs a decision</h2><p>Flags carry a link to the room that clears them.</p></div><span class="count" id="attnCount"></span></div>
-      <div class="attn" id="attnList"></div>
+    <section class="sec" aria-labelledby="attn-title" data-reveal>
+      <div class="sec-head"><div><h2 id="attn-title">Needs a decision</h2><p>Each flag opens the room that clears it.</p></div><span class="count" id="attnCount"></span></div>
+      <div class="flags" id="flags"></div>
     </section>
 
-    <section class="sec" aria-label="Key numbers">
-      <div class="sec-head"><div><h2>Key numbers</h2><p>Each tile opens its room.</p></div><span class="count">8 gauges</span></div>
-      <div class="kpis" id="kpiBand"></div>
+    <section class="sec" aria-label="Key numbers" data-reveal>
+      <div class="sec-head"><div><h2>Six numbers</h2><p>Hover for the note. Each opens its room.</p></div><span class="count" id="kpiStamp"></span></div>
+      <div class="gauges" id="gauges"></div>
     </section>
 
     <div id="clusters"></div>
+
+    <div class="resurface" data-reveal aria-live="polite"><div><p class="rs-quote" id="rsQuote"></p><p class="rs-meta" id="rsMeta"></p></div><div class="rs-actions"><button type="button" id="rsBtn">Resurface</button><a href="/readwise-highlights/">Open the atlas</a></div></div>
 
     <footer class="footer">
       <div class="annex" id="annex"></div>
       <div class="foot-line"><span class="credo">Built by Gary. For Gary.</span><span id="stampLine"></span></div>
     </footer>
   </main>
+</div>
+
+<div class="jump" id="jump" role="dialog" aria-modal="true" aria-label="Jump to a room">
+  <div class="jump-box">
+    <input id="jumpInput" type="text" placeholder="Jump to a room…" autocomplete="off" spellcheck="false">
+    <div class="jump-list" id="jumpList"></div>
+    <div class="jump-hint"><span>↑↓ move</span><span>↵ open</span><span>esc close</span><span>1–9 jump from anywhere</span></div>
+  </div>
 </div>
 
 <script>
@@ -203,56 +262,50 @@ h1 span{color:var(--text-3)}
    offline / on file:// — the fetched copy wins when it loads. */
 var FALLBACK = {
  "version": 2,
- "generated": "2026-09-10",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated).",
+ "generated": "2026-09-18",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18.",
  "attention": [
   {
    "severity": "red",
-   "label": "Hearing continued to Wed Oct 28 — twelve days of silence from counsel",
-   "detail": "Lai took the continuance in person on 8/19; DV-115 signed 8/21; civil retainer ($5k) paid 8/21. Since then: no conformed order, no onboarding request, no readout on the negotiation. Break the silence this week — you leave Sep 15.",
+   "label": "Apple Card is past due — $359 minimum by Sep 30, $174 already late",
+   "detail": "No payment cleared the August cycle after four July reversals; balance $6,103. The issuer reports to the bureaus — the one payment that keeps a cash-flow problem from becoming a credit-file problem.",
+   "href": "/the-ledger/#view-accounts"
+  },
+  {
+   "severity": "red",
+   "label": "Counsel silent on your Sep 15 questions · bill 38507 ($5,890.82) due Sep 20 with no line items",
+   "detail": "Four questions on the Oct 28 plan and the phone handover have sat three days. Get the itemized invoice before it is paid, and the mailing address for the handset.",
    "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "Ledger re-closed on August — revolving debt jumped to $15,646",
-   "detail": "+$3,436 in one cycle. Roughly $3,282 of it is payments that bounced for insufficient funds (Apple $1,605, Citi $1,207, PayPal Credit $470 + a $14.87 fee) and came straight back onto the balances. Legal outflow of $15,515 passed through checking against a $15,000 family wire on 8/11. Amazon's August statement is still unavailable and is carried as an estimate.",
-   "href": "/the-ledger/"
+   "label": "BMW: two car payments bounced — $1,402.64 due Sep 30, principal frozen since June",
+   "detail": "07/20 and 08/20 installments both returned; $15 fee each and a $33.48 late charge. Payoff $35,646. Same-day wall as Apple's $359, on a checking account that closed the last cycle overdrawn.",
+   "href": "/the-ledger/#carCard"
   },
   {
    "severity": "amber",
-   "label": "Health feed stalled Aug 11 — ring channel silent since Jun 12",
-   "detail": "Incremental refresh pulled AutoSync through Aug 11 (sleep to Aug 8, steps to Aug 11) but resting HR / HRV stop Jun 12 and SpO2 Jun 7. Open Health Auto Export on the phone, then run data/health_refresh.py. RENPHO scans are current to Sep 1.",
+   "label": "PayPal Credit promo clock is running — $1,090.33 by 02/10/27",
+   "detail": "Shadow interest now $35.79 and accruing $28.69/mo; ~$182/mo clears it, or 29.64% APR applies retroactively from the purchase date.",
+   "href": "/the-ledger/#view-interest"
+  },
+  {
+   "severity": "amber",
+   "label": "Health feed stalled Aug 15 — ring channel silent since Jun 12",
+   "detail": "Open Health Auto Export on the phone, then run data/health_refresh.py. RENPHO scans current to Sep 1.",
    "href": "/wellness-dashboard/"
   },
   {
    "severity": "amber",
-   "label": "PayPal Credit promo clock is running",
-   "detail": "$1,090.33 Austrian Air balance on deferred interest, expiring 02/10/27. Shadow interest is now $35.79 and accruing $28.69/mo — clear it at ~$182/mo or 29.64% APR applies retroactively from the purchase date.",
-   "href": "/the-ledger/#view-interest"
-  },
-  {
-   "severity": "red",
-   "label": "Apple Card is past due — $174 unpaid, $359 minimum by 9/30",
-   "detail": "No payment cleared the August cycle after four July ACH reversals. Balance $4,988 → $6,103. Goldman reports to the bureaus, so this is the one payment that stops a cash-flow problem becoming a credit-file problem.",
-   "href": "/the-ledger/#view-accounts"
-  },
-  {
-   "severity": "amber",
-   "label": "Ecosystem pass V10 is 85 days overdue",
-   "detail": "V9 closed Mar 11; the 90-day cadence ran out Jun 9. 5-item queue incl. rebuilding financial-consolidation.html — and this rebuild retired two rooms, so the room inventory needs re-listing",
+   "label": "Ecosystem pass V10 is 101 days overdue",
+   "detail": "V9 closed Mar 11; the 90-day cadence ran out Jun 9. Queue includes rebuilding financial-consolidation.html and re-listing the room inventory after the Sep 2 rebuild.",
    "href": "/digital-ecosystem-refresh/"
   },
   {
    "severity": "info",
-   "label": "Sep 2 rebuild shipped",
-   "detail": "Notebook and Workflow Wrench retired · Wellness Analysis merged into the Wellness Desk · Almanac collapsed to one page with 9 figures · Eastern Front in the top bar (Sep 3: The Rundown at /easternfront/, Highlight Map moved to /easternfront/map/) · playlist counts synced",
-   "href": "/production-almanac/"
-  },
-  {
-   "severity": "amber",
-   "label": "The first kill un-killed itself",
-   "detail": "US Bank Ralphs reopened at $205.47 (close 9/1, $40 min due 9/28) and Capital One 4540 went $38.65 → $806.38 on an $515 legal retainer, then bounced its $806.38 autopay on 9/9. Checking closed 9/9 overdrawn at −$7.37.",
-   "href": "/the-ledger/#view-accounts"
+   "label": "Civil demand letter is out — answer or cure by Oct 1, 5:00 pm",
+   "detail": "Sent by counsel Sep 10 after your review. Two days after you land. Ask counsel what Oct 2 looks like in either branch.",
+   "href": "/hearing-room/#status"
   }
  ],
  "kpis": [
@@ -261,7 +314,7 @@ var FALLBACK = {
    "value": "$15,646",
    "delta": "+$3,436 MoM",
    "tone": "warn",
-   "note": "Aug close · Amazon estimated · ~$3,282 of it bounced payments",
+   "note": "Aug close · $3,424 of interest since Oct · Amazon Aug estimated",
    "color": "#d4a052",
    "href": "/the-ledger/",
    "spark": [
@@ -279,50 +332,40 @@ var FALLBACK = {
    ]
   },
   {
-   "label": "Interest bleed",
-   "value": "$305",
-   "delta": "Aug close · all 8 cards",
+   "label": "Hearing",
+   "value": "40 days",
+   "delta": "Wed Oct 28",
    "tone": "warn",
-   "note": "$3,424 burned since Oct · avg $311/mo",
-   "color": "#fb923c",
-   "href": "/the-ledger/#view-interest",
-   "spark": [
-    330.25,
-    355.33,
-    330.6,
-    340.49,
-    303.9,
-    303.15,
-    297.57,
-    307.32,
-    288.57,
-    262.46,
-    304.8
-   ]
+   "note": "Dept 547 · 8:30 · abroad until Sep 29 · counsel owes the plan",
+   "color": "#f0524d",
+   "href": "/hearing-room/",
+   "live": "hearing"
   },
   {
    "label": "Legal outflow",
    "value": "$15,515",
-   "delta": "2 retainers",
+   "delta": "+$5,891 billed",
    "tone": "warn",
-   "note": "Lai · both matters · hearing Wed Oct 28 · 56 days out",
-   "color": "#f0524d",
-   "href": "/hearing-room/",
+   "note": "two retainers in trust · bill 38507 due Sep 20 · itemization requested",
+   "color": "#f87171",
+   "href": "/hearing-room/#money",
    "spark": [
     0,
     515,
     515,
     10515,
     10515,
-    15515
+    15515,
+    15515,
+    21406
    ]
   },
   {
    "label": "Playlist followers",
-   "value": "1,062",
-   "delta": "+13 since Jul",
+   "value": "1,066",
+   "delta": "+4 since Sep 2",
    "tone": "good",
-   "note": "15 playlists · top 3 hold 78.7% · synced Sep 2",
+   "note": "15 playlists · Monday's Mixtape 513 · Groove 217 · synced Sep 18",
    "color": "#8c7bff",
    "href": "/playlist-tracker/",
    "spark": [
@@ -350,7 +393,7 @@ var FALLBACK = {
     1033,
     1044,
     1049,
-    1062
+    1066
    ]
   },
   {
@@ -358,7 +401,7 @@ var FALLBACK = {
    "value": "19.2%",
    "delta": "−3.0 pts since Mar",
    "tone": "good",
-   "note": "RENPHO Sep 1 · 184.2 lb · WHR 0.86 · score 84",
+   "note": "RENPHO Sep 1 · 184.2 lb · WHR 0.86 · feed stalled Aug 15",
    "color": "#fb923c",
    "href": "/wellness-dashboard/#body",
    "spark": [
@@ -369,70 +412,39 @@ var FALLBACK = {
    ]
   },
   {
-   "label": "Recovery score",
-   "value": "41",
-   "delta": "Under Pressure",
-   "tone": "warn",
-   "note": "last 14 cardio-backed days · ring quiet since Jun 12",
-   "color": "#4ade80",
-   "href": "/wellness-dashboard/#analysis",
-   "spark": [
-    70,
-    58.7,
-    50.1,
-    57.3,
-    34.9,
-    58.8,
-    42.4,
-    39.7,
-    48.5,
-    56.2,
-    31.4
-   ]
-  },
-  {
    "label": "Highlights banked",
-   "value": "2,165",
-   "delta": "1,081 themed",
+   "value": "2,133",
+   "delta": "1,073 themed",
    "tone": "good",
-   "note": "236 sources · 16 themes · newest highlight Aug 25",
+   "note": "228 sources · 16 themes · newest highlight Sep 7",
    "color": "#f4b942",
    "href": "/readwise-highlights/",
    "spark": [
     0,
     36,
     4,
-    27,
-    26,
-    12,
+    25,
+    24,
+    11,
     19,
-    9,
-    21,
+    8,
+    19,
     15,
     3,
-    17,
+    15,
     3,
     0,
     13,
-    19,
-    3,
-    3,
+    11,
     2,
+    3,
+    0,
     8,
     8,
-    8,
-    20,
-    0
+    7,
+    12,
+    15
    ]
-  },
-  {
-   "label": "Eastern Front",
-   "value": "5",
-   "delta": "episode rulers",
-   "tone": "flat",
-   "note": "The Rundown shipped Sep 3 · 157 quotes · 19 unsourced milestones",
-   "color": "#f0563c",
-   "href": "/easternfront/"
   }
  ],
  "clusters": [
@@ -463,31 +475,31 @@ var FALLBACK = {
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "Oct 28 · 56 days out",
-   "updated": "2026-09-02",
-   "dataThrough": "2026-09-02",
+   "metric": "Oct 28 · 40 days out",
+   "updated": "2026-09-18",
+   "dataThrough": "2026-09-18",
    "cadenceDays": 7,
-   "tagline": "Status board · what happened 5 Aug → 2 Sep · open loops · 56-day calendar · money · rules",
+   "tagline": "Status board · what happened 5 Aug → 18 Sep · open loops · 40-day calendar · money · rules",
    "stats": [
     {
      "label": "Wed 28 Oct · 8:30",
-     "value": "Dept 547 — continued",
-     "sub": "Judge Angela J. Davis · farthest date the court would give · one continuance used"
+     "value": "Dept 547 — stands",
+     "sub": "discovery request denied 9/10 · conformed continuance paperwork still owed"
     },
     {
      "label": "Counsel",
-     "value": "Lai, CFLS · both matters",
-     "sub": "$10k DVRO 8/12 + $5k civil 8/21 · conflict check cleared 8/13 · MC-050 signed 8/19"
+     "value": "Lai, CFLS · 3 days silent",
+     "sub": "four questions of 9/15 unanswered · team change 9/10 · data-breach notice 9/4"
     },
     {
-     "label": "Silence",
-     "value": "12 days",
-     "sub": "last word from the firm Aug 21 · conformed order and onboarding still owed"
+     "label": "Civil",
+     "value": "Demand out · Oct 1, 5 pm",
+     "sub": "sent 9/10 after your review · phone-account restoration and preservation included"
     },
     {
-     "label": "Travel",
-     "value": "Sep 15 – 29",
-     "sub": "inside the prep window · reachable · no signatures abroad"
+     "label": "Money",
+     "value": "$15,000 trust + $5,891 billed",
+     "sub": "bill 38507 due Sep 20 · no line items · itemization requested"
     }
    ],
    "links": [
@@ -519,10 +531,10 @@ var FALLBACK = {
    "cluster": "ops",
    "color": "#d4a052",
    "metric": "$15,645.97 revolving",
-   "updated": "2026-09-10",
+   "updated": "2026-09-18",
    "dataThrough": "2026-09-09",
    "cadenceDays": 32,
-   "tagline": "8 cards · avalanche order · payoff simulator · Stephen ledger",
+   "tagline": "8 cards + the car · avalanche order · payoff simulator · Stephen ledger",
    "stats": [
     {
      "label": "August break",
@@ -535,14 +547,14 @@ var FALLBACK = {
      "sub": "$174 already past due · balance $6,103.26 at 25.49% · the only credit-file risk on the board"
     },
     {
-     "label": "Promo clock",
-     "value": "$1,090.33 by 02/10/27",
-     "sub": "Austrian Air on PayPal Credit deferred interest — $35.79 accrued, +$28.69/mo, ~$182/mo to clear"
+     "label": "The car",
+     "value": "BMW · $1,402.64 by 9/30",
+     "sub": "07/20 and 08/20 payments returned · payoff $35,646 · ~$260 of every $670 is interest"
     },
     {
-     "label": "Stephen",
-     "value": "net $12,600 in",
-     "sub": "9 Zelle payments Mar–Jul · nothing since 07/23 · Mar–Aug inflow covered cards + living almost exactly"
+     "label": "Promo clock",
+     "value": "$1,090.33 by 02/10/27",
+     "sub": "Austrian Air on PayPal Credit deferred interest — $35.79 accrued, +$28.69/mo"
     }
    ],
    "series": [
@@ -615,8 +627,8 @@ var FALLBACK = {
      "label": "Interest Trap"
     },
     {
-     "href": "/the-ledger/#view-checking",
-     "label": "Transactions"
+     "href": "/the-ledger/#carCard",
+     "label": "The car"
     }
    ]
   },
@@ -724,30 +736,30 @@ var FALLBACK = {
    "label": "Playlist Tracker",
    "cluster": "ops",
    "color": "#8c7bff",
-   "metric": "1,062 followers · +13 since Jul",
-   "updated": "2026-09-02",
-   "dataThrough": "2026-09-02",
+   "metric": "1,066 followers · +4 since Sep 2",
+   "updated": "2026-09-18",
+   "dataThrough": "2026-09-18",
    "cadenceDays": 32,
    "tagline": "15 playlists · 27 monthly snapshots since Apr 2024",
    "stats": [
     {
      "label": "Anchor",
-     "value": "Monday's Mixtape · 510",
-     "sub": "48.0% of the whole portfolio · flat since Jul"
+     "value": "Monday's Mixtape · 513",
+     "sub": "48.1% of the whole portfolio · +3 since Sep 2"
     },
     {
      "label": "Growth engine",
-     "value": "Groove · 215",
-     "sub": "+11 since Jul · +83 in six months · the only lane really moving"
+     "value": "Groove · 217",
+     "sub": "+2 since Sep 2 · +85 in six months · the only lane really moving"
     },
     {
      "label": "Velocity",
-     "value": "+13 in 2 mo",
-     "sub": "Broken +1 · run −1 · everything else flat"
+     "value": "+4 in 16 days",
+     "sub": "Mixtape +3 · Groove +2 · Cloudbuster −1"
     },
     {
      "label": "Asleep",
-     "value": "11 lanes flat since Jul",
+     "value": "12 lanes flat",
      "sub": "Ancora quiet 7 mo · Masterpiece 19 mo"
     }
    ],
@@ -854,7 +866,7 @@ var FALLBACK = {
       ],
       [
        "2026-09-01",
-       1062
+       1066
       ]
      ]
     }
@@ -1000,16 +1012,16 @@ var FALLBACK = {
    "label": "Reading Atlas",
    "cluster": "creative",
    "color": "#f4b942",
-   "metric": "2,165 highlights · 236 sources · 16 themes",
-   "updated": "2026-09-03",
-   "dataThrough": "2026-09-03",
+   "metric": "2,133 highlights · 228 sources · 16 themes",
+   "updated": "2026-09-18",
+   "dataThrough": "2026-09-18",
    "cadenceDays": 31,
    "tagline": "Every highlight sorted into the ideas it belongs to — sixteen themes, the books behind them, and where they meet",
    "stats": [
     {
      "label": "Atlas",
-     "value": "1,081 themed",
-     "sub": "of 1,967 passages · 78 theme links · 886 outside the lexicon"
+     "value": "1,073 themed",
+     "sub": "of 1,936 passages · 79 theme links · 863 outside the lexicon"
     },
     {
      "label": "Most-highlighted",
@@ -1019,7 +1031,7 @@ var FALLBACK = {
     {
      "label": "Library pull",
      "value": "pulled today",
-     "sub": "Sep 3 · 673 book · 1351 supp · 73 article · 68 tweet · refreshed monthly by GitHub Action"
+     "sub": "Sep 18 · 655 book · 1351 supp · 62 article · 65 tweet · refreshed monthly by GitHub Action"
     }
    ],
    "series": [
@@ -1041,15 +1053,15 @@ var FALLBACK = {
       ],
       [
        "2025-01",
-       27
+       25
       ],
       [
        "2025-02",
-       26
+       24
       ],
       [
        "2025-03",
-       12
+       11
       ],
       [
        "2025-04",
@@ -1057,11 +1069,11 @@ var FALLBACK = {
       ],
       [
        "2025-05",
-       9
+       8
       ],
       [
        "2025-06",
-       21
+       19
       ],
       [
        "2025-07",
@@ -1073,7 +1085,7 @@ var FALLBACK = {
       ],
       [
        "2025-09",
-       17
+       15
       ],
       [
        "2025-10",
@@ -1089,11 +1101,11 @@ var FALLBACK = {
       ],
       [
        "2026-01",
-       19
+       11
       ],
       [
        "2026-02",
-       3
+       2
       ],
       [
        "2026-03",
@@ -1101,7 +1113,7 @@ var FALLBACK = {
       ],
       [
        "2026-04",
-       2
+       0
       ],
       [
        "2026-05",
@@ -1113,15 +1125,15 @@ var FALLBACK = {
       ],
       [
        "2026-07",
-       8
+       7
       ],
       [
        "2026-08",
-       20
+       12
       ],
       [
        "2026-09",
-       0
+       15
       ]
      ]
     }
@@ -1416,7 +1428,7 @@ var FALLBACK = {
    "label": "Digital Ecosystem",
    "cluster": "systems",
    "color": "#69d6e4",
-   "metric": "V9 · V10 85 days overdue",
+   "metric": "V9 · V10 101 days overdue",
    "updated": "2026-03-11",
    "dataThrough": "2026-03-11",
    "cadenceDays": 90,
@@ -1500,20 +1512,20 @@ var FALLBACK = {
   {
    "href": "/the-ledger/#view-stephen",
    "label": "Stephen ledger",
-   "metric": "$10,075 in · net $9,900",
+   "metric": "$12,775 in · net $12,600 · nothing since 07/23",
    "color": "#d4a052"
   },
   {
-   "href": "/eastern-front-map/highlight-map.html",
-   "label": "Highlight Map",
-   "metric": "137 highlights · 21 events",
-   "color": "#d8b04c"
+   "href": "/the-ledger/#carCard",
+   "label": "The car",
+   "metric": "BMW X3 · payoff $35,646",
+   "color": "#fb923c"
   }
  ],
  "quote_stats": {
-  "highlights": 1696,
-  "sources": 165,
-  "cache_date": "2026-04-16"
+  "highlights": 2133,
+  "sources": 228,
+  "cache_date": "2026-09-18"
  },
  "quotes": [
   {
@@ -1589,6 +1601,34 @@ var FALLBACK = {
  ],
  "next": [
   {
+   "label": "Bill 38507 due",
+   "date": "2026-09-20",
+   "sub": "$5,890.82 · itemization requested 9/15",
+   "href": "/hearing-room/#money",
+   "color": "#fbbf24"
+  },
+  {
+   "label": "Back in LA",
+   "date": "2026-09-29",
+   "sub": "Italy Sep 15–29 · reachable, no signatures",
+   "href": "/hearing-room/#calendar",
+   "color": "#36a3df"
+  },
+  {
+   "label": "Sep 30 wall",
+   "date": "2026-09-30",
+   "sub": "Apple $359 · BMW $1,402.64 · Ralphs $40 on the 28th",
+   "href": "/the-ledger/",
+   "color": "#f87171"
+  },
+  {
+   "label": "Demand deadline",
+   "date": "2026-10-01",
+   "sub": "5:00 pm · answer or cure · civil track",
+   "href": "/hearing-room/#status",
+   "color": "#d4a052"
+  },
+  {
    "label": "Hearing · Dept 547",
    "date": "2026-10-28",
    "sub": "8:30 · Stanley Mosk · counsel appears with you",
@@ -1596,25 +1636,11 @@ var FALLBACK = {
    "color": "#f0524d"
   },
   {
-   "label": "Abroad",
-   "date": "2026-09-15",
-   "sub": "through Sep 29 · reachable, no signatures",
-   "href": "/hearing-room/#calendar",
-   "color": "#36a3df"
-  },
-  {
    "label": "PayPal promo deadline",
    "date": "2027-02-10",
-   "sub": "$1,090 Austrian Air · ~$182/mo clears it",
+   "sub": "$1,090.33 Austrian Air · ~$182/mo clears it",
    "href": "/the-ledger/#view-interest",
    "color": "#d4a052"
-  },
-  {
-   "label": "Ecosystem pass V10",
-   "date": "2026-06-09",
-   "sub": "was due 90 days after V9 (Mar 11)",
-   "href": "/digital-ecosystem-refresh/",
-   "color": "#69d6e4"
   }
  ]
 };
@@ -1622,99 +1648,129 @@ var FALLBACK = {
 (function () {
   "use strict";
   var NOW = Date.now();
+  var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   function shortDate(iso) { if (!iso) return ""; var p = iso.split("-"); return MONTHS[+p[1] - 1] + " " + (+p[2]); }
   function daysUntil(iso) { var d = new Date(); var t = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()); var p = iso.split("-"); return Math.round((Date.UTC(+p[0], +p[1] - 1, +p[2]) - t) / 864e5); }
 
   function freshness(room) {
-    if (room.flag === "attention") return { cls: "bad", txt: "needs attention" };
+    if (room.flag === "attention") return { cls: "bad", txt: "attention" };
     var ref = room.dataThrough || room.updated;
     if (!ref) return { cls: "idle", txt: "" };
     var age = Math.max(0, Math.floor((NOW - new Date(ref + "T12:00:00").getTime()) / 864e5));
-    if (!room.cadenceDays) return { cls: "idle", txt: "updated " + shortDate(room.updated || ref) };
+    if (!room.cadenceDays) return { cls: "idle", txt: shortDate(room.updated || ref) };
     var r = age / room.cadenceDays;
-    if (r <= 1) return { cls: "good", txt: "fresh · " + age + "d" };
+    if (r <= 1) return { cls: "good", txt: age === 0 ? "today" : age + "d" };
     if (r <= 2) return { cls: "warn", txt: "due · " + age + "d" };
     return { cls: "bad", txt: "stale · " + age + "d" };
   }
 
-  function sparkSVG(seriesArr, height, fill) {
-    var W = 100, H = 28, P = 2.5, vals = [];
-    seriesArr.forEach(function (s) { s.points.forEach(function (p) { vals.push(p[1]); }); });
-    if (!vals.length) return "";
-    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals), span = (max - min) || 1, out = "";
-    seriesArr.forEach(function (s, si) {
-      var n = s.points.length; if (n < 2) return;
-      var pts = s.points.map(function (p, i) { return [(P + i * (W - 2 * P) / (n - 1)).toFixed(2), (H - P - (p[1] - min) / span * (H - 2 * P)).toFixed(2)]; });
-      var poly = pts.map(function (q) { return q.join(","); }).join(" ");
-      if (fill && si === 0) out += '<polygon points="' + P + ',' + (H - P) + ' ' + poly + ' ' + (W - P) + ',' + (H - P) + '" fill="' + s.color + '" opacity="0.12"></polygon>';
-      out += '<polyline points="' + poly + '" fill="none" stroke="' + s.color + '" stroke-width="1.7" vector-effect="non-scaling-stroke"' + (s.dashed ? ' stroke-dasharray="3 3"' : "") + ' stroke-linejoin="round" stroke-linecap="round"></polyline>';
-      var last = pts[pts.length - 1];
-      out += '<circle cx="' + last[0] + '" cy="' + last[1] + '" r="1.9" fill="' + s.color + '"></circle>';
-    });
-    return '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" style="height:' + height + 'px" aria-hidden="true">' + out + "</svg>";
+  function sparkSVG(vals, color, fill) {
+    var W = 100, H = 30, P = 1.5;
+    if (!vals || vals.length < 2) return "";
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals), span = (max - min) || 1, n = vals.length;
+    var pts = vals.map(function (v, i) { return [(P + i * (W - 2 * P) / (n - 1)).toFixed(2), (H - P - (v - min) / span * (H - 2 * P - 6)).toFixed(2)]; });
+    var poly = pts.map(function (q) { return q.join(","); }).join(" ");
+    var out = "";
+    if (fill) out += '<polygon points="' + P + ',' + H + ' ' + poly + ' ' + (W - P) + ',' + H + '" fill="' + color + '" opacity="0.10"></polygon>';
+    out += '<polyline points="' + poly + '" fill="none" stroke="' + color + '" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"></polyline>';
+    var last = pts[pts.length - 1];
+    out += '<circle cx="' + last[0] + '" cy="' + last[1] + '" r="1.8" fill="' + color + '"></circle>';
+    return '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" aria-hidden="true">' + out + "</svg>";
   }
 
+  /* count-up for numeric gauge values (keeps prefix/suffix like $ , % intact) */
+  function countUp(el, text) {
+    var m = String(text).match(/^([^\d\-−]*)(−|-)?([\d,]+)(\.\d+)?(.*)$/);
+    if (!m || REDUCED) { el.textContent = text; return; }
+    var pre = m[1], neg = m[2] || "", intPart = m[3].replace(/,/g, ""), dec = m[4] || "", post = m[5];
+    var target = parseInt(intPart, 10), hasComma = m[3].indexOf(",") >= 0, t0 = performance.now(), dur = 900;
+    function fmt(n) { var s = String(n); return hasComma ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : s; }
+    function tick(t) { var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = pre + neg + fmt(Math.round(target * e)) + dec + post; if (k < 1) requestAnimationFrame(tick); }
+    requestAnimationFrame(tick);
+  }
+
+  var ROOMS = [];
   function render(m) {
     var d = new Date(), h = d.getHours();
     var greet = h < 5 ? "Still up." : h < 12 ? "Good morning." : h < 18 ? "Good afternoon." : "Good evening.";
-    var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     var hearing = (m.next || []).filter(function (n) { return /hearing/i.test(n.label); })[0];
-    document.getElementById("hello").textContent = greet + " It's " + DAYS[d.getDay()] + ", " + MONTHS[d.getMonth()] + " " + d.getDate() + (hearing ? " — " + daysUntil(hearing.date) + " days to the hearing." : ".");
-    document.getElementById("briefLine").innerHTML = "Readout <b>" + esc(shortDate(m.generated)) + "</b> · <b>" + m.rooms.length + " rooms</b> · <b>" + m.attention.length + " flags</b> on the board · <b>" + m.attention.filter(function (a) { return a.severity === "red"; }).length + " red</b>";
+    var reds = m.attention.filter(function (a) { return a.severity === "red"; }).length;
+    document.getElementById("hello").textContent = greet + " It's " + DAYS[d.getDay()] + ", " + MONTHS[d.getMonth()] + " " + d.getDate() + ".";
+    document.getElementById("briefLine").innerHTML = "Readout <b>" + esc(shortDate(m.generated)) + "</b> · <b>" + m.rooms.length + " rooms</b> · <b>" + m.attention.length + " flags</b>, <b>" + reds + " red</b>" + (hearing ? " · <b>" + daysUntil(hearing.date) + " days</b> to the hearing" : "") + ".";
     document.getElementById("stampLine").textContent = "readout v" + (m.version || 2) + " · " + m.generated;
+    document.getElementById("kpiStamp").textContent = "as of " + shortDate(m.generated);
 
-    /* next up */
-    var nx = document.getElementById("nextUp");
-    nx.innerHTML = '<p class="next-h">Next up</p>' + (m.next || []).map(function (n) {
-      var du = daysUntil(n.date), when = du > 0 ? du + "<small>days</small>" : du === 0 ? "today" : Math.abs(du) + "<small>days late</small>";
-      return '<a href="' + esc(n.href) + '" style="--nk:' + esc(n.color) + '"><span class="nd">' + when + '</span><span class="nl">' + esc(n.label) + '<span class="ns">' + esc(n.sub) + '</span></span><span class="nw">' + esc(shortDate(n.date)) + '</span></a>';
+    /* countdown */
+    if (hearing) startClock(hearing);
+
+    /* up next: the next three dated items after today, excluding the hearing itself */
+    var nx = (m.next || []).filter(function (n) { return n !== hearing && daysUntil(n.date) >= 0; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; }).slice(0, 3);
+    document.getElementById("upnext").innerHTML = nx.map(function (n) {
+      var du = daysUntil(n.date), when = du === 0 ? "today" : du === 1 ? "tomorrow" : "in " + du + "d";
+      return '<a href="' + esc(n.href) + '" style="--nk:' + esc(n.color) + '"><span class="d">' + when + '</span><span>' + esc(n.label) + ' <span style="color:var(--text-3)">· ' + esc(n.sub) + '</span></span><span class="w">' + esc(shortDate(n.date)) + '</span></a>';
     }).join("");
 
-    /* attention */
+    /* flags: reds + first ambers visible, the rest behind a toggle */
+    var VISIBLE = 4;
     document.getElementById("attnCount").textContent = m.attention.length + " open";
-    document.getElementById("attnList").innerHTML = m.attention.map(function (a) {
-      return '<a class="attn-row sev-' + esc(a.severity) + '" href="' + esc(a.href) + '"><span class="attn-dot" aria-hidden="true"></span><span><span class="attn-label">' + esc(a.label) + '</span><span class="attn-detail">' + esc(a.detail) + '</span></span></a>';
-    }).join("");
+    document.getElementById("flags").innerHTML = m.attention.map(function (a, i) {
+      return '<a class="flag ' + esc(a.severity) + (i >= VISIBLE ? " hidden" : "") + '" href="' + esc(a.href) + '"><span class="flag-dot" aria-hidden="true"></span><span><span class="flag-l">' + esc(a.label) + '</span><span class="flag-d">' + esc(a.detail) + '</span></span></a>';
+    }).join("") + (m.attention.length > VISIBLE ? '<button class="more" type="button" id="moreFlags">+ ' + (m.attention.length - VISIBLE) + ' more</button>' : "");
+    var mb = document.getElementById("moreFlags");
+    if (mb) mb.onclick = function () { var hid = document.querySelectorAll(".flag.hidden"); var open = hid.length > 0; hid.forEach(function (el) { el.classList.remove("hidden"); }); if (!open) { var all = document.querySelectorAll("#flags .flag"); all.forEach(function (el, i) { if (i >= VISIBLE) el.classList.add("hidden"); }); } mb.textContent = open ? "− show fewer" : "+ " + (m.attention.length - VISIBLE) + " more"; };
 
-    /* KPIs */
-    document.getElementById("kpiBand").innerHTML = m.kpis.map(function (k) {
-      var spark = k.spark && k.spark.length > 1 ? sparkSVG([{ points: k.spark.map(function (v, i) { return [i, v]; }), color: k.color }], 32, true) : "";
-      return '<a class="kpi" href="' + esc(k.href) + '" style="--k:' + esc(k.color) + '"><span class="kpi-label">' + esc(k.label) + '</span><span class="kpi-line"><span class="kpi-value">' + esc(k.value) + '</span><span class="chip ' + esc(k.tone || "flat") + '">' + esc(k.delta) + '</span></span>' + spark + '<span class="kpi-note">' + esc(k.note) + '</span></a>';
+    /* gauges */
+    document.getElementById("gauges").innerHTML = m.kpis.slice(0, 6).map(function (k, i) {
+      var spark = k.spark && k.spark.length > 1 ? sparkSVG(k.spark, k.color, true) : "";
+      return '<a class="gauge" href="' + esc(k.href) + '" style="--k:' + esc(k.color) + '"><span class="g-label">' + esc(k.label) + '</span><span class="g-value" data-v="' + esc(k.value) + '" data-live="' + esc(k.live || "") + '">' + esc(k.value) + '</span><span class="g-delta ' + esc(k.tone || "") + '">' + esc(k.delta) + '</span>' + spark + '<span class="g-note">' + esc(k.note) + '</span></a>';
     }).join("");
+    document.querySelectorAll(".g-value").forEach(function (el) { if (el.getAttribute("data-live") === "hearing" && hearing) { el.textContent = daysUntil(hearing.date) + " days"; } else countUp(el, el.getAttribute("data-v")); });
 
-    /* clusters */
+    /* rooms, grouped */
+    ROOMS = m.rooms.slice();
     var byCluster = {};
     m.rooms.forEach(function (r) { (byCluster[r.cluster] = byCluster[r.cluster] || []).push(r); });
+    var idx = 0;
     document.getElementById("clusters").innerHTML = m.clusters.map(function (c) {
-      var rooms = byCluster[c.key] || [];
+      var rooms = byCluster[c.key] || []; if (!rooms.length) return "";
       var cards = rooms.map(function (r) {
-        var st = freshness(r);
-        var stats = (r.stats || []).map(function (s) { return '<div class="stat"><span class="stat-label">' + esc(s.label) + '</span><span class="stat-value">' + esc(s.value) + '</span>' + (s.sub ? '<span class="stat-sub">' + esc(s.sub) + '</span>' : "") + '</div>'; }).join("");
-        var swatches = r.swatches && r.swatches.length ? '<div class="swatches">' + r.swatches.map(function (w) { return '<span class="swatch" style="--sw:' + esc(w.hex) + '"><i></i>' + esc(w.name) + ' <small>' + esc(w.sub) + '</small></span>'; }).join("") + '</div>' : "";
-        var sparkBlock = "";
-        if (r.series && r.series.length) {
-          var palette = r.series.length > 1 ? ["#64748b", r.color] : [r.color];
-          var sers = r.series.map(function (s, i) { return { points: s.points, color: palette[i % palette.length], dashed: r.series.length > 1 && i === 0 }; });
-          var cap = r.series.map(function (s, i) { return '<span><i style="--sw:' + palette[i % palette.length] + '"></i>' + esc(s.label) + '</span>'; }).join("");
-          sparkBlock = '<div class="room-spark">' + sparkSVG(sers, 40, r.series.length === 1) + '<div class="spark-cap">' + cap + '</div></div>';
-        }
-        var links = (r.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join("");
-        return '<article class="room" style="--k:' + esc(r.color) + '"><div class="room-band"><div class="room-head"><a href="' + esc(r.href) + '">' + esc(r.label) + '</a><span class="stamp ' + st.cls + '">' + esc(st.txt) + '</span></div>' +
-          (r.metric ? '<div class="room-metric">' + esc(r.metric) + '</div>' : "") + (r.tagline ? '<p class="room-tagline">' + esc(r.tagline) + '</p>' : "") + '</div>' +
-          '<div class="room-body"><div class="room-stats">' + stats + '</div>' + swatches + sparkBlock + '<div class="room-links">' + links + '<a class="room-open" href="' + esc(r.href) + '">open →</a></div></div></article>';
+        idx++;
+        var st = freshness(r), s0 = (r.stats || [])[0];
+        var spark = r.series && r.series.length && r.series[0].points.length > 1 ? '<div class="room-spark">' + sparkSVG(r.series[0].points.map(function (p) { return p[1]; }), r.color, true) + '</div>' : "";
+        return '<a class="room' + (spark ? " hasSpark" : "") + '" href="' + esc(r.href) + '" style="--k:' + esc(r.color) + '" data-n="' + idx + '">' +
+          '<div class="room-top"><span class="room-name">' + esc(r.label) + (idx <= 9 ? '<small>' + idx + '</small>' : "") + '</span>' + (st.txt ? '<span class="fresh ' + st.cls + '"><i></i>' + esc(st.txt) + '</span>' : "") + '</div>' +
+          (r.metric ? '<div class="room-metric">' + esc(r.metric) + '</div>' : "") +
+          (s0 ? '<div class="room-stat"><b>' + esc(s0.value) + '</b>' + esc(s0.sub || s0.label) + '</div>' : "") +
+          spark + '<span class="arrow">open →</span></a>';
       }).join("");
-      return '<section class="cluster" aria-label="' + esc(c.title) + '"><div class="cluster-head"><h2>' + esc(c.title) + '</h2><p>' + esc(c.blurb) + '</p></div><div class="room-grid">' + cards + '</div>' + (c.key === "ops" ? quoteStrip(m) : "") + '</section>';
+      return '<section class="group" aria-label="' + esc(c.title) + '" data-reveal><div class="group-head"><h2>' + esc(c.title) + '</h2><span></span></div><div class="rooms">' + cards + '</div></section>';
     }).join("");
 
     document.getElementById("annex").innerHTML = (m.annex || []).map(function (x) { return '<a href="' + esc(x.href) + '" style="--fk:' + esc(x.color) + '"><i></i>' + esc(x.label) + ' · ' + esc(x.metric) + '</a>'; }).join("");
     wireQuote(m);
+    buildJump(m);
+    reveal();
   }
 
-  function quoteStrip(m) {
-    return '<div class="resurface" aria-live="polite"><div><p class="rs-quote" id="rsQuote"></p><p class="rs-meta" id="rsMeta"></p></div><div class="rs-actions"><button type="button" id="rsBtn">Resurface</button><a href="/readwise-highlights/">Open the atlas</a></div></div>';
+  /* live countdown to the hearing (8:30 local on the day) */
+  var clockTimer = null;
+  function startClock(hearing) {
+    var p = hearing.date.split("-"), target = new Date(+p[0], +p[1] - 1, +p[2], 8, 30, 0).getTime();
+    document.getElementById("clockDate").textContent = DAYS[new Date(target).getDay()].slice(0, 3) + " " + shortDate(hearing.date) + " · 8:30";
+    document.getElementById("clockSub").innerHTML = esc(hearing.sub);
+    var els = { d: document.getElementById("cd"), h: document.getElementById("ch"), m: document.getElementById("cm"), s: document.getElementById("cs") };
+    function pad(n) { return (n < 10 ? "0" : "") + n; }
+    function tick() {
+      var diff = Math.max(0, target - Date.now()), s = Math.floor(diff / 1000);
+      els.d.textContent = Math.floor(s / 86400); els.h.textContent = pad(Math.floor(s % 86400 / 3600)); els.m.textContent = pad(Math.floor(s % 3600 / 60)); els.s.textContent = pad(s % 60);
+    }
+    tick(); if (clockTimer) clearInterval(clockTimer); clockTimer = setInterval(tick, 1000);
   }
+
+  /* resurface */
   var currentQuote = null;
   function wireQuote(m) {
     var pool = m.quotes || [], qEl = document.getElementById("rsQuote"), mEl = document.getElementById("rsMeta"), btn = document.getElementById("rsBtn");
@@ -1725,10 +1781,54 @@ var FALLBACK = {
     show(pick()); if (btn) btn.onclick = function () { show(pick()); };
   }
 
+  /* jump palette: ⌘K / ctrl+K / "/" opens, 1–9 jumps straight to a room */
+  var jumpItems = [], jumpSel = 0;
+  function buildJump(m) {
+    jumpItems = m.rooms.map(function (r) { return { label: r.label, href: r.href, color: r.color, metric: r.metric || "" }; })
+      .concat((m.annex || []).map(function (a) { return { label: a.label, href: a.href, color: a.color, metric: a.metric || "" }; }));
+    renderJump("");
+  }
+  function renderJump(q) {
+    var list = document.getElementById("jumpList"), ql = q.trim().toLowerCase();
+    var items = jumpItems.filter(function (it) { return !ql || (it.label + " " + it.metric).toLowerCase().indexOf(ql) >= 0; });
+    jumpSel = Math.min(jumpSel, Math.max(0, items.length - 1));
+    list.innerHTML = items.map(function (it, i) { return '<a href="' + esc(it.href) + '" class="' + (i === jumpSel ? "on" : "") + '" style="--k:' + esc(it.color) + '"><i></i><span>' + esc(it.label) + '</span><small>' + esc(it.metric) + '</small></a>'; }).join("") || '<a><span style="color:var(--text-3)">No room matches.</span></a>';
+    list._items = items;
+  }
+  var jump = document.getElementById("jump"), jumpInput = document.getElementById("jumpInput");
+  function openJump() { jump.classList.add("open"); jumpInput.value = ""; jumpSel = 0; renderJump(""); setTimeout(function () { jumpInput.focus(); }, 0); }
+  function closeJump() { jump.classList.remove("open"); }
+  document.getElementById("jumpBtn").onclick = openJump;
+  jump.addEventListener("click", function (e) { if (e.target === jump) closeJump(); });
+  jumpInput.addEventListener("input", function () { jumpSel = 0; renderJump(jumpInput.value); });
+  jumpInput.addEventListener("keydown", function (e) {
+    var items = document.getElementById("jumpList")._items || [];
+    if (e.key === "ArrowDown") { e.preventDefault(); jumpSel = Math.min(items.length - 1, jumpSel + 1); renderJump(jumpInput.value); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); jumpSel = Math.max(0, jumpSel - 1); renderJump(jumpInput.value); }
+    else if (e.key === "Enter") { e.preventDefault(); if (items[jumpSel]) location.href = items[jumpSel].href; }
+    else if (e.key === "Escape") { closeJump(); }
+  });
+  document.addEventListener("keydown", function (e) {
+    var typing = /input|textarea|select/i.test((e.target && e.target.tagName) || "");
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); jump.classList.contains("open") ? closeJump() : openJump(); return; }
+    if (typing) return;
+    if (e.key === "/") { e.preventDefault(); openJump(); return; }
+    if (e.key === "Escape" && jump.classList.contains("open")) { closeJump(); return; }
+    if (/^[1-9]$/.test(e.key) && !e.metaKey && !e.ctrlKey && !e.altKey) { var el = document.querySelector('.room[data-n="' + e.key + '"]'); if (el) location.href = el.getAttribute("href"); }
+  });
+
+  /* staggered reveal */
+  function reveal() {
+    var els = document.querySelectorAll("[data-reveal]");
+    if (REDUCED || !("IntersectionObserver" in window)) { els.forEach(function (el) { el.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function (el, i) { el.style.transitionDelay = Math.min(i * 60, 240) + "ms"; io.observe(el); });
+  }
+
   var d = new Date(), DAYS3 = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
   document.getElementById("today").textContent = DAYS3[d.getDay()] + " · " + MONTHS[d.getMonth()].toUpperCase() + " " + d.getDate();
   render(FALLBACK);
-  fetch("/data/console-status.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (m) { if (m && m.version >= 2) render(m); }).catch(function () {});
+  fetch("/data/console-status.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (m) { if (m && m.version >= 2 && m.generated !== FALLBACK.generated) render(m); }).catch(function () {});
 })();
 </script>
 <script defer src="/shared/gate.js"></script>
