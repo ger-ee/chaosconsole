@@ -193,6 +193,7 @@ h1 span{color:var(--text-3)}
     <a class="brand" href="/" aria-label="Chaos Console home"><span class="mark" aria-hidden="true">C</span><span class="wordmark">Chaos Console</span></a>
     <nav class="nav" aria-label="Rooms">
       <a href="/hearing-room/">Hearing</a>
+      <a href="/possession/">Possession</a>
       <a href="/the-ledger/">Ledger</a>
       <a href="/wellness-dashboard/">Wellness</a>
       <a href="/playlist-tracker/">Playlists</a>
@@ -262,9 +263,15 @@ h1 span{color:var(--text-3)}
    offline / on file:// — the fetched copy wins when it loads. */
 var FALLBACK = {
  "version": 2,
- "generated": "2026-09-18",
+ "generated": "2026-09-27",
  "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18.",
  "attention": [
+  {
+   "severity": "red",
+   "label": "Unlawful detainer: file the Answer Wed Sep 30 at Stanley Mosk — legal deadline ~Oct 15–16",
+   "detail": "Summons handed to a friend at the door Sep 20 (substituted service). Read the packet Tuesday night; Self-Help review at 8:30 Wednesday, then the window ($225 or fee waiver). Then discovery, the jury counter-request, and October rent by cashier's check.",
+   "href": "/possession/#loops"
+  },
   {
    "severity": "red",
    "label": "Apple Card is past due — $359 minimum by Sep 30, $174 already late",
@@ -521,6 +528,61 @@ var FALLBACK = {
     },
     {
      "href": "/hearing-room/#money",
+     "label": "Money"
+    }
+   ]
+  },
+  {
+   "href": "/possession/",
+   "label": "Possession",
+   "cluster": "ops",
+   "color": "#38bdf8",
+   "metric": "Answer due · file Wed Sep 30",
+   "updated": "2026-09-27",
+   "dataThrough": "2026-09-27",
+   "cadenceDays": 3,
+   "tagline": "The unlawful detainer, day by day · the leak and the case on one line · court-day clock · open loops · money held",
+   "stats": [
+    {
+     "label": "Answer",
+     "value": "Wed Sep 30 · Stanley Mosk",
+     "sub": "Self-Help review 8:30, then the window · legal deadline ~Oct 15–16 · hard stop Oct 9"
+    },
+    {
+     "label": "The leak",
+     "value": "9 work orders · ticket open since Aug 6",
+     "sub": "six marked complete, the leak back each time · Emergency (Leak/Mold) in the owner's own system"
+    },
+    {
+     "label": "Held",
+     "value": "$5,400 liquid",
+     "sub": "Aug + Sep rent · $1,168.30 of the ledger balance is fees and pass-throughs, not rent · October tendered separately"
+    },
+    {
+     "label": "Agencies",
+     "value": "City case open · County not yet filed",
+     "sub": "LAHD call Wed · Public Health complaint Wed night · a written notice plus 35 days changes what the owner may collect"
+    }
+   ],
+   "links": [
+    {
+     "href": "/possession/#status",
+     "label": "Status"
+    },
+    {
+     "href": "/possession/#map",
+     "label": "The leak and the case"
+    },
+    {
+     "href": "/possession/#clock",
+     "label": "Court-day clock"
+    },
+    {
+     "href": "/possession/#loops",
+     "label": "Open loops"
+    },
+    {
+     "href": "/possession/#money",
      "label": "Money"
     }
    ]
@@ -1622,11 +1684,32 @@ var FALLBACK = {
    "color": "#f87171"
   },
   {
+   "label": "Answer filed · Stanley Mosk",
+   "date": "2026-09-30",
+   "sub": "Self-Help 8:30 · civil window · $225 · conformed copies",
+   "href": "/possession/#loops",
+   "color": "#38bdf8"
+  },
+  {
    "label": "Demand deadline",
    "date": "2026-10-01",
    "sub": "5:00 pm · answer or cure · civil track",
    "href": "/hearing-room/#status",
    "color": "#d4a052"
+  },
+  {
+   "label": "October rent tendered",
+   "date": "2026-10-02",
+   "sub": "cashier's check $2,700 · 11601 Santa Monica Blvd · letter to counsel",
+   "href": "/possession/#money",
+   "color": "#38bdf8"
+  },
+  {
+   "label": "UD response deadline (sub-service)",
+   "date": "2026-10-16",
+   "sub": "10 court days after service completes · Oct 12 court holiday · moot once filed",
+   "href": "/possession/#clock",
+   "color": "#f0524d"
   },
   {
    "label": "Hearing · Dept 547",

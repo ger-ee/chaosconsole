@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Possession | Chaos Console</title>
+<meta name="description" content="Operating board for the unlawful detainer: the leak and the case on one timeline, the court-day clock, open loops, money held, and the log.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+@font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrains-mono-subset.ttf") format("truetype");font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:"Archivo Black";src:url("/fonts/archivo-black-subset.ttf") format("truetype");font-style:normal;font-weight:900;font-display:swap}
+:root{
+  --bg:#07070a; --panel:rgba(17,17,23,0.86); --panel-solid:#141419; --panel-lift:rgba(26,26,34,0.94);
+  --border:rgba(248,244,232,0.10); --border-strong:rgba(248,244,232,0.22);
+  --text:#f8f4e8; --muted:#a8a29a; --subtle:#75716b;
+  --accent:#38bdf8; --hot:#f0524d; --amber:#f4c51d; --green:#82ca55; --blue:#36a3df; --teal:#2fc5b7; --lav:#9b72d9;
+  --display:"Archivo Black",Impact,"Arial Narrow",sans-serif;
+  --head:"Space Grotesk","Instrument Sans",Inter,sans-serif;
+  --body:"Instrument Sans",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;background:
+  radial-gradient(circle at 12% 0%,rgba(56,189,248,.18),transparent 34%),
+  radial-gradient(circle at 88% 4%,rgba(240,82,77,.10),transparent 30%),
+  linear-gradient(180deg,#05050a 0%,#0a0a10 34%,#07070a 100%)}
+body{margin:0;min-height:100vh;background:transparent;color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(248,244,232,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(248,244,232,.022) 1px,transparent 1px);
+  background-size:44px 44px;opacity:.4;mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 88%)}
+a{color:inherit} button,input{font:inherit;color:inherit}
+.shell{position:relative;z-index:1;width:min(1240px,calc(100% - 40px));margin:0 auto}
+.sec{margin:0 0 clamp(40px,5vw,68px);scroll-margin-top:70px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:22px;border-bottom:1px solid var(--border)}
+.sec-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.sec-title{font-family:var(--display);font-size:clamp(26px,3.4vw,40px);line-height:.94;text-transform:uppercase;margin:6px 0 0}
+.sec-note{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);text-align:right}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px 22px}
+.card p{margin:0 0 10px;color:var(--muted)} .card p:last-child{margin-bottom:0}
+.card b,.card strong{color:var(--text)}
+
+/* hero */
+.hero{position:relative;padding:clamp(38px,5vw,64px) 0 clamp(28px,3.5vw,44px)}
+.hero-top{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:28px;align-items:start}
+.hero h1{font-family:var(--display);font-size:clamp(40px,6.4vw,78px);line-height:.86;margin:0;text-transform:uppercase;letter-spacing:-.005em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{max-width:66ch;margin:20px 0 0;color:var(--muted);font-size:16px}
+.ring{position:relative;width:168px;height:168px}
+.ring svg{width:100%;height:100%;display:block}
+.ring-c{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
+.ring-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+.ring-v{font-family:var(--display);font-size:20px;line-height:1;margin-top:4px;color:var(--accent)}
+.ring-n{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.phases{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.phase{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);border:1px solid var(--border);border-radius:999px;padding:4px 9px}
+.phase.on{color:var(--accent);border-color:var(--accent);background:rgba(56,189,248,.08)}
+.phase.past{color:var(--muted);text-decoration:line-through}
+.countbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin-top:32px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.count{background:var(--panel-solid);padding:18px 20px}
+.count-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+.count-v{font-family:var(--display);font-size:clamp(22px,2.6vw,34px);line-height:1;margin-top:8px}
+.count-v.hot{color:var(--hot)} .count-v.warn{color:var(--amber)} .count-v.ok{color:var(--green)} .count-v.cool{color:var(--accent)}
+.count-d{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:7px;letter-spacing:.04em;line-height:1.5}
+
+/* the owner's own measure: drip + counter */
+.measure{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:18px;align-items:center;margin-top:12px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 22px 16px 0;overflow:hidden}
+.pipe{position:relative;height:100%;min-height:76px}
+.pipe::before{content:"";position:absolute;left:27px;top:-20px;bottom:38px;width:2px;background:linear-gradient(180deg,transparent,rgba(56,189,248,.45))}
+.drop{position:absolute;left:22px;top:-14px;width:12px;height:12px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--accent);opacity:0;transform:translateY(0)}
+.drop.go{animation:drip 1.9s cubic-bezier(.5,0,.85,.4) forwards}
+@keyframes drip{0%{opacity:0;transform:translateY(0) scaleY(1)}12%{opacity:1}80%{opacity:1;transform:translateY(44px) scaleY(1.3)}92%{opacity:.8;transform:translateY(58px) scaleX(1.6) scaleY(.5)}100%{opacity:0;transform:translateY(60px) scaleX(2.2) scaleY(.2)}}
+.splash{position:absolute;left:14px;bottom:30px;width:28px;height:6px;border-radius:50%;border:1.5px solid var(--accent);opacity:0}
+.splash.go{animation:splash .7s ease-out 1.55s forwards}
+@keyframes splash{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(1.8)}}
+.measure-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.measure-t{font-family:var(--head);font-weight:700;font-size:16px;line-height:1.3;margin-top:6px}
+.measure-d{color:var(--muted);font-size:13.5px;margin-top:5px}
+.measure-v{font-family:var(--display);font-size:clamp(30px,4vw,54px);line-height:1;color:var(--accent);text-align:right;min-width:9ch;font-variant-numeric:tabular-nums}
+.measure-vd{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--muted);text-align:right;margin-top:6px}
+.notice{border-left:3px solid var(--amber)}
+.notice .card-k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.nav-in{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.nav-in a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:8px 10px}
+.nav-in a:hover{color:var(--accent);border-color:var(--accent)}
+/* status board */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;border-top:3px solid var(--tone,var(--border-strong))}
+.tile-k{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+.tile-v{font-family:var(--head);font-weight:700;font-size:18px;line-height:1.25;margin-top:8px}
+.tile-d{color:var(--muted);font-size:13.5px;margin-top:8px}
+.tile-d code{font-family:var(--mono);font-size:12px;color:var(--text);background:rgba(248,244,232,.07);padding:1px 5px;border-radius:3px}
+
+/* map */
+.mapbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.seg button.on{background:rgba(56,189,248,.12);color:var(--accent)}
+.asof{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle)}
+.asof b{color:var(--text);font-weight:500}
+.svgwrap{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto}
+.svgwrap svg{width:100%;min-width:760px;height:auto;display:block;touch-action:none;outline:none}
+.svgwrap svg:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+.tlcard{margin-top:12px;background:var(--panel-lift);border:1px solid var(--border-strong);border-left:3px solid var(--tone,var(--accent));border-radius:8px;padding:14px 18px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;min-height:74px}
+.tlcard-when{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--subtle);line-height:1.5}
+.tlcard-when b{display:block;color:var(--text);font-weight:500;font-size:12px}
+.tlcard-t{font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
+.tlcard-d{color:var(--muted);font-size:13.5px;margin-top:5px}
+.tlcard-d q{color:var(--text);font-style:italic}
+.maphint{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);margin-top:10px}
+.node{cursor:pointer} .node:hover .halo,.node.sel .halo{opacity:.35}
+.halo{opacity:0;transition:opacity .15s;pointer-events:none}
+.hair{cursor:ew-resize}
+
+/* court-day strip */
+.clockbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cday{background:var(--panel-solid);border:1px solid var(--border);border-radius:6px;padding:8px 8px 7px;min-height:66px;position:relative}
+.cday.dim{opacity:.38}
+.cday.hol{opacity:.55;border-style:dashed}
+.cday .cw{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle)}
+.cday .cn{font-family:var(--head);font-weight:700;font-size:15px;margin-top:2px}
+.cday .ct{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px;line-height:1.35}
+.cday .cc{position:absolute;right:8px;top:8px;font-family:var(--display);font-size:16px;color:var(--text);opacity:.85}
+.cday.count{border-color:rgba(248,244,232,.22)}
+.cday.deadline{border-color:var(--hot);background:rgba(240,82,77,.10)} .cday.deadline .cc{color:var(--hot)}
+.cday.file{border-color:var(--accent);background:rgba(56,189,248,.10)} .cday.file .ct{color:var(--accent)}
+.cday.served .ct,.cday.mailed .ct,.cday.complete .ct{color:var(--amber)}
+.clegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)}
+.clegend i{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:6px;border:1px solid var(--border-strong)}
+
+/* timeline log */
+.tl{position:relative;display:grid;gap:12px;padding-left:26px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--accent),var(--amber) 60%,var(--subtle))}
+.ev{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px}
+.ev::before{content:"";position:absolute;left:-23px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--dot,var(--amber));box-shadow:0 0 0 3px var(--bg)}
+.ev.win{--dot:var(--green)} .ev.hot{--dot:var(--hot)} .ev.cool{--dot:var(--accent)} .ev.quiet{--dot:var(--subtle);opacity:.85}
+.ev-when{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--subtle);line-height:1.5}
+.ev-when b{display:block;color:var(--text);font-weight:500;font-size:12px}
+.ev-t{font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
+.ev-d{color:var(--muted);font-size:13.5px;margin-top:5px}
+.ev-d q{color:var(--text);font-style:italic}
+
+/* loops */
+.loops{display:grid;gap:10px}
+.loop{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:14px;align-items:start;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--sev,var(--amber));border-radius:8px;padding:14px 18px}
+.loop input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.loop-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--sev,var(--amber));white-space:nowrap;padding-top:3px;min-width:84px}
+.loop-l{display:block;font-family:var(--head);font-weight:700;font-size:15px;line-height:1.3}
+.loop-d{display:block;color:var(--muted);font-size:13.5px;margin-top:5px}
+.loop.done .loop-l{text-decoration:line-through;color:var(--muted)}
+.loop.done{opacity:.6}
+.savenote{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--subtle);margin-top:10px}
+
+/* money */
+.money{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.ledger{width:100%;border-collapse:collapse;font-size:13.5px}
+.ledger th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);padding:8px 10px;border-bottom:1px solid var(--border-strong)}
+.ledger td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--muted)}
+.ledger td:first-child{color:var(--text)} .ledger td:last-child{text-align:right;font-family:var(--mono);color:var(--text);white-space:nowrap}
+.ledger tr.total td{border-top:1px solid var(--border-strong);color:var(--text);font-weight:600}
+.ledger tr.live td:last-child{color:var(--accent)}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rule{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 18px}
+.rule b{display:block;font-family:var(--head);font-size:14.5px;margin-bottom:4px}
+.rule span{color:var(--muted);font-size:13.5px}
+.say{background:rgba(248,244,232,.04);border:1px dashed var(--border-strong);border-radius:8px;padding:12px 16px;margin-top:10px;color:var(--text);font-size:14px}
+.say i{color:var(--muted)}
+
+details.arch{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:0}
+details.arch summary{cursor:pointer;padding:16px 20px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);list-style:none;display:flex;justify-content:space-between}
+details.arch summary::after{content:"open"} details.arch[open] summary::after{content:"close"}
+details.arch .inner{padding:0 20px 20px;color:var(--muted);font-size:14px}
+details.arch .inner p{margin:0 0 10px}
+.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.mini th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);padding:6px 8px;border-bottom:1px solid var(--border-strong)}
+.mini td{padding:7px 8px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+.mini td:first-child{color:var(--text);white-space:nowrap}
+.mini q{color:var(--text);font-style:italic}
+.foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:24px 0 48px;border-top:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle)}
+@media (max-width:980px){.countbar{grid-template-columns:repeat(2,minmax(0,1fr))}.board{grid-template-columns:repeat(2,minmax(0,1fr))}.money,.rules{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr}.ring{width:140px;height:140px}}
+@media (max-width:640px){.countbar,.board{grid-template-columns:1fr}.ev,.tlcard{grid-template-columns:1fr;gap:6px}.loop{grid-template-columns:auto minmax(0,1fr)}.loop-tag{display:none}.measure{grid-template-columns:44px minmax(0,1fr);padding-right:16px}.measure>div:last-child{grid-column:2}.measure-v,.measure-vd{text-align:left;min-width:0}.cgrid{gap:3px}.cday{padding:6px 5px;min-height:58px}.cday .ct{display:none}.cday .cc{right:5px;top:5px;font-size:13px}}
+@media (prefers-reduced-motion:reduce){.drop.go,.splash.go{animation:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="hero" id="top">
+  <div class="hero-top">Chaos Console · Possession · Private · Updated Sun 27 Sep 2026</div>
+  <div class="hero-grid">
+    <div>
+      <h1>Nine tickets,<br>one leak, a suit<br>for <em>possession</em></h1>
+      <p class="hero-sub">An unlawful detainer for August and September rent was filed Sept 16 and handed to a friend at your door on Sept 20 while you were abroad. The rent was withheld on written notice Sept 1, after the ninth work order on the same ceiling leak went unrepaired and mold appeared; the current emergency ticket has been open since Aug 6. You land Tuesday at 3 pm, read the packet that night, and file the Answer at Stanley Mosk on Wednesday morning. The legal deadline is most likely Oct 15 or 16. Wednesday makes it moot.</p>
+      <div class="phases" id="phases" aria-label="Phase of the case"></div>
+    </div>
+    <div class="ring" aria-label="Phase ring: one of six">
+      <svg viewBox="0 0 168 168" id="ringSvg" aria-hidden="true"></svg>
+      <div class="ring-c"><div class="ring-k">Phase</div><div class="ring-v" id="ringV">1 / 6</div><div class="ring-n" id="ringN">Intake</div></div>
+    </div>
+  </div>
+  <div class="countbar" aria-label="Key numbers">
+    <div class="count"><div class="count-k">Answer</div><div class="count-v cool">Wed 30 Sep</div><div class="count-d">Stanley Mosk · 111 N. Hill St<br>Self-Help at 8:30 · then the window</div></div>
+    <div class="count"><div class="count-k">Court days to the deadline</div><div class="count-v warn" id="courtLeft">13</div><div class="count-d">to <span id="dlText">Thu 15 Oct</span> · Oct 12 is a court holiday<br>filing on the 30th ends the count</div></div>
+    <div class="count"><div class="count-k">Emergency ticket open</div><div class="count-v hot" id="daysOpen">52</div><div class="count-d">days · since Aug 6 · assigned to vendor<br>the owner's own priority: Emergency (Leak/Mold)</div></div>
+    <div class="count"><div class="count-k">Paid in full before this</div><div class="count-v ok">35 mo</div><div class="count-d">Sep 2023 → Jul 2026 · $2,700 a month<br>no unpaid line on the owner's ledger</div></div>
+    <div class="count"><div class="count-k">Held for the court</div><div class="count-v">$5,400</div><div class="count-d">Aug + Sep rent · liquid<br>October tendered separately Oct 1–2</div></div>
+  </div>
+  <div class="measure" aria-label="Abatement at the owner's own rate">
+    <div class="pipe" aria-hidden="true"><div class="drop" id="drop"></div><div class="splash" id="splash"></div></div>
+    <div>
+      <div class="measure-k">By their own measure</div>
+      <div class="measure-t">$90 a day is what the owner credited for three days without hot water in March 2025</div>
+      <div class="measure-d">Applied to a ceiling that has leaked, with mold, since Aug 1: one more drop every day. The counter runs to the date on the map below; drag the hairline to replay it.</div>
+    </div>
+    <div>
+      <div class="measure-v" id="abate">$5,220</div>
+      <div class="measure-vd"><span id="abateDays">58</span> days × $90 · as of <span id="abateAsOf">Sep 27</span></div>
+    </div>
+  </div>
+  <nav class="nav-in" aria-label="On this page">
+    <a href="#status">Status board</a><a href="#map">The leak and the case</a><a href="#clock">Court-day clock</a><a href="#log">What happened</a><a href="#loops">Open loops</a><a href="#money">Money</a><a href="#rules">Rules</a><a href="#archive">Archive</a>
+  </nav>
+</header>
+
+<section class="sec">
+  <div class="card notice">
+    <div class="card-k">Read this once</div>
+    <p>This page is served from a public repository. The four-letter gate is JavaScript in your browser — it hides the page from a casual visitor, not from anyone who fetches the URL or reads the source. <b>Treat everything here as publishable.</b></p>
+    <p>No case number, no party names, no strategy analysis. Those live in the private file. What is here is logistics — what was filed and when, what the calendar demands, what is held, what happened, and what still needs doing.</p>
+  </div>
+</section>
+
+<!-- ================= STATUS ================= -->
+<section class="sec" id="status">
+  <div class="sec-head"><div><div class="sec-kicker">Where it stands</div><h2 class="sec-title">Status board</h2></div><div class="sec-note">as of Sun 27 Sep · from Tirana</div></div>
+  <div class="board">
+    <div class="tile" style="--tone:var(--accent)">
+      <div class="tile-k">The Answer</div>
+      <div class="tile-v">Drafted · packet fields open · file Wed 30 Sep in person</div>
+      <div class="tile-d">Form <code>UD-105</code> with specific denials and an attachment pleading habitability, retaliation, the city's just-cause ordinance, notice defects, and the disabled payment channel. The date, amount and payment instructions on the 3-day notice get filled in Tuesday night from the packet. Fee at the window: $225 or a fee waiver. Then service on the owner's counsel and discovery within two days.</div>
+    </div>
+    <div class="tile" style="--tone:var(--amber)">
+      <div class="tile-k">Court date</div>
+      <div class="tile-v">Not set · trial follows the Answer by about three weeks</div>
+      <div class="tile-d">After the Answer the owner requests trial and the court must set it within 20 days of that request. Expect the second half of October or the first week of November, at Stanley Mosk. The settlement-services notice the court now requires plaintiffs to serve should be in the packet; check.</div>
+    </div>
+    <div class="tile" style="--tone:var(--hot)">
+      <div class="tile-k">Code enforcement</div>
+      <div class="tile-v">City case open since early Sept · inspection status unknown</div>
+      <div class="tile-d">Filed with the city housing department before the rent was withheld. Whether an inspector has been out and whether a written notice to comply has issued are the two facts the Wednesday call (866-557-7368) has to produce. A written notice plus 35 days unrepaired changes what the owner may collect.</div>
+    </div>
+    <div class="tile" style="--tone:var(--amber)">
+      <div class="tile-k">Public Health</div>
+      <div class="tile-v">County complaint not yet filed · Wednesday night</div>
+      <div class="tile-d">Online housing complaint for water intrusion and mold. A second agency record, independent of the city case, dated before any trial date exists.</div>
+    </div>
+    <div class="tile" style="--tone:var(--green)">
+      <div class="tile-k">Evidence</div>
+      <div class="tile-v">Six sets on file · photos and video owed Tuesday night</div>
+      <div class="tile-d">The Sept 22 findings summary; the 35-page capture of the owner's own portal; the Sept 1 notices with photographs; the lease with its abatement sections and mold addendum; the Aug 7 and Sept 7 late-fee notices; the March 2025 $270 credit. Missing: dated photographs and a walkthrough video of the unit as it is now.</div>
+    </div>
+    <div class="tile" style="--tone:var(--blue)">
+      <div class="tile-k">Money</div>
+      <div class="tile-v">$5,400 held · $1,168.30 disputed and not rent · October to be tendered</div>
+      <div class="tile-d">August and September rent stays liquid: a conditional judgment gives five days to pay whatever the court sets. The owner's balance also carries $600 of late fees and $568.30 of trash and pass-through shortfalls that are not rent. October's $2,700 goes by cashier's check on Oct 1 or 2 because the portal no longer accepts payments.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAP ================= -->
+<section class="sec" id="map">
+  <div class="sec-head"><div><div class="sec-kicker">Sixteen months on one line</div><h2 class="sec-title">The leak and the case</h2></div><div class="sec-note">tap a mark for the ticket · drag the hairline to replay</div></div>
+  <div class="mapbar">
+    <div class="seg" role="group" aria-label="Range">
+      <button type="button" data-range="full" class="on">Jan 2024 → Nov 2026</button>
+      <button type="button" data-range="case">The case · Aug → Nov 2026</button>
+    </div>
+    <div class="asof">As of <b id="asofText">Sun 27 Sep 2026</b> · <span id="asofNote">today</span></div>
+  </div>
+  <div class="svgwrap">
+    <svg id="mapSvg" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="Instrument Sans, sans-serif" tabindex="0" role="img" aria-label="Three lanes: the leak (nine work orders since May 2024, the open emergency ticket), the case (filing, service, the Answer, the deadline, the trial window), and you (abroad, the flight home, Los Angeles). A draggable hairline sets the date the counters use."></svg>
+  </div>
+  <div class="tlcard" id="tlcard" style="--tone:var(--accent)">
+    <div class="tlcard-when"><b id="cardWhen">Sun 27 Sep 2026</b><span id="cardSub">today</span></div>
+    <div><div class="tlcard-t" id="cardT">Nine work orders on one ceiling since May 2024; six marked complete; the leak came back every time</div><div class="tlcard-d" id="cardD">Tap any mark on the map for the ticket number, the owner's status, and what you wrote on the day. The open ticket keeps growing to the hairline.</div></div>
+  </div>
+  <div class="maphint">Arrow keys move the hairline a day · Home returns to today · the counters in the header follow it</div>
+</section>
+
+<!-- ================= CLOCK ================= -->
+<section class="sec" id="clock">
+  <div class="sec-head"><div><div class="sec-kicker">Ten court days</div><h2 class="sec-title">Court-day clock</h2></div><div class="sec-note">weekends and court holidays do not count</div></div>
+  <div class="clockbar">
+    <div class="seg" role="group" aria-label="Mailing scenario">
+      <button type="button" data-mail="2026-09-21" class="on">Copy mailed Mon 21 Sep</button>
+      <button type="button" data-mail="2026-09-20">Copy mailed Sun 20 Sep</button>
+      <button type="button" data-mail="2026-09-22">Mailed Tue 22 Sep</button>
+    </div>
+    <div class="asof">Service completes <b id="completeText">Thu 1 Oct</b> · deadline <b id="deadlineText">Fri 16 Oct</b></div>
+  </div>
+  <div class="cgrid" id="cgrid" aria-label="Calendar from September 20 to October 24 with the court-day count"></div>
+  <div class="clegend"><span><i style="background:rgba(56,189,248,.35)"></i>file day</span><span><i style="background:rgba(240,82,77,.35)"></i>tenth court day</span><span><i style="border-style:dashed"></i>court holiday</span><span><i style="opacity:.4"></i>weekend</span><span>Substituted service completes ten calendar days after the copy is mailed; the ten court days start the next day.</span></div>
+</section>
+
+<!-- ================= LOG ================= -->
+<section class="sec" id="log">
+  <div class="sec-head"><div><div class="sec-kicker">Newest first</div><h2 class="sec-title">What happened · 6 Aug → 27 Sep</h2></div><div class="sec-note">from the owner's portal and the mailbox · 52 days</div></div>
+  <div class="tl">
+    <div class="ev cool"><div class="ev-when"><b>Sun 27 Sep</b>Tirana</div><div><div class="ev-t">Response plan approved · this room opened</div><div class="ev-d">File in person Wednesday; October rent to be tendered by cashier's check Oct 1 or 2; discovery and the jury counter-request within two days of the Answer. Nothing requires anyone but you from here on.</div></div></div>
+    <div class="ev"><div class="ev-when"><b>Tue 22 Sep</b></div><div><div class="ev-t">Findings summary compiled from the owner's own portal</div><div class="ev-d">Nine work orders on one leak over sixteen months; six marked complete and the leak back each time, once seventeen days later. Rent paid in full for 35 consecutive months. A $270 credit in March 2025 for three days without hot water: $90 a day. The account now shows <q>This account does not allow online payments.</q></div></div></div>
+    <div class="ev hot"><div class="ev-when"><b>Sun 20 Sep</b></div><div><div class="ev-t">Summons packet handed to a friend at the door</div><div class="ev-d">Substituted service while you were abroad; he gave his own name. A mailed copy should follow; service completes ten days after it is mailed. The packet is unread until Tuesday night.</div></div></div>
+    <div class="ev hot"><div class="ev-when"><b>Wed 16 Sep</b></div><div><div class="ev-t">Unlawful detainer filed</div><div class="ev-d">Fifteen days after the written mold report. Owner's counsel: Parham Hendifar, 1016 Pico Blvd, Santa Monica.</div></div></div>
+    <div class="ev quiet"><div class="ev-when"><b>Mon 7 Sep</b></div><div><div class="ev-t">Automated late-fee notice · $150</div><div class="ev-d">The same template as Aug 7. The only messages from the owner since the Sept 1 notices.</div></div></div>
+    <div class="ev win"><div class="ev-when"><b>Tue 1 Sep</b>evening</div><div><div class="ev-t">Written notice: rent withheld for uninhabitable conditions · mold reported the same night</div><div class="ev-d">Two emails to the resident manager with photographs; the second cites the lease's mold addendum and the city code-enforcement case. Both delivered. Neither answered.</div></div></div>
+    <div class="ev"><div class="ev-when"><b>Fri 28 Aug</b></div><div><div class="ev-t">Vendor visit addresses the bathroom faucet, not the emergency A/C ticket</div><div class="ev-d">Ticket #167617 (faucet) touched; ticket #169056 (leak, Emergency) untouched.</div></div></div>
+    <div class="ev quiet"><div class="ev-when"><b>Fri 7 Aug</b></div><div><div class="ev-t">Automated late-fee notice · $150</div><div class="ev-d">August rent unpaid a week after the ninth ticket opened.</div></div></div>
+    <div class="ev hot"><div class="ev-when"><b>Thu 6 Aug</b></div><div><div class="ev-t">Work order #169056 · Emergency (Leak/Mold) · assigned to vendor · still open</div><div class="ev-d"><q>This is happening again... a week after a repair... Please have your technician explain the underlying problem.</q> Permission to enter: yes, as on every ticket before it.</div></div></div>
+  </div>
+</section>
+
+<!-- ================= OPEN LOOPS ================= -->
+<section class="sec" id="loops">
+  <div class="sec-head"><div><div class="sec-kicker">Tuesday night → Friday</div><h2 class="sec-title">Open loops</h2></div><div class="sec-note">ticks save locally · all yours</div></div>
+  <div class="loops" id="loopList">
+    <label class="loop" style="--sev:var(--accent)"><input type="checkbox" data-k="packet"><span class="loop-tag">Tue 29 · Packet</span><span><span class="loop-l">Read every page of the packet and photograph it; look for the court's settlement-services notice; check the mailbox for the mailed copy and keep the envelope</span><span class="loop-d">The 3-day notice inside it supplies the date, the amount and the payment instructions the Answer still needs. The postmark on the mailed copy dates the clock.</span></span></label>
+    <label class="loop" style="--sev:var(--accent)"><input type="checkbox" data-k="photos"><span class="loop-tag">Tue 29 · Evidence</span><span><span class="loop-l">Photograph and video the leak site, the mold, the ceiling, the floor and the A/C unit, timestamps on</span><span class="loop-d">Sixty seconds of walkthrough plus stills. The one exhibit set that does not exist yet.</span></span></label>
+    <label class="loop" style="--sev:var(--accent)"><input type="checkbox" data-k="print"><span class="loop-tag">Tue 29 · Paper</span><span><span class="loop-l">Print the Answer set, original plus two copies, and sign the verification</span><span class="loop-d">No printer: e-file Wednesday night instead, received by 11:59 pm counts as that day.</span></span></label>
+    <label class="loop" style="--sev:var(--hot)"><input type="checkbox" data-k="file"><span class="loop-tag">Wed 30 · Court</span><span><span class="loop-l">Stanley Mosk, 111 N. Hill St., 8:30: Self-Help Center review, then the civil filing window · $225 or the fee waiver · leave with conformed copies</span><span class="loop-d">Arrive at 7:45; parking and security are both worse than you expect. Ask at the settlement-services desk what the pilot offers a self-represented defendant. Hard stop for filing: Fri Oct 9.</span></span></label>
+    <label class="loop" style="--sev:var(--hot)"><input type="checkbox" data-k="serve"><span class="loop-tag">Wed 30 · Service</span><span><span class="loop-l">Serve the Answer on the owner's counsel (Hendifar, 1016 Pico Blvd, Santa Monica): e-service through a filing provider, or any adult who is not a party mails a copy and signs the proof</span><span class="loop-d">You cannot serve your own papers. Form POS-030 for the mail route.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="lahd"><span class="loop-tag">Wed 30 · City</span><span><span class="loop-l">Call code enforcement (866-557-7368) on the open case: inspection done? written notice to comply issued, and dated when? how to get the report</span><span class="loop-d">Follow with an email the same day so the answer is in writing.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="dph"><span class="loop-tag">Wed 30 · County</span><span><span class="loop-l">File the county Public Health housing complaint online: water intrusion and mold</span><span class="loop-d">Fields are drafted; submit and record the complaint number.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="disc"><span class="loop-tag">Thu 1 · Discovery</span><span><span class="loop-l">Serve the discovery set: form interrogatories, request for production, requests for admission · responses due in five days</span><span class="loop-d">Same service route as the Answer. Work orders, vendor invoices, HVAC service records, the code-enforcement correspondence, the rent ledger.</span></span></label>
+    <label class="loop" style="--sev:var(--amber)"><input type="checkbox" data-k="jury"><span class="loop-tag">Thu 1 · Jury</span><span><span class="loop-l">File the UD-150 counter-request with the jury box checked</span><span class="loop-d">The $150 fee is due at least five days before trial; that decision comes later.</span></span></label>
+    <label class="loop" style="--sev:var(--blue)"><input type="checkbox" data-k="tender"><span class="loop-tag">Oct 1–2 · Rent</span><span><span class="loop-l">Cashier's check for $2,700, memo "October 2026 rent only", with the letter, to 11601 Santa Monica Blvd (Mon–Fri 9–5) · copy of the letter to the owner's counsel</span><span class="loop-d">Keep the receipt. If they refuse it, write down who, when, and what was said.</span></span></label>
+    <label class="loop" style="--sev:var(--blue)"><input type="checkbox" data-k="record"><span class="loop-tag">Fri 2 · Record</span><span><span class="loop-l">One factual repair-request email in the existing thread; the public-records request to the city for the code-enforcement file</span><span class="loop-d">Ticket open since Aug 6, mold present, request a repair date. Nothing else in it.</span></span></label>
+    <label class="loop" style="--sev:var(--subtle)"><input type="checkbox" data-k="docket"><span class="loop-tag">Oct · Court</span><span><span class="loop-l">Watch the docket for the request to set trial and the trial date</span><span class="loop-d">Checked daily by script; the date lands here and on the landing page when it exists.</span></span></label>
+  </div>
+  <div class="savenote" id="saveNote">Ticks save in this browser only</div>
+</section>
+
+<!-- ================= MONEY ================= -->
+<section class="sec" id="money">
+  <div class="sec-head"><div><div class="sec-kicker">Held, disputed, ahead</div><h2 class="sec-title">Money</h2></div><div class="sec-note">from the owner's ledger · captured 22 Sep</div></div>
+  <div class="money">
+    <div class="card">
+      <table class="ledger">
+        <thead><tr><th>When</th><th>What</th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Aug 2026</td><td>Rent · withheld · held liquid</td><td>$2,700.00</td></tr>
+          <tr><td>Sep 2026</td><td>Rent · withheld on written notice Sep 1 · held liquid</td><td>$2,700.00</td></tr>
+          <tr class="total"><td></td><td>Held for the court</td><td>$5,400.00</td></tr>
+          <tr><td>Since 2024</td><td>Late fees on the owner's ledger · 4 × $150 · disputed, not rent</td><td>$600.00</td></tr>
+          <tr><td>Since late 2024</td><td>Trash ($30) and SCEP ($2.83) pass-through shortfalls · not rent</td><td>$568.30</td></tr>
+          <tr class="total"><td></td><td>Disputed, not rent</td><td>$1,168.30</td></tr>
+          <tr><td>Sep 30</td><td>Answer filing fee · first paper, limited civil · confirm at the window</td><td>$225.00</td></tr>
+          <tr><td>Oct 1–2</td><td>October rent · cashier's check · tendered, not withheld</td><td>$2,700.00</td></tr>
+          <tr><td>5 days pre-trial</td><td>Jury fee · only if the demand is kept</td><td>$150.00</td></tr>
+          <tr class="live"><td>Aug 1 →</td><td>Abatement at the owner's own rate · $90 a day · to the date on the map</td><td id="abateRow">$5,220.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <p><b>Why the money sits still.</b> If the court finds the unit was not habitable, it sets a reduced rent for the period and gives you five days to pay it and keep possession. Money that is not liquid on that fifth day is a lost apartment. So $5,400 stays where it can move the same afternoon.</p>
+      <p><b>October is different.</b> It is tendered, in full, in a form they can bank, with a letter that says what it is and what it is not. Whether they take it or refuse it, the record shows a tenant paying current rent and disputing two months.</p>
+      <p><b>The $90.</b> On March 5, 2025 the owner credited $270 for three days without hot water — the full daily rent for one lost service. The counter at the top applies that rate to a leaking, molding ceiling from Aug 1 and ticks once a day. It is their measure, not yours.</p>
+      <p><b>Not here.</b> Settlement numbers and the order of arguments stay in the private file.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RULES ================= -->
+<section class="sec" id="rules">
+  <div class="sec-head"><div><div class="sec-kicker">Self-represented</div><h2 class="sec-title">Rules for the room</h2></div><div class="sec-note">carried over from the other courtroom · they apply here</div></div>
+  <div class="rules">
+    <div class="rule"><b>Written, or it did not happen.</b><span>Every call to the owner's counsel or the city gets a same-day email that says what was said. Dates, amounts, names.</span></div>
+    <div class="rule"><b>Dates, not adjectives.</b><span>"Open since August 6" beats "forever". "Nine tickets since May 2024" beats "constantly". The portal did the counting; quote it.</span></div>
+    <div class="rule"><b>Answer, then stop.</b><span>One sentence. If they want more they will ask. The clause after the comma is where cases are lost.</span></div>
+    <div class="rule"><b>Never characterise anyone's intent.</b><span>"The ticket was marked Emergency on Aug 6 and is still assigned to the vendor" is a fact. "They never cared" is an argument, and it invites the follow-up that hurts.</span></div>
+    <div class="rule"><b>Three of everything.</b><span>Court, the other side, you. Tabbed, in the order of the exhibit index. A document you cannot hand over does not exist.</span></div>
+    <div class="rule"><b>Read the writ clause.</b><span>Nothing gets signed in a hallway that ends possession automatically if a date is missed. Read to the end before the pen moves; ask for a minute if you need it.</span></div>
+    <div class="rule"><b>Arrive at 7:45.</b><span>Stanley Mosk, 111 North Hill Street. Parking and security are both worse than you expect; the Self-Help line forms before the doors open.</span></div>
+    <div class="rule"><b>Pay current rent in the open.</b><span>October goes in on time, in full, by cashier's check, with a letter. Refusal is their choice and their record.</span></div>
+  </div>
+  <div class="say"><i>If you lose your place at the window:</i> "I'm the defendant in an unlawful detainer, I'm filing my Answer today, and I need conformed copies." Then stop, and let them ask.</div>
+</section>
+
+<!-- ================= ARCHIVE ================= -->
+<section class="sec" id="archive">
+  <div class="sec-head"><div><div class="sec-kicker">The record</div><h2 class="sec-title">Archive · nine work orders</h2></div><div class="sec-note">verbatim from the owner's portal · captured 22 Sep</div></div>
+  <details class="arch">
+    <summary>The leak, May 2024 → Sep 2026, ticket by ticket</summary>
+    <div class="inner">
+      <table class="mini">
+        <thead><tr><th>Requested</th><th>Order</th><th>Owner's status</th><th>What you wrote</th></tr></thead>
+        <tbody>
+          <tr><td>May 27, 2024</td><td>#120048</td><td>Completed May 28, 2024</td><td><q>Water is leaking from the AC filters... the situation is very critical since the amount of water is pretty high.</q></td></tr>
+          <tr><td>Sep 1, 2024</td><td>#125554</td><td>Completed Sep 11, 2024</td><td><q>There is water leaking from the AC. It has happened earlier last month too.</q></td></tr>
+          <tr><td>Aug 14, 2025</td><td>#145266</td><td>Completed Aug 29, 2025</td><td><q>This is an ongoing problem... I believe it will damage the flooring if it keeps leaking all day.</q></td></tr>
+          <tr><td>Sep 22, 2025</td><td>#147800</td><td>Completed Sep 24, 2025</td><td><q>The same issue happened less than a month ago... it is harming the wooden flooring.</q></td></tr>
+          <tr><td>Mar 4, 2026</td><td>#1583xx</td><td>Four duplicates canceled; the surviving order no longer appears in the portal</td><td><q>Requesting immediate inspection and repair of the leaking pipes.</q></td></tr>
+          <tr><td>Apr 10, 2026</td><td>#160989</td><td>Completed May 15, 2026 · 35 days</td><td><q>It's happening again, it's been a constant issue.</q></td></tr>
+          <tr><td>Jul 17, 2026</td><td>#167358</td><td>Completed Jul 20, 2026 · priority Emergency (Leak/Mold)</td><td><q>A ton of water leaking from the A/C... a consistent almost monthly issue throughout all 4 years I've been here.</q></td></tr>
+          <tr><td>Aug 6, 2026</td><td>#169056</td><td>Assigned to vendor · open · priority Emergency (Leak/Mold)</td><td><q>This is happening again... a week after a repair... Please have your technician explain the underlying problem.</q></td></tr>
+          <tr><td>Sep 1, 2026</td><td>email</td><td>Delivered · not answered</td><td>Visible mold at the leak site reported in writing; rent withheld for uninhabitable conditions.</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px"><b>Also in the same portal.</b> Four hot-water failures in January–April 2024 (<q>the fourth month in a row</q>) and a two-day loss of water supply in June 2024. On March 5, 2025 the owner credited the account $270.00, labelled <q>rent credit for 3 days without hot water</q>.</p>
+      <p><b>Access.</b> On every ticket the answer to "Permission to enter" was yes. The owner holds keys and was never refused entry.</p>
+    </div>
+  </details>
+</section>
+
+<footer class="foot">
+  <span>Chaos Console · Possession</span>
+  <span>Logistics only · not legal advice · verify before relying</span>
+  <span>Rev. 27 Sep 2026 · next revision when the Answer is filed</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  /* ---------- constants edited per update ---------- */
+  var PHASE = 1; // 1 Intake · 2 Answer · 3 Discovery · 4 Settlement · 5 Trial · 6 Judgment
+  var PHASES = ["Intake","Answer","Discovery","Settlement","Trial","Judgment"];
+  var TICKET_OPEN = Date.UTC(2026,7,6);   // Aug 6
+  var ABATE_FROM  = Date.UTC(2026,7,1);   // Aug 1, day 1
+  var RATE = 90;
+  var FILE_DAY = Date.UTC(2026,8,30);     // Wed Sep 30
+  var HOLIDAYS = ["2026-09-07","2026-09-25","2026-10-12","2026-11-11","2026-11-26","2026-11-27","2026-12-25","2027-01-01"];
+  var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var D=864e5;
+  function utc(s){var p=s.split("-");return Date.UTC(+p[0],+p[1]-1,+p[2]);}
+  function iso(t){return new Date(t).toISOString().slice(0,10);}
+  function fmt(t,dow){var d=new Date(t);return (dow?DOW[d.getUTCDay()]+" ":"")+d.getUTCDate()+" "+MON[d.getUTCMonth()];}
+  function fmtY(t){var d=new Date(t);return DOW[d.getUTCDay()]+" "+d.getUTCDate()+" "+MON[d.getUTCMonth()]+" "+d.getUTCFullYear();}
+  function isCourtDay(t){var d=new Date(t).getUTCDay();return d!==0&&d!==6&&HOLIDAYS.indexOf(iso(t))<0;}
+  function nthCourtDay(from,n){var t=from,c=0;while(c<n){t+=D;if(isCourtDay(t))c++;}return t;}
+  function courtDaysBetween(a,b){var c=0;for(var t=a+D;t<=b;t+=D)if(isCourtDay(t))c++;return c;}
+  function money(n){return "$"+n.toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:0});}
+  var now=new Date(), TODAY=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+  var LEGAL_DL = nthCourtDay(utc("2026-09-21")+10*D,10); // mailed Sep 21 → complete Oct 1 → 10 court days
+  /* ---------- phases + ring ---------- */
+  var ph=document.getElementById("phases");
+  PHASES.forEach(function(n,i){var s=document.createElement("span");s.className="phase"+(i+1===PHASE?" on":(i+1<PHASE?" past":""));s.textContent=(i+1)+" · "+n;ph.appendChild(s);});
+  document.getElementById("ringV").textContent=PHASE+" / 6"; document.getElementById("ringN").textContent=PHASES[PHASE-1];
+  (function(){var svg=document.getElementById("ringSvg"),cx=84,cy=84,r=70,gap=0.06,seg=(Math.PI*2)/6,html="";
+    for(var i=0;i<6;i++){var a0=-Math.PI/2+i*seg+gap,a1=-Math.PI/2+(i+1)*seg-gap;
+      var x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+      var on=i<PHASE; html+='<path d="M'+x0.toFixed(2)+' '+y0.toFixed(2)+' A'+r+' '+r+' 0 0 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'" fill="none" stroke="'+(on?"#38bdf8":"rgba(248,244,232,.14)")+'" stroke-width="'+(on?8:5)+'" stroke-linecap="round"/>';}
+    svg.innerHTML=html;})();
+
+  /* ---------- open loops (local ticks) ---------- */
+  var NS="cc-possession-v1", store={};
+  try{store=JSON.parse(localStorage.getItem(NS)||"{}")}catch(e){store={}}
+  var boxes=document.querySelectorAll('#loopList input[type=checkbox]');
+  function note(){var n=document.querySelectorAll('#loopList input:checked').length;if(n)document.getElementById('saveNote').textContent=n+' of '+boxes.length+' closed · saved in this browser';}
+  boxes.forEach(function(b){var k=b.getAttribute('data-k');if(store[k]){b.checked=true;b.closest('.loop').classList.add('done')}
+    b.addEventListener('change',function(){store[k]=b.checked;b.closest('.loop').classList.toggle('done',b.checked);try{localStorage.setItem(NS,JSON.stringify(store))}catch(e){}note();});});
+  note();
+
+  /* ---------- counters that follow the hairline ---------- */
+  var ASOF=TODAY;
+  function abateDays(t){return Math.max(0,Math.floor((t-ABATE_FROM)/D)+1);}
+  function setCounters(t,animate){
+    var open=Math.max(0,Math.round((t-TICKET_OPEN)/D)); document.getElementById("daysOpen").textContent=open;
+    var left=courtDaysBetween(t,LEGAL_DL); var cl=document.getElementById("courtLeft"); cl.textContent=t>=LEGAL_DL?"0":left;
+    var days=abateDays(t), target=days*RATE;
+    document.getElementById("abateDays").textContent=days; document.getElementById("abateAsOf").textContent=fmt(t);
+    document.getElementById("abateRow").textContent=money(target)+".00";
+    var el=document.getElementById("abate");
+    if(animate){var from=Math.max(0,target-RATE),start=null;(function step(ts){if(!start)start=ts;var p=Math.min(1,(ts-start)/700);el.textContent=money(Math.round(from+(target-from)*p));if(p<1)requestAnimationFrame(step);})(performance.now());}
+    else el.textContent=money(target);
+    document.getElementById("asofText").textContent=fmtY(t);
+    document.getElementById("asofNote").textContent=t===TODAY?"today":(t<TODAY?Math.round((TODAY-t)/D)+" days ago":"in "+Math.round((t-TODAY)/D)+" days");
+  }
+  document.getElementById("dlText").textContent=fmt(LEGAL_DL,true);
+
+  /* ---------- the drip: one drop per visit, lands on the counter ---------- */
+  setCounters(TODAY,false);
+  setTimeout(function(){document.getElementById("drop").classList.add("go");document.getElementById("splash").classList.add("go");setTimeout(function(){setCounters(ASOF,true)},1500);},600);
+
+  /* ---------- the map ---------- */
+  var LEAK=[
+    {k:"hw",  s:"2024-01-01",e:"2024-04-30",kind:"span",t:"Hot water fails four times, Jan–Apr 2024",d:"<q>The fourth month in a row.</q> Dates approximate to the month; from the same portal.",tone:"subtle"},
+    {k:"t1",  s:"2024-05-27",e:"2024-05-28",kind:"ticket",t:"#120048 · Completed May 28, 2024",d:"<q>Water is leaking from the AC filters... the situation is very critical since the amount of water is pretty high.</q>"},
+    {k:"t2",  s:"2024-09-01",e:"2024-09-11",kind:"ticket",t:"#125554 · Completed Sep 11, 2024",d:"<q>There is water leaking from the AC. It has happened earlier last month too.</q>"},
+    {k:"cr",  s:"2025-03-05",e:"2025-03-05",kind:"credit",t:"$270 credit · rent credit for 3 days without hot water",d:"$90 a day, the full daily rent, for three days of one lost service. The owner's own measure of what a lost service is worth.",tone:"green"},
+    {k:"t3",  s:"2025-08-14",e:"2025-08-29",kind:"ticket",t:"#145266 · Completed Aug 29, 2025",d:"<q>This is an ongoing problem... I believe it will damage the flooring if it keeps leaking all day.</q>"},
+    {k:"t4",  s:"2025-09-22",e:"2025-09-24",kind:"ticket",t:"#147800 · Completed Sep 24, 2025",d:"<q>The same issue happened less than a month ago... it is harming the wooden flooring.</q>"},
+    {k:"t5",  s:"2026-03-04",e:"2026-03-04",kind:"ticket",t:"#1583xx · four duplicates canceled; the surviving order vanished from the portal",d:"<q>Requesting immediate inspection and repair of the leaking pipes.</q> Your screenshot of March 4 is the only record it existed."},
+    {k:"t6",  s:"2026-04-10",e:"2026-05-15",kind:"ticket",t:"#160989 · Completed May 15, 2026 · 35 days open",d:"<q>It's happening again, it's been a constant issue.</q>"},
+    {k:"t7",  s:"2026-07-17",e:"2026-07-20",kind:"ticket",t:"#167358 · Completed Jul 20, 2026 · priority Emergency (Leak/Mold)",d:"<q>A ton of water leaking from the A/C... a consistent almost monthly issue throughout all 4 years I've been here.</q> The owner's system classified it as an emergency.",tone:"hot"},
+    {k:"t8",  s:"2026-08-06",e:null,kind:"open",t:"#169056 · Assigned to vendor · open · priority Emergency (Leak/Mold)",d:"<q>This is happening again... a week after a repair... Please have your technician explain the underlying problem.</q> Seventeen days after the previous ticket was marked complete. Still open; the bar grows to the hairline.",tone:"hot"},
+    {k:"mold",s:"2026-09-01",e:"2026-09-01",kind:"mail",t:"Mold reported in writing · rent withheld on written notice",d:"Two emails to the resident manager the same evening, with photographs, citing the mold addendum and the city code-enforcement case. Delivered, unanswered.",tone:"amber"}
+  ];
+  var CASE=[
+    {k:"lf1", s:"2026-08-07",e:"2026-08-07",kind:"note",t:"Automated late-fee notice · $150",d:"August rent unpaid a week after the ninth ticket opened.",tone:"subtle"},
+    {k:"lf2", s:"2026-09-07",e:"2026-09-07",kind:"note",t:"Automated late-fee notice · $150",d:"Same template as Aug 7. The only messages from the owner after the Sept 1 notices.",tone:"subtle"},
+    {k:"ud",  s:"2026-09-16",e:"2026-09-16",kind:"filing",t:"Unlawful detainer filed",d:"Fifteen days after the written mold report. Owner's counsel: Parham Hendifar, Santa Monica.",tone:"hot"},
+    {k:"sv",  s:"2026-09-20",e:"2026-09-20",kind:"filing",t:"Summons packet handed to a friend at the door",d:"Substituted service while you were abroad. A mailed copy should follow; service completes ten days after mailing.",tone:"hot"},
+    {k:"ans", s:"2026-09-30",e:"2026-09-30",kind:"plan",t:"Answer filed at Stanley Mosk · planned",d:"Self-Help review at 8:30, then the civil filing window. $225 or a fee waiver. Conformed copies in hand.",tone:"cool"},
+    {k:"disc",s:"2026-10-01",e:"2026-10-02",kind:"planspan",t:"Discovery served · jury counter-request · October rent tendered · planned",d:"Responses to discovery are due in five days. The cashier's check goes to the management office with a letter.",tone:"cool"},
+    {k:"stop",s:"2026-10-09",e:"2026-10-09",kind:"plan",t:"Hard stop for filing",d:"If Wednesday and Thursday both fail, this is the last day the plan allows. The legal deadline is a week later.",tone:"amber"},
+    {k:"dl",  s:"2026-10-15",e:"2026-10-16",kind:"deadline",t:"Legal deadline to respond · Oct 15 or 16",d:"Ten court days after service completes; the day depends on when the copy was mailed. See the court-day clock below.",tone:"hot"},
+    {k:"trial",s:"2026-10-20",e:"2026-11-06",kind:"est",t:"Trial window · estimate",d:"The owner requests trial after the Answer; the court must set it within 20 days of that request.",tone:"subtle"}
+  ];
+  var YOU=[
+    {k:"abroad",s:"2026-09-15",e:"2026-09-29",kind:"span",t:"Abroad · Sep 15 → 29",d:"Italy, then Tirana. Reachable by email; nothing signed.",tone:"blue"},
+    {k:"fly",s:"2026-09-29",e:"2026-09-29",kind:"flight",t:"Flight home · lands LAX 3 pm",d:"The packet gets read that night. Photographs and video of the unit the same evening.",tone:"blue"},
+    {k:"la",s:"2026-09-29",e:"2026-11-10",kind:"span",t:"Los Angeles",d:"Wednesday is the courthouse day; Thursday and Friday put discovery, the jury request and the October tender on the record.",tone:"blue"}
+  ];
+  var TONE={hot:"#f0524d",amber:"#f4c51d",green:"#82ca55",cool:"#38bdf8",blue:"#36a3df",subtle:"#75716b"};
+  var RANGES={full:{a:utc("2024-01-01"),b:utc("2026-11-10")},case:{a:utc("2026-08-01"),b:utc("2026-11-10")}};
+  var range="full", svg=document.getElementById("mapSvg"), X0=30, X1=970, LANEY={leak:96,cas:184,you:252};
+  var selected=null;
+  function X(t){var r=RANGES[range];return X0+(t-r.a)/(r.b-r.a)*(X1-X0);}
+  function clampT(t){var r=RANGES[range];return Math.max(r.a,Math.min(r.b,t));}
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+  function ticks(){var r=RANGES[range],out=[],d=new Date(r.a);
+    if(range==="full"){d=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),1));for(var t=d.getTime();t<=r.b;){var dd=new Date(t);if(dd.getUTCMonth()%3===0)out.push({t:t,l:MON[dd.getUTCMonth()]+(dd.getUTCMonth()===0?" "+dd.getUTCFullYear():"")});t=Date.UTC(dd.getUTCFullYear(),dd.getUTCMonth()+1,1);}}
+    else{for(var t2=r.a;t2<=r.b;t2+=7*D){var d2=new Date(t2);out.push({t:t2,l:MON[d2.getUTCMonth()]+" "+d2.getUTCDate()});}}
+    return out;}
+  function lane(y,label,color){return '<text x="'+X0+'" y="'+(y-22)+'" fill="'+color+'" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="2">'+label+'</text><line x1="'+X0+'" y1="'+y+'" x2="'+X1+'" y2="'+y+'" stroke="rgba(248,244,232,.14)" stroke-width="1.5"/>';}
+  function mark(ev,y){var a=utc(ev.s),b=ev.e?utc(ev.e):ASOF,r=RANGES[range]; if(b<r.a||a>r.b)return "";
+    var xa=X(clampT(a)),xb=X(clampT(b)),c=TONE[ev.tone||"cool"]||TONE.cool,g='<g class="node'+(selected===ev.k?" sel":"")+'" data-k="'+ev.k+'">';
+    var w=Math.max(xb-xa,0);
+    if(ev.kind==="ticket"){var wt=Math.max(w,3);g+='<rect x="'+xa+'" y="'+(y-6)+'" width="'+wt+'" height="12" rx="2" fill="'+(ev.tone?c:"#38bdf8")+'" fill-opacity=".55"/><circle class="halo" cx="'+xa+'" cy="'+y+'" r="13" fill="'+(ev.tone?c:"#38bdf8")+'"/><circle cx="'+xa+'" cy="'+y+'" r="5.5" fill="'+(ev.tone?c:"#38bdf8")+'"/>';}
+    else if(ev.kind==="open"){g+='<rect id="openBar" x="'+xa+'" y="'+(y-6)+'" width="'+Math.max(w,3)+'" height="12" rx="2" fill="'+c+'" fill-opacity=".38"/><rect id="openBarO" x="'+xa+'" y="'+(y-6)+'" width="'+Math.max(w,3)+'" height="12" rx="2" fill="none" stroke="'+c+'" stroke-width="1.2" stroke-dasharray="3 3"/><circle class="halo" cx="'+xa+'" cy="'+y+'" r="13" fill="'+c+'"/><circle cx="'+xa+'" cy="'+y+'" r="6" fill="'+c+'"/>';}
+    else if(ev.kind==="span"||ev.kind==="planspan"||ev.kind==="est"){g+='<rect x="'+xa+'" y="'+(y-7)+'" width="'+Math.max(w,3)+'" height="14" rx="3" fill="'+c+'" fill-opacity="'+(ev.kind==="est"?".18":".35")+'"'+(ev.kind==="est"?' stroke="'+c+'" stroke-width="1" stroke-dasharray="4 3"':'')+'/><rect class="halo" x="'+(xa-4)+'" y="'+(y-11)+'" width="'+(Math.max(w,3)+8)+'" height="22" rx="5" fill="'+c+'"/>';}
+    else if(ev.kind==="credit"){g+='<circle class="halo" cx="'+xa+'" cy="'+y+'" r="14" fill="'+c+'"/><rect x="'+(xa-6)+'" y="'+(y-6)+'" width="12" height="12" transform="rotate(45 '+xa+' '+y+')" fill="'+c+'"/>';}
+    else if(ev.kind==="mail"||ev.kind==="note"){g+='<circle class="halo" cx="'+xa+'" cy="'+y+'" r="12" fill="'+c+'"/><circle cx="'+xa+'" cy="'+y+'" r="4.5" fill="none" stroke="'+c+'" stroke-width="2"/>';}
+    else if(ev.kind==="filing"||ev.kind==="plan"||ev.kind==="deadline"){var h=ev.kind==="deadline"?9:7;g+='<circle class="halo" cx="'+xa+'" cy="'+y+'" r="14" fill="'+c+'"/>'+(ev.kind==="deadline"?'<rect x="'+xa+'" y="'+(y-7)+'" width="'+Math.max(w,3)+'" height="14" rx="2" fill="'+c+'" fill-opacity=".35"/>':'')+'<polygon points="'+xa+','+(y-h)+' '+(xa+h)+','+y+' '+xa+','+(y+h)+' '+(xa-h)+','+y+'" fill="'+(ev.kind==="plan"?"#0a0a10":c)+'" stroke="'+c+'" stroke-width="2"/>';}
+    else if(ev.kind==="flight"){var xf=X(clampT(utc("2026-09-15"))),xt=xa; g+='<path d="M'+xf+' '+(y-2)+' Q '+((xf+xt)/2)+' '+(y-60)+' '+xt+' '+(y-2)+'" fill="none" stroke="'+c+'" stroke-width="1.5" stroke-dasharray="5 4"/><circle class="halo" cx="'+xa+'" cy="'+y+'" r="13" fill="'+c+'"/><circle cx="'+xa+'" cy="'+y+'" r="5.5" fill="'+c+'"/><text x="'+(xa+9)+'" y="'+(y-8)+'" fill="'+c+'" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1">LAX 3 PM</text>';}
+    return g+"</g>";}
+  function draw(){
+    var html='<rect x="0" y="0" width="1000" height="300" fill="transparent"/>';
+    var tk=ticks(); tk.forEach(function(k){var x=X(k.t);html+='<line x1="'+x+'" y1="40" x2="'+x+'" y2="270" stroke="rgba(248,244,232,.06)"/><text x="'+x+'" y="30" text-anchor="middle" fill="#75716b" font-size="10" font-family="JetBrains Mono, monospace" letter-spacing="1">'+k.l.toUpperCase()+'</text>';});
+    html+=lane(LANEY.leak,"THE LEAK · NINE WORK ORDERS","#38bdf8")+lane(LANEY.cas,"THE CASE","#f0524d")+lane(LANEY.you,"YOU","#36a3df");
+    LEAK.forEach(function(e){html+=mark(e,LANEY.leak)}); CASE.forEach(function(e){html+=mark(e,LANEY.cas)}); YOU.forEach(function(e){html+=mark(e,LANEY.you)});
+    html+='<g class="hair" id="hairG"><rect id="hairHit" x="0" y="36" width="18" height="240" fill="transparent"/><line id="hairL" x1="0" y1="40" x2="0" y2="272" stroke="#f8f4e8" stroke-width="1.5" stroke-dasharray="4 4"/><polygon id="hairP" points="0,40 -6,31 6,31" fill="#f8f4e8"/><text id="hairT" x="0" y="285" fill="#f8f4e8" font-size="9.5" font-family="JetBrains Mono, monospace" letter-spacing="1.5"></text></g>';
+    svg.innerHTML=html; dyn();
+  }
+  function dyn(){
+    var xh=X(clampT(ASOF)), r=RANGES[range];
+    var hit=document.getElementById("hairHit"); if(!hit)return;
+    hit.setAttribute("x",xh-9); var l=document.getElementById("hairL"); l.setAttribute("x1",xh); l.setAttribute("x2",xh);
+    document.getElementById("hairP").setAttribute("points",xh+",40 "+(xh-6)+",31 "+(xh+6)+",31");
+    var t=document.getElementById("hairT"); t.setAttribute("x",xh+(xh>880?-8:8)); t.setAttribute("text-anchor",xh>880?"end":"start"); t.textContent=fmt(ASOF).toUpperCase()+(ASOF===TODAY?" · TODAY":"");
+    var ob=document.getElementById("openBar"), obo=document.getElementById("openBarO");
+    if(ob){var a=utc("2026-08-06"); if(a<=r.b){var xa=X(clampT(a)), w=Math.max(X(clampT(Math.max(ASOF,a)))-xa,3); ob.setAttribute("width",w); obo.setAttribute("width",w);}}
+    svg.querySelectorAll(".node").forEach(function(n){n.classList.toggle("sel",n.getAttribute("data-k")===selected)});
+    var wrap=svg.parentNode; if(wrap.scrollWidth>wrap.clientWidth+8){var px=xh/1000*svg.getBoundingClientRect().width; wrap.scrollLeft=Math.max(0,px-wrap.clientWidth*0.62);}
+  }
+  var ALL=LEAK.concat(CASE,YOU), byK={}; ALL.forEach(function(e){byK[e.k]=e});
+  function card(ev){var a=utc(ev.s),b=ev.e?utc(ev.e):null; document.getElementById("cardWhen").textContent=b&&b!==a?fmt(a,true)+" → "+fmt(b,true)+" "+new Date(b).getUTCFullYear():fmtY(a);
+    document.getElementById("cardSub").textContent=ev.kind==="open"?"open "+Math.max(0,Math.round((ASOF-a)/D))+" days to the hairline":(b&&b!==a?Math.round((b-a)/D)+" days":(ev.kind==="plan"||ev.kind==="planspan"?"planned":ev.kind==="est"?"estimate":""));
+    document.getElementById("cardT").textContent=ev.t; document.getElementById("cardD").innerHTML=ev.d; document.getElementById("tlcard").style.setProperty("--tone",TONE[ev.tone||"cool"]||TONE.cool);}
+  function setAsOf(t,anim){ASOF=clampT(Math.round(t/D)*D);setCounters(ASOF,!!anim);dyn();if(selected&&byK[selected]&&byK[selected].kind==="open")card(byK[selected]);}
+  var dragging=false;
+  function ptT(evt){var pt=svg.createSVGPoint();pt.x=evt.clientX;pt.y=evt.clientY;var p=pt.matrixTransform(svg.getScreenCTM().inverse());var r=RANGES[range];return r.a+(p.x-X0)/(X1-X0)*(r.b-r.a);}
+  svg.addEventListener("pointerdown",function(evt){var node=evt.target.closest(".node");if(node){selected=node.getAttribute("data-k");var ev=byK[selected];card(ev);setAsOf(ev.kind==="open"?Math.max(ASOF,utc(ev.s)):utc(ev.s));return;}
+    dragging=true;svg.setPointerCapture(evt.pointerId);setAsOf(ptT(evt));});
+  svg.addEventListener("pointermove",function(evt){if(dragging)setAsOf(ptT(evt));});
+  svg.addEventListener("pointerup",function(){dragging=false;}); svg.addEventListener("pointercancel",function(){dragging=false;});
+  svg.addEventListener("keydown",function(evt){if(evt.key==="ArrowLeft"){setAsOf(ASOF-D);evt.preventDefault();}else if(evt.key==="ArrowRight"){setAsOf(ASOF+D);evt.preventDefault();}else if(evt.key==="Home"){setAsOf(TODAY);evt.preventDefault();}});
+  document.querySelectorAll('.mapbar [data-range]').forEach(function(b){b.addEventListener("click",function(){range=b.getAttribute("data-range");document.querySelectorAll('.mapbar [data-range]').forEach(function(x){x.classList.toggle("on",x===b)});draw();setCounters(ASOF,false);});});
+  if(window.matchMedia&&window.matchMedia("(max-width:640px)").matches){range="case";document.querySelectorAll('.mapbar [data-range]').forEach(function(x){x.classList.toggle("on",x.getAttribute("data-range")==="case")});}
+  draw();
+
+  /* ---------- court-day clock ---------- */
+  var grid=document.getElementById("cgrid"), MAILED=utc("2026-09-21");
+  function clock(){
+    var complete=MAILED+10*D, dl=nthCourtDay(complete,10), start=utc("2026-09-20"), end=utc("2026-10-24"), html="", n=0;
+    document.getElementById("completeText").textContent=fmt(complete,true); document.getElementById("deadlineText").textContent=fmt(dl,true);
+    for(var t=start;t<=end;t+=D){var d=new Date(t),cls="cday",tag="",cnt="";
+      var court=isCourtDay(t), wk=d.getUTCDay()===0||d.getUTCDay()===6, hol=HOLIDAYS.indexOf(iso(t))>=0;
+      if(wk)cls+=" dim"; if(hol){cls+=" hol";tag="court holiday";}
+      if(t===utc("2026-09-20")){cls+=" served";tag="served at the door";}
+      if(t===MAILED){cls+=" mailed";tag=(tag?tag+" · ":"")+"copy mailed";}
+      if(t===complete){cls+=" complete";tag=(tag?tag+" · ":"")+"service complete";}
+      if(t>complete&&court&&n<10){n++;cnt=n;cls+=" count";if(n===10){cls+=" deadline";tag="tenth court day · deadline";}}
+      if(t===FILE_DAY){cls+=" file";tag="file the Answer";}
+      if(t===TODAY)tag=(tag?tag+" · ":"")+"today";
+      html+='<div class="'+cls+'"><div class="cw">'+DOW[d.getUTCDay()]+'</div><div class="cn">'+d.getUTCDate()+(d.getUTCDate()===1||t===start?' <span style="font-size:10px;color:var(--subtle)">'+MON[d.getUTCMonth()]+'</span>':'')+'</div>'+(cnt?'<div class="cc">'+cnt+'</div>':'')+(tag?'<div class="ct">'+tag+'</div>':'')+'</div>';}
+    grid.innerHTML=html;}
+  document.querySelectorAll('.clockbar [data-mail]').forEach(function(b){b.addEventListener("click",function(){MAILED=utc(b.getAttribute("data-mail"));document.querySelectorAll('.clockbar [data-mail]').forEach(function(x){x.classList.toggle("on",x===b)});clock();});});
+  clock();
+})();
+</script>
+<script defer src="/shared/gate.js"></script>
+<link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/console-shell.js"></script>
+</body>
+</html>

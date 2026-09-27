@@ -5,6 +5,7 @@
 
   var pages = [
     { title: "Hearing Room", short: "Hearing", href: "/hearing-room/", color: "#f0524d", note: "Counsel, calendar, deadlines." },
+    { title: "Possession", short: "Possession", href: "/possession/", color: "#38bdf8", note: "The unlawful detainer: clock, map, loops." },
     { title: "Ledger", short: "Ledger", href: "/the-ledger/", color: "#ef3b86", note: "Debt, cash flow, accounts, APRs." },
     { title: "Wellness", short: "Wellness", href: "/wellness-dashboard/", color: "#82ca55", note: "Apple Health and RingConn signal." },
     { title: "Playlist Tracker", short: "Playlists", href: "/playlist-tracker/", color: "#36a3df", note: "Spotify portfolio and momentum." },
