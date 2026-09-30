@@ -263,65 +263,53 @@ h1 span{color:var(--text-3)}
    offline / on file:// — the fetched copy wins when it loads. */
 var FALLBACK = {
  "version": 2,
- "generated": "2026-09-27",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18.",
+ "generated": "2026-09-30",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18. · Sep 27 2026: Ledger partial September close (5 of 8 cards; Apple closes 9/30, Citi and Amazon statements not filed); Hearing Room to Sep 27; playlists synced Sep 27; health feed resumed Sep 23 (Aug 13 – Sep 22 gap); Readwise pulled Sep 27.",
  "attention": [
   {
    "severity": "red",
-   "label": "Unlawful detainer: file the Answer Wed Sep 30 at Stanley Mosk — legal deadline ~Oct 15–16",
-   "detail": "Summons handed to a friend at the door Sep 20 (substituted service). Read the packet Tuesday night; Self-Help review at 8:30 Wednesday, then the window ($225 or fee waiver). Then discovery, the jury counter-request, and October rent by cashier's check.",
+   "label": "Unlawful detainer: Answer due Mon Oct 19 by the Sep 24 postmark — check the proof of service this week",
+   "detail": "The mailed copy is postmarked Sep 24, so service completes Oct 4 and the tenth court day is Oct 19. The clerk counts from the owner's proof of service, not the envelope: a claim of personal service on Sep 20 would end the count Fri Oct 2. The plan's filing stop stays Fri Oct 9.",
    "href": "/possession/#loops"
   },
   {
    "severity": "red",
-   "label": "Apple Card is past due — $359 minimum by Sep 30, $174 already late",
-   "detail": "No payment cleared the August cycle after four July reversals; balance $6,103. The issuer reports to the bureaus — the one payment that keeps a cash-flow problem from becoming a credit-file problem.",
-   "href": "/the-ledger/#view-accounts"
-  },
-  {
-   "severity": "red",
-   "label": "Counsel silent on your Sep 15 questions · bill 38507 ($5,890.82) due Sep 20 with no line items",
-   "detail": "Four questions on the Oct 28 plan and the phone handover have sat three days. Get the itemized invoice before it is paid, and the mailing address for the handset.",
+   "label": "Counsel silent 15 days · bill 38507 now $5,906.96 — the reminder says work may be paused",
+   "detail": "Your Sep 15 questions on the Oct 28 plan and the phone handover are unanswered. A second billing reminder on Sep 27 added $16.14 of interest and a line that the firm may pause work while the bill is unpaid. Still no line items, no payment receipt.",
    "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "BMW: two car payments bounced — $1,402.64 due Sep 30, principal frozen since June",
-   "detail": "07/20 and 08/20 installments both returned; $15 fee each and a $33.48 late charge. Payoff $35,646. Same-day wall as Apple's $359, on a checking account that closed the last cycle overdrawn.",
-   "href": "/the-ledger/#carCard"
+   "label": "Confirm two card payments settled — PayPal Credit $2,532.41, Capital One $1,044.79",
+   "detail": "Both sent from checking 9/27; Capital One is holding its credit until Oct 4. BMW's $1,402.64 has cleared and the Apple Card is paid (about $1,000). Synchrony $58.53 also unconfirmed.",
+   "href": "/the-ledger/"
   },
   {
    "severity": "amber",
-   "label": "PayPal Credit promo clock is running — $1,090.33 by 02/10/27",
-   "detail": "Shadow interest now $35.79 and accruing $28.69/mo; ~$182/mo clears it, or 29.64% APR applies retroactively from the purchase date.",
-   "href": "/the-ledger/#view-interest"
-  },
-  {
-   "severity": "amber",
-   "label": "Health feed stalled Aug 15 — ring channel silent since Jun 12",
-   "detail": "Open Health Auto Export on the phone, then run data/health_refresh.py. RENPHO scans current to Sep 1.",
-   "href": "/wellness-dashboard/"
-  },
-  {
-   "severity": "amber",
-   "label": "Ecosystem pass V10 is 101 days overdue",
-   "detail": "V9 closed Mar 11; the 90-day cadence ran out Jun 9. Queue includes rebuilding financial-consolidation.html and re-listing the room inventory after the Sep 2 rebuild.",
-   "href": "/digital-ecosystem-refresh/"
-  },
-  {
-   "severity": "info",
-   "label": "Civil demand letter is out — answer or cure by Oct 1, 5:00 pm",
-   "detail": "Sent by counsel Sep 10 after your review. Two days after you land. Ask counsel what Oct 2 looks like in either branch.",
+   "label": "Civil demand letter: the other side's reply is due tomorrow, Thu Oct 1, 5:00 pm",
+   "detail": "Their deadline, not yours — the letter counsel sent 9/10 on the civil track. Nothing back yet. Separate from the eviction clock in Possession. Ask counsel what Oct 2 looks like in either branch.",
    "href": "/hearing-room/#status"
+  },
+  {
+   "severity": "amber",
+   "label": "US Bank (Ralphs): $205.47 was due Mon Sep 28 — no payment on record",
+   "detail": "$40 was the minimum; no autopay is set. US Bank converted a card to a Smartly Visa Signature ending 6841 around 9/21 — almost certainly this account; confirm the last four and the due date.",
+   "href": "/the-ledger/#view-accounts"
+  },
+  {
+   "severity": "amber",
+   "label": "Ledger still 5 of 8 cards — Apple closes today; Citi and Amazon statements not filed",
+   "detail": "Drop the September statements (and Amazon's August) into Finances/Statements before the Oct 10 close. $17,456 is the statement-close figure: missing statements push it up, the 9/26–27 payments pull it down if they clear.",
+   "href": "/the-ledger/"
   }
  ],
  "kpis": [
   {
    "label": "Revolving debt",
-   "value": "$15,646",
-   "delta": "+$3,436 MoM",
+   "value": "$17,456",
+   "delta": "+$1,810 MoM · partial",
    "tone": "warn",
-   "note": "Aug close · $3,424 of interest since Oct · Amazon Aug estimated",
+   "note": "Sep close · 5 of 8 cards · ~$5,000 paid since, part unconfirmed · $3,509 interest since Oct",
    "color": "#d4a052",
    "href": "/the-ledger/",
    "spark": [
@@ -335,15 +323,16 @@ var FALLBACK = {
     13316.74,
     12544.91,
     12209.51,
-    15645.97
+    15645.97,
+    17456.01
    ]
   },
   {
    "label": "Hearing",
-   "value": "40 days",
+   "value": "28 days",
    "delta": "Wed Oct 28",
    "tone": "warn",
-   "note": "Dept 547 · 8:30 · abroad until Sep 29 · counsel owes the plan",
+   "note": "Dept 547 · 8:30 · back since Sep 29 · counsel silent 15 days",
    "color": "#f0524d",
    "href": "/hearing-room/",
    "live": "hearing"
@@ -351,9 +340,9 @@ var FALLBACK = {
   {
    "label": "Legal outflow",
    "value": "$15,515",
-   "delta": "+$5,891 billed",
+   "delta": "+$5,907 past due",
    "tone": "warn",
-   "note": "two retainers in trust · bill 38507 due Sep 20 · itemization requested",
+   "note": "two retainers in trust · bill 38507 $5,906.96 with interest · work may be paused",
    "color": "#f87171",
    "href": "/hearing-room/#money",
    "spark": [
@@ -364,15 +353,15 @@ var FALLBACK = {
     10515,
     15515,
     15515,
-    21406
+    21422
    ]
   },
   {
    "label": "Playlist followers",
    "value": "1,066",
-   "delta": "+4 since Sep 2",
+   "delta": "flat since Sep 18",
    "tone": "good",
-   "note": "15 playlists · Monday's Mixtape 513 · Groove 217 · synced Sep 18",
+   "note": "15 playlists · Monday's Mixtape 513 · Groove 218 · synced Sep 30",
    "color": "#8c7bff",
    "href": "/playlist-tracker/",
    "spark": [
@@ -408,7 +397,7 @@ var FALLBACK = {
    "value": "19.2%",
    "delta": "−3.0 pts since Mar",
    "tone": "good",
-   "note": "RENPHO Sep 1 · 184.2 lb · WHR 0.86 · feed stalled Aug 15",
+   "note": "RENPHO Sep 1 · 184.2 lb · WHR 0.86 · sleep feed through Sep 28",
    "color": "#fb923c",
    "href": "/wellness-dashboard/#body",
    "spark": [
@@ -482,11 +471,11 @@ var FALLBACK = {
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "Oct 28 · 40 days out",
-   "updated": "2026-09-18",
-   "dataThrough": "2026-09-18",
+   "metric": "Oct 28 · 28 days out",
+   "updated": "2026-09-30",
+   "dataThrough": "2026-09-30",
    "cadenceDays": 7,
-   "tagline": "Status board · what happened 5 Aug → 18 Sep · open loops · 40-day calendar · money · rules",
+   "tagline": "Status board · what happened 5 Aug → 30 Sep · open loops · 28-day calendar · money · rules",
    "stats": [
     {
      "label": "Wed 28 Oct · 8:30",
@@ -495,18 +484,18 @@ var FALLBACK = {
     },
     {
      "label": "Counsel",
-     "value": "Lai, CFLS · 3 days silent",
-     "sub": "four questions of 9/15 unanswered · team change 9/10 · data-breach notice 9/4"
+     "value": "Lai, CFLS · 15 days silent",
+     "sub": "four questions of 9/15 unanswered · last word 9/11 · no address for the handset"
     },
     {
      "label": "Civil",
      "value": "Demand out · Oct 1, 5 pm",
-     "sub": "sent 9/10 after your review · phone-account restoration and preservation included"
+     "sub": "sent 9/10 · nothing back · deadline tomorrow · ask counsel what Oct 2 looks like either way"
     },
     {
      "label": "Money",
-     "value": "$15,000 trust + $5,891 billed",
-     "sub": "bill 38507 due Sep 20 · no line items · itemization requested"
+     "value": "$15,000 trust + $5,907 past due",
+     "sub": "bill 38507 $5,906.96 with interest · Sep 27 reminder: work may be paused · no line items · no payment receipt"
     }
    ],
    "links": [
@@ -537,16 +526,16 @@ var FALLBACK = {
    "label": "Possession",
    "cluster": "ops",
    "color": "#38bdf8",
-   "metric": "Answer due · file Wed Sep 30",
-   "updated": "2026-09-27",
-   "dataThrough": "2026-09-27",
+   "metric": "Answer due Mon Oct 19 · file by Oct 9",
+   "updated": "2026-09-30",
+   "dataThrough": "2026-09-30",
    "cadenceDays": 3,
    "tagline": "The unlawful detainer, day by day · the leak and the case on one line · court-day clock · open loops · money held",
    "stats": [
     {
      "label": "Answer",
-     "value": "Wed Sep 30 · Stanley Mosk",
-     "sub": "Self-Help review 8:30, then the window · legal deadline ~Oct 15–16 · hard stop Oct 9"
+     "value": "by Fri Oct 9 · Stanley Mosk",
+     "sub": "legal deadline Mon Oct 19 by the Sep 24 postmark · proof of service not yet checked"
     },
     {
      "label": "The leak",
@@ -561,7 +550,7 @@ var FALLBACK = {
     {
      "label": "Agencies",
      "value": "City case open · County not yet filed",
-     "sub": "LAHD call Wed · Public Health complaint Wed night · a written notice plus 35 days changes what the owner may collect"
+     "sub": "LAHD call and Public Health complaint this week · a written notice plus 35 days changes what the owner may collect"
     }
    ],
    "links": [
@@ -592,31 +581,31 @@ var FALLBACK = {
    "label": "The Ledger",
    "cluster": "ops",
    "color": "#d4a052",
-   "metric": "$15,645.97 revolving",
-   "updated": "2026-09-18",
-   "dataThrough": "2026-09-09",
+   "metric": "$17,456 revolving · Sep partial",
+   "updated": "2026-09-30",
+   "dataThrough": "2026-09-30",
    "cadenceDays": 32,
    "tagline": "8 cards + the car · avalanche order · payoff simulator · Stephen ledger",
    "stats": [
     {
-     "label": "August break",
-     "value": "+$3,436 in one cycle",
-     "sub": "$3,282 of it is returned ACH payments re-added as purchases across Apple, Citi and PayPal Credit"
+     "label": "September so far",
+     "value": "+$1,810 · 5 of 8 cards",
+     "sub": "$806 of it is the Capital One autopay returned as a purchase · about $5,000 paid since, the two 9/27 card payments not yet confirmed · Apple, Citi and Amazon still at their August close"
     },
     {
-     "label": "Cure first",
-     "value": "Apple Card · $359 by 9/30",
-     "sub": "$174 already past due · balance $6,103.26 at 25.49% · the only credit-file risk on the board"
+     "label": "Cured",
+     "value": "Apple Card · about $1,000 paid",
+     "sub": "covers the $359 minimum and the $174 past due · no emailed receipt · exact figure with the September statement"
     },
     {
      "label": "The car",
-     "value": "BMW · $1,402.64 by 9/30",
-     "sub": "07/20 and 08/20 payments returned · payoff $35,646 · ~$260 of every $670 is interest"
+     "value": "BMW · $1,402.64 cleared",
+     "sub": "paid 9/24 for the returned 07/20 and 08/20 payments plus fees · new payoff with the next statement"
     },
     {
-     "label": "Promo clock",
-     "value": "$1,090.33 by 02/10/27",
-     "sub": "Austrian Air on PayPal Credit deferred interest — $35.79 accrued, +$28.69/mo"
+     "label": "Since the close",
+     "value": "PayPal Credit · $2,532.41 paid 9/27",
+     "sub": "statement balance less $0.90 · retires the $1,090.33 promo if it clears · Capital One 2868 $1,044.79 held to 10/4"
     }
    ],
    "series": [
@@ -667,6 +656,10 @@ var FALLBACK = {
       [
        "2026-08",
        15645.97
+      ],
+      [
+       "2026-09",
+       17456.01
       ]
      ]
     }
@@ -699,9 +692,9 @@ var FALLBACK = {
    "label": "Wellness Desk",
    "cluster": "ops",
    "color": "#4ade80",
-   "metric": "BF 19.2% · WHR 0.86 · recovery 41",
-   "updated": "2026-09-02",
-   "dataThrough": "2026-08-11",
+   "metric": "BF 19.2% · WHR 0.86 · sleep through Sep 28",
+   "updated": "2026-09-30",
+   "dataThrough": "2026-09-28",
    "cadenceDays": 14,
    "tagline": "Tiles + RENPHO body composition + the recovery analysis, merged onto one page",
    "stats": [
@@ -712,13 +705,13 @@ var FALLBACK = {
     },
     {
      "label": "Sleep · last on record",
-     "value": "10:21",
-     "sub": "Aug 8 · 7-night avg 7:20 · staging sparse (56 nights)"
+     "value": "6:30",
+     "sub": "Sep 28 · four Oura nights since the feed came back Sep 23 · Aug 9 – Sep 22 missing"
     },
     {
      "label": "Steps",
-     "value": "2,548",
-     "sub": "Aug 11 · 7-day avg 3,278"
+     "value": "6,122",
+     "sub": "Sep 23 · Sep 24 partial (363) · Aug 13 – Sep 22 missing from the feed"
     },
     {
      "label": "Resting HR",
@@ -798,26 +791,26 @@ var FALLBACK = {
    "label": "Playlist Tracker",
    "cluster": "ops",
    "color": "#8c7bff",
-   "metric": "1,066 followers · +4 since Sep 2",
-   "updated": "2026-09-18",
-   "dataThrough": "2026-09-18",
+   "metric": "1,066 followers · flat since Sep 18",
+   "updated": "2026-09-30",
+   "dataThrough": "2026-09-30",
    "cadenceDays": 32,
    "tagline": "15 playlists · 27 monthly snapshots since Apr 2024",
    "stats": [
     {
      "label": "Anchor",
      "value": "Monday's Mixtape · 513",
-     "sub": "48.1% of the whole portfolio · +3 since Sep 2"
+     "sub": "48.1% of the whole portfolio · unchanged since Sep 18"
     },
     {
      "label": "Growth engine",
-     "value": "Groove · 217",
-     "sub": "+2 since Sep 2 · +85 in six months · the only lane really moving"
+     "value": "Groove · 218",
+     "sub": "+1 since Sep 18 · +86 in six months · the only lane really moving"
     },
     {
      "label": "Velocity",
-     "value": "+4 in 16 days",
-     "sub": "Mixtape +3 · Groove +2 · Cloudbuster −1"
+     "value": "0 in 12 days",
+     "sub": "all 15 lanes unchanged since Sep 27 · Groove +1, Broken −1 since Sep 18"
     },
     {
      "label": "Asleep",
@@ -1075,8 +1068,8 @@ var FALLBACK = {
    "cluster": "creative",
    "color": "#f4b942",
    "metric": "2,133 highlights · 228 sources · 16 themes",
-   "updated": "2026-09-18",
-   "dataThrough": "2026-09-18",
+   "updated": "2026-09-30",
+   "dataThrough": "2026-09-30",
    "cadenceDays": 31,
    "tagline": "Every highlight sorted into the ideas it belongs to — sixteen themes, the books behind them, and where they meet",
    "stats": [
@@ -1093,7 +1086,7 @@ var FALLBACK = {
     {
      "label": "Library pull",
      "value": "pulled today",
-     "sub": "Sep 18 · 655 book · 1351 supp · 62 article · 65 tweet · refreshed monthly by GitHub Action"
+     "sub": "Sep 30 · 655 book · 1351 supp · 62 article · 65 tweet · refreshed monthly by GitHub Action"
     }
    ],
    "series": [
@@ -1580,14 +1573,14 @@ var FALLBACK = {
   {
    "href": "/the-ledger/#carCard",
    "label": "The car",
-   "metric": "BMW X3 · payoff $35,646",
+   "metric": "BMW X3 · $1,402.64 cleared 9/24",
    "color": "#fb923c"
   }
  ],
  "quote_stats": {
   "highlights": 2133,
   "sources": 228,
-  "cache_date": "2026-09-18"
+  "cache_date": "2026-09-27"
  },
  "quotes": [
   {
@@ -1663,37 +1656,16 @@ var FALLBACK = {
  ],
  "next": [
   {
-   "label": "Bill 38507 due",
-   "date": "2026-09-20",
-   "sub": "$5,890.82 · itemization requested 9/15",
-   "href": "/hearing-room/#money",
-   "color": "#fbbf24"
-  },
-  {
-   "label": "Back in LA",
-   "date": "2026-09-29",
-   "sub": "Italy Sep 15–29 · reachable, no signatures",
-   "href": "/hearing-room/#calendar",
-   "color": "#36a3df"
-  },
-  {
-   "label": "Sep 30 wall",
-   "date": "2026-09-30",
-   "sub": "Apple $359 · BMW $1,402.64 · Ralphs $40 on the 28th",
-   "href": "/the-ledger/",
-   "color": "#f87171"
-  },
-  {
-   "label": "Answer filed · Stanley Mosk",
-   "date": "2026-09-30",
-   "sub": "Self-Help 8:30 · civil window · $225 · conformed copies",
-   "href": "/possession/#loops",
-   "color": "#38bdf8"
-  },
-  {
-   "label": "Demand deadline",
+   "label": "Check the proof of service",
    "date": "2026-10-01",
-   "sub": "5:00 pm · answer or cure · civil track",
+   "sub": "clerk's window or Self-Help · substituted or personal, and the mailing date",
+   "href": "/possession/#loops",
+   "color": "#f0524d"
+  },
+  {
+   "label": "Civil demand: their reply due",
+   "date": "2026-10-01",
+   "sub": "5:00 pm · the other side's deadline, not yours · nothing back yet",
    "href": "/hearing-room/#status",
    "color": "#d4a052"
   },
@@ -1705,9 +1677,37 @@ var FALLBACK = {
    "color": "#38bdf8"
   },
   {
-   "label": "UD response deadline (sub-service)",
-   "date": "2026-10-16",
-   "sub": "10 court days after service completes · Oct 12 court holiday · moot once filed",
+   "label": "Capital One hold lifts",
+   "date": "2026-10-04",
+   "sub": "$1,044.79 paid 9/27 · credit released if it clears",
+   "href": "/the-ledger/#view-accounts",
+   "color": "#d4a052"
+  },
+  {
+   "label": "Answer filed · the plan's stop",
+   "date": "2026-10-09",
+   "sub": "Self-Help · civil window · $225 · conformed copies",
+   "href": "/possession/#loops",
+   "color": "#38bdf8"
+  },
+  {
+   "label": "Ledger: full September close",
+   "date": "2026-10-10",
+   "sub": "Apple (closed 9/30) · Citi · Amazon statements into Finances/Statements",
+   "href": "/the-ledger/",
+   "color": "#d4a052"
+  },
+  {
+   "label": "Capital One 2868 autopay",
+   "date": "2026-10-17",
+   "sub": "full balance · about $89 left if the 9/27 payment clears",
+   "href": "/the-ledger/#view-accounts",
+   "color": "#f87171"
+  },
+  {
+   "label": "UD response deadline",
+   "date": "2026-10-19",
+   "sub": "Sep 24 postmark · service complete Oct 4 · ten court days · Oct 12 holiday",
    "href": "/possession/#clock",
    "color": "#f0524d"
   },
@@ -1721,7 +1721,7 @@ var FALLBACK = {
   {
    "label": "PayPal promo deadline",
    "date": "2027-02-10",
-   "sub": "$1,090.33 Austrian Air · ~$182/mo clears it",
+   "sub": "$1,090.33 Austrian Air · retired if the 9/27 payment clears",
    "href": "/the-ledger/#view-interest",
    "color": "#d4a052"
   }

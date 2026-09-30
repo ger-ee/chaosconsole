@@ -1,0 +1,138 @@
+{
+ "month": "2026-09",
+ "label": "Sep '26",
+ "updated": "2026-09-30",
+ "accounts": {
+  "ralphs": {
+   "closeDate": "09/01/2026",
+   "prevBalance": 0.0,
+   "balance": 205.47,
+   "payments": 0,
+   "purchases": 205.47,
+   "interest": 0,
+   "creditLimit": 500.0,
+   "availableCredit": 294.53,
+   "minimumPayment": 40.0,
+   "note": "Reopened after a $0 summer: $205.47 charged 08/04–09/01. $40 minimum due 09/28; pay the full $205.47 by then and it stays interest-free. No autopay on this card."
+  },
+  "ppcb": {
+   "closeDate": "09/18/2026",
+   "prevBalance": 58.06,
+   "balance": 160.46,
+   "payments": 29.0,
+   "purchases": 129.4,
+   "fees": 2.0,
+   "interest": 0.0,
+   "creditLimit": 200.0,
+   "availableCredit": 14.0,
+   "minimumPayment": 29.0,
+   "note": "Autopay took the $29 minimum, not the full $58.06 the August note expected. $2 minimum-interest charge booked as a fee. Limit raised to $200; $14 of room left. Next autopay $29 on 10/12."
+  },
+  "ppc": {
+   "closeDate": "09/17/2026",
+   "prevBalance": 1728.69,
+   "balance": 2533.31,
+   "payments": 0,
+   "purchases": 784.39,
+   "fees": 0,
+   "interest": 20.23,
+   "creditLimit": 3500.0,
+   "availableCredit": 961.0,
+   "minimumPayment": 45.0,
+   "note": "Account converted to the PayPal Credit Card (Mastercard ending 7590): the $1,728.69 PayPal Credit balance arrived as a balance transfer on 08/27. Net new charges $784.39 ($806.11 charged, $21.72 Austrian Air refund). No payment cleared. $309.90 of 'Send Money' transfers were booked as cash advances — 29.64% from day one, $11.12 of this month's $20.23 interest. Deferred-interest $1,090.33 still expires 02/10/27 ($62.66 accrued); a new $65.69 promo expires 04/10/27. Autopay $45 set for 10/10."
+  },
+  "capone0623": {
+   "closeDate": "Sep 14, 2026",
+   "prevBalance": 1515.31,
+   "balance": 1885.44,
+   "payments": 49.0,
+   "purchases": 378.69,
+   "interest": 40.44,
+   "creditLimit": 2000.0,
+   "availableCredit": 114.56,
+   "minimumPayment": 59.0,
+   "note": "Autopay paid the $49 minimum. $422.67 charged (nine Uber Eats orders), less a $43.98 Uber Eats refund. Interest is now $40.44/mo — $12.81 of it on a $552 cash-advance balance. $115 of headroom left. $59 due 10/09."
+  },
+  "capone4540": {
+   "closeDate": "Sep 22, 2026",
+   "prevBalance": 806.38,
+   "balance": 1133.8,
+   "payments": 806.38,
+   "purchases": 1085.28,
+   "fees": 25.0,
+   "interest": 23.52,
+   "creditLimit": 1100.0,
+   "availableCredit": 0.0,
+   "minimumPayment": 84.0,
+   "returnedPayments": 806.38,
+   "note": "The $806.38 autopay (09/08) bounced 09/10 and came back as a 'purchase'; real charges were $278.90. $25 past-due fee. Card reissued ending 2868 (Discover network); limit now $1,100 and $0 available. $84 due 10/17 — autopay is set to the FULL balance ($1,133.80) and will bounce again if checking is short."
+  }
+ },
+ "accountMeta": {
+  "ppcb": {
+   "creditLimit": 200.0
+  },
+  "capone4540": {
+   "name": "Capital One 2868",
+   "creditLimit": 1100.0
+  }
+ },
+ "checking": [],
+ "stephenPayments": [],
+ "recommendations": {
+  "ralphs": [
+   "PAY $205 · PAST 9/28",
+   "#f87171"
+  ],
+  "ppcb": [
+   "PAID 9/24",
+   "#4ade80"
+  ],
+  "ppc": [
+   "PAID 9/27 · CONFIRM",
+   "#fbbf24"
+  ],
+  "capone0623": [
+   "FREEZE",
+   "#f87171"
+  ],
+  "capone4540": [
+   "PAID 9/27 · HELD",
+   "#fbbf24"
+  ],
+  "apple": [
+   "PAID ~$1,000",
+   "#4ade80"
+  ]
+ },
+ "postPeriod": {
+  "amazon": {
+   "label": "Statements missing",
+   "text": "August and September statements (close 08/05, 09/05) are not on file. $223.13 paid from checking 08/31 lands in the September cycle; a $392.19 payment processed 09/26 (Synchrony confirmation) lands in October's."
+  },
+  "apple": {
+   "label": "September pending",
+   "text": "Cycle closes 09/30. About $1,000 paid by 09/30 per Gary — covers the $359 minimum and the $174 past due. No emailed receipt; the exact amount lands with the September statement."
+  },
+  "citi": {
+   "label": "September pending",
+   "text": "Cycle closed ~09/10; statement not yet on file. The $88.52 autopay cleared from checking on 09/08."
+  },
+  "ppcb": {
+   "label": "Since the close",
+   "text": "$160.46 paid in full on 09/24 (PayPal receipt). A further $58.53 went to Synchrony via PayPal on 09/27 — the receipt names no card; most likely this one's new charges. The 10/12 autopay should find little or nothing to pull."
+  },
+  "capone4540": {
+   "label": "Since the close",
+   "text": "$1,044.79 one-time payment posted 09/27 from checking; Capital One is holding the credit for a security check until 10/04. That leaves about $89 of the statement balance for the full-balance autopay on 10/17 instead of $1,133.80 — if the payment clears."
+  },
+  "ppc": {
+   "label": "Since the close",
+   "text": "$2,532.41 paid from checking on 09/27 (PayPal receipt, Synchrony confirmation) — the statement balance less $0.90. If it clears, the Austrian Air promo is retired before its $62.66 of deferred interest posts. New travel purchases on promo terms followed 09/28–29; amounts arrive with the October statement. The $45 autopay on 10/10 is still scheduled."
+  },
+  "ralphs": {
+   "label": "Since the close",
+   "text": "$205.47 was due 09/28; no payment confirmation is in the mailbox. US Bank converted a card to a Smartly Visa Signature ending 6841 around 09/21 — almost certainly this account; confirm the last four and that the due date carried over."
+  }
+ }
+}

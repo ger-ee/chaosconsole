@@ -57,8 +57,14 @@ close.json
   "installment": {"principal":..., "payoff":..., "payoffGoodThrough":"...", "dueNow":..., "dueBy":"...", "pastDue":..., "statementsOf":"9 of 72",
                   "statements":[{"n":9,"date":"2026-10-03","payoff":...,"principal":...,"paid":...,"returned":0,"fees":0,"note":"..."}]},
   "recommendations": {"apple":["CURE $359","#f87171"]},
-  "postPeriod": {"ralphs": {"label":"...","text":"..."}}
+  "postPeriod": {"ralphs": {"label":"...","text":"..."}},
+  "accountMeta": {"capone4540": {"name":"Capital One 2868","creditLimit":1100.0}}   // optional: name / creditLimit / apr / issuer
 }
+
+A month may be closed in parts: apply is idempotent per account, so a spec that carries only the
+cards whose statements exist adds the month with null rows (carry-forward) for the rest, and a
+later apply of the same month with the remaining cards fills them in. data/close_<yyyy-mm>.json is
+kept in the repo as the record of each close.
 
 Rules the script enforces (see ledger_close.md in memory for the why):
 - month key = calendar month of the statement CLOSE date. An account with no
@@ -152,7 +158,11 @@ def cmd_extract(args):
     long = {"01": "January", "02": "February", "03": "March", "04": "April", "05": "May", "06": "June", "07": "July", "08": "August", "09": "September", "10": "October", "11": "November", "12": "December"}[m]
     needles.add(long)
     base = Path(args.statements) if args.statements else STATEMENTS
-    pdfs = [p for p in base.rglob("*.pdf") if any(nd in p.name for nd in needles) or any(nd in p.name for nd in {f"{y}_{long}"})]
+    # the year must appear in the filename too ("Sep" alone matched every September since 2019),
+    # and multi-year archive exports ("September 2019 – February 2026") are skipped
+    pdfs = [p for p in base.rglob("*.pdf")
+            if y in p.name and "–" not in p.name
+            and (any(nd in p.name for nd in needles) or f"{y}_{long}" in p.name)]
     # BMW statements are numbered, not dated: include those newer than the last known one by mtime
     pdfs += sorted((base / "BMW Financial").glob("*.pdf"), key=lambda p: p.stat().st_mtime)[-1:] if (base / "BMW Financial").exists() else []
     if not pdfs:
@@ -196,8 +206,15 @@ def recompute(D):
                 a["monthly"].append({"month": mk, "closeDate": None, "balance": None, "payments": 0, "purchases": 0, "interest": 0})
         a["monthly"].sort(key=lambda m: m["month"])
         ms = a["monthly"]
-        bals = [m["balance"] for m in ms if m.get("balance") is not None]
-        a["sparkline"] = [round(b, 2) for b in bals]
+        # one value per month key, carrying the last close forward over null rows — the stacked
+        # debt chart maps this positionally against meta.monthLabels, so a shorter list shifts the
+        # whole series left (PayPal Cashback's mid-series nulls had been doing exactly that)
+        carry, sl = 0.0, []
+        for m in ms:
+            if m.get("balance") is not None:
+                carry = m["balance"]
+            sl.append(round(carry, 2))
+        a["sparkline"] = sl
         last = [m for m in ms if m.get("balance") is not None][-1]
         a["latestBalance"], a["latestMonth"] = last["balance"], last["month"]
         a["totalInterestPeriod"] = round(sum(n(m.get("interest")) for m in ms), 2)
@@ -399,6 +416,10 @@ def cmd_apply(args):
             idx = next((k for k, m in enumerate(a["monthly"]) if m["month"] == mk), None)
             if idx is None: a["monthly"].append(row)
             else: a["monthly"][idx] = row
+        # account-level facts that change over time (a raised limit, a reissued card's name, a new APR)
+        for k2, v2 in spec.get("accountMeta", {}).get(a["key"], {}).items():
+            if k2 in ("name", "creditLimit", "apr", "issuer"):
+                a[k2] = v2
         if a["key"] in spec.get("recommendations", {}):
             a["recommendation"], a["recommendationColor"] = spec["recommendations"][a["key"]]
         if a["key"] in spec.get("postPeriod", {}):
