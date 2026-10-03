@@ -1,7 +1,7 @@
 {
  "month": "2026-09",
  "label": "Sep '26",
- "updated": "2026-09-30",
+ "updated": "2026-10-03",
  "accounts": {
   "ralphs": {
    "closeDate": "09/01/2026",
@@ -81,15 +81,15 @@
  "stephenPayments": [],
  "recommendations": {
   "ralphs": [
-   "PAY $205 · PAST 9/28",
-   "#f87171"
+   "$0 ON 10/2 STMT · FILE IT",
+   "#fbbf24"
   ],
   "ppcb": [
    "PAID 9/24",
    "#4ade80"
   ],
   "ppc": [
-   "PAID 9/27 · CONFIRM",
+   "PAID 9/27 · NO RETURN",
    "#fbbf24"
   ],
   "capone0623": [
@@ -97,8 +97,8 @@
    "#f87171"
   ],
   "capone4540": [
-   "PAID 9/27 · HELD",
-   "#fbbf24"
+   "PAID 9/27 · CURRENT",
+   "#4ade80"
   ],
   "apple": [
    "PAID ~$1,000",
@@ -111,8 +111,8 @@
    "text": "August and September statements (close 08/05, 09/05) are not on file. $223.13 paid from checking 08/31 lands in the September cycle; a $392.19 payment processed 09/26 (Synchrony confirmation) lands in October's."
   },
   "apple": {
-   "label": "September pending",
-   "text": "Cycle closes 09/30. About $1,000 paid by 09/30 per Gary — covers the $359 minimum and the $174 past due. No emailed receipt; the exact amount lands with the September statement."
+   "label": "September statement issued",
+   "text": "Cycle closed 09/30 and the statement was issued 10/01; it is not on file yet. About $1,000 paid by 09/30 per Gary — covers the $359 minimum and the $174 past due. No emailed receipt; the exact amount lands when the statement is filed."
   },
   "citi": {
    "label": "September pending",
@@ -124,15 +124,15 @@
   },
   "capone4540": {
    "label": "Since the close",
-   "text": "$1,044.79 one-time payment posted 09/27 from checking; Capital One is holding the credit for a security check until 10/04. That leaves about $89 of the statement balance for the full-balance autopay on 10/17 instead of $1,133.80 — if the payment clears."
+   "text": "$1,044.79 one-time payment posted 09/27 from checking. Capital One's notice of 10/01 says the account is up to date and out of collections, so the payment counted; the credit hold for the security check lifts 10/04. About $89 of the statement balance is left for the full-balance autopay on 10/17 instead of $1,133.80."
   },
   "ppc": {
    "label": "Since the close",
-   "text": "$2,532.41 paid from checking on 09/27 (PayPal receipt, Synchrony confirmation) — the statement balance less $0.90. If it clears, the Austrian Air promo is retired before its $62.66 of deferred interest posts. New travel purchases on promo terms followed 09/28–29; amounts arrive with the October statement. The $45 autopay on 10/10 is still scheduled."
+   "text": "$2,532.41 paid from checking on 09/27 (PayPal receipt, Synchrony confirmation) — the statement balance less $0.90. No return notice as of 10/03; if it holds, the Austrian Air promo is retired before its $62.66 of deferred interest posts. New travel purchases on promo terms followed 09/28–29; amounts arrive with the October statement. The $45 autopay on 10/10 is still scheduled."
   },
   "ralphs": {
    "label": "Since the close",
-   "text": "$205.47 was due 09/28; no payment confirmation is in the mailbox. US Bank converted a card to a Smartly Visa Signature ending 6841 around 09/21 — almost certainly this account; confirm the last four and that the due date carried over."
+   "text": "US Bank issued a statement for the card ending 6841 on 10/02: $0.00 statement balance, $0.00 minimum, due 10/28, autopay on. The $205.47 that was due 09/28 no longer shows as owed — paid, or not carried to the new card number; the statement itself, once filed, says which."
   }
  }
 }
