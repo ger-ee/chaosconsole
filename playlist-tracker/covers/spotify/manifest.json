@@ -1,0 +1,126 @@
+{
+  "checked": "2026-10-06",
+  "source": "Spotify connector",
+  "covers": {
+    "Monday's Mixtape": {
+      "spotifyName": "mondays mixtape 🎧",
+      "spotifyUri": "spotify:playlist:7MmD4cuhVwUE9bXxu7GJxL",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb3926b7816782e3d983b89d9c",
+      "file": "mondays-mixtape-9eb942beec2c.jpg",
+      "sha256": "9eb942beec2c5acb8b7efaff3ba8ddd1e467ae185f67cf82c4fa351247222fe6",
+      "bytes": 184163
+    },
+    "Groove": {
+      "spotifyName": "groove 🔥",
+      "spotifyUri": "spotify:playlist:63TcahMoaETS0FKcxC1WQr",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb4672884ff397fbedea14773d",
+      "file": "groove-6232257e6d6f.jpg",
+      "sha256": "6232257e6d6ffdda8b078a10c8402a84ec40feb44e7c7ac909d8f03be01c9d85",
+      "bytes": 116441
+    },
+    "Guide to Indie": {
+      "spotifyName": "guide to indie 🦋",
+      "spotifyUri": "spotify:playlist:3U68qj6VyrZ0IoRS1YtbRU",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb7ee4eda3217ab68e22a649ee",
+      "file": "guide-to-indie-e15bdbb083a7.jpg",
+      "sha256": "e15bdbb083a77813316b41b48e4363bc2a88d80d61e5ca16d096371d8dc116ad",
+      "bytes": 147375
+    },
+    "Ancora": {
+      "spotifyName": "ancora 🇮🇹",
+      "spotifyUri": "spotify:playlist:4T8pZ3r05sDzB96d36uUjg",
+      "sourceImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebb432323a22b6c2897ca32f289",
+      "file": "ancora-8561b36a481c.jpg",
+      "sha256": "8561b36a481cf92ddc2dea2b5ddcbe0366057b5414ea228067d589374e89b9a9",
+      "bytes": 226976
+    },
+    "Potpourri": {
+      "spotifyName": "potpourri 🇫🇷",
+      "spotifyUri": "spotify:playlist:5MIWnDQ0hzUx9BzdZW3EIz",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebbf3d1f02c006da335f65da479",
+      "file": "potpourri-2735f7b055be.jpg",
+      "sha256": "2735f7b055be89cd9982e7457fde0cc49605751db7964f3d56c0820cc9156b34",
+      "bytes": 152484
+    },
+    "Cloudbuster": {
+      "spotifyName": "cloudbuster 💨 ",
+      "spotifyUri": "spotify:playlist:5QWa4jcRA6j2IXrypbpncK",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebbe4169c266cadec2ecd490081",
+      "file": "cloudbuster-b8b1d410b66d.jpg",
+      "sha256": "b8b1d410b66d1a1cdc0887b1f56af2c6209c9449dc2b49f66ceee11a7a8e65f4",
+      "bytes": 247676
+    },
+    "Broken": {
+      "spotifyName": "broken 🔗",
+      "spotifyUri": "spotify:playlist:3yNhYiEHbAUQDaDGgz6EVa",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb826e9c30a20011a4c2cc8765",
+      "file": "broken-b74f9e0cfda6.jpg",
+      "sha256": "b74f9e0cfda6600954537e41b5ba9c2972224443135b222be19eb5eb55c955d9",
+      "bytes": 78432
+    },
+    "run": {
+      "spotifyName": "run 🏃🏻 ",
+      "spotifyUri": "spotify:playlist:0IWqkVLPaccWkfkCms0hOA",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebbf420547d785aeaac09e67790",
+      "file": "run-6b615484f4eb.jpg",
+      "sha256": "6b615484f4ebaed321c8e5c34452a84cff57f637bea7f5ec892837e5e7712016",
+      "bytes": 97727
+    },
+    "Oddities": {
+      "spotifyName": "oddities 🍄",
+      "spotifyUri": "spotify:playlist:3iaHnP4HkGzmah21AworMS",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb6fc3a888f4649e354bcd7b0b",
+      "file": "oddities-2f5461b0aaf2.jpg",
+      "sha256": "2f5461b0aaf24c62dae8892ea43d0cda43fbc6824bed5d33c24343f96296f6aa",
+      "bytes": 220949
+    },
+    "Orpheus": {
+      "spotifyName": "orpheus 🇬🇷",
+      "spotifyUri": "spotify:playlist:7KJeJONfkK5KzB80hSOeYV",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb7885d231380b993f0efd784d",
+      "file": "orpheus-5f274b4bb124.jpg",
+      "sha256": "5f274b4bb124fc431b84b901b1920c24ad68f015a228a4f68dfd64fe68d1ddc0",
+      "bytes": 99437
+    },
+    "Afterglow": {
+      "spotifyName": "afterglow ✨",
+      "spotifyUri": "spotify:playlist:6ZdDGr9f1HAa4gpvyg9VEm",
+      "sourceImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebb0bcd85792e79839e414f266d",
+      "file": "afterglow-94890a649970.jpg",
+      "sha256": "94890a649970d43a6ec9eac968d8d0ac9a9f589368ef2482e5d4f4e53da9f934",
+      "bytes": 80759
+    },
+    "Thirst": {
+      "spotifyName": "thirst 💦",
+      "spotifyUri": "spotify:playlist:4hEn0koYrkTRz0705fGGuK",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb46abdb140236715f93802fa3",
+      "file": "thirst-25eb4cd0e9db.jpg",
+      "sha256": "25eb4cd0e9dba9b9210a4d2d33bca3557d2177e416cd1482e9c5f94970b64e64",
+      "bytes": 118555
+    },
+    "Vertigo": {
+      "spotifyName": "vertigo 🇪🇸",
+      "spotifyUri": "spotify:playlist:3MXTvZrxgxTO1iskipHzgL",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb74918dc5d84cf5d3899a2779",
+      "file": "vertigo-03cca8e100e2.jpg",
+      "sha256": "03cca8e100e2fa66f275c6cd6fc251d26a7676b066aaf9a53a7f329873533a18",
+      "bytes": 168330
+    },
+    "Masterpiece": {
+      "spotifyName": "masterpiece 🎻",
+      "spotifyUri": "spotify:playlist:5GSh9FFB5Lvp4fAkOQPnlJ",
+      "sourceImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb017226f2265965d8cce87935",
+      "file": "masterpiece-867e861f7ac3.jpg",
+      "sha256": "867e861f7ac376a0c2809be96641d672ed85cafc3204f493d0954d1f66073a1c",
+      "bytes": 80565
+    },
+    "Broadway": {
+      "spotifyName": "broadway 🎭",
+      "spotifyUri": "spotify:playlist:5vacDybz55AKcCnVwGk3R9",
+      "sourceImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebb48c0ba9eaec3c2e8bf80e48f",
+      "file": "broadway-35d4c6c972db.jpg",
+      "sha256": "35d4c6c972db7ea15eb63c65c9e83b166e024be8b4cd1e6eb73cda448eb6989b",
+      "bytes": 116861
+    }
+  }
+}

@@ -5,8 +5,9 @@ let data=loadData();
   const names=()=>Object.keys(data.playlists),last=()=>data.months.length-1;
   const number=n=>Number(n).toLocaleString('en-US'),signed=n=>(n>0?'+':'')+number(n);
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const coverFiles={"Monday's Mixtape":'mondays-mixtape.png',Groove:'groove.jpg','Guide to Indie':'guide-to-indie.jpg',Ancora:'ancora.jpg',Thirst:'thirst.png',Potpourri:'potpourri.png',Cloudbuster:'cloudbuster.png',Broken:'broken.png',run:'run.jpg',Oddities:'oddities.jpg',Orpheus:'orpheus.png',Afterglow:'afterglow.png',Masterpiece:'masterpiece.png',Broadway:'broadway.png'};
-  const cover=name=>coverFiles[name]?'/playlist-tracker/covers/'+coverFiles[name]:name==='Vertigo'?'https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8474918dc5d84cf5d3899a2779':'';
+  // Current Spotify artwork. Source IDs and image hashes: covers/spotify/manifest.json.
+  const coverFiles={"Monday's Mixtape":"mondays-mixtape-9eb942beec2c.jpg","Groove":"groove-6232257e6d6f.jpg","Guide to Indie":"guide-to-indie-e15bdbb083a7.jpg","Ancora":"ancora-8561b36a481c.jpg","Potpourri":"potpourri-2735f7b055be.jpg","Cloudbuster":"cloudbuster-b8b1d410b66d.jpg","Broken":"broken-b74f9e0cfda6.jpg","run":"run-6b615484f4eb.jpg","Oddities":"oddities-2f5461b0aaf2.jpg","Orpheus":"orpheus-5f274b4bb124.jpg","Afterglow":"afterglow-94890a649970.jpg","Thirst":"thirst-25eb4cd0e9db.jpg","Vertigo":"vertigo-03cca8e100e2.jpg","Masterpiece":"masterpiece-867e861f7ac3.jpg","Broadway":"broadway-35d4c6c972db.jpg"};
+  const cover=name=>coverFiles[name]?'/playlist-tracker/covers/spotify/'+coverFiles[name]:'';
   const spotify=name=>SPOTIFY_URLS[name]||SPOTIFY_PROFILE;
   let featured=0,range=12,seriesName='all',historyChart,detailChart,detailName,toastTimer;
   function art(host,name,lazy=false){
