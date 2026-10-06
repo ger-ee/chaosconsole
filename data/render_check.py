@@ -13,12 +13,15 @@ screenshot per page and width, and reports `pageerror` events. Exit 1 if any
 page raised. Look at the screenshots — a page can be error-free and wrong.
 
 Requires: pip install playwright && python -m playwright install chromium
-(in the Cowork cloud container Playwright is preinstalled). External fonts and
+(in the Cowork cloud container Playwright is preinstalled).
+Set CC_BROWSER_CHANNEL=chrome to use an existing desktop Chrome installation. External fonts and
 CDNs are not needed: every page loads Chart.js from shared/vendor/.
 """
 import argparse
+import os
 import asyncio
 import http.server
+import json
 import socketserver
 import sys
 import threading
@@ -29,6 +32,11 @@ SKIP = {"gary-dashboard", ".claude", ".codex", ".git", "data", "shared", "fonts"
 
 
 def all_pages():
+    # Threshold's route inventory includes nested chapters and standalone tools.
+    routes = ROOT / "shared" / "threshold" / "routes.js"
+    if routes.exists():
+        records = json.loads(routes.read_text().split(" = ", 1)[1].strip().rstrip(";"))
+        return ["index.html"] + [r["path"].lstrip("/") + ("index.html" if r["path"].endswith("/") else "") for r in records]
     pages = ["index.html"]
     for p in sorted(ROOT.iterdir()):
         if p.is_dir() and p.name not in SKIP and (p / "index.html").exists():
@@ -59,7 +67,7 @@ async def run(pages, widths, out):
     out.mkdir(parents=True, exist_ok=True)
     failures = 0
     async with async_playwright() as p:
-        browser = await p.chromium.launch()
+        browser = await p.chromium.launch(**({"channel": os.environ["CC_BROWSER_CHANNEL"]} if os.environ.get("CC_BROWSER_CHANNEL") else {}))
         for path in pages:
             for w in widths:
                 ctx = await browser.new_context(viewport={"width": w, "height": 1000})
@@ -75,10 +83,15 @@ async def run(pages, widths, out):
                 tabs = await page.eval_on_selector_all(".tab[data-view]", "els => els.map(e => e.dataset.view)")
                 for t in tabs:
                     try:
+                        await page.eval_on_selector(f'.tab[data-view="{t}"]', "el => { const d = el.closest('details'); if (d) d.open = true; }")
                         await page.click(f'.tab[data-view="{t}"]', timeout=5000)
                         await page.wait_for_timeout(900)
                     except Exception as e:  # noqa: BLE001
                         errs.append(f"tab {t}: {e}")
+                if "overview" in tabs:
+                    await page.click('.tab[data-view="overview"]')
+                    await page.wait_for_timeout(300)
+                    await page.evaluate("window.scrollTo({top:0,behavior:'instant'})")
                 await page.evaluate("() => document.querySelectorAll('[data-reveal]').forEach(e => { e.classList.add('in'); e.classList.add('revealed'); })")
                 await page.wait_for_timeout(400)
                 name = ("landing" if path == "index.html" else path.replace("/index.html", "").replace("/", "_")) + f"_{w}.png"

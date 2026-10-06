@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-threshold="hearing" data-room-kind="casework" data-room-group="life">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>Hearing Room | Chaos Console</title>
 <meta name="description" content="Operating board for the October 28 hearing: counsel, calendar, money in trust, open loops, and the log of what happened.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+
 <link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
 <style>
@@ -130,6 +130,9 @@ details.arch .inner p{margin:0 0 10px}
 @media (max-width:980px){.countbar{grid-template-columns:repeat(2,minmax(0,1fr))}.board,.cal{grid-template-columns:repeat(2,minmax(0,1fr))}.money,.rules{grid-template-columns:1fr}}
 @media (max-width:640px){.countbar,.board,.cal{grid-template-columns:1fr}.ev{grid-template-columns:1fr;gap:6px}.loop{grid-template-columns:auto minmax(0,1fr)}.loop-tag{display:none}}
 </style>
+<link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/threshold/routes.js"></script>
+<script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -388,7 +391,7 @@ details.arch .inner p{margin:0 0 10px}
 })();
 </script>
 <script defer src="/shared/gate.js"></script>
-<link rel="stylesheet" href="/shared/console-shell.css">
-<script defer src="/shared/console-shell.js"></script>
+
+
 </body>
 </html>

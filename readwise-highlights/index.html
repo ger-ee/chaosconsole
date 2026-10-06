@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-threshold="atlas" data-room-kind="atlas" data-room-group="studio">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -294,7 +294,10 @@
   }
 </style>
 <script defer src="/shared/gate.js"></script>
+
+
 <link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/threshold/routes.js"></script>
 <script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
@@ -413,8 +416,8 @@ function boot(DATA) {
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLORS = { edge: cs.getPropertyValue('--edge').trim(), edgeHot: cs.getPropertyValue('--edge-hot').trim(),
-               grid: cs.getPropertyValue('--grid').trim(), plate: cs.getPropertyValue('--plate').trim(),
-               ink: cs.getPropertyValue('--ink').trim(), ink3: cs.getPropertyValue('--ink-3').trim() };
+               grid: cs.getPropertyValue('--grid').trim(), plate: document.documentElement.hasAttribute('data-threshold') ? '#352834' : cs.getPropertyValue('--plate').trim(),
+               ink: document.documentElement.hasAttribute('data-threshold') ? '#fff1dd' : cs.getPropertyValue('--ink').trim(), ink3: cs.getPropertyValue('--ink-3').trim() };
     for (const [n, f] of Object.entries(FAMILY)) COLORS[n] = cs.getPropertyValue(f.css).trim();
   }
   readColors();

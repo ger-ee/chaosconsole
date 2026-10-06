@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-threshold="ledger" data-room-kind="finance" data-room-group="life">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>THE LEDGER — Personal Finance</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <script src="/shared/vendor/chart.umd.min.js"></script>
 <script src="/shared/vendor/chartjs-chart-sankey.min.js"></script>
 <style>
@@ -390,7 +390,11 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',sans-serif;
 @media (prefers-reduced-motion:reduce){.bomb.armed .bomb-ring::before{animation:none}.runway-bar{transition:none}.lab-tile,.ccm,.ccm-overlay{transition:none}}
 </style>
   <script defer src="../shared/gate.js"></script>
+
+
 <link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/threshold/routes.js"></script>
+<script defer src="/shared/threshold/ledger.js"></script>
 <script defer src="/shared/console-shell.js"></script>
 </head>
 <body>

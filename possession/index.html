@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-threshold="possession" data-room-kind="casework" data-room-group="life">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>Possession | Chaos Console</title>
 <meta name="description" content="Operating board for the unlawful detainer: the leak and the case on one timeline, the court-day clock, open loops, money held, and the log.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+
 <link rel="preload" href="/fonts/jetbrains-mono-subset.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="/fonts/archivo-black-subset.ttf" as="font" type="font/ttf" crossorigin>
 <style>
@@ -189,6 +189,9 @@ details.arch .inner p{margin:0 0 10px}
 @media (max-width:640px){.countbar,.board{grid-template-columns:1fr}.ev,.tlcard{grid-template-columns:1fr;gap:6px}.loop{grid-template-columns:auto minmax(0,1fr)}.loop-tag{display:none}.measure{grid-template-columns:44px minmax(0,1fr);padding-right:16px}.measure>div:last-child{grid-column:2}.measure-v,.measure-vd{text-align:left;min-width:0}.cgrid{gap:3px}.cday{padding:6px 5px;min-height:58px}.cday .ct{display:none}.cday .cc{right:5px;top:5px;font-size:13px}}
 @media (prefers-reduced-motion:reduce){.drop.go,.splash.go{animation:none}}
 </style>
+<link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/threshold/routes.js"></script>
+<script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -598,7 +601,7 @@ details.arch .inner p{margin:0 0 10px}
 })();
 </script>
 <script defer src="/shared/gate.js"></script>
-<link rel="stylesheet" href="/shared/console-shell.css">
-<script defer src="/shared/console-shell.js"></script>
+
+
 </body>
 </html>

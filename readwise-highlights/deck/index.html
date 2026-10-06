@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-threshold="reading-deck" data-room-kind="deck" data-room-group="studio">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shuffle Deck | Chaos Console</title>
 <script>(function(){var t=localStorage.getItem('cc-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,0..100&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 
 [data-theme="dark"] {
   --bg: #171411;
@@ -728,7 +728,10 @@ kbd {
 }
 </style>
   <script defer src="/shared/gate.js"></script>
+
+
 <link rel="stylesheet" href="/shared/console-shell.css">
+<script defer src="/shared/threshold/routes.js"></script>
 <script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
