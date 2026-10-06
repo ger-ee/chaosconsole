@@ -1,0 +1,19 @@
+/* These rooms keep Threshold navigation while giving their content the stage. */
+html[data-custom-room] body { background: var(--room-paper, #fff1dd)!important; color: var(--room-ink, #3b1720)!important; font-family: var(--th-sans); }
+html[data-custom-room] .th-entrance { height: 80px; background: var(--room-paper, #fff1dd); overflow: visible; }
+html[data-custom-room] .th-architecture,
+html[data-custom-room] .th-title-wrap,
+html[data-custom-room] .th-entrance::before,
+html[data-custom-room] .th-source-date { display: none; }
+html[data-custom-room] .th-topbar { padding: 20px max(24px, 4vw); color: var(--room-ink, #3b1720); }
+html[data-custom-room] .th-context { color: inherit; }
+html[data-custom-room] .th-room-switch { color: inherit; border-color: currentColor; background: transparent; }
+html[data-custom-room] .th-room-switch:hover { background: var(--room-ink, #3b1720); color: var(--room-paper, #fff1dd); }
+html[data-custom-room] .th-footer { background: var(--room-paper, #fff1dd); color: var(--room-ink, #3b1720); margin-top: 0; }
+html[data-custom-room] button { cursor: pointer; }
+html[data-custom-room] button:disabled { cursor: default; opacity: .35; }
+.room-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.room-dialog { position: fixed; inset: 0; margin: auto; padding: 0; border: 0; width: min(940px, calc(100vw - 36px)); max-height: calc(100dvh - 40px); background: #fff1dd; color: #3b1720; overflow: auto; }
+.room-dialog::backdrop { background: #26121ab5; backdrop-filter: blur(7px); }
+.room-dialog-close { position: absolute; right: 18px; top: 16px; width: 42px; height: 42px; border: 1px solid #3b172040; border-radius: 50%; background: #fff1dd; color: #3b1720; font-size: 25px; z-index: 2; }
+@media (max-width: 600px) { html[data-custom-room] .th-entrance { height: 74px; } html[data-custom-room] .th-topbar { padding: 17px 22px; } html[data-custom-room] .th-context { display: none; } }

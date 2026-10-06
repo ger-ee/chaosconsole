@@ -1,735 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" data-threshold="film" data-room-kind="guide" data-room-group="reference">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Screenwriting Guide — Gary's Command Center</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --font-inter: "Lora", Georgia, serif;
-            --font-syncopate: "Playfair Display", Georgia, serif;
-            --font-mono: "JetBrains Mono", monospace;
-            --font-body: "Lora", Georgia, serif;
-            --font-display: "Playfair Display", Georgia, serif;
-        }
-
-        [data-theme="dark"] {
-            --bg: #0b0f1a;
-            --bg-elevated: #101828;
-            --surface: #151d2e;
-            --surface-2: #1c2640;
-            --border: #2a3a5c;
-            --border-subtle: #1e2d4a;
-            --text: #f0f0f0;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --accent: #0077BC;
-            --accent-dim: rgba(0, 119, 188, 0.10);
-            --accent-glow: rgba(0, 119, 188, 0.25);
-            --red: #f87171;
-            --green: #4ade80;
-            --blue: #60a5fa;
-            --purple: #a07dd4;
-            --pink: #f472b6;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-        }
-
-        [data-theme="light"] {
-            --bg: #f5f5f5;
-            --bg-elevated: #ffffff;
-            --surface: #ffffff;
-            --surface-2: #ebebeb;
-            --border: #d4d4d4;
-            --border-subtle: #e0e0e0;
-            --text: #0f172a;
-            --text-secondary: #334155;
-            --text-muted: #666666;
-            --accent: #005a8f;
-            --accent-dim: rgba(0, 90, 143, 0.08);
-            --accent-glow: rgba(0, 90, 143, 0.18);
-            --red: #dc2626;
-            --green: #16a34a;
-            --blue: #2563eb;
-            --purple: #7c3aed;
-            --pink: #db2777;
-            --shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-inter);
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .page-wrapper {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--blue), var(--purple));
-            z-index: 1000;
-            transition: width 0.2s ease;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 260px;
-            height: 100vh;
-            background-color: var(--surface);
-            border-right: 1px solid var(--border);
-            overflow-y: auto;
-            z-index: 100;
-            padding: 2rem 0;
-        }
-
-        .sidebar-header {
-            padding: 0 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1.5rem;
-        }
-
-        .sidebar-header h1 {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-header p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .sidebar-nav {
-            padding: 0 0.75rem;
-        }
-
-        .sidebar-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .sidebar-section-title {
-            padding: 0.5rem 1rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .sidebar-link {
-            display: block;
-            padding: 0.5rem 1rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-            margin-bottom: 0.25rem;
-        }
-
-        .sidebar-link:hover,
-        .sidebar-link.active {
-            color: var(--text);
-            background-color: var(--surface-2);
-            border-left-color: var(--accent);
-        }
-
-        .sidebar-link.phase-1 { --phase-color: #e74c5a; }
-        .sidebar-link.phase-2 { --phase-color: #3b82f6; }
-        .sidebar-link.phase-3 { --phase-color: #8b5cf6; }
-        .sidebar-link.phase-4 { --phase-color: #f59e0b; }
-        .sidebar-link.phase-5 { --phase-color: #334155; }
-        .sidebar-link.phase-6 { --phase-color: #ec4899; }
-        .sidebar-link.phase-7 { --phase-color: #14b8a6; }
-        .sidebar-link.phase-8 { --phase-color: #f97316; }
-
-        .sidebar-link.active {
-            border-left-color: var(--phase-color);
-        }
-
-        /* Mobile Menu Button */
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 200;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 1.5rem;
-            padding: 0.5rem;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 260px;
-            flex: 1;
-            padding: 2rem;
-            max-width: 1000px;
-        }
-
-        .back-nav {
-            display: inline-block;
-            margin-bottom: 2rem;
-            padding: 0.75rem 1.25rem;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .back-nav:hover {
-            background-color: var(--surface-2);
-            border-color: var(--accent);
-        }
-
-        .title-section {
-            margin-bottom: 3rem;
-            padding: 2rem 0;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .title-section h1 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .title-section p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 150;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .theme-toggle:hover {
-            background-color: var(--surface-2);
-            border-color: var(--accent);
-        }
-
-        /* Phase Headers */
-        .phase {
-            margin-bottom: 4rem;
-        }
-
-        .phase-header {
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 4px solid var(--phase-color);
-        }
-
-        .phase-header h2 {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .phase-number {
-            display: inline-block;
-            background-color: var(--phase-color);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 3px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-right: 0.5rem;
-        }
-
-        /* Subchapter Headers */
-        .subchapter {
-            margin-bottom: 2.5rem;
-        }
-
-        .subchapter-header {
-            margin-bottom: 1rem;
-        }
-
-        .subchapter-header h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .sub-subchapter {
-            margin: 1.5rem 0;
-            margin-left: 1rem;
-        }
-
-        .sub-subchapter h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            padding-left: 1rem;
-            border-left: 3px solid var(--border);
-        }
-
-        /* Content */
-        p {
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        ul, ol {
-            margin-left: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        strong {
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        em {
-            font-style: italic;
-            color: var(--text-secondary);
-        }
-
-        /* Callout Boxes */
-        .callout {
-            padding: 1.25rem;
-            margin: 1.5rem 0;
-            border-left: 4px solid;
-            border-radius: 4px;
-            background-color: var(--surface);
-        }
-
-        .callout-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .callout p {
-            margin-bottom: 0;
-        }
-
-        .callout ul, .callout ol {
-            margin-bottom: 0;
-        }
-
-        .exercise {
-            border-left-color: #e74c5a;
-            background-color: rgba(231, 76, 90, 0.08);
-        }
-
-        .exercise .callout-title {
-            color: #e74c5a;
-        }
-
-        .pro-tip {
-            border-left-color: #4ade80;
-            background-color: rgba(74, 222, 128, 0.08);
-        }
-
-        .pro-tip .callout-title {
-            color: #4ade80;
-        }
-
-        .pitfall {
-            border-left-color: #f59e0b;
-            background-color: rgba(245, 158, 11, 0.08);
-        }
-
-        .pitfall .callout-title {
-            color: #f59e0b;
-        }
-
-        .community {
-            border-left-color: #fbbf24;
-            background-color: rgba(251, 191, 36, 0.08);
-        }
-
-        .community .callout-title {
-            color: #fbbf24;
-        }
-
-        .blockquote {
-            border-left-color: var(--accent);
-            background-color: var(--accent-dim);
-            padding: 1.25rem;
-            margin: 1.5rem 0;
-            border-left: 4px solid var(--accent);
-            font-style: italic;
-            color: var(--text-secondary);
-            border-radius: 4px;
-        }
-
-        .blockquote p {
-            margin-bottom: 0;
-        }
-
-        /* Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        th {
-            background-color: var(--surface-2);
-            padding: 1rem;
-            text-align: left;
-            font-weight: 700;
-            border-bottom: 2px solid var(--border);
-            color: var(--text);
-        }
-
-        td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Back to Top */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 50;
-        }
-
-        .back-to-top:hover {
-            background-color: var(--surface-2);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-                max-width: 260px;
-                box-shadow: var(--shadow);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1.5rem 1rem;
-            }
-
-            .title-section h1 {
-                font-size: 1.8rem;
-            }
-
-            .phase-header h2 {
-                font-size: 1.5rem;
-            }
-
-            .subchapter-header h3 {
-                font-size: 1.2rem;
-            }
-
-            .theme-toggle {
-                top: 0.75rem;
-                right: 0.75rem;
-                padding: 0.5rem 0.75rem;
-                font-size: 0.8rem;
-            }
-
-            .back-to-top {
-                bottom: 1rem;
-                right: 1rem;
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-content {
-                padding: 1rem;
-            }
-
-            .title-section {
-                margin-bottom: 2rem;
-            }
-
-            .title-section h1 {
-                font-size: 1.5rem;
-            }
-
-            .subchapter-header h3 {
-                font-size: 1.1rem;
-            }
-
-            .phase-header h2 {
-                font-size: 1.3rem;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
-    </style>
-  <script defer src="../shared/gate.js"></script>
-
-
-<link rel="stylesheet" href="/shared/console-shell.css">
-<script defer src="/shared/threshold/routes.js"></script>
-<script defer src="/shared/console-shell.js"></script>
-</head>
-<body>
-    <div class="progress-bar"></div>
-    <button class="menu-toggle">☰</button>
-    <button class="theme-toggle">🌙 Dark</button>
-
-    <div class="page-wrapper">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1>Contents</h1>
-                <p>68-Page Study Guide</p>
-            </div>
-            <nav class="sidebar-nav">
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Navigation</div>
-                    <a href="#top" class="sidebar-link">← Back to Top</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 1: Foundations</div>
-                    <a href="#phase-1" class="sidebar-link phase-1">Phase 1</a>
-                    <a href="#1-1" class="sidebar-link">1.1 What Makes a Story Work</a>
-                    <a href="#1-2" class="sidebar-link">1.2 Narrative Structure</a>
-                    <a href="#1-3" class="sidebar-link">1.3 Character Creation</a>
-                    <a href="#1-4" class="sidebar-link">1.4 Conflict and Stakes</a>
-                    <a href="#1-5" class="sidebar-link">1.5 Theme vs. Plot</a>
-                    <a href="#1-6" class="sidebar-link">1.6 Visual Storytelling</a>
-                    <a href="#1-7" class="sidebar-link">1.7 Screenplay Formatting</a>
-                    <a href="#1-8" class="sidebar-link">1.8 Emotional Core</a>
-                    <a href="#1-9" class="sidebar-link">1.9 World-Building</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 2: Fundamentals</div>
-                    <a href="#phase-2" class="sidebar-link phase-2">Phase 2</a>
-                    <a href="#2-1" class="sidebar-link">2.1 Three-Act Structure</a>
-                    <a href="#2-2" class="sidebar-link">2.2 Scene Design</a>
-                    <a href="#2-3" class="sidebar-link">2.3 Dialogue</a>
-                    <a href="#2-4" class="sidebar-link">2.4 Subtext</a>
-                    <a href="#2-5" class="sidebar-link">2.5 Character Arcs</a>
-                    <a href="#2-6" class="sidebar-link">2.6 Beat Sheets</a>
-                    <a href="#2-7" class="sidebar-link">2.7 Loglines</a>
-                    <a href="#2-8" class="sidebar-link">2.8 Short Films</a>
-                    <a href="#2-9" class="sidebar-link">2.9 Action Lines</a>
-                    <a href="#2-10" class="sidebar-link">2.10 Opening</a>
-                    <a href="#2-11" class="sidebar-link">2.11 Reading Scripts</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 3: Advanced</div>
-                    <a href="#phase-3" class="sidebar-link phase-3">Phase 3</a>
-                    <a href="#3-1" class="sidebar-link">3.1 Alternative Structures</a>
-                    <a href="#3-2" class="sidebar-link">3.2 Genre Conventions</a>
-                    <a href="#3-3" class="sidebar-link">3.3 Ensemble Casts</a>
-                    <a href="#3-4" class="sidebar-link">3.4 Nonlinear Storytelling</a>
-                    <a href="#3-5" class="sidebar-link">3.5 Tension and Pacing</a>
-                    <a href="#3-6" class="sidebar-link">3.6 Rewriting</a>
-                    <a href="#3-7" class="sidebar-link">3.7 TV vs. Film</a>
-                    <a href="#3-8" class="sidebar-link">3.8 Writing Comedy</a>
-                    <a href="#3-9" class="sidebar-link">3.9 Writing Horror</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 4: Production</div>
-                    <a href="#phase-4" class="sidebar-link phase-4">Phase 4</a>
-                    <a href="#4-1" class="sidebar-link">4.1 Scripts to Films</a>
-                    <a href="#4-2" class="sidebar-link">4.2 Production Roles</a>
-                    <a href="#4-3" class="sidebar-link">4.3 Pre-Production</a>
-                    <a href="#4-4" class="sidebar-link">4.4 Budgeting</a>
-                    <a href="#4-5" class="sidebar-link">4.5 Casting</a>
-                    <a href="#4-6" class="sidebar-link">4.6 Location Scouting</a>
-                    <a href="#4-7" class="sidebar-link">4.7 Micro-Budget</a>
-                    <a href="#4-8" class="sidebar-link">4.8 Director-Writer</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 5: Directing</div>
-                    <a href="#phase-5" class="sidebar-link phase-5">Phase 5</a>
-                    <a href="#5-1" class="sidebar-link">5.1 Blocking and Staging</a>
-                    <a href="#5-2" class="sidebar-link">5.2 Shot Composition</a>
-                    <a href="#5-3" class="sidebar-link">5.3 Camera Movement</a>
-                    <a href="#5-4" class="sidebar-link">5.4 Working with Actors</a>
-                    <a href="#5-5" class="sidebar-link">5.5 Visual Motifs</a>
-                    <a href="#5-6" class="sidebar-link">5.6 Storyboarding</a>
-                    <a href="#5-7" class="sidebar-link">5.7 Coverage</a>
-                    <a href="#5-8" class="sidebar-link">5.8 Language of Editing</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 6: Post-Production</div>
-                    <a href="#phase-6" class="sidebar-link phase-6">Phase 6</a>
-                    <a href="#6-1" class="sidebar-link">6.1 Lighting</a>
-                    <a href="#6-2" class="sidebar-link">6.2 Lens Selection</a>
-                    <a href="#6-3" class="sidebar-link">6.3 Editing Rhythms</a>
-                    <a href="#6-4" class="sidebar-link">6.4 Sound Design</a>
-                    <a href="#6-5" class="sidebar-link">6.5 Color Grading</a>
-                    <a href="#6-6" class="sidebar-link">6.6 Audio Post</a>
-                    <a href="#6-7" class="sidebar-link">6.7 Visual Effects</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 7: Industry</div>
-                    <a href="#phase-7" class="sidebar-link phase-7">Phase 7</a>
-                    <a href="#7-1" class="sidebar-link">7.1 Film Financing</a>
-                    <a href="#7-2" class="sidebar-link">7.2 Film Festivals</a>
-                    <a href="#7-3" class="sidebar-link">7.3 Agents and Managers</a>
-                    <a href="#7-4" class="sidebar-link">7.4 Pitching</a>
-                    <a href="#7-5" class="sidebar-link">7.5 Writers' Rooms</a>
-                    <a href="#7-6" class="sidebar-link">7.6 Streaming Landscape</a>
-                    <a href="#7-7" class="sidebar-link">7.7 Copyright and IP</a>
-                    <a href="#7-8" class="sidebar-link">7.8 Career Building</a>
-                </div>
-
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Phase 8: Projects</div>
-                    <a href="#phase-8" class="sidebar-link phase-8">Phase 8</a>
-                    <a href="#8-1" class="sidebar-link">8.1 Write a Scene</a>
-                    <a href="#8-2" class="sidebar-link">8.2 Rewrite Bad Scene</a>
-                    <a href="#8-3" class="sidebar-link">8.3 Adapt Short Story</a>
-                    <a href="#8-4" class="sidebar-link">8.4 Short Film Script</a>
-                    <a href="#8-5" class="sidebar-link">8.5 TV Pilot</a>
-                    <a href="#8-6" class="sidebar-link">8.6 Additional Exercises</a>
-                </div>
-            </nav>
-        </aside>
-
-        <main class="main-content" id="top">
-            <a href="../index.html" class="back-nav">← CHAOS CONSOLE</a>
-
-            <div class="title-section">
-                <h1>Screenwriting & Film Production</h1>
-                <p>A Complete Study Guide — From Blank Page to Final Cut</p>
-            </div>
-
-            <!-- PHASE 1 -->
-            <section class="phase" id="phase-1">
-                <div class="phase-header" style="--phase-color: #e74c5a;">
-                    <span class="phase-number">PHASE 1</span>
-                    <h2>Foundations of Storytelling</h2>
-                </div>
-
-                <article class="subchapter" id="1-1">
+<!doctype html><html lang="en" data-threshold="film" data-room-kind="guide" data-room-group="reference" data-custom-room="film"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Film School — Chaos Console</title>
+<link rel="stylesheet" href="/shared/console-shell.css"><link rel="stylesheet" href="/shared/threshold/rooms/room-base.css"><link rel="stylesheet" href="/screenwriting-and-film-production/film.css">
+<script defer src="/shared/gate.js"></script><script defer src="/shared/threshold/routes.js"></script><script defer src="/shared/console-shell.js"></script><script defer src="/screenwriting-and-film-production/film.js"></script>
+</head><body><main id="th-room-content" class="fs-main">
+<div id="fs-home"><header class="fs-cover"><div class="fs-cover-title"><h1>Film<br>School</h1></div><div class="fs-cover-note"><p>A working guide to<br>the moving image.</p><div class="fs-cover-index"><span>Story &amp; screenwriting</span><span>Production &amp; directing</span><span>Picture &amp; sound</span></div><a href="#1-1" class="fs-start">Begin with a story <span aria-hidden="true">↗</span></a><a id="fs-resume" href="#1-1" hidden></a></div></header>
+<section class="fs-contents" aria-label="Course contents"><div class="fs-contents-head"><h2>The curriculum</h2><label class="fs-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></svg><input id="fs-search" type="search" placeholder="Find a lesson" aria-label="Search all lessons"></label></div><p id="fs-search-status" role="status" hidden></p><div id="fs-chapters"><details class="fs-chapter" id="phase-1"><summary><span class="fs-chapter-number">01</span><h2>Foundations of Storytelling</h2><span class="fs-chapter-size">9 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#1-1" data-lesson="1-1"><span>What Makes a Story Work</span><span aria-hidden="true">↗</span></a><a href="#1-2" data-lesson="1-2"><span>Narrative Structure Fundamentals</span><span aria-hidden="true">↗</span></a><a href="#1-3" data-lesson="1-3"><span>Character Creation</span><span aria-hidden="true">↗</span></a><a href="#1-4" data-lesson="1-4"><span>Conflict and Stakes</span><span aria-hidden="true">↗</span></a><a href="#1-5" data-lesson="1-5"><span>Theme vs. Plot</span><span aria-hidden="true">↗</span></a><a href="#1-6" data-lesson="1-6"><span>Visual Storytelling</span><span aria-hidden="true">↗</span></a><a href="#1-7" data-lesson="1-7"><span>Basic Screenplay Formatting</span><span aria-hidden="true">↗</span></a><a href="#1-8" data-lesson="1-8"><span>The Emotional Core</span><span aria-hidden="true">↗</span></a><a href="#1-9" data-lesson="1-9"><span>World-Building for Film</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-2"><summary><span class="fs-chapter-number">02</span><h2>Screenwriting Fundamentals</h2><span class="fs-chapter-size">11 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#2-1" data-lesson="2-1"><span>Three-Act Structure</span><span aria-hidden="true">↗</span></a><a href="#2-2" data-lesson="2-2"><span>Scene Design</span><span aria-hidden="true">↗</span></a><a href="#2-3" data-lesson="2-3"><span>Dialogue</span><span aria-hidden="true">↗</span></a><a href="#2-4" data-lesson="2-4"><span>Subtext</span><span aria-hidden="true">↗</span></a><a href="#2-5" data-lesson="2-5"><span>Character Arcs</span><span aria-hidden="true">↗</span></a><a href="#2-6" data-lesson="2-6"><span>Beat Sheets</span><span aria-hidden="true">↗</span></a><a href="#2-7" data-lesson="2-7"><span>Loglines and Premises</span><span aria-hidden="true">↗</span></a><a href="#2-8" data-lesson="2-8"><span>Writing a Short Film Script</span><span aria-hidden="true">↗</span></a><a href="#2-9" data-lesson="2-9"><span>Writing Action Lines</span><span aria-hidden="true">↗</span></a><a href="#2-10" data-lesson="2-10"><span>The Power of the Opening</span><span aria-hidden="true">↗</span></a><a href="#2-11" data-lesson="2-11"><span>How to Read a Screenplay</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-3"><summary><span class="fs-chapter-number">03</span><h2>Advanced Screenwriting</h2><span class="fs-chapter-size">9 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#3-1" data-lesson="3-1"><span>Alternative Narrative Structures</span><span aria-hidden="true">↗</span></a><a href="#3-2" data-lesson="3-2"><span>Genre Conventions</span><span aria-hidden="true">↗</span></a><a href="#3-3" data-lesson="3-3"><span>Ensemble Casts</span><span aria-hidden="true">↗</span></a><a href="#3-4" data-lesson="3-4"><span>Nonlinear Storytelling</span><span aria-hidden="true">↗</span></a><a href="#3-5" data-lesson="3-5"><span>Writing Tension and Pacing</span><span aria-hidden="true">↗</span></a><a href="#3-6" data-lesson="3-6"><span>Rewriting and Script Editing</span><span aria-hidden="true">↗</span></a><a href="#3-7" data-lesson="3-7"><span>Writing for Television vs. Film</span><span aria-hidden="true">↗</span></a><a href="#3-8" data-lesson="3-8"><span>Writing Comedy</span><span aria-hidden="true">↗</span></a><a href="#3-9" data-lesson="3-9"><span>Writing Horror</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-4"><summary><span class="fs-chapter-number">04</span><h2>Film Production Basics</h2><span class="fs-chapter-size">8 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#4-1" data-lesson="4-1"><span>How Scripts Become Films</span><span aria-hidden="true">↗</span></a><a href="#4-2" data-lesson="4-2"><span>Roles in a Film Production</span><span aria-hidden="true">↗</span></a><a href="#4-3" data-lesson="4-3"><span>Pre-Production Workflow</span><span aria-hidden="true">↗</span></a><a href="#4-4" data-lesson="4-4"><span>Budgeting and Scheduling</span><span aria-hidden="true">↗</span></a><a href="#4-5" data-lesson="4-5"><span>Casting</span><span aria-hidden="true">↗</span></a><a href="#4-6" data-lesson="4-6"><span>Location Scouting</span><span aria-hidden="true">↗</span></a><a href="#4-7" data-lesson="4-7"><span>Working with a Micro-Budget</span><span aria-hidden="true">↗</span></a><a href="#4-8" data-lesson="4-8"><span>The Director-Writer Relationship</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-5"><summary><span class="fs-chapter-number">05</span><h2>Directing & Visual Language</h2><span class="fs-chapter-size">8 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#5-1" data-lesson="5-1"><span>Blocking and Staging</span><span aria-hidden="true">↗</span></a><a href="#5-2" data-lesson="5-2"><span>Shot Composition</span><span aria-hidden="true">↗</span></a><a href="#5-3" data-lesson="5-3"><span>Camera Movement</span><span aria-hidden="true">↗</span></a><a href="#5-4" data-lesson="5-4"><span>Working with Actors</span><span aria-hidden="true">↗</span></a><a href="#5-5" data-lesson="5-5"><span>Visual Motifs</span><span aria-hidden="true">↗</span></a><a href="#5-6" data-lesson="5-6"><span>Storyboarding</span><span aria-hidden="true">↗</span></a><a href="#5-7" data-lesson="5-7"><span>Coverage and Master Shots</span><span aria-hidden="true">↗</span></a><a href="#5-8" data-lesson="5-8"><span>The Language of Editing (For Directors)</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-6"><summary><span class="fs-chapter-number">06</span><h2>Cinematography & Editing</h2><span class="fs-chapter-size">7 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#6-1" data-lesson="6-1"><span>Lighting Fundamentals</span><span aria-hidden="true">↗</span></a><a href="#6-2" data-lesson="6-2"><span>Lens Selection</span><span aria-hidden="true">↗</span></a><a href="#6-3" data-lesson="6-3"><span>Editing Rhythms</span><span aria-hidden="true">↗</span></a><a href="#6-4" data-lesson="6-4"><span>Sound Design</span><span aria-hidden="true">↗</span></a><a href="#6-5" data-lesson="6-5"><span>Color Grading</span><span aria-hidden="true">↗</span></a><a href="#6-6" data-lesson="6-6"><span>Audio Post-Production</span><span aria-hidden="true">↗</span></a><a href="#6-7" data-lesson="6-7"><span>Visual Effects on a Budget</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-7"><summary><span class="fs-chapter-number">07</span><h2>Industry Knowledge</h2><span class="fs-chapter-size">8 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#7-1" data-lesson="7-1"><span>How Films Get Financed</span><span aria-hidden="true">↗</span></a><a href="#7-2" data-lesson="7-2"><span>Film Festivals</span><span aria-hidden="true">↗</span></a><a href="#7-3" data-lesson="7-3"><span>Agents and Managers</span><span aria-hidden="true">↗</span></a><a href="#7-4" data-lesson="7-4"><span>Pitching Projects</span><span aria-hidden="true">↗</span></a><a href="#7-5" data-lesson="7-5"><span>Writers&#x27; Rooms</span><span aria-hidden="true">↗</span></a><a href="#7-6" data-lesson="7-6"><span>The Modern Streaming Landscape</span><span aria-hidden="true">↗</span></a><a href="#7-7" data-lesson="7-7"><span>Copyright, Intellectual Property, and the WGA</span><span aria-hidden="true">↗</span></a><a href="#7-8" data-lesson="7-8"><span>Building a Screenwriting Career in 2025-2026</span><span aria-hidden="true">↗</span></a></div></details><details class="fs-chapter" id="phase-8"><summary><span class="fs-chapter-number">08</span><h2>Practical Projects & Exercises</h2><span class="fs-chapter-size">6 lessons</span><span class="fs-plus" aria-hidden="true">+</span></summary><div class="fs-lesson-links"><a href="#8-1" data-lesson="8-1"><span>Project: Write a 1-Page Scene</span><span aria-hidden="true">↗</span></a><a href="#8-2" data-lesson="8-2"><span>Project: Rewrite a Bad Scene</span><span aria-hidden="true">↗</span></a><a href="#8-3" data-lesson="8-3"><span>Project: Adapt a Short Story</span><span aria-hidden="true">↗</span></a><a href="#8-4" data-lesson="8-4"><span>Project: Write a Short Film Script</span><span aria-hidden="true">↗</span></a><a href="#8-5" data-lesson="8-5"><span>Project: Develop a Pilot Episode</span><span aria-hidden="true">↗</span></a><a href="#8-6" data-lesson="8-6"><span>Additional Exercises</span><span aria-hidden="true">↗</span></a></div></details></div></section></div>
+<div id="fs-reader" class="fs-reader" hidden><nav class="fs-reader-bar" aria-label="Lesson navigation"><a href="#contents" class="fs-back">← All lessons</a><span id="fs-reader-phase"></span><button type="button" id="fs-show-outline" aria-expanded="false" aria-controls="fs-outline">In this chapter <span aria-hidden="true">+</span></button></nav><div class="fs-reader-layout"><aside id="fs-outline" class="fs-outline" aria-label="Lessons in this chapter"></aside><div class="fs-reading-column"><div id="fs-library"><div class="fs-lesson" data-id="1-1" data-phase="phase-1" data-title="What Makes a Story Work" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-1">
                     <div class="subchapter-header">
                         <h3>1.1 What Makes a Story Work</h3>
                     </div>
@@ -768,9 +44,7 @@
                     <div class="blockquote">
                         <p>"Storytelling is joke-telling. It's knowing your punchline, your ending, knowing that everything you're saying, from the first sentence to the last, is leading to a singular goal." -- Andrew Stanton, TED Talk (2012)</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-2">
+                </article></div><div class="fs-lesson" data-id="1-2" data-phase="phase-1" data-title="Narrative Structure Fundamentals" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-2">
                     <div class="subchapter-header">
                         <h3>1.2 Narrative Structure Fundamentals</h3>
                     </div>
@@ -818,9 +92,7 @@
                         <div class="callout-title">Exercise: Map the Sequences</div>
                         <p>Watch a film with a clear three-act structure (The Fugitive, Alien, or Parasite work well). Pause every 12-15 minutes and note what question was raised and answered in that block.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-3">
+                </article></div><div class="fs-lesson" data-id="1-3" data-phase="phase-1" data-title="Character Creation" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-3">
                     <div class="subchapter-header">
                         <h3>1.3 Character Creation</h3>
                     </div>
@@ -864,9 +136,7 @@
                         <div class="callout-title">Exercise: Character Contradiction Sheet</div>
                         <p>For your protagonist, list five adjectives that describe them. Now list the opposite of each adjective. Find at least two contradictions that could coexist.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-4">
+                </article></div><div class="fs-lesson" data-id="1-4" data-phase="phase-1" data-title="Conflict and Stakes" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-4">
                     <div class="subchapter-header">
                         <h3>1.4 Conflict and Stakes</h3>
                     </div>
@@ -896,9 +166,7 @@
                         <div class="callout-title">Exercise: Stake Escalation Map</div>
                         <p>For a story idea, list five progressively higher stakes. Start personal and small, and end at the highest possible stakes for your genre.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-5">
+                </article></div><div class="fs-lesson" data-id="1-5" data-phase="phase-1" data-title="Theme vs. Plot" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-5">
                     <div class="subchapter-header">
                         <h3>1.5 Theme vs. Plot</h3>
                     </div>
@@ -922,9 +190,7 @@
                         <div class="callout-title">Exercise: Theme Statement</div>
                         <p>For a film you admire, write one sentence that captures the theme (not the plot). Example: <em>Parasite</em> -- "Class structures are architecturally enforced and cannot be escaped through imitation."</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-6">
+                </article></div><div class="fs-lesson" data-id="1-6" data-phase="phase-1" data-title="Visual Storytelling" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-6">
                     <div class="subchapter-header">
                         <h3>1.6 Visual Storytelling</h3>
                     </div>
@@ -950,9 +216,7 @@
                         <div class="callout-title">Exercise: Silent Scene</div>
                         <p>Write a 2-page scene with zero dialogue where the audience learns: (a) the character's emotional state, (b) their relationship to another character, and (c) what they want.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-7">
+                </article></div><div class="fs-lesson" data-id="1-7" data-phase="phase-1" data-title="Basic Screenplay Formatting" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-7">
                     <div class="subchapter-header">
                         <h3>1.7 Basic Screenplay Formatting</h3>
                     </div>
@@ -996,9 +260,7 @@
                         <div class="callout-title">Exercise: Format a Scene</div>
                         <p>Take a scene from your favorite film and transcribe it into proper screenplay format using free software.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-8">
+                </article></div><div class="fs-lesson" data-id="1-8" data-phase="phase-1" data-title="The Emotional Core" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-8">
                     <div class="subchapter-header">
                         <h3>1.8 The Emotional Core</h3>
                     </div>
@@ -1020,9 +282,7 @@
                         <div class="callout-title">Exercise: Emotional Core Identification</div>
                         <p>Watch three films from different genres. After each, write one word that captures the dominant emotion.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="1-9">
+                </article></div><div class="fs-lesson" data-id="1-9" data-phase="phase-1" data-title="World-Building for Film" data-phase-title="Foundations of Storytelling" hidden><article class="subchapter" id="1-9">
                     <div class="subchapter-header">
                         <h3>1.9 World-Building for Film</h3>
                     </div>
@@ -1047,17 +307,7 @@
                         <div class="callout-title">Exercise: World Rules Sheet</div>
                         <p>For your story idea, list five rules that govern the world.</p>
                     </div>
-                </article>
-            </section>
-
-            <!-- PHASE 2 -->
-            <section class="phase" id="phase-2">
-                <div class="phase-header" style="--phase-color: #3b82f6;">
-                    <span class="phase-number">PHASE 2</span>
-                    <h2>Screenwriting Fundamentals</h2>
-                </div>
-
-                <article class="subchapter" id="2-1">
+                </article></div><div class="fs-lesson" data-id="2-1" data-phase="phase-2" data-title="Three-Act Structure" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-1">
                     <div class="subchapter-header">
                         <h3>2.1 Three-Act Structure</h3>
                     </div>
@@ -1102,9 +352,7 @@
                         <div class="callout-title">Pro Tip</div>
                         <p>Blake Snyder's page counts assume a 110-page script. Adjust proportionally for shorter or longer scripts. The ratios matter more than the exact page numbers: roughly 25% / 50% / 25%.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-2">
+                </article></div><div class="fs-lesson" data-id="2-2" data-phase="phase-2" data-title="Scene Design" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-2">
                     <div class="subchapter-header">
                         <h3>2.2 Scene Design</h3>
                     </div>
@@ -1138,9 +386,7 @@
                         <div class="callout-title">Exercise: Scene Autopsy</div>
                         <p>Pick a scene from a film you admire. Write down: (1) What does the protagonist want? (2) What is the obstacle? (3) What is the outcome? (4) What changed?</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-3">
+                </article></div><div class="fs-lesson" data-id="2-3" data-phase="phase-2" data-title="Dialogue" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-3">
                     <div class="subchapter-header">
                         <h3>2.3 Dialogue</h3>
                     </div>
@@ -1175,9 +421,7 @@
                         <div class="callout-title">Exercise: Dialogue Restriction</div>
                         <p>Write a 2-page scene between two characters who want different things. Rules: (1) Neither character can directly state what they want. (2) No speech longer than two lines. (3) At least three beats of silence or non-verbal action.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-4">
+                </article></div><div class="fs-lesson" data-id="2-4" data-phase="phase-2" data-title="Subtext" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-4">
                     <div class="subchapter-header">
                         <h3>2.4 Subtext</h3>
                     </div>
@@ -1202,9 +446,7 @@
                         <div class="callout-title">Exercise: Subtext Translation</div>
                         <p>Write a scene where a father tells his adult daughter he is proud of her -- without using the word 'proud,' 'love,' or any direct expression of emotion.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-5">
+                </article></div><div class="fs-lesson" data-id="2-5" data-phase="phase-2" data-title="Character Arcs" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-5">
                     <div class="subchapter-header">
                         <h3>2.5 Character Arcs</h3>
                     </div>
@@ -1228,9 +470,7 @@
                         <div class="callout-title">Exercise: Arc Blueprint</div>
                         <p>For your protagonist, write: (1) The lie they believe in Scene 1. (2) Three events that challenge this lie. (3) The moment they confront the truth. (4) Whether they accept or reject it.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-6">
+                </article></div><div class="fs-lesson" data-id="2-6" data-phase="phase-2" data-title="Beat Sheets" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-6">
                     <div class="subchapter-header">
                         <h3>2.6 Beat Sheets</h3>
                     </div>
@@ -1326,9 +566,7 @@
                             </tbody>
                         </table>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-7">
+                </article></div><div class="fs-lesson" data-id="2-7" data-phase="phase-2" data-title="Loglines and Premises" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-7">
                     <div class="subchapter-header">
                         <h3>2.7 Loglines and Premises</h3>
                     </div>
@@ -1338,9 +576,7 @@
                         <h4>The Logline Formula:</h4>
                         <p>When [inciting incident] happens to [protagonist with a flaw], they must [goal] before [stakes/deadline], but [obstacle/antagonist] stands in their way.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="2-8">
+                </article></div><div class="fs-lesson" data-id="2-8" data-phase="phase-2" data-title="Writing a Short Film Script" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-8">
                     <div class="subchapter-header">
                         <h3>2.8 Writing a Short Film Script</h3>
                     </div>
@@ -1350,9 +586,7 @@
                         <li>Length: 5-15 minutes (5-15 pages) is the sweet spot for festivals.</li>
                         <li>End on impact: The ending of a short film carries disproportionate weight.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="2-9">
+                </article></div><div class="fs-lesson" data-id="2-9" data-phase="phase-2" data-title="Writing Action Lines" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-9">
                     <div class="subchapter-header">
                         <h3>2.9 Writing Action Lines</h3>
                     </div>
@@ -1363,9 +597,7 @@
                         <li>Write in present tense. Always.</li>
                         <li>Only describe what can be seen and heard.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="2-10">
+                </article></div><div class="fs-lesson" data-id="2-10" data-phase="phase-2" data-title="The Power of the Opening" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-10">
                     <div class="subchapter-header">
                         <h3>2.10 The Power of the Opening</h3>
                     </div>
@@ -1375,9 +607,7 @@
                         <li>Create a question. The audience should need to know what happens next.</li>
                         <li>Introduce the protagonist in action, making a choice that reveals character.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="2-11">
+                </article></div><div class="fs-lesson" data-id="2-11" data-phase="phase-2" data-title="How to Read a Screenplay" data-phase-title="Screenwriting Fundamentals" hidden><article class="subchapter" id="2-11">
                     <div class="subchapter-header">
                         <h3>2.11 How to Read a Screenplay</h3>
                     </div>
@@ -1388,17 +618,7 @@
                         <li>Count pages: How many pages before the inciting incident? Before Act II?</li>
                         <li>Resources: SimplyScripts, The Script Lab, IMSDB, Academy Nicholl Library.</li>
                     </ul>
-                </article>
-            </section>
-
-            <!-- PHASE 3 -->
-            <section class="phase" id="phase-3">
-                <div class="phase-header" style="--phase-color: #8b5cf6;">
-                    <span class="phase-number">PHASE 3</span>
-                    <h2>Advanced Screenwriting</h2>
-                </div>
-
-                <article class="subchapter" id="3-1">
+                </article></div><div class="fs-lesson" data-id="3-1" data-phase="phase-3" data-title="Alternative Narrative Structures" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-1">
                     <div class="subchapter-header">
                         <h3>3.1 Alternative Narrative Structures</h3>
                     </div>
@@ -1411,16 +631,12 @@
                         <li><strong>Real-time:</strong> 12 Angry Men, Rope, Before Sunset</li>
                         <li><strong>Reverse chronology:</strong> Memento, Irreversible, Betrayal</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="3-2">
+                </article></div><div class="fs-lesson" data-id="3-2" data-phase="phase-3" data-title="Genre Conventions" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-2">
                     <div class="subchapter-header">
                         <h3>3.2 Genre Conventions</h3>
                     </div>
                     <p>Every genre has obligations -- scenes the audience expects. A horror film must have scares. A comedy must have laughs. A romance must have the "all is lost" breakup moment. Understanding genre conventions is not about following formulas; it is about knowing what you are choosing to subvert.</p>
-                </article>
-
-                <article class="subchapter" id="3-3">
+                </article></div><div class="fs-lesson" data-id="3-3" data-phase="phase-3" data-title="Ensemble Casts" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-3">
                     <div class="subchapter-header">
                         <h3>3.3 Ensemble Casts</h3>
                     </div>
@@ -1430,16 +646,12 @@
                         <li>Find the thematic thread that connects all stories.</li>
                         <li>Use structural rhymes: mirror scenes between different characters.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="3-4">
+                </article></div><div class="fs-lesson" data-id="3-4" data-phase="phase-3" data-title="Nonlinear Storytelling" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-4">
                     <div class="subchapter-header">
                         <h3>3.4 Nonlinear Storytelling</h3>
                     </div>
                     <p>Nonlinear storytelling rearranges chronology for emotional effect. The key principle: every structural choice must serve the story emotionally. If the film works just as well in chronological order, the nonlinearity is a gimmick.</p>
-                </article>
-
-                <article class="subchapter" id="3-5">
+                </article></div><div class="fs-lesson" data-id="3-5" data-phase="phase-3" data-title="Writing Tension and Pacing" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-5">
                     <div class="subchapter-header">
                         <h3>3.5 Writing Tension and Pacing</h3>
                     </div>
@@ -1449,9 +661,7 @@
                         <li><strong>Suspense vs. surprise:</strong> Hitchcock's bomb under the table analogy. Surprise is 10 seconds of shock. Suspense is 10 minutes of dread.</li>
                         <li><strong>Vary scene length:</strong> If every scene is the same length, the rhythm becomes monotonous.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="3-6">
+                </article></div><div class="fs-lesson" data-id="3-6" data-phase="phase-3" data-title="Rewriting and Script Editing" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-6">
                     <div class="subchapter-header">
                         <h3>3.6 Rewriting and Script Editing</h3>
                     </div>
@@ -1462,9 +672,7 @@
                         <li><strong>Dialogue pass:</strong> Cut every line that can be cut. Tighten every speech.</li>
                         <li><strong>Action line pass:</strong> Compress. Eliminate directing language. Make it visual.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="3-7">
+                </article></div><div class="fs-lesson" data-id="3-7" data-phase="phase-3" data-title="Writing for Television vs. Film" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-7">
                     <div class="subchapter-header">
                         <h3>3.7 Writing for Television vs. Film</h3>
                     </div>
@@ -1474,9 +682,7 @@
                         <li>TV pilot: Must introduce world, characters, and engine while telling a complete story.</li>
                         <li>Episode engine: What makes this show capable of producing 100 episodes?</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="3-8">
+                </article></div><div class="fs-lesson" data-id="3-8" data-phase="phase-3" data-title="Writing Comedy" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-8">
                     <div class="subchapter-header">
                         <h3>3.8 Writing Comedy</h3>
                     </div>
@@ -1486,9 +692,7 @@
                         <li>The Rule of Three: setup, reinforcement, subversion.</li>
                         <li>Comic characters take themselves seriously. The comedy comes from the gap between their self-image and reality.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="3-9">
+                </article></div><div class="fs-lesson" data-id="3-9" data-phase="phase-3" data-title="Writing Horror" data-phase-title="Advanced Screenwriting" hidden><article class="subchapter" id="3-9">
                     <div class="subchapter-header">
                         <h3>3.9 Writing Horror</h3>
                     </div>
@@ -1498,31 +702,17 @@
                         <li>Use the environment as an antagonist.</li>
                         <li>Practical fear is more effective than supernatural fear for most audiences.</li>
                     </ul>
-                </article>
-            </section>
-
-            <!-- PHASE 4 -->
-            <section class="phase" id="phase-4">
-                <div class="phase-header" style="--phase-color: #f59e0b;">
-                    <span class="phase-number">PHASE 4</span>
-                    <h2>Film Production Basics</h2>
-                </div>
-
-                <article class="subchapter" id="4-1">
+                </article></div><div class="fs-lesson" data-id="4-1" data-phase="phase-4" data-title="How Scripts Become Films" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-1">
                     <div class="subchapter-header">
                         <h3>4.1 How Scripts Become Films</h3>
                     </div>
                     <p>The journey from script to screen follows a pipeline: Development -> Pre-Production -> Production -> Post-Production -> Distribution.</p>
-                </article>
-
-                <article class="subchapter" id="4-2">
+                </article></div><div class="fs-lesson" data-id="4-2" data-phase="phase-4" data-title="Roles in a Film Production" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-2">
                     <div class="subchapter-header">
                         <h3>4.2 Roles in a Film Production</h3>
                     </div>
                     <p>Key roles: Director, Producer, Cinematographer (DP), Production Designer, Editor, Sound Designer, Composer, Line Producer, 1st AD, Script Supervisor, Gaffer, Key Grip.</p>
-                </article>
-
-                <article class="subchapter" id="4-3">
+                </article></div><div class="fs-lesson" data-id="4-3" data-phase="phase-4" data-title="Pre-Production Workflow" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-3">
                     <div class="subchapter-header">
                         <h3>4.3 Pre-Production Workflow</h3>
                     </div>
@@ -1532,9 +722,7 @@
                         <li>Shooting schedule: Organize scenes by location, cast availability, and time of day.</li>
                         <li>Shot list: The director's plan for how each scene will be filmed.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="4-4">
+                </article></div><div class="fs-lesson" data-id="4-4" data-phase="phase-4" data-title="Budgeting and Scheduling" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-4">
                     <div class="subchapter-header">
                         <h3>4.4 Budgeting and Scheduling</h3>
                     </div>
@@ -1543,9 +731,7 @@
                         <li>Below-the-line: Crew, equipment, locations, post-production. Execution costs.</li>
                         <li>The budget determines the creative boundaries. Know yours before you start.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="4-5">
+                </article></div><div class="fs-lesson" data-id="4-5" data-phase="phase-4" data-title="Casting" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-5">
                     <div class="subchapter-header">
                         <h3>4.5 Casting</h3>
                     </div>
@@ -1554,9 +740,7 @@
                         <li>Chemistry reads are essential for any relationship-based story.</li>
                         <li>Cast for emotional truth, not physical resemblance to your mental image.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="4-6">
+                </article></div><div class="fs-lesson" data-id="4-6" data-phase="phase-4" data-title="Location Scouting" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-6">
                     <div class="subchapter-header">
                         <h3>4.6 Location Scouting</h3>
                     </div>
@@ -1565,9 +749,7 @@
                         <li>Consider: light quality, sound environment, power access, permits, parking, crew access.</li>
                         <li>Scout at the same time of day you plan to shoot.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="4-7">
+                </article></div><div class="fs-lesson" data-id="4-7" data-phase="phase-4" data-title="Working with a Micro-Budget" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-7">
                     <div class="subchapter-header">
                         <h3>4.7 Working with a Micro-Budget</h3>
                     </div>
@@ -1577,9 +759,7 @@
                         <li>Fewer locations = less time moving = more time shooting.</li>
                         <li>Sound is more important than picture. Budget for a good sound recordist.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="4-8">
+                </article></div><div class="fs-lesson" data-id="4-8" data-phase="phase-4" data-title="The Director-Writer Relationship" data-phase-title="Film Production Basics" hidden><article class="subchapter" id="4-8">
                     <div class="subchapter-header">
                         <h3>4.8 The Director-Writer Relationship</h3>
                     </div>
@@ -1598,17 +778,7 @@
                     <div class="blockquote">
                         <p>"A great screenplay is a blueprint, not a building. The director, actors, DP, and editor construct the building. If the blueprint is rigid, the building is dead. If the blueprint is flexible, the building breathes." -- Alexander Payne (paraphrased)</p>
                     </div>
-                </article>
-            </section>
-
-            <!-- PHASE 5 -->
-            <section class="phase" id="phase-5">
-                <div class="phase-header" style="--phase-color: #334155;">
-                    <span class="phase-number">PHASE 5</span>
-                    <h2>Directing & Visual Language</h2>
-                </div>
-
-                <article class="subchapter" id="5-1">
+                </article></div><div class="fs-lesson" data-id="5-1" data-phase="phase-5" data-title="Blocking and Staging" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-1">
                     <div class="subchapter-header">
                         <h3>5.1 Blocking and Staging</h3>
                     </div>
@@ -1637,9 +807,7 @@
                         <div class="callout-title">Exercise: Block a Scene Three Ways</div>
                         <p>Take a two-person dialogue scene. Block it three ways: (1) Both seated, facing each other. (2) One standing, one seated. (3) Both moving through a space.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="5-2">
+                </article></div><div class="fs-lesson" data-id="5-2" data-phase="phase-5" data-title="Shot Composition" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-2">
                     <div class="subchapter-header">
                         <h3>5.2 Shot Composition</h3>
                     </div>
@@ -1666,9 +834,7 @@
                         <h4>Films to Study for Composition:</h4>
                         <p>There Will Be Blood, In the Mood for Love, The Grand Budapest Hotel, Children of Men, Blade Runner 2049.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="5-3">
+                </article></div><div class="fs-lesson" data-id="5-3" data-phase="phase-5" data-title="Camera Movement" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-3">
                     <div class="subchapter-header">
                         <h3>5.3 Camera Movement</h3>
                     </div>
@@ -1686,9 +852,7 @@
                         <div class="callout-title">Exercise: Movement Motivation</div>
                         <p>Watch the opening 10 minutes of a film with notable camera work. Each time the camera moves, write down: (1) What the movement is. (2) Why it moves at that moment. (3) What information the movement reveals.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="5-4">
+                </article></div><div class="fs-lesson" data-id="5-4" data-phase="phase-5" data-title="Working with Actors" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-4">
                     <div class="subchapter-header">
                         <h3>5.4 Working with Actors</h3>
                     </div>
@@ -1699,9 +863,7 @@
                         <li>The 'as if' technique: Give actors an analogous emotional situation.</li>
                         <li>Physical direction first: Give actors physical tasks -- pour a drink, fold laundry, pack a bag.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="5-5">
+                </article></div><div class="fs-lesson" data-id="5-5" data-phase="phase-5" data-title="Visual Motifs" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-5">
                     <div class="subchapter-header">
                         <h3>5.5 Visual Motifs</h3>
                     </div>
@@ -1712,9 +874,7 @@
                         <li>Compositional motifs: Kubrick's one-point perspective.</li>
                         <li>Mirror motifs, framing motifs.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="5-6">
+                </article></div><div class="fs-lesson" data-id="5-6" data-phase="phase-5" data-title="Storyboarding" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-6">
                     <div class="subchapter-header">
                         <h3>5.6 Storyboarding</h3>
                     </div>
@@ -1723,9 +883,7 @@
                         <li>You do not need to draw well. Stick figures with arrows indicating movement are sufficient.</li>
                         <li>Digital tools: Storyboarder (free, by Wonder Unit), ShotPro, FrameForge.</li>
                     </ul>
-                </article>
-
-                <article class="subchapter" id="5-7">
+                </article></div><div class="fs-lesson" data-id="5-7" data-phase="phase-5" data-title="Coverage and Master Shots" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-7">
                     <div class="subchapter-header">
                         <h3>5.7 Coverage and Master Shots</h3>
                     </div>
@@ -1751,9 +909,7 @@
                         <div class="callout-title">Common Pitfall</div>
                         <p>Long takes require extensive rehearsal, precise choreography, and technical mastery.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="5-8">
+                </article></div><div class="fs-lesson" data-id="5-8" data-phase="phase-5" data-title="The Language of Editing (For Directors)" data-phase-title="Directing &amp; Visual Language" hidden><article class="subchapter" id="5-8">
                     <div class="subchapter-header">
                         <h3>5.8 The Language of Editing (For Directors)</h3>
                     </div>
@@ -1763,17 +919,7 @@
                         <div class="callout-title">Exercise: Edit Before You Shoot</div>
                         <p>Before filming a scene, write a paper edit: a sequence of shots, in order, that you imagine will be the final edit.</p>
                     </div>
-                </article>
-            </section>
-
-            <!-- PHASE 6 -->
-            <section class="phase" id="phase-6">
-                <div class="phase-header" style="--phase-color: #ec4899;">
-                    <span class="phase-number">PHASE 6</span>
-                    <h2>Cinematography & Editing</h2>
-                </div>
-
-                <article class="subchapter" id="6-1">
+                </article></div><div class="fs-lesson" data-id="6-1" data-phase="phase-6" data-title="Lighting Fundamentals" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-1">
                     <div class="subchapter-header">
                         <h3>6.1 Lighting Fundamentals</h3>
                     </div>
@@ -1813,9 +959,7 @@
                         <div class="callout-title">Exercise: One-Light Exercise</div>
                         <p>Using a single light source, photograph or film a face from five different angles: front, 45 degrees, 90 degrees (split lighting), from below, from above.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="6-2">
+                </article></div><div class="fs-lesson" data-id="6-2" data-phase="phase-6" data-title="Lens Selection" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-2">
                     <div class="subchapter-header">
                         <h3>6.2 Lens Selection</h3>
                     </div>
@@ -1835,9 +979,7 @@
                         <div class="callout-title">Exercise: Lens Experiment</div>
                         <p>Shoot the same scene at three focal lengths. Note how the spatial relationships change.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="6-3">
+                </article></div><div class="fs-lesson" data-id="6-3" data-phase="phase-6" data-title="Editing Rhythms" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-3">
                     <div class="subchapter-header">
                         <h3>6.3 Editing Rhythms</h3>
                     </div>
@@ -1871,9 +1013,7 @@
                         <div class="callout-title">Exercise: Re-Edit a Scene</div>
                         <p>Download a scene from a film. Re-edit the scene with a different rhythm.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="6-4">
+                </article></div><div class="fs-lesson" data-id="6-4" data-phase="phase-6" data-title="Sound Design" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-4">
                     <div class="subchapter-header">
                         <h3>6.4 Sound Design</h3>
                     </div>
@@ -1888,9 +1028,7 @@
                         <div class="callout-title">From the Community</div>
                         <p>'The number one thing that separates professional-looking films from amateur ones is not the camera. It is the sound.'</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="6-5">
+                </article></div><div class="fs-lesson" data-id="6-5" data-phase="phase-6" data-title="Color Grading" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-5">
                     <div class="subchapter-header">
                         <h3>6.5 Color Grading</h3>
                     </div>
@@ -1906,9 +1044,7 @@
                         <div class="callout-title">Exercise: Color Story</div>
                         <p>Take 5 screenshots from a single film (one from each act/section). Analyze: what is the dominant color in each? How does the color palette shift across the film?</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="6-6">
+                </article></div><div class="fs-lesson" data-id="6-6" data-phase="phase-6" data-title="Audio Post-Production" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-6">
                     <div class="subchapter-header">
                         <h3>6.6 Audio Post-Production</h3>
                     </div>
@@ -1921,9 +1057,7 @@
                         <div class="callout-title">Pro Tip</div>
                         <p>For micro-budget films, iZotope RX is the most valuable audio tool you can own. The $130 Elements version handles most problems.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="6-7">
+                </article></div><div class="fs-lesson" data-id="6-7" data-phase="phase-6" data-title="Visual Effects on a Budget" data-phase-title="Cinematography &amp; Editing" hidden><article class="subchapter" id="6-7">
                     <div class="subchapter-header">
                         <h3>6.7 Visual Effects on a Budget</h3>
                     </div>
@@ -1943,17 +1077,7 @@
                         <div class="callout-title">Exercise: Invisible VFX</div>
                         <p>Shoot a 30-second scene and add one invisible visual effect.</p>
                     </div>
-                </article>
-            </section>
-
-            <!-- PHASE 7 -->
-            <section class="phase" id="phase-7">
-                <div class="phase-header" style="--phase-color: #14b8a6;">
-                    <span class="phase-number">PHASE 7</span>
-                    <h2>Industry Knowledge</h2>
-                </div>
-
-                <article class="subchapter" id="7-1">
+                </article></div><div class="fs-lesson" data-id="7-1" data-phase="phase-7" data-title="How Films Get Financed" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-1">
                     <div class="subchapter-header">
                         <h3>7.1 How Films Get Financed</h3>
                     </div>
@@ -1975,9 +1099,7 @@
                         <div class="callout-title">Common Pitfall</div>
                         <p>Be cautious of 'producers' who ask you to pay for script coverage, development fees, or 'script registration.' Legitimate producers do not charge writers.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-2">
+                </article></div><div class="fs-lesson" data-id="7-2" data-phase="phase-7" data-title="Film Festivals" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-2">
                     <div class="subchapter-header">
                         <h3>7.2 Film Festivals</h3>
                     </div>
@@ -2002,9 +1124,7 @@
                             <li>Attend in person. Networking is as valuable as the screening.</li>
                         </ul>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-3">
+                </article></div><div class="fs-lesson" data-id="7-3" data-phase="phase-7" data-title="Agents and Managers" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-3">
                     <div class="subchapter-header">
                         <h3>7.3 Agents and Managers</h3>
                     </div>
@@ -2028,9 +1148,7 @@
                         <div class="callout-title">From the Community</div>
                         <p>'Do not query agents until you have at least two polished scripts and ideally three. One script is a lottery ticket. A body of work is a career.'</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-4">
+                </article></div><div class="fs-lesson" data-id="7-4" data-phase="phase-7" data-title="Pitching Projects" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-4">
                     <div class="subchapter-header">
                         <h3>7.4 Pitching Projects</h3>
                     </div>
@@ -2055,9 +1173,7 @@
                         <div class="callout-title">Exercise: Elevator Pitch</div>
                         <p>Prepare a 60-second pitch for a project. Practice until you can deliver it without notes.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-5">
+                </article></div><div class="fs-lesson" data-id="7-5" data-phase="phase-7" data-title="Writers&#x27; Rooms" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-5">
                     <div class="subchapter-header">
                         <h3>7.5 Writers' Rooms</h3>
                     </div>
@@ -2081,9 +1197,7 @@
                             <li>Apply to writing fellowships: Disney/ABC Writing Program, Warner Bros. TV Writers' Workshop, NBC Writers on the Verge, Sundance Episodic Lab.</li>
                         </ul>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-6">
+                </article></div><div class="fs-lesson" data-id="7-6" data-phase="phase-7" data-title="The Modern Streaming Landscape" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-6">
                     <div class="subchapter-header">
                         <h3>7.6 The Modern Streaming Landscape</h3>
                     </div>
@@ -2105,9 +1219,7 @@
                         <div class="callout-title">Pro Tip</div>
                         <p>The industry rewards two things: a distinctive voice and commercial viability. A spec script should showcase your voice; a pitch should demonstrate that you understand the market.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-7">
+                </article></div><div class="fs-lesson" data-id="7-7" data-phase="phase-7" data-title="Copyright, Intellectual Property, and the WGA" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-7">
                     <div class="subchapter-header">
                         <h3>7.7 Copyright, Intellectual Property, and the WGA</h3>
                     </div>
@@ -2132,9 +1244,7 @@
                         <div class="callout-title">Pro Tip</div>
                         <p>Before signing any contract, have an entertainment lawyer review it. The $300-500 for a contract review can save tens of thousands of dollars.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="7-8">
+                </article></div><div class="fs-lesson" data-id="7-8" data-phase="phase-7" data-title="Building a Screenwriting Career in 2025-2026" data-phase-title="Industry Knowledge" hidden><article class="subchapter" id="7-8">
                     <div class="subchapter-header">
                         <h3>7.8 Building a Screenwriting Career in 2025-2026</h3>
                     </div>
@@ -2160,17 +1270,7 @@
                         <div class="callout-title">From the Community</div>
                         <p>'It took me eight years, four scripts, two competitions, one fellowship, and 47 general meetings to get my first paid writing job. The people who make it are not the most talented -- they are the ones who did not quit.'</p>
                     </div>
-                </article>
-            </section>
-
-            <!-- PHASE 8 -->
-            <section class="phase" id="phase-8">
-                <div class="phase-header" style="--phase-color: #f97316;">
-                    <span class="phase-number">PHASE 8</span>
-                    <h2>Practical Projects & Exercises</h2>
-                </div>
-
-                <article class="subchapter" id="8-1">
+                </article></div><div class="fs-lesson" data-id="8-1" data-phase="phase-8" data-title="Project: Write a 1-Page Scene" data-phase-title="Practical Projects &amp; Exercises" hidden><article class="subchapter" id="8-1">
                     <div class="subchapter-header">
                         <h3>8.1 Project: Write a 1-Page Scene</h3>
                     </div>
@@ -2184,9 +1284,7 @@
                         <div class="callout-title">Common Pitfall</div>
                         <p>Writing a 'moment' instead of a scene. A scene has an engine. Moments are static.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="8-2">
+                </article></div><div class="fs-lesson" data-id="8-2" data-phase="phase-8" data-title="Project: Rewrite a Bad Scene" data-phase-title="Practical Projects &amp; Exercises" hidden><article class="subchapter" id="8-2">
                     <div class="subchapter-header">
                         <h3>8.2 Project: Rewrite a Bad Scene</h3>
                     </div>
@@ -2196,9 +1294,7 @@
                         <div class="callout-title">Pro Tip</div>
                         <p>Good candidates: exposition-heavy scenes in otherwise strong films. The council scene in The Lord of the Rings. The 'midichlorians' scene in The Phantom Menace.</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="8-3">
+                </article></div><div class="fs-lesson" data-id="8-3" data-phase="phase-8" data-title="Project: Adapt a Short Story" data-phase-title="Practical Projects &amp; Exercises" hidden><article class="subchapter" id="8-3">
                     <div class="subchapter-header">
                         <h3>8.3 Project: Adapt a Short Story</h3>
                     </div>
@@ -2212,16 +1308,12 @@
                             <li>'Cathedral' by Raymond Carver -- character transformation through a single encounter.</li>
                         </ul>
                     </div>
-                </article>
-
-                <article class="subchapter" id="8-4">
+                </article></div><div class="fs-lesson" data-id="8-4" data-phase="phase-8" data-title="Project: Write a Short Film Script" data-phase-title="Practical Projects &amp; Exercises" hidden><article class="subchapter" id="8-4">
                     <div class="subchapter-header">
                         <h3>8.4 Project: Write a Short Film Script</h3>
                     </div>
                     <p><strong>Estimated time:</strong> 2-4 weeks. Write an original short film screenplay of 10-15 pages.</p>
-                </article>
-
-                <article class="subchapter" id="8-5">
+                </article></div><div class="fs-lesson" data-id="8-5" data-phase="phase-8" data-title="Project: Develop a Pilot Episode" data-phase-title="Practical Projects &amp; Exercises" hidden><article class="subchapter" id="8-5">
                     <div class="subchapter-header">
                         <h3>8.5 Project: Develop a Pilot Episode</h3>
                     </div>
@@ -2234,112 +1326,11 @@
                         <div class="callout-title">From the Community</div>
                         <p>'When I read a pilot, I ask three questions within the first 10 pages: Do I like this world? Do I want to spend time with these characters? Can I see 100 episodes?'</p>
                     </div>
-                </article>
-
-                <article class="subchapter" id="8-6">
+                </article></div><div class="fs-lesson" data-id="8-6" data-phase="phase-8" data-title="Additional Exercises" data-phase-title="Practical Projects &amp; Exercises" hidden><article class="subchapter" id="8-6">
                     <div class="subchapter-header">
                         <h3>8.6 Additional Exercises</h3>
                     </div>
                     <p>Organized by skill area: dialogue exercises (The Eavesdrop Exercise, Character Voice Isolation, The Interrogation Scene), structure exercises (The 60-Second Film, Midpoint Reversal, The Ticking Clock), visual storytelling exercises (The Photo Prompt, Object-Driven Scene, Environmental Storytelling), genre exercises (Genre Swap, The Genre Obligation), rewriting exercises.</p>
-                </article>
-            </section>
-
-            <div style="margin-top: 4rem; padding: 2rem; background-color: var(--surface); border-radius: 4px; border: 1px solid var(--border); text-align: center;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">
-                    End of Screenwriting Guide. Complete all 68 pages of study material.
-                </p>
-            </div>
-        </main>
-    </div>
-
-    <button class="back-to-top">↑</button>
-
-    <script>
-        // Theme toggle
-        const themeToggle = document.querySelector('.theme-toggle');
-        const html = document.documentElement;
-
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        html.setAttribute('data-theme', savedTheme);
-        updateThemeButton(savedTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeButton(newTheme);
-        });
-
-        function updateThemeButton(theme) {
-            themeToggle.textContent = theme === 'dark' ? '🌙 Dark' : '☀️ Light';
-        }
-
-        // Mobile menu
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
-
-        // Close menu when clicking a link
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.addEventListener('click', () => {
-                sidebar.classList.remove('open');
-            });
-        });
-
-        // Active link highlighting
-        const links = document.querySelectorAll('.sidebar-link');
-        const sections = document.querySelectorAll('[id^="phase-"], [id^="1-"], [id^="2-"], [id^="3-"], [id^="4-"], [id^="5-"], [id^="6-"], [id^="7-"], [id^="8-"]');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            links.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-
-            updateProgressBar();
-            updateBackToTop();
-        });
-
-        // Progress bar
-        function updateProgressBar() {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
-        }
-
-        // Back to top button
-        const backToTopButton = document.querySelector('.back-to-top');
-
-        function updateBackToTop() {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        }
-
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Initialize
-        updateProgressBar();
-        updateBackToTop();
-    </script>
-</body>
-</html>
+                </article></div></div><nav class="fs-nextprev" aria-label="Continue reading"><a id="fs-previous" href="#contents"><small>Previous</small><span></span></a><a id="fs-next" href="#contents"><small>Next</small><span></span></a></nav></div></div></div>
+<noscript><p class="fs-noscript">Enable JavaScript to use lesson search and the focused reader.</p><style>.fs-lesson[hidden]{display:block!important}#fs-reader[hidden]{display:block!important}.fs-contents{display:none}</style></noscript>
+</main></body></html>
