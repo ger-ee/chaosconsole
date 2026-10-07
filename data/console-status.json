@@ -1,30 +1,30 @@
 {
  "version": 2,
- "generated": "2026-10-03",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18. · Sep 27 2026: Ledger partial September close (5 of 8 cards; Apple closes 9/30, Citi and Amazon statements not filed); Hearing Room to Sep 27; playlists synced Sep 27; health feed resumed Sep 23 (Aug 13 – Sep 22 gap); Readwise pulled Sep 27. · Oct 3 2026: refresh run from the cloud workspace (Mac not linked): Hearing Room and Possession to Oct 3, Ledger post-close band from receipts (no new statements), playlists synced Oct 3 (new Oct column), Readwise checked (nothing new since Sep 7; the Oct 1 Action failed at the token step), Wellness not refreshed.",
+ "generated": "2026-10-07",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18. · Sep 27 2026: Ledger partial September close (5 of 8 cards; Apple closes 9/30, Citi and Amazon statements not filed); Hearing Room to Sep 27; playlists synced Sep 27; health feed resumed Sep 23 (Aug 13 – Sep 22 gap); Readwise pulled Sep 27. · Oct 3 2026: refresh run from the cloud workspace (Mac not linked): Hearing Room and Possession to Oct 3, Ledger post-close band from receipts (no new statements), playlists synced Oct 3 (new Oct column), Readwise checked (nothing new since Sep 7; the Oct 1 Action failed at the token step), Wellness not refreshed. · Oct 7 2026: Hearing Room and Possession reconciled with relevant Gmail and TRO/Rental records; dated assessments and source locators added; unverified deadlines, balances, and automatic recovery totals removed. Other room data retains its prior source date.",
  "attention": [
   {
    "severity": "red",
-   "label": "Unlawful detainer: no record the proof of service was checked — first stop Mon Oct 5, Answer in hand",
-   "detail": "By the Sep 24 postmark, service completes tomorrow and the Answer is due Mon Oct 19. A proof claiming personal service on Sep 20 would have ended the count on Fri Oct 2. The October rent tender planned for Oct 1–2 has no record either. The plan's filing stop stays Fri Oct 9.",
+   "label": "Rental discovery due October 19, 5 p.m. Pacific",
+   "detail": "Written October 7 agreement covers all four response sets and responsive documents. The Answer was submitted October 5; court acceptance and the fee-waiver outcome remain unverified.",
    "href": "/possession/#loops"
   },
   {
-   "severity": "red",
-   "label": "The number is still down, day 24 — handset couriered Oct 1, no release confirmed",
-   "detail": "Counsel named opposing counsel's office on Sep 30; the phone went by same-day courier on Oct 1. Nothing since on receipt, the carrier release, or the written no-reassignment line. Your Oct 1 note to counsel is unanswered.",
+   "severity": "amber",
+   "label": "Handset received; number transfer still incomplete",
+   "detail": "Receipt acknowledged October 6. Required account details were still missing October 7; transfer credentials expire October 20, with the exact cutoff to confirm through counsel.",
    "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "Civil answer now due Thu Oct 8 — a second firm appeared for the other side and got one more week",
-   "detail": "Their deadline, not yours. The original Oct 1 date passed without a substantive answer. Ask counsel what Oct 9 looks like in either branch, and what the next step costs.",
-   "href": "/hearing-room/#status"
+   "label": "Civil-demand response due October 8",
+   "detail": "Agreed between counsel, not a court deadline. No substantive response located through the October 7 review.",
+   "href": "/hearing-room/#calendar"
   },
   {
    "severity": "amber",
-   "label": "25 days out and the Zoom with counsel has no date — earliest is Oct 9",
-   "detail": "Counsel answered on Sep 30 after 19 days: opposition and order sent, preparation outlined, exhibit deadlines still to be confirmed. His reply says both that a witness subpoena is the next action and that he has not decided to recommend one. Get one answer and a slot.",
+   "label": "October 28 hearing: preparation still needs a date",
+   "detail": "An October 9 or 13 meeting and testimony preparation in the week of October 19 were requested. No appointment is confirmed. Obtain the conformed order, hearing time, and appearance instructions.",
    "href": "/hearing-room/#loops"
   },
   {
@@ -72,20 +72,20 @@
   },
   {
    "label": "Hearing",
-   "value": "25 days",
-   "delta": "Wed Oct 28",
+   "value": "Oct 28",
+   "delta": "Counsel-confirmed date",
    "tone": "warn",
-   "note": "Dept 547 · 8:30 · counsel answered Sep 30 · Zoom not yet set",
+   "note": "Dept 547 · time and appearance instructions to confirm · preparation requested, not booked",
    "color": "#f0524d",
    "href": "/hearing-room/",
    "live": "hearing"
   },
   {
-   "label": "Legal outflow",
+   "label": "Recorded legal payments",
    "value": "$21,422",
-   "delta": "nothing past due",
-   "tone": "good",
-   "note": "two retainers in trust · bill 38507 $5,906.96 paid Sep 30 · next invoice ~Oct 10",
+   "delta": "Includes $15,000 in deposits",
+   "tone": "neutral",
+   "note": "$21,421.96 recorded payments · deposits are not all earned fees · bill 38507 paid · current trust balance unverified",
    "color": "#f87171",
    "href": "/hearing-room/#money",
    "spark": [
@@ -215,49 +215,49 @@
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "Oct 28 · 25 days out",
-   "updated": "2026-10-03",
-   "dataThrough": "2026-10-03",
+   "metric": "October 28 hearing · preparation unconfirmed",
+   "updated": "2026-10-07",
+   "dataThrough": "2026-10-07",
    "cadenceDays": 7,
-   "tagline": "Status board · what happened 5 Aug → 3 Oct · open loops · 25-day calendar · money · rules",
+   "tagline": "The hearing, correspondence, payments, and a source-based assessment.",
    "stats": [
     {
-     "label": "Wed 28 Oct · 8:30",
-     "value": "Dept 547 — stands",
-     "sub": "opposition and order in hand since 9/30 · filed application to be reviewed on a Zoom with no date · conformed continuance paperwork still owed"
+     "label": "Hearing",
+     "value": "October 28 · Dept 547",
+     "sub": "Counsel-confirmed date; conformed continuation order, time, and appearance instructions to confirm"
     },
     {
-     "label": "Counsel",
-     "value": "Lai, CFLS · answered Sep 30",
-     "sub": "first word in 19 days · preparation outlined · your Oct 1 note waiting · subpoena question answered two ways"
+     "label": "Preparation",
+     "value": "Meeting requested, not booked",
+     "sub": "October 9 or 13 proposed; testimony preparation requested for the week of October 19"
     },
     {
-     "label": "Civil",
-     "value": "Answer due Thu Oct 8",
-     "sub": "second firm retained by the other side 9/30 · one-week extension agreed 10/1 · original Oct 1 date passed"
+     "label": "Civil demand",
+     "value": "Response due October 8",
+     "sub": "Agreed between counsel; no substantive response found in the October 7 review"
     },
     {
      "label": "Money",
-     "value": "$15,000 trust · bill paid",
-     "sub": "bill 38507 $5,906.96 by eCheck 9/30 · $0.00 due · $16.14 interest credit requested · next invoice ~Oct 10"
+     "value": "$15,000 deposits funded · bill paid",
+     "sub": "Bill 38507 paid $5,906.96; current trust and any later invoice unverified"
     }
    ],
    "links": [
     {
      "href": "/hearing-room/#status",
-     "label": "Status"
+     "label": "Current brief"
     },
     {
-     "href": "/hearing-room/#log",
-     "label": "Log"
+     "href": "/hearing-room/#insights",
+     "label": "Assessment"
     },
     {
      "href": "/hearing-room/#loops",
-     "label": "Open loops"
+     "label": "Next actions"
     },
     {
      "href": "/hearing-room/#calendar",
-     "label": "Calendar"
+     "label": "Dates"
     },
     {
      "href": "/hearing-room/#money",
@@ -270,49 +270,49 @@
    "label": "Possession",
    "cluster": "ops",
    "color": "#38bdf8",
-   "metric": "Answer due Mon Oct 19 · file by Oct 9",
-   "updated": "2026-10-03",
-   "dataThrough": "2026-10-03",
+   "metric": "Discovery · October 19, 5 p.m. Pacific",
+   "updated": "2026-10-07",
+   "dataThrough": "2026-10-07",
    "cadenceDays": 3,
-   "tagline": "The unlawful detainer, day by day · the leak and the case on one line · court-day clock · open loops · money held",
+   "tagline": "The confirmed discovery date, filing status, repair record, and assessment.",
    "stats": [
     {
      "label": "Answer",
-     "value": "by Fri Oct 9 · Stanley Mosk",
-     "sub": "legal deadline Mon Oct 19 by the Sep 24 postmark · no record the proof of service was checked — Mon Oct 5"
+     "value": "Submitted October 5",
+     "sub": "Counsel acknowledged receipt; clerk acceptance and fee-waiver outcome remain unverified"
     },
     {
-     "label": "The leak",
-     "value": "9 work orders · ticket open since Aug 6",
-     "sub": "six marked complete, the leak back each time · Emergency (Leak/Mold) in the owner's own system"
+     "label": "Discovery",
+     "value": "Four sets · October 19, 5 p.m. Pacific",
+     "sub": "Responses and responsive documents; electronic service agreed in writing October 7"
     },
     {
-     "label": "Held",
-     "value": "$5,400 liquid",
-     "sub": "Aug + Sep rent · $1,168.30 of the ledger balance is fees and pass-throughs, not rent · October tender planned Oct 1–2, no record"
+     "label": "Repair record",
+     "value": "Seven ceiling A/C leak requests",
+     "sub": "May 2024–August 2026; latest condition is the October 5 tenant account, not a verified inspection"
     },
     {
-     "label": "Agencies",
-     "value": "City case open · County not yet filed",
-     "sub": "LAHD call and Public Health complaint this week · a written notice plus 35 days changes what the owner may collect"
+     "label": "Money",
+     "value": "$5,400 notice demand · disputed",
+     "sub": "Separate from the September 22 portal balance and new $150 fee notice; no awarded abatement or current ledger verified"
     }
    ],
    "links": [
     {
      "href": "/possession/#status",
-     "label": "Status"
+     "label": "Current brief"
     },
     {
-     "href": "/possession/#map",
-     "label": "The leak and the case"
+     "href": "/possession/#insights",
+     "label": "Assessment"
     },
     {
      "href": "/possession/#clock",
-     "label": "Court-day clock"
+     "label": "Dates"
     },
     {
      "href": "/possession/#loops",
-     "label": "Open loops"
+     "label": "Next actions"
     },
     {
      "href": "/possession/#money",
@@ -1404,32 +1404,11 @@
  ],
  "next": [
   {
-   "label": "Capital One hold lifts",
-   "date": "2026-10-04",
-   "sub": "$1,044.79 paid 9/27 · counted, account current per the 10/1 notice",
-   "href": "/the-ledger/#view-accounts",
-   "color": "#d4a052"
-  },
-  {
-   "label": "Check the proof of service",
-   "date": "2026-10-05",
-   "sub": "clerk's window or Self-Help · was to be checked before Oct 2 · bring the Answer set",
-   "href": "/possession/#loops",
-   "color": "#f0524d"
-  },
-  {
-   "label": "Civil demand: their answer due",
+   "label": "Civil demand: response due",
    "date": "2026-10-08",
-   "sub": "extended one week on Oct 1 · new firm on the other side · their deadline, not yours",
-   "href": "/hearing-room/#status",
+   "sub": "Agreed between counsel · no substantive response located as of October 7",
+   "href": "/hearing-room/#calendar",
    "color": "#d4a052"
-  },
-  {
-   "label": "Answer filed · the plan's stop",
-   "date": "2026-10-09",
-   "sub": "Self-Help · civil window · $225 · conformed copies",
-   "href": "/possession/#loops",
-   "color": "#38bdf8"
   },
   {
    "label": "Ledger: full September close",
@@ -1446,9 +1425,9 @@
    "color": "#f87171"
   },
   {
-   "label": "UD response deadline",
+   "label": "Rental discovery due · 5 p.m.",
    "date": "2026-10-19",
-   "sub": "Sep 24 postmark · service complete Oct 4 · ten court days · Oct 12 holiday",
+   "sub": "All four response sets and responsive documents · written October 7 agreement · Pacific time",
    "href": "/possession/#clock",
    "color": "#f0524d"
   },
@@ -1460,6 +1439,13 @@
    "color": "#fb923c"
   },
   {
+   "label": "Transfer credentials expire",
+   "date": "2026-10-20",
+   "sub": "Number transfer incomplete · confirm the exact cutoff through counsel",
+   "href": "/hearing-room/#loops",
+   "color": "#d4a052"
+  },
+  {
    "label": "LADWP bill",
    "date": "2026-10-21",
    "sub": "$1,048.20 · issued 10/2",
@@ -1469,7 +1455,7 @@
   {
    "label": "Hearing · Dept 547",
    "date": "2026-10-28",
-   "sub": "8:30 · Stanley Mosk · counsel appears with you",
+   "sub": "Counsel-confirmed date · time and appearance instructions to confirm",
    "href": "/hearing-room/",
    "color": "#f0524d"
   },
