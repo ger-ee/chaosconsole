@@ -1,7 +1,7 @@
 {
  "version": 2,
- "generated": "2026-10-07",
- "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18. · Sep 27 2026: Ledger partial September close (5 of 8 cards; Apple closes 9/30, Citi and Amazon statements not filed); Hearing Room to Sep 27; playlists synced Sep 27; health feed resumed Sep 23 (Aug 13 – Sep 22 gap); Readwise pulled Sep 27. · Oct 3 2026: refresh run from the cloud workspace (Mac not linked): Hearing Room and Possession to Oct 3, Ledger post-close band from receipts (no new statements), playlists synced Oct 3 (new Oct column), Readwise checked (nothing new since Sep 7; the Oct 1 Action failed at the token step), Wellness not refreshed. · Oct 7 2026: Hearing Room and Possession reconciled with relevant Gmail and TRO/Rental records; dated assessments and source locators added; unverified deadlines, balances, and automatic recovery totals removed. Other room data retains its prior source date.",
+ "generated": "2026-10-09",
+ "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18. · Sep 27 2026: Ledger partial September close (5 of 8 cards; Apple closes 9/30, Citi and Amazon statements not filed); Hearing Room to Sep 27; playlists synced Sep 27; health feed resumed Sep 23 (Aug 13 – Sep 22 gap); Readwise pulled Sep 27. · Oct 3 2026: refresh run from the cloud workspace (Mac not linked): Hearing Room and Possession to Oct 3, Ledger post-close band from receipts (no new statements), playlists synced Oct 3 (new Oct column), Readwise checked (nothing new since Sep 7; the Oct 1 Action failed at the token step), Wellness not refreshed. · Oct 7 2026: Hearing Room and Possession reconciled with relevant Gmail and TRO/Rental records; dated assessments and source locators added; unverified deadlines, balances, and automatic recovery totals removed. Other room data retains its prior source date. · Oct 9 2026: Hearing Room adds separate protective-order/civil path maps, a sourced chronology since August 19, signed-ruling and subpoena explanations, and a bounded counsel review; latest substantive counsel email located October 8. Other room data retains its own source date.",
  "attention": [
   {
    "severity": "red",
@@ -12,20 +12,20 @@
   {
    "severity": "amber",
    "label": "Handset received; number transfer still incomplete",
-   "detail": "Receipt acknowledged October 6. Required account details were still missing October 7; transfer credentials expire October 20, with the exact cutoff to confirm through counsel.",
+   "detail": "Receipt acknowledged October 6. On October 8 counsel said the protected account address would not be provided under the existing order. Confirm a permitted carrier-coordination route and transfer before the stated October 20 credential expiry; exact cutoff remains unverified.",
    "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "Civil-demand response due October 8",
-   "detail": "Agreed between counsel, not a court deadline. No substantive response located through the October 7 review.",
-   "href": "/hearing-room/#calendar"
+   "label": "Civil response: obtain the October 8 follow-up",
+   "detail": "Counsel reported no response at 11:42 a.m. October 8. No later reply was located through October 9; this does not establish what reached counsel later. The agreed date was not a court deadline.",
+   "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "October 28 hearing: preparation still needs a date",
-   "detail": "An October 9 or 13 meeting and testimony preparation in the week of October 19 were requested. No appointment is confirmed. Obtain the conformed order, hearing time, and appearance instructions.",
-   "href": "/hearing-room/#loops"
+   "label": "October 28 hearing: resolve the witness decision",
+   "detail": "Counsel proposed Jeffrey for the witness list October 8. The signed discovery denial does not expressly approve that subpoena. Confirm its basis, your discussion-first request, and the preparation meeting; October 9 afternoon was offered, not booked.",
+   "href": "/hearing-room/#witness"
   },
   {
    "severity": "amber",
@@ -75,7 +75,7 @@
    "value": "Oct 28",
    "delta": "Counsel-confirmed date",
    "tone": "warn",
-   "note": "Dept 547 · time and appearance instructions to confirm · preparation requested, not booked",
+   "note": "Dept 547 · time and appearance instructions to confirm · October 9 afternoon meeting offered, not confirmed · witness decision unresolved",
    "color": "#f0524d",
    "href": "/hearing-room/",
    "live": "hearing"
@@ -215,53 +215,53 @@
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "October 28 hearing · preparation unconfirmed",
-   "updated": "2026-10-07",
-   "dataThrough": "2026-10-07",
+   "metric": "October 28 · witness decision unresolved",
+   "updated": "2026-10-09",
+   "dataThrough": "2026-10-09",
    "cadenceDays": 7,
-   "tagline": "The hearing, correspondence, payments, and a source-based assessment.",
+   "tagline": "Separate paths for the protective order and civil claim, with the dated record behind each.",
    "stats": [
     {
      "label": "Hearing",
      "value": "October 28 · Dept 547",
-     "sub": "Counsel-confirmed date; conformed continuation order, time, and appearance instructions to confirm"
+     "sub": "Counsel-confirmed; logistics and preparation still to confirm"
     },
     {
-     "label": "Preparation",
-     "value": "Meeting requested, not booked",
-     "sub": "October 9 or 13 proposed; testimony preparation requested for the week of October 19"
+     "label": "Witness",
+     "value": "Proposed, not verified issued",
+     "sub": "Discovery denial preserves hearing rights; no specific Jeffrey authorization"
     },
     {
-     "label": "Civil demand",
-     "value": "Response due October 8",
-     "sub": "Agreed between counsel; no substantive response found in the October 7 review"
+     "label": "Civil response",
+     "value": "Post–October 8 reply unverified",
+     "sub": "Counsel reported none that morning; no filed civil case or trial date verified"
     },
     {
      "label": "Money",
      "value": "$15,000 deposits funded · bill paid",
-     "sub": "Bill 38507 paid $5,906.96; current trust and any later invoice unverified"
+     "sub": "Current trust and later billing remain unverified"
     }
    ],
    "links": [
     {
-     "href": "/hearing-room/#status",
-     "label": "Current brief"
+     "href": "/hearing-room/#paths",
+     "label": "Paths ahead"
     },
     {
-     "href": "/hearing-room/#insights",
-     "label": "Assessment"
+     "href": "/hearing-room/#log",
+     "label": "Timeline"
     },
     {
-     "href": "/hearing-room/#loops",
-     "label": "Next actions"
+     "href": "/hearing-room/#ruling",
+     "label": "The ruling"
     },
     {
-     "href": "/hearing-room/#calendar",
-     "label": "Dates"
+     "href": "/hearing-room/#witness",
+     "label": "Witness question"
     },
     {
-     "href": "/hearing-room/#money",
-     "label": "Money"
+     "href": "/hearing-room/#counsel",
+     "label": "Counsel review"
     }
    ]
   },
@@ -1403,13 +1403,6 @@
   }
  ],
  "next": [
-  {
-   "label": "Civil demand: response due",
-   "date": "2026-10-08",
-   "sub": "Agreed between counsel · no substantive response located as of October 7",
-   "href": "/hearing-room/#calendar",
-   "color": "#d4a052"
-  },
   {
    "label": "Ledger: full September close",
    "date": "2026-10-10",
