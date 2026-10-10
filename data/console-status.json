@@ -1,6 +1,6 @@
 {
  "version": 2,
- "generated": "2026-10-09",
+ "generated": "2026-10-10",
  "note": "Schema v2 — everything the landing dashboard renders lives here. Rewrite this file whenever a room updates. Sep 2 2026 rebuild: Notebook and Workflow Wrench retired, Wellness Analysis merged into Wellness, Almanac collapsed to one page, Eastern Front in the top bar · Sep 10 2026: Ledger re-closed on the August statements (Amazon August unavailable — estimated) · Sep 18 2026: readout redesign (fewer flags, six gauges, quieter room tiles, live countdown, ⌘K jump); Hearing Room to Sep 18; BMW installment added to the Ledger; playlist counts synced Sep 18; Readwise pulled Sep 18. · Sep 27 2026: Ledger partial September close (5 of 8 cards; Apple closes 9/30, Citi and Amazon statements not filed); Hearing Room to Sep 27; playlists synced Sep 27; health feed resumed Sep 23 (Aug 13 – Sep 22 gap); Readwise pulled Sep 27. · Oct 3 2026: refresh run from the cloud workspace (Mac not linked): Hearing Room and Possession to Oct 3, Ledger post-close band from receipts (no new statements), playlists synced Oct 3 (new Oct column), Readwise checked (nothing new since Sep 7; the Oct 1 Action failed at the token step), Wellness not refreshed. · Oct 7 2026: Hearing Room and Possession reconciled with relevant Gmail and TRO/Rental records; dated assessments and source locators added; unverified deadlines, balances, and automatic recovery totals removed. Other room data retains its prior source date. · Oct 9 2026: Hearing Room adds separate protective-order/civil path maps, a sourced chronology since August 19, signed-ruling and subpoena explanations, and a bounded counsel review; latest substantive counsel email located October 8. Other room data retains its own source date.",
  "attention": [
   {
@@ -11,21 +11,21 @@
   },
   {
    "severity": "amber",
-   "label": "Handset received; number transfer still incomplete",
-   "detail": "Receipt acknowledged October 6. On October 8 counsel said the protected account address would not be provided under the existing order. Confirm a permitted carrier-coordination route and transfer before the stated October 20 credential expiry; exact cutoff remains unverified.",
+   "label": "Number transfer: ten days left on the credential, two details still missing",
+   "detail": "The stated credential runs to October 20, 11:11 a.m. Pacific. On October 10 you asked counsel for the account number and ZIP code, or a billing-responsibility transfer that needs neither. No answer located yet; the line must also be active on the carrier's side.",
    "href": "/hearing-room/#loops"
   },
   {
    "severity": "amber",
-   "label": "Civil response: obtain the October 8 follow-up",
-   "detail": "Counsel reported no response at 11:42 a.m. October 8. No later reply was located through October 9; this does not establish what reached counsel later. The agreed date was not a court deadline.",
-   "href": "/hearing-room/#loops"
+   "label": "Legal invoice 39304: $10,323.00, interest from October 14",
+   "detail": "Issued October 9 for September 8–30 work, 18.7 hours. Printed due date October 19; the terms start 10% annual interest five days after the invoice date. The invoice prints two different trust figures. Your October 10 email asks for an estimate through the hearing.",
+   "href": "/hearing-room/#money"
   },
   {
    "severity": "amber",
-   "label": "October 28 hearing: resolve the witness decision",
-   "detail": "Counsel proposed Jeffrey for the witness list October 8. The signed discovery denial does not expressly approve that subpoena. Confirm its basis, your discussion-first request, and the preparation meeting; October 9 afternoon was offered, not booked.",
-   "href": "/hearing-room/#witness"
+   "label": "October 28 hearing: no preparation meeting booked, 18 days out",
+   "detail": "The October 9 window passed. On October 10 you asked for a time next week and asked again about the civil response, unreported since counsel's October 8 morning email. The Jeffrey witness decision and your discussion-first request are still unanswered in writing.",
+   "href": "/hearing-room/#brief"
   },
   {
    "severity": "amber",
@@ -75,7 +75,7 @@
    "value": "Oct 28",
    "delta": "Counsel-confirmed date",
    "tone": "warn",
-   "note": "Dept 547 · time and appearance instructions to confirm · October 9 afternoon meeting offered, not confirmed · witness decision unresolved",
+   "note": "Dept 547 · time and appearance instructions to confirm · no preparation meeting booked; time requested October 10 · witness decision unresolved",
    "color": "#f0524d",
    "href": "/hearing-room/",
    "live": "hearing"
@@ -83,9 +83,9 @@
   {
    "label": "Recorded legal payments",
    "value": "$21,422",
-   "delta": "Includes $15,000 in deposits",
-   "tone": "neutral",
-   "note": "$21,421.96 recorded payments · deposits are not all earned fees · bill 38507 paid · current trust balance unverified",
+   "delta": "New invoice $10,323 open",
+   "tone": "warn",
+   "note": "$21,421.96 recorded payments, including $15,000 in deposits · invoice 39304 for $10,323.00 issued Oct 9, due Oct 19, unpaid · billed to date $16,229.96 · trust figure needs reconciling",
    "color": "#f87171",
    "href": "/hearing-room/#money",
    "spark": [
@@ -215,16 +215,16 @@
    "label": "Hearing Room",
    "cluster": "ops",
    "color": "#f0524d",
-   "metric": "October 28 · witness decision unresolved",
-   "updated": "2026-10-09",
-   "dataThrough": "2026-10-09",
+   "metric": "October 28 · no prep meeting booked · $10,323 invoice open",
+   "updated": "2026-10-10",
+   "dataThrough": "2026-10-10",
    "cadenceDays": 7,
    "tagline": "Separate paths for the protective order and civil claim, with the dated record behind each.",
    "stats": [
     {
      "label": "Hearing",
      "value": "October 28 · Dept 547",
-     "sub": "Counsel-confirmed; logistics and preparation still to confirm"
+     "sub": "Counsel-confirmed; no preparation meeting booked, time requested October 10"
     },
     {
      "label": "Witness",
@@ -234,12 +234,12 @@
     {
      "label": "Civil response",
      "value": "Post–October 8 reply unverified",
-     "sub": "Counsel reported none that morning; no filed civil case or trial date verified"
+     "sub": "Asked again October 10; no filed civil case or trial date verified"
     },
     {
      "label": "Money",
-     "value": "$15,000 deposits funded · bill paid",
-     "sub": "Current trust and later billing remain unverified"
+     "value": "$10,323.00 invoice open · due Oct 19",
+     "sub": "$15,000 deposits funded · bill 38507 paid · trust figure needs reconciling"
     }
    ],
    "links": [
@@ -262,6 +262,10 @@
     {
      "href": "/hearing-room/#counsel",
      "label": "Counsel review"
+    },
+    {
+     "href": "/hearing-room/#brief",
+     "label": "Carry-in card"
     }
    ]
   },
@@ -1425,6 +1429,13 @@
    "color": "#f0524d"
   },
   {
+   "label": "Legal invoice 39304 due",
+   "date": "2026-10-19",
+   "sub": "$10,323.00 · interest terms start Oct 14 · estimate through Oct 28 requested",
+   "href": "/hearing-room/#money",
+   "color": "#f87171"
+  },
+  {
    "label": "BMW installment",
    "date": "2026-10-20",
    "sub": "$669.58 · first scheduled payment since the two that bounced",
@@ -1434,7 +1445,7 @@
   {
    "label": "Transfer credentials expire",
    "date": "2026-10-20",
-   "sub": "Number transfer incomplete · confirm the exact cutoff through counsel",
+   "sub": "11:11 a.m. Pacific as stated · account number and ZIP, or a billing transfer, still needed",
    "href": "/hearing-room/#loops",
    "color": "#d4a052"
   },

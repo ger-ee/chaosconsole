@@ -1,26 +1,28 @@
 window.HearingPaths = {
   "intro": {
-    "text": "The protective-order hearing is recorded for October 28. The separate financial dispute remains at the demand stage in the reviewed record. What happens in one does not automatically decide the other.",
+    "text": "The protective-order hearing is recorded for October 28, eighteen days out. The separate financial dispute remains at the demand stage in the reviewed record. A second invoice arrived October 9, and your October 10 reply asks counsel for a meeting time, the civil response, and a billing estimate. What happens in one proceeding does not automatically decide the other.",
     "refs": [
       "C1",
       "C2",
-      "C5"
+      "C5",
+      "C15",
+      "C16"
     ]
   },
   "summary": [
     {
       "track": "dv",
       "title": "Protective order · October 28",
-      "text": "Counsel-confirmed date. Time and appearance instructions still need confirmation. Existing orders remain in force."
+      "text": "Counsel-confirmed date. No preparation meeting is booked: the October 9 window passed and you asked on October 10 for a time next week. Existing orders remain in force."
     },
     {
       "track": "civil",
       "title": "Civil claim · response unverified",
-      "text": "The agreed October 8 response date has passed. Counsel reported no response that morning; no later reply was located in this review."
+      "text": "The agreed October 8 response date has passed. Counsel reported none that morning; you asked again October 10. No reply was located through that morning."
     }
   ],
-  "cutoff": "Reviewed October 9, 2026. Latest substantive counsel email located: October 8, 11:42 a.m. Pacific.",
-  "scope": "This page distinguishes the signed order, documented correspondence, party allegations, and assessments. Relevant Gmail since August 19 and the TRO folder were reviewed; selected earlier evidence and billing records were reused from the October 7 source audit. No current docket, complete filed discovery application/declaration, oral-ruling transcript, complete original audio, issued subpoena/service proof, current trust reconciliation, or filed civil complaint was obtained. Missing from this review does not mean nonexistent. Private documents, personal identifiers, and detailed underlying allegations remain off-site. Legal references were checked October 9; some official pages were available only through indexed text, as noted in their source entries. Confirm case-specific procedure and legal choices with counsel.",
+  "cutoff": "Reviewed October 10, 2026, 7:15 a.m. Pacific. Latest counsel email located: October 8, 11:43 a.m. Latest firm notice: the October 9 invoice. Your latest message: October 10, 6:29 a.m.",
+  "scope": "This page distinguishes the signed order, documented correspondence, party allegations, and assessments. Relevant Gmail since August 19 was reviewed through the morning of October 10, and the October 9 invoice was read in full; the TRO folder, selected earlier evidence and earlier billing records were reused from the October 7–9 reviews. No current docket, complete filed discovery application/declaration, oral-ruling transcript, complete original audio, issued subpoena/service proof, reconciled trust statement, or filed civil complaint was obtained. Missing from this review does not mean nonexistent. Private documents, personal identifiers, and detailed underlying allegations remain off-site. Legal references were checked October 9; some official pages were available only through indexed text, as noted in their source entries. Confirm case-specific procedure and legal choices with counsel.",
   "sources": {
     "C1": {
       "title": "Signed September 10 order and rejected proposal",
@@ -44,7 +46,7 @@ window.HearingPaths = {
     },
     "C5": {
       "title": "October 8 reply and attempted call",
-      "body": "October 8,11:42 a.m. Pacific: counsel says no civil response received yet, proposes adding Jeffrey to the witness list absent a proposal addressing arrearages/damages, and describes a final opportunity before issuance. Says the protected account address will not be provided, citing the existing order, and offers October 9 afternoon availability. This is counsel’s stated position, not an independently verified carrier requirement or new court ruling. The11:43 follow-up reports an unsuccessful call. No later relevant message, booked appointment, issued subpoena or service proof was located through October 9; unforwarded counsel mail and calls remain outside this review.",
+      "body": "October 8,11:42 a.m. Pacific: counsel says no civil response received yet, proposes adding Jeffrey to the witness list absent a proposal addressing arrearages/damages, and describes a final opportunity before issuance. Says the protected account address will not be provided, citing the existing order, and offers October 9 afternoon availability. This is counsel’s stated position, not an independently verified carrier requirement or new court ruling. The11:43 follow-up reports an unsuccessful call. No later counsel message, booked appointment, issued subpoena or service proof was located through the morning of October 10; unforwarded counsel mail and calls remain outside this review.",
       "kind": "case"
     },
     "C6": {
@@ -64,12 +66,12 @@ window.HearingPaths = {
     },
     "C9": {
       "title": "Handset receipt and incomplete transfer",
-      "body": "September 11 return/release correspondence; October 6 forwarded acknowledgement of receipt/collection and transfer credentials; October 7,11:09 a.m. sent follow-up reports missing account number and billing address. Credential expiry is stated as October 20 with a time-zone ambiguity; exact cutoff needs confirmation. October 8 counsel says the protected address will not be provided under the existing order. A permitted way to coordinate with the carrier, completed transfer, and original-device return were not verified. Counsel’s statement is attributed, not a new court finding. Credentials, phone numbers and device identifiers remain private.",
+      "body": "September 11 return/release correspondence; October 6 forwarded acknowledgement of receipt/collection and transfer credentials; October 7, 11:09 a.m. follow-up reports the account number and billing address missing. The forwarded note states the credential is valid until October 20, 1:11 p.m. Central (11:11 a.m. Pacific); the carrier's own cutoff was not independently confirmed. October 8 counsel says the protected address will not be provided under the existing order. Your October 10 reply narrows the request to the account number and account ZIP code and proposes a carrier billing-responsibility transfer that needs no account details. No answer to that, completed transfer, or original-device return was verified. Counsel’s statement is attributed, not a new court finding. Credentials, phone numbers and device identifiers remain private.",
       "kind": "case"
     },
     "C10": {
       "title": "Receipts, invoice and recorded work",
-      "body": "Receipts: August 12 $10,000 deposit; August 21 $5,000 deposit; August 4 $515 consultation; September 30 $5,906.96 invoice payment. October 1 accountant email confirms bill 38507 paid. Invoice services pp. 1–2 record August hearing/continuation work; charges/trust views pp. 3–4 are dated. No current trust reconciliation, later invoice, or granted interest credit found. Payments total $21,421.96; they include deposited funds.",
+      "body": "Receipts: August 12 $10,000 deposit; August 21 $5,000 deposit; August 4 $515 consultation; September 30 $5,906.96 invoice payment. October 1 accountant email confirms bill 38507 paid. Invoice services pp. 1–2 record August hearing/continuation work; charges/trust views pp. 3–4 are dated. No granted interest credit found. Payments total $21,421.96; they include deposited funds. The later invoice is at C15.",
       "kind": "case"
     },
     "C11": {
@@ -90,6 +92,16 @@ window.HearingPaths = {
     "C14": {
       "title": "September 15 request and September 30 follow-up",
       "body": "Client email September 15,10:30 a.m. Pacific agrees to return the handset and requests shipping address, opposition, ruling explanation, hearing preparation and witness advice. September 30,11:06 a.m. follow-up precedes counsel’s2:26 p.m. reply. This establishes a15-calendar-day gap in located written answers; it does not exclude unrecorded calls or other counsel records.",
+      "kind": "case"
+    },
+    "C15": {
+      "title": "October 9 invoice 39304",
+      "body": "Firm billing notice October 9, 1:30 p.m. Pacific, with a six-page invoice dated October 9 on the protective-order matter. Services September 8–30: 18.7 hours, $10,240.00, plus an $83.00 filing fee; total $10,323.00. Timekeepers pp. 3–4: senior counsel 12.5 hours, managing partner 2.3, law clerks 3.9. Entries cover the discovery application and its filing, review of the opposition and order, correspondence with opposing counsel, and the civil demand letter. Due date printed October 19; terms p. 5 say payment within 5 days of receipt and 10% annual interest from 5 days after the invoice date, with a $5,000 minimum trust balance. P. 4 prints “Amount in Trust $15,000.00” and “Total Credit $4,677.00”; p. 5 prints a trust balance of $10,000.00. The invoice does not reconcile those figures. No payment was located.",
+      "kind": "case"
+    },
+    "C16": {
+      "title": "October 10 reply to counsel",
+      "body": "October 10, 6:29 a.m. Pacific, copied to the two firm staff on counsel’s October 8 message: supplies a working phone number; asks for a meeting time next week; asks whether the civil response arrived; says the request is for the account ZIP code and account number, not an address; proposes a billing-responsibility transfer as an alternative; notes no word on the original device; requests an estimate of billing through October 28 and notice before large work begins. Requests are not completed actions. No reply was located as of this review. The phone number is not published here.",
       "kind": "case"
     },
     "L1": {
@@ -159,7 +171,7 @@ window.HearingPaths = {
       "url": "https://www.calbar.ca.gov/Portals/0/documents/rules/Rule_1.4.pdf"
     }
   },
-  "initialEvent": 3,
+  "initialEvent": 8,
   "tracks": {
     "dv": {
       "title": "October 28 hearing",
@@ -695,9 +707,21 @@ window.HearingPaths = {
       "date": "Oct 8",
       "title": "Counsel proposes witness",
       "known": "Counsel reported no civil response that morning, offered October 9 afternoon, and linked a prospective Jeffrey witness list/subpoena to a money proposal. Counsel also said the protected account address would not be provided under the order.",
-      "unknown": "No booked meeting, issued subpoena, service proof, testimony outline, or later civil response was located through the October 9 review.",
+      "unknown": "No booked meeting, issued subpoena, service proof, testimony outline, or later civil response was located through the October 10 review.",
       "effect": "The proposal is real; execution is unverified. Its evidentiary purpose and separation from civil settlement pressure need an explicit explanation.",
       "refs": [
+        "C5"
+      ]
+    },
+    {
+      "date": "Oct 9–10",
+      "title": "New invoice; your reply",
+      "known": "A $10,323.00 invoice for September 8–30 work arrived October 9. The October 9 afternoon meeting window passed without a booking. On October 10 you sent a working number, asked for a time next week, asked about the civil response, narrowed the transfer request, and requested a billing estimate through the hearing.",
+      "unknown": "No reply to the October 10 message, meeting time, civil response, transfer details, or payment on the new invoice was located. The invoice prints two trust figures it does not reconcile.",
+      "effect": "Eighteen days remain with no preparation session on the calendar. The invoice’s interest clock starts before its printed due date; the estimate request and the trust figures are billing questions, not grounds to pause preparation.",
+      "refs": [
+        "C15",
+        "C16",
         "C5"
       ]
     }
@@ -832,11 +856,12 @@ window.HearingPaths = {
         },
         {
           "title": "Phone logistics and a meeting offer",
-          "text": "The September 30 reply supplied return instructions and discussed preparation. Receipt and transfer information were forwarded October 6. October 8 brought a meeting offer and attempted call; a booked time was not found.",
+          "text": "The September 30 reply supplied return instructions and discussed preparation. Receipt and transfer information were forwarded October 6. October 8 brought a meeting offer and attempted call; the offered October 9 window passed unbooked, and your October 10 reply asks for a time next week.",
           "refs": [
             "C3",
             "C9",
-            "C5"
+            "C5",
+            "C16"
           ]
         }
       ],
@@ -871,10 +896,11 @@ window.HearingPaths = {
         },
         {
           "title": "The hold and hearing plan need answers",
-          "text": "October 8 discusses a future subpoena without acknowledging your October 7 hold or supplying expected testimony. A meeting was offered, but the preparation calendar, full application, evidence requests, and key explanations are still unverified.",
+          "text": "October 8 discusses a future subpoena without acknowledging your October 7 hold or supplying expected testimony, and does not take the eleven numbered questions point by point. The preparation calendar, full application, evidence requests, and key explanations are still unverified; your October 10 follow-up is unanswered so far.",
           "refs": [
             "C4",
-            "C5"
+            "C5",
+            "C16"
           ],
           "kind": "Unresolved after partial reply"
         }
@@ -916,9 +942,10 @@ window.HearingPaths = {
       "gaps": [
         {
           "title": "The phone exchange is not shown complete",
-          "text": "Transfer details were missing October 7. On October 8 your counsel said the protected address would not be provided under the existing order. A permitted carrier-coordination route, completed transfer, and original-device return remain unconfirmed; this does not establish an order violation or responsibility for every delay.",
+          "text": "Transfer details were missing October 7. On October 8 your counsel said the protected address would not be provided under the existing order. Your October 10 reply asks for the account number and ZIP code only, or a billing-responsibility transfer. No answer, completed transfer, or original-device return is confirmed; this does not establish an order violation or responsibility for every delay.",
           "refs": [
-            "C9"
+            "C9",
+            "C16"
           ],
           "kind": "Incomplete result"
         },
@@ -933,7 +960,7 @@ window.HearingPaths = {
         },
         {
           "title": "The actual civil response needs checking",
-          "text": "No response was reported at 11:42 a.m. on October 8; none later was located in this review. That is insufficient to declare an end-of-day breach or bad faith, because counsel may hold correspondence not forwarded to this mailbox.",
+          "text": "No response was reported at 11:42 a.m. on October 8; none later was located through October 10. That is insufficient to declare an end-of-day breach or bad faith, because counsel may hold correspondence not forwarded to this mailbox.",
           "refs": [
             "C5",
             "C8"
@@ -956,6 +983,15 @@ window.HearingPaths = {
   },
   "next": [
     {
+      "title": "A booked meeting and preparation date",
+      "text": "Fix the Pasadena meeting next week and a testimony session in the week of October 19; confirm the hearing time, appearance instructions, witness and exhibit requirements, recording status, and reporter arrangements. These are unverified items, not established missed deadlines.",
+      "refs": [
+        "C2",
+        "C4",
+        "C16"
+      ]
+    },
+    {
       "title": "A written Jeffrey decision",
       "text": "Resolve the hold, the precise subpoena type, expected testimony, privileges, relevance, cost, and whether further permission is needed. Request the actual document and service status if one now exists.",
       "refs": [
@@ -965,10 +1001,27 @@ window.HearingPaths = {
     },
     {
       "title": "The missing civil response",
-      "text": "Obtain the complete post–October 8 exchange. Decide the financial claim’s next step on that record, without assuming default or tying testimony automatically to payment.",
+      "text": "Obtain the complete post–October 8 exchange; you asked again October 10. Decide the financial claim’s next step on that record, without assuming default or tying testimony automatically to payment.",
       "refs": [
         "C5",
-        "C8"
+        "C8",
+        "C16"
+      ]
+    },
+    {
+      "title": "The transfer route, before October 20",
+      "text": "Get either the account number and account ZIP code, or agreement to a billing-responsibility transfer that needs neither, and confirm the line is active on the carrier’s side. Ten days remain on the stated credential.",
+      "refs": [
+        "C9",
+        "C16"
+      ]
+    },
+    {
+      "title": "The invoice and the estimate",
+      "text": "Decide payment on invoice 39304 before interest starts, ask the firm to reconcile the two trust figures printed on it, and get the requested estimate through October 28.",
+      "refs": [
+        "C15",
+        "C16"
       ]
     },
     {
@@ -979,32 +1032,39 @@ window.HearingPaths = {
         "C3",
         "C7"
       ]
-    },
-    {
-      "title": "A confirmed preparation calendar",
-      "text": "Set the meeting and testimony preparation; confirm the hearing time, appearance instructions, witness/exhibit requirements, recording status, and reporter arrangements. These items are unverified, not established missed deadlines.",
-      "refs": [
-        "C2",
-        "C4",
-        "C5"
-      ]
     }
   ],
   "dates": [
     {
       "title": "October 8 · civil response date passed",
-      "text": "Counsel’s morning email reported no response. No later reply was found, but end-of-day compliance is not independently established. This was an agreement between counsel.",
+      "text": "Counsel’s morning email reported no response. You asked again October 10; no reply was found. End-of-day compliance is not independently established. This was an agreement between counsel.",
       "refs": [
         "C5",
-        "C8"
+        "C8",
+        "C16"
       ]
     },
     {
-      "title": "October 9 · meeting availability offered",
-      "text": "Counsel offered the afternoon. No specific time or acceptance was located. October 13 was your alternate availability, not a confirmed appointment.",
+      "title": "October 9 · meeting window passed",
+      "text": "Counsel offered that afternoon; no time was fixed. On October 10 you asked for a time next week. October 13, 2–5 p.m., was your earlier alternate, not a confirmed appointment.",
       "refs": [
         "C4",
-        "C5"
+        "C5",
+        "C16"
+      ]
+    },
+    {
+      "title": "October 14 · invoice interest begins",
+      "text": "Invoice 39304’s terms run 10% annual interest from five days after its October 9 date. This is the firm’s billing term, not a court date.",
+      "refs": [
+        "C15"
+      ]
+    },
+    {
+      "title": "October 19 · invoice due date",
+      "text": "The printed due date for the $10,323.00 invoice. The same notice asks for payment within five days of receipt.",
+      "refs": [
+        "C15"
       ]
     },
     {
@@ -1016,9 +1076,10 @@ window.HearingPaths = {
     },
     {
       "title": "October 20 · transfer credential expiry",
-      "text": "The forwarded carrier credential lists this date; confirm the precise cutoff and completed transfer through counsel. Credentials and account details are not published here.",
+      "text": "Stated as 1:11 p.m. Central, 11:11 a.m. Pacific. The transfer cannot start until the remaining account details or an alternative route arrive. Credentials and account details are not published here.",
       "refs": [
-        "C9"
+        "C9",
+        "C16"
       ]
     },
     {
@@ -1039,19 +1100,38 @@ window.HearingPaths = {
   ],
   "money": [
     {
+      "value": "$10,323.00",
+      "title": "Invoice 39304 open",
+      "text": "Issued October 9 for September 8–30 work: 18.7 hours plus an $83 filing fee. Printed due date October 19; interest terms start October 14. No payment located.",
+      "refs": [
+        "C15"
+      ]
+    },
+    {
       "value": "$15,000",
       "title": "Deposits funded",
-      "text": "The two retainer receipts establish payments, not the current unspent trust balance.",
+      "text": "Two retainer receipts. The new invoice prints both $15,000.00 “in trust” and a $10,000.00 trust balance; the current figure needs the firm’s reconciliation.",
       "refs": [
-        "C10"
+        "C10",
+        "C15"
       ]
     },
     {
       "value": "$5,906.96",
       "title": "Bill 38507 paid",
-      "text": "Paid September 30; the accountant confirmed $0 due on this bill October 1. No later bill or granted interest credit was verified.",
+      "text": "Paid September 30; the accountant confirmed $0 due on this bill October 1. No granted interest credit was verified.",
       "refs": [
         "C10"
+      ]
+    },
+    {
+      "value": "$16,229.96",
+      "title": "Billed to date",
+      "text": "The two invoices together, through September 30 work. October work is not yet billed, and the requested estimate through October 28 has not arrived.",
+      "refs": [
+        "C10",
+        "C15",
+        "C16"
       ]
     },
     {
@@ -1061,6 +1141,181 @@ window.HearingPaths = {
       "refs": [
         "C10"
       ]
+    },
+    {
+      "value": "18 days",
+      "title": "To the hearing",
+      "text": "Counted from October 10. No estimate of fees for this stretch exists in the record; you asked for one that morning.",
+      "refs": [
+        "C16"
+      ]
     }
-  ]
+  ],
+  "brief": {
+    "storageKey": "hp-brief-2026-10-10",
+    "meeting": {
+      "title": "For the Pasadena meeting",
+      "note": "Everything asked in writing and still open, in one list. Tick an item when you have the answer in writing or on your own notes. Ticks stay in this browser only.",
+      "groups": [
+        {
+          "title": "The eleven questions of October 7",
+          "refs": [
+            "C4",
+            "C5"
+          ],
+          "items": [
+            {
+              "k": "q1",
+              "text": "1 · August 19 to September 9: why the August 26 and 31 notices never reached you"
+            },
+            {
+              "k": "q2",
+              "text": "2 · September 15 to 30: why the shipping address took two weeks"
+            },
+            {
+              "k": "q3",
+              "text": "3 · What was said on the September 3 call"
+            },
+            {
+              "k": "q4",
+              "text": "4 · Why the separation paragraph you approved left the demand letter"
+            },
+            {
+              "k": "q5",
+              "text": "5 · What was said about a competing petition and the phone line"
+            },
+            {
+              "k": "q6",
+              "text": "6 · Whether the September 8 letter was answered, and a copy"
+            },
+            {
+              "k": "q7",
+              "text": "7 · The report opposing counsel says she made about your lawyer: status, and any effect on October 28"
+            },
+            {
+              "k": "q8",
+              "text": "8 · The sanctions request: denied, or still open"
+            },
+            {
+              "k": "q9",
+              "text": "9 · The stated referral to authorities: anything further"
+            },
+            {
+              "k": "q10",
+              "text": "10 · The August 26 settlement proposal: its terms, and whether anyone answered"
+            },
+            {
+              "k": "q11",
+              "text": "11 · The August 31 request about stored payment methods: what to do"
+            }
+          ]
+        },
+        {
+          "title": "The file and the hearing",
+          "refs": [
+            "C4",
+            "C2"
+          ],
+          "items": [
+            {
+              "k": "f1",
+              "text": "Everything exchanged with opposing counsel since August 18, and the application as filed"
+            },
+            {
+              "k": "f2",
+              "text": "A written answer on the request to hold any Jeffrey subpoena until you have met"
+            },
+            {
+              "k": "f3",
+              "text": "September 10: an appearance, or decided on the papers"
+            },
+            {
+              "k": "f4",
+              "text": "Hearing time, appearance instructions, and the conformed continuation order"
+            },
+            {
+              "k": "f5",
+              "text": "Department 547 deadlines for exhibits and the witness list"
+            },
+            {
+              "k": "f6",
+              "text": "Court reporter: arranged or not"
+            },
+            {
+              "k": "f7",
+              "text": "The complete recording and the exhibit exchange: where each stands"
+            },
+            {
+              "k": "f8",
+              "text": "A testimony preparation date in the week of October 19"
+            }
+          ]
+        },
+        {
+          "title": "Phone and money",
+          "refs": [
+            "C9",
+            "C15",
+            "C16"
+          ],
+          "items": [
+            {
+              "k": "m1",
+              "text": "Account number and ZIP code, or a billing-responsibility transfer, before October 20"
+            },
+            {
+              "k": "m2",
+              "text": "Your original 512 GB handset: any answer"
+            },
+            {
+              "k": "m3",
+              "text": "Whether the civil response arrived, and the full exchange if it did"
+            },
+            {
+              "k": "m4",
+              "text": "An estimate of fees through October 28, and notice before large work starts"
+            },
+            {
+              "k": "m5",
+              "text": "Invoice 39304: which trust figure is right, $15,000 or $10,000"
+            },
+            {
+              "k": "m6",
+              "text": "The interest waiver you asked for on bill 38507"
+            }
+          ]
+        }
+      ]
+    },
+    "stand": {
+      "title": "For the stand",
+      "note": "Six habits from the August coaching and the September drills. They cover how you answer. What you say, and whether you testify at all, stays a decision with counsel.",
+      "rules": [
+        {
+          "title": "Answer the question asked. Then stop.",
+          "text": "In the drills the longest answers came on the phone, the money, and how it ended. Length is where the trouble was."
+        },
+        {
+          "title": "Finish this answer before the next thought.",
+          "text": "Several questions were left half-answered while you moved to a better point. The unanswered one is what gets repeated."
+        },
+        {
+          "title": "No absolutes.",
+          "text": "“Absolutely” and “never” invite a document that shows one exception. Say what happened."
+        },
+        {
+          "title": "Say how you know.",
+          "text": "A record shows it, you saw it, or you concluded it. Keep the three apart and the strong ones stay strong."
+        },
+        {
+          "title": "When challenged, narrow.",
+          "text": "Give up the part you cannot support and hold the part you can. Widening a claim under pressure is how it breaks."
+        },
+        {
+          "title": "One point, once. Then let the silence sit.",
+          "text": "Use process words, not combat words. The pause belongs to the person who asked."
+        }
+      ]
+    }
+  }
 };

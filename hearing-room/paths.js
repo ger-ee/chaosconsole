@@ -51,6 +51,18 @@
   $('#next-answers').innerHTML=tiles(data.next);
   $('#dates').innerHTML=tiles(data.dates);
   $('#money-detail').innerHTML=data.money.map(m=>`<div><strong>${esc(m.value)}</strong><span>${esc(m.title)}</span>${paragraph(m)}</div>`).join('');
+  if (data.brief && $('#brief-meeting')) {
+    const b=data.brief, all=b.meeting.groups.flatMap(g=>g.items);
+    let done={};
+    try { done=JSON.parse(localStorage.getItem(b.storageKey)||'{}')||{}; } catch (e) { done={}; }
+    const count=()=>{const n=all.filter(i=>done[i.k]).length;$('#brief-count').textContent=`${n} of ${all.length} settled`;};
+    $('#brief-meeting').innerHTML=`<div class="hp-brief-top"><h3>${esc(b.meeting.title)}</h3><span id="brief-count" aria-live="polite"></span></div><p class="hp-brief-note">${esc(b.meeting.note)}</p>${b.meeting.groups.map(g=>`<fieldset><legend>${esc(g.title)} ${refs(g.refs)}</legend>${g.items.map(i=>`<label class="hp-tick"><input type="checkbox" data-brief="${esc(i.k)}"${done[i.k]?' checked':''}><span>${esc(i.text)}</span></label>`).join('')}</fieldset>`).join('')}<button type="button" class="hp-brief-reset" id="brief-reset">Clear ticks</button>`;
+    $('#brief-stand').innerHTML=`<h3>${esc(b.stand.title)}</h3><p class="hp-brief-note">${esc(b.stand.note)}</p><ol>${b.stand.rules.map(r=>`<li><strong>${esc(r.title)}</strong><span>${esc(r.text)}</span></li>`).join('')}</ol>`;
+    const save=()=>{try{localStorage.setItem(b.storageKey,JSON.stringify(done));}catch(e){}count();};
+    $('#brief-meeting').addEventListener('change',e=>{const i=e.target.closest('[data-brief]');if(!i)return;if(i.checked)done[i.dataset.brief]=1;else delete done[i.dataset.brief];save();});
+    $('#brief-reset').addEventListener('click',()=>{done={};document.querySelectorAll('[data-brief]').forEach(i=>{i.checked=false;});save();});
+    count();
+  }
   const sourceLinks=s=>s.url?` <a href="${esc(s.url)}" target="_blank" rel="noopener">Read the official source</a>`:'';
   const sourceList=kind=>Object.entries(data.sources).filter(([,s])=>s.kind===kind).map(([id,s])=>`<div class="hp-source-row" id="source-${esc(id)}"><strong>${esc(id)}</strong><p><strong>${esc(s.title)}.</strong> ${esc(s.body)}${sourceLinks(s)}</p></div>`).join('');
   $('#case-sources').innerHTML=sourceList('case');$('#legal-sources').innerHTML=sourceList('law');
