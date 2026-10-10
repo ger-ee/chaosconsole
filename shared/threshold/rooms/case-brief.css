@@ -61,3 +61,12 @@
 @media(max-width:900px){.case-lead{gap:35px}.case-milestone{padding-left:30px}.case-milestone time{font-size:65px}.case-assessments{grid-template-columns:1fr;gap:28px}.case-assessment{padding-left:18px}.case-assessment h3{font-size:26px}.case-assessment p{max-width:85ch}}
 @media(max-width:600px){.case-nav{gap:25px}.case-lead{grid-template-columns:1fr;gap:27px;padding:32px 0}.case-lead h2{font-size:34px}.case-lead p{font-size:14px}.case-milestone{border-left:0;border-top:1px solid var(--th-line);padding:22px 0 0}.case-milestone time{font-size:62px}.case-milestone p{font-size:12px;max-width:none}.case-facts{grid-template-columns:1fr;gap:21px;padding-bottom:8px}.case-facts>div{padding-top:17px}.case-facts dd{font-size:22px}.case-section{margin-top:30px;padding-top:25px}.case-section>header{display:block}.case-section>header p{margin-top:13px;max-width:none}.case-section h2{font-size:30px}.case-tasks label{gap:13px}.case-tasks strong{font-size:16px}.case-table{font-size:12px}.case-table td{padding:14px 13px 14px 0}.case-table th{padding-right:13px}.case-table td:first-child{width:28%}.case-table small{font-size:11px}.case-event{grid-template-columns:1fr;gap:8px}.case-sources li{grid-template-columns:35px 1fr;gap:10px}}
 @media print{.case-nav,.case-save-note{display:none}.case-page{padding:0;color:#000}.case-lead{padding-top:20px}.case-section{break-inside:avoid}.case-sources,.case-log{display:block}.case-sources>*,.case-log>*{content-visibility:visible}.case-tasks input{display:none}}
+
+/* Discovery preparation keeps the existing case brief and reminder keys. */
+.discovery-date{border-left:3px solid var(--th-rust);padding:18px 22px;background:#d6a7a320;margin-bottom:30px;max-width:95ch}
+.discovery-date p,.discovery-group>p{font-size:14px;line-height:1.8;color:var(--th-secondary);max-width:85ch}
+.discovery-date strong{color:var(--th-ink)}
+.discovery-date p:last-child{margin-bottom:0}
+.discovery-group{padding:22px 0;border-top:1px solid var(--th-line)}
+.discovery-group h3{font:400 25px/1.25 var(--th-serif);margin:0 0 12px}
+.discovery-group>p{margin:0 0 5px}

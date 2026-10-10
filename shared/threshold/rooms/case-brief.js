@@ -5,11 +5,15 @@
   const key = 'cc-case-tasks-' + page.dataset.case + '-20261007';
   const boxes = [...page.querySelectorAll('.case-tasks input')];
   const note = page.querySelector('.case-save-note');
+  const discoveryNote = page.querySelector('[data-discovery-progress]');
+  const discoveryBoxes = boxes.filter(box => box.dataset.key.startsWith('discovery-'));
+  const reminders = boxes.filter(box => !box.dataset.key.startsWith('discovery-'));
   let saved = {};
   try { const value = JSON.parse(localStorage.getItem(key) || '{}'); if (value && typeof value === 'object') saved = value; } catch {}
   function update() {
-    const count = boxes.filter(box => box.checked).length;
-    if (note) note.textContent = count + ' of ' + boxes.length + ' reminders checked. Saved in this browser only; a tick does not confirm filing, service, or completion in the case record.';
+    const count = reminders.filter(box => box.checked).length;
+    if (note) note.textContent = count + ' of ' + reminders.length + ' reminders checked. Saved in this browser only; a tick does not confirm filing, service, or completion in the case record.';
+    if (discoveryNote) discoveryNote.textContent = discoveryBoxes.filter(box => box.checked).length + ' of ' + discoveryBoxes.length + ' preparation steps checked. Saved in this browser only; ticking a step does not confirm legal completion or service.';
   }
   boxes.forEach(box => {
     box.checked = saved[box.dataset.key] === true;
