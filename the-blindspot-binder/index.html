@@ -7,6 +7,10 @@
 
 
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --bg: #0b0f1a;
@@ -15,12 +19,12 @@
   --surface-2: #1c2640;
   --border: #2a3a5c;
   --border-subtle: #1e2d4a;
-  --text: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #d4a052;
-  --accent-dim: rgba(212, 160, 82, 0.10);
-  --accent-glow: rgba(212, 160, 82, 0.25);
+  --text: #f2ead8;
+  --text-secondary: #b9b3a5;
+  --text-muted: #7d7668;
+  --accent: #d92632;
+  --accent-dim: rgba(217, 38, 50, 0.12);
+  --accent-glow: rgba(217, 38, 50, 0.30);
   --red: #f87171;
   --green: #4ade80;
   --blue: #60a5fa;
@@ -29,6 +33,7 @@
   --signal-red: #e74c5a;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--accent); color: #0b0f1a; }
 html { scroll-behavior: smooth; scroll-padding-top: 140px; }
 body {
   font-family: 'Instrument Sans', Inter, -apple-system, sans-serif;
@@ -99,9 +104,9 @@ header.sticky {
   text-transform: uppercase; margin-bottom: 20px;
 }
 .hero h1 {
-  font-family: 'Space Grotesk', 'Instrument Sans', sans-serif; font-weight: 700;
-  font-size: clamp(38px, 6vw, 68px); letter-spacing: 0.01em;
-  line-height: 1.05; margin-bottom: 16px;
+  font-family: var(--display-font); font-weight: 700;
+  font-size: clamp(46px, 7vw, 92px); letter-spacing: 0.015em;
+  line-height: 1.0; margin-bottom: 16px; text-transform: uppercase;
 }
 .hero h1 .dot { color: var(--signal-red); }
 .hero-sub {
@@ -127,7 +132,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 120px; }
 
 /* Part dividers */
 .part-divider {
-  margin: 60px 0 32px; padding: 32px; border-radius: 14px;
+  margin: 60px 0 32px; padding: 32px; border-radius: 8px;
   background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
   border: 1px solid var(--border-subtle); position: relative; overflow: hidden;
 }
@@ -135,17 +140,27 @@ main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 120px; }
   content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
   background: var(--accent);
 }
+.part-divider::after {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0;
+  width: 230px;
+  background-image: radial-gradient(rgba(217, 38, 50, 0.20) 1.4px, transparent 1.8px);
+  background-size: 11px 11px;
+  -webkit-mask-image: linear-gradient(to left, black 20%, transparent 92%);
+  mask-image: linear-gradient(to left, black 20%, transparent 92%);
+  pointer-events: none;
+}
 .part-divider.part-ii::before { background: var(--blue); }
 .part-divider.part-iii::before { background: var(--signal-red); }
 .part-label {
-  font-family: 'Space Grotesk', 'Instrument Sans', sans-serif; font-size: 11px;
+  font-family: var(--display-font); font-size: 12px;
   letter-spacing: 0.18em; color: var(--accent); font-weight: 700;
 }
 .part-divider.part-ii .part-label { color: var(--blue); }
 .part-divider.part-iii .part-label { color: var(--signal-red); }
 .part-divider h2 {
-  font-size: 32px; font-weight: 800; margin: 6px 0 10px;
-  letter-spacing: -0.01em;
+  font-family: var(--display-font);
+  font-size: 34px; font-weight: 700; margin: 6px 0 10px;
+  letter-spacing: 0.02em; text-transform: uppercase;
 }
 .part-divider p { color: var(--text-secondary); font-size: 15px; max-width: 720px; }
 .part-toc {
@@ -179,8 +194,9 @@ main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 120px; }
   color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 2px;
 }
 .chapter-head h3 {
-  font-size: 26px; font-weight: 700; letter-spacing: -0.01em;
-  line-height: 1.2; margin-bottom: 8px;
+  font-family: var(--display-font);
+  font-size: 27px; font-weight: 600; letter-spacing: 0.01em;
+  line-height: 1.15; margin-bottom: 8px;
 }
 .chapter-thesis {
   font-style: italic; color: var(--accent); font-size: 15px;
@@ -210,8 +226,8 @@ main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 120px; }
 }
 .callout-body p { color: var(--text-secondary); font-size: 14px; margin: 0; }
 
-.c-rule { background: rgba(96, 165, 250, 0.06); border-color: rgba(96, 165, 250, 0.25); }
-.c-rule .callout-title, .c-rule .callout-icon { color: var(--blue); }
+.c-rule { background: rgba(217, 38, 50, 0.07); border-color: rgba(217, 38, 50, 0.32); }
+.c-rule .callout-title, .c-rule .callout-icon { color: var(--accent); }
 .c-warn { background: rgba(248, 113, 113, 0.06); border-color: rgba(248, 113, 113, 0.28); }
 .c-warn .callout-title, .c-warn .callout-icon { color: var(--red); }
 .c-tip { background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.22); }
@@ -239,7 +255,7 @@ td strong { color: var(--text); font-weight: 600; }
   transition: all 0.15s;
 }
 .chapter-body a:hover, .callout-body a:hover, td a:hover {
-  color: #e8b96a; border-bottom-color: var(--accent);
+  color: var(--signal-red); border-bottom-color: var(--accent);
 }
 a[data-ext]::after {
   content: '↗'; font-size: 10px; opacity: 0.6; margin-left: 2px; vertical-align: super;
@@ -262,11 +278,11 @@ a[data-ext]::after {
 
 /* Blueprint hero table */
 .blueprint {
-  margin: 24px 0 40px; padding: 24px; border-radius: 12px;
+  margin: 24px 0 40px; padding: 24px; border-radius: 8px;
   background: var(--surface); border: 1px solid var(--border-subtle);
 }
 .blueprint h4 {
-  font-family: 'Space Grotesk', 'Instrument Sans', sans-serif; font-size: 11px;
+  font-family: var(--display-font); font-size: 12px;
   letter-spacing: 0.14em; color: var(--accent); margin-bottom: 16px;
 }
 
@@ -276,7 +292,7 @@ a[data-ext]::after {
   border-radius: 50%; background: var(--accent); color: #0b0f1a;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; border: none; font-size: 20px; font-weight: 700;
-  box-shadow: 0 4px 20px rgba(212,160,82,0.35); opacity: 0;
+  box-shadow: 0 4px 20px rgba(217,38,50,0.40); opacity: 0;
   transform: translateY(20px); transition: all 0.25s; z-index: 80;
 }
 .to-top.visible { opacity: 1; transform: translateY(0); }
@@ -302,7 +318,7 @@ footer.page-foot {
 }
 
 :root {
-  --display-font: 'Space Grotesk', 'Instrument Sans', sans-serif;
+  --display-font: 'Anton', 'Instrument Sans', sans-serif;
   --body-font: 'Instrument Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   --mono-font: 'JetBrains Mono', monospace;
   --page-width: 1360px;
@@ -310,7 +326,7 @@ footer.page-foot {
   --header-bg: rgba(11, 15, 26, 0.88);
   --page-wash:
     radial-gradient(circle at top right, rgba(231, 76, 90, 0.16), transparent 34%),
-    radial-gradient(circle at top left, rgba(212, 160, 82, 0.12), transparent 26%);
+    radial-gradient(circle at top left, rgba(217, 38, 50, 0.10), transparent 26%);
   --hero-gradient: linear-gradient(135deg, rgba(21, 29, 46, 0.94), rgba(9, 13, 22, 0.98));
   --panel-fill: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
   --hero-border: rgba(255, 255, 255, 0.06);
@@ -329,22 +345,22 @@ html[data-theme="light"] {
   --text: #1d1814;
   --text-secondary: #4f4338;
   --text-muted: #877565;
-  --accent: #8c5a2b;
-  --accent-dim: rgba(140, 90, 43, 0.1);
-  --accent-glow: rgba(140, 90, 43, 0.18);
+  --accent: #b3232e;
+  --accent-dim: rgba(179, 35, 46, 0.10);
+  --accent-glow: rgba(179, 35, 46, 0.20);
   --red: #bf5a59;
   --green: #417056;
   --blue: #466792;
   --purple: #725f89;
   --pink: #ae6b83;
   --signal-red: #c3363d;
-  --display-font: 'Space Grotesk', 'Instrument Sans', sans-serif;
+  --display-font: 'Anton', 'Instrument Sans', sans-serif;
   --page-width: 1220px;
   --rail-width: 100%;
   --header-bg: rgba(248, 243, 235, 0.92);
   --page-wash:
     radial-gradient(circle at top right, rgba(195, 54, 61, 0.1), transparent 32%),
-    radial-gradient(circle at top left, rgba(140, 90, 43, 0.12), transparent 24%);
+    radial-gradient(circle at top left, rgba(179, 35, 46, 0.10), transparent 24%);
   --hero-gradient: linear-gradient(180deg, rgba(255, 251, 245, 0.95), rgba(241, 231, 217, 0.92));
   --panel-fill: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 249, 241, 0.88));
   --hero-border: rgba(110, 84, 58, 0.12);
@@ -390,7 +406,7 @@ footer.page-foot {
 }
 
 .theme-switch {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 4px;
   padding: 4px;
@@ -440,8 +456,9 @@ footer.page-foot {
 .hero-copy {
   position: relative;
   padding: 34px;
-  border-radius: 30px;
+  border-radius: 8px;
   border: 1px solid var(--hero-border);
+  border-top: 3px solid var(--accent);
   background: var(--hero-gradient);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
@@ -450,12 +467,14 @@ footer.page-foot {
 .hero-copy::before {
   content: '';
   position: absolute;
-  right: -80px;
-  bottom: -110px;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(231, 76, 90, 0.18), transparent 65%);
+  right: -30px;
+  bottom: -30px;
+  width: 430px;
+  height: 430px;
+  background-image: radial-gradient(rgba(217, 38, 50, 0.30) 1.7px, transparent 2.1px);
+  background-size: 11px 11px;
+  -webkit-mask-image: radial-gradient(circle at bottom right, black 30%, transparent 85%);
+  mask-image: radial-gradient(circle at bottom right, black 30%, transparent 85%);
   pointer-events: none;
 }
 
@@ -507,7 +526,7 @@ html[data-theme="dark"] .hero h1 {
   gap: 16px;
   align-content: start;
   padding: 24px;
-  border-radius: 28px;
+  border-radius: 10px;
   border: 1px solid var(--border-subtle);
   background: var(--panel-fill), var(--surface);
   box-shadow: var(--shadow-card);
@@ -613,7 +632,7 @@ html[data-theme="dark"] .hero h1 {
 
 .rail-card {
   padding: 20px;
-  border-radius: 24px;
+  border-radius: 10px;
   border: 1px solid var(--border-subtle);
   background: var(--panel-fill), var(--surface);
   box-shadow: var(--shadow-card);
@@ -646,10 +665,11 @@ html[data-theme="dark"] .hero h1 {
 
 .spotlight-card h2 {
   margin-top: 10px;
-  font-family: var(--body-font);
+  font-family: var(--display-font);
+  font-weight: 600;
   font-size: 25px;
   line-height: 1.1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.01em;
   text-wrap: balance;
 }
 
@@ -857,7 +877,8 @@ html[data-theme="light"] .hero-grid {
 }
 
 html[data-theme="light"] .hero-copy::before {
-  background: radial-gradient(circle, rgba(140, 90, 43, 0.12), transparent 65%);
+  background-image: radial-gradient(rgba(179, 35, 46, 0.14) 1.2px, transparent 1.6px);
+  background-size: 13px 13px;
 }
 
 html[data-theme="light"] .hero h1 {
@@ -973,10 +994,7 @@ html[data-theme="light"] .chapter {
 </style>
 <script>
 (() => {
-  const storedTheme = localStorage.getItem('blindspot-binder-theme');
-  if (storedTheme === 'dark' || storedTheme === 'light') {
-    document.documentElement.setAttribute('data-theme', storedTheme);
-  }
+  document.documentElement.setAttribute('data-theme', 'dark');
 })();
 </script>
   <script defer src="../shared/gate.js"></script>
