@@ -1026,11 +1026,6 @@ html[data-theme="light"] .chapter {
 })();
 </script>
   <script defer src="../shared/gate.js"></script>
-
-
-<link rel="stylesheet" href="/shared/console-shell.css">
-<script defer src="/shared/threshold/routes.js"></script>
-<script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
 
@@ -2882,7 +2877,7 @@ spotlightNext.addEventListener('click', () => {
 window.addEventListener('scroll', onScroll, { passive: true });
 toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-setTheme(document.documentElement.getAttribute('data-theme') || localStorage.getItem(STORAGE_KEY) || 'dark');
+setTheme('dark');
 applyFilter('all');
 onScroll();
 </script>
