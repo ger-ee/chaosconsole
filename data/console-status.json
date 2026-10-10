@@ -1062,36 +1062,36 @@
    "label": "AI Intelligence",
    "cluster": "systems",
    "color": "#22d3ee",
-   "metric": "1,578 conversations",
-   "updated": "2026-04-20",
-   "dataThrough": "2026-03-31",
+   "metric": "2,313 exported conversations",
+   "updated": "2026-10-10",
+   "dataThrough": "2026-10-10",
    "cadenceDays": null,
-   "tagline": "ChatGPT vs Claude — the migration, mapped",
+   "tagline": "Both archives refreshed · work moves between tools",
    "stats": [
     {
-     "label": "Corpus",
-     "value": "1,578 convos · 383K words",
-     "sub": "Jul 2024 – Mar 2026"
+     "label": "Both archives",
+     "value": "1,919 ChatGPT · 394 Claude",
+     "sub": "ChatGPT through Oct 7 · Claude through Oct 10"
     },
     {
-     "label": "Crossover",
-     "value": "Feb 2026",
-     "sub": "GPT fell 83→17/mo · Claude hit 30"
+     "label": "New since March cutoffs",
+     "value": "451 ChatGPT · 290 Claude",
+     "sub": "ChatGPT starts Mar 7 · Claude starts Mar 14"
     },
     {
-     "label": "Blindspot share",
-     "value": "361 convos · 23%",
-     "sub": "the most persistent creative thread"
+     "label": "September",
+     "value": "52 ChatGPT · 53 Claude",
+     "sub": "complete month · conversation records"
     },
     {
-     "label": "Snapshot",
-     "value": "Mar 2026",
-     "sub": "one-time analysis, not a live feed"
+     "label": "Claude text coverage",
+     "value": "242 of 290 new chats",
+     "sub": "48 records have no readable user text"
     }
    ],
    "series": [
     {
-     "label": "ChatGPT / month",
+     "label": "ChatGPT / month · Oct 1–7 only",
      "unit": "conversations",
      "points": [
       [
@@ -1100,93 +1100,141 @@
       ],
       [
        "2024-08",
-       13
+       19
       ],
       [
        "2024-09",
-       45
+       54
       ],
       [
        "2024-10",
-       54
+       62
       ],
       [
        "2024-11",
-       66
+       86
       ],
       [
        "2024-12",
-       40
+       53
       ],
       [
        "2025-01",
-       43
-      ],
-      [
-       "2025-02",
-       49
-      ],
-      [
-       "2025-03",
        59
       ],
       [
-       "2025-04",
-       66
-      ],
-      [
-       "2025-05",
-       43
-      ],
-      [
-       "2025-06",
-       106
-      ],
-      [
-       "2025-07",
-       54
-      ],
-      [
-       "2025-08",
+       "2025-02",
        58
       ],
       [
+       "2025-03",
+       68
+      ],
+      [
+       "2025-04",
+       88
+      ],
+      [
+       "2025-05",
+       60
+      ],
+      [
+       "2025-06",
+       153
+      ],
+      [
+       "2025-07",
+       89
+      ],
+      [
+       "2025-08",
+       85
+      ],
+      [
        "2025-09",
-       90
+       115
       ],
       [
        "2025-10",
-       83
+       101
       ],
       [
        "2025-11",
-       74
+       91
       ],
       [
        "2025-12",
-       51
+       68
       ],
       [
        "2026-01",
-       51
+       73
       ],
       [
        "2026-02",
-       32
+       53
       ],
       [
        "2026-03",
-       17
+       103
+      ],
+      [
+       "2026-04",
+       56
+      ],
+      [
+       "2026-05",
+       48
+      ],
+      [
+       "2026-06",
+       56
+      ],
+      [
+       "2026-07",
+       81
+      ],
+      [
+       "2026-08",
+       60
+      ],
+      [
+       "2026-09",
+       52
+      ],
+      [
+       "2026-10",
+       21
       ]
      ]
     },
     {
-     "label": "Claude / month",
+     "label": "Claude / month · Oct 1–10 only",
      "unit": "conversations",
      "points": [
       [
        "2024-11",
        3
+      ],
+      [
+       "2024-12",
+       0
+      ],
+      [
+       "2025-01",
+       0
+      ],
+      [
+       "2025-02",
+       0
+      ],
+      [
+       "2025-03",
+       0
+      ],
+      [
+       "2025-04",
+       0
       ],
       [
        "2025-05",
@@ -1195,6 +1243,22 @@
       [
        "2025-06",
        4
+      ],
+      [
+       "2025-07",
+       0
+      ],
+      [
+       "2025-08",
+       0
+      ],
+      [
+       "2025-09",
+       0
+      ],
+      [
+       "2025-10",
+       0
       ],
       [
        "2025-11",
@@ -1210,11 +1274,39 @@
       ],
       [
        "2026-02",
-       30
+       32
       ],
       [
        "2026-03",
-       17
+       27
+      ],
+      [
+       "2026-04",
+       31
+      ],
+      [
+       "2026-05",
+       18
+      ],
+      [
+       "2026-06",
+       36
+      ],
+      [
+       "2026-07",
+       32
+      ],
+      [
+       "2026-08",
+       58
+      ],
+      [
+       "2026-09",
+       53
+      ],
+      [
+       "2026-10",
+       50
       ]
      ]
     }
@@ -1222,11 +1314,11 @@
    "links": [
     {
      "href": "/ai-intelligence/#section-merged",
-     "label": "Merged report"
+     "label": "What changed"
     },
     {
      "href": "/ai-intelligence/#merged-prescription",
-     "label": "Prescription"
+     "label": "Next moves"
     }
    ]
   },

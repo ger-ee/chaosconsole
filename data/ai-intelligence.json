@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "timezone": "America/Los_Angeles",
+  "coverage": {
+    "first_conversation": "2024-07-11T20:04:17.928138-07:00",
+    "last_conversation": "2026-10-07T12:48:23.237769-07:00",
+    "last_user_message": "2026-10-07T17:33:34.843000-07:00",
+    "data_through": "2026-10-07",
+    "refresh_period_start": "2026-03-07"
+  },
+  "totals": {
+    "conversations": 1919,
+    "unique_user_messages": 9578,
+    "user_text_words": 510909
+  },
+  "since_march_6": {
+    "new_conversations": 451,
+    "older_conversations_resumed": 1,
+    "conversations_with_user_activity": 450,
+    "unique_user_messages": 2028,
+    "user_text_words": 97821,
+    "new_conversations_without_user_messages": 2
+  },
+  "reconciliation": {
+    "reported_march_conversations": 1474,
+    "current_export_conversations_before_march_7": 1468,
+    "net_change_from_reported_march_total": 445,
+    "note": "The March raw export is unavailable. The current pre-March-7 count differs from the old reported total by -6 records; the reason is unverified. New activity is counted from timestamps, not subtraction."
+  },
+  "quality": {
+    "repeated_user_message_occurrences_removed": 115,
+    "user_messages_without_timestamp": 0
+  },
+  "monthly": [
+    {
+      "month": "2024-07",
+      "conversations": 7,
+      "user_messages": 10
+    },
+    {
+      "month": "2024-08",
+      "conversations": 19,
+      "user_messages": 78
+    },
+    {
+      "month": "2024-09",
+      "conversations": 54,
+      "user_messages": 293
+    },
+    {
+      "month": "2024-10",
+      "conversations": 62,
+      "user_messages": 337
+    },
+    {
+      "month": "2024-11",
+      "conversations": 86,
+      "user_messages": 554
+    },
+    {
+      "month": "2024-12",
+      "conversations": 53,
+      "user_messages": 305
+    },
+    {
+      "month": "2025-01",
+      "conversations": 59,
+      "user_messages": 445
+    },
+    {
+      "month": "2025-02",
+      "conversations": 58,
+      "user_messages": 269
+    },
+    {
+      "month": "2025-03",
+      "conversations": 68,
+      "user_messages": 354
+    },
+    {
+      "month": "2025-04",
+      "conversations": 88,
+      "user_messages": 427
+    },
+    {
+      "month": "2025-05",
+      "conversations": 60,
+      "user_messages": 276
+    },
+    {
+      "month": "2025-06",
+      "conversations": 153,
+      "user_messages": 698
+    },
+    {
+      "month": "2025-07",
+      "conversations": 89,
+      "user_messages": 385
+    },
+    {
+      "month": "2025-08",
+      "conversations": 85,
+      "user_messages": 379
+    },
+    {
+      "month": "2025-09",
+      "conversations": 115,
+      "user_messages": 586
+    },
+    {
+      "month": "2025-10",
+      "conversations": 101,
+      "user_messages": 734
+    },
+    {
+      "month": "2025-11",
+      "conversations": 91,
+      "user_messages": 430
+    },
+    {
+      "month": "2025-12",
+      "conversations": 68,
+      "user_messages": 249
+    },
+    {
+      "month": "2026-01",
+      "conversations": 73,
+      "user_messages": 282
+    },
+    {
+      "month": "2026-02",
+      "conversations": 53,
+      "user_messages": 362
+    },
+    {
+      "month": "2026-03",
+      "conversations": 103,
+      "user_messages": 447
+    },
+    {
+      "month": "2026-04",
+      "conversations": 56,
+      "user_messages": 270
+    },
+    {
+      "month": "2026-05",
+      "conversations": 48,
+      "user_messages": 201
+    },
+    {
+      "month": "2026-06",
+      "conversations": 56,
+      "user_messages": 223
+    },
+    {
+      "month": "2026-07",
+      "conversations": 81,
+      "user_messages": 433
+    },
+    {
+      "month": "2026-08",
+      "conversations": 60,
+      "user_messages": 238
+    },
+    {
+      "month": "2026-09",
+      "conversations": 52,
+      "user_messages": 211
+    },
+    {
+      "month": "2026-10",
+      "conversations": 21,
+      "user_messages": 102
+    }
+  ],
+  "new_conversations_by_month": [
+    {
+      "month": "2026-03",
+      "conversations": 77
+    },
+    {
+      "month": "2026-04",
+      "conversations": 56
+    },
+    {
+      "month": "2026-05",
+      "conversations": 48
+    },
+    {
+      "month": "2026-06",
+      "conversations": 56
+    },
+    {
+      "month": "2026-07",
+      "conversations": 81
+    },
+    {
+      "month": "2026-08",
+      "conversations": 60
+    },
+    {
+      "month": "2026-09",
+      "conversations": 52
+    },
+    {
+      "month": "2026-10",
+      "conversations": 21
+    }
+  ],
+  "new_conversation_categories": [
+    {
+      "key": "visual_design",
+      "label": "Visual design",
+      "count": 166,
+      "percent": 36.8
+    },
+    {
+      "key": "technology_workflows",
+      "label": "Technology & workflows",
+      "count": 65,
+      "percent": 14.4
+    },
+    {
+      "key": "research_publishing",
+      "label": "Research & publishing",
+      "count": 59,
+      "percent": 13.1
+    },
+    {
+      "key": "culture_writing",
+      "label": "Culture & writing",
+      "count": 58,
+      "percent": 12.9
+    },
+    {
+      "key": "health_reflection",
+      "label": "Health & reflection",
+      "count": 35,
+      "percent": 7.8
+    },
+    {
+      "key": "everyday_life",
+      "label": "Everyday life",
+      "count": 34,
+      "percent": 7.5
+    },
+    {
+      "key": "money_admin",
+      "label": "Money & administration",
+      "count": 19,
+      "percent": 4.2
+    },
+    {
+      "key": "mixed_unclear",
+      "label": "Mixed / unclear",
+      "count": 15,
+      "percent": 3.3
+    }
+  ],
+  "definitions": {
+    "conversations": "Distinct exported conversation IDs, including branch conversations and records with no user message. All topics and media are retained.",
+    "user_messages": "User-role messages on each conversation current-node ancestry. Identical message IDs inherited by branches count once across the archive. Alternate branches, system, assistant, and tool messages are excluded.",
+    "user_text_words": "Approximate word tokens in readable user-message text and available audio transcriptions, including pasted source text and prompt templates. Not a measure of original writing; image text and untranscribed audio are excluded.",
+    "categories": "One manually reviewed primary purpose per new conversation, using titles, user requests, and follow-ups. Records without a clear primary purpose remain mixed/unclear. This measures conversation mix, not time, skill, outcomes, or clinical status.",
+    "scope": "The supplied ChatGPT account export only. Separate Codex sessions and unexported, temporary, or deleted chats are not reconstructed. Claude is analyzed separately from its October 10 conversations export."
+  },
+  "reviewed": "2026-10-09",
+  "source": {
+    "format": "ChatGPT account export ZIP",
+    "conversation_shards": 20,
+    "conversation_payload_sha256": "e837a922d608d8454b853d53816837c95fee9d9ff261476ecfcd4f6bce09b95f",
+    "duplicate_conversation_records_removed": 0
+  }
+}

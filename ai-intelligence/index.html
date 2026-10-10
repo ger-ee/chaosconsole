@@ -725,6 +725,78 @@ body::after {
 .kpi-card:nth-child(3) { animation-delay: 0.15s; }
 .kpi-card:nth-child(4) { animation-delay: 0.2s; }
 .kpi-card:nth-child(5) { animation-delay: 0.25s; }
+/* October refresh: retain the room's existing visual system. */
+.coverage-note { border-left: 3px solid var(--accent-purple); background: var(--bg-card); padding: 14px 18px; margin-bottom: 24px; color: var(--text-secondary); font-size: 13px; line-height: 1.65; }
+.coverage-note.archive { border-color: var(--accent-amber); }
+.coverage-note strong { color: var(--text-primary); }
+a { color: var(--accent-cyan); }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; }
+.header-sub, .kpi-label, .kpi-delta, .chart-subtitle, .section-btn .btn-sub, .skill-ct, .colophon { color: var(--text-secondary); }
+.header-title { line-height: 1.5; }
+.header-sub { line-height: 1.8; }
+.kpi-delta { font-size: 11px; font-weight: 500; }
+.timeline-chart { height: 235px; gap: 12px; padding: 12px 0 0; }
+.t-bar-wrap { min-width: 0; }
+.t-bar { cursor: default; flex-shrink: 0; }
+html[data-threshold="ai"] body :is(#section-chatgpt, #section-claude) .timeline-chart { height: 250px; padding: 24px 0 0; overflow: visible; }
+html[data-threshold="ai"] body :is(#section-chatgpt, #section-claude) .t-bar-wrap { flex: 1 1 0; min-width: 0; }
+.t-value, .t-label { flex-shrink: 0; }
+.t-label { transform: none; font-size: 11px; letter-spacing: 0; line-height: 1.5; color: var(--text-secondary); text-align: center; min-height: 34px; }
+.t-label small { display: block; font-size: 9px; }
+.t-value { color: var(--text-primary); font: 12px 'JetBrains Mono', monospace; margin-bottom: 6px; }
+.chart-controls { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.chart-controls button { padding: 8px 14px; border: 1px solid var(--border); color: var(--text-secondary); background: var(--bg-input); border-radius: 3px; cursor: pointer; font: inherit; font-size: 12px; }
+.chart-controls button[aria-pressed="true"] { color: var(--text-primary); border-color: var(--accent-purple); }
+.chart-scroll { overflow-x: auto; padding-bottom: 8px; }
+.chart-scroll.history .timeline-chart { min-width: 1150px; }
+[hidden] { display: none !important; }
+.chart-footnote, .evidence { font-size: 12px; color: var(--text-secondary); line-height: 1.65; margin-top: 14px; }
+.insight-card .evidence { margin-top: 12px; font-size: 11px; border-top: 1px solid var(--border-subtle); padding-top: 10px; }
+.section-header h3 { color: var(--accent-blue); white-space: normal; line-height: 1.7; }
+.skill-row { grid-template-columns: 180px 1fr 90px; }
+.skill-ct { text-align: right; }
+.table-scroll { overflow-x: auto; }
+.comp-table caption { text-align: left; padding: 0 0 14px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+.comp-table th { color: var(--text-secondary); }
+details { margin-top: 18px; }
+summary { cursor: pointer; color: var(--accent-cyan); font-size: 13px; padding: 8px 0; }
+.colophon { gap: 16px; flex-wrap: wrap; line-height: 1.7; }
+@media (max-width: 768px) {
+  .section-btn { padding: 14px 7px; }
+  .section-btn .btn-sub { font-size: 9px; letter-spacing: 0; }
+  .header-title { letter-spacing: 2px; }
+  .header-sub { letter-spacing: 0; }
+  .chart-section { padding: 18px 14px; }
+  .timeline-chart { gap: 7px; height: 220px; }
+  .t-label { font-size: 10px; }
+  .t-label small { font-size: 8px; }
+  .t-value { font-size: 11px; }
+  .skill-row { grid-template-columns: 1fr 85px; gap: 7px; }
+  .skill-name { grid-column: 1; }
+  .skill-ct { display: block; grid-column: 2; grid-row: 1; }
+  .skill-track { grid-column: 1 / -1; grid-row: 2; }
+  .feature-box { padding: 22px 18px; }
+  .feature-box h3 { font-size: 24px; }
+  .nav-tab { padding: 10px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* Shared scale for the two exported conversation streams. */
+.comparison-chart { display:grid; gap:20px; margin:28px 0; }
+.comparison-row { display:grid; grid-template-columns:100px 1fr; gap:20px; align-items:center; }
+.comparison-month { font-size:13px; color:var(--text-primary); }
+.comparison-pair { display:grid; gap:8px; }
+.comparison-line { display:grid; grid-template-columns:65px 1fr 30px; gap:12px; align-items:center; }
+.comparison-platform, .comparison-value { font-size:12px; color:var(--text-secondary); }
+.comparison-value { text-align:right; font-family:'JetBrains Mono',monospace; }
+.comparison-track { display:block; height:12px; background:var(--border-subtle); border-radius:2px; overflow:hidden; }
+.comparison-bar { display:block; height:100%; }
+.comparison-bar.gpt { background:var(--accent-purple); }
+.comparison-bar.claude { background:var(--accent-cyan); }
+@media(max-width:600px) {
+ .comparison-row { grid-template-columns:1fr; gap:7px; }
+ .comparison-line { grid-template-columns:56px 1fr 25px; gap:8px; }
+}
 </style>
   <script defer src="../shared/gate.js"></script>
 
@@ -734,521 +806,1682 @@ body::after {
 <script defer src="/shared/console-shell.js"></script>
 </head>
 <body>
-
-<!-- TOPNAV -->
 <nav class="topnav">
-  <a href="../index.html" class="topnav-back">&larr; CHAOS CONSOLE</a>
-  <span class="topnav-title">AI Intelligence</span>
-  <button class="theme-toggle" id="themeToggle">&#9728;&#65039;</button>
+<a href="../index.html" class="topnav-back">&larr; CHAOS CONSOLE</a>
+<span class="topnav-title">AI Intelligence</span>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">☀️</button>
 </nav>
-
-<div class="app">
-
-  <!-- ═══════════════════════════════════════
-       TOP-LEVEL SECTION SELECTOR
-       ═══════════════════════════════════════ -->
-  <div class="section-selector">
-    <button class="section-btn active" data-section="chatgpt" onclick="showSection('chatgpt')">
-      ChatGPT
-      <span class="btn-sub">1,474 convos &middot; 21 months</span>
-    </button>
-    <button class="section-btn" data-section="claude" onclick="showSection('claude')">
-      Claude
-      <span class="btn-sub">104 convos &middot; 6 months</span>
-    </button>
-    <button class="section-btn" data-section="merged" onclick="showSection('merged')">
-      Merged Intelligence
-      <span class="btn-sub">1,578 convos &middot; The Full Picture</span>
-    </button>
-  </div>
-
-
-  <!-- ╔═══════════════════════════════════════╗
-       ║  SECTION 1: CHATGPT                   ║
-       ╚═══════════════════════════════════════╝ -->
-  <div class="section-panel active" id="section-chatgpt">
-
-    <div class="header">
-      <div>
-        <div class="header-title purple">ChatGPT Intelligence Report</div>
-        <div class="header-sub">1,474 conversations &middot; Jul 2024 &ndash; Mar 2026 &middot; 356K words analyzed</div>
-      </div>
-    </div>
-
-    <div class="kpi-row">
-      <div class="kpi-card purple">
-        <div class="kpi-label">Total Convos</div>
-        <div class="kpi-value">1,474</div>
-        <div class="kpi-delta">21 months of data</div>
-      </div>
-      <div class="kpi-card blue">
-        <div class="kpi-label">Substantive</div>
-        <div class="kpi-value">1,101</div>
-        <div class="kpi-delta">75% signal rate</div>
-      </div>
-      <div class="kpi-card pink">
-        <div class="kpi-label">Image-Gen Filtered</div>
-        <div class="kpi-value">373</div>
-        <div class="kpi-delta">25% noise removed</div>
-      </div>
-      <div class="kpi-card green">
-        <div class="kpi-label">Words Written</div>
-        <div class="kpi-value">356K</div>
-        <div class="kpi-delta">~17K/month avg</div>
-      </div>
-      <div class="kpi-card amber">
-        <div class="kpi-label">Voice Chats</div>
-        <div class="kpi-value">91</div>
-        <div class="kpi-delta">6% of total</div>
-      </div>
-    </div>
-
-    <div class="nav-tabs" id="gpt-tabs">
-      <button class="nav-tab active" onclick="showView('gpt','overview',this)">Overview</button>
-      <button class="nav-tab" onclick="showView('gpt','skills',this)">Skill Map</button>
-      <button class="nav-tab" onclick="showView('gpt','strengths',this)">Strengths</button>
-      <button class="nav-tab" onclick="showView('gpt','warnings',this)">Warnings</button>
-      <button class="nav-tab" onclick="showView('gpt','export',this)">Export Guide</button>
-      <button class="nav-tab" onclick="showView('gpt','blindspot',this)">The Blindspot</button>
-    </div>
-
-    <!-- GPT: OVERVIEW -->
-    <div class="view active" id="gpt-overview">
-      <div class="chart-section">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Monthly Activity</div>
-            <div class="chart-subtitle">Conversation volume over time. Peak: June 2025 (106 conversations).</div>
-          </div>
-        </div>
-        <div class="timeline-chart">
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:6.6%"><div class="tip">Jul 24: 7</div></div><div class="t-label">Jul 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:12.3%"><div class="tip">Aug 24: 13</div></div><div class="t-label">Aug 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:42.5%"><div class="tip">Sep 24: 45</div></div><div class="t-label">Sep 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:50.9%"><div class="tip">Oct 24: 54</div></div><div class="t-label">Oct 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:62.3%"><div class="tip">Nov 24: 66</div></div><div class="t-label">Nov 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:37.7%"><div class="tip">Dec 24: 40</div></div><div class="t-label">Dec 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:40.6%"><div class="tip">Jan 25: 43</div></div><div class="t-label">Jan 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:46.2%"><div class="tip">Feb 25: 49</div></div><div class="t-label">Feb 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:55.7%"><div class="tip">Mar 25: 59</div></div><div class="t-label">Mar 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:62.3%"><div class="tip">Apr 25: 66</div></div><div class="t-label">Apr 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:40.6%"><div class="tip">May 25: 43</div></div><div class="t-label">May 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:100%"><div class="tip">Jun 25: 106</div></div><div class="t-label">Jun 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:50.9%"><div class="tip">Jul 25: 54</div></div><div class="t-label">Jul 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:54.7%"><div class="tip">Aug 25: 58</div></div><div class="t-label">Aug 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:84.9%"><div class="tip">Sep 25: 90</div></div><div class="t-label">Sep 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:78.3%"><div class="tip">Oct 25: 83</div></div><div class="t-label">Oct 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:69.8%"><div class="tip">Nov 25: 74</div></div><div class="t-label">Nov 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:48.1%"><div class="tip">Dec 25: 51</div></div><div class="t-label">Dec 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:48.1%"><div class="tip">Jan 26: 51</div></div><div class="t-label">Jan 26</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:30.2%"><div class="tip">Feb 26: 32</div></div><div class="t-label">Feb 26</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:16%"><div class="tip">Mar 26: 17</div></div><div class="t-label">Mar 26</div></div>
-        </div>
-      </div>
-
-      <div class="section-header"><h3>Topic Distribution</h3></div>
-      <div class="cat-grid">
-        <div class="cat-card" style="--cat-color: var(--accent-purple);"><div class="cat-count">351</div><h4>Utility / Misc</h4><p>One-off queries, quick lookups, translations, calculations. The long tail of daily AI usage.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-pink);"><div class="cat-count">155</div><h4>Media &amp; Culture</h4><p>Film analysis, YouTube strategy, podcast research, George Carlin transcript study, Letterboxd reviews.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-cyan);"><div class="cat-count">127</div><h4>Personal Life</h4><p>LA-to-Tirana move, apartment ops, cat care, dating dynamics, insurance disputes.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-amber);"><div class="cat-count">126</div><h4>Politics &amp; History</h4><p>WWII Eastern Front deep-dives, Soviet revenge narratives, political commentary, propaganda studies.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-orange);"><div class="cat-count">113</div><h4>Creative Writing</h4><p>Script editing, style blending, tone development, podcast scripts, film reviews. You rewrite obsessively.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-green);"><div class="cat-count">65</div><h4>Career / Tech</h4><p>AWS architecture, Python scripting, cloud infrastructure, automation, API design.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-blue);"><div class="cat-count">65</div><h4>Written Comms</h4><p>Email crafting, complaint letters, closure messages, formal responses. 3&ndash;5 drafts before settling.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-red);"><div class="cat-count">48</div><h4>Career / General</h4><p>Resume tailoring, PM interview prep, job applications, LinkedIn optimization, salary negotiation.</p></div>
-      </div>
-    </div>
-
-    <!-- GPT: SKILL MAP -->
-    <div class="view" id="gpt-skills">
-      <div class="chart-section">
-        <div class="chart-header"><div><div class="chart-title">Skill Map</div><div class="chart-subtitle">Measured by conversation depth and frequency. Bars = relative engagement.</div></div></div>
-        <div class="skill-bars">
-          <div class="skill-row"><div class="skill-name">Scriptwriting</div><div class="skill-track"><div class="skill-fill" style="width:100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));"></div></div><div class="skill-ct">205</div></div>
-          <div class="skill-row"><div class="skill-name">Emotional IQ</div><div class="skill-track"><div class="skill-fill" style="width:77%; background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));"></div></div><div class="skill-ct">157</div></div>
-          <div class="skill-row"><div class="skill-name">Brand Building</div><div class="skill-track"><div class="skill-fill" style="width:32%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple));"></div></div><div class="skill-ct">66</div></div>
-          <div class="skill-row"><div class="skill-name">History Research</div><div class="skill-track"><div class="skill-fill" style="width:30%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));"></div></div><div class="skill-ct">62</div></div>
-          <div class="skill-row"><div class="skill-name">Political Analysis</div><div class="skill-track"><div class="skill-fill" style="width:28%; background: linear-gradient(90deg, var(--accent-amber), var(--accent-orange));"></div></div><div class="skill-ct">58</div></div>
-          <div class="skill-row"><div class="skill-name">Cloud / DevOps</div><div class="skill-track"><div class="skill-fill" style="width:28%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div></div><div class="skill-ct">58</div></div>
-          <div class="skill-row"><div class="skill-name">Debate / Rhetoric</div><div class="skill-track"><div class="skill-fill" style="width:16%; background: linear-gradient(90deg, var(--accent-orange), var(--accent-amber));"></div></div><div class="skill-ct">32</div></div>
-          <div class="skill-row"><div class="skill-name">Product Mgmt</div><div class="skill-track"><div class="skill-fill" style="width:11%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));"></div></div><div class="skill-ct">22</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- GPT: STRENGTHS -->
-    <div class="view" id="gpt-strengths">
-      <div class="section-header"><h3>Where You Excel</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Narrative Architecture</h4><p>You don't just write scripts. You engineer narrative structures. The way you blend styles from multiple source texts, request specific tonal shifts, and calibrate reading levels shows someone who understands story at a structural level. Your 118K-character script editing session is evidence of genuine craft discipline.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Cross-Domain Synthesis</h4><p>You pull threads between history, psychology, film, and politics and weave them into single narratives. The "revenge" thread alone crosses WWII military history, neuroscience, moral philosophy, and cinema. Most people can't hold that many frameworks simultaneously. This is your intellectual signature.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Relentless Iteration</h4><p>You rewrite. Constantly. You'll send 5 versions of an email, 3 versions of a script intro, iterate on style until it's right. This is rare. Most people accept the first AI output. You treat AI as a writing partner, not a vending machine.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Primary Source Instinct</h4><p>The Tannenberg memoir translation. The Operation Citadel source summaries. The George Carlin transcript study. You go to the primary material, not the Wikipedia summary. This is what separates compelling content from regurgitated takes.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Multilingual Advantage</h4><p>Albanian, Italian, German, English. You translate primary sources, navigate cultural contexts, and think across linguistic boundaries. For a history/politics YouTube channel, this is a genuine competitive moat.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Directive Prompting Style</h4><p>2,604 directive prompts vs. 350 collaborative ones. You know what you want and you tell the AI exactly how to deliver it. This is advanced AI usage most people never develop.</p></div>
-      </div>
-    </div>
-
-    <!-- GPT: WARNINGS -->
-    <div class="view" id="gpt-warnings">
-      <div class="section-header"><h3>Persistent Issues</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card danger"><div class="insight-badge danger">Critical</div><h4>The Blindspot is Perpetually Pre-Launch</h4><p>16 conversations about branding, 32 about revenge narrative, 200+ script sessions, website planning, Gantt charts, DAW comparisons, Twitch strategy. Across 20 months, the pattern is preparation without publication. Shipping beats polishing.</p></div>
-        <div class="insight-card danger"><div class="insight-badge danger">Critical</div><h4>PM Career Path Abandoned Mid-Sprint</h4><p>March 2025: intense burst of PM certification quizzes, Agile methodology study, Scrum deep-dives. Then it stops. The career pivot was studied thoroughly but the follow-through evaporated.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Emotional Processing Through AI</h4><p>ACT therapy sessions, relationship closure drafts, confidence-building programs. 157 conversations with emotional content. AI is useful for structuring thoughts, but this volume suggests it's sometimes substituting for human support.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Scope Expansion Without Completion</h4><p>Competitor analysis leads to market report, leads to branding discussion, leads to website plan, leads to Gantt chart. Each step is well-executed individually. Cumulative effect: ever-expanding scope that never contracts into a shipped deliverable.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Voice Confidence Gap</h4><p>You explicitly asked for accent coaching and debate coaching. ESL self-consciousness affecting political discussions. Written scripts are strong. Vocal delivery confidence needs sustained investment.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Caution</div><h4>Over-Reliance on Image Generation</h4><p>373 conversations (25% of all activity) were playlist covers and logo iterations. Consider whether image generation is displacement activity.</p></div>
-      </div>
-    </div>
-
-    <!-- GPT: EXPORT GUIDE -->
-    <div class="view" id="gpt-export">
-      <div class="section-header"><h3>What to Export to Claude</h3></div>
-      <div class="priority-grid">
-        <div class="priority-card essential"><div class="insight-badge strength">Essential</div><h4>Blindspot Scripts &amp; Research</h4><p>Every script draft, the revenge narrative framework, the Tannenberg translation, Operation Citadel summaries.</p><ul><li>Script Review and Editing (118K chars)</li><li>All "Soviet Revenge" conversations (32)</li><li>Operation Citadel / Tannenberg / Berlin 1945</li><li>Competitor analysis of YouTube commentators</li></ul></div>
-        <div class="priority-card essential"><div class="insight-badge strength">Essential</div><h4>Writing Style &amp; Preferences</h4><p>The conversations where you explicitly defined your voice. These teach Claude how you think and write.</p><ul><li>Style change request sessions</li><li>Cat Quotes collection (your humor DNA)</li><li>George Carlin transcript study</li><li>Letterboxd review voice</li></ul></div>
-        <div class="priority-card essential"><div class="insight-badge strength">Essential</div><h4>Personal Context &amp; Life Ops</h4><p>Not nostalgia. These show how you approach real problems: structured, thorough, iterative.</p><ul><li>Moving Checklist (LA to Tirana)</li><li>Credit card dispute handling</li><li>Package theft action plan</li></ul></div>
-        <div class="priority-card valuable"><div class="insight-badge warning">Valuable</div><h4>Career &amp; Tech Context</h4><p>PM certification work, AWS architecture, resume iterations. Worth importing if continuing these paths.</p></div>
-        <div class="priority-card valuable"><div class="insight-badge warning">Valuable</div><h4>Self-Improvement Conversations</h4><p>ACT therapy sessions, confidence building, debate coaching. Import selectively for growth context.</p></div>
-        <div class="priority-card skip"><div class="insight-badge danger">Skip</div><h4>Image Generation &amp; One-Off Queries</h4><p>373 playlist covers, logo iterations, quick calculations, one-sentence lookups. Zero long-term value. This is the fat.</p></div>
-      </div>
-    </div>
-
-    <!-- GPT: THE BLINDSPOT -->
-    <div class="view" id="gpt-blindspot">
-      <div class="feature-box"><h3 class="purple">The Blindspot</h3><p>Your most persistent creative project. A YouTube channel concept focused on history, politics, and the narratives people miss. 329 conversations across ChatGPT dedicated to developing this.</p></div>
-      <div class="cat-grid">
-        <div class="cat-card" style="--cat-color: var(--accent-purple);"><h4>Content Pipeline</h4><p>Script development for WWII Eastern Front episodes, Soviet revenge narratives, political commentary. Documentary-grade research base with primary source translations.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-pink);"><h4>Brand Architecture</h4><p>TheBlindspot.tv website, logo iterations, intro visuals, Twitch integration, monetization strategy. Every angle covered in preparation.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-amber);"><h4>The "Revenge" Thread</h4><p>32 conversations dedicated to revenge as a historical, psychological, and narrative concept. Soviet revenge in Berlin 1945. Revenge in film. The science of revenge. This is your signature lens.</p></div>
-      </div>
-    </div>
-
-  </div><!-- /section-chatgpt -->
-
-
-  <!-- ╔═══════════════════════════════════════╗
-       ║  SECTION 2: CLAUDE                     ║
-       ╚═══════════════════════════════════════╝ -->
-  <div class="section-panel" id="section-claude">
-
-    <div class="header">
-      <div>
-        <div class="header-title cyan">Claude Intelligence Report</div>
-        <div class="header-sub">104 conversations &middot; Nov 2024 &ndash; Mar 2026 &middot; 27K words &middot; 3 projects &middot; 67 memories</div>
-      </div>
-    </div>
-
-    <div class="kpi-row">
-      <div class="kpi-card cyan">
-        <div class="kpi-label">Total Convos</div>
-        <div class="kpi-value">104</div>
-        <div class="kpi-delta">6 active months</div>
-      </div>
-      <div class="kpi-card blue">
-        <div class="kpi-label">Total Messages</div>
-        <div class="kpi-value">814</div>
-        <div class="kpi-delta">7.8 avg/convo</div>
-      </div>
-      <div class="kpi-card green">
-        <div class="kpi-label">Words Written</div>
-        <div class="kpi-value">27K</div>
-        <div class="kpi-delta">~4.5K/month</div>
-      </div>
-      <div class="kpi-card amber">
-        <div class="kpi-label">Code Sessions</div>
-        <div class="kpi-value">49</div>
-        <div class="kpi-delta">47% of convos</div>
-      </div>
-      <div class="kpi-card pink">
-        <div class="kpi-label">File Uploads</div>
-        <div class="kpi-value">43</div>
-        <div class="kpi-delta">41% of convos</div>
-      </div>
-    </div>
-
-    <div class="nav-tabs" id="claude-tabs">
-      <button class="nav-tab active" onclick="showView('claude','overview',this)">Overview</button>
-      <button class="nav-tab" onclick="showView('claude','patterns',this)">Patterns</button>
-      <button class="nav-tab" onclick="showView('claude','strengths',this)">Strengths</button>
-      <button class="nav-tab" onclick="showView('claude','warnings',this)">Warnings</button>
-      <button class="nav-tab" onclick="showView('claude','identity',this)">Identity Map</button>
-    </div>
-
-    <!-- CLAUDE: OVERVIEW -->
-    <div class="view active" id="claude-overview">
-      <div class="chart-section">
-        <div class="chart-header"><div><div class="chart-title">Monthly Activity</div><div class="chart-subtitle">Usage ramp: scattered early adoption, then heavy daily use from Nov 2025 onward. Peak: Feb 2026 (30 convos).</div></div></div>
-        <div class="timeline-chart">
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:10%"><div class="tip">Nov 24: 3</div></div><div class="t-label">Nov 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:3.3%"><div class="tip">May 25: 1</div></div><div class="t-label">May 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:13.3%"><div class="tip">Jun 25: 4</div></div><div class="t-label">Jun 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:43.3%"><div class="tip">Nov 25: 13</div></div><div class="t-label">Nov 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:70%"><div class="tip">Dec 25: 21</div></div><div class="t-label">Dec 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:50%"><div class="tip">Jan 26: 15</div></div><div class="t-label">Jan 26</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:100%"><div class="tip">Feb 26: 30</div></div><div class="t-label">Feb 26</div></div>
-          <div class="t-bar-wrap"><div class="t-bar claude" style="height:56.7%"><div class="tip">Mar 26: 17</div></div><div class="t-label">Mar 26</div></div>
-        </div>
-      </div>
-
-      <div class="section-header"><h3>Topic Distribution</h3></div>
-      <div class="cat-grid">
-        <div class="cat-card" style="--cat-color: var(--accent-cyan);"><div class="cat-count">32</div><h4>The Blindspot</h4><p>Episode strategy, topic selection, first video planning, bio rewrites, YouTube growth research, system prompt engineering, website builds via Claude Code.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-purple);"><div class="cat-count">19</div><h4>Utility / Other</h4><p>Quick queries, file operations, unnamed explorations, Francis the cat's kidney health, astrology research.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-green);"><div class="cat-count">9</div><h4>Digital Ecosystem</h4><p>Spring Digital Revamp V6&ndash;V10, iPhone app organization, ChaosConsole dashboards, theme exploration, Gemini data export.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-blue);"><div class="cat-count">8</div><h4>Tech / Setup</h4><p>Sony Alpha 7IV lenses, monitor upgrades, Apple Health data extraction, website automation, Claude Code sessions.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-amber);"><div class="cat-count">7</div><h4>Research / Geopolitics</h4><p>Right-wing hypocrisy analysis, Stalin in Albania, French Revolution, attention economies, enshittification debate.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-pink);"><div class="cat-count">7</div><h4>Film &amp; Reviews</h4><p>Roma Citt&agrave; Aperta, Paul Thomas Anderson reviews, movie recommendations, Letterboxd voice development.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-orange);"><div class="cat-count">6</div><h4>Music / Playlists</h4><p>Spotify follower growth strategy, Reddit promotion, playlist tracker dashboard, Monday's Mixtape branding.</p></div>
-        <div class="cat-card" style="--cat-color: var(--accent-red);"><div class="cat-count">5</div><h4>Emotional Processing</h4><p>ACT therapy session, self-medication &amp; ADHD exploration, apology letter to friend, ACC cancer research, ADHD reminder design.</p></div>
-      </div>
-    </div>
-
-    <!-- CLAUDE: PATTERNS -->
-    <div class="view" id="claude-patterns">
-      <div class="section-header"><h3>How You Use Claude vs. ChatGPT</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Builder Mode, Not Browser Mode</h4><p>47% of Claude conversations produce code. Only 34% on ChatGPT. You use Claude as a construction tool &mdash; dashboards, trackers, HTML artifacts, website deployments. ChatGPT was your thinking partner. Claude is your build partner.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Deeper Trust, Fewer Words</h4><p>27K words across 104 convos vs. 356K across 1,101 on ChatGPT. But your Claude conversations carry more weight per message. You front-load context, give precise instructions, and expect execution. Less exploration, more delegation.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Zero Slop</h4><p>Not a single image-generation session. No playlist cover iterations. No logo tweaking. Every Claude conversation has substantive intent. You came to Claude already knowing what AI is for &mdash; and what it isn't.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Migration Underway</h4><p>ChatGPT usage dropped from 83 convos/month (Oct 2025) to 17 (Mar 2026). Claude went from 0 to 30/month in the same window. You're not using both equally &mdash; you're transferring. The crossover happened in Feb 2026.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>Emotional Conversations Go Deeper Here</h4><p>The ACT therapy session (20 messages exploring your father's letter and coming out). The apology to Charles (24 messages crafting voice-authentic emotional writing). The self-medication conversation (24 messages on ADHD/OCD/depression). Claude got the conversations that require trust and nuance.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Pattern</div><h4>System Architect Emerging</h4><p>ChaosConsole, Spring Digital Revamp, Spotify Tracker, Finance Dashboard, Thinking Engine. You're not just asking questions anymore &mdash; you're building an interconnected personal operating system. Claude became the infrastructure layer.</p></div>
-      </div>
-    </div>
-
-    <!-- CLAUDE: STRENGTHS -->
-    <div class="view" id="claude-strengths">
-      <div class="section-header"><h3>What Claude Reveals About You</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Prompt Engineering at Pro Level</h4><p>The Blindspot project prompt is 2,800+ words of structured instructions with deliverable menus, workflow tags, success metrics, and quick commands. The Letterboxd project prompt reverse-engineers a voice profile with anti-AI-detection constraints. You don't use AI &mdash; you program it.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Emotional Self-Awareness Under Pressure</h4><p>"I don't know exactly why what I need from him." "What comes up is a lack of response." "I'm kicking the can down the road, to be honest." The ACT therapy session shows someone who can articulate internal states with precision even while actively struggling. That's rare and valuable.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Voice Authenticity Radar</h4><p>"The em-dashes and the typical structure feels very much like AI has either written it." "It lacks my voice. It lacks that tone that makes me, Geri." You can detect and reject AI-sounding output at a granular level. This is the instinct that makes your writing better than most AI-assisted content.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Systems Thinking Applied to Life</h4><p>Reminder system redesigned for ADHD. Finance dashboard consolidated. Digital ecosystem versioned like software (V6, V7, V10). iPhone apps reorganized for cognitive load. You treat your own life as a system to be optimized, and you apply engineering discipline to it.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Cinematic Emotional Intelligence</h4><p>The Charles apology letter crystallized because of Joachim Trier's "Sentimental Value" and a Labbi Siffre track. You process emotion through film and music, then channel it into action. That's not procrastination &mdash; that's how your creative engine actually works.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Strength</div><h4>Research-to-Action Pipeline</h4><p>ACC cancer follow-up protocol built from a single conversation. Power of Attorney for Albanian property drafted and processed. Divorce filing steps mapped. When the stakes are real, you don't get stuck. The execution gap is creative-project-specific, not a universal trait.</p></div>
-      </div>
-    </div>
-
-    <!-- CLAUDE: WARNINGS -->
-    <div class="view" id="claude-warnings">
-      <div class="section-header"><h3>What Claude Confirms</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card danger"><div class="insight-badge danger">Confirmed</div><h4>The Launch Paralysis is Real</h4><p>"I just need to get going instead of waiting so long to publish something." Then: "1-2 weeks?? I'm talking more of a turnaround time of starting now and finishing recording by tomorrow." Then: "Nothing." (when asked what was accomplished). This conversation from Nov 2025 shows the full cycle: urgency &rarr; ambition &rarr; paralysis. The exact same pattern from ChatGPT, replicated on Claude.</p></div>
-        <div class="insight-card danger"><div class="insight-badge danger">Confirmed</div><h4>ADHD is the Throughline</h4><p>ADHD-friendly reminder systems. Self-medication with Vyvanse. Executive function collapse in 2023 leading to job loss. "I think of something, start it, and while multitasking I'll forget even why I started." "The mere notification lingering in my lock screen has made me give little importance." This isn't a productivity problem. It's a neurological one, and it's unmanaged.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Deepened</div><h4>The Father Letter is Unresolved</h4><p>A full ACT therapy session exploring your father's letter about your coming out, his failure to be present during cancer, and his selective apology. You landed on: "I shouldn't respond. I'm not ready." That was January 2026. The summer meeting in Albania is approaching. This will surface again whether you initiate it or not.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Deepened</div><h4>Financial Precarity Compounds Everything</h4><p>Unemployed. New credit card charges offsetting payments. Interest eroding debt payoff. Divorce filing pending. The finance dashboard you built quantifies it: inflows are outpaced by outflows. Financial stress is the ambient pressure making everything else harder to execute.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">New</div><h4>Tool Proliferation as Avoidance</h4><p>ChaosConsole. Thinking Engine. Spotify Tracker. Finance Dashboard. Digital Ecosystem V10. Reminder system redesign. iPhone app reorganization. Each tool is well-built. But building the tooling to make the thing is not making the thing. The Blindspot doesn't need another dashboard. It needs a publish date.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">New</div><h4>Platform Hopping Without Consolidation</h4><p>ChatGPT &rarr; Claude &rarr; Gemini data export inquiry. Three AI platforms, same conversations, same unresolved patterns. The tool is never the bottleneck. You already know this. You said it yourself: "I have bits of passions and desires which I have not been able to put together in a cogent way."</p></div>
-      </div>
-    </div>
-
-    <!-- CLAUDE: IDENTITY MAP -->
-    <div class="view" id="claude-identity">
-      <div class="feature-box"><h3 class="cyan">Identity Map</h3><p>What Claude's memory system has synthesized about you across 104 conversations, 3 projects, and 67 stored memories.</p></div>
-      <div class="insight-grid">
-        <div class="insight-card strength"><div class="insight-badge strength">Core Identity</div><h4>Albanian-American Outsider Analyst</h4><p>Moved to the US ~12 years ago. Albanian, Italian, German, English. Cancer survivor. The outsider perspective isn't a liability &mdash; it's the editorial angle. You see American systems from outside them, which is exactly what "The Blindspot" is built to do.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Creative DNA</div><h4>Carlin + Hitchens + Stewart + Mencken</h4><p>These are your cited creative touchstones. Dry, incisive, occasionally savage. No fluff. Receipts first, opinions earned. That's not an aspiration &mdash; that's already how you prompt, how you write, how you reject AI slop.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Tension</div><h4>Perfectionism vs. Paralysis</h4><p>"Momentum Over Polish" was identified as a framework. You named it yourself. And then continued polishing. The tension isn't between quality and speed. It's between knowing the right answer and being unable to act on it. That gap is where the ADHD, the financial stress, and the creative ambition collide.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Creative DNA</div><h4>Film as Emotional Operating System</h4><p>Thematic monthly film watching. Letterboxd as creative outlet. Trier films as emotional catalysts. "Hearing Labbi Siffre at the end of a film about emotional unavailability felt like some kind of sign." Film isn't a hobby. It's how you process the world.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Core Identity</div><h4>The Curator</h4><p>8+ years of Monday's Mixtape. 15 tracked playlists. Letterboxd reviews with a cultivated voice. Readwise Reader tagging system. You don't just consume &mdash; you organize, annotate, and present. Curation is a core skill that maps directly to documentary production.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Tension</div><h4>Private Ambition, Public Hesitation</h4><p>You build elaborate systems privately (dashboards, scripts, prompts) but hesitate at the publish button. Voice confidence gap. Accent self-consciousness. The written work is polished and ready. The gap is between private excellence and public exposure.</p></div>
-      </div>
-    </div>
-
-  </div><!-- /section-claude -->
-
-
-  <!-- ╔═══════════════════════════════════════╗
-       ║  SECTION 3: MERGED INTELLIGENCE        ║
-       ╚═══════════════════════════════════════╝ -->
-  <div class="section-panel" id="section-merged">
-
-    <div class="header">
-      <div>
-        <div class="header-title gold">Merged Intelligence</div>
-        <div class="header-sub">1,578 conversations &middot; Jul 2024 &ndash; Mar 2026 &middot; 383K words &middot; Two AI platforms, one person</div>
-      </div>
-    </div>
-
-    <div class="kpi-row">
-      <div class="kpi-card gold">
-        <div class="kpi-label">Total Convos</div>
-        <div class="kpi-value">1,578</div>
-        <div class="kpi-delta">ChatGPT + Claude</div>
-      </div>
-      <div class="kpi-card purple">
-        <div class="kpi-label">ChatGPT</div>
-        <div class="kpi-value">1,474</div>
-        <div class="kpi-delta">93% of volume</div>
-      </div>
-      <div class="kpi-card cyan">
-        <div class="kpi-label">Claude</div>
-        <div class="kpi-value">104</div>
-        <div class="kpi-delta">7% &mdash; rising fast</div>
-      </div>
-      <div class="kpi-card green">
-        <div class="kpi-label">Total Words</div>
-        <div class="kpi-value">383K</div>
-        <div class="kpi-delta">~2 novels' worth</div>
-      </div>
-      <div class="kpi-card amber">
-        <div class="kpi-label">Blindspot Convos</div>
-        <div class="kpi-value">361</div>
-        <div class="kpi-delta">23% of everything</div>
-      </div>
-    </div>
-
-    <div class="nav-tabs" id="merged-tabs">
-      <button class="nav-tab active" onclick="showView('merged','timeline',this)">Timeline</button>
-      <button class="nav-tab" onclick="showView('merged','sidebyside',this)">Side by Side</button>
-      <button class="nav-tab" onclick="showView('merged','diagnosis',this)">The Diagnosis</button>
-      <button class="nav-tab" onclick="showView('merged','prescription',this)">The Prescription</button>
-    </div>
-
-    <!-- MERGED: TIMELINE -->
-    <div class="view active" id="merged-timeline">
-      <div class="chart-section">
-        <div class="chart-header"><div><div class="chart-title">Combined Timeline</div><div class="chart-subtitle">Purple = ChatGPT. Cyan = Claude. The migration is visible from Nov 2025.</div></div></div>
-        <div class="timeline-chart">
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:6.2%"><div class="tip">Jul 24: GPT 7</div></div><div class="t-label">Jul 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:11.5%"><div class="tip">Aug 24: GPT 13</div></div><div class="t-label">Aug 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:39.8%"><div class="tip">Sep 24: GPT 45</div></div><div class="t-label">Sep 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:47.8%"><div class="tip">Oct 24: GPT 54</div></div><div class="t-label">Oct 24</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:61.1%"><div class="t-bar merged-gpt" style="height:95.7%"><div class="tip">Nov 24: GPT 66 + Claude 3</div></div><div class="t-bar merged-claude" style="height:4.3%"></div></div><div class="t-label">Nov 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:35.4%"><div class="tip">Dec 24: GPT 40</div></div><div class="t-label">Dec 24</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:38.1%"><div class="tip">Jan 25: GPT 43</div></div><div class="t-label">Jan 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:43.4%"><div class="tip">Feb 25: GPT 49</div></div><div class="t-label">Feb 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:52.2%"><div class="tip">Mar 25: GPT 59</div></div><div class="t-label">Mar 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:58.4%"><div class="tip">Apr 25: GPT 66</div></div><div class="t-label">Apr 25</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:38.9%"><div class="t-bar merged-gpt" style="height:97.7%"><div class="tip">May 25: GPT 43 + Claude 1</div></div><div class="t-bar merged-claude" style="height:2.3%"></div></div><div class="t-label">May 25</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:97.3%"><div class="t-bar merged-gpt" style="height:96.4%"><div class="tip">Jun 25: GPT 106 + Claude 4</div></div><div class="t-bar merged-claude" style="height:3.6%"></div></div><div class="t-label">Jun 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:47.8%"><div class="tip">Jul 25: GPT 54</div></div><div class="t-label">Jul 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:51.3%"><div class="tip">Aug 25: GPT 58</div></div><div class="t-label">Aug 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:79.6%"><div class="tip">Sep 25: GPT 90</div></div><div class="t-label">Sep 25</div></div>
-          <div class="t-bar-wrap"><div class="t-bar gpt" style="height:73.5%"><div class="tip">Oct 25: GPT 83</div></div><div class="t-label">Oct 25</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:77%"><div class="t-bar merged-gpt" style="height:85.1%"><div class="tip">Nov 25: GPT 74 + Claude 13</div></div><div class="t-bar merged-claude" style="height:14.9%"></div></div><div class="t-label">Nov 25</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:63.7%"><div class="t-bar merged-gpt" style="height:70.8%"><div class="tip">Dec 25: GPT 51 + Claude 21</div></div><div class="t-bar merged-claude" style="height:29.2%"></div></div><div class="t-label">Dec 25</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:58.4%"><div class="t-bar merged-gpt" style="height:77.3%"><div class="tip">Jan 26: GPT 51 + Claude 15</div></div><div class="t-bar merged-claude" style="height:22.7%"></div></div><div class="t-label">Jan 26</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:54.9%"><div class="t-bar merged-gpt" style="height:51.6%"><div class="tip">Feb 26: GPT 32 + Claude 30</div></div><div class="t-bar merged-claude" style="height:48.4%"></div></div><div class="t-label">Feb 26</div></div>
-          <div class="t-bar-wrap"><div class="t-stack" style="height:30.1%"><div class="t-bar merged-gpt" style="height:50%"><div class="tip">Mar 26: GPT 17 + Claude 17</div></div><div class="t-bar merged-claude" style="height:50%"></div></div><div class="t-label">Mar 26</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MERGED: SIDE BY SIDE -->
-    <div class="view" id="merged-sidebyside">
-      <div class="chart-section">
-        <div class="chart-header"><div><div class="chart-title">Platform Comparison</div><div class="chart-subtitle">How the same person uses two different AI tools.</div></div></div>
-        <table class="comp-table">
-          <thead><tr><th>Metric</th><th>ChatGPT</th><th>Claude</th></tr></thead>
-          <tbody>
-            <tr><td>Total conversations</td><td class="val-purple">1,474</td><td class="val-cyan">104</td></tr>
-            <tr><td>Months active</td><td class="val-purple">21</td><td class="val-cyan">6</td></tr>
-            <tr><td>Words written (user)</td><td class="val-purple">~356,000</td><td class="val-cyan">~27,000</td></tr>
-            <tr><td>Avg words/month</td><td class="val-purple">~17,000</td><td class="val-cyan">~4,500</td></tr>
-            <tr><td>Avg messages/convo</td><td class="val-purple">17.1</td><td class="val-cyan">7.8</td></tr>
-            <tr><td>Deep convos (10+ msgs)</td><td class="val-purple">46.5%</td><td class="val-cyan">26.0%</td></tr>
-            <tr><td>Code involvement</td><td class="val-purple">33.6%</td><td class="val-cyan">47.1%</td></tr>
-            <tr><td>Image generation</td><td class="val-purple">25.3%</td><td class="val-cyan">0%</td></tr>
-            <tr><td>Blindspot conversations</td><td class="val-purple">329</td><td class="val-cyan">32</td></tr>
-            <tr><td>Emotional processing</td><td class="val-purple">157</td><td class="val-cyan">5 (but deeper)</td></tr>
-            <tr><td>Primary use</td><td class="val-purple">Thinking partner</td><td class="val-cyan">Build partner</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-header"><h3>The Migration Story</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card info"><div class="insight-badge info">Observation</div><h4>February 2026: The Crossover</h4><p>ChatGPT: 32 conversations. Claude: 30. For the first time, usage is nearly equal. By March, they're tied at 17 each. The transition isn't a switch &mdash; it's a gradient, and you're past the midpoint.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Observation</div><h4>Different Tools, Different Trust</h4><p>ChatGPT got the volume: brainstorms, quick queries, image generation, casual exploration. Claude got the weight: ACT therapy about your father, the cancer protocol, the friend apology letter, the financial dashboard. You give Claude the things that matter.</p></div>
-        <div class="insight-card info"><div class="insight-badge info">Observation</div><h4>From Consumer to Builder</h4><p>ChatGPT usage was 75% consumption (asking questions, getting answers). Claude usage is 47% construction (building dashboards, deploying websites, creating systems). You evolved from AI user to AI operator. Claude was the catalyst for that shift.</p></div>
-      </div>
-    </div>
-
-    <!-- MERGED: THE DIAGNOSIS -->
-    <div class="view" id="merged-diagnosis">
-      <div class="feature-box"><h3 class="gold">The Diagnosis</h3><p>1,578 conversations across two platforms, 21 months, 383,000 words. Here is what the data says about what keeps you from achieving more.</p></div>
-
-      <div class="insight-grid">
-        <div class="insight-card danger"><div class="insight-badge danger">Root Cause #1</div><h4>Unmanaged ADHD is the Invisible Tax</h4><p>Executive function collapse caused job loss in 2023. Self-medication with Vyvanse (40mg, from a GP, not a specialist). Reminder systems redesigned multiple times. "I think of something, start it, and while multitasking I'll forget even why I started." You've diagnosed this yourself across both platforms. You've built coping tools. You haven't secured sustained professional treatment. Every other problem in this list is amplified by this one.</p></div>
-        <div class="insight-card danger"><div class="insight-badge danger">Root Cause #2</div><h4>Perfectionism Weaponized Against Yourself</h4><p>"Momentum Over Polish" &mdash; you named the framework. Then built more frameworks instead of shipping. 200+ script sessions, 32 revenge narrative conversations, 16 branding conversations, 373 cover image iterations, website versions V6 through V10. The pattern isn't laziness. It's a nervous system that equates publishing with exposure, and exposure with vulnerability. The same vulnerability your father's letter forces you to confront.</p></div>
-        <div class="insight-card danger"><div class="insight-badge danger">Root Cause #3</div><h4>Financial Stress Creates a Survival Loop</h4><p>Unemployed. Credit card interest eroding payments. Divorce pending. No stable health insurance for ADHD treatment. This creates a paradox: you need The Blindspot to generate income, but financial anxiety makes creative risk-taking harder, which delays The Blindspot, which extends the financial pressure. The loop is self-reinforcing.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Amplifier</div><h4>Private Excellence, Public Silence</h4><p>Your private work is exceptional. The system prompts are professional-grade. The scripts are sharp. The dashboards are polished. The Letterboxd voice is distinctive. The research is primary-source-driven. None of it is public. The gap between what you've built in private and what the world has seen is enormous. Accent self-consciousness, ESL anxiety, and the coming-out history all feed a pattern where being seen feels unsafe.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Amplifier</div><h4>Tool-Building as Sophisticated Procrastination</h4><p>ChaosConsole, Thinking Engine, Spotify Tracker, Finance Dashboard, Digital Ecosystem V10, ADHD reminder redesign, iPhone app reorganization, Gemini data analysis, this very intelligence report. Each system is genuinely useful. Each system also delays the one output that matters: a published video. You build the cockpit instruments instead of taking off.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Amplifier</div><h4>Emotional Backlog Consuming Bandwidth</h4><p>Father's unresolved letter. Friend Charles's months of silence. Cancer survivorship without follow-up protocol. Divorce logistics. Immigration-related identity tensions. Each unresolved emotional thread occupies cognitive RAM. For someone with ADHD, cognitive RAM is already scarce. The emotional backlog isn't separate from the productivity problem. It IS the productivity problem.</p></div>
-      </div>
-    </div>
-
-    <!-- MERGED: THE PRESCRIPTION -->
-    <div class="view" id="merged-prescription">
-      <div class="section-header"><h3>The Prescription</h3></div>
-      <div class="insight-grid">
-        <div class="insight-card strength"><div class="insight-badge strength">Priority 1</div><h4>Get ADHD Properly Managed</h4><p>Not self-medicated. Not a GP prescription. A psychiatrist who specializes in adult ADHD, with proper titration, therapy support, and executive function coaching. Check Covered CA / Blue Shield enrollment status. This unlocks everything else. Without it, every other prescription here is fighting against your own neurochemistry.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Priority 2</div><h4>Publish One Imperfect Video</h4><p>Not the 45-minute revenge documentary. A 6-8 minute commentary on a topic you can research in one day. Use the Jon Stewart monologue format you've already drafted. Record it in one take with your Sony Alpha 7IV. Edit it in one session. Upload it. The first video's job is not to be good. Its job is to exist.</p></div>
-        <div class="insight-card strength"><div class="insight-badge strength">Priority 3</div><h4>Write the Short Letter to Your Father</h4><p>You already decided in the ACT session: acknowledge receipt, say you'll talk in the summer. Send the bridge note. It doesn't need to be the long letter. It needs to not be silence. Silence is the thing that hurt you when he did it. Don't replicate the pattern.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Priority 4</div><h4>Freeze the Tool-Building</h4><p>ChaosConsole is done. The dashboards work. The Spotify tracker exists. No new systems until the first video is published. Every hour spent building a new tool is an hour not spent on the only deliverable that changes your trajectory.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Priority 4</div><h4>Consolidate to One AI Platform</h4><p>You're already migrating to Claude. Complete it. Stop splitting context across ChatGPT, Claude, and Gemini. One platform, one memory, one coherent thread. The intelligence you need is already here. What's missing isn't more data &mdash; it's concentrated action.</p></div>
-        <div class="insight-card warning"><div class="insight-badge warning">Priority 5</div><h4>Resolve the Financial Floor</h4><p>Even a part-time or contract role buys time and reduces the ambient anxiety that chokes creative output. Your PM skills, cloud architecture knowledge, and systematic thinking are immediately employable. The Blindspot doesn't have to be the income source. It has to be the creative outlet while something else covers rent.</p></div>
-      </div>
-
-      <div class="section-header"><h3>If You Remember Nothing Else</h3></div>
-      <div class="takeaway">
-        <p><strong class="g">1.</strong> You have written <strong>383,000 words</strong> across two AI platforms in 21 months. You have built dashboards, scripts, system prompts, research archives, and an entire personal operating system. <strong>The capability is not in question.</strong> You are not lacking in talent, discipline, or ideas.</p>
-        <p><strong class="a">2.</strong> What keeps you from achieving more is a <strong>three-way collision</strong>: unmanaged ADHD consuming executive function, financial precarity creating survival-mode thinking, and a deep-rooted fear of public exposure rooted in a lifetime of being told your authentic self was something to hide. These three forces create a loop where preparation feels productive but publication feels dangerous.</p>
-        <p><strong class="r">3.</strong> The next action is not another analysis, not another dashboard, not another conversation with an AI. It is <strong>one phone call to a psychiatrist</strong>, <strong>one imperfect video uploaded</strong>, and <strong>one short letter sent</strong>. Three actions. Everything else is noise.</p>
-      </div>
-    </div>
-
-  </div><!-- /section-merged -->
-
-
-  <!-- FOOTER -->
-  <footer class="colophon">
-    <span>Gary's Command Center &copy; 2026</span>
-    <span>Analysis by Claude &middot; March 2026</span>
-  </footer>
-
+<main class="app">
+<nav class="section-selector" aria-label="Report sections">
+<button class="section-btn active" data-section="chatgpt" aria-controls="section-chatgpt" aria-pressed="true" onclick="showSection('chatgpt')">ChatGPT<span class="btn-sub">Through Oct 7, 2026</span>
+</button>
+<button class="section-btn" data-section="claude" aria-controls="section-claude" aria-pressed="false" onclick="showSection('claude')">Claude<span class="btn-sub">Through Oct 10, 2026</span>
+</button>
+<button class="section-btn" data-section="merged" aria-controls="section-merged" aria-pressed="false" onclick="showSection('merged')">What changed<span class="btn-sub">March → October</span>
+</button>
+</nav>
+<section class="section-panel active" id="section-chatgpt" aria-label="ChatGPT report">
+<header class="header">
+<div>
+<h1 class="header-title purple">ChatGPT Intelligence Report</h1>
+<div class="header-sub">JUL 2024 – OCT 7, 2026 · 1,919 EXPORTED CONVERSATIONS · REVIEWED OCT 9</div>
 </div>
-
+</header>
+<div class="coverage-note">
+<strong>Since the last source cutoff: March 7–October 7, 2026.</strong> The old analysis ended on March 6, even though the page was labeled March 31. This refresh includes every topic and media type, including visual design.</div>
+<div class="kpi-row">
+<div class="kpi-card purple">
+<div class="kpi-label">Archive conversations</div>
+<div class="kpi-value">1,919</div>
+<div class="kpi-delta">All exported conversations</div>
+</div>
+<div class="kpi-card blue">
+<div class="kpi-label">New conversations</div>
+<div class="kpi-value">451</div>
+<div class="kpi-delta">Started Mar 7–Oct 7</div>
+</div>
+<div class="kpi-card green">
+<div class="kpi-label">User messages</div>
+<div class="kpi-value">2,028</div>
+<div class="kpi-delta">Mar 7–Oct 7 · deduplicated</div>
+</div>
+<div class="kpi-card pink">
+<div class="kpi-label">Visual design</div>
+<div class="kpi-value">36.8%</div>
+<div class="kpi-delta">166 of 451 new conversations</div>
+</div>
+</div>
+<nav class="nav-tabs" aria-label="gpt report views" id="gpt-tabs">
+<button class="nav-tab active" data-view="gpt-overview" aria-controls="gpt-overview" aria-pressed="true" onclick="showView('gpt-overview')">Overview</button>
+<button class="nav-tab" data-view="gpt-skills" aria-controls="gpt-skills" aria-pressed="false" onclick="showView('gpt-skills')">Work mix</button>
+<button class="nav-tab" data-view="gpt-strengths" aria-controls="gpt-strengths" aria-pressed="false" onclick="showView('gpt-strengths')">Working patterns</button>
+<button class="nav-tab" data-view="gpt-warnings" aria-controls="gpt-warnings" aria-pressed="false" onclick="showView('gpt-warnings')">Friction</button>
+<button class="nav-tab" data-view="gpt-blindspot" aria-controls="gpt-blindspot" aria-pressed="false" onclick="showView('gpt-blindspot')">The Blindspot</button>
+<button class="nav-tab" data-view="gpt-export" aria-controls="gpt-export" aria-pressed="false" onclick="showView('gpt-export')">Sources & method</button>
+</nav>
+<div class="view active" id="gpt-overview">
+<div class="chart-section">
+<div class="chart-header">
+<div>
+<h2 class="chart-title">Conversations started by month</h2>
+<p class="chart-subtitle">451 new conversations after March 6. July is the busiest complete month in this period.</p>
+</div>
+</div>
+<div class="chart-controls" aria-label="Activity period">
+<button aria-pressed="true" data-chart="recent" onclick="showChart('recent')">Since March 6</button>
+<button aria-pressed="false" data-chart="history" onclick="showChart('history')">Full archive</button>
+</div>
+<div class="chart-scroll" id="chart-recent">
+<div class="timeline-chart">
+<div class="t-bar-wrap">
+<div class="t-value">77</div>
+<div class="t-bar gpt" style="height:147.35px" aria-hidden="true">
+</div>
+<div class="t-label">Mar<small>7–31</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">56</div>
+<div class="t-bar gpt" style="height:107.16px" aria-hidden="true">
+</div>
+<div class="t-label">Apr<small>&nbsp;</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">48</div>
+<div class="t-bar gpt" style="height:91.85px" aria-hidden="true">
+</div>
+<div class="t-label">May<small>&nbsp;</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">56</div>
+<div class="t-bar gpt" style="height:107.16px" aria-hidden="true">
+</div>
+<div class="t-label">Jun<small>&nbsp;</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">81</div>
+<div class="t-bar gpt" style="height:155.0px" aria-hidden="true">
+</div>
+<div class="t-label">Jul<small>&nbsp;</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">60</div>
+<div class="t-bar gpt" style="height:114.81px" aria-hidden="true">
+</div>
+<div class="t-label">Aug<small>&nbsp;</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">52</div>
+<div class="t-bar gpt" style="height:99.51px" aria-hidden="true">
+</div>
+<div class="t-label">Sep<small>&nbsp;</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">21</div>
+<div class="t-bar gpt" style="height:40.19px" aria-hidden="true">
+</div>
+<div class="t-label">Oct<small>1–7</small>
+</div>
+</div>
+</div>
+</div>
+<div class="chart-scroll history" id="chart-history" hidden>
+<div class="timeline-chart">
+<div class="t-bar-wrap">
+<div class="t-value">7</div>
+<div class="t-bar gpt" style="height:7.09px" aria-hidden="true">
+</div>
+<div class="t-label">Jul<small>2024</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">19</div>
+<div class="t-bar gpt" style="height:19.25px" aria-hidden="true">
+</div>
+<div class="t-label">Aug<small>2024</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">54</div>
+<div class="t-bar gpt" style="height:54.71px" aria-hidden="true">
+</div>
+<div class="t-label">Sep<small>2024</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">62</div>
+<div class="t-bar gpt" style="height:62.81px" aria-hidden="true">
+</div>
+<div class="t-label">Oct<small>2024</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">86</div>
+<div class="t-bar gpt" style="height:87.12px" aria-hidden="true">
+</div>
+<div class="t-label">Nov<small>2024</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">53</div>
+<div class="t-bar gpt" style="height:53.69px" aria-hidden="true">
+</div>
+<div class="t-label">Dec<small>2024</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">59</div>
+<div class="t-bar gpt" style="height:59.77px" aria-hidden="true">
+</div>
+<div class="t-label">Jan<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">58</div>
+<div class="t-bar gpt" style="height:58.76px" aria-hidden="true">
+</div>
+<div class="t-label">Feb<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">68</div>
+<div class="t-bar gpt" style="height:68.89px" aria-hidden="true">
+</div>
+<div class="t-label">Mar<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">88</div>
+<div class="t-bar gpt" style="height:89.15px" aria-hidden="true">
+</div>
+<div class="t-label">Apr<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">60</div>
+<div class="t-bar gpt" style="height:60.78px" aria-hidden="true">
+</div>
+<div class="t-label">May<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">153</div>
+<div class="t-bar gpt" style="height:155.0px" aria-hidden="true">
+</div>
+<div class="t-label">Jun<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">89</div>
+<div class="t-bar gpt" style="height:90.16px" aria-hidden="true">
+</div>
+<div class="t-label">Jul<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">85</div>
+<div class="t-bar gpt" style="height:86.11px" aria-hidden="true">
+</div>
+<div class="t-label">Aug<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">115</div>
+<div class="t-bar gpt" style="height:116.5px" aria-hidden="true">
+</div>
+<div class="t-label">Sep<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">101</div>
+<div class="t-bar gpt" style="height:102.32px" aria-hidden="true">
+</div>
+<div class="t-label">Oct<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">91</div>
+<div class="t-bar gpt" style="height:92.19px" aria-hidden="true">
+</div>
+<div class="t-label">Nov<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">68</div>
+<div class="t-bar gpt" style="height:68.89px" aria-hidden="true">
+</div>
+<div class="t-label">Dec<small>2025</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">73</div>
+<div class="t-bar gpt" style="height:73.95px" aria-hidden="true">
+</div>
+<div class="t-label">Jan<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">53</div>
+<div class="t-bar gpt" style="height:53.69px" aria-hidden="true">
+</div>
+<div class="t-label">Feb<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">103</div>
+<div class="t-bar gpt" style="height:104.35px" aria-hidden="true">
+</div>
+<div class="t-label">Mar<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">56</div>
+<div class="t-bar gpt" style="height:56.73px" aria-hidden="true">
+</div>
+<div class="t-label">Apr<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">48</div>
+<div class="t-bar gpt" style="height:48.63px" aria-hidden="true">
+</div>
+<div class="t-label">May<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">56</div>
+<div class="t-bar gpt" style="height:56.73px" aria-hidden="true">
+</div>
+<div class="t-label">Jun<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">81</div>
+<div class="t-bar gpt" style="height:82.06px" aria-hidden="true">
+</div>
+<div class="t-label">Jul<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">60</div>
+<div class="t-bar gpt" style="height:60.78px" aria-hidden="true">
+</div>
+<div class="t-label">Aug<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">52</div>
+<div class="t-bar gpt" style="height:52.68px" aria-hidden="true">
+</div>
+<div class="t-label">Sep<small>2026</small>
+</div>
+</div>
+<div class="t-bar-wrap">
+<div class="t-value">21</div>
+<div class="t-bar gpt" style="height:21.27px" aria-hidden="true">
+</div>
+<div class="t-label">Oct<small>2026</small>
+</div>
+</div>
+</div>
+</div>
+<p class="chart-footnote" id="chart-period-note">March shows March 7–31; October shows October 1–7. Partial months are not directly comparable with full months.</p>
+<details>
+<summary>View the full monthly data</summary>
+<div class="table-scroll">
+<table class="comp-table">
+<caption>Current export, all topics. Full March: 103 conversations; 77 started after March 6. Messages are assigned to the month they were sent.</caption>
+<thead>
+<tr>
+<th scope="col">Month</th>
+<th scope="col">Conversations started</th>
+<th scope="col">Unique user messages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-07</td>
+<td>7</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2024-08</td>
+<td>19</td>
+<td>78</td>
+</tr>
+<tr>
+<td>2024-09</td>
+<td>54</td>
+<td>293</td>
+</tr>
+<tr>
+<td>2024-10</td>
+<td>62</td>
+<td>337</td>
+</tr>
+<tr>
+<td>2024-11</td>
+<td>86</td>
+<td>554</td>
+</tr>
+<tr>
+<td>2024-12</td>
+<td>53</td>
+<td>305</td>
+</tr>
+<tr>
+<td>2025-01</td>
+<td>59</td>
+<td>445</td>
+</tr>
+<tr>
+<td>2025-02</td>
+<td>58</td>
+<td>269</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>68</td>
+<td>354</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>88</td>
+<td>427</td>
+</tr>
+<tr>
+<td>2025-05</td>
+<td>60</td>
+<td>276</td>
+</tr>
+<tr>
+<td>2025-06</td>
+<td>153</td>
+<td>698</td>
+</tr>
+<tr>
+<td>2025-07</td>
+<td>89</td>
+<td>385</td>
+</tr>
+<tr>
+<td>2025-08</td>
+<td>85</td>
+<td>379</td>
+</tr>
+<tr>
+<td>2025-09</td>
+<td>115</td>
+<td>586</td>
+</tr>
+<tr>
+<td>2025-10</td>
+<td>101</td>
+<td>734</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>91</td>
+<td>430</td>
+</tr>
+<tr>
+<td>2025-12</td>
+<td>68</td>
+<td>249</td>
+</tr>
+<tr>
+<td>2026-01</td>
+<td>73</td>
+<td>282</td>
+</tr>
+<tr>
+<td>2026-02</td>
+<td>53</td>
+<td>362</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>103</td>
+<td>447</td>
+</tr>
+<tr>
+<td>2026-04</td>
+<td>56</td>
+<td>270</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>48</td>
+<td>201</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td>56</td>
+<td>223</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>81</td>
+<td>433</td>
+</tr>
+<tr>
+<td>2026-08</td>
+<td>60</td>
+<td>238</td>
+</tr>
+<tr>
+<td>2026-09</td>
+<td>52</td>
+<td>211</td>
+</tr>
+<tr>
+<td>2026-10</td>
+<td>21</td>
+<td>102</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+</div>
+<div class="feature-box">
+<h3 class="purple">The handoff is becoming the work.</h3>
+<p>The newer chats connect research, visual direction, scripts, and build instructions. Requests increasingly specify where an output must go next: a recording session, a printed reference, a website, or another AI tool. This is an interpretation of the requests, not a count of finished releases.</p>
+</div>
+<div class="insight-grid">
+<article class="insight-card strength">
+<div class="insight-badge strength">Measured</div>
+<h4>Visual work belongs in the analysis</h4>
+<p>Design is the largest primary category: 166 of 451 new conversations. Covers, illustrations, layouts, and brand assets are part of the workload. The old report filtered image work out as “noise”; this refresh retains it.</p>
+<p class="evidence">Period: March 7–October 7 · Manual classification of all 451 new records.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>ChatGPT remains in the workflow</h4>
+<p>There are 52 new conversations in September and 21 in the first seven days of October. Requests for Claude and Codex handoffs continue. That supports continued use across tools; it does not establish which tool gets the most time.</p>
+<p class="evidence">Examples: May 6, September 30, October 7 · See What changed.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>Production is becoming more concrete</h4>
+<p>The Blindspot discussions move into maps, scene prompts, series structure, a reported ready script, and an audio-first recording workflow. Publication still needs a separate check.</p>
+<p class="evidence">Examples: June 9 & 19, September 5, October 1.</p>
+</article>
+</div>
+</div>
+<div class="view" id="gpt-skills">
+<div class="section-header">
+<h3>Primary purpose of the 451 new conversations</h3>
+</div>
+<div class="chart-section">
+<div class="skill-bars">
+<div class="skill-row">
+<div class="skill-name">Visual design</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:36.8%;background:var(--accent-purple)">
+</div>
+</div>
+<div class="skill-ct">166 · 36.8%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Technology &amp; workflows</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:14.4%;background:var(--accent-blue)">
+</div>
+</div>
+<div class="skill-ct">65 · 14.4%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Research &amp; publishing</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:13.1%;background:var(--accent-cyan)">
+</div>
+</div>
+<div class="skill-ct">59 · 13.1%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Culture &amp; writing</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:12.9%;background:var(--accent-pink)">
+</div>
+</div>
+<div class="skill-ct">58 · 12.9%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Health &amp; reflection</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:7.8%;background:var(--accent-green)">
+</div>
+</div>
+<div class="skill-ct">35 · 7.8%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Everyday life</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:7.5%;background:var(--accent-orange)">
+</div>
+</div>
+<div class="skill-ct">34 · 7.5%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Money &amp; administration</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:4.2%;background:var(--accent-amber)">
+</div>
+</div>
+<div class="skill-ct">19 · 4.2%</div>
+</div>
+<div class="skill-row">
+<div class="skill-name">Mixed / unclear</div>
+<div class="skill-track">
+<div class="skill-fill" style="width:3.3%;background:var(--accent-red)">
+</div>
+</div>
+<div class="skill-ct">15 · 3.3%</div>
+</div>
+</div>
+<p class="chart-footnote">Each conversation receives one reviewed primary purpose. These are shares of conversations, not hours spent or skill ratings. Rounded percentages may not sum to exactly 100%.</p>
+</div>
+<div class="insight-grid">
+<article class="insight-card info">
+<div class="insight-badge info">Observation</div>
+<h4>Visual design · 166</h4>
+<p>Covers, logos, editorial imagery, website mockups, and platform assets. Revisions and image-only requests remain included.</p>
+<p class="evidence">Recurring examples: brand colors in April; logos in June; website and Patreon assets in September–October.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observation</div>
+<h4>Technology & workflows · 65</h4>
+<p>Software setup, AI instructions, websites, devices, and methods for organizing work. The category includes requests that make another tool or application usable.</p>
+<p class="evidence">Examples: a Codex brief in May; task sequencing in August; design-system handoff in October.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observation</div>
+<h4>Research & publishing · 59</h4>
+<p>Historical and political research, source selection, episode development, and publishing workflows.</p>
+<p class="evidence">Examples: post-1989 comparative research in March; Eastern Front maps in June; series architecture in September.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observation</div>
+<h4>Culture & writing · 58</h4>
+<p>Music, films, books, reviews, and prose work. Some requests turn collections into something usable: a shelf inventory, a reading chart, or a playlist order.</p>
+<p class="evidence">Examples: book catalog in July; reading charts in August; playlist ordering in September.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observation</div>
+<h4>Personal and everyday use · 88</h4>
+<p>Health and reflection: 35. Everyday life: 34. Money and administration: 19. These counts preserve the scope of the archive without publishing private situations or treating conversation topics as diagnoses.</p>
+<p class="evidence">Only broad topic totals are shown.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observation</div>
+<h4>Mixed or unclear · 15</h4>
+<p>Multiple purposes or insufficient readable text prevent a confident primary assignment. Two new conversation records contain no user message on their saved active branch.</p>
+<p class="evidence">All 15 remain in the 451-conversation denominator.</p>
+</article>
+</div>
+</div>
+<div class="view" id="gpt-strengths">
+<div class="section-header">
+<h3>Patterns visible in the requests</h3>
+</div>
+<div class="insight-grid">
+<article class="insight-card strength">
+<div class="insight-badge strength">Working pattern</div>
+<h4>Define the destination early</h4>
+<p>You often specify the final format: a print-friendly map, an avatar readable at small size, a platform cover, or instructions another tool can implement. Those constraints give the work an observable finish line.</p>
+<p class="evidence">June 19 · study maps; June 24 · avatar legibility; October 4 · platform assets.</p>
+</article>
+<article class="insight-card strength">
+<div class="insight-badge strength">Working pattern</div>
+<h4>Connect the research to a scene</h4>
+<p>Historical research carries into episode structure, cold-open prompts, and recording preparation. The connection between evidence and presentation is visible in the sequence of requests.</p>
+<p class="evidence">June 9 · animated cold open; September 5 · series structure; October 1 · recording workflow.</p>
+</article>
+<article class="insight-card strength">
+<div class="insight-badge strength">Working pattern</div>
+<h4>Carry standards between tools</h4>
+<p>Instead of only starting fresh, you ask for instructions that transfer a design or approved identity to Claude and Codex. A shared reference becomes part of the requested deliverable.</p>
+<p class="evidence">May 6 · Codex instructions; September 30 · mockup handoff; October 7 · shared design system.</p>
+</article>
+<article class="insight-card strength">
+<div class="insight-badge strength">Working pattern</div>
+<h4>Turn collections into working material</h4>
+<p>Books and listening histories become inventories, charts, recommendations, and ordered playlists. The requests combine curation with practical organization.</p>
+<p class="evidence">July 29 · physical book catalog; August 22 · reading charts; September 9 · playlist ordering.</p>
+</article>
+</div>
+</div>
+<div class="view" id="gpt-warnings">
+<div class="section-header">
+<h3>Where the workflow still catches</h3>
+</div>
+<div class="insight-grid">
+<article class="insight-card warning">
+<div class="insight-badge warning">Observed friction</div>
+<h4>The answer and the action can diverge</h4>
+<p>In a playlist request, you clarified that you wanted the actual ordering changed. In website work, you ask for instructions that another tool can apply. A good response still needs a clear delivery or execution step.</p>
+<p class="evidence">September 9 · actual playlist change requested; September 30 · website implementation handoff.</p>
+</article>
+<article class="insight-card warning">
+<div class="insight-badge warning">Observed friction</div>
+<h4>A solo workflow has a capacity limit</h4>
+<p>You explicitly question whether one person can maintain a news section. That is a useful constraint for evaluating new systems: what recurring work will this create, and who will do it?</p>
+<p class="evidence">May 7 · sustainable website workflow.</p>
+</article>
+<article class="insight-card warning">
+<div class="insight-badge warning">Interpretation</div>
+<h4>Revisions need an approved reference</h4>
+<p>Brand colors, logos, mockups, and platform layouts recur. Repetition alone does not prove wasted effort. The practical opportunity is to attach the approved identity and final dimensions to each new request.</p>
+<p class="evidence">April 25, June 24, October 4 & 7 · brand and layout requests.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Evidence limit</div>
+<h4>A request is not a verified outcome</h4>
+<p>The archive can establish that you asked for an export, a schedule, a live change, or a recording workflow. It cannot consistently establish that the file was saved, the automation ran, or the episode was released.</p>
+<p class="evidence">This limitation applies across the report; assistant completion claims were not independently verified.</p>
+</article>
+</div>
+</div>
+<div class="view" id="gpt-blindspot">
+<div class="feature-box">
+<h3 class="purple">From research structure to a recording brief.</h3>
+<p>On October 1, you reported that the first episode script was ready and asked to record the audio as a podcast first. That is a concrete change in the next requested step. It does not establish a published episode.</p>
+</div>
+<div class="table-scroll">
+<table class="comp-table">
+<thead>
+<tr>
+<th scope="col">When</th>
+<th scope="col">What the conversations show</th>
+<th scope="col">Status supported by the source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>March</td>
+<td>Comparative research, episode ideas, and discussion of the channel’s editorial structure.</td>
+<td>Research and framing requested.</td>
+</tr>
+<tr>
+<td>April–May</td>
+<td>Spoken-writing analysis, visual identity, website sustainability, and a Codex build brief.</td>
+<td>Presentation and implementation direction requested.</td>
+</tr>
+<tr>
+<td>June</td>
+<td>Animated cold-open prompts and print-friendly Eastern Front study maps.</td>
+<td>Production and reference materials requested.</td>
+</tr>
+<tr>
+<td>September</td>
+<td>A four-episode series structure, title work, research shortlists, and website handoff instructions.</td>
+<td>Series planning and recurring research requested.</td>
+</tr>
+<tr>
+<td>October 1</td>
+<td>Episode 1 script described as ready; audio-first recording workflow requested.</td>
+<td>Script readiness is user-reported. Recording and release unverified.</td>
+</tr>
+<tr>
+<td>October 4–7</td>
+<td>Approved Editorial Identity v1.0 referenced for assets and a shared design system across tools.</td>
+<td>Approved brand reference supplied; cross-tool consistency requested.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight-grid">
+<article class="insight-card strength">
+<div class="insight-badge strength">Recommendation</div>
+<h4>Keep the next step attached to Episode 1</h4>
+<p>Use the ready script as the input to the next recording session. A short recorded excerpt would test pacing, delivery, and audio before expanding the production plan.</p>
+<p class="evidence">Suggested next action based on the October 1 request.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Recommendation</div>
+<h4>Make the handoff a reusable document</h4>
+<p>Bundle the approved identity, script version, asset sizes, source references, and expected output into one brief that travels between tools.</p>
+<p class="evidence">Suggested next action based on the May, September, and October handoffs.</p>
+</article>
+</div>
+</div>
+<div class="view" id="gpt-export">
+<div class="section-header">
+<h3>Source coverage & counting rules</h3>
+</div>
+<div class="coverage-note">
+<strong>One supplied ChatGPT account export, split across 20 conversation files.</strong> The archive was packaged October 8; its latest user message is October 7 at 5:33 p.m. Pacific. Reviewed October 9. Raw transcripts and conversation identifiers are not included in this site.</div>
+<div class="table-scroll">
+<table class="comp-table">
+<thead>
+<tr>
+<th scope="col">Measure</th>
+<th scope="col">All exported history</th>
+<th scope="col">March 7–October 7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conversation records</td>
+<td>1,919</td>
+<td>451 newly created</td>
+</tr>
+<tr>
+<td>Unique user messages</td>
+<td>9,578</td>
+<td>2,028 sent in the period</td>
+</tr>
+<tr>
+<td>Approximate user-text words</td>
+<td>510,909</td>
+<td>97,821</td>
+</tr>
+<tr>
+<td>Older conversations resumed</td>
+<td>—</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight-grid">
+<article class="insight-card info">
+<div class="insight-badge info">Counting rule</div>
+<h4>Conversations and messages count different things</h4>
+<p>Conversation totals count distinct exported conversation IDs, including separately saved branches and records with no user message. Messages follow each conversation’s current-node ancestry; repeated user message IDs inherited by branches count once across the archive.</p>
+<p class="evidence">115 repeated user-message occurrences removed across all history. No user timestamps were missing.</p>
+</article>
+<article class="insight-card warning">
+<div class="insight-badge warning">Baseline discrepancy</div>
+<h4>451 new is not the same as a net increase of 445</h4>
+<p>The old report showed 1,474 conversations. This export contains 1,468 created before March 7, plus 451 newer records. The earlier raw export is unavailable, so the six-record historical difference cannot be reconciled.</p>
+<p class="evidence">New activity is counted from creation timestamps, not inferred by subtracting the old headline.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Coverage correction</div>
+<h4>The cutoff is March 6, not March 31</h4>
+<p>The old underlying analysis ended March 6. This refresh begins March 7 in America/Los_Angeles time. October contains only seven days; March’s refresh chart contains only March 7–31.</p>
+<p class="evidence">Full-history monthly totals use every exported conversation, including visual work. They replace the old filtered series.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Interpretation limit</div>
+<h4>Text volume is not original writing</h4>
+<p>Word counts include readable text and available audio transcriptions in user messages, including pasted sources and prompt templates. Image text and untranscribed audio are excluded.</p>
+<p class="evidence">Conversation mix and word volume cannot establish time spent, skill, productivity, or clinical status.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Activity definition</div>
+<h4>Activity can resume in an older chat</h4>
+<p>449 of the 451 new records contain period user activity; two have no user message. One older conversation also resumes during the period, giving 450 conversations with user activity.</p>
+<p class="evidence">The 2,028-message total includes that older resumed conversation.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Scope</div>
+<h4>The comparison has a boundary</h4>
+<p>Categories are manually reviewed primary purposes, with mixed/unclear cases retained. This taxonomy differs from the old report. Claude is analyzed separately from its October 10 export; no separate Codex session archive is included.</p>
+<p class="evidence">Deleted, temporary, and unexported conversations are not reconstructed. Requested actions are not treated as verified outcomes.</p>
+</article>
+</div>
+<div class="takeaway">
+<p>
+<a href="../data/ai-intelligence.json">Download the aggregate data</a> · <a href="README.md">Read the refresh method</a>
+</p>
+<p>Dates beside observations identify supporting conversations in the private review notes. The site publishes generalized summaries, not the underlying messages.</p>
+</div>
+</div>
+</section>
+<section class="section-panel" id="section-claude" aria-label="Claude report">
+<header class="header">
+<div>
+<h2 class="header-title cyan">Claude Intelligence Report</h2>
+<div class="header-sub">NOV 2024 – OCT 10, 2026 · 394 EXPORTED CONVERSATIONS · REVIEWED OCT 10</div>
+</div>
+</header>
+<div class="coverage-note">
+<strong>Since the last source cutoff: March 14–October 10, 2026.</strong> The new export replaces the March snapshot. It contains 290 newer conversation records; 242 have readable user text. Separate Claude Design, frames, and coding-session archives are outside this source.</div>
+<div class="kpi-row">
+<div class="kpi-card cyan">
+<div class="kpi-label">Archive conversations</div>
+<div class="kpi-value">394</div>
+<div class="kpi-delta">All exported conversation records</div>
+</div>
+<div class="kpi-card blue">
+<div class="kpi-label">New conversations</div>
+<div class="kpi-value">290</div>
+<div class="kpi-delta">Started Mar 14–Oct 10</div>
+</div>
+<div class="kpi-card green">
+<div class="kpi-label">Readable user messages</div>
+<div class="kpi-value">1,184</div>
+<div class="kpi-delta">Sent Mar 14–Oct 10 · all branches</div>
+</div>
+<div class="kpi-card amber">
+<div class="kpi-label">Text gaps</div>
+<div class="kpi-value">48</div>
+<div class="kpi-delta">New chats without readable user text</div>
+</div>
+</div>
+<nav class="nav-tabs" aria-label="claude report views" id="claude-tabs">
+<button class="nav-tab active" data-view="claude-overview" aria-controls="claude-overview" aria-pressed="true" onclick="showView('claude-overview')">Overview</button>
+<button class="nav-tab" data-view="claude-patterns" aria-controls="claude-patterns" aria-pressed="false" onclick="showView('claude-patterns')">Working patterns</button>
+<button class="nav-tab" data-view="claude-limits" aria-controls="claude-limits" aria-pressed="false" onclick="showView('claude-limits')">Sources & limits</button>
+</nav>
+<div class="view active" id="claude-overview">
+<div class="chart-section">
+<h3 class="chart-title">Conversations started by month</h3>
+<p class="chart-subtitle">290 new records since March 13. August is the busiest complete month in this window.</p>
+<div class="chart-scroll" id="claude-chart">
+<div class="timeline-chart">
+<div class="t-bar-wrap">
+<span class="t-value">12</span>
+<div class="t-bar claude" style="height:31.03px" aria-hidden="true">
+</div>
+<span class="t-label">Mar<small>14–31</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">31</span>
+<div class="t-bar claude" style="height:80.17px" aria-hidden="true">
+</div>
+<span class="t-label">Apr<small>&nbsp;</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">18</span>
+<div class="t-bar claude" style="height:46.55px" aria-hidden="true">
+</div>
+<span class="t-label">May<small>&nbsp;</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">36</span>
+<div class="t-bar claude" style="height:93.10px" aria-hidden="true">
+</div>
+<span class="t-label">Jun<small>&nbsp;</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">32</span>
+<div class="t-bar claude" style="height:82.76px" aria-hidden="true">
+</div>
+<span class="t-label">Jul<small>&nbsp;</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">58</span>
+<div class="t-bar claude" style="height:150.00px" aria-hidden="true">
+</div>
+<span class="t-label">Aug<small>&nbsp;</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">53</span>
+<div class="t-bar claude" style="height:137.07px" aria-hidden="true">
+</div>
+<span class="t-label">Sep<small>&nbsp;</small>
+</span>
+</div>
+<div class="t-bar-wrap">
+<span class="t-value">50</span>
+<div class="t-bar claude" style="height:129.31px" aria-hidden="true">
+</div>
+<span class="t-label">Oct<small>1–10</small>
+</span>
+</div>
+</div>
+</div>
+<p class="chart-footnote">March and October are partial months. October includes ten days; the ChatGPT export includes seven. Compare complete months in <a href="#merged-sidebyside">Across tools</a>.</p>
+<details>
+<summary>View the full monthly data</summary>
+<div class="table-scroll">
+<table class="comp-table" id="claude-monthly">
+<caption>Months follow creation and message timestamps in Pacific time. Zero-activity months are retained; November 2024 and October 2026 are partial.</caption>
+<thead>
+<tr>
+<th scope="col">Month</th>
+<th scope="col">Conversations</th>
+<th scope="col">Human records</th>
+<th scope="col">With readable text</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-11</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2024-12</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-01</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-02</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-05</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2025-06</td>
+<td>4</td>
+<td>8</td>
+<td>5</td>
+</tr>
+<tr>
+<td>2025-07</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-08</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-09</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-10</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>13</td>
+<td>36</td>
+<td>26</td>
+</tr>
+<tr>
+<td>2025-12</td>
+<td>21</td>
+<td>81</td>
+<td>77</td>
+</tr>
+<tr>
+<td>2026-01</td>
+<td>15</td>
+<td>77</td>
+<td>67</td>
+</tr>
+<tr>
+<td>2026-02</td>
+<td>32</td>
+<td>147</td>
+<td>121</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>27</td>
+<td>65</td>
+<td>42</td>
+</tr>
+<tr>
+<td>2026-04</td>
+<td>31</td>
+<td>172</td>
+<td>109</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>18</td>
+<td>58</td>
+<td>52</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td>36</td>
+<td>146</td>
+<td>122</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>32</td>
+<td>134</td>
+<td>131</td>
+</tr>
+<tr>
+<td>2026-08</td>
+<td>58</td>
+<td>385</td>
+<td>277</td>
+</tr>
+<tr>
+<td>2026-09</td>
+<td>53</td>
+<td>229</td>
+<td>205</td>
+</tr>
+<tr>
+<td>2026-10</td>
+<td>50</td>
+<td>287</td>
+<td>269</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+</div>
+<div class="feature-box">
+<h3 class="cyan">The requests reach further into the workday.</h3>
+<p>The readable conversations connect writing and research with reusable document formats, website changes, task lists, and recurring briefs. This is an interpretation of the requests; it does not count completed automations or published work.</p>
+</div>
+<div class="insight-grid">
+<article class="insight-card strength">
+<div class="insight-badge strength">Measured</div>
+<h4>A larger current archive</h4>
+<p>394 conversation records replace the old 104-record headline. Creation timestamps identify 290 new conversations after March 13.</p>
+<p class="evidence">Measured from the supplied October 10 conversation archive.</p>
+</article>
+<article class="insight-card strength">
+<div class="insight-badge strength">Measured</div>
+<h4>The two chat streams converge</h4>
+<p>August has 58 Claude chats and 60 ChatGPT chats; September has 53 and 52. Those are comparable complete months in the supplied archives.</p>
+<p class="evidence">Conversation records, not time spent or the full activity of either platform.</p>
+</article>
+<article class="insight-card warning">
+<div class="insight-badge warning">Coverage</div>
+<h4>Some records have no readable text</h4>
+<p>48 of the 290 new records contain no readable user text. They stay in activity counts, but no topic or intention is assigned to them.</p>
+<p class="evidence">242 new records have readable user text. The cause of the missing text is unknown.</p>
+</article>
+</div>
+</div>
+<div class="view" id="claude-patterns">
+<div class="insight-grid">
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>Handoffs run in both directions</h4>
+<p>An October 1 request brings a ChatGPT website mockup into Claude for implementation. An October 3 request sends Claude’s episode-image briefs back to ChatGPT. April also includes a Claude-written brief for Codex.</p>
+<p class="evidence">Claude requests: April 21; October 1 & 3. These establish the requested workflow, not completed builds.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>Reusable formats need fidelity</h4>
+<p>The Binder refresh is framed as an ongoing process. Later requests ask for a single production guide, a layout QA pass, and the original logo preserved exactly.</p>
+<p class="evidence">Claude requests: April 23; September 5. A polished layout is part of the deliverable, alongside source fidelity.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>The episode decisions become specific</h4>
+<p>On October 3, the user states four final episode titles. On October 9, a cold-open contender is selected for full production in an editable document. October 10 brings a short voiceover request.</p>
+<p class="evidence">User-stated decisions and requests. The archive does not verify a recording or release.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>Voice is judged against actual examples</h4>
+<p>Reviews and scripts are repeatedly revised for brevity, dry wit, and direct language. The October 10 voiceover response is also criticized for lacking emotion: plain language still needs feeling.</p>
+<p class="evidence">Claude requests and feedback: July 8; August 17; September 10; October 10.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>A task list becomes a recurring service</h4>
+<p>An October 7 request combines existing task sources and asks for an interactive daily version. Separate requests ask for a weekday morning brief and Monday post ideas.</p>
+<p class="evidence">Requested on October 7. Their later execution and accuracy are not verified by this archive.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>Portable context becomes a deliverable</h4>
+<p>An October 9 request asks for a concise memory snapshot with uncertainty marked and unsupported details omitted. That gives the next tool a defined handoff artifact.</p>
+<p class="evidence">Claude request: October 9. A shared brief still needs to reflect the latest approved decisions.</p>
+</article>
+</div>
+<div class="takeaway">
+<p>
+<strong class="c">Interpretation:</strong> the recurring constraint is continuity—preserving the chosen voice, source material, design, and next action when work moves between tools.</p>
+<p>These examples come from readable user requests. They are not a complete topic distribution of the archive.</p>
+</div>
+</div>
+<div class="view" id="claude-limits">
+<div class="section-header">
+<h3>Source coverage & counting rules</h3>
+</div>
+<div class="coverage-note">
+<strong>One supplied Claude conversations ZIP, exported October 10.</strong> Its latest recorded message is October 10 at 10:49 a.m. Pacific. All 394 records were counted. The private archive and individual conversation identifiers are kept outside the published site.</div>
+<div class="table-scroll">
+<table class="comp-table" id="claude-counts">
+<thead>
+<tr>
+<th scope="col">Measure</th>
+<th scope="col">Full archive</th>
+<th scope="col">March 14–October 10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conversation records</td>
+<td>394</td>
+<td>290 newly created</td>
+</tr>
+<tr>
+<td>Human message records</td>
+<td>1,831</td>
+<td>1,443 sent in the period</td>
+</tr>
+<tr>
+<td>Human records with readable text</td>
+<td>1,507</td>
+<td>1,184</td>
+</tr>
+<tr>
+<td>Approximate readable human-text words</td>
+<td>100,197</td>
+<td>74,919</td>
+</tr>
+<tr>
+<td>Conversations without readable user text</td>
+<td>71</td>
+<td>48 among new records</td>
+</tr>
+<tr>
+<td>Older conversations resumed</td>
+<td>—</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight-grid">
+<article class="insight-card warning">
+<div class="insight-badge warning">Coverage</div>
+<h4>Count the record without inventing its contents</h4>
+<p>324 human-message records have no readable text across all history. There are five conversation records with no messages. Empty text does not establish that the original conversation was empty.</p>
+<p class="evidence">The export is the evidence boundary; the cause of these gaps is unverified.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Counting rule</div>
+<h4>Message totals use different branch rules</h4>
+<p>Claude’s export has no current-node selector. All distinct exported human-message IDs are counted, including alternate branches. ChatGPT totals follow the saved current branch.</p>
+<p class="evidence">35 Claude conversation records have a parent with multiple children. Do not rank the platforms by message totals.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Baseline</div>
+<h4>Replace the old definitions</h4>
+<p>The current archive contains 104 records created before March 14, matching the old headline. The old 814-message, code-session, and upload figures used unreconciled definitions and have been retired.</p>
+<p class="evidence">All current monthly and message counts are recalculated. Original March raw records are unavailable for an identity-level comparison.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Scope</div>
+<h4>Separate products remain outside the count</h4>
+<p>This source is conversations.json. Separate design_chats, frames, Claude Code, and Codex session archives are not included. Deleted or unexported chats are not reconstructed.</p>
+<p class="evidence">The shared April–September comparison describes only the two supplied conversation archives.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Counting rule</div>
+<h4>Count user text once</h4>
+<p>Top-level human text is used once, with text-type content blocks as fallback. Injected context, assistant text, tool results, thinking blocks, and attachment bodies are excluded from human-text counts.</p>
+<p class="evidence">Words include pasted material and do not measure original writing, time, or productivity.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Interpretation limit</div>
+<h4>Keep requests separate from results</h4>
+<p>Observed requests and user-stated choices support the workflow observations. Neither a prompt nor an assistant’s completion claim independently verifies that something was saved, scheduled, recorded, or published.</p>
+<p class="evidence">No private legal, medical, relationship, or financial details are reproduced here.</p>
+</article>
+</div>
+<div class="takeaway">
+<p>
+<a href="../data/claude-intelligence.json">Download Claude aggregate data</a> · <a href="README.md">Read the refresh method</a>
+</p>
+</div>
+</div>
+</section>
+<section class="section-panel" id="section-merged" aria-label="Changes since March">
+<header class="header">
+<div>
+<h2 class="header-title gold">What Changed Since March</h2>
+<div class="header-sub">BOTH ARCHIVES REFRESHED · CHATGPT THROUGH OCT 7 · CLAUDE THROUGH OCT 10</div>
+</div>
+</header>
+<nav class="nav-tabs" aria-label="merged report views" id="merged-tabs">
+<button class="nav-tab active" data-view="merged-timeline" aria-controls="merged-timeline" aria-pressed="true" onclick="showView('merged-timeline')">Timeline</button>
+<button class="nav-tab" data-view="merged-sidebyside" aria-controls="merged-sidebyside" aria-pressed="false" onclick="showView('merged-sidebyside')">Across tools</button>
+<button class="nav-tab" data-view="merged-diagnosis" aria-controls="merged-diagnosis" aria-pressed="false" onclick="showView('merged-diagnosis')">Revised conclusions</button>
+<button class="nav-tab" data-view="merged-prescription" aria-controls="merged-prescription" aria-pressed="false" onclick="showView('merged-prescription')">Next moves</button>
+</nav>
+<div class="view active" id="merged-timeline">
+<div class="feature-box">
+<h3 class="gold">More work crosses between tools.</h3>
+<p>The current archives show continued ChatGPT use alongside a larger Claude chat stream. Requests in both directions carry mockups, image briefs, production references, and working context. The evidence supports a shared workflow; it does not establish a wholesale move to one platform.</p>
+</div>
+<div class="insight-grid">
+<article class="insight-card info">
+<div class="insight-badge info">Both archives</div>
+<h4>March–April · Make the workflow repeatable</h4>
+<p>Research and channel framing sit alongside a Binder refresh process, reusable instructions, and requests to assess the site’s design.</p>
+<p class="evidence">ChatGPT: March 21–30, April 3–25. Claude: April 21–23.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Both archives</div>
+<h4>May–June · Specify usable outputs</h4>
+<p>Build briefs, Flow prompts, printable study maps, voice work, and a production-assistant concept connect research to concrete formats.</p>
+<p class="evidence">ChatGPT: May 6–18, June 9–24. Claude: May 18–21, June 19–24.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Both archives</div>
+<h4>July–September · Tighten the requirements</h4>
+<p>Reading and writing continue while requests become explicit about printable layouts, source material, episode structure, logo fidelity, and preserving an established voice.</p>
+<p class="evidence">ChatGPT: July 29, August 22, September 5. Claude: July 27, September 5 & 10.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Both archives</div>
+<h4>October · Carry decisions forward</h4>
+<p>The approved identity becomes a cross-tool reference. Claude records the four chosen episode titles, a selected cold-open direction, and requests for recurring briefs and portable context.</p>
+<p class="evidence">ChatGPT: October 4–7. Claude: October 3–9. Production requests are not verified releases.</p>
+</article>
+</div>
+</div>
+<div class="view" id="merged-sidebyside">
+<div class="chart-section">
+<h3 class="chart-title">Six complete months, the same counting unit</h3>
+<p class="chart-subtitle">New conversation records · April–September 2026 · <span class="purple">ChatGPT: 353</span> · <span class="cyan">Claude: 228</span>
+</p>
+<div class="comparison-chart" role="img" aria-label="Monthly conversation counts: April ChatGPT 56, Claude 31; May 48 and 18; June 56 and 36; July 81 and 32; August 60 and 58; September 52 and 53.">
+<div class="comparison-row">
+<div class="comparison-month">April</div>
+<div class="comparison-pair">
+<div class="comparison-line">
+<span class="comparison-platform">ChatGPT</span>
+<span class="comparison-track">
+<span class="comparison-bar gpt" style="width:69.1358%" data-count="56">
+</span>
+</span>
+<span class="comparison-value">56</span>
+</div>
+<div class="comparison-line">
+<span class="comparison-platform">Claude</span>
+<span class="comparison-track">
+<span class="comparison-bar claude" style="width:38.2716%" data-count="31">
+</span>
+</span>
+<span class="comparison-value">31</span>
+</div>
+</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-month">May</div>
+<div class="comparison-pair">
+<div class="comparison-line">
+<span class="comparison-platform">ChatGPT</span>
+<span class="comparison-track">
+<span class="comparison-bar gpt" style="width:59.2593%" data-count="48">
+</span>
+</span>
+<span class="comparison-value">48</span>
+</div>
+<div class="comparison-line">
+<span class="comparison-platform">Claude</span>
+<span class="comparison-track">
+<span class="comparison-bar claude" style="width:22.2222%" data-count="18">
+</span>
+</span>
+<span class="comparison-value">18</span>
+</div>
+</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-month">June</div>
+<div class="comparison-pair">
+<div class="comparison-line">
+<span class="comparison-platform">ChatGPT</span>
+<span class="comparison-track">
+<span class="comparison-bar gpt" style="width:69.1358%" data-count="56">
+</span>
+</span>
+<span class="comparison-value">56</span>
+</div>
+<div class="comparison-line">
+<span class="comparison-platform">Claude</span>
+<span class="comparison-track">
+<span class="comparison-bar claude" style="width:44.4444%" data-count="36">
+</span>
+</span>
+<span class="comparison-value">36</span>
+</div>
+</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-month">July</div>
+<div class="comparison-pair">
+<div class="comparison-line">
+<span class="comparison-platform">ChatGPT</span>
+<span class="comparison-track">
+<span class="comparison-bar gpt" style="width:100.0000%" data-count="81">
+</span>
+</span>
+<span class="comparison-value">81</span>
+</div>
+<div class="comparison-line">
+<span class="comparison-platform">Claude</span>
+<span class="comparison-track">
+<span class="comparison-bar claude" style="width:39.5062%" data-count="32">
+</span>
+</span>
+<span class="comparison-value">32</span>
+</div>
+</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-month">August</div>
+<div class="comparison-pair">
+<div class="comparison-line">
+<span class="comparison-platform">ChatGPT</span>
+<span class="comparison-track">
+<span class="comparison-bar gpt" style="width:74.0741%" data-count="60">
+</span>
+</span>
+<span class="comparison-value">60</span>
+</div>
+<div class="comparison-line">
+<span class="comparison-platform">Claude</span>
+<span class="comparison-track">
+<span class="comparison-bar claude" style="width:71.6049%" data-count="58">
+</span>
+</span>
+<span class="comparison-value">58</span>
+</div>
+</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-month">September</div>
+<div class="comparison-pair">
+<div class="comparison-line">
+<span class="comparison-platform">ChatGPT</span>
+<span class="comparison-track">
+<span class="comparison-bar gpt" style="width:64.1975%" data-count="52">
+</span>
+</span>
+<span class="comparison-value">52</span>
+</div>
+<div class="comparison-line">
+<span class="comparison-platform">Claude</span>
+<span class="comparison-track">
+<span class="comparison-bar claude" style="width:65.4321%" data-count="53">
+</span>
+</span>
+<span class="comparison-value">53</span>
+</div>
+</div>
+</div>
+</div>
+<p class="chart-footnote">Bars use the same scale. March is omitted because the old source cutoffs differ; October is omitted because both exports stop partway through the month. Counts include empty records and separately saved chats, not unique projects or hours.</p>
+<details>
+<summary>View the comparison as a table</summary>
+<div class="table-scroll">
+<table class="comp-table" id="shared-months">
+<thead>
+<tr>
+<th scope="col">Month</th>
+<th scope="col">ChatGPT</th>
+<th scope="col">Claude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-04</td>
+<td>56</td>
+<td>31</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>48</td>
+<td>18</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td>56</td>
+<td>36</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>81</td>
+<td>32</td>
+</tr>
+<tr>
+<td>2026-08</td>
+<td>60</td>
+<td>58</td>
+</tr>
+<tr>
+<td>2026-09</td>
+<td>52</td>
+<td>53</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>353</td>
+<td>228</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+</div>
+<div class="table-scroll">
+<table class="comp-table" id="platform-coverage">
+<thead>
+<tr>
+<th scope="col">Source</th>
+<th scope="col">Coverage</th>
+<th scope="col">What the source establishes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChatGPT</td>
+<td>1,919 records through October 7</td>
+<td>451 new after March 6. Visual design is the primary purpose of 166 new conversations.</td>
+</tr>
+<tr>
+<td>Claude</td>
+<td>394 records through October 10</td>
+<td>290 new after March 13; 242 of those contain readable user text.</td>
+</tr>
+<tr>
+<td>Combined archive</td>
+<td>2,313 exported conversation records</td>
+<td>Different full-history date spans. This total is not a count of unique tasks, projects, or all AI activity.</td>
+</tr>
+<tr>
+<td>Other products</td>
+<td>Outside these two archives</td>
+<td>Separate Claude Design, frames, Claude Code, and Codex sessions are not counted here.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight-grid">
+<article class="insight-card strength">
+<div class="insight-badge strength">Measured</div>
+<h4>Near parity in late summer</h4>
+<p>The supplied archives show 60 ChatGPT / 58 Claude conversations in August, followed by 52 / 53 in September. Claude’s chat volume catches up while ChatGPT remains in use.</p>
+<p class="evidence">Full calendar months in Pacific time. This does not measure usage time or a complete product share.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Observed</div>
+<h4>The handoff is bidirectional</h4>
+<p>Claude receives a ChatGPT mockup on October 1 and is asked for ChatGPT image prompts on October 3. Both archives also contain briefs addressed to Codex.</p>
+<p class="evidence">Claude: April 21, October 1 & 3. ChatGPT: May 6, September 30, October 7.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Interpretation</div>
+<h4>The shared brief is the practical next step</h4>
+<p>Repeated transfers create a need to preserve the chosen version, original assets, source references, and the next acceptance check in one place.</p>
+<p class="evidence">Interpretation of the handoff requests, not a measured cause of delays.</p>
+</article>
+</div>
+</div>
+<div class="view" id="merged-diagnosis">
+<div class="section-header">
+<h3>Conclusions revised against the new evidence</h3>
+</div>
+<div class="table-scroll">
+<table class="comp-table">
+<thead>
+<tr>
+<th scope="col">Earlier report</th>
+<th scope="col">October update</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image generation treated as noise</td>
+<td>Keep visual work. It is the primary purpose of 166 new ChatGPT conversations, or 36.8%.</td>
+</tr>
+<tr>
+<td>Migration to one platform</td>
+<td>Claude chat counts approach ChatGPT in August and September, with requests moving both ways. A total platform migration is not established.</td>
+</tr>
+<tr>
+<td>Conversation counts treated as proof of avoidance</td>
+<td>Counts do not establish motives or delivery. The archive shows concrete choices and production requests; actual outputs need their own verification.</td>
+</tr>
+<tr>
+<td>Career treated as abandoned</td>
+<td>Job-search requests remain visible in both archives. Employment outcomes are outside the evidence.</td>
+</tr>
+<tr>
+<td>Broad personal diagnosis and prescription</td>
+<td>Use observed work patterns, source limits, and clearly labeled suggestions.</td>
+</tr>
+<tr>
+<td>One March cutoff and comparable message counts</td>
+<td>ChatGPT refresh starts March 7; Claude starts March 14. Monthly conversation counts can be compared over April–September; message totals use different branch rules.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="takeaway">
+<p>
+<strong class="g">Use a delivery check:</strong> a chosen title or approved reference is a decision. A saved, reviewed file is an artifact. A checked live page or recording is a result. Keep these states distinct.</p>
+</div>
+</div>
+<div class="view" id="merged-prescription">
+<div class="section-header">
+<h3>Suggested next moves · grounded in the current work</h3>
+</div>
+<div class="insight-grid">
+<article class="insight-card strength">
+<div class="insight-badge strength">Suggested next move</div>
+<h4>Test the chosen cold open with a recording</h4>
+<p>Carry the October 9 selection into one representative recorded passage. Use the approved script and listen for pacing, clarity, and emotion before extending the sequence.</p>
+<p class="evidence">Based on Claude’s October 9–10 requests and ChatGPT’s October 1 recording workflow. Completion marker: a recording you have reviewed.</p>
+</article>
+<article class="insight-card strength">
+<div class="insight-badge strength">Suggested next move</div>
+<h4>Carry one approved production brief</h4>
+<p>Keep the four chosen episode titles, approved identity, original logo, current script, and source references together. Include the exact next deliverable and how it will be checked.</p>
+<p class="evidence">Based on the September guidebook feedback and October title, identity, and handoff requests.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Suggested next move</div>
+<h4>Verify the recurring brief at its destination</h4>
+<p>For a daily task brief or weekly post draft, inspect an actual run. Confirm the input dates and distinguish reminders from confirmed appointments.</p>
+<p class="evidence">Based on October 7 task-list corrections and scheduling requests. Completion marker: a current, accurate brief at the intended destination.</p>
+</article>
+<article class="insight-card info">
+<div class="insight-badge info">Suggested next move</div>
+<h4>Close revisions with visible QA</h4>
+<p>For each document or site change, check the rendered output against the source and the approved reference. Confirm that it is saved or published where expected.</p>
+<p class="evidence">Based on September 5 layout feedback and September 30 site-update follow-ups. Completion marker: the reopened, checked result.</p>
+</article>
+</div>
+</div>
+</section>
+<footer class="colophon">
+<span>Gary’s Command Center © 2026</span>
+<span>ChatGPT through Oct 7 · Claude through Oct 10 · Reviewed Oct 10, 2026</span>
+</footer>
+</main>
 <script>
-// Section switching
-function showSection(id) {
-  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  document.querySelector('.section-btn[data-section="' + id + '"]').classList.add('active');
+function showSection(id, updateHash = true) {
+  const panel = document.getElementById('section-' + id);
+  if (!panel) return;
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.toggle('active', p === panel));
+  document.querySelectorAll('.section-btn').forEach(b => {
+    const active = b.dataset.section === id;
+    b.classList.toggle('active', active); b.setAttribute('aria-pressed', active);
+  });
+  if (updateHash) history.replaceState(null, '', '#' + panel.id);
 }
-
-// Tab switching within sections
-function showView(prefix, id, btn) {
-  var panel = btn.closest('.section-panel');
-  panel.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
-  panel.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
-  document.getElementById(prefix + '-' + id).classList.add('active');
-  btn.classList.add('active');
+function showView(id, updateHash = true) {
+  const view = document.getElementById(id);
+  if (!view || !view.classList.contains('view')) return;
+  const panel = view.closest('.section-panel');
+  showSection(panel.id.replace('section-', ''), false);
+  panel.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v === view));
+  panel.querySelectorAll('.nav-tab').forEach(b => {
+    const active = b.dataset.view === id;
+    b.classList.toggle('active', active); b.setAttribute('aria-pressed', active);
+  });
+  if (updateHash) history.replaceState(null, '', '#' + id);
 }
-
-// Theme toggle
+function restoreHash() {
+  let id = location.hash.slice(1);
+  const oldClaude = ['claude-strengths','claude-warnings','claude-identity'];
+  if (oldClaude.includes(id)) id = 'claude-patterns';
+  if (id.startsWith('section-')) showSection(id.slice(8), false);
+  else showView(id, false);
+}
+function showChart(mode) {
+  document.getElementById('chart-recent').hidden = mode !== 'recent';
+  document.getElementById('chart-history').hidden = mode !== 'history';
+  document.querySelectorAll('[data-chart]').forEach(b => b.setAttribute('aria-pressed', b.dataset.chart === mode));
+  document.getElementById('chart-period-note').textContent = mode === 'recent'
+    ? 'March shows March 7–31; October shows October 1–7. Partial months are not directly comparable with full months.'
+    : 'All 1,919 conversations in the current export. July 2024 and October 2026 are partial months. Full March 2026 contains 103 conversations. Scroll horizontally for the full history.';
+}
 function toggleTheme() {
-  var html = document.documentElement;
-  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
-  document.querySelector('#themeToggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
 }
-
-(function() {
-  var saved = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', saved);
-  var btn = document.querySelector('#themeToggle');
-  if (btn) {
-    btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-    btn.addEventListener('click', toggleTheme);
-  }
-})();
+const saved = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', saved);
+document.getElementById('themeToggle').textContent = saved === 'dark' ? '☀️' : '🌙';
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+window.addEventListener('hashchange', restoreHash);
+restoreHash();
 </script>
-
 </body>
 </html>

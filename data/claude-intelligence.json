@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "timezone": "America/Los_Angeles",
+  "coverage": {
+    "first_conversation": "2024-11-10T10:34:41.579920-08:00",
+    "last_conversation": "2026-10-10T10:49:27.392692-07:00",
+    "last_message": "2026-10-10T10:49:43.243694-07:00",
+    "data_through": "2026-10-10",
+    "refresh_period_start": "2026-03-14"
+  },
+  "totals": {
+    "conversations": 394,
+    "human_message_records": 1831,
+    "readable_human_messages": 1507,
+    "assistant_message_records": 1811,
+    "all_message_records": 3642,
+    "readable_human_text_words": 100197
+  },
+  "since_march_13": {
+    "new_conversations": 290,
+    "human_message_records": 1443,
+    "readable_human_messages": 1184,
+    "readable_human_text_words": 74919,
+    "conversations_with_human_activity": 290,
+    "older_conversations_resumed": 1,
+    "new_conversations_without_readable_human_text": 48
+  },
+  "quality": {
+    "conversations_without_readable_human_text": 71,
+    "conversations_without_messages": 5,
+    "conversations_with_multiple_children": 35,
+    "new_conversations_with_multiple_children": 23,
+    "repeated_message_occurrences_removed": 0,
+    "human_records_without_readable_text": 324
+  },
+  "reconciliation": {
+    "previous_report_conversations": 104,
+    "current_export_conversations_before_march_14": 104,
+    "note": "The previous analysis covers through March 13. Counts before March 14 match its 104-record headline; original raw records are unavailable for an identity-level reconciliation. Legacy message, code-session, and upload totals are replaced, not compared."
+  },
+  "monthly": [
+    {
+      "month": "2024-11",
+      "conversations": 3,
+      "human_messages": 5,
+      "readable_human_messages": 3
+    },
+    {
+      "month": "2024-12",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-01",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-02",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-03",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-04",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-05",
+      "conversations": 1,
+      "human_messages": 1,
+      "readable_human_messages": 1
+    },
+    {
+      "month": "2025-06",
+      "conversations": 4,
+      "human_messages": 8,
+      "readable_human_messages": 5
+    },
+    {
+      "month": "2025-07",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-08",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-09",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-10",
+      "conversations": 0,
+      "human_messages": 0,
+      "readable_human_messages": 0
+    },
+    {
+      "month": "2025-11",
+      "conversations": 13,
+      "human_messages": 36,
+      "readable_human_messages": 26
+    },
+    {
+      "month": "2025-12",
+      "conversations": 21,
+      "human_messages": 81,
+      "readable_human_messages": 77
+    },
+    {
+      "month": "2026-01",
+      "conversations": 15,
+      "human_messages": 77,
+      "readable_human_messages": 67
+    },
+    {
+      "month": "2026-02",
+      "conversations": 32,
+      "human_messages": 147,
+      "readable_human_messages": 121
+    },
+    {
+      "month": "2026-03",
+      "conversations": 27,
+      "human_messages": 65,
+      "readable_human_messages": 42
+    },
+    {
+      "month": "2026-04",
+      "conversations": 31,
+      "human_messages": 172,
+      "readable_human_messages": 109
+    },
+    {
+      "month": "2026-05",
+      "conversations": 18,
+      "human_messages": 58,
+      "readable_human_messages": 52
+    },
+    {
+      "month": "2026-06",
+      "conversations": 36,
+      "human_messages": 146,
+      "readable_human_messages": 122
+    },
+    {
+      "month": "2026-07",
+      "conversations": 32,
+      "human_messages": 134,
+      "readable_human_messages": 131
+    },
+    {
+      "month": "2026-08",
+      "conversations": 58,
+      "human_messages": 385,
+      "readable_human_messages": 277
+    },
+    {
+      "month": "2026-09",
+      "conversations": 53,
+      "human_messages": 229,
+      "readable_human_messages": 205
+    },
+    {
+      "month": "2026-10",
+      "conversations": 50,
+      "human_messages": 287,
+      "readable_human_messages": 269
+    }
+  ],
+  "new_conversations_by_month": [
+    {
+      "month": "2026-03",
+      "conversations": 12
+    },
+    {
+      "month": "2026-04",
+      "conversations": 31
+    },
+    {
+      "month": "2026-05",
+      "conversations": 18
+    },
+    {
+      "month": "2026-06",
+      "conversations": 36
+    },
+    {
+      "month": "2026-07",
+      "conversations": 32
+    },
+    {
+      "month": "2026-08",
+      "conversations": 58
+    },
+    {
+      "month": "2026-09",
+      "conversations": 53
+    },
+    {
+      "month": "2026-10",
+      "conversations": 50
+    }
+  ],
+  "definitions": {
+    "conversations": "Distinct conversation UUIDs in conversations.json; includes empty records and all topics. Creation timestamps determine month.",
+    "human_message_records": "Distinct human-sender message UUIDs in all exported chat_messages, including empty text and alternate branches. A timestamp determines its activity month. There is no current-node selector in this export.",
+    "readable_human_messages": "Human message records with nonblank text, using top-level text once or text-type content blocks as fallback. Injected prompts, tool output, thinking, and attachment contents are excluded.",
+    "words": "Approximate word tokens in readable human text, including pasted material. Not original writing, time, or productivity.",
+    "scope": "Only the supplied conversations archive. Separate design_chats, frames, Claude Code, Codex, and unexported or deleted sessions are not included or reconstructed; this is not a complete measure of all product activity.",
+    "interpretation": "Qualitative observations use readable user requests. No topic is inferred for records without readable text. Requests and assistant completion statements do not establish a verified result."
+  },
+  "reviewed": "2026-10-10",
+  "source": {
+    "format": "Claude conversations export ZIP",
+    "conversation_shards": 1,
+    "conversation_payload_sha256": "165c79e49c6a33670abed19abc9848d083dfd05eff38e5056e61187bbe4c5686",
+    "duplicate_conversation_records_removed": 0
+  }
+}
