@@ -51,3 +51,11 @@ The system must not flatten every room into the same card grid. Existing quotati
 - Original source text across the 32 subpages, the Ledger data blob, and the status manifest were preserved. No source records were refreshed as part of this design change.
 - The local visual review provides before-and-after comparisons and interactive phone previews: `http://127.0.0.1:8767/__review/`.
 - The landing page retains four flags, six gauges, and one line per room. Fonts and architectural artwork are served locally.
+
+## Navigation — October 12, 2026
+
+- Studio: Blindspot Binder, Production Almanac, Film School.
+- Life: Hearing Room, Possession, The Ledger, Wellness Desk, Playlist Tracker.
+- Archives: Eastern Front, Reading Atlas, Color Bible, Digital Ecosystem, Insult Rolodex, AI Intelligence, Highlight Map.
+- The empty Reference group is retired. Archives opens from a quiet home footer link and remains available in room navigation and search, where archived results are labeled.
+- Room URLs, substantive content, source dates, status records, and refresh pipelines are preserved. Archiving changes their navigation placement.

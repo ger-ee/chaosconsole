@@ -35,3 +35,6 @@ html[data-threshold] body>.th-source-date{max-width:none;width:100%;font:400 12p
 
 html[data-threshold] body>.th-entrance{display:block}.th-topbar{width:100%}html[data-threshold] :is(pre,code){font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 html[data-threshold] pre{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}html[data-threshold] code{overflow-wrap:anywhere;white-space:pre-wrap}
+
+/* Secondary archive access remains available from every room. */
+.th-group-tabs{flex-wrap:wrap}.th-group-tabs [data-th-group="Archives"]{border-color:#fff1dd40;color:#dec7bb}.th-group-tabs [data-th-group="Archives"][aria-pressed="true"]{color:#3b1720}
