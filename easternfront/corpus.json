@@ -1,0 +1,2383 @@
+{
+  "mast": {
+    "kicker": "The Blindspot · Research Tool · First Pass",
+    "h1": "The Eastern Front: A Highlight Map",
+    "sub": "Your Readwise highlights and your SideNotes (★ World War II folder), mapped onto the events of the Nazi–Soviet war and arranged as a documentary episode arc — beginning (the debt), middle (the rage and the collection), end (the bill) — plus a shelf of production notes. SideNotes entries carry a gold edge; Readwise quotes a red one. Each event card tells you where the material fits in the Revenge: Soviet-Style series plan and what beat it can carry.",
+    "howto": "Click an event to open its highlights. Filter by your Readwise tags, search the quotes, or jump by act. Every quote links back to Readwise. Highlights you tagged discard are excluded.",
+    "stats": [
+      {
+        "n": "157",
+        "label": "highlights"
+      },
+      {
+        "n": "21",
+        "label": "events"
+      },
+      {
+        "n": "15",
+        "label": "sources"
+      },
+      {
+        "n": "3",
+        "label": "acts"
+      }
+    ]
+  },
+  "books": [
+    {
+      "v": "A Writer at War",
+      "label": "A Writer at War (10)"
+    },
+    {
+      "v": "Aftermath",
+      "label": "Aftermath (3)"
+    },
+    {
+      "v": "Bloodlands",
+      "label": "Bloodlands (10)"
+    },
+    {
+      "v": "Eight Days in May",
+      "label": "Eight Days in May (12)"
+    },
+    {
+      "v": "Ivan's War",
+      "label": "Ivan's War (15)"
+    },
+    {
+      "v": "Notion — Quotes & Highlights",
+      "label": "Notion — Quotes & Highlights (10)"
+    },
+    {
+      "v": "Ordinary Men",
+      "label": "Ordinary Men (6)"
+    },
+    {
+      "v": "Promise Me You'll Shoot Yourself",
+      "label": "Promise Me You'll Shoot Yourself (3)"
+    },
+    {
+      "v": "Savage Continent",
+      "label": "Savage Continent (21)"
+    },
+    {
+      "v": "SideNotes — ★ World War II",
+      "label": "SideNotes — ★ World War II (34)"
+    },
+    {
+      "v": "Stalin, Volume 1",
+      "label": "Stalin, Volume 1 (1)"
+    },
+    {
+      "v": "The Fall of Berlin 1945",
+      "label": "The Fall of Berlin 1945 (27)"
+    },
+    {
+      "v": "To Hell and Back",
+      "label": "To Hell and Back (2)"
+    },
+    {
+      "v": "World Order",
+      "label": "World Order (1)"
+    },
+    {
+      "v": "World War II for Dummies",
+      "label": "World War II for Dummies (2)"
+    }
+  ],
+  "chips": [
+    {
+      "tag": "",
+      "label": "all"
+    },
+    {
+      "tag": "history",
+      "label": "history · 57"
+    },
+    {
+      "tag": "war",
+      "label": "war · 56"
+    },
+    {
+      "tag": "revenge",
+      "label": "revenge · 39"
+    },
+    {
+      "tag": "favorite",
+      "label": "favorite · 14"
+    },
+    {
+      "tag": "hitler",
+      "label": "hitler · 14"
+    },
+    {
+      "tag": "men",
+      "label": "men · 15"
+    },
+    {
+      "tag": "politics",
+      "label": "politics · 13"
+    },
+    {
+      "tag": "psychology",
+      "label": "psychology · 11"
+    },
+    {
+      "tag": "memorable",
+      "label": "memorable · 7"
+    },
+    {
+      "tag": "identity",
+      "label": "identity · 3"
+    }
+  ],
+  "acts": [
+    {
+      "id": "beginning",
+      "num": "ACT I",
+      "title": "Beginning",
+      "subtitle": "The Debt",
+      "frame": "1918–1942",
+      "sub": "What the episode must establish before any revenge story makes sense: premeditation, invasion, annihilation. Cold open lives here.",
+      "events": [
+        {
+          "date": "Prologue · 1918–1939",
+          "title": "The world that made it possible",
+          "blurb": "Interwar wreckage: Versailles, ethnic nationalism, a broken Russia. For this series this is footnote material, not episode spine — use one line of it, or none.",
+          "badgeEp": "Context (pre-series)",
+          "badgeN": "5 highlights",
+          "beat": "Optional pre-title beat — 30 seconds at most",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Rarely has a diplomatic document so missed its objective as the Treaty of Versailles. Too punitive for conciliation, too lenient to keep Germany from recovering, the Treaty of Versailles condemned the exhausted democracies to constant vigilance against an irreconcilable and revanchist Germany as well as a revolutionary Soviet Union.",
+              "book": "World Order",
+              "author": "Henry Kissinger",
+              "tags": [
+                "revenge",
+                "history",
+                "politics",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/823845840",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "The chapters that follow explore the reasons for this immeasurable catastrophe. They locate these in four interlocking major elements of comprehensive crisis, unique to these decades: (1) an explosion of ethnic-racist nationalism; (2) bitter and irreconcilable demands for territorial revisionism; (3) acute class conflict – now given concrete focus through the Bolshevik Revolution in Russia; and (4) a protracted crisis of capitalism (which many observers thought was terminal).",
+              "book": "To Hell and Back",
+              "author": "Ian Kershaw",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1031182786",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "Nationalism was increasingly defining ‘the nation’ not by territory, but by ethnicity – by those who should be permitted to belong to it.",
+              "book": "To Hell and Back",
+              "author": "Ian Kershaw",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1031182784",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "Stalin emerged a victor with a grudge, roiling with self-pity, resentment, victimhood.",
+              "book": "Stalin, Volume 1",
+              "author": "Stephen Kotkin",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757069",
+              "use": "Kotkin on Stalin after the Civil War — a one-line character key if Stalin needs introducing."
+            },
+            {
+              "sn": true,
+              "quote": "You don’t have to be a democracy to win a war, but it's good to have some democratic allies. Because their leaders don't lie as much. Every time that Hitler talked to the Japanese, he lied. Don't believe me? Count Ciano, the son-in-law of Mussolini, said, “We saw Hitler today, and he lied. He said he wasn't going into the Soviet Union. We know he is, next week…” When the Japanese bombed Pearl Harbor, Hitler said, “Where's Pearl Harbor?” … Stalin was a liar, but he had two democratic leaders.",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "A sharp alliance-trust thesis for context — unattributed lecture transcript; identify the speaker/source before any use."
+            },
+            {
+              "sn": false,
+              "quote": "All in all, in 1937 and 1938, NKVD men shot 70,868 inhabitants of Soviet Ukraine in the kulak operation.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "politics"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The terror that predates the war. Establishes that mass shooting was already Soviet routine before a German ever crossed the border — the world that made the rest thinkable."
+            },
+            {
+              "sn": false,
+              "quote": "In western Europe, this period was known as the “phony war”: nothing seemed to be happening. France and Britain were at war with Germany as of September 1939. But that autumn, winter, and the following spring, as Poland was defeated, destroyed, and divided, and tens of thousands of its citizens murdered and hundreds of thousands deported, there was no western front in the war.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "war",
+                "politics"
+              ],
+              "hotTags": [
+                "war"
+              ],
+              "rw": "",
+              "use": "The blindspot in one paragraph: the West remembers a “phony war” while the East was already a killing field. Good cold-open contrast."
+            }
+          ]
+        },
+        {
+          "date": "Spring 1941",
+          "title": "Planning the annihilation war",
+          "blurb": "The debt begins before the first shot: a globe with four nations on it, a plan signed in brown ink, a dictator who refuses to read his own intelligence.",
+          "badgeEp": "E1 · The Debt — Act I",
+          "badgeN": "5 highlights",
+          "beat": "Cold-open candidate / document beat",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "IN THE SPRING of 1941, whenever Adolf Hitler left home, he carried a globe in his field briefcase. Made of inlaid wood and roughly the size of a grapefruit, it was a gift from Benito Mussolini, the Italian Fascist leader and Hitler’s closest ally.\nYet instead of showing an earth as God or the rhythms of the universe had created it—blue oceans, continental blotches, crenulated ice caps—Hitler’s globe had only the shapes of four nations riding on its seas: Germany, Italy, Spain, and Japan. These were the countries, he had decided, whose cultures deserved to survive.\nToday, the globe Hitler once possessed sits in Moscow, protected behind unbreakable glass in a rarely visited marble tomb called the Russian Museum of Military History. Under that same glass is Hitler’s personal blueprint for the Nazi conquest of the Soviet Union, a plan he called Barbarossa, after the red-bearded Frederick the Great of Germany, who in the twelfth century was the last German to invade Russia. A few typewritten pages long, the Barbarossa Plan is accompanied by faded maps and, in the typewriter margins, notes in the looping, brown ink scrawl of Hitler’s own hand.",
+              "book": "Aftermath",
+              "author": "Donovan Webster",
+              "tags": [
+                "history",
+                "revenge",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/910898857",
+              "use": "A cold open in itself: object → vault → document. Pure visual writing — the globe and the typed plan under glass in Moscow."
+            },
+            {
+              "sn": false,
+              "quote": "“We have only to kick in the door,” the Führer said of the Russians, “and the whole rotten structure will come crashing down.”",
+              "book": "Aftermath",
+              "author": "Donovan Webster",
+              "tags": [
+                "history",
+                "memorable",
+                "revenge",
+                "war"
+              ],
+              "hotTags": [
+                "memorable",
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/910898856",
+              "use": "The single most quotable line of German overconfidence. On-screen text candidate."
+            },
+            {
+              "sn": false,
+              "quote": "Stalin turned a blind eye toward any information contrary to his policy of friendship with Germany. Not only were Soviet intelligence agents reporting that Germany was planning an attack, but the United States and Britain were",
+              "book": "World War II for Dummies",
+              "author": "Keith D. Dickson",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757060",
+              "use": "Stalin's blindness — sets up the double catastrophe of Order 270 later."
+            },
+            {
+              "sn": false,
+              "quote": "The notion that the enemy would be repelled and beaten on his own soil was not just a romantic dream; from the late 1930s it was the centerpiece of Stalinist military planning.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132464",
+              "use": "Why the Red Army was psychologically unprepared to fight on its own soil."
+            },
+            {
+              "sn": true,
+              "quote": "On the Russo-German pact of 1939: they signed the Ribbentrop–Molotov treaty — how they kept a straight face it still boggles the mind.",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Dry-voice beat for the 1939 setup. Unattributed; verify source."
+            },
+            {
+              "sn": false,
+              "quote": "The true Nazi agricultural policy was the creation of an eastern frontier empire. The German agricultural question would be resolved not within Germany but abroad: by taking fertile land from Polish and Soviet peasants—who would be starved, assimilated, deported, or enslaved.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "war",
+                "hitler"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The economic logic under the ideology. Barbarossa was a plan to feed Germany by emptying the East. Pairs with the Hunger Plan documents."
+            }
+          ]
+        },
+        {
+          "date": "June 22, 1941",
+          "title": "Barbarossa: the invasion night",
+          "blurb": "Merridale's Sevastopol night is the best 'world before' scene in the corpus: white dresses, music, a lighthouse guiding the bombers in.",
+          "badgeEp": "E1 · The Debt — Act I/II",
+          "badgeN": "4 highlights",
+          "beat": "Scene beat — the last peaceful evening",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "June is a special month all over northern Europe. In European Russia and Ukraine, it is magical. Winter’s bitter dark and ice are barely even memories, spring’s mud and rain forgiven. Kiev’s famous chestnut trees come into bloom, and so do Moscow’s lilacs, Yalta’s Judas trees. It is the month of the peony and the green willow; the month, in the north, of the white nights. Midsummer night fell on a Saturday in 1941. In Sevastopol, the home of the Soviet Union’s Black Sea Fleet, it was, as naval officer Evseev remarked in his diary, ‘a wonderful Crimean evening’. That Saturday, ‘all the streets and boulevards in the city were lit. The white houses were bathed in light, the clubs and theatres beckoned the sailors on shore leave to come inside. There were crowds of sailors and local people, dressed in white, packing the city’s streets and parks. As always, the famous Primorsky boulevard was full of people out for a stroll. Music was playing. There were jokes and happy laughter everywhere on the evening before the holiday.’1 A week before, the Soviet foreign minister, Vyacheslav Molotov, had insisted that rumours of Germany’s intention to break its pact with Moscow and launch an attack on the Soviet Union were completely without foundation.2 The temptation to believe him must have been overwhelming. \nOne source of all the light across the city’s twin harbours that night was the Upper Inkerman lighthouse. With its help, the German planes could navigate their way unerringly towards the port.3 They came from the east, flying low out of the steppe, their route a great arc across Soviet space. They knew their targets in advance: the fleet, the warehouses, the anti-aircraft guns. Soon the Black Sea reflected new lights from the shore: incandescent trails and flares, searchlights, the evil glow of a landscape on fire. ‘Are those planes ours?’ someone asked Evseev as the sailors scrambled into boats to get back to their ships. ‘It must be another exercise.’ But his neighbour had been taking careful stock. ‘Our anti-aircraft batteries are firing live rounds,’ he said. ‘And those bombs don’t look at all like dummies.’ ‘So we’re at war, then?’ said a third. ‘But with whom?’",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757077",
+              "use": "Scene gold. Voiceover-ready almost verbatim: the lit boulevard, Molotov's denial, 'So we're at war, then? But with whom?'"
+            },
+            {
+              "sn": false,
+              "quote": "The Germans struck the USSR at 4:15 a.m. on June 22. The German force contained over 3.7 million men organized into 148 divisions. It included 19 panzer (tank) divisions — 3,350 tanks in all and 13 motorized divisions — supported by 7,000 artillery pieces and 2,500 aircraft. Germany’s allies added another 1.3 million men.",
+              "book": "World War II for Dummies",
+              "author": "Keith D. Dickson",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757061",
+              "use": "The raw force numbers — use as on-screen figures, not narration."
+            },
+            {
+              "sn": false,
+              "quote": "By this time, Soviet soldiers had been fighting for three years and ten months, or 1409 days, in a war foisted on them by Nazi Germany on 22 June 1941. Under the slogan ‘Crusade against Bolshevism’, the Germans’ eastern campaign was, from the outset, planned as a war of extermination against an inferior race, the Soviet Untermensch. Even before the first shots were fired, the German command had issued to troops a series of orders in clear breach of international law—orders that not only encouraged but actually demanded that they commit crimes against enemy soldiers, prisoners and civilians. It was hardly surprising, then, that the battle was fought from the start with unprecedented ruthlessness and brutality on both sides. Behind the 1600 kilometres of front line, SS units were organising systematic murder operations and the industrial extermination of the so-called enemies of the people. And when the German retreat began in 1943, Wehrmacht soldiers set fire to thousands of towns and villages and fields in the east as part of the ‘scorched earth’ policy.",
+              "book": "Promise Me You'll Shoot Yourself",
+              "author": "Florian Huber",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757063",
+              "use": "Huber's compressed summary of the whole eastern war — useful as a retrospective bridge from 1945 back to 1941."
+            },
+            {
+              "sn": true,
+              "quote": "Monday, June 30th: Stalin retreated to his Kuntsevo dacha outside Moscow after receiving reports of the German invasion. Instead of heading to the Kremlin or issuing orders, Stalin isolates himself there as the Red Army begins to collapse. According to some historical accounts, members of the Politburo—including Molotov and Zhukov—visited the dacha to press him, believing he might be preparing to resign or act against them.",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The Kuntsevo dacha scene — ready-made beat for E1's collapse sequence. The note reads like an AI summary: the scene is real, but verify details and Stalin's state of mind against Kotkin (breakdown vs. maneuver is argued)."
+            }
+          ]
+        },
+        {
+          "date": "1941–1943",
+          "title": "The ledger fills: starvation, siege, occupation",
+          "blurb": "POW pens, Leningrad, the Hunger Plan logic, dehumanization as policy. This is the episode's factual spine: the largest atrocity ledger in modern history.",
+          "badgeEp": "E1 · The Debt — Act II",
+          "badgeN": "9 highlights",
+          "beat": "Evidence montage — the debt itemized",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Many people had heard stories about the crimes the Wehrmacht and the SS had committed in occupied areas of the Soviet Union. Hitler and his generals had always conceived of Operation Barbarossa, the German invasion of Soviet territory that had begun on June 22, 1941, as a war of annihilation in which large portions of the civilian population were to be murdered or enslaved. In the first months of the campaign, hundreds of thousands of Soviet POWs had been allowed to starve to death. Almost a million residents of Leningrad had died during Germany’s siege of the city from 1941 to 1944. Millions of young Soviet men and women had been taken as “eastern workers,” brought to the Third Reich and forced into slave labor. During their retreat on the eastern front beginning in 1943, German soldiers had applied a scorched-earth strategy, leaving behind nothing that could be of value to the enemy. Entire regions had been transformed into “dead zones.”",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "history",
+                "revenge",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468831",
+              "use": "One paragraph that itemizes the entire debt — POWs, Leningrad, slave labor, scorched earth. Structure your montage on it."
+            },
+            {
+              "sn": false,
+              "quote": "During the 900-day siege of Leningrad, approximately 641,000 of the city’s inhabitants lost their lives to hunger and hunger-related diseases.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1022378512",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "In the end, the Nazi plan to starve its eastern territories stopped, or at least slowed, because it made no economic sense to allow so many able-bodied workers to die when the Reich was short of labour.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "hitler",
+                "history",
+                "war"
+              ],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/909118217",
+              "use": "The starvation plan slowed for labor economics, not mercy — precision that lands harder than adjectives."
+            },
+            {
+              "sn": false,
+              "quote": "Prisoners taken in the east were ninety times more likely to die than those taken in the west.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "history"
+              ],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/954831348",
+              "use": "Ninety times. The single starkest statistic in the corpus — hold it alone on screen."
+            },
+            {
+              "sn": false,
+              "quote": "If that figure is correct, one in every five Ukrainians was killed by the war.15 The Belarusian death toll is reputed to have been the highest of all, with a quarter of the population killed.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "war",
+                "revenge",
+                "history",
+                "hitler"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/1030194929",
+              "use": "One in five Ukrainians; a quarter of Belarus. The scale Western memory never itemized."
+            },
+            {
+              "sn": false,
+              "quote": "Goebbels’s propaganda did not simply dehumanize Jews, commissars and the whole Slav people, it made the German people fear and hate them.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/852749779",
+              "use": "Goebbels manufactured fear and hate first — the German mirror of the rage machine to come."
+            },
+            {
+              "sn": true,
+              "quote": "WWII Behind Closed Doors (Prime - BBC Select)\nEPISODE 2: Hitler’s Betrayal\nEvent: Vashugin’s suicide before Khrushchev, highlighting the Soviet collapse in summer 1941. According to Khrushchev’s recollection, Vashugin confronted him during the disastrous early phase of Operation Barbarossa, declared “all is lost… it would end as it had in Poland and France,” and then shot himself on the front’s command post in Khrushchev’s presence. (Timestamps 07:20, 12:00.) Germans took 2.5 million Soviet POWs in less than 4 months. In October 1941, the Germans declared the war almost won.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Footage pointer with timestamps — the Vashugin suicide is a strong scene beat for the 1941 collapse; the POW figure corroborates the ledger."
+            },
+            {
+              "sn": true,
+              "quote": "Voices of War: Memories from the Siege of Leningrad\nhttps://www.rbth.com/society/2014/01/27/voices_of_war_through_the_blockade_of_time_33565.html",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Testimony source for the Leningrad beat — pairs with Lowe's 641,000 figure."
+            },
+            {
+              "sn": true,
+              "quote": "I read Henry Ford’s The International Jew today. The book is very interesting and salutary… Strange: Henry Ford, the richest man in the world, makes Jewish capitalism his target. The world is a big theater.\n— Goebbels diary, as printed in 'Goebbels On The Jews' (Thomas Dalton)",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "SOURCE WARNING: the cited edition is a Holocaust-denial imprint. The diary entry itself is a strong propaganda receipt — re-source it from the scholarly Fröhlich edition (or via Longerich's Goebbels) before it appears on screen or in credits."
+            },
+            {
+              "sn": false,
+              "quote": "Of the fourteen million civilians and prisoners of war killed in the bloodlands between 1933 and 1945, more than half died because they were denied food.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "war"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The number that reframes the war as a starvation project, not just a shooting one. Anchor for the ledger montage."
+            },
+            {
+              "sn": false,
+              "quote": "As of the end of 1941, the largest group of mortal victims of German rule in occupied Poland was neither the native Poles nor the native Jews, but Soviet prisoners of war who had been brought west to occupied Poland and left to freeze and starve.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "war"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The forgotten first mass death of the eastern war: 3+ million Soviet POWs. Almost never in the Western memory. Central to the debt."
+            },
+            {
+              "sn": false,
+              "quote": "Usually, however, the prisoner was forced to undress before being shot so that his uniform could be issued to somebody else without too many discouraging bullet-holes.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "history"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "Grossman’s flat, clinical register on the treatment of prisoners. The horror is in the logistics, not the adjectives — exactly the tone to model."
+            }
+          ]
+        },
+        {
+          "date": "1941–1942",
+          "title": "The Holocaust in the East",
+          "blurb": "Browning's Battalion 101: how ordinary men did it. Keeps the Holocaust central and gives the episode its psychological engine — the same machinery of conformity the Soviet side will run in reverse.",
+          "badgeEp": "E1 · The Debt — Act II (central, not incidental)",
+          "badgeN": "9 highlights",
+          "beat": "The moral core — slow the episode down here",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "The fundamental problem is to explain why ordinary men—shaped by a culture that had its own particularities but was nonetheless within the mainstream of western, Christian, and Enlightenment traditions—under specific circumstances willingly carried out the most extreme genocide in human history.",
+              "book": "Ordinary Men",
+              "author": "Christopher R. Browning",
+              "tags": [
+                "revenge",
+                "hitler",
+                "war",
+                "favorite",
+                "history",
+                "psychology"
+              ],
+              "hotTags": [
+                "revenge",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/925236795",
+              "use": "The thesis question of Ordinary Men — could anchor a full segment on perpetrators."
+            },
+            {
+              "sn": false,
+              "quote": "For a battalion of less than 500 men, the ultimate body count was at least 83,000 Jews.",
+              "book": "Ordinary Men",
+              "author": "Christopher R. Browning",
+              "tags": [
+                "history",
+                "psychology",
+                "hitler",
+                "identity",
+                "men",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/925236798",
+              "use": "500 men, 83,000 murders. The arithmetic of complicity."
+            },
+            {
+              "sn": false,
+              "quote": "These were men who had known political standards and moral norms other than those of the Nazis. Most came from Hamburg, by reputation one of the least nazified cities in Germany, and the majority came from a social class that had been anti-Nazi in its political culture. These men would not seem to have been a very promising group from which to recruit mass murderers on behalf of the Nazi vision of a racial utopia free of Jews.",
+              "book": "Ordinary Men",
+              "author": "Christopher R. Browning",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/925236799",
+              "use": "They were not promising recruits for mass murder — that is the point."
+            },
+            {
+              "sn": false,
+              "quote": "Once the killing began, however, the men became increasingly brutalized. As in combat, the horrors of the initial encounter eventually became routine, and the killing became progressively easier. In this sense, brutalization was not the cause but the effect of these men’s behavior.",
+              "book": "Ordinary Men",
+              "author": "Christopher R. Browning",
+              "tags": [
+                "history",
+                "men",
+                "war",
+                "psychology"
+              ],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/925236794",
+              "use": "Brutalization as effect, not cause."
+            },
+            {
+              "sn": false,
+              "quote": "As important as the lack of time for reflection was the pressure for conformity—the basic identification of men in uniform with their comrades and the strong urge not to separate themselves from the group by stepping out.",
+              "book": "Ordinary Men",
+              "author": "Christopher R. Browning",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/925236793",
+              "use": "Conformity, not ideology — the mechanism."
+            },
+            {
+              "sn": false,
+              "quote": "The battalion and company commanders are especially to provide for the spiritual care of the men who participate in this action. The impressions of the day are to be blotted out through the holding of social events in the evenings. Furthermore the men are to be instructed continuously about the political necessity of the measures.",
+              "book": "Ordinary Men",
+              "author": "Christopher R. Browning",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/925236796",
+              "use": "A real order: social events to blot out the impressions of the day. Read it deadpan."
+            },
+            {
+              "sn": true,
+              "quote": "While philosophers have had plenty to say about conscience and compassion, complicity has bedeviled the greatest of them. Kant and his followers have focused on the critical reason of individuals and their accountability for harm over which they had some control—either you are accountable, or you are not. In complicity in collective harms, however, individual accountability is dispersed.\n— Out of the Darkness by Frank Trentmann",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The philosophical frame for the Browning segment — complicity disperses accountability."
+            },
+            {
+              "sn": true,
+              "quote": "The Nazis weren’t playing a cruel joke or even covering their tracks. There was a logic behind this program of deception. Walter Rosenberg, an 18-year-old Slovak Jew enlisted in the commando charged with unloading the trains, figured it out. The prisoners’ obedience kept the machinery of death running smoothly, which the SS required: because the transports arrived in such quick succession, but also because the victims far outnumbered the guards. “If the Jews knew what was coming,” Jonathan Freedland writes in “The Escape Artist,” his riveting chronicle of Rosenberg’s escape from Auschwitz and subsequent effort to rally the world to action, “what sand might they be able to throw in the gears of the machine that was poised to devour them?” Even a small amount of resistance could be enough.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Excerpt — full note in SideNotes. The deception-logic of the machinery; the Vrba/Rosenberg escape could carry a whole segment on knowledge and warning."
+            },
+            {
+              "sn": true,
+              "quote": "Banality is the adopted disguise of a very powerful will to abolish conscience.",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The one-line counterpoint to Arendt — a perfect hinge for the Browning segment. Unattributed; verify source before use."
+            },
+            {
+              "sn": false,
+              "quote": "Most of the Jews who arrived at Auschwitz were simply gassed; they, like almost all of the fourteen million killed in the bloodlands, never spent time in a concentration camp.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "war"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "Corrects the camp-centric memory of the Holocaust. Most victims died at pits and in transit, not behind wire. Load-bearing for the Holocaust-in-the-East beat."
+            },
+            {
+              "sn": false,
+              "quote": "Execution facilities were built or chosen with an eye to discretion. Killings were always carried out at night, and in seclusion. They took place in soundproofed rooms below ground, in large buildings such as garages where noise could cover gunshots, or far from human settlement in forests.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "war"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The bureaucracy of concealment. Useful over archival footage of ordinary buildings and forests — the banality of the machinery."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "middle",
+      "num": "ACT II",
+      "title": "Middle",
+      "subtitle": "The Rage and the Collection",
+      "frame": "1942–1945",
+      "sub": "The turn: grief is industrialized into rage, the rage finds proof, and the debt is collected on German soil. The episode's escalation and moral reversal live here.",
+      "events": [
+        {
+          "date": "Winter 1942–43",
+          "title": "Stalingrad",
+          "blurb": "Thin in this corpus (two highlights) — Stalingrad needs supplementary sourcing if it carries more than a minute.",
+          "badgeEp": "E2 · The Rage Machine — timeline beat",
+          "badgeN": "3 highlights",
+          "beat": "Escalation beat — the first installment",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Rumours had begun to circulate just before Christmas 1942 that General Paulus’s Sixth Army had been encircled on the Volga by the Red Army.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/864871591",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "Nazi regime found it hard to admit that the largest formation in the whole of the Wehrmacht was doomed to annihilation in the ruins of Stalingrad and in the frozen steppe outside.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "history",
+                "politics",
+                "war",
+                "men",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/859384621",
+              "use": "The regime that could not say 'defeat' — propaganda strain on the German side."
+            },
+            {
+              "sn": true,
+              "quote": "In the 16th minute of episode two of the BBC documentary “Hitler’s War in the East,” there is nice footage of Vasily Chuikov, the commander of the Red Army in Stalingrad, picking up a phone to show off his commander’s posture.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Footage pointer — exact minute noted. Chuikov b-roll for the Stalingrad beat."
+            },
+            {
+              "sn": false,
+              "quote": "I went out at four in the morning. It starts to get light at this time. The first Fritz ran to get some water for the chiefs to have a wash. The sun was already rising. He ran side-on to me. I didn’t look at their faces much, I looked at their uniforms. Commanders wear trousers, jackets, caps and no belts, privates wear boots.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "men"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "A sniper’s morning, in his own words. First-person combat testimony with no editorializing — a scene beat for Stalingrad."
+            },
+            {
+              "sn": false,
+              "quote": "The two friends’ eyes are red in the morning from weeping all night. These days everyone cries at night and is calm, indifferent and patient in the daytime.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "psychology",
+                "men"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The private grief behind the public stoicism. Human-cost material that resists the heroic Stalingrad myth."
+            },
+            {
+              "sn": false,
+              "quote": "Grossman at this point had no idea that his nephew, Yura Benash, a young lieutenant in Stalingrad who had been trying to contact him having read his articles, had been killed in the fighting.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "men"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The reporter and the war collapse into one family. A quiet, specific loss to counterweight the statistics."
+            }
+          ]
+        },
+        {
+          "date": "1942–1944",
+          "title": "The rage machine",
+          "blurb": "Ehrenburg's 'Kill', Grossman's two sacred words, a lieutenant's private vow. The manufactured hate — and the police apparatus running alongside it.",
+          "badgeEp": "E2 · The Rage Machine — core",
+          "badgeN": "9 highlights",
+          "beat": "Mid-episode engine — grief becomes a weapons program",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "’Do not count days; do not count miles. Count only the number of Germans you have killed. Kill the German — this is your mother’s prayer. Kill the German — this is the cry of your Russian earth. Do not waver. Do not let up.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "favorite",
+                "war",
+                "revenge",
+                "history"
+              ],
+              "hotTags": [
+                "favorite",
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/852749794",
+              "use": "Ehrenburg's actual cadence — 'Do not count days; do not count miles. Count only the number of Germans you have killed.' The series hook in primary text."
+            },
+            {
+              "sn": false,
+              "quote": "There are only two sacred words left to us. One of them is ‘love’; the other one is ‘revenge’.\nVasily Grossman, 15 October 1943",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/910898838",
+              "use": "Grossman, October 1943: love and revenge, the last two sacred words. Epigraph candidate for the whole series."
+            },
+            {
+              "sn": false,
+              "quote": "‘My life is twisted,’ wrote Salman Kiselev after the death of his wife and six children.7 ‘They killed my little Niusenka,’ claimed Second Lieutenant Kratsov, a Hero of the Soviet Union who had lost his wife and daughter to the Einsatzgruppen in Ukraine. ‘There is only one thing left for me: vengeance.’",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "war",
+                "history",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/954831356",
+              "use": "The personal account of revenge in one voice: 'There is only one thing left for me: vengeance.'"
+            },
+            {
+              "sn": false,
+              "quote": "It was rage that gave the troops their energy. Everything, from the deaths of beloved friends to the burning of cities, from the hunger of the children back at home to the fear of facing yet another hail of shells, everything—even the wealth of bourgeois homes—was blamed on the Germans.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132470",
+              "use": "Merridale's summary of rage as fuel — everything blamed on the Germans, even bourgeois wealth."
+            },
+            {
+              "sn": false,
+              "quote": "But individual trauma, like individual desire, was a concept alien to Stalinism.12 Soldiers were part of a collective; good morale was their duty, not their right. Those who complained, malingered, or showed signs of cowardice were likely to face punishment—a bullet or the shtraf battalion.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132466",
+              "use": "Trauma was alien to Stalinism: bullet or shtraf battalion. The stick beside the hate."
+            },
+            {
+              "sn": false,
+              "quote": "For all the rhetoric of unity, however, close friendships still aroused suspicion in police circles. The NKVD monitored soldiers’ conversations at the front, while the Special Section and its successor, SMERSh, whose name was an acronym for the Russian expression “death to spies,” pursued each rumor of dissension.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132469",
+              "use": "SMERSh watching the avengers already — plants the E5 payoff early."
+            },
+            {
+              "sn": true,
+              "quote": "The emergence of vengeance as a language — and vengeance is an ancient language. It goes back to the ancient Greeks and the Bible, and it’s a very dangerous language. And there’s a reason why the Greeks were terrified of it. Because, put it this way, it has a licensing structure that is extraordinarily permissive. But on the other hand, this is almost a paradox. It contains a very strict moral demand. You must seek revenge for this loss. If you don’t, it’s as if you’re committing a second murder yourself. You’re not honoring this person. And this is a truly intimidating language. It’s not one that’s monopolized by the right. There was an excellent historian, Arna Mer, who wrote a wonderful book about the French and Russian Revolutions, titled Fury (after the ancient Greek gods), which explores the role of vengeance on the left. And it is absolutely terrifying, this sort of holy violence that it seems to authorize, where people are morally empowered to do horrible things that they wouldn’t ordinarily feel themselves authorized to do.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The series' theoretical spine in one paragraph — vengeance as a permissive license wrapped in a moral demand. Verify the name: this is almost certainly Arno J. Mayer, 'The Furies: Violence and Terror in the French and Russian Revolutions.'"
+            },
+            {
+              "sn": true,
+              "quote": "Letter from German soldiers: Guenther Egas has fallen. I’ve seen his grave. His Panzer, number 601, stood on the roadside opposite its right side, held like a sieve. 4.7 centimeter anti-tank gun. He got a shell through his back and was (and one can only thank God for this) killed immediately, as the next shell had ripped off both of his hands. Short greeting, hands in salute to the cap, and our Panzer rode on. His parents will receive a letter from the company commander who is heartbroken, just like we are. There will be a death notice in the local newspaper, and his little blonde sister will cry for him. We, however, will march on with him in our thoughts. He will fight at our side, and his death will not remain unpunished.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The German mirror of the revenge economy — 'his death will not remain unpunished' in a Wehrmacht letter. Pair against Ehrenburg to show the language running both directions."
+            },
+            {
+              "sn": true,
+              "quote": "The extreme violence of totalitarian systems,’ wrote Vasily Grossman in his great novel Life and Fate, ‘proved able to paralyse the human spirit throughout whole continents.’",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Grossman's own summary line — also lives in your Fall of Berlin highlights. Epigraph-grade."
+            },
+            {
+              "sn": false,
+              "quote": "A Red Army soldier is lying on the grass after the battle, talking to himself: ‘Animals and plants fight for existence. Human beings fight for supremacy.’",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "psychology",
+                "men"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "Overheard philosophy from the front. A cold, usable line about what the fighting was actually for."
+            },
+            {
+              "sn": false,
+              "quote": "‘The much-battered enemy continued his cowardly advance.’",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "politics"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "Grossman’s ear for the absurdity of Soviet war language. A one-line note on propaganda’s war with reality."
+            },
+            {
+              "sn": false,
+              "quote": "Soldiers frequently shot themselves through the left hand in a naive attempt to escape battle. In fact, such a wound, whatever the circumstances, was automatically deemed to have been self-inflicted and thus an attempt to evade battle. The soldier faced summary execution at the hands of the NKVD Special Departments (later SMERSh counter-intelligence). A few Red Army surgeons dared to save a boy’s life by amputating the hand entirely before the Special Department checked the wounds of every new patient.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "war",
+                "men",
+                "psychology"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The Red Army’s war against its own soldiers. Establishes that the machine pointed inward as well as out — the surgeon who amputates to save a boy from a firing squad is the whole story in one detail."
+            },
+            {
+              "sn": false,
+              "quote": "Face and soul of the people. In three days we went through Belorussia, Ukraine, and arrived in the Orel area. Hard times reveal the best side of people. They are kind and noble. There are similar traits in the three nations, and also some deeply different aspects. Russians are the strongest and most enduring. The face of a Ukrainian is sad and gentle, they are sly and a little disloyal. The grief of Belorussians is quiet and black.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "identity",
+                "psychology",
+                "men"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "Grossman’s notebook ethnography — revealing about the Soviet self-image as much as about the peoples described. Flag as testimony, not fact."
+            }
+          ]
+        },
+        {
+          "date": "July 1944",
+          "title": "Majdanek: the hate finds proof",
+          "blurb": "The first extermination camp any army discovered. After this, the manufactured rage had documentary evidence.",
+          "badgeEp": "E2 · The Rage Machine — turn",
+          "badgeN": "1 highlight",
+          "beat": "Turning point — rage acquires receipts",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Maidanek was the first extermination camp that any army would discover. It was a vast and tightly organized facility, a group of prisons, gas chambers, and chimneys that covered twenty-five square kilometers. One and a half million people had been murdered there.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132468",
+              "use": "The turn of E2: after Maidanek, the hate is no longer just propaganda — it holds proof."
+            }
+          ]
+        },
+        {
+          "date": "October 21, 1944",
+          "title": "Nemmersdorf",
+          "blurb": "The first taste of collection on German soil, instantly weaponized by Goebbels. Ullrich compresses cause and symbol into one paragraph.",
+          "badgeEp": "E3 · The Collection — cold open feed",
+          "badgeN": "1 highlight",
+          "beat": "Foreshadow beat — the first German village",
+          "hls": [
+            {
+              "sn": false,
+              "quote": ". Everywhere they had gone, they had seen the aftermath of German troops’ destructive frenzy. Almost every Red Army soldier had lost family members. Their hatred for the fanatical invaders and their thirst for revenge were further stoked by Soviet propaganda and put into action during a first wave of violence, of which the village of Nemmersdorf became a symbol. There, German soldiers who reconquered the town found traces of a massacre that had claimed the lives of numerous citizens, predominantly elderly men and women.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "history",
+                "revenge",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468832",
+              "use": "Cause and effect in one passage: every soldier's dead family, the propaganda, and the first massacre — Nemmersdorf as symbol."
+            }
+          ]
+        },
+        {
+          "date": "January 1945",
+          "title": "Into the Reich: East Prussia",
+          "blurb": "The army of a burned country walks into intact prosperity. Rage, contempt, and a soldier's own verdict: 'the court has begun already.'",
+          "badgeEp": "E3 · The Collection — Act I/II",
+          "badgeN": "5 highlights",
+          "beat": "The vector reverses — revenge crosses the border",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "‘German ladies are … ready to begin payment of “reparations” at once,’ a disgusted Soviet officer observed. ‘It won’t work!’72 ‘Europe is a dirty abyss,’ a soldier wrote home from Prussia that winter. ‘I have taken a look at German magazines, and they disgust me … Even their music is indecent! Is this Europe? Give me Siberia every time!’",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757078",
+              "use": "Two soldiers' voices: 'reparations' as menace, and Europe as a dirty abyss. Letters-on-screen material."
+            },
+            {
+              "sn": false,
+              "quote": "Soldiers had various ways of dealing with the real face of capitalism. Some were envious, some intrigued. Later, when they entered Germany, their main reaction would be rage. No one could understand why wealthy Germans had wanted to invade their neighbors to the east, why anyone who had this much would ever fight for more.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132463",
+              "use": "The rage of the poor victor: why would people with all this invade us?"
+            },
+            {
+              "sn": false,
+              "quote": "“You said that we should do the same things in Germany as the Germans did to us. The court has begun already; they are going to remember this march by our army over German territory for a long, long time.”",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132471",
+              "use": "A soldier quoting the propaganda back: 'The court has begun already.' Chilling precisely because it is calm."
+            },
+            {
+              "sn": false,
+              "quote": "The Red Army seemed to make a habit of attacking in atrocious weather conditions. German veterans, accustomed to this pattern, used to call it ‘weather for Russians’.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "war",
+                "history",
+                "men"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/871152857",
+              "use": "'Weather for Russians' — small texture detail for pacing relief."
+            },
+            {
+              "sn": false,
+              "quote": "The worst mistake of the German military authorities had been their refusal to destroy alcohol stocks in the path of the Red Army’s advance. This decision was based on the idea that a drunken enemy could not fight. Tragically for the female population, however, it was exactly what Red Army soldiers seemed to need to give them courage to rape as well as to celebrate the end of such a terrible war.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "history",
+                "war",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/871152843",
+              "use": "The undestroyed alcohol stocks — a logistical decision that fed the catastrophe."
+            }
+          ]
+        },
+        {
+          "date": "1945",
+          "title": "The collection: mass rape",
+          "blurb": "The corpus is strong here: scale, mechanism, and individual scenes. Per the series standards — clinical language, contested numbers shown as ranges, zero graphic imagery.",
+          "badgeEp": "E3 · The Collection — Act II (handle with ranges + clinical language)",
+          "badgeN": "15 highlights",
+          "beat": "Human-cost core — precision, not adjectives",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Tens of thousands of German women and girls undoubtedly suffered rape at the hands of Soviet troops; indeed, it is virtually certain that the figure ran to hundreds of thousands",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [
+                "war",
+                "history",
+                "revenge",
+                "hitler"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/1032757081",
+              "use": "Merridale's careful scaling: tens of thousands certain, hundreds of thousands virtually certain. Model of honest uncertainty."
+            },
+            {
+              "sn": false,
+              "quote": "One woman recounted the tale of a lawyer who had stood by his Jewish wife all through the Nazi years, refusing to divorce her in spite of the risks. When the Russians arrived, he protected her again, at least until a bullet from a Russian automatic hit him in the hip. As he lay bleeding to death, he watched as three men raped his wife.",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757080",
+              "use": "One scene that contains the whole moral collapse — the lawyer who survived the Nazis and not the liberation."
+            },
+            {
+              "sn": false,
+              "quote": "German men were also victims of a kind. It was no accident that many rapes took place in view of husbands and fathers.",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757079",
+              "use": "Rape staged before husbands and fathers — humiliation as the point."
+            },
+            {
+              "sn": false,
+              "quote": "Grossman then noted what he had evidently heard about a young mother. She was being raped continuously in a farm shed. Her relatives came to the shed and asked the soldiers to allow her a break to breast-feed the baby because it would not stop crying. All this was taking place next to a headquarters and in the full sight of officers supposedly responsible for discipline.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "history",
+                "war",
+                "men",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/864871589",
+              "use": "Grossman's notebook scene by the farm shed — the shame column of his ledger."
+            },
+            {
+              "sn": false,
+              "quote": "But liberation did not prove such a joyous occasion. Soviet soldiers raped the Jewish girls and women in the camp, not knowing that they had been persecuted by the Nazis.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/859384623",
+              "use": "Jewish survivors raped by their liberators — the fact that breaks every clean narrative."
+            },
+            {
+              "sn": false,
+              "quote": "In addition, the desire to humiliate the vanquished by subjugating their women was encouraged by the obtrusive air of superiority with which many Germans behaved toward their occupiers, even in the very moment their defeat became concrete. More than a decade of anti-Soviet propaganda promoting distorted images of primitive “Asiatic subhumans” continued to have its effects.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich and Jefferson Chase",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1028775282",
+              "use": "Ullrich's mechanism: humiliation plus a decade of 'Untermensch' propaganda."
+            },
+            {
+              "sn": false,
+              "quote": "This has been described as the effect of the 'impersonal violence of war itself and a compulsion to treat women as 'substitutes for the defeat of an enemy'. One historian noted that Soviet troops unleashed a wave of violence which then passed fairly rapidly, but the process often began again as soon as a new unit moved in.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "history",
+                "revenge",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/910898858",
+              "use": "The wave pattern — violence renewed with each new unit. Structure, not frenzy."
+            },
+            {
+              "sn": true,
+              "quote": "From an interview I did recently with a woman born in 1944 (name to verify), a baby when the Russians came to her town: “The fact that I’m alive today is down to the following incident, a story which my mother told me again and again.” The family lived in Waldenburg, near Breslau. The women gathered eleven or twelve children into one room and guarded the door day and night. When the Russians came, a young soldier shoved the women aside with his rifle and vanished into the room, shutting the door. Silence. When the women could not stand it anymore, they opened the door. The young Russian had not cut a single throat. He was kneeling in front of the little beds, sobbing. Using gestures, he explained: the Germans had hanged his mother. He had had a little sister — the same age as the girl he now held in his arms. The Germans had hanged her too. The women wanted to give him something, even just a little bit of bread. My mother never forgot that story. She told me often: you are alive, you are alive, no matter how bad it gets.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "YOUR OWN ORIGINAL TESTIMONY — nothing in the published corpus does what this does: both sides of the revenge ledger in one room. Strong candidate for the emotional spine of E3. Verify the interviewee's name and get usage permission."
+            },
+            {
+              "sn": true,
+              "quote": "The committing of rape in wartime epitomizes the abuse of military power and the gratuitous use of violence against defenceless civilians. In the Second World War it was a phenomenon that grew beyond any previously known proportions: more rapes occurred in this war, particularly in its final stages, than during any other war in history. The prime motivating factor, especially in the immediate wake of battle, was revenge – but the problem was allowed to get out of hand because of institutional failings on the part of each of the belligerent armies.\n— Savage Continent (chapter excerpt)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Excerpt — full chapter passage in SideNotes. Lowe's framing paragraph: revenge as trigger, institutional failure as accelerant."
+            },
+            {
+              "sn": true,
+              "quote": "In Berlin, the black-market exchange rate was based on Zigarettenwährung – ‘cigarette currency’ – so when American soldiers arrived with almost limitless cartons at their disposal, they did not need to rape. The definition of rape had become blurred into sexual coercion. A gun or physical violence became unnecessary when women faced starvation. This could be described as the third stage in the evolution of rape in Germany in 1945. The fourth was a strange form of cohabitation in which many Soviet officers settled in with German ‘occupation wives’.\n— The Fall of Berlin 1945 (chapter excerpt)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Excerpt — full note in SideNotes. Beevor's four-stage evolution — coercion by hunger; keeps the analysis clinical and honest about the Western armies too."
+            },
+            {
+              "sn": true,
+              "quote": "On the very day of the arrival of the Red Army in her neighborhood in Tempelhof, Hillers notes: “Among the many defeats at the end of this war is the defeat of the male sex.” The male defeat seems double – first, there is military defeat, and second, the mass rapes, which Hillers comprehends as a means to humiliate not only women, but also their supposed male “protectors.” She records: “These days I keep noticing how my feelings towards men – and the feelings of all the other women – are changing. We feel sorry for them; they seem so miserable and powerless. The weaker sex. Deep down we women are experiencing a kind of collective disappointment. The Nazi world – ruled by men, glorifying the strong man – is beginning to crumble, and with it the myth of ‘Man.’”\n— from a scholarly article on Marta Hillers' A Woman in Berlin",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The analytic layer on top of the diary — humiliation aimed through women at men. Pairs with Merridale's 'German men were also victims of a kind.'"
+            },
+            {
+              "sn": true,
+              "quote": "The woman with eczema came over in the evening, bearing sad news. She’d walked all the way to Lützowplatz to look up her boss, a lawyer for whom she had spent years taking down court statements. Because he was married to a Jewish woman and refused to divorce her, he’d had to endure a great deal… Then when the first Russians broke into the basement and went after the women, there was a scuffle. Shots were fired. One bullet ricocheted off the wall and hit the man in the hip. His wife threw herself at the Russians, begging them to help, in German. Whereupon they took her into the hallway, three men on top of her, as she kept howling and screaming, “But I’m Jewish, I’m Jewish.” In the meantime her husband bled to death… No one could invent a story like this: it’s life at its most cruel—mad blind circumstance.\n— A Woman in Berlin",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "THE PRIMARY VERSION of the scene Merridale retells (it sits beside her retelling in this event) — if the scene is used on screen, cite the diary, not the retelling."
+            },
+            {
+              "sn": true,
+              "quote": "Bulgaria, for example, suffered hardly any rape compared with its neighbours, partly because the army that entered Bulgaria was far more disciplined than some of the others, but also because Bulgaria shared a similar culture and language with Russia, and the two countries had enjoyed a century of friendly relations.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "ATTRIBUTION FLAG: your note credits Ivan's War, but this text matches your Savage Continent highlight word-for-word. Fix before citing on screen. The Bulgaria contrast is the best evidence that the violence was conditional, not inevitable."
+            },
+            {
+              "sn": true,
+              "quote": "The figures in western Europe, though much lower, are still significant. The United States Army, for example, stands accused of raping as many as 17,000 civilian women in North Africa and western Europe between 1942 and 1945.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "ATTRIBUTION FLAG: noted as Ivan's War, but this is Savage Continent. The Western counter-ledger — keeps E3 honest."
+            },
+            {
+              "sn": true,
+              "quote": "The Eastern Front was conceived as a racial conflict, which gave license for all kinds of atrocities on either side… In the last months of the war, the Red Army’s brutality became so widespread and vicious that it actually became counter-productive: German soldiers were no longer fighting for the Reich, but to buy desperate time for their friends and family to escape westward. Stalin was stunned by how easily the allies were advancing in the west, compared to the stiff resistance faced by the Red Army. Moscow finally ordered the propaganda to be toned down, and targeted against Nazis rather than all Germans. It was too little, and too late.",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Compresses E3's whole argument, ending on the April 14, 1945 Pravda off-switch beat. Unattributed analytic summary — verify and source before leaning on it."
+            }
+          ]
+        },
+        {
+          "date": "April–May 1945",
+          "title": "Berlin",
+          "blurb": "Firepower arithmetic, the casserole and the totals, candles measuring oxygen in bunkers, and Maslov's crying children — the whole collection in one city.",
+          "badgeEp": "E3 · The Collection — Act III",
+          "badgeN": "13 highlights",
+          "beat": "Climax — the debt collected at the center",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "The operation to capture Berlin involved 2.5 million men, 41,600 guns and mortars, 6,250 tanks and self-propelled guns and 7,500 aircraft. No doubt Stalin took satisfaction in the fact he was concentrating a far more powerful mechanized force to seize the capital of the Reich than Hitler had deployed to invade the whole of the Soviet Union.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "history",
+                "revenge",
+                "war",
+                "favorite"
+              ],
+              "hotTags": [
+                "revenge",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/823848407",
+              "use": "The symmetry Stalin savored: more force against one city than Hitler used against the whole USSR."
+            },
+            {
+              "sn": false,
+              "quote": "Stalin and his marshals paid little regard to the lives of their soldiers. The casualties for the three Fronts involved in the Berlin operation were extremely high, with 78,291 killed and 274,184 wounded. Russian historians now acknowledge that these needlessly high losses were partly due to the race to get to Berlin before the Western Allies and partly to packing so many armies into the assault on Berlin that they were bombarding each other.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/871152853",
+              "use": "78,291 Soviet dead partly from the race itself — Stalin spending soldiers to the last week."
+            },
+            {
+              "sn": false,
+              "quote": "Red Army soldiers referred to the Hitler Youth and the Volkssturm as ‘totals’ because they were the product of ’total mobilization‘. Wehrmacht officers called them the ’casserole’ because they were a mixture of old meat and green vegetables.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "history",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/823848412",
+              "use": "'Totals' and 'casserole' — gallows shorthand for children and old men fed to the front."
+            },
+            {
+              "sn": false,
+              "quote": "‘As the allied armies approached the heart of Germany from both directions, Berliners claimed that optimists were ’learning English and pessimists learning Russian‘.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "favorite",
+                "history",
+                "war"
+              ],
+              "hotTags": [
+                "revenge",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/852749777",
+              "use": "'Optimists learning English, pessimists learning Russian' — Berlin wit as dread."
+            },
+            {
+              "sn": false,
+              "quote": "Candles were used to measure the diminishing levels of oxygen. When a candle placed on the floor went out, children were picked up and held at shoulder height. When a candle on a chair went out, then the evacuation of the level began. And if a third candle, positioned at about chin level, began to sputter, then the whole bunker was evacuated, however heavy the attack above.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "war",
+                "history"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/864871595",
+              "use": "The candle protocol in the bunkers — measurable suffocation. Motion-graphic candidate."
+            },
+            {
+              "sn": false,
+              "quote": "Loewe found that the most common greeting had become ‘Bleib übrig!’ — ‘Survive!’",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/876992731",
+              "use": "'Bleib übrig!' — survival as the city's greeting."
+            },
+            {
+              "sn": false,
+              "quote": "‘We no longer fought for Hitler, or for National Socialism, or for the Third Reich,’ wrote an Alsatian veteran of the Grossdeutschland Division, ‘or even for our fiancées or mothers or families trapped in bomb-ravaged towns. We fought from simple fear... We fought for ourselves, so that we wouldn’t die in holes filled with mud and snow; we fought like rats.’",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "history",
+                "war",
+                "men"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/859384624",
+              "use": "'We fought like rats' — the Wehrmacht's own epitaph for its motivation."
+            },
+            {
+              "sn": false,
+              "quote": "Berlin’s population in early April stood at anything between 3 and 3.5 million people, including around 120,000 infants. When General Reymann raised the problem of feeding these children at a meeting in the Reich Chancellery bunker, Hitler stared at him. ‘There are no children of that age left in Berlin,’ he said. Reymann finally understood that his supreme commander had no contact with human reality.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/864871588",
+              "use": "Hitler: 'There are no children of that age left in Berlin.' Delusion in one line."
+            },
+            {
+              "sn": false,
+              "quote": "One of the most unintentionally revealing remarks was made by one of Zhukov’s divisional commanders, General Maslov. He described German children crying as they searched desperately for their parents in a blazing town. ‘What was surprising,’ wrote Maslov, ‘was that they were crying in exactly the same way as our children cry.’ Few Soviet soldiers or officers had imagined Germans as human beings. After Nazi propaganda had dehumanized the Slavs into Untermenschen, Soviet revenge propaganda had convinced its citizens that all Germans were ravening beasts.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/876992734",
+              "use": "Maslov's astonishment that German children cry like Soviet children — the dehumanization measured exactly."
+            },
+            {
+              "sn": false,
+              "quote": "Women queued for a handout of butter and dry sausage, while men emerged only to line up for an issue of schnapps. It seemed to be symbolic. Women were concerned with the immediacy of survival while men needed escape from the consequences of their war.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "favorite",
+                "history",
+                "war"
+              ],
+              "hotTags": [
+                "revenge",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/852749792",
+              "use": "Women queued for butter, men for schnapps — one image of gendered survival."
+            },
+            {
+              "sn": true,
+              "quote": "In Berlin, the feelings of the civilian population were very mixed. While embittered by the looting and rape, they were also astonished and grateful for the Red Army’s major efforts to feed them. Nazi propaganda had convinced them that they would be systematically starved. General Berzarin, who went out and chatted with Germans queuing at Red Army field kitchens, soon became almost as much of a hero to Berliners as he was to his own men… Estimates from the two main Berlin hospitals ranged from 95,000 to 130,000 rape victims… Altogether at least 2 million German women are thought to have been raped.\n— The Fall of Berlin 1945 (chapter excerpt)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Excerpt — full note in SideNotes. Berzarin's field kitchens complicate the story usefully; the hospital ranges are exactly the numbers for the on-screen uncertainty chart."
+            },
+            {
+              "sn": true,
+              "quote": "She heard from bystanders that a man accused of desertion had been hanged at the other end of the tunnel… On her way home she was horrified by the sight of ‘soft-faced children under huge steel helmets … so tiny and thin in uniforms far too large for them’. She wondered why she was so outraged by ‘this abuse of children’… She concluded that some rule of nature, which protected the survival of the species, was being broken by throwing immature humans into battle. To take that step was ‘a symptom of madness’.\n— The Fall of Berlin 1945 (chapter excerpt)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Excerpt — full note in SideNotes. The children-in-helmets image pairs with the 'casserole' highlight above."
+            },
+            {
+              "sn": true,
+              "quote": "At roughly 10:40 p.m., a group of Soviet soldiers led by Mikhail Petrovich Minin reached the Reichstag roof. They carried a sheet of red cloth but no flagpole, and so they improvised with a pipe they found… The fighting was still going on when, that morning, the Soviet photographer Yevgeny Khaldei entered the building with his camera and restaged the flag-raising of some thirty hours ago… Several months later Khaldei was required to retouch the image to remove the second watch worn on the right wrist of the soldier supporting the bearer of the banner. Soviet authorities wanted to suppress any hints of looting by Germany’s conquerors.\n— Eight Days in May, Volker Ullrich (excerpt)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Direct feed for E4's cold open — the restaged flag and the scratched-out watch, from Ullrich rather than the photo-history literature. Full assault narrative in SideNotes."
+            }
+          ]
+        },
+        {
+          "date": "April 30 – May 3, 1945",
+          "title": "Demmin: the end of the world, locally",
+          "blurb": "The largest mass suicide in German history, silenced for decades by the GDR. Huber and Ullrich give scenes, mechanism, and the Kittel case — a possible cold open for E3 told backwards.",
+          "badgeEp": "E3 · The Collection — closing sequence",
+          "badgeN": "8 highlights",
+          "beat": "The episode's darkest room — restraint mandatory",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "SOMETIME ON MAY 1, a teacher from the town of Demmin noted in her diary, “Suicides driven mad questioning the sense of life.”59 Behind these brief words was a tragedy that was for decades shrouded in a mantle of silence in Communist East Germany and that has only recently become part of Germany’s collective historical memory. Nowhere did more people commit suicide in Germany in early May 1945 than in Demmin, a small Hanseatic city in the northeast on the Peene River.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "history",
+                "politics",
+                "war",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468830",
+              "use": "The teacher's diary line and the GDR silence — event and blindspot in one paragraph."
+            },
+            {
+              "sn": false,
+              "quote": "April 30 was a bright, clear spring day. That morning the thunder of artillery could be heard, and the sounds of approaching tanks grew louder and louder. Residents of Demmin and refugees sought shelter in basements. Women blackened their face with ashes and wrapped their heads in torn bandages to make themselves as unattractive as possible",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "history",
+                "war",
+                "revenge",
+                "politics"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468834",
+              "use": "April 30, ashes on faces — the waiting scene."
+            },
+            {
+              "sn": false,
+              "quote": "Much worse was the terror inflicted by marauding, often drunk Red Army soldiers. Hundreds of women and girls were raped, a number of residents murdered, and many dwellings plundered. These actions were followed by an act of mass suicide, the dimensions of which exceeded anything that transpired in other German cities and towns in the final days of the war. Collective panic—a kind of mass hysteria—seemed to seize the city’s population, with whole families ending their own lives. Huber writes, “Among the dead were infants and small children, schoolkids and adolescents, young men and women, affluent couples, people in the prime of life, pensioners and the extremely aged. There was no pattern to the suicides’ backgrounds, careers, and social status. The victims included hundreds of refugees from Pomerania, East and West Prussia, and other regions in addition to hundreds of people from Demmin and the surrounding area. They were laborers and white-collar workers, state officials and artisans, doctors and apothecaries, wives and widows, merchants and policemen, bosses and bookkeepers, pensioners and teachers. . . . The suicides of Demmin were a cross-section of small-city life in German society.”",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "history",
+                "revenge",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468835",
+              "use": "Huber's cross-section list — the whole town, every class. Read slowly or not at all."
+            },
+            {
+              "sn": false,
+              "quote": "Those who were able ingested poison or put a bullet in their brain. Others slit their wrists or hanged themselves. The greatest number, however, drowned themselves. Women filled knapsacks with rocks, tied their children’s and their own hands together at the wrists, and waded into the water. Weeks later, corpses were still floating in the waters of the Peene and its tributaries.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "war",
+                "history",
+                "politics",
+                "psychology",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468836",
+              "use": "The Peene drownings. The single hardest passage in the corpus; if used, no music, no imagery."
+            },
+            {
+              "sn": false,
+              "quote": "Take this last story, the story of Paul Kittel.\n• • •\nOn 26 January 1959, a fifty-five-year-old clerk came before the court in Hanover. Paul Kittel was charged with committing multiple manslaughter fourteen years before in the small town of Malchin in Mecklenburg. He was standing trial in West Germany, where he had settled after ten years in a Soviet camp.\nHis former hometown of Malchin is about thirty kilometres south of Demmin and, like Demmin, lies on the gently flowing Peene. Malchin and Demmin: two towns on the same river, with the same story. Malchin, too, was invaded by the Red Army on 30 April. Large parts of the town centre burnt down, and people flocked to the Peene to drown themselves. Later it was said that five hundred people had killed themselves within three days. On 1 May, Paul Kittel took the pistol of a neighbour who was already dead and shot first his wife and then his two sons, Ullrich and Joachim, aged thirteen and fourteen. According to statements given in court, all three had asked him to shoot them. He ended by turning the gun on himself, but nothing happened. There had been only three bullets in the pistol. Paul Kittel couldn’t kill himself. He couldn’t complete his murder-suicide.\nThe jury declared Paul Kittel of unsound mind at the time of the offence, though of course they had no way of knowing what had been going on in his mind, or in the minds of his wife and sons, in the preceding days and months and years. The Hannoversche Zeitung reported the case under the headline ‘Alive Thanks to Missing Bullet’. The journalist saw the drama of a family’s destruction as an almost unparalleled tragedy. Paul Kittel was acquitted of manslaughter. But the burden of memory he had to shoulder was, perhaps, worse than death.",
+              "book": "Promise Me You'll Shoot Yourself",
+              "author": "Florian Huber",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757065",
+              "use": "The Paul Kittel case, 1959 — a way to tell Demmin through one courtroom, fourteen years later. Strong alternative cold open."
+            },
+            {
+              "sn": false,
+              "quote": "Many Germans experienced the imminent end of the war as an apocalypse and saw it as the complete collapse of a social order that had given their lives structure and a foundation. Along with a collective loss of faith in the future, anxiety over the fate of family members provided a common motivation for suicide.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich and Jefferson Chase",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1028775281",
+              "use": "Ullrich's explanation: apocalypse of a social order, not just fear."
+            },
+            {
+              "sn": false,
+              "quote": "four and their nine-year-old son—for their deaths. They had moved into the bunker with their parents on April 22, and Magda rejected all attempts by those who remained in the subterranean catacombs to persuade her to spare her children. Indeed, she fully backed her husband’s decision. “My wife and I are in agreement that our children should follow us into death,” Joseph Goebbels told Axmann. “We don’t want them to see their father dragged through the international scandal sheets.”",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich",
+              "tags": [
+                "psychology",
+                "hitler",
+                "politics",
+                "war",
+                "revenge",
+                "history"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/921468828",
+              "use": "Magda Goebbels — the regime's own murder-suicide as the ideological ceiling of the same phenomenon."
+            },
+            {
+              "sn": true,
+              "quote": "Create an animation: “The sight of the riverbank moved me more each day. The meadows by the river, resplendent in their spring finery, were edged, like the border of a dress, with about 1.5–2 metres of baby’s clothes and other garments—expensive frocks and furs in particular—and identity papers and passports. Money, too—a lot of money—but nobody stooped to pick it up; it seemed to us worthless.” (Also: page 81 picture in Promise Me You'll Shoot Yourself.)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Your own visual brief for the Demmin sequence — the riverbank 'border of a dress' animation. Restrained, devastating, producible."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "num": "ACT III",
+      "title": "End",
+      "subtitle": "The Bill",
+      "frame": "1945 →",
+      "sub": "The closing turn: what victory cost, what was carted off, who was audited, and what memory did with all of it. The ending insight lives here.",
+      "events": [
+        {
+          "date": "May 1945",
+          "title": "A strange species of victory",
+          "blurb": "Merridale's paragraph on the 27 million is the single best ending in the corpus: the victory that could not bear its own arithmetic.",
+          "badgeEp": "E5 · The Bill — opening / series outro feed",
+          "badgeN": "8 highlights",
+          "beat": "Closing-turn candidate — the victory audited",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Few people were in any mood to weigh the price that had been paid for this euphoric day or even to forecast what peace might cost in future. A calculation like that might well have raised some doubt about the victory itself. Could a nation consider that it was triumphant when approximately 27 million of its citizens were dead? What plaudits could the army really claim when twice as many civilians as soldiers had died? It was a strange species of victory that left 25 million people homeless, living in zemlyanki or squeezed into windowless corridors.",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1032757083",
+              "use": "Ending gold: 27 million dead, 25 million homeless — 'a strange species of victory.' Could close the episode or the series."
+            },
+            {
+              "sn": false,
+              "quote": "A population which had stood at 2.2 million in 1940 was reduced to 193,000 at the end of May 1945.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "history",
+                "men",
+                "war",
+                "revenge",
+                "favorite"
+              ],
+              "hotTags": [
+                "revenge",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/823848410",
+              "use": "Berlin: 2.2 million to 193,000. One cut, two numbers."
+            },
+            {
+              "sn": false,
+              "quote": "Most Germans, even those critical of the regime, regarded May 8, 1945, not as a day of liberation but as an unprecedented national catastrophe.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich and Jefferson Chase",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1028775284",
+              "use": "May 8 as catastrophe, not liberation — the German half of the double memory."
+            },
+            {
+              "sn": false,
+              "quote": "To Friedeburg’s objection that no German soldiers would voluntarily become Soviet prisoners because they feared being sentenced to hard labor in Siberia, Montgomery coolly replied, “The Germans should have thought of all these things before they began the war, and particularly before they attacked the Russians in June 1941.”",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich and Jefferson Chase",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1028775288",
+              "use": "Montgomery's cold reply — the Western verdict in one sentence."
+            },
+            {
+              "sn": false,
+              "quote": "Germany in 1945 was one huge ants’ nest. Everyone was moving. This was how the eastern territories of Germany looked like. There were Germans escaping from the Russians. There were all these prisoners of war.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "favorite",
+                "hitler",
+                "war",
+                "revenge",
+                "history"
+              ],
+              "hotTags": [
+                "favorite",
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/1007253978",
+              "use": "'One huge ants' nest' — the continent in motion. Map-animation cue."
+            },
+            {
+              "sn": false,
+              "quote": "Perhaps the only way to come close to understanding what happened is to stop trying to imagine Europe as a place populated by the dead, and to think of it instead as a place characterized by absence. Almost everyone alive when the war ended had lost friends or relatives to it. Whole villages, whole towns and even whole cities had been effectively erased, and with them their populations.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/909118218",
+              "use": "Lowe's 'absence' framing — a narration key for aftermath sequences."
+            },
+            {
+              "sn": true,
+              "quote": "The electricity is back on as of yesterday. The time of candles is over; now people can ring instead of knocking—the quiet has come to an end. The Berlin station is broadcasting on the radio, generally news reports and disclosures that reek of blood, corpses, and atrocities. They say that millions of people—mostly Jews—were cremated in huge camps in the East and that their ashes were used for fertilizer. On top of that everything was supposedly carefully recorded in thick ledgers—a scrupulous accounting of death. We really are an orderly nation. Late in the evening they played Beethoven, and that brought tears. I turned it off. Who can bear that at this moment?\n— A Woman in Berlin",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The moment the Holocaust reaches German ears — radio, ledgers, Beethoven. A complete scene in five sentences; strong E5-adjacent or series-outro beat."
+            },
+            {
+              "sn": true,
+              "quote": "These few stories must be multiplied hundreds of thousands of times to give even a snapshot of the chaos that existed on the roads of Europe in the spring of 1945. Swarms of refugees, speaking twenty different languages, were obliged to negotiate a transport network that had been bombed, mined and neglected through six years of war… That the various military governments and aid agencies were able to round up the majority of these people, feed them, clothe them, locate missing relatives and then repatriate most of them within the next six months is nothing short of a miracle.\n— Savage Continent, Keith Lowe",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Pairs with the ants'-nest highlight — the one genuinely redemptive beat in the aftermath material."
+            },
+            {
+              "sn": false,
+              "quote": "Grossman, like many fellow idealists, believed passionately that the heroism of the Red Army at Stalingrad would not just win the war, it would change Soviet society for ever. Once victory over the Nazis had been won by a strongly unified people, they believed that the NKVD, the purges, the show trials and the Gulag could be consigned to history.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "history",
+                "war",
+                "politics"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The hope that the victory would redeem the system — and didn’t. The hinge of the strange-victory beat."
+            }
+          ]
+        },
+        {
+          "date": "1945",
+          "title": "The loot",
+          "blurb": "Thin but pointed here: safes, gold, uranium, scientists. The E4 spine (parcels, trophy brigades, Osoaviakhim) needs sourcing beyond this corpus.",
+          "badgeEp": "E4 · The Loot — evidence beats",
+          "badgeN": "4 highlights",
+          "beat": "Inventory beat — revenge itemized",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "In addition, the NKVD group at each army headquarters had a team specialized in opening safes, preferably before a Soviet soldier tried to blast the door off with a captured panzerfaust, destroying everything inside. Stalin was determined to extract every ounce of gold he could.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/852749791",
+              "use": "NKVD safe-cracking teams attached to army HQs — looting as org chart."
+            },
+            {
+              "sn": false,
+              "quote": "The work of the Manhattan Project carried out in Los Alamos was already well known in the Kremlin, thanks to the pro-Communist spy, Dr Klaus Fuchs. Soviet science was far behind, and Stalin and Beria were convinced that if they were to seize the German laboratories and scientists in Berlin before the Western Allies got there, then they too could produce an atom bomb like the Americans.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/852749783",
+              "use": "Fuchs, the Kremlin, and the race for German laboratories — the strategic loot."
+            },
+            {
+              "sn": false,
+              "quote": "Since the one thing holding up Soviet attempts to replicate the Manhattan Project’s research was the shortage of uranium, the importance which Stalin and Beria attached to securing research laboratories and their supplies was considerable. They also wanted German scientists capable of processing uranium. Beria’s preparations for the Berlin operation had clearly been enormous. Colonel General Makhnev was in charge of the special commission.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "war",
+                "history",
+                "hitler",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/876992744",
+              "use": "Beria's uranium shopping list for the Berlin operation — E4's human-loot thread begins here."
+            },
+            {
+              "sn": true,
+              "quote": "The obsession with watches prized them above far more valuable items. Soldiers would often wear several timepieces, with at least one on Moscow time and another on Berlin time. It was for this reason that they continued to prod civilians in the stomach with their sub-machine guns, demanding, ‘Uri, uri!’ well after the surrender. And Germans would try to explain in the Soviet version of pidgin-German that their watches had already been taken: ‘Uhr schon Kamerad’ – ‘watch already surrender.’\n— The Fall of Berlin 1945, Antony Beevor",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "'Uri, uri!' — the exact texture E4 needs, and the reason the Khaldei retouch mattered. Wristwatch motif locked."
+            }
+          ]
+        },
+        {
+          "date": "1945 →",
+          "title": "The audit of the survivors",
+          "blurb": "Filtration before medical care; Solzhenitsyn's verdict; the veterans' modest requests, all denied. The series' controlling insight — institutionalized revenge finds new debtors.",
+          "badgeEp": "E5 · The Bill — core",
+          "badgeN": "3 highlights",
+          "beat": "The machine turns inward",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "The first priority was not medical care for those who had suffered so appallingly in German camps, it was a screening process to weed out traitors. The second priority was political re-education for those who had been subject to foreign contamination.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "history",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/852749796",
+              "use": "Screening before care: the state's priorities for its own survivors, in order."
+            },
+            {
+              "sn": false,
+              "quote": "Solzhenitsyn felt that ‘to betray one’s own soldiers and proclaim them traitors’ was the foulest deed in Russian history.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/852749781",
+              "use": "Solzhenitsyn: betraying one's own soldiers as 'the foulest deed in Russian history.'"
+            },
+            {
+              "sn": false,
+              "quote": "But no one, not even the reformers, demanded democracy, let alone Stalin’s scalp. The relative modesty of their claims against the Soviet state—especially in view of the sacrifice that had been made—makes the leader’s reply even more callous. For there was never any chance. Not one request on these forgotten lists would ever be fulfilled.",
+              "book": "Ivan's War",
+              "author": "Catherine Merridale",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1027132462",
+              "use": "Not one request fulfilled — the bill served to the men who paid it."
+            }
+          ]
+        },
+        {
+          "date": "1945–1950s",
+          "title": "The other prisoners",
+          "blurb": "German POWs in Soviet hands: a third dead, mostly of indifference. Keeps the episode honest without false equivalence.",
+          "badgeEp": "E5 · The Bill — counter-ledger",
+          "badgeN": "3 highlights",
+          "beat": "Steelman beat — the mirror column",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "Of the 3 million prisoners taken by the Soviets during the war, more than a third died in captivity.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "revenge",
+                "history",
+                "war",
+                "hitler"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/1007253981",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "The principal reason why so many German prisoners died in Soviet captivity was because virtually no one who looked after them cared whether they lived or died.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "history",
+                "hitler",
+                "war",
+                "revenge"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/1038317021",
+              "use": "Lowe's mechanism: not extermination policy — nobody cared. The distinction the series must keep drawing."
+            },
+            {
+              "sn": false,
+              "quote": "German soldiers who had voluntarily surrendered to the Americans in the belief that they would be treated in accordance with the Geneva Convention got a nasty surprise.",
+              "book": "Eight Days in May",
+              "author": "Volker Ullrich and Jefferson Chase",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1028775283",
+              "use": "The Western camps were no idyll either — inoculation against clean-hands narratives."
+            },
+            {
+              "sn": false,
+              "quote": "The Gulag, which the Soviets themselves called a “system of concentration camps,” began alongside the collectivization of agriculture and depended upon it. It would eventually include 476 camp complexes, to which some eighteen million people would be sentenced, of whom between a million and a half and three million would die during their periods of incarceration.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "politics"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The counter-ledger, sourced and specific. Lets the episode hold Soviet crime and Nazi extermination in the same frame without flattening the difference."
+            }
+          ]
+        },
+        {
+          "date": "1945–1947",
+          "title": "The expulsions",
+          "blurb": "Twelve-plus million Germans driven west; Vistula; the continent made 'transient.' Feeds the parked deportations episode more than this series — flag and file.",
+          "badgeEp": "E5-adjacent / parked deportations standalone",
+          "badgeN": "8 highlights",
+          "beat": "Consequence beat — the map redrawn by revenge",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "In many areas of Europe, unwanted ethnic groups were simply driven out of their towns and villages. This occurred all over central and eastern Europe at the beginning of the war, as the old empires clawed back the territory they had lost in the aftermath of the First World War. But the most dramatic exodus of an ethnic group occurred in 1945, when several million Germans were driven out of East Prussia, Silesia and Pomerania by the advancing Red Army, leaving a landscape of ghost towns behind them.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1038317023",
+              "use": "Ghost towns of East Prussia, Silesia, Pomerania — the largest single exodus."
+            },
+            {
+              "sn": false,
+              "quote": "Between 1945 and 1947 tens of millions of men, women and children were expelled from their countries in some of the biggest acts of ethnic cleansing the world has ever seen.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/954831350",
+              "use": ""
+            },
+            {
+              "sn": false,
+              "quote": "As Churchill put it, when discussing the subject at Yalta, ‘it would be a pity to stuff the Polish goose so full of German food that it got indigestion’.4 It was understood by all parties that these Germans would have to be removed.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/954831352",
+              "use": "Churchill's goose joke at Yalta — Allied fingerprints on the expulsions."
+            },
+            {
+              "sn": false,
+              "quote": "After the war, the expulsion of Poland’s ethnic minorities was carried out with the explicit help of the Soviet Union, but the subsequent displacement and assimilation of Ukrainians and Łemkos was something that Poles conducted on their own initiative. Operation Vistula was effectively the final act in a racial war begun by Hitler, continued by Stalin and completed by the Polish authorities.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "revenge",
+                "men",
+                "psychology",
+                "identity",
+                "history",
+                "war"
+              ],
+              "hotTags": [
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/1038317019",
+              "use": "Operation Vistula: 'begun by Hitler, continued by Stalin, completed by the Polish authorities.'"
+            },
+            {
+              "sn": false,
+              "quote": "By normalizing the idea of uprooting whole sections of the population, they provided a template for the more comprehensive postwar population movements. The pan-European programme of ethnic expulsions that would take place after the war was made possible only because the concept of stable communities, unchanged for generations, had been destroyed once and for all. The population of Europe was no longer a fixed constant. It was now unstable, volatile – transient.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/954831353",
+              "use": "The template argument: wartime uprooting normalized postwar cleansing."
+            },
+            {
+              "sn": false,
+              "quote": "For countless millions of people throughout the eastern half of the continent, therefore, the end of the war did not signal ‘liberation’ at all, it merely heralded a new era of state repression. The Nazi terror was over: the Communist terror was about to begin.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1007253982",
+              "use": "'The Nazi terror was over: the Communist terror was about to begin' — the Cold War hinge in one line."
+            },
+            {
+              "sn": true,
+              "quote": "The Second World War and its aftermath ushered in a new and disturbing contrast between the eastern and western halves of Europe. In the west, the atmosphere had become far more cosmopolitan than the prewar population could ever have imagined.\n— Savage Continent",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The east-west divergence in one sentence — the consequence of the cleansing this event documents."
+            },
+            {
+              "sn": true,
+              "quote": "These women were scapegoats: shaving their heads was a symbolic way of cutting away not only their own sins, but the sins of the whole community. All of western Europe had, in the words of French journalist Robert Brasillach, ‘slept with Germany’, through the thousands of everyday actions that had made the German occupation possible. But in many communities it was only the women who had slept with actual Germans who were punished for it… in the words of Anthony Eden… those who had not been through the ‘horrors of occupation’ had ‘no right to pronounce upon what a country does’.\n— Savage Continent, Keith Lowe",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The Western counterweight to the Eastern collection — steelman material for E3, or a companion-piece seed."
+            }
+          ]
+        },
+        {
+          "date": "Coda",
+          "title": "How to count, and how to remember",
+          "blurb": "The corpus's meta-material: contested numbers, the ethics of counting, the historiographical silence. This is where The Blindspot earns its name.",
+          "badgeEp": "Series outro / every episode's discipline",
+          "badgeN": "13 highlights",
+          "beat": "Ending insight — the blindspot itself",
+          "hls": [
+            {
+              "sn": false,
+              "quote": "The fact that the incidence of rape was high for several years after the war suggests that it was not motivated solely by revenge as many people contend – instead we are confronted with the far more worrying suggestion that many soldiers committed rape merely because they could.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "history",
+                "memorable",
+                "war",
+                "favorite"
+              ],
+              "hotTags": [
+                "memorable",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/1007253987",
+              "use": "Lowe's hardest sentence: not only revenge — 'merely because they could.' The analytic spine of E3's honesty."
+            },
+            {
+              "sn": false,
+              "quote": "Numbers could make the Russians seem more terrible, turn Germans into victims, perhaps wipe out some dark stains from the Nazi past. They clearly helped to reinforce the image of the Red Army as an Asiatic horde.78 But though the stories told by the rates of abortion and venereal disease infection after 1945 are evidence of a kind,79 some other numbers are less definite. When a Berlin newspaper reported that a seventy-two-year-old woman had been raped twenty-four times, the anonymous Berlin diarist wearily asked, ‘Who counted?’80",
+              "book": "Ivan's War",
+              "author": "Merridale, Catherine",
+              "tags": [
+                "war",
+                "hitler",
+                "favorite",
+                "revenge",
+                "history",
+                "memorable"
+              ],
+              "hotTags": [
+                "favorite",
+                "revenge",
+                "memorable"
+              ],
+              "rw": "https://readwise.io/open/1032757082",
+              "use": "'Who counted?' — the Berlin diarist's question as the show's methods statement on numbers."
+            },
+            {
+              "sn": false,
+              "quote": "A particular bugbear of mine is the plethora of vague and unsubstantiated statistics that are regularly bandied about in discussions concerning this period. Statistics really do matter, because they are often employed for political purposes. Some nations routinely exaggerate the crimes of their neighbours, either to distract attention from their own crimes or to further their own national causes. Political parties of all colours like to exaggerate the misdeeds of their rivals, and play down those of their allies. Historians also sometimes exaggerate, or merely pick the most sensational number from the range of figures available, to make their stories seem more dramatic. But the stories from this period are fantastic enough – they do not need exaggeration.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/910898839",
+              "use": "Lowe on statistics as politics — practically a house style guide for the channel."
+            },
+            {
+              "sn": false,
+              "quote": "The massacre of women and children had no military purpose – indeed it was a propaganda disaster for the Red Army, and only served to stiffen German resistance. The wanton destruction of German towns and villages was also counter-productive.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "war",
+                "hitler",
+                "revenge",
+                "politics",
+                "memorable",
+                "history",
+                "men",
+                "favorite"
+              ],
+              "hotTags": [
+                "revenge",
+                "memorable",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/909118216",
+              "use": "Atrocity was counter-productive even militarily — kills any 'strategic necessity' apologetics."
+            },
+            {
+              "sn": false,
+              "quote": "The story of Europe in the immediate postwar period is therefore not primarily one of reconstruction and rehabilitation – it is firstly a story of the descent into anarchy. This is a history that has never properly been written.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [
+                "history",
+                "war"
+              ],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/1030194922",
+              "use": "'A history that has never properly been written' — the lane, stated by a historian."
+            },
+            {
+              "sn": false,
+              "quote": "It is not our remembering the sins of the past that provokes hatred, but the way in which we remember them.",
+              "book": "Savage Continent",
+              "author": "Keith Lowe",
+              "tags": [],
+              "hotTags": [],
+              "rw": "https://readwise.io/open/910898852",
+              "use": "Not whether we remember, but how — closing-thought candidate."
+            },
+            {
+              "sn": false,
+              "quote": "One important lesson is that one should be extremely wary of any generalization concerning the conduct of individuals. Extremes of human suffering and even degradation can bring out the best as well as the worst in human nature.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "revenge",
+                "war",
+                "favorite",
+                "history"
+              ],
+              "hotTags": [
+                "revenge",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/823848405",
+              "use": "Beevor's warning against generalization — pairs with the Maslov scene."
+            },
+            {
+              "sn": false,
+              "quote": "Each year around 1,000 bodies from 1945 are still being found along the Seelow Heights, in the silent pine forests south of the city and on construction sites in the new capital of a reunited Germany. The senseless slaughter which resulted from Hitler’s outrageous vanity utterly belies Speer’s regret that history should emphasize ‘terminal events’. The incompetence, the frenzied refusal to accept reality and the inhumanity of the Nazi regime were revealed all too clearly in its passing.",
+              "book": "The Fall of Berlin 1945",
+              "author": "Antony Beevor",
+              "tags": [
+                "favorite"
+              ],
+              "hotTags": [
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/856693898",
+              "use": "A thousand bodies still surfacing every year — the present tense of 1945. Strong final image."
+            },
+            {
+              "sn": false,
+              "quote": "As Hannah Arendt travelled the country, she found no genuine expression of feeling, not even grief at the loss of friends and family. It was as if all emotion had been replaced by assiduous detachment, or trite sentimentality.",
+              "book": "Promise Me You'll Shoot Yourself",
+              "author": "Florian Huber",
+              "tags": [
+                "psychology",
+                "history",
+                "war",
+                "revenge",
+                "memorable",
+                "favorite"
+              ],
+              "hotTags": [
+                "revenge",
+                "memorable",
+                "favorite"
+              ],
+              "rw": "https://readwise.io/open/1032757064",
+              "use": "Arendt's postwar Germany: no genuine feeling — the emotional aftermath in one observation."
+            },
+            {
+              "sn": false,
+              "quote": "Never before was there so much beginning. And never so much end",
+              "book": "Aftermath",
+              "author": "Shaun Whiteside",
+              "tags": [
+                "memorable",
+                "favorite",
+                "history",
+                "war",
+                "revenge",
+                "hitler"
+              ],
+              "hotTags": [
+                "memorable",
+                "favorite",
+                "revenge"
+              ],
+              "rw": "https://readwise.io/open/948309199",
+              "use": "'Never before was there so much beginning. And never so much end' — a coda line ready-made."
+            },
+            {
+              "sn": true,
+              "quote": "Hitler’s corpse remained on the other side of the Iron Curtain long after the Stalinist campaign of disinformation… In 1970, the Kremlin finally decided to dispose of the body in absolute secrecy… Hitler’s jaws, kept so carefully in the red box by Rzhevskaya during the victory celebrations in Berlin, had been retained by SMERSH, while the NKVD kept the cranium… The rest of the body, which had been concealed beneath a Soviet army parade-ground in Magdeburg, was exhumed at night and burned. The ashes were flushed into the town sewage system.\n— The Fall of Berlin 1945 (chapter excerpt)",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The afterlife of the war as filed property — SMERSH kept the jaws. Pairs with the Seelow bodies highlight beside it; also feeds the E5 theme of the state that never stops filing."
+            },
+            {
+              "sn": true,
+              "quote": "Unless the world learns the lesson these pictures teach, night will fall. But by God's grace, we who live will learn.",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Closing narration of the 1945 Allied concentration-camp film (German Concentration Camps Factual Survey / Night Will Fall — verify the exact print). The atrocity-film-as-evidence thread in one sentence."
+            },
+            {
+              "sn": true,
+              "quote": "If the Second World War destroyed the old continent, then its immediate aftermath was the chaos out of which the new Europe was formed. It was during this violent, vengeful time that many of the hopes, aspirations, prejudices and resentments first took shape.\n— Savage Continent, Keith Lowe",
+              "book": "Notion — Quotes & Highlights",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Alternate series-outro key — also lives in your Readwise supplementals."
+            },
+            {
+              "sn": false,
+              "quote": "During the years that both Stalin and Hitler were in power, more people were killed in Ukraine than anywhere else in the bloodlands, or in Europe, or in the world.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "The geographic center of gravity of the killing. Sits under a map that most viewers have never seen drawn this way."
+            },
+            {
+              "sn": false,
+              "quote": "The horror of the twentieth century is thought to be located in the camps. But the concentration camps are not where most of the victims of National Socialism and Stalinism died. These misunderstandings regarding the sites and methods of mass killing prevent us from perceiving the horror of the twentieth century.",
+              "book": "Bloodlands",
+              "author": "Timothy Snyder",
+              "tags": [
+                "history",
+                "memorable"
+              ],
+              "hotTags": [
+                "memorable"
+              ],
+              "rw": "",
+              "use": "The thesis of the blindspot itself. Strong candidate for the closing turn — the whole series argues this sentence."
+            },
+            {
+              "sn": false,
+              "quote": "The Stalinist line was that the Jews should never be seen as special victims. The crimes committed against them should be seen entirely as crimes committed against the Soviet Union.",
+              "book": "A Writer at War",
+              "author": "Vasily Grossman",
+              "tags": [
+                "history",
+                "politics"
+              ],
+              "hotTags": [],
+              "rw": "",
+              "use": "How the memory was engineered from the top down. The reason the Eastern Holocaust stayed a blindspot for two generations."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shelf",
+      "num": "ACT +",
+      "title": "Shelf",
+      "subtitle": "Production Shelf & Parking Lot",
+      "frame": "working notes",
+      "sub": "Not episode quotes — footage pointers, archives, title ideas, and to-dos from your SideNotes, plus material that doesn't belong in this series. Kept visible so nothing silently disappears.",
+      "events": [
+        {
+          "date": "Footage & archives",
+          "title": "Production shelf",
+          "blurb": "Documentaries with usable footage (with your timestamps), archival collections, and self-reminders.",
+          "badgeEp": "All episodes — sourcing",
+          "badgeN": "6 highlights",
+          "beat": "To pull before the edit",
+          "hls": [
+            {
+              "sn": true,
+              "quote": "The best doc for footage is AFTER HITLER on Prime Video.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Footage lead — aftermath material for E5/coda."
+            },
+            {
+              "sn": true,
+              "quote": "Opening of How the Nazis Lost the War where the Nazi swastika on top of the building explodes should be used.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "The Zeppelinfeld swastika demolition — public-domain US Army footage; strong for any episode-ending or the series trailer."
+            },
+            {
+              "sn": true,
+              "quote": "Title idea: “Apocalypse in Berlin: Soviets at the Gate.” — “I have to find a single wolf to keep away the pack.”",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Title candidate + unsourced quote — verify the 'single wolf' line before using (likely bunker-period Hitler; source unknown)."
+            },
+            {
+              "sn": true,
+              "quote": "Credit line: World War II Rumor Project Collection, 1942-1943 (AFC 1945/001), American Folklife Center, Library of Congress.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Archival collection — home-front rumor material; could serve the propaganda/memory threads."
+            },
+            {
+              "sn": true,
+              "quote": "THE STORY OF STALIN AND THE CALF WITH THE BROKEN LEG AND HOW HE SHOT HIM. ON MY AUDIOBOOK IN MINUTE 30.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Self-reminder — retrieve from the audiobook at minute 30; a Stalin character beat, likely for E1 context."
+            },
+            {
+              "sn": true,
+              "quote": "Remind myself to put in the episode one of the podcast the part from the book Savage of Keith Lowe — the part about the Norwegian post-war children that were born and the laws that developed by this.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Pairs with your two Readwise war-children highlights from Savage Continent. Note: Norway is Western-front aftermath — fits a companion piece more than this series' Eastern spine."
+            }
+          ]
+        },
+        {
+          "date": "Not this series",
+          "title": "Parking lot",
+          "blurb": "Per the project's own rule: if a topic is interesting but not useful, say so. These are interesting. They are not Eastern Front episodes.",
+          "badgeEp": "Future standalones / footnotes",
+          "badgeN": "5 highlights",
+          "beat": "Interesting — say so, and park it",
+          "hls": [
+            {
+              "sn": true,
+              "quote": "The Taiping Rebellion in China happened about the same time as the American Civil War and was led by a failed scholar who read six chapters of the Bible, proclaimed himself Jesus's younger brother, and proclaimed the Heavenly Kingdom… Up to 30 million died.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Different century, different continent — a separate video idea entirely. Parked."
+            },
+            {
+              "sn": true,
+              "quote": "Hitler’s sister-in-law, Bridget, lived in Liverpool. In her memoir, she writes that when Hitler visited in 1919 (or around then), she suggested he trim his bushy, late-19th-century-style Bismarck mustache into a shorter, more trimmed look. That is where Hitler got his signature mustache, but, as she notes, he took it too far.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Footnote color at best — and the Liverpool visit is itself considered dubious by historians. If used, label as legend."
+            },
+            {
+              "sn": true,
+              "quote": "A pigeon was shot twice during WWI and still managed to fly miles back to his handler… the Lost Battalion was rescued. I'm alive because of that bird. My great grandfather was part of the 308th, company G.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Wrong war (WWI, Cher Ami) — but a personal-history gem. Park for a different format."
+            },
+            {
+              "sn": true,
+              "quote": "Corporal Ray Sherriff, 3rd Parachute Battalion — the blinded paratrooper, the strawberry jam, and the red cross painted on a bedsheet with blood and jam.",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Arnhem, Western Front — vivid testimony for a future Western Front compartment, not this series. Full text in SideNotes."
+            },
+            {
+              "sn": true,
+              "quote": "Two long AI-generated study notes: “How did historians access Hitler's secrets?” and “In what ways do these sources explore and contextualize the Holocaust's causes and consequences?”",
+              "book": "SideNotes — ★ World War II",
+              "author": "",
+              "tags": [],
+              "hotTags": [],
+              "rw": "",
+              "use": "Per the project's source rules: AI/internet summaries are low-grade scaffolding — background reading only, never cite on screen."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "html": 2128,
+    "h3s": [
+      "Method",
+      "Editing this page",
+      "A note on the corpus",
+      "Sources in this map"
+    ],
+    "ps": [
+      "Second pass, August 16, 2026. Quotes with a red edge are verbatim Readwise highlights (tag chips are your Readwise tags; discard-tagged excluded). Quotes with a gold edge come from your SideNotes ★ World War II folder (46 notes read; duplicates of existing Readwise highlights skipped; long notes excerpted — the full text stays in SideNotes) or from the Notion \"Quotes & Highlights\" page under Revenge: Soviet Style — the badge on each says which. Event anchors, act placement, and usage notes are editorial suggestions keyed to Revenge: Soviet-Style — Series Plan V2. Attribution flags mark two notes whose stated source disagrees with your Readwise record.",
+      "All content lives in eastern-front-map/data.json in the chaosconsole repo — every quote, event, and note is a plain JSON entry you can add, edit, or delete (edit it right in GitHub's web editor; the site redeploys automatically). Or just tell Claude what to add or subtract.",
+      "The library is strongest on 1944–45 and the aftermath (Beevor, Lowe, Ullrich, Huber, Merridale) — which is exactly the series' lane. It is thin on Stalingrad, the 1942 rage machine's primary texts (Ehrenburg beyond one quote), and the filtration system — those beats will need sourcing beyond current highlights. Kershaw and Kotkin material is prewar context: footnote-level for this series."
+    ],
+    "srcgrid": [
+      "Aftermath — 3",
+      "Eight Days in May — 12",
+      "Ivan's War — 15",
+      "Notion — Quotes & Highlights — 10",
+      "Ordinary Men — 6",
+      "Promise Me You'll Shoot Yourself — 3",
+      "Savage Continent — 21",
+      "SideNotes — ★ World War II — 34",
+      "Stalin, Volume 1 — 1",
+      "The Fall of Berlin 1945 — 27",
+      "To Hell and Back — 2",
+      "World Order — 1",
+      "World War II for Dummies — 2"
+    ]
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "episodes": [
+    {
+      "code": "E1",
+      "title": "The Debt",
+      "span": "1918 – 1943",
+      "accent": "var(--red)"
+    },
+    {
+      "code": "E2",
+      "title": "The Rage Machine",
+      "span": "1942 – 1944",
+      "accent": "var(--gold)"
+    },
+    {
+      "code": "E3",
+      "title": "The Collection",
+      "span": "Oct 1944 – May 1945",
+      "accent": "var(--teal)"
+    },
+    {
+      "code": "E4",
+      "title": "The Loot",
+      "span": "1945",
+      "accent": "var(--olive)"
+    },
+    {
+      "code": "E5",
+      "title": "The Bill",
+      "span": "1945 →",
+      "accent": "var(--ink2)"
+    }
+  ],
+  "gaps": [
+    {
+      "ep": "E1",
+      "after": "Prologue · 1918–1939",
+      "date": "Aug 23, 1939",
+      "title": "The Molotov–Ribbentrop Pact",
+      "beat": "The handshake that opened the East — two ledgers agree to split Poland",
+      "leads": [
+        {
+          "title": "Stalin, Vol. II: Waiting for Hitler",
+          "author": "Kotkin",
+          "fmt": "EPUB · M4B",
+          "why": "Stalin’s side of the pact and the eighteen months of uneasy partnership."
+        },
+        {
+          "title": "Bloodlands",
+          "author": "Snyder",
+          "fmt": "EPUB",
+          "why": "Joint occupation of Poland 1939–41 as the first shared killing ground."
+        }
+      ]
+    },
+    {
+      "ep": "E1",
+      "after": "Spring 1941",
+      "date": "May 1941",
+      "title": "The Hunger Plan and the Commissar Order",
+      "beat": "Starvation as policy, written down before a shot is fired",
+      "leads": [
+        {
+          "title": "The Wages of Destruction",
+          "author": "Tooze",
+          "fmt": "EPUB",
+          "why": "The economic logic: feeding the Wehrmacht by starving thirty million."
+        },
+        {
+          "title": "Bloodlands",
+          "author": "Snyder",
+          "fmt": "EPUB",
+          "why": "The Hunger Plan chapter; the numbers and the memoranda."
+        }
+      ]
+    },
+    {
+      "ep": "E1",
+      "after": "June 22, 1941",
+      "date": "July 10, 1941",
+      "title": "Jedwabne",
+      "beat": "Neighbours kill neighbours in the first weeks — the debt is not only German",
+      "leads": [
+        {
+          "title": "Neighbors",
+          "author": "Gross",
+          "fmt": "EPUB · PDF",
+          "why": "The whole book is this one day in one town."
+        }
+      ]
+    },
+    {
+      "ep": "E1",
+      "after": "June 22, 1941",
+      "date": "Sept 1941",
+      "title": "Kiev encirclement and Babi Yar",
+      "beat": "The largest capture of the war, then 33,771 shot in two days",
+      "leads": [
+        {
+          "title": "When Titans Clashed",
+          "author": "Glantz & House",
+          "fmt": "EPUB",
+          "why": "The military collapse that delivered the city."
+        },
+        {
+          "title": "Barbarossa 1941: An Atlas",
+          "author": "Boylan",
+          "fmt": "EPUB",
+          "why": "Situation maps for the encirclement — usable as graphics reference."
+        },
+        {
+          "title": "Bloodlands",
+          "author": "Snyder",
+          "fmt": "EPUB",
+          "why": "Babi Yar in the sequence of Einsatzgruppen killings."
+        }
+      ]
+    },
+    {
+      "ep": "E1",
+      "after": "1941–1943",
+      "date": "Dec 1941",
+      "title": "Moscow holds",
+      "beat": "The first time the machine stops — and the first counter-blow",
+      "leads": [
+        {
+          "title": "When Titans Clashed",
+          "author": "Glantz & House",
+          "fmt": "EPUB",
+          "why": "The Soviet operational view of the winter counteroffensive."
+        },
+        {
+          "title": "Reluctant Accomplice",
+          "author": "Jarausch",
+          "fmt": "PDF",
+          "why": "A Wehrmacht soldier’s letters from the freezing front — a voice for the German side."
+        }
+      ]
+    },
+    {
+      "ep": "E2",
+      "after": null,
+      "date": "July 28, 1942",
+      "title": "Order No. 227: Not One Step Back",
+      "beat": "Fear installed as an instrument of the state, before rage is",
+      "leads": [
+        {
+          "title": "Ivan’s War",
+          "author": "Merridale",
+          "fmt": "EPUB",
+          "why": "Penal battalions and blocking detachments from the soldiers’ side — you have 15 highlights but none on 227."
+        },
+        {
+          "title": "When Titans Clashed",
+          "author": "Glantz & House",
+          "fmt": "EPUB",
+          "why": "The order in the context of the summer 1942 collapse."
+        }
+      ]
+    },
+    {
+      "ep": "E2",
+      "after": "Winter 1942–43",
+      "date": "Winter 1942–43",
+      "title": "Stalingrad — the thin beat",
+      "beat": "Three highlights for the pivot of the war. Beevor is on the shelf and unread.",
+      "leads": [
+        {
+          "title": "Stalingrad",
+          "author": "Beevor",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "The obvious source; the corpus has nothing from it."
+        }
+      ]
+    },
+    {
+      "ep": "E2",
+      "after": "Winter 1942–43",
+      "date": "April 1943",
+      "title": "Katyn made public",
+      "beat": "Goebbels finds a Soviet crime and the Allies look away",
+      "leads": [
+        {
+          "title": "Bloodlands",
+          "author": "Snyder",
+          "fmt": "EPUB",
+          "why": "The 1940 massacre and its 1943 political weaponisation."
+        },
+        {
+          "title": "Goebbels on the Jews",
+          "author": "Dalton (ed.)",
+          "fmt": "EPUB · PDF",
+          "why": "Diary entries for April 1943 — how the discovery was used."
+        }
+      ]
+    },
+    {
+      "ep": "E2",
+      "after": "1942–1944",
+      "date": "July 1943",
+      "title": "Kursk",
+      "beat": "The last German offensive in the East fails; the vector is now fixed",
+      "leads": [
+        {
+          "title": "When Titans Clashed",
+          "author": "Glantz & House",
+          "fmt": "EPUB",
+          "why": "Standard operational account."
+        }
+      ]
+    },
+    {
+      "ep": "E2",
+      "after": "1942–1944",
+      "date": "June 22, 1944",
+      "title": "Operation Bagration",
+      "beat": "Army Group Centre destroyed on the third anniversary of Barbarossa",
+      "leads": [
+        {
+          "title": "Endgame 1944",
+          "author": "Dimbleby",
+          "fmt": "EPUB · PDF",
+          "why": "The whole book is the 1944 campaign that carried the Red Army to the Vistula."
+        }
+      ]
+    },
+    {
+      "ep": "E2",
+      "after": "July 1944",
+      "date": "Aug – Oct 1944",
+      "title": "Warsaw Uprising",
+      "beat": "The Red Army waits across the river while the city burns",
+      "leads": [
+        {
+          "title": "Endgame 1944",
+          "author": "Dimbleby",
+          "fmt": "EPUB · PDF",
+          "why": "Stalin’s halt on the Vistula as policy."
+        },
+        {
+          "title": "Bloodlands",
+          "author": "Snyder",
+          "fmt": "EPUB",
+          "why": "Warsaw 1944 in the frame of both regimes."
+        }
+      ]
+    },
+    {
+      "ep": "E3",
+      "after": "October 21, 1944",
+      "date": "Jan 12, 1945",
+      "title": "Vistula–Oder",
+      "beat": "Five hundred kilometres in three weeks — the door to the Reich kicked open",
+      "leads": [
+        {
+          "title": "The Fall of Berlin 1945",
+          "author": "Beevor",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "Opening chapters; you have 27 highlights but they cluster in April–May."
+        }
+      ]
+    },
+    {
+      "ep": "E3",
+      "after": "January 1945",
+      "date": "Jan 30, 1945",
+      "title": "Wilhelm Gustloff",
+      "beat": "Nine thousand refugees drown in the Baltic — the flight west becomes lethal",
+      "leads": [
+        {
+          "title": "Hellstorm",
+          "author": "Goodrich",
+          "fmt": "EPUB",
+          "why": "Detailed on the Baltic evacuations. Polemical and revisionist in framing — use for texture, verify every figure elsewhere."
+        },
+        {
+          "title": "The End",
+          "author": "Kershaw",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "Sober account of why the regime kept fighting while civilians fled."
+        }
+      ]
+    },
+    {
+      "ep": "E3",
+      "after": "January 1945",
+      "date": "Feb 4–11, 1945",
+      "title": "Yalta",
+      "beat": "The borders are moved on paper before the expulsions move them on the ground",
+      "leads": [
+        {
+          "title": "A World at Arms",
+          "author": "Weinberg",
+          "fmt": "EPUB",
+          "why": "Diplomatic context in one chapter."
+        },
+        {
+          "title": "Iron Curtain",
+          "author": "Applebaum",
+          "fmt": "PDF",
+          "why": "What Yalta became in practice."
+        }
+      ]
+    },
+    {
+      "ep": "E3",
+      "after": "April–May 1945",
+      "date": "April 20 – May 8, 1945",
+      "title": "The bunker: eight days",
+      "beat": "The perpetrators’ end, seen from inside — counterpoint to the street",
+      "leads": [
+        {
+          "title": "Eight Days in May",
+          "author": "Ullrich",
+          "fmt": "EPUB · M4B",
+          "why": "You have 12 highlights — check whether they cover the bunker or only the aftermath."
+        },
+        {
+          "title": "A Woman in Berlin",
+          "author": "Anonymous / Beevor intro",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "The diary of those weeks. Essential, and unread."
+        }
+      ]
+    },
+    {
+      "ep": "E4",
+      "after": null,
+      "date": "Summer 1945",
+      "title": "Trophy brigades and dismantling",
+      "beat": "Factories, rails and art crated east — revenge as reparations",
+      "leads": [
+        {
+          "title": "Aftermath: Life in the Fallout",
+          "author": "Jähner",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "Only 3 highlights so far; the dismantling chapters are the loot episode."
+        },
+        {
+          "title": "Iron Curtain",
+          "author": "Applebaum",
+          "fmt": "PDF",
+          "why": "Soviet economic extraction across the zone, 1945–48."
+        }
+      ]
+    },
+    {
+      "ep": "E5",
+      "after": null,
+      "date": "July – Aug 1945",
+      "title": "Potsdam",
+      "beat": "The bill is drafted: zones, reparations, and “orderly and humane” transfers",
+      "leads": [
+        {
+          "title": "Savage Continent",
+          "author": "Lowe",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "Your 21 highlights lean on ethnic cleansing; the Potsdam framing chapter may be unread."
+        },
+        {
+          "title": "A World at Arms",
+          "author": "Weinberg",
+          "fmt": "EPUB",
+          "why": "The conference itself."
+        }
+      ]
+    },
+    {
+      "ep": "E5",
+      "after": "1945 →",
+      "date": "Nov 1945 – Oct 1946",
+      "title": "Nuremberg",
+      "beat": "The other kind of reckoning — law where the Soviets used the filtration camp",
+      "leads": [
+        {
+          "title": "Hitler’s People",
+          "author": "Evans",
+          "fmt": "EPUB · PDF · M4B",
+          "why": "Portraits of the defendants."
+        },
+        {
+          "title": "The Nazi Hunters",
+          "author": "Nagorski",
+          "fmt": "M4B",
+          "why": "What the trials left undone."
+        }
+      ]
+    },
+    {
+      "ep": "E5",
+      "after": "1945–1947",
+      "date": "1946 – 1948",
+      "title": "The Iron Curtain falls",
+      "beat": "Revenge institutionalised: the East Bloc as the permanent collection",
+      "leads": [
+        {
+          "title": "Iron Curtain",
+          "author": "Applebaum",
+          "fmt": "PDF",
+          "why": "The standard account, 1944–56."
+        },
+        {
+          "title": "Out of the Darkness",
+          "author": "Trentmann",
+          "fmt": "EPUB · MP3",
+          "why": "How Germans remembered — feeds the coda."
+        }
+      ]
+    }
+  ]
+}
