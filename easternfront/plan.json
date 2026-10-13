@@ -2,33 +2,27 @@
   "episodes": [
     {
       "code": "E1",
-      "title": "The Debt",
-      "span": "1918 – 1943",
-      "accent": "var(--red)"
+      "title": "How Much Land Does A Man Need?",
+      "span": "1918 – 1941",
+      "development": "The hunger for territory becomes a war of annihilation."
     },
     {
       "code": "E2",
-      "title": "The Rage Machine",
-      "span": "1942 – 1944",
-      "accent": "var(--gold)"
+      "title": "City Of The Dead",
+      "span": "1941 – 1944",
+      "development": "Siege, occupation and loss turn survival into rage."
     },
     {
       "code": "E3",
-      "title": "The Collection",
-      "span": "Oct 1944 – May 1945",
-      "accent": "var(--teal)"
+      "title": "Disaster Beats Its Wings",
+      "span": "1944 – May 1945",
+      "development": "The violence moves west: East Prussia, Berlin and Demmin."
     },
     {
       "code": "E4",
-      "title": "The Loot",
-      "span": "1945",
-      "accent": "var(--olive)"
-    },
-    {
-      "code": "E5",
-      "title": "The Bill",
-      "span": "1945 →",
-      "accent": "var(--ink2)"
+      "title": "The World We Knew Is a Long Time Dead",
+      "span": "1945 and after",
+      "development": "Victory amid devastation: looting, displacement, captivity and memory."
     }
   ],
   "gaps": [
@@ -75,8 +69,8 @@
       ]
     },
     {
-      "ep": "E1",
-      "after": "June 22, 1941",
+      "ep": "E2",
+      "after": "1941–1943",
       "date": "July 10, 1941",
       "title": "Jedwabne",
       "beat": "Neighbours kill neighbours in the first weeks — the debt is not only German",
@@ -90,8 +84,8 @@
       ]
     },
     {
-      "ep": "E1",
-      "after": "June 22, 1941",
+      "ep": "E2",
+      "after": "1941–1943",
       "date": "Sept 1941",
       "title": "Kiev encirclement and Babi Yar",
       "beat": "The largest capture of the war, then 33,771 shot in two days",
@@ -117,7 +111,7 @@
       ]
     },
     {
-      "ep": "E1",
+      "ep": "E2",
       "after": "1941–1943",
       "date": "Dec 1941",
       "title": "Moscow holds",
@@ -139,7 +133,7 @@
     },
     {
       "ep": "E2",
-      "after": null,
+      "after": "The Holocaust in the East",
       "date": "July 28, 1942",
       "title": "Order No. 227: Not One Step Back",
       "beat": "Fear installed as an instrument of the state, before rage is",
@@ -325,7 +319,7 @@
     },
     {
       "ep": "E4",
-      "after": null,
+      "after": "The loot",
       "date": "Summer 1945",
       "title": "Trophy brigades and dismantling",
       "beat": "Factories, rails and art crated east — revenge as reparations",
@@ -345,8 +339,8 @@
       ]
     },
     {
-      "ep": "E5",
-      "after": null,
+      "ep": "E4",
+      "after": "A strange species of victory",
       "date": "July – Aug 1945",
       "title": "Potsdam",
       "beat": "The bill is drafted: zones, reparations, and “orderly and humane” transfers",
@@ -366,7 +360,7 @@
       ]
     },
     {
-      "ep": "E5",
+      "ep": "E4",
       "after": "1945 →",
       "date": "Nov 1945 – Oct 1946",
       "title": "Nuremberg",
@@ -387,7 +381,7 @@
       ]
     },
     {
-      "ep": "E5",
+      "ep": "E4",
       "after": "1945–1947",
       "date": "1946 – 1948",
       "title": "The Iron Curtain falls",

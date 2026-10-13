@@ -144,7 +144,7 @@
           "date": "Prologue · 1918–1939",
           "title": "The world that made it possible",
           "blurb": "Interwar wreckage: Versailles, ethnic nationalism, a broken Russia. For this series this is footnote material, not episode spine — use one line of it, or none.",
-          "badgeEp": "Context (pre-series)",
+          "badgeEp": "E1 · How Much Land Does A Man Need?",
           "badgeN": "5 highlights",
           "beat": "Optional pre-title beat — 30 seconds at most",
           "hls": [
@@ -234,13 +234,14 @@
               "rw": "",
               "use": "The blindspot in one paragraph: the West remembers a “phony war” while the East was already a killing field. Good cold-open contrast."
             }
-          ]
+          ],
+          "episode": "E1"
         },
         {
           "date": "Spring 1941",
           "title": "Planning the annihilation war",
           "blurb": "The debt begins before the first shot: a globe with four nations on it, a plan signed in brown ink, a dictator who refuses to read his own intelligence.",
-          "badgeEp": "E1 · The Debt — Act I",
+          "badgeEp": "E1 · How Much Land Does A Man Need?",
           "badgeN": "5 highlights",
           "beat": "Cold-open candidate / document beat",
           "hls": [
@@ -322,13 +323,14 @@
               "rw": "",
               "use": "The economic logic under the ideology. Barbarossa was a plan to feed Germany by emptying the East. Pairs with the Hunger Plan documents."
             }
-          ]
+          ],
+          "episode": "E1"
         },
         {
           "date": "June 22, 1941",
           "title": "Barbarossa: the invasion night",
           "blurb": "Merridale's Sevastopol night is the best 'world before' scene in the corpus: white dresses, music, a lighthouse guiding the bombers in.",
-          "badgeEp": "E1 · The Debt — Act I/II",
+          "badgeEp": "E1 · How Much Land Does A Man Need?",
           "badgeN": "4 highlights",
           "beat": "Scene beat — the last peaceful evening",
           "hls": [
@@ -372,13 +374,14 @@
               "rw": "",
               "use": "The Kuntsevo dacha scene — ready-made beat for E1's collapse sequence. The note reads like an AI summary: the scene is real, but verify details and Stalin's state of mind against Kotkin (breakdown vs. maneuver is argued)."
             }
-          ]
+          ],
+          "episode": "E1"
         },
         {
           "date": "1941–1943",
           "title": "The ledger fills: starvation, siege, occupation",
           "blurb": "POW pens, Leningrad, the Hunger Plan logic, dehumanization as policy. This is the episode's factual spine: the largest atrocity ledger in modern history.",
-          "badgeEp": "E1 · The Debt — Act II",
+          "badgeEp": "E2 · City Of The Dead",
           "badgeN": "9 highlights",
           "beat": "Evidence montage — the debt itemized",
           "hls": [
@@ -530,13 +533,14 @@
               "rw": "",
               "use": "Grossman’s flat, clinical register on the treatment of prisoners. The horror is in the logistics, not the adjectives — exactly the tone to model."
             }
-          ]
+          ],
+          "episode": "E2"
         },
         {
           "date": "1941–1942",
           "title": "The Holocaust in the East",
           "blurb": "Browning's Battalion 101: how ordinary men did it. Keeps the Holocaust central and gives the episode its psychological engine — the same machinery of conformity the Soviet side will run in reverse.",
-          "badgeEp": "E1 · The Debt — Act II (central, not incidental)",
+          "badgeEp": "E2 · City Of The Dead",
           "badgeN": "9 highlights",
           "beat": "The moral core — slow the episode down here",
           "hls": [
@@ -680,7 +684,8 @@
               "rw": "",
               "use": "The bureaucracy of concealment. Useful over archival footage of ordinary buildings and forests — the banality of the machinery."
             }
-          ]
+          ],
+          "episode": "E2"
         }
       ]
     },
@@ -696,7 +701,7 @@
           "date": "Winter 1942–43",
           "title": "Stalingrad",
           "blurb": "Thin in this corpus (two highlights) — Stalingrad needs supplementary sourcing if it carries more than a minute.",
-          "badgeEp": "E2 · The Rage Machine — timeline beat",
+          "badgeEp": "E2 · City Of The Dead",
           "badgeN": "3 highlights",
           "beat": "Escalation beat — the first installment",
           "hls": [
@@ -778,13 +783,14 @@
               "rw": "",
               "use": "The reporter and the war collapse into one family. A quiet, specific loss to counterweight the statistics."
             }
-          ]
+          ],
+          "episode": "E2"
         },
         {
           "date": "1942–1944",
           "title": "The rage machine",
           "blurb": "Ehrenburg's 'Kill', Grossman's two sacred words, a lieutenant's private vow. The manufactured hate — and the police apparatus running alongside it.",
-          "badgeEp": "E2 · The Rage Machine — core",
+          "badgeEp": "E2 · City Of The Dead",
           "badgeN": "9 highlights",
           "beat": "Mid-episode engine — grief becomes a weapons program",
           "hls": [
@@ -947,13 +953,14 @@
               "rw": "",
               "use": "Grossman’s notebook ethnography — revealing about the Soviet self-image as much as about the peoples described. Flag as testimony, not fact."
             }
-          ]
+          ],
+          "episode": "E2"
         },
         {
           "date": "July 1944",
           "title": "Majdanek: the hate finds proof",
           "blurb": "The first extermination camp any army discovered. After this, the manufactured rage had documentary evidence.",
-          "badgeEp": "E2 · The Rage Machine — turn",
+          "badgeEp": "E2 · City Of The Dead",
           "badgeN": "1 highlight",
           "beat": "Turning point — rage acquires receipts",
           "hls": [
@@ -967,13 +974,14 @@
               "rw": "https://readwise.io/open/1027132468",
               "use": "The turn of E2: after Maidanek, the hate is no longer just propaganda — it holds proof."
             }
-          ]
+          ],
+          "episode": "E2"
         },
         {
           "date": "October 21, 1944",
           "title": "Nemmersdorf",
           "blurb": "The first taste of collection on German soil, instantly weaponized by Goebbels. Ullrich compresses cause and symbol into one paragraph.",
-          "badgeEp": "E3 · The Collection — cold open feed",
+          "badgeEp": "E3 · Disaster Beats Its Wings",
           "badgeN": "1 highlight",
           "beat": "Foreshadow beat — the first German village",
           "hls": [
@@ -993,13 +1001,14 @@
               "rw": "https://readwise.io/open/921468832",
               "use": "Cause and effect in one passage: every soldier's dead family, the propaganda, and the first massacre — Nemmersdorf as symbol."
             }
-          ]
+          ],
+          "episode": "E3"
         },
         {
           "date": "January 1945",
           "title": "Into the Reich: East Prussia",
           "blurb": "The army of a burned country walks into intact prosperity. Rage, contempt, and a soldier's own verdict: 'the court has begun already.'",
-          "badgeEp": "E3 · The Collection — Act I/II",
+          "badgeEp": "E3 · Disaster Beats Its Wings",
           "badgeN": "5 highlights",
           "beat": "The vector reverses — revenge crosses the border",
           "hls": [
@@ -1066,13 +1075,14 @@
               "rw": "https://readwise.io/open/871152843",
               "use": "The undestroyed alcohol stocks — a logistical decision that fed the catastrophe."
             }
-          ]
+          ],
+          "episode": "E3"
         },
         {
           "date": "1945",
           "title": "The collection: mass rape",
           "blurb": "The corpus is strong here: scale, mechanism, and individual scenes. Per the series standards — clinical language, contested numbers shown as ranges, zero graphic imagery.",
-          "badgeEp": "E3 · The Collection — Act II (handle with ranges + clinical language)",
+          "badgeEp": "E3 · Disaster Beats Its Wings",
           "badgeN": "15 highlights",
           "beat": "Human-cost core — precision, not adjectives",
           "hls": [
@@ -1246,13 +1256,14 @@
               "rw": "",
               "use": "Compresses E3's whole argument, ending on the April 14, 1945 Pravda off-switch beat. Unattributed analytic summary — verify and source before leaning on it."
             }
-          ]
+          ],
+          "episode": "E3"
         },
         {
           "date": "April–May 1945",
           "title": "Berlin",
           "blurb": "Firepower arithmetic, the casserole and the totals, candles measuring oxygen in bunkers, and Maslov's crying children — the whole collection in one city.",
-          "badgeEp": "E3 · The Collection — Act III",
+          "badgeEp": "E3 · Disaster Beats Its Wings",
           "badgeN": "13 highlights",
           "beat": "Climax — the debt collected at the center",
           "hls": [
@@ -1429,13 +1440,14 @@
               "rw": "",
               "use": "Direct feed for E4's cold open — the restaged flag and the scratched-out watch, from Ullrich rather than the photo-history literature. Full assault narrative in SideNotes."
             }
-          ]
+          ],
+          "episode": "E3"
         },
         {
           "date": "April 30 – May 3, 1945",
           "title": "Demmin: the end of the world, locally",
           "blurb": "The largest mass suicide in German history, silenced for decades by the GDR. Huber and Ullrich give scenes, mechanism, and the Kittel case — a possible cold open for E3 told backwards.",
-          "badgeEp": "E3 · The Collection — closing sequence",
+          "badgeEp": "E3 · Disaster Beats Its Wings",
           "badgeN": "8 highlights",
           "beat": "The episode's darkest room — restraint mandatory",
           "hls": [
@@ -1556,7 +1568,8 @@
               "rw": "",
               "use": "Your own visual brief for the Demmin sequence — the riverbank 'border of a dress' animation. Restrained, devastating, producible."
             }
-          ]
+          ],
+          "episode": "E3"
         }
       ]
     },
@@ -1572,9 +1585,9 @@
           "date": "May 1945",
           "title": "A strange species of victory",
           "blurb": "Merridale's paragraph on the 27 million is the single best ending in the corpus: the victory that could not bear its own arithmetic.",
-          "badgeEp": "E5 · The Bill — opening / series outro feed",
+          "badgeEp": "E4 · The World We Knew Is a Long Time Dead",
           "badgeN": "8 highlights",
-          "beat": "Closing-turn candidate — the victory audited",
+          "beat": "Opening contradiction — victory amid devastation",
           "hls": [
             {
               "sn": false,
@@ -1688,13 +1701,14 @@
               "rw": "",
               "use": "The hope that the victory would redeem the system — and didn’t. The hinge of the strange-victory beat."
             }
-          ]
+          ],
+          "episode": "E4"
         },
         {
           "date": "1945",
           "title": "The loot",
           "blurb": "Thin but pointed here: safes, gold, uranium, scientists. The E4 spine (parcels, trophy brigades, Osoaviakhim) needs sourcing beyond this corpus.",
-          "badgeEp": "E4 · The Loot — evidence beats",
+          "badgeEp": "E4 · The World We Knew Is a Long Time Dead",
           "badgeN": "4 highlights",
           "beat": "Inventory beat — revenge itemized",
           "hls": [
@@ -1745,13 +1759,14 @@
               "rw": "",
               "use": "'Uri, uri!' — the exact texture E4 needs, and the reason the Khaldei retouch mattered. Wristwatch motif locked."
             }
-          ]
+          ],
+          "episode": "E4"
         },
         {
           "date": "1945 →",
           "title": "The audit of the survivors",
           "blurb": "Filtration before medical care; Solzhenitsyn's verdict; the veterans' modest requests, all denied. The series' controlling insight — institutionalized revenge finds new debtors.",
-          "badgeEp": "E5 · The Bill — core",
+          "badgeEp": "E4 · The World We Knew Is a Long Time Dead",
           "badgeN": "3 highlights",
           "beat": "The machine turns inward",
           "hls": [
@@ -1791,13 +1806,14 @@
               "rw": "https://readwise.io/open/1027132462",
               "use": "Not one request fulfilled — the bill served to the men who paid it."
             }
-          ]
+          ],
+          "episode": "E4"
         },
         {
           "date": "1945–1950s",
           "title": "The other prisoners",
           "blurb": "German POWs in Soviet hands: a third dead, mostly of indifference. Keeps the episode honest without false equivalence.",
-          "badgeEp": "E5 · The Bill — counter-ledger",
+          "badgeEp": "E4 · The World We Knew Is a Long Time Dead",
           "badgeN": "3 highlights",
           "beat": "Steelman beat — the mirror column",
           "hls": [
@@ -1858,13 +1874,14 @@
               "rw": "",
               "use": "The counter-ledger, sourced and specific. Lets the episode hold Soviet crime and Nazi extermination in the same frame without flattening the difference."
             }
-          ]
+          ],
+          "episode": "E4"
         },
         {
           "date": "1945–1947",
           "title": "The expulsions",
           "blurb": "Twelve-plus million Germans driven west; Vistula; the continent made 'transient.' Feeds the parked deportations episode more than this series — flag and file.",
-          "badgeEp": "E5-adjacent / parked deportations standalone",
+          "badgeEp": "E4 · The World We Knew Is a Long Time Dead",
           "badgeN": "8 highlights",
           "beat": "Consequence beat — the map redrawn by revenge",
           "hls": [
@@ -1957,13 +1974,14 @@
               "rw": "",
               "use": "The Western counterweight to the Eastern collection — steelman material for E3, or a companion-piece seed."
             }
-          ]
+          ],
+          "episode": "E4"
         },
         {
           "date": "Coda",
           "title": "How to count, and how to remember",
           "blurb": "The corpus's meta-material: contested numbers, the ethics of counting, the historiographical silence. This is where The Blindspot earns its name.",
-          "badgeEp": "Series outro / every episode's discipline",
+          "badgeEp": "E4 · The World We Knew Is a Long Time Dead",
           "badgeN": "13 highlights",
           "beat": "Ending insight — the blindspot itself",
           "hls": [
@@ -2206,7 +2224,8 @@
               "rw": "",
               "use": "How the memory was engineered from the top down. The reason the Eastern Holocaust stayed a blindspot for two generations."
             }
-          ]
+          ],
+          "episode": "E4"
         }
       ]
     },
@@ -2222,7 +2241,7 @@
           "date": "Footage & archives",
           "title": "Production shelf",
           "blurb": "Documentaries with usable footage (with your timestamps), archival collections, and self-reminders.",
-          "badgeEp": "All episodes — sourcing",
+          "badgeEp": "Production shelf",
           "badgeN": "6 highlights",
           "beat": "To pull before the edit",
           "hls": [
@@ -2286,13 +2305,14 @@
               "rw": "",
               "use": "Pairs with your two Readwise war-children highlights from Savage Continent. Note: Norway is Western-front aftermath — fits a companion piece more than this series' Eastern spine."
             }
-          ]
+          ],
+          "episode": "shelf"
         },
         {
           "date": "Not this series",
           "title": "Parking lot",
           "blurb": "Per the project's own rule: if a topic is interesting but not useful, say so. These are interesting. They are not Eastern Front episodes.",
-          "badgeEp": "Future standalones / footnotes",
+          "badgeEp": "Production shelf",
           "badgeN": "5 highlights",
           "beat": "Interesting — say so, and park it",
           "hls": [
@@ -2346,7 +2366,8 @@
               "rw": "",
               "use": "Per the project's source rules: AI/internet summaries are low-grade scaffolding — background reading only, never cite on screen."
             }
-          ]
+          ],
+          "episode": "shelf"
         }
       ]
     }
