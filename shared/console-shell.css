@@ -1,9 +1,5 @@
 @import url('/shared/threshold/rooms.css');
-@font-face{font-family:Threshold Sans;src:url('/shared/threshold/fonts/barlow-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:Threshold Sans;src:url('/shared/threshold/fonts/barlow-latin-600-normal.woff2') format('woff2');font-weight:600 900;font-display:swap}
-@font-face{font-family:Threshold Display;src:url('/shared/threshold/fonts/barlow-condensed-latin-600-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
-@font-face{font-family:Threshold Serif;src:url('/shared/threshold/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
-html[data-threshold]{--th-paper:#fff1dd;--th-wash:#f1e1cf;--th-card:#fff8eb;--th-ink:#3b1720;--th-secondary:#795e5d;--th-line:#3b17202a;--th-rust:#a74729;--th-light:#f3be83;--th-plum:#21191f;--th-focus:#8f392c;--th-serif:'Threshold Serif',Georgia,serif;--th-sans:'Threshold Sans',Arial,sans-serif;--th-display:'Threshold Display','Arial Narrow',sans-serif;--th-gutter:clamp(22px,5.6vw,90px);--th-world-filter:saturate(.8);--th-world-position:62% 48%;scroll-behavior:smooth;scroll-padding-top:84px}
+html[data-threshold]{--th-paper:#fff1dd;--th-wash:#f1e1cf;--th-card:#fff8eb;--th-ink:#3b1720;--th-secondary:#795e5d;--th-line:#3b17202a;--th-rust:#a74729;--th-light:#f3be83;--th-plum:#21191f;--th-focus:#8f392c;--th-serif:'Barlow','Barlow',serif;--th-sans:'Barlow',Arial,sans-serif;--th-display:'Barlow Condensed','Arial Narrow',sans-serif;--th-gutter:clamp(22px,5.6vw,90px);--th-world-filter:saturate(.8);--th-world-position:62% 48%;scroll-behavior:smooth;scroll-padding-top:84px}
 html[data-room-group="reference"]{--th-world-filter:hue-rotate(151deg) saturate(.43);--th-world-position:64% 51%}
 html[data-room-group="studio"]{--th-world-filter:hue-rotate(-8deg) saturate(.83)}
 html[data-threshold="wellness"],html[data-threshold="wellness-widgets"]{--th-world-filter:hue-rotate(61deg) saturate(.38)}
@@ -21,15 +17,6 @@ html[data-threshold] :is(.card,.panel,.kpi,.kpi-card,.tile,.metric-card,.rail-ca
 @media(prefers-reduced-motion:reduce){html[data-threshold]{scroll-behavior:auto}html[data-threshold] *,html[data-threshold] *::before,html[data-threshold] *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 @media print{.th-entrance{height:auto!important;background:none;color:black;padding:20px 0}.th-topbar,.th-architecture,.th-entrance:before,.th-purpose,.th-room-switch,.th-drawer,.th-footer{display:none!important}.th-title-wrap{position:static}.th-heading h1{font-size:40px!important;color:black!important;-webkit-text-fill-color:black!important}.th-heading h1 span{color:black!important;-webkit-text-fill-color:black!important}}
 
-@font-face{font-family:"Instrument Sans";src:url("/shared/threshold/fonts/barlow-latin-400-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Inter";src:url("/shared/threshold/fonts/barlow-latin-400-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Space Grotesk";src:url("/shared/threshold/fonts/barlow-condensed-latin-600-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Bricolage Grotesque";src:url("/shared/threshold/fonts/barlow-latin-600-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Archivo Black";src:url("/shared/threshold/fonts/barlow-condensed-latin-600-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"JetBrains Mono";src:url("/shared/threshold/fonts/barlow-latin-400-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Martian Mono";src:url("/shared/threshold/fonts/barlow-latin-400-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Instrument Serif";src:url("/shared/threshold/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Fraunces";src:url("/shared/threshold/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
 html[data-threshold],html[data-threshold] body{--serif:var(--th-serif)!important;--body:var(--th-sans)!important;--head:var(--th-sans)!important;--body-font:var(--th-sans)!important;--display-font:var(--th-display)!important;--mono-font:var(--th-sans)!important;--font-display:var(--th-serif)!important;--font-inter:var(--th-sans)!important;--font-mono:var(--th-sans)!important;--ink-2:var(--th-secondary)!important;--ink-3:var(--th-secondary)!important}
 html[data-threshold] body>.th-source-date{max-width:none;width:100%;font:400 12px var(--th-sans);line-height:1.4}html[data-threshold] .th-room-toolbar :is(a,button){color:var(--th-ink)}html[data-threshold] .th-room-toolbar .btn.primary{color:var(--th-paper)}
 

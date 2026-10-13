@@ -254,7 +254,7 @@ html[data-room-kind="map"] body #dc-root header{padding:18px var(--th-gutter)!im
 html[data-room-kind="map"] body #dc-root header>div:first-child{display:none}
 html[data-room-kind="map"] body #dc-root header button{border-radius:30px;font:400 11px var(--th-sans)!important}
 html[data-room-kind="map"] body #dc-root [style*="font-family"]{font-family:var(--th-sans)!important}
-html[data-room-kind="map"] body #dc-root [style*="Instrument Serif"]{font-family:var(--th-serif)!important}
+html[data-room-kind="map"] body #dc-root [style*="Barlow"]{font-family:var(--th-serif)!important}
 html[data-room-kind="map"] body #dc-root [style*="font-size: 46px"],html[data-room-kind="map"] body #dc-root [style*="font-size:46px"]{font-family:var(--th-serif)!important}
 html[data-room-kind="map"] body #dc-root .sc-host>div>a{padding:16px var(--th-gutter)!important;background:#63413e!important;color:#fff1dd!important}
 html[data-room-kind="map"] body #dc-root input{background:var(--th-wash)!important;color:var(--th-ink)!important;border-color:var(--th-line)!important;max-width:100%}

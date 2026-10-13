@@ -1,0 +1,157 @@
+/* Chaos Console typography: the same role uses the same face in every room.
+   Display: Bebas Neue. Editorial headings: Barlow Condensed.
+   Reading: Barlow. Interface, compact headings and data: IBM Plex Sans.
+   Keep room colors, type sizes and layouts in their existing stylesheets. */
+@import url('/shared/fonts.css');
+
+:root,
+html[data-threshold],
+html[data-theme],
+body {
+  --cc-font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --cc-font-heading: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --cc-font-body: 'Barlow', Arial, sans-serif;
+  --cc-font-ui: 'IBM Plex Sans', Arial, sans-serif;
+  --cc-font-code: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Compatibility tokens used by the existing room styles. */
+  --th-sans: var(--cc-font-body) !important;
+  --th-serif: var(--cc-font-body) !important;
+  --th-display: var(--cc-font-heading) !important;
+  --sans: var(--cc-font-body) !important;
+  --body: var(--cc-font-body) !important;
+  --body-font: var(--cc-font-body) !important;
+  --serif: var(--cc-font-body) !important;
+  --serif-font: var(--cc-font-body) !important;
+  --editorial: var(--cc-font-body) !important;
+  --subtitle: var(--cc-font-body) !important;
+  --display: var(--cc-font-heading) !important;
+  --disp: var(--cc-font-heading) !important;
+  --head: var(--cc-font-ui) !important;
+  --head-font: var(--cc-font-heading) !important;
+  --kicker-font: var(--cc-font-heading) !important;
+  --display-font: var(--cc-font-display) !important;
+  --font-display: var(--cc-font-heading) !important;
+  --font-inter: var(--cc-font-ui) !important;
+  --mono: var(--cc-font-ui) !important;
+  --mono-font: var(--cc-font-ui) !important;
+  --font-mono: var(--cc-font-ui) !important;
+}
+
+html body {
+  font-family: var(--cc-font-body) !important;
+}
+
+/* Compact headings and controls follow the Studio reference. */
+html body :is(h2, h3, h4, h5, h6, button, input, select, textarea, label,
+  summary, nav, th, .th-topbar, .th-footer, .breadcrumb, .eyebrow,
+  .card-title, .panel-title, .chart-title, .header-title, .kpi-label,
+  .section-kicker, .chapter-meta, .sec-kicker, .card-k, .panel-meta,
+  .th-section-label, .th-source-date, .th-room-list, .th-group-tabs,
+  .threshold-door-name, .case-facts dt, .pl-record h3) {
+  font-family: var(--cc-font-ui) !important;
+}
+html body :is(h2, h3, h4, h5, h6, .card-title, .panel-title,
+  .chart-title, .header-title) {
+  font-weight: 600 !important;
+  letter-spacing: -.02em !important;
+}
+
+/* Large page titles use the Binder cover face, at its actual 400 weight. */
+html body :is(h1, .th-heading h1, .th-drawer-title, .room-sheet .sheet-title h2,
+  .pl-feature h2, .pl-history-head h2) {
+  font-family: var(--cc-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: .01em !important;
+  text-transform: uppercase !important;
+}
+
+/* Section and chapter titles share the Binder's bold condensed treatment. */
+html body :is(.section-title, .chapter-title, .sec-title, .part-divider h2,
+  .chapter-head h3, .spotlight-card h2, .case-section > header h2,
+  .case-lead h2, .fs-chapter h2, .fs-lesson h3, .th-account-head h2,
+  .th-reconcile h2, .section-head h2, .sec-head h2,
+  .status-sheet h2, .th-record-dialog h2, .pl-catalog h2) {
+  font-family: var(--cc-font-heading) !important;
+  font-weight: 800 !important;
+  letter-spacing: .015em !important;
+  text-transform: uppercase !important;
+}
+
+html[data-room-kind="chapter"] body main h2 {
+  font-family: var(--cc-font-heading) !important;
+  font-weight: 800 !important;
+  letter-spacing: .015em !important;
+  text-transform: uppercase !important;
+}
+html body :is(.hero-eyebrow, .part-label, .chapter-kicker, .meta-label,
+  .part-tab, .rail-eyebrow) {
+  font-family: var(--cc-font-heading) !important;
+  font-weight: 600 !important;
+}
+
+/* The dense Studio workspace retains the exact interface style selected. */
+html body .workspace,
+html body .workspace :is(h1, h2, h3, h4, button, input, select, textarea,
+  label, summary, p, blockquote) {
+  font-family: var(--cc-font-ui) !important;
+}
+html body .workspace.workspace h1 {
+  font-family: var(--cc-font-ui) !important;
+  font-weight: 600 !important;
+  letter-spacing: -1px !important;
+  text-transform: none !important;
+}
+
+/* Keep reading text open and let real tabular figures align numeric data. */
+html body :is(.chapter-body p, .chapter-thesis, .quote-text, .rr-quote,
+  .fs-lesson p, .fs-lesson li, .fs-cover-note > p) {
+  font-family: var(--cc-font-body) !important;
+  letter-spacing: normal !important;
+}
+html body :is(.kpi-value, .metric strong, .hero-big-number, .case-amount,
+  .th-ledger-amount, .th-account-money, .pl-history-numbers strong,
+  .pl-detail-numbers strong, .lab-metric-value, .score-value, .t-value) {
+  font-family: var(--cc-font-ui) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.03em !important;
+}
+html body :is(pre, code, kbd, samp, .code-block) {
+  font-family: var(--cc-font-code) !important;
+}
+html body :is(pre, code, .code-block) {
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+html body svg text {
+  font-family: var(--cc-font-ui) !important;
+}
+
+/* The gate is mounted after the page styles. It uses the same UI face. */
+html body #cc-gate-host,
+html body #cc-gate-host * {
+  font-family: var(--cc-font-ui) !important;
+}
+
+@media (max-width: 650px) {
+  html body .th-ledger-amount {
+    font-size: clamp(52px, 21vw, 86px);
+  }
+  html[data-threshold="wellness"] body .grid2 > *,
+  html[data-room-kind="deck"] body .deck-layout > * {
+    min-width: 0;
+  }
+  html[data-room-kind="deck"] body :is(.quote-text, .quote-title, .note-value) {
+    overflow-wrap: anywhere;
+  }
+  html[data-room-kind="deck"] body .source-actions {
+    flex-wrap: wrap;
+  }
+  html[data-threshold="money-archive"] body .waterfall {
+    overflow-x: auto;
+  }
+  html[data-threshold="money-archive"] body .wf-bar-wrap {
+    min-width: 42px;
+  }
+}

@@ -40,7 +40,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Instrument Sans', Inter, -apple-system, sans-serif;
+  font-family: 'Barlow', IBM Plex Sans, -apple-system, sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
 }
@@ -60,14 +60,14 @@ header {
 }
 
 header h1 {
-  font-family: 'Space Grotesk', 'Instrument Sans', Inter, sans-serif;
+  font-family: 'Barlow Condensed', 'Barlow', IBM Plex Sans, sans-serif;
   font-size: 1.5rem; font-weight: 700; text-transform: uppercase;
   background: linear-gradient(135deg, var(--accent-hr), var(--accent-sleep));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
 header .breadcrumb {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   font-size: 0.75rem; color: var(--text-dim);
 }
 
@@ -75,7 +75,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 
 .date-range {
   font-size: 0.7rem; color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   margin-left: auto;
 }
 
@@ -113,7 +113,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 
 /* ── Widget Label ── */
 .widget-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -122,7 +122,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 
 /* ── Big Number ── */
 .widget-value {
-  font-family: 'Space Grotesk', 'Instrument Sans', sans-serif;
+  font-family: 'Barlow Condensed', 'Barlow', sans-serif;
   font-weight: 900;
   font-size: 2.6rem;
   line-height: 1;
@@ -135,7 +135,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 
 /* ── Delta ── */
 .widget-delta {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   font-size: 0.65rem;
   color: var(--text-dim);
 }
@@ -145,7 +145,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 
 /* ── Sub line ── */
 .widget-sub {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   font-size: 0.6rem;
   color: var(--text-dim);
 }
@@ -173,7 +173,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 }
 
 .sleep-bar-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   font-size: 0.5rem;
   color: var(--text-dim);
   width: 22px;
@@ -196,7 +196,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 
 /* ── No-data state ── */
 .widget-empty {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   font-size: 0.65rem;
   color: var(--text-dim);
   padding: 1rem 0;
@@ -228,7 +228,7 @@ header .breadcrumb a { color: var(--accent-hr); text-decoration: none; }
 footer {
   text-align: center; padding: 2rem;
   font-size: 0.65rem; color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Sans', monospace;
   border-top: 1px solid var(--border);
 }
 
@@ -240,6 +240,7 @@ footer a { color: var(--accent-hr); text-decoration: none; }
 <link rel="stylesheet" href="/shared/console-shell.css">
 <script defer src="/shared/threshold/routes.js"></script>
 <script defer src="/shared/console-shell.js"></script>
+<link rel="stylesheet" href="/shared/typography.css?v=20261013">
 </head>
 <body>
 <div class="noise"></div>

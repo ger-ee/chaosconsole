@@ -17,13 +17,12 @@
 <script defer src="/shared/gate.js"></script>
 
 <style>
-@font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrains-mono-subset.ttf") format("truetype");font-style:normal;font-weight:500;font-display:swap}
 :root{
   --bg:#0a0e17; --bg-2:#0d1220; --card:#111826; --card-2:#151d2e; --line:#1d2740; --line-2:#263153;
   --text:#e5e9f0; --text-2:#94a3b8; --text-3:#64748b;
   --good:#4ade80; --warn:#fbbf24; --bad:#f87171;
   --c-weight:#f4b942; --c-hr:#f87171; --c-hrv:#60a5fa; --c-sleep:#a78bfa; --c-steps:#4ade80; --c-spo2:#22d3ee; --c-body:#fb923c; --c-muscle:#34d399;
-  --sans:"Instrument Sans",Inter,ui-sans-serif,system-ui,sans-serif; --disp:"Space Grotesk",var(--sans); --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+  --sans:"Barlow",IBM Plex Sans,ui-sans-serif,system-ui,sans-serif; --disp:"Barlow Condensed",var(--sans); --mono:"IBM Plex Sans","SFMono-Regular",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
 html{background:var(--bg);scroll-behavior:smooth}
@@ -126,6 +125,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
 <link rel="stylesheet" href="/shared/console-shell.css">
 <script defer src="/shared/threshold/routes.js"></script>
 <script defer src="/shared/console-shell.js"></script>
+<link rel="stylesheet" href="/shared/typography.css?v=20261013">
 </head>
 <body>
 <div class="shell">
@@ -200,8 +200,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
           <svg viewBox="0 0 120 120" role="img" aria-label="WHR gauge at 0.86 on a 0.75 to 1.00 scale">
             <circle cx="60" cy="60" r="48" fill="none" stroke="#1d2740" stroke-width="10"/>
             <circle cx="60" cy="60" r="48" fill="none" stroke="#fb923c" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="168.9" transform="rotate(-90 60 60)"/>
-            <text x="60" y="56" text-anchor="middle" fill="#e5e9f0" font-family="Space Grotesk, sans-serif" font-size="22" font-weight="700">0.86</text>
-            <text x="60" y="74" text-anchor="middle" fill="#64748b" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5">WHR · Sep 1</text>
+            <text x="60" y="56" text-anchor="middle" fill="#e5e9f0" font-family="IBM Plex Sans, sans-serif" font-size="22" font-weight="700">0.86</text>
+            <text x="60" y="74" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans, sans-serif" font-size="8" letter-spacing="1.5">WHR · Sep 1</text>
           </svg>
           <div>
             <p style="margin:0"><b style="color:var(--text)">Trunk carries it.</b> Trunk fat 18.8 lb at 196% of standard (down from 22.0 lb / 230% in March). Arms 1.8 lb and legs 5.6 lb each — both "Standard".</p>
