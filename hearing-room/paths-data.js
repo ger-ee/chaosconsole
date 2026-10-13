@@ -1,11 +1,10 @@
 window.HearingPaths = {
   "intro": {
-    "text": "The protective-order hearing is recorded for October 28, eighteen days out. The separate financial dispute remains at the demand stage in the reviewed record. A second invoice arrived October 9, and your October 10 reply asks counsel for a meeting time, the civil response, and a billing estimate. What happens in one proceeding does not automatically decide the other.",
+    "text": "The protective-order hearing is recorded for October 28, sixteen days out. On October 9 separate civil counsel rejected the money demand in full, with no counteroffer, and tied the payment history to the conduct already before the hearing judge. Your counsel forwarded that letter on October 12 with one line of comment. No preparation meeting is booked, and the October 10 questions are still unanswered. The two proceedings are still decided separately, but the other side is now arguing them as one story.",
     "refs": [
-      "C1",
       "C2",
-      "C5",
-      "C15",
+      "C17",
+      "C18",
       "C16"
     ]
   },
@@ -13,16 +12,16 @@ window.HearingPaths = {
     {
       "track": "dv",
       "title": "Protective order · October 28",
-      "text": "Counsel-confirmed date. No preparation meeting is booked: the October 9 window passed and you asked on October 10 for a time next week. Existing orders remain in force."
+      "text": "Counsel-confirmed date. No preparation meeting is booked. Counsel’s stated trigger for listing Jeffrey as a witness — no money proposal — has now occurred; your discussion-first request is still unacknowledged."
     },
     {
       "track": "civil",
-      "title": "Civil claim · response unverified",
-      "text": "The agreed October 8 response date has passed. Counsel reported none that morning; you asked again October 10. No reply was located through that morning."
+      "title": "Civil claim · demand rejected",
+      "text": "October 9 letter: no payment, no counteroffer, three stated defenses, and an intention to seek repayment if the matter proceeds. No reply, filing, or court deadline exists."
     }
   ],
-  "cutoff": "Reviewed October 10, 2026, 7:15 a.m. Pacific. Latest counsel email located: October 8, 11:43 a.m. Latest firm notice: the October 9 invoice. Your latest message: October 10, 6:29 a.m.",
-  "scope": "This page distinguishes the signed order, documented correspondence, party allegations, and assessments. Relevant Gmail since August 19 was reviewed through the morning of October 10, and the October 9 invoice was read in full; the TRO folder, selected earlier evidence and earlier billing records were reused from the October 7–9 reviews. No current docket, complete filed discovery application/declaration, oral-ruling transcript, complete original audio, issued subpoena/service proof, reconciled trust statement, or filed civil complaint was obtained. Missing from this review does not mean nonexistent. Private documents, personal identifiers, and detailed underlying allegations remain off-site. Legal references were checked October 9; some official pages were available only through indexed text, as noted in their source entries. Confirm case-specific procedure and legal choices with counsel.",
+  "cutoff": "Reviewed October 12, 2026, 8:00 p.m. Pacific. Latest counsel email located: October 12, 11:02 a.m., forwarding the October 9 letter. Latest firm notice: the October 9 invoice. Your latest message: October 10, 6:29 a.m.",
+  "scope": "This page distinguishes the signed order, documented correspondence, party allegations, and assessments. Relevant Gmail since August 19 was reviewed through the evening of October 12; the October 9 invoice and the eight-page October 9 civil response were read in full; the TRO folder, selected earlier evidence and earlier billing records were reused from the October 7–9 reviews. No current docket, complete filed discovery application/declaration, oral-ruling transcript, complete original audio, issued subpoena/service proof, reconciled trust statement, or filed civil complaint was obtained. Missing from this review does not mean nonexistent. Private documents, personal identifiers, and detailed underlying allegations remain off-site. Legal references were checked October 9; some official pages were available only through indexed text, as noted in their source entries. Confirm case-specific procedure and legal choices with counsel.",
   "sources": {
     "C1": {
       "title": "Signed September 10 order and rejected proposal",
@@ -46,7 +45,7 @@ window.HearingPaths = {
     },
     "C5": {
       "title": "October 8 reply and attempted call",
-      "body": "October 8,11:42 a.m. Pacific: counsel says no civil response received yet, proposes adding Jeffrey to the witness list absent a proposal addressing arrearages/damages, and describes a final opportunity before issuance. Says the protected account address will not be provided, citing the existing order, and offers October 9 afternoon availability. This is counsel’s stated position, not an independently verified carrier requirement or new court ruling. The11:43 follow-up reports an unsuccessful call. No later counsel message, booked appointment, issued subpoena or service proof was located through the morning of October 10; unforwarded counsel mail and calls remain outside this review.",
+      "body": "October 8,11:42 a.m. Pacific: counsel says no civil response received yet, proposes adding Jeffrey to the witness list absent a proposal addressing arrearages/damages, and describes a final opportunity before issuance. Says the protected account address will not be provided, citing the existing order, and offers October 9 afternoon availability. This is counsel’s stated position, not an independently verified carrier requirement or new court ruling. The11:43 follow-up reports an unsuccessful call. The only later counsel message located is the October 12 forward at C18. No booked appointment, issued subpoena or service proof was located through October 12; unforwarded counsel mail and calls remain outside this review.",
       "kind": "case"
     },
     "C6": {
@@ -61,7 +60,7 @@ window.HearingPaths = {
     },
     "C8": {
       "title": "Agreed civil response extension",
-      "body": "October 1,2:21 p.m. Pacific counsel email agrees to a response on or before October 8, following separate civil counsel’s September 30 request. It does not repeat the earlier5 p.m. time. This is correspondence timing, not a court response deadline.",
+      "body": "October 1,2:21 p.m. Pacific counsel email agrees to a response on or before October 8, following separate civil counsel’s September 30 request. It does not repeat the earlier5 p.m. time. This is correspondence timing, not a court response deadline. The response is dated October 9, one day after the agreed date; see C17.",
       "kind": "case"
     },
     "C9": {
@@ -101,7 +100,7 @@ window.HearingPaths = {
     },
     "C16": {
       "title": "October 10 reply to counsel",
-      "body": "October 10, 6:29 a.m. Pacific, copied to the two firm staff on counsel’s October 8 message: supplies a working phone number; asks for a meeting time next week; asks whether the civil response arrived; says the request is for the account ZIP code and account number, not an address; proposes a billing-responsibility transfer as an alternative; notes no word on the original device; requests an estimate of billing through October 28 and notice before large work begins. Requests are not completed actions. No reply was located as of this review. The phone number is not published here.",
+      "body": "October 10, 6:29 a.m. Pacific, copied to the two firm staff on counsel’s October 8 message: supplies a working phone number; asks for a meeting time next week; asks whether the civil response arrived; says the request is for the account ZIP code and account number, not an address; proposes a billing-responsibility transfer as an alternative; notes no word on the original device; requests an estimate of billing through October 28 and notice before large work begins. Requests are not completed actions. The only counsel message since is the October 12 forward at C18, which answers none of these points. The phone number is not published here.",
       "kind": "case"
     },
     "L1": {
@@ -169,16 +168,33 @@ window.HearingPaths = {
       "body": "Rule 1.4 requires appropriate communication of significant developments and explanation sufficient for informed decisions. The dated record supports specific questions and concerns; it does not establish malpractice or mean every tactical step requires separate client approval. Official rule text checked.",
       "kind": "law",
       "url": "https://www.calbar.ca.gov/Portals/0/documents/rules/Rule_1.4.pdf"
+    },
+    "C17": {
+      "kind": "case",
+      "title": "October 9 civil response: demand rejected",
+      "body": "Eight-page letter from separate civil counsel to your counsel, emailed October 9 at 12:37 p.m. and read in full. It announces that firm’s representation on the civil claims and asks that civil correspondence go there. Position: the September 10 demand is rejected in its entirety — neither the $35,000 proposal nor the $15,069.14 stated as accrued, and no further support payments. No counteroffer, no response date, no invitation to negotiate. Three stated defenses: any agreement is void because, they allege, payments were obtained by threats of disclosure (pp. 1–5, citing criminal and contract authority and quoting messages from both sides); no cohabitation, so no claim of this type (pp. 5–7); and no bargained-for consideration, with a timeline point about when employment ended (pp. 7–8). P. 5 estimates more than $150,000 paid, says a full accounting is pending, and states an intention to recoup “should this matter proceed.” P. 5 also says the same conduct is before the court in the protective-order case. P. 8 states that any disclosure or contact directed at the husband, family, friends, or clients would be brought to that court as further evidence and met with civil remedies. These are an opposing party’s allegations and legal arguments, not findings. The quoted messages were not checked against the original archive in this review and are not reproduced here. The letter’s reference line misdates the demand as 2016."
+    },
+    "C18": {
+      "kind": "case",
+      "title": "October 12 forward from counsel",
+      "body": "October 12, 11:02 a.m. Pacific: counsel forwards the October 9 letter with one line — that the other side appears to be linking both matters into a uniform course of conduct. No analysis, recommendation, proposed reply, meeting time, billing estimate, or answer on the number transfer. The letter reached counsel’s office about eighteen hours before your October 10 message asked whether a response had arrived, and was forwarded on the third day. Calls and unforwarded mail remain outside this review."
+    },
+    "L12": {
+      "kind": "law",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=FAM&sectionNum=6345",
+      "title": "How long an order after hearing can last",
+      "body": "Family Code 6345 lets the court set the duration of a protective order issued after notice and hearing, up to five years, subject to later modification, termination, or renewal. This states the outer limit only; it predicts nothing about whether an order issues here or for how long. Cited from the statute as generally known; the official page was not re-opened in this review."
     }
   },
-  "initialEvent": 8,
+  "initialEvent": 9,
   "tracks": {
     "dv": {
       "title": "October 28 hearing",
-      "current": "Discovery was denied. Presenting witnesses, cross-examination, and argument remain available under the signed ruling.",
+      "current": "Discovery was denied. Presenting witnesses, cross-examination, and argument remain available under the signed ruling. The October 9 civil letter says the same conduct is before this court.",
       "refs": [
         "C1",
-        "C2"
+        "C2",
+        "C17"
       ],
       "caption": "You are the respondent here. The other side is the petitioner seeking a protective order.",
       "stageCaption": "At and after the hearing — possible outcomes, not a forecast",
@@ -218,18 +234,20 @@ window.HearingPaths = {
               },
               {
                 "label": "What the petitioner can do",
-                "text": "Present supporting evidence, question your witnesses, oppose your account, and raise objections. Your financial claim does not itself defeat their protective-order request.",
+                "text": "Present supporting evidence, question your witnesses, oppose your account, and raise objections. The October 9 letter shows the message history they intend to rely on and frames the money claim as part of the same conduct. Your financial claim does not itself defeat their request.",
                 "refs": [
                   "L6",
-                  "C11"
+                  "C11",
+                  "C17"
                 ]
               },
               {
                 "label": "What must be resolved",
-                "text": "Confirm the full record, exhibit and witness requirements, the original recording, and the basis for any Jeffrey testimony. Earlier permission or promises are context, not an answer to every later allegation.",
+                "text": "Confirm the full record, exhibit and witness requirements, the original recording, and the basis for any Jeffrey testimony. Ask counsel how the quoted messages will be answered in context, and whether and how you should testify given the criminal statutes the letter cites.",
                 "refs": [
                   "C3",
-                  "C11"
+                  "C11",
+                  "C17"
                 ]
               }
             ]
@@ -257,10 +275,11 @@ window.HearingPaths = {
               },
               {
                 "label": "What must be resolved",
-                "text": "The record does not establish a current accepted proposal. Clarify why the draft’s express separation language disappeared and whether civil negotiations are being linked to the proposed witness step.",
+                "text": "No accepted proposal exists. The civil letter closes the money side and is silent on the protective-order case; whether the compliance-based idea from August is still available is unknown. Any approach has to go through counsel, and should not be paired with the witness step.",
                 "refs": [
-                  "C5",
-                  "C7"
+                  "C6",
+                  "C17",
+                  "C5"
                 ]
               }
             ]
@@ -307,10 +326,11 @@ window.HearingPaths = {
             "details": [
               {
                 "label": "Their available step",
-                "text": "Present admissible evidence supporting the requested protection and question opposing evidence. A discovery win is not a merits finding that establishes every allegation.",
+                "text": "Present admissible evidence supporting the requested protection and question opposing evidence. The October 9 letter previews a course-of-conduct argument built on the message history and the payments. A discovery win is not a merits finding.",
                 "refs": [
                   "L6",
-                  "C1"
+                  "C1",
+                  "C17"
                 ]
               },
               {
@@ -384,10 +404,11 @@ window.HearingPaths = {
               },
               {
                 "label": "What remains unknown",
-                "text": "No completed Jeffrey subpoena, proof of service, offer of proof, or privilege ruling was found. Do not treat an anticipated challenge as filed or successful.",
+                "text": "No completed Jeffrey subpoena, proof of service, offer of proof, or privilege ruling was found. The October 9 letter says in advance that contact directed at the husband would be shown to the court as further evidence; expect any subpoena to be opposed on that footing.",
                 "refs": [
                   "C3",
-                  "C5"
+                  "C5",
+                  "C17"
                 ]
               }
             ]
@@ -396,12 +417,12 @@ window.HearingPaths = {
       }
     },
     "civil": {
-      "title": "Demand stage",
-      "current": "A demand was transmitted. A civil complaint, service, and trial date have not been verified.",
+      "title": "Demand rejected",
+      "current": "The demand was rejected in full on October 9 with no counteroffer. A civil complaint, service, and trial date have not been verified.",
       "refs": [
         "C7",
-        "C8",
-        "C5"
+        "C17",
+        "C18"
       ],
       "caption": "Roles would change in a separate lawsuit: you would be the claimant/plaintiff; the protective-order petitioner would be the defendant if sued.",
       "stageCaption": "Only if a separate lawsuit is filed — settlement can occur before or during any of these stages",
@@ -446,18 +467,18 @@ window.HearingPaths = {
               },
               {
                 "label": "What the other side can do",
-                "text": "Dispute liability or amounts, offer terms, request clarification, or decline a demand. Their silence in your mailbox does not establish liability or a default.",
+                "text": "They have now done it: disputed liability and the amounts in full, declined the demand, and stated an intention to seek repayment of an estimated $150,000-plus if the matter proceeds. Nothing obliges them to say more.",
                 "refs": [
-                  "C5",
-                  "C8",
+                  "C17",
                   "L9"
                 ]
               },
               {
                 "label": "What remains unknown",
-                "text": "No adjudicated recovery value or current accepted offer is established. Any limitations or other filing deadline must be checked promptly; a decision to defer is not a stop on legal time.",
+                "text": "No adjudicated value exists on either side: neither your claim nor their repayment estimate has been tested. Any limitations or other filing deadline must be checked promptly; deciding to wait is not a stop on legal time.",
                 "refs": [
                   "C7",
+                  "C17",
                   "L9"
                 ]
               }
@@ -466,30 +487,32 @@ window.HearingPaths = {
           {
             "title": "Negotiate the money dispute",
             "subtitle": "Separate the terms",
-            "destination": "A documented agreement",
-            "outcome": "A resolved civil claim requires clear terms and performance; the protective-order proceeding needs its own documented treatment.",
+            "destination": "No offer to negotiate against",
+            "outcome": "The letter contains no counteroffer and no invitation to talk. A negotiated civil outcome would now have to start from a new approach, most plausibly as part of a wider resolution.",
             "details": [
               {
                 "label": "Your available step",
-                "text": "Request the actual post–October 8 response and evaluate any proposal against verified losses and future fees. Spell out claims released, payment timing, and remaining obligations.",
+                "text": "Ask counsel whether a reply is worth its cost, and what it would be for: correcting the record, or opening a wider conversation. A reply alone changes nothing they have said.",
                 "refs": [
-                  "C5",
-                  "C7",
+                  "C17",
+                  "C18",
                   "L9"
                 ]
               },
               {
                 "label": "What the other side can do",
-                "text": "Accept, counter, reject, or continue discussions. The October 8 date was agreed correspondence timing, not a court-ordered Answer deadline.",
+                "text": "Ignore a reply, repeat the refusal, or engage. The October 8 date was correspondence timing between counsel; no court deadline binds either side.",
                 "refs": [
-                  "C8"
+                  "C8",
+                  "C17"
                 ]
               },
               {
                 "label": "What remains unknown",
-                "text": "No later response or accepted settlement was located. Counsel’s October 8 link between money resolution and Jeffrey’s subpoena needs an independent evidentiary explanation.",
+                "text": "Whether any figure, structure, or mutual release would interest them. Counsel’s October 8 plan paired the Jeffrey witness step with the absence of a proposal; that pairing needs an independent evidentiary reason before anything issues.",
                 "refs": [
-                  "C5"
+                  "C5",
+                  "C17"
                 ]
               }
             ]
@@ -510,8 +533,9 @@ window.HearingPaths = {
               },
               {
                 "label": "What the other side can do",
-                "text": "Respond to the complaint, challenge its legal basis or service, contest damages, negotiate, and defend at trial. Any default route depends on actual service and procedural requirements.",
+                "text": "Respond, challenge the legal basis or service, contest damages, and file their own claim for repayment — the letter says they intend to. The three defenses in the letter would be the starting point.",
                 "refs": [
+                  "C17",
                   "L9"
                 ]
               },
@@ -528,32 +552,32 @@ window.HearingPaths = {
         ],
         "petitioner": [
           {
-            "title": "Respond to the demand",
-            "subtitle": "As the potential civil defendant",
-            "destination": "Negotiation or disagreement",
-            "outcome": "An actual response may narrow the dispute or show that litigation needs to be evaluated; no response was verified after counsel’s October 8 morning update.",
+            "title": "Stand on the rejection",
+            "subtitle": "The October 9 letter",
+            "destination": "Nothing further is owed in reply",
+            "outcome": "The demand was answered with a complete refusal. Without a filing, the civil track can sit where it is indefinitely.",
             "details": [
               {
                 "label": "Their available step",
-                "text": "Dispute the legal basis or calculations, provide contrary records, offer terms, or decline the demand. A demand is not an adjudicated debt.",
+                "text": "Do nothing more. A demand is not an adjudicated debt, and the letter sets no date for anything.",
                 "refs": [
-                  "C7",
+                  "C17",
                   "L9"
                 ]
               },
               {
                 "label": "Your available response",
-                "text": "Request the actual correspondence, reconcile the evidence, and decide on further negotiation or filing with counsel. Do not infer court default from a demand deadline.",
+                "text": "Leave it parked, reply, or evaluate a filing with counsel. Each costs something different, and none is forced by a deadline located in this review.",
                 "refs": [
-                  "C8",
+                  "C17",
                   "L9"
                 ]
               },
               {
                 "label": "What remains unknown",
-                "text": "Counsel reported no response at 11:42 a.m. on October 8. That does not establish what reached counsel later that day or outside the reviewed mailbox.",
+                "text": "Whether the refusal is a final position or an opening one. The letter reads as final and offers no channel for talks.",
                 "refs": [
-                  "C5"
+                  "C17"
                 ]
               }
             ]
@@ -581,24 +605,24 @@ window.HearingPaths = {
               },
               {
                 "label": "What remains unknown",
-                "text": "No agreement, accepted amount, released claim, or completed settlement payment was found in this review. None should appear as a completed step.",
+                "text": "No offer exists. The October 9 letter says no further payment of any kind will be made. Treat any settlement as hypothetical until a concrete proposal is on paper.",
                 "refs": [
-                  "C5",
-                  "C7"
+                  "C17"
                 ]
               }
             ]
           },
           {
-            "title": "Defend if a suit is filed",
-            "subtitle": "A conditional later stage",
+            "title": "Defend, and claim repayment",
+            "subtitle": "Only if a suit is filed",
             "destination": "Trial is one possible route",
             "outcome": "A filed and served case may end through a ruling, negotiated resolution, or trial. The demand has not yet established that track.",
             "details": [
               {
                 "label": "Their available step",
-                "text": "Use the applicable response and defense procedures, challenge unsupported claims, obtain evidence through lawful process, and contest liability or damages.",
+                "text": "Use the response and defense procedures, raise the three defenses in the letter, and file a claim of their own for the estimated $150,000-plus. That estimate is a figure in a letter, with an accounting described as pending.",
                 "refs": [
+                  "C17",
                   "L9"
                 ]
               },
@@ -717,12 +741,24 @@ window.HearingPaths = {
       "date": "Oct 9–10",
       "title": "New invoice; your reply",
       "known": "A $10,323.00 invoice for September 8–30 work arrived October 9. The October 9 afternoon meeting window passed without a booking. On October 10 you sent a working number, asked for a time next week, asked about the civil response, narrowed the transfer request, and requested a billing estimate through the hearing.",
-      "unknown": "No reply to the October 10 message, meeting time, civil response, transfer details, or payment on the new invoice was located. The invoice prints two trust figures it does not reconcile.",
-      "effect": "Eighteen days remain with no preparation session on the calendar. The invoice’s interest clock starts before its printed due date; the estimate request and the trust figures are billing questions, not grounds to pause preparation.",
+      "unknown": "When this page was last reviewed on October 10, no reply, meeting time, or payment on the new invoice had been located. The invoice prints two trust figures it does not reconcile.",
+      "effect": "The invoice’s interest clock starts before its printed due date; the estimate request and the trust figures are billing questions, not grounds to pause preparation.",
       "refs": [
         "C15",
         "C16",
         "C5"
+      ]
+    },
+    {
+      "date": "Oct 9–12",
+      "title": "Demand rejected in full",
+      "known": "Separate civil counsel answered the demand on October 9: no payment, no counteroffer, three stated defenses, an estimate of more than $150,000 already paid that they say they would seek to recover, and a statement that the same conduct is before the hearing judge. Your counsel forwarded it October 12 with one line.",
+      "unknown": "Counsel’s analysis, any planned reply, whether the Jeffrey witness step is now going ahead, and whether the quoted messages are complete and in context. No meeting is booked and the October 10 questions are unanswered.",
+      "effect": "The paid-settlement route on the demand’s terms is closed for now. The letter also tells you in advance how a subpoena to the husband, or any contact, would be described to the court. That raises the cost of the witness step and makes the pre-hearing meeting the next thing that matters.",
+      "refs": [
+        "C17",
+        "C18",
+        "C16"
       ]
     }
   ],
@@ -820,13 +856,22 @@ window.HearingPaths = {
           "C5",
           "L10"
         ]
+      },
+      {
+        "text": "A cost that is now in writing: the October 9 letter says any disclosure or contact directed at the husband would be presented to the court as further evidence of the alleged conduct. A hearing subpoena is a court process, not a private contact, but expect the other side to describe it in those terms.",
+        "refs": [
+          "C17",
+          "L4"
+        ]
       }
     ],
     "question": "The question for counsel: What relevant, nonprivileged fact do you expect Jeffrey to establish — and why would calling him still be justified if the civil money dispute disappeared?",
-    "limit": "Ask for the exact instrument, proposed date and scope, witness-list requirements, privilege analysis, costs, and whether further court permission is needed. A deposition or advance evidence demand cannot evade the denial merely by being called a hearing subpoena. Your October 7 request was to discuss this before issuance.",
+    "limit": "Ask for the exact instrument, proposed date and scope, witness-list requirements, privilege analysis, costs, and whether further court permission is needed. A deposition or advance evidence demand cannot evade the denial merely by being called a hearing subpoena. Your October 7 request was to discuss this before issuance. Counsel’s October 8 trigger — no proposal — was met on October 9; ask whether the plan has changed.",
     "refs": [
       "C1",
       "C4",
+      "C5",
+      "C17",
       "L2",
       "L4"
     ]
@@ -856,12 +901,12 @@ window.HearingPaths = {
         },
         {
           "title": "Phone logistics and a meeting offer",
-          "text": "The September 30 reply supplied return instructions and discussed preparation. Receipt and transfer information were forwarded October 6. October 8 brought a meeting offer and attempted call; the offered October 9 window passed unbooked, and your October 10 reply asks for a time next week.",
+          "text": "The September 30 reply supplied return instructions and discussed preparation. Receipt and transfer information were forwarded October 6. October 8 brought a meeting offer and attempted call; the offered October 9 window passed unbooked. The October 9 civil response was forwarded October 12.",
           "refs": [
             "C3",
             "C9",
             "C5",
-            "C16"
+            "C18"
           ]
         }
       ],
@@ -896,13 +941,24 @@ window.HearingPaths = {
         },
         {
           "title": "The hold and hearing plan need answers",
-          "text": "October 8 discusses a future subpoena without acknowledging your October 7 hold or supplying expected testimony, and does not take the eleven numbered questions point by point. The preparation calendar, full application, evidence requests, and key explanations are still unverified; your October 10 follow-up is unanswered so far.",
+          "text": "October 8 discusses a future subpoena without acknowledging your October 7 hold or supplying expected testimony, and does not take the eleven numbered questions point by point. The October 12 forward answers none of the October 10 points: meeting time, billing estimate, transfer details.",
           "refs": [
             "C4",
             "C5",
-            "C16"
+            "C16",
+            "C18"
           ],
           "kind": "Unresolved after partial reply"
+        },
+        {
+          "kind": "Documented interval; no analysis yet",
+          "title": "An eight-page letter, one line of comment",
+          "text": "The civil response reached counsel October 9 at 12:37 p.m. You asked on October 10 whether one had arrived. It was forwarded October 12 with a single sentence and no recommendation. The letter changes the witness question and the civil options; you need counsel’s reading of it before the hearing plan is fixed.",
+          "refs": [
+            "C17",
+            "C18",
+            "C16"
+          ]
         }
       ],
       "limit": "Assessment: these are specific communication, explanation, and drafting problems that impair informed decision-making. The record does not establish malpractice, deliberate disobedience, a missed court deadline, or that any problem caused the discovery loss. A full counsel file and explanation are needed to assess those stronger claims.",
@@ -931,11 +987,11 @@ window.HearingPaths = {
           ]
         },
         {
-          "title": "Obtained time for the civil response",
-          "text": "Separate civil counsel requested an extension, and your counsel agreed to October 8. Whether an actual response arrived later remains unverified in the accessible record.",
+          "title": "Answered the demand and reframed it",
+          "text": "Separate civil counsel obtained an extension, then delivered a complete refusal one day after the agreed date. The letter states defenses, raises a repayment claim, and connects the money dispute to the protective-order case. That is an advocacy position, effective as positioning, and untested.",
           "refs": [
             "C8",
-            "C5"
+            "C17"
           ]
         }
       ],
@@ -959,13 +1015,12 @@ window.HearingPaths = {
           "kind": "Allegation is not adjudication"
         },
         {
-          "title": "The actual civil response needs checking",
-          "text": "No response was reported at 11:42 a.m. on October 8; none later was located through October 10. That is insufficient to declare an end-of-day breach or bad faith, because counsel may hold correspondence not forwarded to this mailbox.",
+          "kind": "Assertion is not accounting",
+          "title": "The repayment figure is an estimate",
+          "text": "More than $150,000 is described as an estimate with a full accounting still pending. Selected messages are quoted without surrounding context. Neither the figure nor the characterization has been tested by any court.",
           "refs": [
-            "C5",
-            "C8"
-          ],
-          "kind": "Outcome unverified"
+            "C17"
+          ]
         },
         {
           "title": "No invented production violation",
@@ -977,40 +1032,41 @@ window.HearingPaths = {
           "kind": "A limit on the assessment"
         }
       ],
-      "limit": "Assessment: opposing counsel achieved a procedural win and completed some exchange steps. The strongest open issue is the incomplete record of the transfer and later civil response. Their allegations still require proof. This review does not establish professional misconduct by either opposing firm.",
+      "limit": "Assessment: opposing counsel achieved a procedural win in September and, on October 9, a clear positional one: the money demand is refused and recast as part of the conduct at issue on October 28. Their allegations still require proof. The strongest open practical issue remains the incomplete number transfer. This review does not establish professional misconduct by either opposing firm.",
       "refs": []
     }
   },
   "next": [
     {
-      "title": "A booked meeting and preparation date",
-      "text": "Fix the Pasadena meeting next week and a testimony session in the week of October 19; confirm the hearing time, appearance instructions, witness and exhibit requirements, recording status, and reporter arrangements. These are unverified items, not established missed deadlines.",
+      "title": "A booked meeting, this week",
+      "text": "Sixteen days out with nothing on the calendar. Fix the Pasadena meeting and a testimony session in the week of October 19; confirm the hearing time, appearance instructions, witness and exhibit requirements, recording status, and reporter arrangements.",
       "refs": [
         "C2",
         "C4",
-        "C16"
+        "C16",
+        "C18"
+      ]
+    },
+    {
+      "title": "Counsel’s reading of the October 9 letter",
+      "text": "Ask for it in writing: how the quoted messages will be answered at the hearing, whether a reply is planned and what it would cost, and whether anything in the letter changes the advice on testifying.",
+      "refs": [
+        "C17",
+        "C18"
       ]
     },
     {
       "title": "A written Jeffrey decision",
-      "text": "Resolve the hold, the precise subpoena type, expected testimony, privileges, relevance, cost, and whether further permission is needed. Request the actual document and service status if one now exists.",
+      "text": "Counsel’s stated trigger has occurred. Resolve the hold, the precise subpoena type, expected testimony, privileges, relevance, cost, and how the step would look after the October 9 letter. Request the actual document and service status if one now exists.",
       "refs": [
         "C4",
-        "C5"
-      ]
-    },
-    {
-      "title": "The missing civil response",
-      "text": "Obtain the complete post–October 8 exchange; you asked again October 10. Decide the financial claim’s next step on that record, without assuming default or tying testimony automatically to payment.",
-      "refs": [
         "C5",
-        "C8",
-        "C16"
+        "C17"
       ]
     },
     {
       "title": "The transfer route, before October 20",
-      "text": "Get either the account number and account ZIP code, or agreement to a billing-responsibility transfer that needs neither, and confirm the line is active on the carrier’s side. Ten days remain on the stated credential.",
+      "text": "Get either the account number and account ZIP code, or agreement to a billing-responsibility transfer that needs neither, and confirm the line is active on the carrier’s side. Eight days remain on the stated credential.",
       "refs": [
         "C9",
         "C16"
@@ -1018,10 +1074,18 @@ window.HearingPaths = {
     },
     {
       "title": "The invoice and the estimate",
-      "text": "Decide payment on invoice 39304 before interest starts, ask the firm to reconcile the two trust figures printed on it, and get the requested estimate through October 28.",
+      "text": "Decide payment on invoice 39304 before interest starts October 14, ask the firm to reconcile the two trust figures printed on it, and get the requested estimate through October 28.",
       "refs": [
         "C15",
         "C16"
+      ]
+    },
+    {
+      "title": "The civil decision, on its own clock",
+      "text": "Park, reply, or evaluate a filing. No court deadline was located, so this does not have to be decided before October 28; ask counsel to confirm the limitations date so that waiting is a choice.",
+      "refs": [
+        "C17",
+        "L9"
       ]
     },
     {
@@ -1036,21 +1100,21 @@ window.HearingPaths = {
   ],
   "dates": [
     {
-      "title": "October 8 · civil response date passed",
-      "text": "Counsel’s morning email reported no response. You asked again October 10; no reply was found. End-of-day compliance is not independently established. This was an agreement between counsel.",
+      "title": "October 9 · civil response delivered",
+      "text": "One day after the agreed October 8 date: demand rejected in full, no counteroffer. Forwarded to you October 12. It sets no further date and creates no court deadline.",
       "refs": [
-        "C5",
         "C8",
-        "C16"
+        "C17",
+        "C18"
       ]
     },
     {
-      "title": "October 9 · meeting window passed",
-      "text": "Counsel offered that afternoon; no time was fixed. On October 10 you asked for a time next week. October 13, 2–5 p.m., was your earlier alternate, not a confirmed appointment.",
+      "title": "October 13 · alternate slot, unconfirmed",
+      "text": "2–5 p.m. was the alternate you offered on October 7. Counsel has not confirmed it or proposed another time; your October 10 request for a time this week is unanswered.",
       "refs": [
         "C4",
-        "C5",
-        "C16"
+        "C16",
+        "C18"
       ]
     },
     {
@@ -1135,6 +1199,14 @@ window.HearingPaths = {
       ]
     },
     {
+      "value": "$0 offered",
+      "title": "Civil demand answered",
+      "text": "The October 9 letter refuses the $35,000 proposal and the $15,069.14 stated as accrued, and estimates more than $150,000 already paid that they would seek to recover if the matter proceeds. Claims on both sides; nothing adjudicated.",
+      "refs": [
+        "C17"
+      ]
+    },
+    {
       "value": "$21,421.96",
       "title": "Total recorded payments",
       "text": "Includes the deposits, paid bill, and $515 consultation. It is not total earned fees, a litigation budget, or expected recovery.",
@@ -1143,9 +1215,9 @@ window.HearingPaths = {
       ]
     },
     {
-      "value": "18 days",
+      "value": "16 days",
       "title": "To the hearing",
-      "text": "Counted from October 10. No estimate of fees for this stretch exists in the record; you asked for one that morning.",
+      "text": "Counted from October 12. No estimate of fees for this stretch exists in the record; you asked for one on October 10.",
       "refs": [
         "C16"
       ]
@@ -1248,6 +1320,18 @@ window.HearingPaths = {
             {
               "k": "f8",
               "text": "A testimony preparation date in the week of October 19"
+            },
+            {
+              "k": "f9",
+              "text": "How the messages quoted in the October 9 letter will be answered at the hearing, and in what context"
+            },
+            {
+              "k": "f10",
+              "text": "Whether the advice on testifying changes, given the statutes that letter cites and the earlier stated referral to authorities"
+            },
+            {
+              "k": "f11",
+              "text": "Whether listing or subpoenaing Jeffrey is still the plan after that letter, and the reason apart from money"
             }
           ]
         },
@@ -1256,7 +1340,8 @@ window.HearingPaths = {
           "refs": [
             "C9",
             "C15",
-            "C16"
+            "C16",
+            "C17"
           ],
           "items": [
             {
@@ -1269,7 +1354,7 @@ window.HearingPaths = {
             },
             {
               "k": "m3",
-              "text": "Whether the civil response arrived, and the full exchange if it did"
+              "text": "The October 9 civil response: counsel’s written reading, and whether any reply is planned"
             },
             {
               "k": "m4",
@@ -1282,6 +1367,10 @@ window.HearingPaths = {
             {
               "k": "m6",
               "text": "The interest waiver you asked for on bill 38507"
+            },
+            {
+              "k": "m7",
+              "text": "The civil claim: park, reply, or file — with the limitations date and a cost for each"
             }
           ]
         }
@@ -1317,5 +1406,637 @@ window.HearingPaths = {
         }
       ]
     }
+  },
+  "weeks": {
+    "start": "2026-10-12",
+    "end": "2026-11-09",
+    "hearing": "2026-10-28",
+    "caption": "Each bar is a window in which a move is still available. Solid means open now; dashed means it only opens if the other side moves first; a fading end means the real cutoff has not been confirmed. Select a bar to see what it costs and what it invites in return.",
+    "note": "A map of windows, not advice and not a forecast. Dates marked unconfirmed are exactly that. Decide case-specific steps with counsel, and follow the controlling orders throughout.",
+    "lanes": {
+      "dv": "Protective order",
+      "civil": "Civil claim",
+      "ops": "Phone and fees"
+    },
+    "markers": [
+      {
+        "date": "2026-10-13",
+        "label": "13",
+        "kind": "soft",
+        "title": "October 13 · alternate meeting slot",
+        "text": "2–5 p.m., offered by you on October 7. Not confirmed by counsel.",
+        "refs": [
+          "C4",
+          "C18"
+        ]
+      },
+      {
+        "date": "2026-10-14",
+        "label": "14",
+        "kind": "deadline",
+        "title": "October 14 · invoice interest begins",
+        "text": "The firm’s billing term on invoice 39304: 10% a year from five days after the invoice date.",
+        "refs": [
+          "C15"
+        ]
+      },
+      {
+        "date": "2026-10-19",
+        "label": "19",
+        "kind": "deadline",
+        "title": "October 19 · invoice due; rental discovery due",
+        "text": "Printed due date for the $10,323.00 invoice. The same day, 5 p.m., is the discovery deadline in the separate rental case tracked in the Possession room. Two unrelated demands on the same day.",
+        "refs": [
+          "C15"
+        ]
+      },
+      {
+        "date": "2026-10-20",
+        "label": "20",
+        "kind": "deadline",
+        "title": "October 20 · transfer credential expires",
+        "text": "Stated as 11:11 a.m. Pacific. Without the account number and ZIP code, or a billing-responsibility transfer, the credential lapses unused.",
+        "refs": [
+          "C9",
+          "C16"
+        ]
+      },
+      {
+        "date": "2026-10-28",
+        "label": "28",
+        "kind": "court",
+        "title": "October 28 · hearing",
+        "text": "Counsel-confirmed date, Department 547. Time, appearance instructions, and the witness and exhibit deadlines are still unconfirmed.",
+        "refs": [
+          "C2"
+        ]
+      }
+    ],
+    "paths": [
+      {
+        "id": "y-meet",
+        "side": "you",
+        "lane": "dv",
+        "title": "Meet counsel and get written answers",
+        "state": "narrowing",
+        "what": "The Pasadena meeting you asked for on October 7 and again on October 10. Nothing is booked. Every other decision in this lane waits on it: the hearing plan, the witness question, the reading of the October 9 letter.",
+        "cost": "Each day without it comes out of preparation time. Counsel’s last substantive message was October 8; the October 12 forward carried one sentence.",
+        "answer": "Nothing to answer. This one is between you and your own counsel.",
+        "refs": [
+          "C4",
+          "C16",
+          "C18"
+        ],
+        "counters": [],
+        "from": "2026-10-12",
+        "to": "2026-10-27",
+        "end": "practical",
+        "toLabel": "useful only before the hearing"
+      },
+      {
+        "id": "y-jeff",
+        "side": "you",
+        "lane": "dv",
+        "title": "Decide Jeffrey: hold, list, or subpoena",
+        "state": "narrowing",
+        "what": "Counsel said on October 8 that, absent a money proposal, the next step is a witness list with Jeffrey on it, then a subpoena. No proposal came; the October 9 letter refuses everything. So the stated trigger has occurred. Your October 7 request to discuss it first is unacknowledged.",
+        "cost": "Assessment: this is now the most exposed move on the board. The opposition already told the judge the deposition was meant as pressure. The October 9 letter says in advance that contact directed at the husband will be presented as further evidence. A subpoena issued after counsel paired it with money would be read through that frame unless there is a clear evidentiary reason that stands without the money.",
+        "answer": "They can object, move to quash or limit, and fold the step into a course-of-conduct argument. The witness can object on his own grounds.",
+        "refs": [
+          "C4",
+          "C5",
+          "C6",
+          "C17",
+          "L4"
+        ],
+        "counters": [
+          "t-quash",
+          "t-link"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28",
+        "end": "unconfirmed",
+        "toLabel": "witness-list and service cutoffs unconfirmed"
+      },
+      {
+        "id": "y-contest",
+        "side": "you",
+        "lane": "dv",
+        "title": "Prepare and contest on October 28",
+        "state": "open",
+        "what": "The route the September 10 order expressly preserves: cross-examine, present your own witnesses and evidence, argue that the burden has not been met.",
+        "cost": "Preparation time and fees with no estimate yet. The October 9 letter is a preview of the message history you will be asked about; the answer to it is context and completeness, prepared in advance.",
+        "answer": "They present the petition, object to your evidence, and cross-examine you.",
+        "refs": [
+          "C1",
+          "C17",
+          "L2",
+          "L6"
+        ],
+        "counters": [
+          "t-hearing",
+          "t-link"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28"
+      },
+      {
+        "id": "y-testify",
+        "side": "you",
+        "lane": "dv",
+        "title": "Get advice on testifying before you take the stand",
+        "state": "narrowing",
+        "what": "Assessment: the October 9 letter describes the message history under criminal statutes, and the September opposition stated an intention to go to law enforcement. Sworn testimony on October 28 does not stay in that courtroom. Whether to testify, and how, is a question for counsel before the hearing, and reasonably for a criminal-defense lawyer as well.",
+        "cost": "A consult costs money and a few days. Not asking costs nothing until it costs a great deal. No report or agency contact has been verified.",
+        "answer": "They cannot stop you taking advice. What they can do is cross-examine on the messages if you testify.",
+        "refs": [
+          "C6",
+          "C17"
+        ],
+        "counters": [
+          "t-police",
+          "t-hearing"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-27",
+        "end": "practical",
+        "toLabel": "needed before the hearing"
+      },
+      {
+        "id": "y-resolve",
+        "side": "you",
+        "lane": "dv",
+        "title": "Explore a protective-order resolution",
+        "state": "open",
+        "what": "A negotiated end to the hearing, through counsel. The August 26 notice mentioned a compliance-based idea that never reached you; its terms are unknown. The civil letter is silent on this track.",
+        "cost": "Unknown terms, and it may no longer be on offer. Any approach paired with a witness step or a money ask would look like the thing they are alleging.",
+        "answer": "They can accept, counter, ignore it, or cite the approach. Negotiation changes no existing order.",
+        "refs": [
+          "C6",
+          "C17",
+          "L8"
+        ],
+        "counters": [
+          "t-resolve"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28"
+      },
+      {
+        "id": "y-continue",
+        "side": "you",
+        "lane": "dv",
+        "title": "Ask the court for more time",
+        "state": "open",
+        "what": "A further continuance, if there is a concrete reason: new counsel, missing evidence, a scheduling conflict. It needs a showing and a decision.",
+        "cost": "Not assumed. The other side objected to delay in September, the temporary order stays in force for the extra time, and fees keep running.",
+        "answer": "They can oppose it and point to the September ruling.",
+        "refs": [
+          "C1",
+          "L7"
+        ],
+        "counters": [
+          "t-hearing"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28"
+      },
+      {
+        "id": "y-park",
+        "side": "you",
+        "lane": "civil",
+        "title": "Park the money claim until after the hearing",
+        "state": "open",
+        "what": "Leave the civil track where the letter left it. A demand creates no court deadline, and none was located.",
+        "cost": "Nothing new spent, and nothing added to the linking argument before October 28. The one thing to check is the limitations date, so that waiting is a choice.",
+        "answer": "They can also do nothing, indefinitely.",
+        "refs": [
+          "C17",
+          "L9"
+        ],
+        "counters": [
+          "t-pat"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-11-09",
+        "past": true
+      },
+      {
+        "id": "y-reply",
+        "side": "you",
+        "lane": "civil",
+        "title": "Answer the October 9 letter",
+        "state": "open",
+        "what": "A reply through counsel: to correct the record, contest the three defenses, or open a wider conversation.",
+        "cost": "Fees, for a letter that changes nothing they have said. It may also draw a second round on the same themes before the hearing.",
+        "answer": "They can ignore it, repeat the refusal, or quote it.",
+        "refs": [
+          "C17",
+          "C18"
+        ],
+        "counters": [
+          "t-pat",
+          "t-link"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-11-09",
+        "past": true
+      },
+      {
+        "id": "y-file",
+        "side": "you",
+        "lane": "civil",
+        "title": "File a separate lawsuit",
+        "state": "open",
+        "what": "A complaint on the financial claim, only after counsel’s review and a budget. The demand did not start this process.",
+        "cost": "The largest exposure in this lane. The letter says they would seek repayment of an estimated $150,000-plus, and the same messages would be the defense. Filed before October 28, it would also hand them a fresh example for the course-of-conduct argument.",
+        "answer": "Defend on the three stated grounds and file their own claim for repayment.",
+        "refs": [
+          "C17",
+          "L9"
+        ],
+        "counters": [
+          "t-cross",
+          "t-link"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-11-09",
+        "past": true
+      },
+      {
+        "id": "y-port",
+        "side": "you",
+        "lane": "ops",
+        "title": "Move the number before the credential lapses",
+        "state": "narrowing",
+        "what": "Two routes: the account number and account ZIP code, or a billing-responsibility transfer started from the other account. You proposed both on October 10. Neither has been answered.",
+        "cost": "If the 20th passes, a new credential has to be requested through two sets of lawyers again.",
+        "answer": "They can supply the details, start the transfer, or let it lapse.",
+        "refs": [
+          "C9",
+          "C16"
+        ],
+        "counters": [
+          "t-port"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-20"
+      },
+      {
+        "id": "y-invoice",
+        "side": "you",
+        "lane": "ops",
+        "title": "Settle the invoice questions",
+        "state": "narrowing",
+        "what": "Invoice 39304, $10,323.00. Decide payment, get the two printed trust figures reconciled, and get the estimate through October 28 you asked for.",
+        "cost": "Interest runs from October 14 on the firm’s terms. The hearing itself is not yet billed or estimated.",
+        "answer": "Nothing to answer. This is between you and the firm.",
+        "refs": [
+          "C15",
+          "C16"
+        ],
+        "counters": [],
+        "from": "2026-10-12",
+        "to": "2026-10-19"
+      },
+      {
+        "id": "y-x-disc",
+        "side": "you",
+        "lane": "dv",
+        "title": "Pre-hearing discovery or a deposition",
+        "state": "closed",
+        "what": "Denied on September 10. The proposed order was crossed out.",
+        "cost": "Re-running it under another name would collide with the ruling.",
+        "answer": "—",
+        "refs": [
+          "C1"
+        ],
+        "counters": [],
+        "from": "2026-09-10",
+        "to": "2026-09-10",
+        "closedLabel": "Closed September 10"
+      },
+      {
+        "id": "y-x-pay",
+        "side": "you",
+        "lane": "civil",
+        "title": "A paid settlement on the demand’s terms",
+        "state": "closed",
+        "what": "Refused in full on October 9, with no counteroffer.",
+        "cost": "Any money outcome would now need a new approach or a court.",
+        "answer": "—",
+        "refs": [
+          "C17"
+        ],
+        "counters": [],
+        "from": "2026-10-09",
+        "to": "2026-10-09",
+        "closedLabel": "Closed October 9"
+      },
+      {
+        "id": "t-hearing",
+        "side": "them",
+        "lane": "dv",
+        "title": "Take the petition to hearing",
+        "state": "open",
+        "what": "Present their evidence on October 28 and ask for an order after hearing.",
+        "cost": "They carry the burden. A discovery win in September was not a merits finding.",
+        "answer": "You contest: cross-examination, your own evidence and witnesses, argument.",
+        "refs": [
+          "C1",
+          "L6"
+        ],
+        "counters": [
+          "y-contest",
+          "y-testify"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28"
+      },
+      {
+        "id": "t-link",
+        "side": "them",
+        "lane": "dv",
+        "title": "Argue both matters as one course of conduct",
+        "state": "open",
+        "what": "The October 9 letter says the same conduct is before the hearing judge, and your counsel reads it the same way. Expect the demand letter, the payment history, and any witness step to be offered as chapters of one story.",
+        "cost": "For them, little. Whether the judge admits or credits it is the court’s call; the money dispute is not the question on October 28.",
+        "answer": "Keep the tracks visibly separate before the hearing, and prepare the context for the quoted messages.",
+        "refs": [
+          "C17",
+          "C18"
+        ],
+        "counters": [
+          "y-park",
+          "y-contest",
+          "y-jeff"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28"
+      },
+      {
+        "id": "t-quash",
+        "side": "them",
+        "lane": "dv",
+        "title": "Object to or quash a Jeffrey subpoena",
+        "state": "conditional",
+        "what": "Only if a subpoena or witness listing happens. They would raise relevance, privilege, burden, the September ruling, and the October 9 letter.",
+        "cost": "A motion costs them fees, and gives them a second chance to put the pressure argument in front of the judge.",
+        "answer": "Counsel would need a specific, non-privileged fact he is expected to establish.",
+        "refs": [
+          "C6",
+          "C17",
+          "L4"
+        ],
+        "counters": [
+          "y-jeff"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28"
+      },
+      {
+        "id": "t-resolve",
+        "side": "them",
+        "lane": "dv",
+        "title": "Offer or accept a compliance-based resolution",
+        "state": "open",
+        "what": "The idea in the August 26 notice. Whether it survives the October 9 letter is unknown; that letter is about money only.",
+        "cost": "They would give up the chance of an order after hearing.",
+        "answer": "Evaluate exact terms with counsel; nothing takes effect without the court step.",
+        "refs": [
+          "C6",
+          "L8"
+        ],
+        "counters": [
+          "y-resolve"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28",
+        "end": "unconfirmed",
+        "toLabel": "unknown whether still available"
+      },
+      {
+        "id": "t-sanctions",
+        "side": "them",
+        "lane": "dv",
+        "title": "Revive the sanctions request",
+        "state": "open",
+        "what": "The September opposition asked for sanctions. The ruling does not mention them, and whether the request is denied or pending is one of your eleven open questions.",
+        "cost": "Unknown. As you understand it, a sanction of this kind falls on the party.",
+        "answer": "Get counsel’s written answer on where it stands.",
+        "refs": [
+          "C6",
+          "C4"
+        ],
+        "counters": [
+          "y-meet"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-28",
+        "end": "unconfirmed",
+        "toLabel": "status unknown"
+      },
+      {
+        "id": "t-pat",
+        "side": "them",
+        "lane": "civil",
+        "title": "Stand on the refusal",
+        "state": "open",
+        "what": "Say nothing more. The letter sets no date and invites no reply.",
+        "cost": "Nothing.",
+        "answer": "Park, reply, or file. None is forced.",
+        "refs": [
+          "C17"
+        ],
+        "counters": [
+          "y-park",
+          "y-reply",
+          "y-file"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-11-09",
+        "past": true
+      },
+      {
+        "id": "t-cross",
+        "side": "them",
+        "lane": "civil",
+        "title": "Claim repayment",
+        "state": "conditional",
+        "what": "Stated in the letter: an estimated $150,000-plus, to be pursued “should this matter proceed.” Read plainly, it is conditional on you going further.",
+        "cost": "An estimate with the accounting still pending. They would have to prove it, and their own defenses would be tested alongside.",
+        "answer": "Not filing leaves this dormant on their own wording.",
+        "refs": [
+          "C17"
+        ],
+        "counters": [
+          "y-file",
+          "y-park"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-11-09",
+        "past": true
+      },
+      {
+        "id": "t-police",
+        "side": "them",
+        "lane": "civil",
+        "title": "Go to law enforcement",
+        "state": "open",
+        "what": "The September opposition stated an intention to do so, and the October 9 letter is written in criminal-law terms. No report, contact, or agency action has been verified.",
+        "cost": "Unknown. It is their decision alone and runs on no schedule in this record.",
+        "answer": "Advice before testifying; no contact outside counsel; nothing that could be described as disclosure.",
+        "refs": [
+          "C6",
+          "C17"
+        ],
+        "counters": [
+          "y-testify"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-11-09",
+        "past": true,
+        "end": "unconfirmed",
+        "toLabel": "status unknown"
+      },
+      {
+        "id": "t-port",
+        "side": "them",
+        "lane": "ops",
+        "title": "Complete the number transfer, or let it lapse",
+        "state": "open",
+        "what": "They hold the two missing details and the ability to start a billing transfer. Your counsel said on October 8 that the address would not be provided; your narrower October 10 request has no answer.",
+        "cost": "Letting it lapse costs them nothing and leaves an exchange half-done.",
+        "answer": "A follow-up through counsel before the 20th.",
+        "refs": [
+          "C9",
+          "C16"
+        ],
+        "counters": [
+          "y-port"
+        ],
+        "from": "2026-10-12",
+        "to": "2026-10-20"
+      },
+      {
+        "id": "t-x-pay",
+        "side": "them",
+        "lane": "civil",
+        "title": "Pay or counter the demand",
+        "state": "closed",
+        "what": "Declined on October 9.",
+        "cost": "—",
+        "answer": "—",
+        "refs": [
+          "C17"
+        ],
+        "counters": [],
+        "from": "2026-10-09",
+        "to": "2026-10-09",
+        "closedLabel": "Declined October 9"
+      }
+    ],
+    "outcomes": [
+      {
+        "id": "none",
+        "label": "Not decided",
+        "title": "After October 28",
+        "lead": "Choose a possible result to see the two weeks after it. None of these is predicted.",
+        "cards": []
+      },
+      {
+        "id": "granted",
+        "label": "Order granted",
+        "title": "If an order issues after hearing",
+        "lead": "A possible result, not a forecast.",
+        "refs": [
+          "L12",
+          "L6"
+        ],
+        "cards": [
+          {
+            "lane": "dv",
+            "text": "The temporary order is replaced by one after hearing. The judge sets its terms and length, which can run up to five years. Options to seek review or modification have short clocks; ask counsel that day."
+          },
+          {
+            "lane": "civil",
+            "text": "Assessment: the money claim becomes harder, because the same messages would have been credited once already, and their repayment claim gains weight. A filing would remain possible in law."
+          },
+          {
+            "lane": "ops",
+            "text": "Hearing fees arrive in the November invoice. Any unfinished phone exchange has to fit within the order’s terms."
+          }
+        ]
+      },
+      {
+        "id": "denied",
+        "label": "Request denied",
+        "title": "If the request is denied",
+        "lead": "A possible result, not a forecast.",
+        "refs": [
+          "L6"
+        ],
+        "cards": [
+          {
+            "lane": "dv",
+            "text": "The temporary order ends as the court directs. Confirm the exact date and terms on the signed minute order before changing anything."
+          },
+          {
+            "lane": "civil",
+            "text": "The civil positions do not move by themselves. A denial does not validate the money claim, and their three defenses stand as written. The decision to park, reply, or file is still yours to cost out."
+          },
+          {
+            "lane": "ops",
+            "text": "Hearing fees arrive in the November invoice. The phone exchange is easier to finish without an order in the way."
+          }
+        ]
+      },
+      {
+        "id": "continued",
+        "label": "Continued",
+        "title": "If the hearing is continued",
+        "lead": "A possible result, not a forecast.",
+        "refs": [
+          "L7"
+        ],
+        "cards": [
+          {
+            "lane": "dv",
+            "text": "A new date, with the temporary order carried to it. Every window in this lane reopens, including the Jeffrey question."
+          },
+          {
+            "lane": "civil",
+            "text": "More time for the linking argument to matter. Parking the money claim stays the low-cost position."
+          },
+          {
+            "lane": "ops",
+            "text": "A second round of preparation fees. Ask for an estimate before it starts."
+          }
+        ]
+      },
+      {
+        "id": "resolved",
+        "label": "Resolved by agreement",
+        "title": "If the parties resolve it",
+        "lead": "A possible result, not a forecast.",
+        "refs": [
+          "L8"
+        ],
+        "cards": [
+          {
+            "lane": "dv",
+            "text": "Terms have to be put in front of the court to have effect. A private promise changes no order."
+          },
+          {
+            "lane": "civil",
+            "text": "Expect a request for a release of the money claims as part of any deal, and decide in advance what that is worth to you."
+          },
+          {
+            "lane": "ops",
+            "text": "The phone exchange and the two devices can be written into the terms."
+          }
+        ]
+      }
+    ]
   }
 };

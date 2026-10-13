@@ -63,6 +63,64 @@
     $('#brief-reset').addEventListener('click',()=>{done={};document.querySelectorAll('[data-brief]').forEach(i=>{i.checked=false;});save();});
     count();
   }
+
+  if (data.weeks && $('#weeks-chart')) {
+    const W=data.weeks, DAY=864e5, t0=Date.parse(W.start+'T12:00:00Z'), t1=Date.parse(W.end+'T12:00:00Z'), span=t1-t0;
+    const pos=d=>Math.max(0,Math.min(100,(Date.parse(d+'T12:00:00Z')-t0)/span*100));
+    const fmt=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});
+    const la=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'}));
+    const todayIso=`${la.getFullYear()}-${String(la.getMonth()+1).padStart(2,'0')}-${String(la.getDate()).padStart(2,'0')}`;
+    const todayIn=todayIso>=W.start&&todayIso<=W.end, daysTo=d=>Math.round((Date.parse(d+'T12:00:00Z')-Date.parse(todayIso+'T12:00:00Z'))/DAY);
+    const stateWord={open:'Open',narrowing:'Closing soon',conditional:'Only if triggered',closed:'Closed'};
+    const byId=Object.fromEntries(W.paths.map(p=>[p.id,p]));
+    let side='both', outcome='none', sel=null;
+    $('#weeks-caption').textContent=W.caption;$('#weeks-note').textContent=W.note;
+    $('#weeks-outcome').innerHTML=W.outcomes.map(o=>`<button data-outcome="${esc(o.id)}" aria-pressed="${o.id===outcome}">${esc(o.label)}</button>`).join('');
+    const ticks=()=>W.markers.map(m=>`<i class="hw-tick hw-tick-${esc(m.kind)}" style="left:${pos(m.date)}%"></i>`).join('')+(todayIn?`<i class="hw-tick hw-tick-today" style="left:${pos(todayIso)}%"></i>`:'');
+    function status(){
+      const live=W.paths.filter(p=>p.state!=='closed'&&p.to>=todayIso), n=s=>live.filter(p=>p.side===s).length;
+      const soon=live.filter(p=>!p.past&&p.side==='you').sort((a,b)=>a.to<b.to?-1:1)[0], h=daysTo(W.hearing);
+      $('#weeks-status').innerHTML=[[h>0?`${h} days`:h===0?'Today':'Passed','to the October 28 hearing'],[`${n('you')}`,'windows open to you'],[`${n('them')}`,'open to them'],[soon?fmt(soon.to):'—',soon?`first of yours to close: ${soon.title.toLowerCase()}`:'no dated window left']].map(([a,b])=>`<div><strong>${esc(a)}</strong><span>${esc(b)}</span></div>`).join('');
+    }
+    function row(p){
+      const closed=p.state==='closed', past=!closed&&p.to<todayIso;
+      let bar;
+      if(closed) bar=`<span class="hw-closed">${esc(p.closedLabel)}</span>`;
+      else { const ext=outcome==='continued'&&p.lane==='dv'&&p.to===W.hearing, l=pos(p.from), w=Math.max(2.5,pos(p.to)-l);
+        bar=`<span class="hw-bar hw-${esc(p.state)}${p.end?' hw-fade':''}${p.past?' hw-past':''}" style="left:${l}%;width:${w}%"></span>${ext?`<span class="hw-bar hw-ext" style="left:${pos(p.to)}%;width:${100-pos(p.to)}%"></span>`:''}`; }
+      const cls=['hw-row','hw-lane-'+p.lane]; if(closed)cls.push('is-closed'); if(past)cls.push('is-past');
+      if(sel){ if(sel===p.id)cls.push('is-sel'); else if(byId[sel].counters.includes(p.id))cls.push('is-counter'); else cls.push('is-dim'); }
+      return `<button type="button" class="${cls.join(' ')}" data-path="${esc(p.id)}" aria-pressed="${sel===p.id}" aria-controls="weeks-detail"><span class="hw-name"><strong>${esc(p.title)}</strong><small>${esc(W.lanes[p.lane])} · ${esc(past?'Window passed':stateWord[p.state])}</small></span><span class="hw-track">${ticks()}${outcome!=='none'?`<i class="hw-shade" style="left:${pos(W.hearing)}%"></i>`:''}${bar}</span></button>`;
+    }
+    function chart(){
+      const weeks=[0,7,14,21].map(n=>{const a=new Date(t0+n*DAY),b=new Date(t0+(n+6)*DAY),f=x=>x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});return `<span>${f(a)} – ${f(b)}</span>`;}).join('');
+      const flags=W.markers.map(m=>`<button type="button" class="hw-flag hw-flag-${esc(m.kind)}" style="left:${pos(m.date)}%" data-marker="${esc(m.date)}" aria-label="${esc(m.title)}">${esc(m.label)}</button>`).join('')+(todayIn?`<span class="hw-flag hw-flag-today" style="left:${pos(todayIso)}%">Today</span>`:'');
+      const group=(s,title)=>{const rows=W.paths.filter(p=>p.side===s);return `<div class="hw-group"><h3>${esc(title)}</h3>${rows.filter(p=>p.state!=='closed').map(row).join('')}<div class="hw-shut">${rows.filter(p=>p.state==='closed').map(row).join('')}</div></div>`;};
+      $('#weeks-chart').innerHTML=`<div class="hw-axis" aria-hidden="false"><span class="hw-name"></span><span class="hw-track"><span class="hw-weeks">${weeks}</span>${flags}</span></div>`+(side!=='them'?group('you','Open to you'):'')+(side!=='you'?group('them','Open to them'):'');
+    }
+    function detail(){
+      const el=$('#weeks-detail');
+      if(!sel){el.innerHTML='<p class="hw-hint">Select any bar. Its counter-moves on the other side light up, and everything else steps back.</p>';return;}
+      const p=byId[sel], win=p.state==='closed'?p.closedLabel:`${fmt(p.from)} to ${p.past?'beyond this window':fmt(p.to)}${p.toLabel?' · '+p.toLabel:''}`;
+      el.innerHTML=`<div class="hw-detail-top"><span class="hw-pill hw-pill-${esc(p.state)}">${esc(stateWord[p.state])}</span><h3>${esc(p.title)}</h3><small>${esc(p.side==='you'?'Your move':'Their move')} · ${esc(W.lanes[p.lane])} · ${esc(win)}</small></div><div class="hw-detail-grid"><div><h4>What it is</h4><p>${esc(p.what)} ${refs(p.refs)}</p></div><div><h4>What it costs or risks</h4><p>${esc(p.cost)}</p></div><div><h4>${p.side==='you'?'What they can answer with':'What you can answer with'}</h4><p>${esc(p.answer)}</p>${p.counters.length?`<div class="hw-links">${p.counters.map(c=>`<button type="button" data-path="${esc(c)}">${esc(byId[c].title)} →</button>`).join('')}</div>`:''}</div></div>`;
+    }
+    function after(){
+      const o=W.outcomes.find(x=>x.id===outcome), el=$('#weeks-after');
+      el.innerHTML=`<div class="hw-after-top"><h3>${esc(o.title)}</h3><p>${esc(o.lead)} ${refs(o.refs)}</p></div>${o.cards.length?`<div class="hw-after-grid">${o.cards.map(c=>`<div class="hw-lane-${esc(c.lane)}"><h4>${esc(W.lanes[c.lane])}</h4><p>${esc(c.text)}</p></div>`).join('')}</div>`:''}`;
+    }
+    const draw=()=>{chart();detail();after();};
+    $('#weeks-dates').innerHTML=W.markers.map(m=>`<article id="hw-date-${esc(m.date)}" class="hw-date-${esc(m.kind)}"><h3>${esc(m.title)}</h3><p>${esc(m.text)} ${refs(m.refs)}</p></article>`).join('');
+    $('#weeks-side').addEventListener('click',e=>{const b=e.target.closest('[data-side]');if(!b)return;side=b.dataset.side;if(sel&&side!=='both'&&byId[sel].side!==side)sel=null;document.querySelectorAll('#weeks-side button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw();});
+    $('#weeks-outcome').addEventListener('click',e=>{const b=e.target.closest('[data-outcome]');if(!b)return;outcome=b.dataset.outcome;document.querySelectorAll('#weeks-outcome button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw();});
+    $('#weeks-board').addEventListener('click',e=>{
+      const m=e.target.closest('[data-marker]');if(m){const t=document.getElementById('hw-date-'+m.dataset.marker);if(t){t.scrollIntoView({block:'center',behavior:'smooth'});t.classList.add('is-flash');setTimeout(()=>t.classList.remove('is-flash'),1600);}return;}
+      const b=e.target.closest('[data-path]');if(!b)return;const id=b.dataset.path, fromLink=!b.classList.contains('hw-row');
+      sel=(sel===id&&!fromLink)?null:id;
+      if(side!=='both'&&byId[id].side!==side){side='both';document.querySelectorAll('#weeks-side button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.side==='both')));}
+      draw();const r=document.querySelector(`.hw-row[data-path="${id}"]`);if(r){r.focus({preventScroll:true});if(fromLink)r.scrollIntoView({block:'center',behavior:'smooth'});}
+    });
+    status();draw();
+  }
   const sourceLinks=s=>s.url?` <a href="${esc(s.url)}" target="_blank" rel="noopener">Read the official source</a>`:'';
   const sourceList=kind=>Object.entries(data.sources).filter(([,s])=>s.kind===kind).map(([id,s])=>`<div class="hp-source-row" id="source-${esc(id)}"><strong>${esc(id)}</strong><p><strong>${esc(s.title)}.</strong> ${esc(s.body)}${sourceLinks(s)}</p></div>`).join('');
   $('#case-sources').innerHTML=sourceList('case');$('#legal-sources').innerHTML=sourceList('law');
