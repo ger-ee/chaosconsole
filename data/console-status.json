@@ -732,10 +732,10 @@
    "cluster": "creative",
    "color": "#f4c51d",
    "metric": "9 chapters · one page",
-   "updated": "2026-09-02",
+   "updated": "2026-10-14",
    "dataThrough": null,
    "cadenceDays": null,
-   "tagline": "The whole craft manual on one page — 9 figures, 12 tables, 90 checklist items",
+   "tagline": "The whole craft manual on one page — Blindspot edition: 50 figures, 12 tables, 90 checklist items",
    "stats": [
     {
      "label": "Chapters",
@@ -744,8 +744,8 @@
     },
     {
      "label": "Figures",
-     "value": "mind map + 8",
-     "sub": "spine graph · claim ladder · 30-second map · edit funnel · sound pyramid · diagnostic loop"
+     "value": "mind map + 49",
+     "sub": "spine graph · claim ladder · pressure map · marked script page · edit funnel · sound pyramid · retention reads"
     },
     {
      "label": "Source ledger",
