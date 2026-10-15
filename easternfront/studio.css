@@ -12,3 +12,19 @@ dialog{border:1px solid var(--line);border-radius:16px;background:var(--panel);c
 .beat-runtime{display:block;margin-top:5px;font-size:10px}.view-tabs button,.plan-filters button,#tag-filters button{min-height:44px}
 
 .plan-heading .development{max-width:58ch;font-size:14px;margin-top:10px}.scope-bar select{max-width:min(460px,65vw)}.overview-card h3{font-size:17px}.plan-heading h2{overflow-wrap:anywhere}
+
+/* Give the map a taller reading area on tablets, including portrait iPads. */
+@media(min-width:700px){
+  .workspace[data-view=map]{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(0,1fr) auto}
+  .workspace[data-view=map]>.masthead{grid-column:1;grid-row:1;padding:12px 20px;gap:12px}
+  .workspace[data-view=map]>.masthead h1{font-size:24px}
+  .workspace[data-view=map] .project-meta{display:none}
+  .workspace[data-view=map]>.masthead>.quiet{margin-left:auto}
+  .workspace[data-view=map]>.workspace-nav{grid-column:2;grid-row:1;padding:8px 20px 8px 0;gap:12px}
+  .workspace[data-view=map]>.scope-bar{grid-column:1/-1;grid-row:2;padding:4px 20px}
+  .workspace[data-view=map]>.map-view{grid-column:1/-1;grid-row:3}
+  .workspace[data-view=map]>.status-bar{grid-column:1/-1;grid-row:4;padding:4px 20px}
+  .workspace[data-view=map] .map-tools{padding:6px 20px 4px}
+  .workspace[data-view=map] .map-guide{padding:2px 20px 6px}
+  .workspace[data-view=map] .event-head{padding:10px 16px}
+}
