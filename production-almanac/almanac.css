@@ -2,7 +2,7 @@
    Palette: pine ink #101A16 / #172420, bone #F2EBDD, amber #F2A51A, sage #B5BFB8, moss rule #6E7D74, ochre-on-bone #8A5A00.
    Type: Bebas Neue (hero, numerals), Barlow Condensed (headlines, labels), Barlow (body), Source Serif 4 (quotations, book titles).
    Every rule is scoped to .almanac; the Threshold shell (console-shell.css, typography.css) stays untouched.
-   The 12 chapter sub-pages still use styles.css. */
+   Chapter subpages use styles.css for structure and chapters.css for this identity. */
 .almanac a{color:#F2EBDD;text-decoration:none}
 .almanac a:hover{color:#F2EBDD;text-decoration:underline;text-decoration-color:#F2A51A;text-decoration-thickness:2px;text-underline-offset:5px}
 .almanac a:focus-visible,.almanac button:focus-visible{outline:3px solid #F2A51A;outline-offset:5px}

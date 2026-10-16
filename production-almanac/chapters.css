@@ -1,0 +1,70 @@
+/* Chapter companion to almanac.css: shared amber / pine / bone identity.
+   Loaded after the console shell; all overrides stay inside Almanac chapters. */
+html[data-threshold="almanac-chapter"] {
+  --th-paper:#101A16; --th-wash:#172420; --th-card:#172420;
+  --th-ink:#F2EBDD; --th-secondary:#B5BFB8; --th-line:#6E7D7470;
+  --th-rust:#F2A51A; --th-focus:#F2A51A;
+}
+html[data-threshold="almanac-chapter"] body {
+  --accent-2:#B5BFB8!important; --accent-3:#F2A51A;
+  --border-strong:#6E7D74!important; --good:#B5BFB8;
+  --text-muted:#B5BFB8!important;
+}
+html[data-threshold="almanac-chapter"] body .th-entrance {
+  height:auto!important; background:#101A16; border-bottom:1px solid #6E7D74;
+}
+html[data-threshold="almanac-chapter"] :is(.th-architecture,.th-title-wrap,.th-entrance::before) {display:none!important}
+html[data-threshold="almanac-chapter"] .th-topbar {color:#F2EBDD;padding:16px clamp(20px,5.4vw,76px)}
+html[data-threshold="almanac-chapter"] .th-context {color:#B5BFB8}
+html[data-threshold="almanac-chapter"] .th-room-switch {border-radius:0;border-color:#6E7D74;background:transparent;color:#F2EBDD}
+html[data-threshold="almanac-chapter"] .th-room-switch:hover {background:#F2EBDD;color:#101A16}
+html[data-threshold="almanac-chapter"] body .page-shell {max-width:1400px;padding:0 clamp(20px,5.4vw,76px)}
+html[data-threshold="almanac-chapter"] body .layout {padding-top:48px;gap:48px;grid-template-columns:180px minmax(0,1fr)}
+html[data-threshold="almanac-chapter"] body .content {min-width:0}
+html[data-threshold="almanac-chapter"] body .content>.hero {padding:0 0 24px}
+html[data-threshold="almanac-chapter"] body .hero :is(h1.th-original-title,.breadcrumb.th-retired-chrome,.subtitle.th-retired-chrome) {display:block!important}
+html[data-threshold="almanac-chapter"] body .hero h1 {
+  font-family:'Bebas Neue',Impact,sans-serif!important;font-weight:400!important;
+  font-size:clamp(56px,6.3vw,96px)!important;line-height:.96!important;
+  letter-spacing:0!important;text-transform:uppercase;margin:16px 0 22px;max-width:18ch;
+}
+html[data-threshold="almanac-chapter"] body .hero .subtitle {font-size:21px;line-height:1.45;color:#F2EBDD;max-width:48ch;margin-bottom:24px}
+html[data-threshold="almanac-chapter"] body :is(.breadcrumb,.section-kicker,.callout-label,.toc-title,.figure-title) {
+  font-family:'Barlow Condensed',Arial,sans-serif!important;font-weight:600;
+  font-size:14px!important;letter-spacing:.16em!important;text-transform:uppercase!important;color:#F2A51A;
+}
+html[data-threshold="almanac-chapter"] body .breadcrumb::before {content:'';display:inline-block;width:28px;height:5px;background:#F2A51A;margin:0 12px 3px 0}
+html[data-threshold="almanac-chapter"] body .content h2 {font-family:'Barlow Condensed',Arial,sans-serif!important;font-weight:700!important;font-size:clamp(30px,3.4vw,44px);line-height:1.05;letter-spacing:0}
+html[data-threshold="almanac-chapter"] body .content h3 {font-family:'Barlow Condensed',Arial,sans-serif!important;font-weight:600!important}
+html[data-threshold="almanac-chapter"] body :is(.top-links a,.toc-list a) {font-family:'Barlow Condensed',Arial,sans-serif!important;font-size:15px;letter-spacing:.05em;text-transform:uppercase}
+html[data-threshold="almanac-chapter"] body a:hover {color:#F2A51A}
+html[data-threshold="almanac-chapter"] body :is(.source-card,.component-card,.chapter-card,.checklist-panel,.visual-figure,.workflow-step,.phase-node,.metric-node,.matrix-cell,.image-panel,.signal-tier) {background:#172420;border-color:#6E7D74;border-radius:0;box-shadow:none}
+html[data-threshold="almanac-chapter"] body .callout {border-left:3px solid #F2A51A}
+html[data-threshold="almanac-chapter"] body .callout :is(.callout-label) {color:#F2A51A}
+html[data-threshold="almanac-chapter"] body .callout.tldr {background:#F2EBDD;color:#101A16}
+html[data-threshold="almanac-chapter"] body .callout.tldr :is(p,li,ul,strong) {color:#101A16}
+html[data-threshold="almanac-chapter"] body .callout.tldr .callout-label {color:#8A5A00}
+html[data-threshold="almanac-chapter"] body .quote-strip {background:#172420;border-color:#F2A51A;border-radius:0}
+html[data-threshold="almanac-chapter"] body .quote-strip p {font-family:'Source Serif 4',Georgia,serif!important;color:#F2EBDD}
+html[data-threshold="almanac-chapter"] body .table-wrap {border-radius:0}
+html[data-threshold="almanac-chapter"] body :is(.bar-fill,.depth-meter .is-on) {background:#F2A51A}
+html[data-threshold="almanac-chapter"] body .th-footer {border-top:1px solid #6E7D74;color:#B5BFB8}
+@media(max-width:920px) {
+  html[data-threshold="almanac-chapter"] body .layout {grid-template-columns:minmax(0,1fr);padding-top:28px}
+  html[data-threshold="almanac-chapter"] body .toc {display:none}
+  html[data-threshold="almanac-chapter"] body .mobile-toc {display:block;border-radius:0;background:#172420;border-color:#6E7D74;margin-top:22px}
+}
+@media(max-width:480px) {
+  html[data-threshold="almanac-chapter"] body .hero h1 {font-size:52px!important;overflow-wrap:anywhere}
+  html[data-threshold="almanac-chapter"] body .hero .subtitle {font-size:19px}
+  html[data-threshold="almanac-chapter"] body .callout {padding:20px}
+}
+@media print {
+  html[data-threshold="almanac-chapter"] body {--th-paper:white;--th-ink:black;--th-secondary:#333;--th-wash:#eee;--th-card:white}
+  html[data-threshold="almanac-chapter"] body .hero h1 {color:black!important;-webkit-text-fill-color:black!important}
+}
+/* Neutralize the shell's architectural overlay even without a hero image. */
+html[data-threshold="almanac-chapter"] .th-entrance::before {display:none!important}
+html[data-threshold="almanac-chapter"] body .hero .meta-row {display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:12px 20px;margin-top:20px}
+html[data-threshold="almanac-chapter"] body .hero .meta-chip {margin:0}
+html[data-threshold="almanac-chapter"] body .hero .meta-chip {width:auto;justify-content:flex-start}
