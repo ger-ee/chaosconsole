@@ -28,3 +28,15 @@ dialog{border:1px solid var(--line);border-radius:16px;background:var(--panel);c
   .workspace[data-view=map] .map-guide{padding:2px 20px 6px}
   .workspace[data-view=map] .event-head{padding:10px 16px}
 }
+
+/* Keep each episode recognizable across all of its highlight-map sections. */
+.event-head{
+  flex-shrink:0;
+  background:color-mix(in srgb,var(--ep-color) 28%,var(--panel));
+  border-top-width:4px;
+  border-bottom-color:color-mix(in srgb,var(--ep-color) 55%,var(--line));
+}
+.event-head .eyebrow,.event-head p{color:var(--ink)}
+:root[data-theme=dark] .event-head{
+  background:color-mix(in srgb,var(--ep-color) 22%,var(--panel));
+}

@@ -12,7 +12,7 @@ const words=t=>t.trim().split(/\s+/).filter(Boolean).length;
 const seconds=h=>words(h.quote)/155*60;
 const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 const epOf=e=>e.episode||'shelf';
-const accent=ep=>colors[Math.max(0,plan.episodes.findIndex(e=>e.code===ep))];
+const accent=ep=>ep==='shelf'?'var(--muted)':colors[Math.max(0,plan.episodes.findIndex(e=>e.code===ep))];
 const inScope=e=>scope==='all'||e.ep===scope;
 function saveCut(){try{localStorage.setItem('ef-assembly-cut',JSON.stringify(cut));storageOK=true}catch{storageOK=false}updateCutCount();}
 function updateCutCount(){ $('#cut-count').textContent=cut.length;$('#status').textContent=storageOK?`${rows.length} highlights · ${events.length} events · ${plan.gaps.length} research gaps`:'Browser storage unavailable. Export your cut to keep it.'; }
