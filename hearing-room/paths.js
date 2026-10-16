@@ -121,6 +121,7 @@
     });
     status();draw();
   }
+  if (data.mindmap && $('#mindmap') && window.ConsoleMindMap) window.ConsoleMindMap($('#mindmap'), Object.assign({refMarkup: refs}, data.mindmap));
   const sourceLinks=s=>s.url?` <a href="${esc(s.url)}" target="_blank" rel="noopener">Read the official source</a>`:'';
   const sourceList=kind=>Object.entries(data.sources).filter(([,s])=>s.kind===kind).map(([id,s])=>`<div class="hp-source-row" id="source-${esc(id)}"><strong>${esc(id)}</strong><p><strong>${esc(s.title)}.</strong> ${esc(s.body)}${sourceLinks(s)}</p></div>`).join('');
   $('#case-sources').innerHTML=sourceList('case');$('#legal-sources').innerHTML=sourceList('law');

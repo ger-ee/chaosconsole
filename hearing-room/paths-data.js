@@ -1,26 +1,27 @@
 window.HearingPaths = {
   "intro": {
-    "text": "The protective-order hearing is recorded for October 28, sixteen days out. On October 9 separate civil counsel rejected the money demand in full, with no counteroffer, and tied the payment history to the conduct already before the hearing judge. Your counsel forwarded that letter on October 12 with one line of comment. No preparation meeting is booked, and the October 10 questions are still unanswered. The two proceedings are still decided separately, but the other side is now arguing them as one story.",
+    "text": "The protective-order hearing is recorded for October 28, twelve days out, now with a time on your own filing: 8:30 a.m. On October 14 counsel filed a witness list that names the husband. On October 16 the other side answered it with an emergency request: on Monday, October 19 at 8:30 a.m., they will ask Judge Davis for an order that no party may subpoena him. Counsel says he will appear and oppose. The same Monday carries the rental-case discovery deadline at 5 p.m. and the printed due date on invoice 39304. The civil reply letter is approved and renews the $35,000 proposal. No preparation meeting is booked; the October 7 questions are still unanswered; the number-transfer credential lapses Tuesday.",
     "refs": [
-      "C2",
-      "C17",
-      "C18",
-      "C16"
+      "C20",
+      "C23",
+      "C21",
+      "C22",
+      "C15"
     ]
   },
   "summary": [
     {
       "track": "dv",
-      "title": "Protective order · October 28",
-      "text": "Counsel-confirmed date. No preparation meeting is booked. Counsel’s stated trigger for listing Jeffrey as a witness — no money proposal — has now occurred; your discussion-first request is still unacknowledged."
+      "title": "Protective order · October 28, 8:30 a.m.",
+      "text": "Witness list filed October 14 (you, the petitioner, the husband). Monday, October 19, 8:30 a.m.: the petitioner’s emergency request to bar any subpoena of the husband; counsel will oppose. The proof of service needs an amended filing."
     },
     {
       "track": "civil",
-      "title": "Civil claim · demand rejected",
-      "text": "October 9 letter: no payment, no counteroffer, three stated defenses, and an intention to seek repayment if the matter proceeds. No reply, filing, or court deadline exists."
+      "title": "Civil claim · reply approved",
+      "text": "October 15 letter rejects their three defenses, demands a transaction-level accounting and renews the September 10 terms. You approved it October 16. Transmission unconfirmed; no court deadline exists."
     }
   ],
-  "cutoff": "Reviewed October 12, 2026, 8:00 p.m. Pacific. Latest counsel email located: October 12, 11:02 a.m., forwarding the October 9 letter. Latest firm notice: the October 9 invoice. Your latest message: October 10, 6:29 a.m.",
+  "cutoff": "Reviewed October 16, 2026, 11:00 a.m. Pacific. Latest items: the 9:57 a.m. ex parte notice and counsel’s 10:25 a.m. reply; counsel’s 9:51 a.m. message on the number transfer; the firm’s 9:18 a.m. promise of an amended proof of service. Your latest message: October 16, 8:04 a.m.",
   "scope": "This page distinguishes the signed order, documented correspondence, party allegations, and assessments. Relevant Gmail since August 19 was reviewed through the evening of October 12; the October 9 invoice and the eight-page October 9 civil response were read in full; the TRO folder, selected earlier evidence and earlier billing records were reused from the October 7–9 reviews. No current docket, complete filed discovery application/declaration, oral-ruling transcript, complete original audio, issued subpoena/service proof, reconciled trust statement, or filed civil complaint was obtained. Missing from this review does not mean nonexistent. Private documents, personal identifiers, and detailed underlying allegations remain off-site. Legal references were checked October 9; some official pages were available only through indexed text, as noted in their source entries. Confirm case-specific procedure and legal choices with counsel.",
   "sources": {
     "C1": {
@@ -184,9 +185,34 @@ window.HearingPaths = {
       "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=FAM&sectionNum=6345",
       "title": "How long an order after hearing can last",
       "body": "Family Code 6345 lets the court set the duration of a protective order issued after notice and hearing, up to five years, subject to later modification, termination, or renewal. This states the outer limit only; it predicts nothing about whether an order issues here or for how long. Cited from the statute as generally known; the official page was not re-opened in this review."
+    },
+    "C19": {
+      "kind": "case",
+      "title": "October 14 message to counsel",
+      "body": "October 14, 8:54 a.m. Pacific, copied to the two firm staff: asks for a meeting in the next two weeks; reports a 40-minute carrier call — a port-out needs the account holder’s account number and a transfer PIN, with no carrier-side workaround — and that one attempt with the PIN alone produced a failed-attempt notice; asks for the account number, a fresh PIN (the existing one expires October 20) and the ZIP code; renews the October 7 questions and asks for a copy of any reply to the September 8 letter. No reply to this message was located."
+    },
+    "C20": {
+      "kind": "case",
+      "title": "Witness list and proof of service, October 14–16",
+      "body": "Respondent’s Witness List, electronically filed October 14 at 9:37 p.m. (two pages). Header states the hearing as October 28, 8:30 a.m., Department 547. Three witnesses: you (about three hours), the petitioner under Evidence Code section 776 (about two hours), and the husband (about one hour), with a statement that no privileged marital communications will be elicited. The accompanying POS-050 (filed the same minute) names the right recipient and date but lists the September 10 ex parte discovery documents in item 2 rather than the witness list. Conformed copies reached you October 15, 9:22 a.m., from the firm’s litigation operations director. You flagged the item-2 error October 16, 8:04 a.m., asked for an amended POS-050 and for the August 19 continuance paperwork; the firm answered 9:18 a.m. that an amended proof would be filed at no charge and the DV paperwork sent separately. The amended proof had not arrived by the review cutoff."
+    },
+    "C21": {
+      "kind": "case",
+      "title": "October 15 reply letter to civil counsel",
+      "body": "Seven-page letter dated October 15 from your counsel to separate civil counsel, marked a settlement communication under Evidence Code section 1152, sent to you for consent October 15, 4:30 p.m. It rejects the October 9 conclusions, argues the financial undertakings are independently enforceable, disputes the $150,000 figure and asks for a transaction-specific accounting, renews the September 10 proposal ($13,149.56 through September 9, projected $15,069.14 through September 30; $35,000 to resolve accrued claims, excluding later installments), repeats the request for cooperation on the number transfer, and states that nothing in it seeks consideration for silence, testimony, discovery or any outcome in the protective-order case. You approved it as drafted October 16, 5:44 a.m. Whether it was transmitted, and when, was not confirmed by the cutoff."
+    },
+    "C22": {
+      "kind": "case",
+      "title": "October 16 counsel reply on the number transfer",
+      "body": "October 16, 9:51 a.m. Pacific. Counsel says the account-information concern was addressed before, is willing to send another request framed as a notice rather than a demand, states there is no legal requirement that the other side supply the information, and advises avoiding anything that could be read as demanding account numbers, including a phone account, because the next stage will be watched closely. The message does not answer the billing-responsibility-transfer alternative, the original handset, the meeting date, or the October 7 questions."
+    },
+    "C23": {
+      "kind": "case",
+      "title": "October 16 ex parte notice: protective order for the husband",
+      "body": "Email from the petitioner’s counsel to your counsel, October 16, 9:57 a.m. Pacific, copied to you by your counsel’s reply: notice that on October 19 at 8:30 a.m., Department 547, the petitioner will seek emergency orders for a protective order protecting the husband from being subpoenaed by any party to testify, and asks that the existing temporary orders remain in force. Your counsel replied 10:25 a.m. that he intends to appear and oppose. No moving papers, declaration or proposed order were attached to what reached you; the basis, the proposed scope, and whether you must attend are unconfirmed."
     }
   },
-  "initialEvent": 9,
+  "initialEvent": 10,
   "tracks": {
     "dv": {
       "title": "October 28 hearing",
@@ -760,6 +786,19 @@ window.HearingPaths = {
         "C18",
         "C16"
       ]
+    },
+    {
+      "date": "Oct 14–16",
+      "title": "Witness list; Monday ex parte",
+      "known": "Counsel filed the witness list October 14 naming you, the petitioner and the husband; its proof of service lists the wrong documents and an amended proof is promised. Counsel drafted a seven-page reply to the civil letter, which you approved October 16. On October 16 the petitioner noticed an emergency request for Monday, October 19, 8:30 a.m., for an order protecting the husband from any subpoena; counsel will appear and oppose.",
+      "unknown": "The moving papers and the order they will ask for; whether you should attend Monday; whether the amended proof and the civil letter have gone out; the meeting date, the October 7 answers, and the transfer account details, all still unanswered after October 14.",
+      "effect": "The witness question moves from a private decision to a court decision on Monday, nine days before the hearing. Whatever the judge does, the hearing itself is unaffected unless Monday’s order says otherwise. Monday also stacks the rental discovery deadline and the invoice due date on one calendar day.",
+      "refs": [
+        "C20",
+        "C21",
+        "C23",
+        "C19"
+      ]
     }
   ],
   "ruling": {
@@ -836,6 +875,13 @@ window.HearingPaths = {
     "hypothesisNote": "These are a documented proposed purpose, a possible evidentiary use, and a concern raised by counsel’s own wording. They are not findings about what Jeffrey knows.",
     "hypotheses": [
       {
+        "text": "As of October 16 the question is partly out of your hands: the petitioner is asking the court on Monday for an order that no party may subpoena him. The witness list already names him for about an hour and disclaims privileged marital communications.",
+        "refs": [
+          "C20",
+          "C23"
+        ]
+      },
+      {
         "text": "Test a factual account: the denied topics concerned the timing and basis of his knowledge, direct communications, and personal observations. Whether he has useful firsthand, nonprivileged knowledge is still unverified.",
         "refs": [
           "C1",
@@ -869,9 +915,11 @@ window.HearingPaths = {
     "limit": "Ask for the exact instrument, proposed date and scope, witness-list requirements, privilege analysis, costs, and whether further court permission is needed. A deposition or advance evidence demand cannot evade the denial merely by being called a hearing subpoena. Your October 7 request was to discuss this before issuance. Counsel’s October 8 trigger — no proposal — was met on October 9; ask whether the plan has changed.",
     "refs": [
       "C1",
+      "C17",
+      "C20",
+      "C23",
       "C4",
       "C5",
-      "C17",
       "L2",
       "L4"
     ]
@@ -907,6 +955,15 @@ window.HearingPaths = {
             "C9",
             "C5",
             "C18"
+          ]
+        },
+        {
+          "title": "Witness list filed; civil reply drafted",
+          "text": "The witness list went in October 14, two days after counsel said it was the next step. A seven-page reply to the October 9 letter was drafted within six days and sent to you for consent. Counsel answered the Monday ex parte notice within half an hour.",
+          "refs": [
+            "C20",
+            "C21",
+            "C23"
           ]
         }
       ],
@@ -958,6 +1015,25 @@ window.HearingPaths = {
             "C17",
             "C18",
             "C16"
+          ]
+        },
+        {
+          "kind": "Clerical error",
+          "title": "The proof of service lists the wrong documents",
+          "text": "Item 2 of the October 14 POS-050 names the September 10 ex parte papers, not the witness list. You caught it from the conformed copy; the firm agreed to amend at no charge. Until the amended proof is filed, the court file does not show the list as served.",
+          "refs": [
+            "C20"
+          ]
+        },
+        {
+          "kind": "Open requests",
+          "title": "Nine days of unanswered logistics",
+          "text": "Three meeting requests (October 7, 10, 14), the eleven questions, the billing estimate, the handset, and the billing-responsibility-transfer alternative have no answer in writing. The October 16 reply addresses only how a phone request should be framed.",
+          "refs": [
+            "C4",
+            "C16",
+            "C19",
+            "C22"
           ]
         }
       ],
@@ -1030,6 +1106,14 @@ window.HearingPaths = {
             "C3"
           ],
           "kind": "A limit on the assessment"
+        },
+        {
+          "kind": "Procedural move",
+          "title": "An emergency request on short notice",
+          "text": "Notice of the Monday ex parte was emailed Friday 9:57 a.m., one court day ahead. Emergency applications are allowed on short notice; whether the papers show an emergency is for the judge. No papers were attached to the notice you saw.",
+          "refs": [
+            "C23"
+          ]
         }
       ],
       "limit": "Assessment: opposing counsel achieved a procedural win in September and, on October 9, a clear positional one: the money demand is refused and recast as part of the conduct at issue on October 28. Their allegations still require proof. The strongest open practical issue remains the incomplete number transfer. This review does not establish professional misconduct by either opposing firm.",
@@ -1038,126 +1122,114 @@ window.HearingPaths = {
   },
   "next": [
     {
-      "title": "A booked meeting, this week",
-      "text": "Sixteen days out with nothing on the calendar. Fix the Pasadena meeting and a testimony session in the week of October 19; confirm the hearing time, appearance instructions, witness and exhibit requirements, recording status, and reporter arrangements.",
+      "title": "Monday, 8:30 a.m.: know by Sunday what it is",
+      "text": "Ask counsel for the moving papers as soon as they arrive, whether you must attend, what he will argue, and what an order either way means for October 28. If the court bars the subpoena, the Jeffrey question closes without you deciding it.",
       "refs": [
-        "C2",
+        "C23",
+        "C20"
+      ]
+    },
+    {
+      "title": "A booked meeting, this week or next",
+      "text": "Twelve days out with nothing on the calendar after three written requests (October 7, 10, 14). Fix the Pasadena meeting and a testimony session; confirm the conformed continuation order, exhibit requirements, recording status and reporter arrangements.",
+      "refs": [
         "C4",
         "C16",
-        "C18"
+        "C19"
       ]
     },
     {
-      "title": "Counsel’s reading of the October 9 letter",
-      "text": "Ask for it in writing: how the quoted messages will be answered at the hearing, whether a reply is planned and what it would cost, and whether anything in the letter changes the advice on testifying.",
+      "title": "The amended proof of service",
+      "text": "Promised October 16 at no charge. Get the conformed copy and check item 2 reads ‘Respondent’s Witness List’ so the list is shown served before the hearing. Also collect the August 19 DV-116 or minute order the firm said it would send.",
       "refs": [
-        "C17",
-        "C18"
+        "C20"
       ]
     },
     {
-      "title": "A written Jeffrey decision",
-      "text": "Counsel’s stated trigger has occurred. Resolve the hold, the precise subpoena type, expected testimony, privileges, relevance, cost, and how the step would look after the October 9 letter. Request the actual document and service status if one now exists.",
+      "title": "Confirm the civil letter went out",
+      "text": "Approved October 16, 5:44 a.m. Ask for the transmittal copy and date. It renews the September 10 terms and asks the other side for a transaction-level accounting; nothing is due from you after it.",
       "refs": [
-        "C4",
-        "C5",
-        "C17"
+        "C21"
       ]
     },
     {
-      "title": "The transfer route, before October 20",
-      "text": "Get either the account number and account ZIP code, or agreement to a billing-responsibility transfer that needs neither, and confirm the line is active on the carrier’s side. Eight days remain on the stated credential.",
+      "title": "The transfer, before Tuesday 11:11 a.m.",
+      "text": "Counsel will send a notice, not a demand; the carrier will not move the number without the account number. Ask counsel to put the billing-responsibility-transfer route in that notice, since it needs no account details, and to ask about the original handset in the same message.",
       "refs": [
-        "C9",
-        "C16"
+        "C19",
+        "C22",
+        "C9"
       ]
     },
     {
-      "title": "The invoice and the estimate",
-      "text": "Decide payment on invoice 39304 before interest starts October 14, ask the firm to reconcile the two trust figures printed on it, and get the requested estimate through October 28.",
+      "title": "Invoice 39304 before Monday",
+      "text": "Printed due date October 19; interest terms ran from October 14. Decide payment, ask for the two trust figures to be reconciled, and get the estimate through October 28 you asked for October 10.",
       "refs": [
         "C15",
         "C16"
       ]
     },
     {
-      "title": "The civil decision, on its own clock",
-      "text": "Park, reply, or evaluate a filing. No court deadline was located, so this does not have to be decided before October 28; ask counsel to confirm the limitations date so that waiting is a choice.",
+      "title": "The written answers, still",
+      "text": "The eleven October 7 questions, the response to the September 8 letter, and the full discovery file. Renewed October 14; nothing has come back. Take them into the meeting if they do not arrive first.",
       "refs": [
-        "C17",
-        "L9"
-      ]
-    },
-    {
-      "title": "The full discovery file and explanation",
-      "text": "Obtain the application, declarations, exhibits, notice/service papers, and any fuller ruling record. Ask counsel to correct the contradictory description and explain the missing separation language.",
-      "refs": [
-        "C1",
-        "C3",
-        "C7"
+        "C4",
+        "C19"
       ]
     }
   ],
   "dates": [
     {
-      "title": "October 9 · civil response delivered",
-      "text": "One day after the agreed October 8 date: demand rejected in full, no counteroffer. Forwarded to you October 12. It sets no further date and creates no court deadline.",
+      "title": "October 16 · ex parte notice served on counsel",
+      "text": "9:57 a.m. notice; counsel’s 10:25 a.m. reply that he will appear and oppose. One court day of notice before Monday.",
       "refs": [
-        "C8",
-        "C17",
-        "C18"
+        "C23"
       ]
     },
     {
-      "title": "October 13 · alternate slot, unconfirmed",
-      "text": "2–5 p.m. was the alternate you offered on October 7. Counsel has not confirmed it or proposed another time; your October 10 request for a time this week is unanswered.",
+      "title": "October 19, 8:30 a.m. · emergency request, Department 547",
+      "text": "Petitioner seeks an order protecting the husband from any subpoena and asks that the temporary orders stay in force. Not the hearing on the petition. Attendance requirement unconfirmed.",
       "refs": [
-        "C4",
-        "C16",
-        "C18"
+        "C23"
       ]
     },
     {
-      "title": "October 14 · invoice interest begins",
-      "text": "Invoice 39304’s terms run 10% annual interest from five days after its October 9 date. This is the firm’s billing term, not a court date.",
+      "title": "October 19 · invoice due; rental discovery 5 p.m.",
+      "text": "Printed due date for the $10,323.00 invoice, and the 5 p.m. discovery deadline in the separate rental case (Possession room). Three demands on one day.",
       "refs": [
         "C15"
       ]
     },
     {
-      "title": "October 19 · invoice due date",
-      "text": "The printed due date for the $10,323.00 invoice. The same notice asks for payment within five days of receipt.",
+      "title": "October 20, 11:11 a.m. · transfer credential expires",
+      "text": "Stated time in Pacific. The carrier requires the account number; counsel will send a notice, not a demand. Credentials and account details are kept off this page.",
       "refs": [
-        "C15"
+        "C9",
+        "C19",
+        "C22"
       ]
     },
     {
       "title": "Week of October 19 · preparation requested",
-      "text": "You requested testimony preparation in this week; no scheduled session or court-fixed deadline was verified.",
+      "text": "Testimony preparation requested October 7 for this week; no session scheduled as of October 16.",
       "refs": [
-        "C4"
+        "C4",
+        "C19"
       ]
     },
     {
-      "title": "October 20 · transfer credential expiry",
-      "text": "Stated as 1:11 p.m. Central, 11:11 a.m. Pacific. The transfer cannot start until the remaining account details or an alternative route arrive. Credentials and account details are not published here.",
+      "title": "October 28, 8:30 a.m. · recorded hearing",
+      "text": "Date counsel-confirmed; the time appears on your own witness list, not yet on a conformed continuation order. Department 547.",
       "refs": [
-        "C9",
-        "C16"
-      ]
-    },
-    {
-      "title": "October 28 · recorded hearing",
-      "text": "Counsel-confirmed, Department 547. The conformed continuation order, time, and appearance instructions still need confirmation.",
-      "refs": [
-        "C2"
+        "C2",
+        "C20"
       ]
     },
     {
       "title": "Civil trial · no date established",
-      "text": "A separate lawsuit has not been verified filed. Any trial would follow additional procedural steps; there is no support for a projected trial calendar.",
+      "text": "No complaint verified filed. The October 15 letter says litigation follows only if a negotiated resolution fails.",
       "refs": [
-        "C5",
+        "C21",
         "L9"
       ]
     }
@@ -1166,7 +1238,7 @@ window.HearingPaths = {
     {
       "value": "$10,323.00",
       "title": "Invoice 39304 open",
-      "text": "Issued October 9 for September 8–30 work: 18.7 hours plus an $83 filing fee. Printed due date October 19; interest terms start October 14. No payment located.",
+      "text": "Issued October 9 for September 8–30 work: 18.7 hours plus an $83 filing fee. Printed due date October 19; interest terms ran from October 14. No payment located by October 16.",
       "refs": [
         "C15"
       ]
@@ -1199,11 +1271,12 @@ window.HearingPaths = {
       ]
     },
     {
-      "value": "$0 offered",
-      "title": "Civil demand answered",
-      "text": "The October 9 letter refuses the $35,000 proposal and the $15,069.14 stated as accrued, and estimates more than $150,000 already paid that they would seek to recover if the matter proceeds. Claims on both sides; nothing adjudicated.",
+      "value": "$35,000 renewed",
+      "title": "Civil proposal renewed",
+      "text": "The October 9 letter refused the $35,000 proposal and the $15,069.14 stated as accrued and estimated more than $150,000 paid. The October 15 reply renews the same terms and asks for a transaction-level accounting of that figure. Claims on both sides; nothing adjudicated.",
       "refs": [
-        "C17"
+        "C17",
+        "C21"
       ]
     },
     {
@@ -1215,20 +1288,51 @@ window.HearingPaths = {
       ]
     },
     {
-      "value": "16 days",
+      "value": "12 days",
       "title": "To the hearing",
-      "text": "Counted from October 12. No estimate of fees for this stretch exists in the record; you asked for one on October 10.",
+      "text": "Counted from October 16. No estimate of fees for this stretch exists in the record; you asked for one on October 10 and the October 15 letter work is not yet billed.",
       "refs": [
-        "C16"
+        "C16",
+        "C21"
       ]
     }
   ],
   "brief": {
-    "storageKey": "hp-brief-2026-10-10",
+    "storageKey": "hp-brief-2026-10-16",
     "meeting": {
       "title": "For the Pasadena meeting",
       "note": "Everything asked in writing and still open, in one list. Tick an item when you have the answer in writing or on your own notes. Ticks stay in this browser only.",
       "groups": [
+        {
+          "title": "Since October 14",
+          "refs": [
+            "C20",
+            "C21",
+            "C23"
+          ],
+          "items": [
+            {
+              "k": "s1",
+              "text": "Monday’s ex parte: the papers, whether you attend, the argument, and what each result means for the 28th"
+            },
+            {
+              "k": "s2",
+              "text": "Amended POS-050 for the witness list: filed and conformed"
+            },
+            {
+              "k": "s3",
+              "text": "The October 15 letter to Ms. Clark: transmittal copy and date"
+            },
+            {
+              "k": "s4",
+              "text": "The August 19 DV-116 or minute order the firm said it would send"
+            },
+            {
+              "k": "s5",
+              "text": "The notice to Kate on the number: billing-responsibility transfer named as the route; the 512 GB handset in the same message"
+            }
+          ]
+        },
         {
           "title": "The eleven questions of October 7",
           "refs": [
@@ -1408,10 +1512,10 @@ window.HearingPaths = {
     }
   },
   "weeks": {
-    "start": "2026-10-12",
-    "end": "2026-11-09",
+    "start": "2026-10-16",
+    "end": "2026-11-13",
     "hearing": "2026-10-28",
-    "caption": "Each bar is a window in which a move is still available. Solid means open now; dashed means it only opens if the other side moves first; a fading end means the real cutoff has not been confirmed. Select a bar to see what it costs and what it invites in return.",
+    "caption": "Each bar is a window in which a move is still available. Solid means open; hatched means closing or conditional. The window starts October 16; Monday, October 19 is now a court date.",
     "note": "A map of windows, not advice and not a forecast. Dates marked unconfirmed are exactly that. Decide case-specific steps with counsel, and follow the controlling orders throughout.",
     "lanes": {
       "dv": "Protective order",
@@ -1420,33 +1524,23 @@ window.HearingPaths = {
     },
     "markers": [
       {
-        "date": "2026-10-13",
-        "label": "13",
+        "date": "2026-10-16",
+        "label": "16",
         "kind": "soft",
-        "title": "October 13 · alternate meeting slot",
-        "text": "2–5 p.m., offered by you on October 7. Not confirmed by counsel.",
+        "title": "October 16 · ex parte notice",
+        "text": "Petitioner’s counsel gives notice of Monday’s emergency request; your counsel replies he will appear and oppose.",
         "refs": [
-          "C4",
-          "C18"
-        ]
-      },
-      {
-        "date": "2026-10-14",
-        "label": "14",
-        "kind": "deadline",
-        "title": "October 14 · invoice interest begins",
-        "text": "The firm’s billing term on invoice 39304: 10% a year from five days after the invoice date.",
-        "refs": [
-          "C15"
+          "C23"
         ]
       },
       {
         "date": "2026-10-19",
         "label": "19",
-        "kind": "deadline",
-        "title": "October 19 · invoice due; rental discovery due",
-        "text": "Printed due date for the $10,323.00 invoice. The same day, 5 p.m., is the discovery deadline in the separate rental case tracked in the Possession room. Two unrelated demands on the same day.",
+        "kind": "court",
+        "title": "October 19 · 8:30 a.m. ex parte; invoice due; rental discovery 5 p.m.",
+        "text": "Department 547 hears the petitioner’s request for an order barring any subpoena of the husband. The $10,323.00 invoice carries this printed due date. At 5 p.m. the discovery responses in the separate rental case (Possession room) are due. Three demands, one day.",
         "refs": [
+          "C23",
           "C15"
         ]
       },
@@ -1466,9 +1560,10 @@ window.HearingPaths = {
         "label": "28",
         "kind": "court",
         "title": "October 28 · hearing",
-        "text": "Counsel-confirmed date, Department 547. Time, appearance instructions, and the witness and exhibit deadlines are still unconfirmed.",
+        "text": "Counsel-confirmed date, Department 547; 8:30 a.m. per your witness list. The conformed continuation order and the exhibit deadlines are still unconfirmed.",
         "refs": [
-          "C2"
+          "C2",
+          "C20"
         ]
       }
     ],
@@ -1494,12 +1589,33 @@ window.HearingPaths = {
         "toLabel": "useful only before the hearing"
       },
       {
+        "id": "y-oppose",
+        "side": "you",
+        "lane": "dv",
+        "title": "Oppose Monday’s protective-order request",
+        "state": "narrowing",
+        "from": "2026-10-16",
+        "to": "2026-10-19",
+        "what": "Counsel has said he will appear and oppose at 8:30 a.m. Monday. Between now and then: get the papers, decide whether you attend, and agree the position in writing.",
+        "cost": "Fees for the appearance and any written opposition, not yet estimated. A loss closes the witness route; a win keeps it open but does not require you to use it.",
+        "answer": "Ask counsel what order he will propose instead — denial outright, or a narrowed scope that keeps a short, non-privileged examination available.",
+        "refs": [
+          "C23",
+          "C20"
+        ],
+        "counters": [
+          "t-quash"
+        ],
+        "end": "unconfirmed",
+        "toLabel": "decided at or after the 8:30 a.m. hearing"
+      },
+      {
         "id": "y-jeff",
         "side": "you",
         "lane": "dv",
-        "title": "Decide Jeffrey: hold, list, or subpoena",
+        "title": "Decide Jeffrey: the court may decide Monday",
         "state": "narrowing",
-        "what": "Counsel said on October 8 that, absent a money proposal, the next step is a witness list with Jeffrey on it, then a subpoena. No proposal came; the October 9 letter refuses everything. So the stated trigger has occurred. Your October 7 request to discuss it first is unacknowledged.",
+        "what": "The witness list already names him. Monday the court may bar any subpoena. Your decision now is whether to ask counsel to stand on the list, withdraw him, or argue only for a narrow scope.",
         "cost": "Assessment: this is now the most exposed move on the board. The opposition already told the judge the deposition was meant as pressure. The October 9 letter says in advance that contact directed at the husband will be presented as further evidence. A subpoena issued after counsel paired it with money would be read through that frame unless there is a clear evidentiary reason that stands without the money.",
         "answer": "They can object, move to quash or limit, and fold the step into a course-of-conduct argument. The witness can object on his own grounds.",
         "refs": [
@@ -1514,7 +1630,7 @@ window.HearingPaths = {
           "t-link"
         ],
         "from": "2026-10-12",
-        "to": "2026-10-28",
+        "to": "2026-10-19",
         "end": "unconfirmed",
         "toLabel": "witness-list and service cutoffs unconfirmed"
       },
@@ -1625,21 +1741,20 @@ window.HearingPaths = {
         "id": "y-reply",
         "side": "you",
         "lane": "civil",
-        "title": "Answer the October 9 letter",
-        "state": "open",
-        "what": "A reply through counsel: to correct the record, contest the three defenses, or open a wider conversation.",
+        "title": "The October 15 reply, approved",
+        "state": "narrowing",
+        "what": "Drafted by counsel, approved by you October 16. Renews the September 10 terms and asks for an accounting. The only open step is confirming it was sent.",
         "cost": "Fees, for a letter that changes nothing they have said. It may also draw a second round on the same themes before the hearing.",
         "answer": "They can ignore it, repeat the refusal, or quote it.",
         "refs": [
-          "C17",
-          "C18"
+          "C21"
         ],
         "counters": [
           "t-pat",
           "t-link"
         ],
         "from": "2026-10-12",
-        "to": "2026-11-09",
+        "to": "2026-10-19",
         "past": true
       },
       {
@@ -1669,12 +1784,13 @@ window.HearingPaths = {
         "lane": "ops",
         "title": "Move the number before the credential lapses",
         "state": "narrowing",
-        "what": "Two routes: the account number and account ZIP code, or a billing-responsibility transfer started from the other account. You proposed both on October 10. Neither has been answered.",
+        "what": "The transfer PIN expires October 20, 11:11 a.m. Pacific. The carrier requires the account number; counsel will send a notice, not a demand. The billing-responsibility transfer needs no account details and has not been put to the other side in writing.",
         "cost": "If the 20th passes, a new credential has to be requested through two sets of lawyers again.",
         "answer": "They can supply the details, start the transfer, or let it lapse.",
         "refs": [
-          "C9",
-          "C16"
+          "C19",
+          "C22",
+          "C9"
         ],
         "counters": [
           "t-port"
@@ -1778,21 +1894,24 @@ window.HearingPaths = {
         "id": "t-quash",
         "side": "them",
         "lane": "dv",
-        "title": "Object to or quash a Jeffrey subpoena",
-        "state": "conditional",
-        "what": "Only if a subpoena or witness listing happens. They would raise relevance, privilege, burden, the September ruling, and the October 9 letter.",
-        "cost": "A motion costs them fees, and gives them a second chance to put the pressure argument in front of the judge.",
-        "answer": "Counsel would need a specific, non-privileged fact he is expected to establish.",
+        "title": "Bar any subpoena of the husband (Monday’s ex parte)",
+        "state": "open",
+        "what": "Noticed October 16 for October 19, 8:30 a.m.: an emergency order protecting the husband from being subpoenaed by any party, with the temporary orders kept in force. They will argue relevance, privilege, the September ruling and the pressure theory from the October 9 letter.",
+        "cost": "It brings the pressure argument in front of the judge nine days early, on their motion. If denied, the witness list stands; if granted, the question is settled against you without a hearing on the merits.",
+        "answer": "Counsel needs a specific, non-privileged fact the husband is expected to establish, and an answer to why the list was filed before the discussion you asked for.",
         "refs": [
+          "C23",
+          "C20",
           "C6",
           "C17",
           "L4"
         ],
         "counters": [
+          "y-oppose",
           "y-jeff"
         ],
-        "from": "2026-10-12",
-        "to": "2026-10-28"
+        "from": "2026-10-16",
+        "to": "2026-10-19"
       },
       {
         "id": "t-resolve",
@@ -1905,12 +2024,12 @@ window.HearingPaths = {
         "lane": "ops",
         "title": "Complete the number transfer, or let it lapse",
         "state": "open",
-        "what": "They hold the two missing details and the ability to start a billing transfer. Your counsel said on October 8 that the address would not be provided; your narrower October 10 request has no answer.",
+        "what": "They hold the account number, the PIN and the ZIP code. A notice from your counsel is coming; nothing obliges them to answer it. The credential lapses Tuesday 11:11 a.m.",
         "cost": "Letting it lapse costs them nothing and leaves an exchange half-done.",
         "answer": "A follow-up through counsel before the 20th.",
         "refs": [
-          "C9",
-          "C16"
+          "C19",
+          "C22"
         ],
         "counters": [
           "y-port"
@@ -2034,6 +2153,272 @@ window.HearingPaths = {
           {
             "lane": "ops",
             "text": "The phone exchange and the two devices can be written into the terms."
+          }
+        ]
+      }
+    ]
+  },
+  "mindmap": {
+    "root": {
+      "label": "October 28 · 8:30 a.m.",
+      "sub": "Department 547 · twelve days out",
+      "note": "Everything on this map pulls on the hearing date. Branch colour is the state of the window: teal open, gold closing, rust a court date, grey closed."
+    },
+    "caption": "What pulls on October 28, as of October 16. Select a node for the record behind it. Monday, October 19 is the hinge: a court date at 8:30 a.m., an invoice due, and the rental discovery deadline at 5 p.m.",
+    "branches": [
+      {
+        "label": "Monday, October 19",
+        "tone": "court",
+        "note": "Three demands on one calendar day, in two courthouses and one law firm’s billing system.",
+        "refs": [
+          "C23",
+          "C15"
+        ],
+        "href": "#weeks",
+        "hrefLabel": "See the four-week board",
+        "children": [
+          {
+            "label": "8:30 a.m. · ex parte on the husband’s subpoena, Dept 547",
+            "tone": "court",
+            "note": "The petitioner asks for an order that no party may subpoena the husband and that the temporary orders stay in force. Counsel will appear and oppose. Papers and attendance unconfirmed.",
+            "refs": [
+              "C23"
+            ]
+          },
+          {
+            "label": "Invoice 39304 printed due date · $10,323",
+            "tone": "closing",
+            "note": "Interest terms ran from October 14. No payment located; the two trust figures on the invoice are unreconciled.",
+            "refs": [
+              "C15"
+            ]
+          },
+          {
+            "label": "5 p.m. · rental discovery due (Possession room)",
+            "tone": "closing",
+            "note": "All four sets and documents in the separate unlawful-detainer case, electronically served by 5 p.m. Tracked in the Possession room.",
+            "href": "/possession/#discovery",
+            "hrefLabel": "Open the Possession room"
+          }
+        ]
+      },
+      {
+        "label": "The husband as witness",
+        "tone": "court",
+        "note": "From a private hold to a court question in two days.",
+        "refs": [
+          "C20",
+          "C23"
+        ],
+        "href": "#witness",
+        "hrefLabel": "Read the subpoena section",
+        "children": [
+          {
+            "label": "Witness list filed Oct 14 — names him, ~1 hour",
+            "tone": "open",
+            "note": "Filed 9:37 p.m. with a disclaimer that no privileged marital communications will be elicited. Your October 7 request to discuss first was not answered in writing before filing.",
+            "refs": [
+              "C20",
+              "C4"
+            ]
+          },
+          {
+            "label": "Proof of service lists the wrong documents",
+            "tone": "risk",
+            "note": "Item 2 names the September 10 ex parte papers. You caught it October 16; the firm will file an amended POS-050 at no charge. Not yet received.",
+            "refs": [
+              "C20"
+            ]
+          },
+          {
+            "label": "Petitioner moves to bar any subpoena (Monday)",
+            "tone": "court",
+            "note": "Noticed October 16 at 9:57 a.m. for October 19, 8:30 a.m. One court day of notice.",
+            "refs": [
+              "C23"
+            ]
+          },
+          {
+            "label": "Counsel: “appear and oppose”",
+            "tone": "open",
+            "note": "Reply sent 10:25 a.m. The position he will take, and what order he would accept instead, are not in writing to you.",
+            "refs": [
+              "C23"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Preparation",
+        "tone": "closing",
+        "note": "Three written requests for a meeting; nothing booked. The window is the same twelve days.",
+        "refs": [
+          "C4",
+          "C16",
+          "C19"
+        ],
+        "href": "#brief",
+        "hrefLabel": "Open the carry-in card",
+        "children": [
+          {
+            "label": "No meeting booked (asked Oct 7, 10, 14)",
+            "tone": "closing",
+            "note": "Pasadena office, in person, around counsel’s calendar. The last substantive reply on logistics was October 8.",
+            "refs": [
+              "C4",
+              "C16",
+              "C19"
+            ]
+          },
+          {
+            "label": "Eleven October 7 questions unanswered",
+            "tone": "closing",
+            "note": "Including the reply to the September 8 letter and what was said on the September 3 call. Renewed October 14.",
+            "refs": [
+              "C4",
+              "C19"
+            ]
+          },
+          {
+            "label": "Testimony prep week of Oct 19 — not scheduled",
+            "tone": "closing",
+            "note": "Requested October 7. No session as of October 16.",
+            "refs": [
+              "C4"
+            ]
+          },
+          {
+            "label": "Continuance paperwork (DV-116) requested Oct 16",
+            "tone": "open",
+            "note": "The firm said it would send the DV paperwork separately. The conformed continuation order is still the missing document for time and appearance instructions.",
+            "refs": [
+              "C20",
+              "C2"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Civil claim",
+        "tone": "open",
+        "note": "On its own clock. No court deadline exists; the other side argues it as part of the protective-order story.",
+        "refs": [
+          "C17",
+          "C21"
+        ],
+        "href": "#paths",
+        "hrefLabel": "Open the civil paths",
+        "children": [
+          {
+            "label": "Oct 9 · demand rejected in full",
+            "tone": "closed",
+            "note": "No payment, no counteroffer, three stated defenses, a $150,000 repayment figure.",
+            "refs": [
+              "C17"
+            ]
+          },
+          {
+            "label": "Oct 15 · reply renews $35,000; you approved Oct 16",
+            "tone": "open",
+            "note": "Seven pages, marked a settlement communication. Asks for a transaction-level accounting. Transmission unconfirmed.",
+            "refs": [
+              "C21"
+            ]
+          },
+          {
+            "label": "They link both matters as one course of conduct",
+            "tone": "risk",
+            "note": "The October 9 letter says the same conduct is before the hearing judge and that any contact with the husband would be brought to that court.",
+            "refs": [
+              "C17",
+              "C18"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Phone and handset",
+        "tone": "closing",
+        "note": "The transfer credential lapses Tuesday 11:11 a.m. Pacific.",
+        "refs": [
+          "C9",
+          "C19",
+          "C22"
+        ],
+        "href": "#loops",
+        "hrefLabel": "See the next answers",
+        "children": [
+          {
+            "label": "PIN expires Oct 20, 11:11 a.m.",
+            "tone": "closing",
+            "note": "A new PIN would need to be generated by the account holder.",
+            "refs": [
+              "C9",
+              "C19"
+            ]
+          },
+          {
+            "label": "Carrier: account number required; one attempt failed",
+            "tone": "risk",
+            "note": "Per your October 14 call: no port-out without the account holder’s account number and PIN; the PIN-only attempt produced a failed-attempt notice.",
+            "refs": [
+              "C19"
+            ]
+          },
+          {
+            "label": "Counsel: a notice, not a demand (Oct 16)",
+            "tone": "open",
+            "note": "No legal duty on the other side to supply the information; counsel wants nothing that reads as demanding account numbers.",
+            "refs": [
+              "C22"
+            ]
+          },
+          {
+            "label": "Billing-responsibility transfer: not yet put to them",
+            "tone": "open",
+            "note": "Needs no account details from you. Raised October 10 and 14; not answered.",
+            "refs": [
+              "C16",
+              "C19"
+            ]
+          },
+          {
+            "label": "512 GB handset: no answer",
+            "tone": "closed",
+            "note": "Raised September 30, October 10 and 16. Nothing from the other side.",
+            "refs": [
+              "C16"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Money",
+        "tone": "closing",
+        "note": "Billed to date $16,229.96; paid $21,421.96 including deposits; the current trust balance is unreconciled.",
+        "refs": [
+          "C10",
+          "C15"
+        ],
+        "href": "#money",
+        "hrefLabel": "Keep the money in its lane",
+        "children": [
+          {
+            "label": "$15,000 deposits · trust figure unreconciled",
+            "tone": "open",
+            "note": "The invoice prints both $15,000 in trust and a $10,000 trust balance.",
+            "refs": [
+              "C15",
+              "C10"
+            ]
+          },
+          {
+            "label": "Estimate through Oct 28: asked Oct 10, not received",
+            "tone": "closing",
+            "note": "Monday’s appearance, the civil letter and any opposition brief are unbilled work.",
+            "refs": [
+              "C16"
+            ]
           }
         ]
       }

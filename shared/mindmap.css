@@ -1,0 +1,24 @@
+/* Chaos Console mind map (shared/mindmap.js). Tones: open · closing · court · closed · neutral · risk · done */
+.mm{--mm-open:#24494d;--mm-closing:#b98a3a;--mm-court:var(--th-rust,#9a4a3a);--mm-closed:var(--th-secondary,#6f6760);--mm-risk:#a04a44;--mm-done:#4f7a5a;--mm-neutral:var(--th-secondary,#6f6760);font-family:var(--th-sans,system-ui);color:var(--th-ink,#1d1a17)}
+.mm-figure{margin:0;background:var(--th-card,#fff);border:1px solid var(--th-line,#e3ddd5);border-radius:8px;padding:18px 14px 8px}
+.mm-svg{display:block;width:100%;height:auto;max-width:100%;color:var(--th-ink,#1d1a17);font-family:var(--th-sans,system-ui)}
+.mm-figure figcaption{font-size:12px;line-height:1.7;color:var(--th-secondary,#6f6760);padding:12px 6px 6px;max-width:90ch}
+.mm-link{fill:none;stroke:currentColor;stroke-width:1.6;opacity:.55}.mm-link.mm-thin{stroke-width:1.1;opacity:.45}
+.mm-link.mm-open{stroke:var(--mm-open)}.mm-link.mm-closing{stroke:var(--mm-closing);stroke-dasharray:6 4}.mm-link.mm-court{stroke:var(--mm-court);stroke-width:2.2;opacity:.8}.mm-link.mm-closed{stroke:var(--mm-closed);stroke-dasharray:2 4}.mm-link.mm-risk{stroke:var(--mm-risk)}.mm-link.mm-done{stroke:var(--mm-done)}
+.mm-root rect{fill:var(--th-ink,#1d1a17)}.mm-root text{fill:var(--th-paper,#fff);font-family:var(--th-serif,Georgia,serif)}.mm-root .mm-sub{fill:#e3cac3;font-family:var(--th-sans,system-ui)}
+.mm-node{cursor:pointer}.mm-node rect{fill:var(--th-paper,#fff);stroke:var(--th-line,#d8d0c6);stroke-width:1.2}.mm-node text{fill:currentColor}
+.mm-branch rect{stroke-width:1.6;fill:var(--th-wash,#f3efe9)}.mm-branch text{font-family:var(--th-serif,Georgia,serif)}
+.mm-branch.mm-open rect{stroke:var(--mm-open)}.mm-branch.mm-closing rect{stroke:var(--mm-closing)}.mm-branch.mm-court rect{stroke:var(--mm-court);stroke-width:2.4}.mm-branch.mm-closed rect{stroke:var(--mm-closed);stroke-dasharray:3 3}.mm-branch.mm-closed text{fill:var(--mm-closed)}.mm-branch.mm-risk rect{stroke:var(--mm-risk)}.mm-branch.mm-done rect{stroke:var(--mm-done)}
+.mm-leaf.mm-court rect{stroke:var(--mm-court)}.mm-leaf.mm-closing rect{stroke:var(--mm-closing)}.mm-leaf.mm-risk rect{stroke:var(--mm-risk)}.mm-leaf.mm-done rect{stroke:var(--mm-done)}.mm-leaf.mm-closed text{fill:var(--mm-closed)}.mm-leaf.mm-closed rect{stroke-dasharray:3 3}
+.mm-node:hover rect,.mm-root:hover rect{filter:brightness(.96)}
+.mm-node.is-sel rect{stroke-width:2.6;stroke:var(--th-rust,#9a4a3a)}.mm-root.is-sel rect{stroke:var(--th-rust,#9a4a3a);stroke-width:3}
+.mm-node:focus-visible,.mm-root:focus-visible{outline:none}.mm-node:focus-visible rect,.mm-root:focus-visible rect{stroke:var(--th-focus,var(--th-rust,#9a4a3a));stroke-width:3}
+.mm-detail{margin-top:16px;padding:22px 26px;background:var(--th-wash,#f3efe9);border-left:3px solid var(--th-rust,#9a4a3a);min-height:96px}
+.mm-kicker{display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--th-secondary,#6f6760);margin-bottom:8px}
+.mm-detail h3{font:400 24px/1.2 var(--th-serif,Georgia,serif);margin:0 0 10px}.mm-detail p{font-size:14px;line-height:1.8;color:var(--th-secondary,#6f6760);margin:0;max-width:78ch}
+.mm-detail .mm-ref{font-size:11px;color:var(--th-rust,#9a4a3a)}.mm-jump{display:inline-block;margin-top:12px;font-size:13px;color:var(--th-ink,#1d1a17);text-underline-offset:3px}
+.mm-kids{margin:12px 0 0;padding-left:18px;font-size:13px;line-height:1.7;color:var(--th-secondary,#6f6760);columns:2;column-gap:28px}
+.mm-list{margin-top:14px;border-top:1px solid var(--th-line,#e3ddd5);padding-top:12px}.mm-list summary{cursor:pointer;font-size:13px;color:var(--th-secondary,#6f6760)}.mm-list>ul{padding-left:18px;font-size:14px;line-height:1.7}.mm-list>ul>li{margin:10px 0}.mm-list em{font-style:normal;font-size:11px;color:var(--th-secondary,#6f6760);border:1px solid var(--th-line,#e3ddd5);padding:1px 6px;border-radius:3px;margin-left:6px}.mm-list p{margin:4px 0 0;font-size:13px;color:var(--th-secondary,#6f6760)}.mm-list ul ul{margin-top:4px;padding-left:16px;font-size:13px;color:var(--th-secondary,#6f6760)}.mm-list a{color:var(--th-ink,#1d1a17);text-underline-offset:3px}
+@media(max-width:760px){.mm-figure{display:none}.mm-detail{margin-top:0}.mm-list{border-top:0;padding-top:0}.mm-list[open] summary{margin-bottom:6px}.mm-list summary{font-size:14px;color:var(--th-ink,#1d1a17)}}
+@media(max-width:760px){.mm-list{display:block}.mm-list:not([open]) summary:after{content:' (the diagram needs a wider screen)';color:var(--th-secondary,#6f6760)}}
+@media print{.mm-detail,.mm-list{display:none}}
