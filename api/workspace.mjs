@@ -18,6 +18,7 @@ export default async function handler(req,res){
     const ids=env.PAGE_IDS.split(',').map(normalize);
     if(req.method==='POST'&&(!(req.headers.origin===origin||(req.headers.origin===consoleOrigin&&bearer))||!String(req.headers['content-type']).startsWith('application/json')))return send(403,{error:'Request not allowed.'});
     if(path==='/api/login'&&req.method==='GET'){
+      if(session&&normalize(session.user)===normalize(env.ALLOWED_USER_ID)&&url.searchParams.get('console')==='1'){res.setHeader('Referrer-Policy','no-referrer');return redirect(consoleOrigin+'/notion-workspace/#session='+seal(session,env.SESSION_KEY));}
       const state=randomBytes(32).toString('hex');
       res.setHeader('Set-Cookie',cookie('cc_oauth',seal({state,console:url.searchParams.get('console')==='1',exp:Date.now()+600000},env.SESSION_KEY),600));
       const auth=new URL('https://api.notion.com/v1/oauth/authorize');

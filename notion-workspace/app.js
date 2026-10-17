@@ -1,10 +1,13 @@
 const external=location.hostname==='chaosconsole.com'||location.hostname==='www.chaosconsole.com';
 const apiOrigin=external?'https://chaosconsole-tau.vercel.app':'';
 let sessionTicket=null;
-if(location.hash.startsWith('#session=')){sessionTicket=location.hash.slice(9);history.replaceState(null,'',location.pathname);}
+try{sessionTicket=sessionStorage.getItem('cc-notion-session');}catch{}
+const authChannel=typeof BroadcastChannel==='function'?new BroadcastChannel('cc-notion-auth'):null;
+if(location.hash.startsWith('#session=')){sessionTicket=location.hash.slice(9);history.replaceState(null,'',location.pathname);try{sessionStorage.setItem('cc-notion-session',sessionTicket);}catch{}authChannel?.postMessage(sessionTicket);}
 const $=id=>document.getElementById(id);let pages=[],current=null,rows=[],dirty=new Map(),busy=false;
 async function api(path,body){const r=await fetch(apiOrigin+'/api/'+path,{method:body?'POST':'GET',headers:{...(body?{'Content-Type':'application/json'}:{}),...(sessionTicket?{Authorization:'Bearer '+sessionTicket}:{})},body:body?JSON.stringify(body):undefined,cache:'no-store'});let data;try{data=await r.json();}catch{throw new Error('The private workspace is not connected yet.');}if(!r.ok){if(r.status===401&&current)$('reconnect').hidden=false;const e=new Error(data.error||'Connection failed.');e.data=data;e.status=r.status;throw e;}return data;}
 function status(s){$('status').textContent=s;}
+if(authChannel)authChannel.onmessage=e=>{if(typeof e.data==='string'&&e.data.length<6000){sessionTicket=e.data;try{sessionStorage.setItem('cc-notion-session',sessionTicket);}catch{}$('reconnect').hidden=true;if(current)status('Reconnected. Your draft is ready to save.');}};
 function changed(row,text,checked){const original=rows.find(b=>b.id===row.id);if(text===original.text&&checked===original.checked)dirty.delete(row.id);else dirty.set(row.id,{id:row.id,revision:original.revision,text,checked});$('save').disabled=!dirty.size||busy;status(dirty.size?`${dirty.size} unsaved change${dirty.size===1?'':'s'}`:'No unsaved changes');}
 function drawPages(){const q=$('search').value.toLowerCase();$('pages').replaceChildren();for(const p of pages.filter(p=>p.title.toLowerCase().includes(q))){const b=document.createElement('button');b.textContent=p.title;b.disabled=busy;b.setAttribute('aria-current',String(current?.id===p.id));b.onclick=()=>openPage(p);$('pages').append(b);}}
 function drawBlocks(){ $('blocks').replaceChildren();for(const row of rows){const div=document.createElement('div');div.className='block';div.style.marginLeft=Math.min(row.depth,4)*12+'px';
@@ -16,7 +19,7 @@ $('reload').onclick=()=>current&&openPage(current);$('copy').onclick=async()=>{c
 $('search').oninput=drawPages;
 $('signin').href=apiOrigin+'/api/login'+(external?'?console=1':'');
 $('reconnect').href=$('signin').href;
-$('signout').onclick=async()=>{if(busy)return;if(dirty.size&&!confirm('Discard unsaved changes and sign out?'))return;try{await api('logout',{});dirty.clear();sessionTicket=null;location.reload();}catch(e){status(e.message);}};
+$('signout').onclick=async()=>{if(busy)return;if(dirty.size&&!confirm('Discard unsaved changes and sign out?'))return;try{await api('logout',{});dirty.clear();sessionTicket=null;try{sessionStorage.removeItem('cc-notion-session');}catch{}location.reload();}catch(e){status(e.message);}};
 window.addEventListener('beforeunload',e=>{if(dirty.size){e.preventDefault();e.returnValue='';}});
 window.addEventListener('offline',()=>{if(current)status('Offline. Your unsaved draft remains in this window. Reconnect to save.');});
 (async()=>{try{await api('session');$('signout').hidden=false;$('connection').textContent='Loading your connected pages…';const data=await api('pages');pages=data.pages;$('search').disabled=false;drawPages();$('connection').textContent='Choose a page to begin.';if(pages.find(p=>!p.unavailable))await openPage(pages.find(p=>!p.unavailable));}catch(e){$('connection').textContent=e.message;$('signin').hidden=e.status!==401;if(new URLSearchParams(location.search).has('auth'))$('connection').textContent='Sign-in was not completed. Try connecting again.';}})();
