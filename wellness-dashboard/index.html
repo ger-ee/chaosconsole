@@ -171,44 +171,44 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
 
   <!-- ================= BODY COMPOSITION ================= -->
   <section class="sec" id="body">
-    <div class="sec-head"><div><div class="eyebrow">RENPHO bioimpedance · four scans · Mar 8 → Sep 1 2026</div><h2>Body composition</h2><p>The scale in Health Auto Export has been silent since April; these are the scans that actually happened. Waist-to-hip ratio is the primary recomposition metric — the rest is context.</p></div><div class="sec-meta">latest: Mon 1 Sep · 14:55</div></div>
+    <div class="sec-head"><div><div class="eyebrow">RENPHO bioimpedance · five scans · Mar 8 → Oct 1 2026</div><h2>Body composition</h2><p>The scale in Health Auto Export has been silent since April; these are the scans that actually happened. Waist-to-hip ratio is the primary recomposition metric — the rest is context.</p></div><div class="sec-meta">latest: Thu 1 Oct · 14:43</div></div>
     <div class="grid4" id="bodyKpis"></div>
     <div class="grid2" style="margin-top:12px">
       <div class="panel">
         <div class="kicker">Mass, split</div>
         <h3>Weight · fat mass · muscle mass</h3>
-        <p>Weight moved 3.6 lb in six months while fat mass fell 6.2 lb and muscle held. That is recomposition, not weight loss.</p>
+        <p>Since March: weight −3.0 lb, fat mass −4.0 lb, muscle +1.0 lb — still recomposition. October gave some back: fat mass +2.2 lb and muscle −1.6 lb against Sep 1.</p>
         <div class="chart-wrap"><canvas id="bodyChart"></canvas></div>
       </div>
       <div class="panel">
         <div class="kicker">Ratios</div>
         <h3>Body fat % · BMI · WHR</h3>
-        <p>Body fat 22.2 → 19.2%. BMI barely moved because muscle came back after July. WHR is the number to keep pushing under 0.85.</p>
+        <p>Body fat 22.2% in March, low of 19.2% on Sep 1, 20.4% on Oct 1. WHR read 0.81 — the first scan under the 0.85 target, but a 0.05 drop in a month while fat rose is more likely scale noise than a real waist change. Confirm it on the next scan.</p>
         <div class="chart-wrap"><canvas id="ratioChart"></canvas></div>
       </div>
     </div>
     <div class="grid2" style="margin-top:12px">
       <div class="panel">
         <div class="kicker">The scan sheet</div>
-        <h3>All four readings</h3>
+        <h3>All five readings</h3>
         <table class="tbl" id="scanTable"></table>
       </div>
       <div class="panel">
-        <div class="kicker">Segmental read · Sep 1</div>
+        <div class="kicker">Segmental read · Oct 1</div>
         <h3>Where the fat sits, where the muscle is</h3>
         <div class="gauge" style="margin-top:10px">
-          <svg viewBox="0 0 120 120" role="img" aria-label="WHR gauge at 0.86 on a 0.75 to 1.00 scale">
-            <circle cx="60" cy="60" r="48" fill="none" stroke="#1d2740" stroke-width="10"/>
-            <circle cx="60" cy="60" r="48" fill="none" stroke="#fb923c" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="168.9" transform="rotate(-90 60 60)"/>
-            <text x="60" y="56" text-anchor="middle" fill="#e5e9f0" font-family="IBM Plex Sans, sans-serif" font-size="22" font-weight="700">0.86</text>
-            <text x="60" y="74" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans, sans-serif" font-size="8" letter-spacing="1.5">WHR · Sep 1</text>
+          <svg viewBox="0 0 120 120" role="img" aria-label="WHR gauge at 0.81 on a 0.75 to 1.00 scale">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#1d2740" style="stroke:var(--line,#1d2740)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#fb923c" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="229.2" transform="rotate(-90 60 60)"/>
+            <text x="60" y="56" text-anchor="middle" fill="#e5e9f0" style="fill:var(--text)" font-family="IBM Plex Sans, sans-serif" font-size="22" font-weight="700">0.81</text>
+            <text x="60" y="74" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans, sans-serif" font-size="8" letter-spacing="1.5">WHR · Oct 1</text>
           </svg>
           <div>
-            <p style="margin:0"><b style="color:var(--text)">Trunk carries it.</b> Trunk fat 18.8 lb at 196% of standard (down from 22.0 lb / 230% in March). Arms 1.8 lb and legs 5.6 lb each — both "Standard".</p>
-            <p><b style="color:var(--text)">Muscle balance is even.</b> Arms 8.8 lb, legs 24.6 lb each, trunk 65.0 lb — every segment at or above standard. Skeletal muscle 85.2 lb, back to the April high after the July dip.</p>
+            <p style="margin:0"><b style="color:var(--text)">Trunk carries it.</b> Trunk fat 20.4 lb at 213% of standard (18.8 lb / 196% on Sep 1; 22.0 lb / 230% in March). Arms 2.0 lb each, "Standard"; legs 6.0 lb each, now flagged "High" at 160%.</p>
+            <p><b style="color:var(--text)">Muscle balance is even.</b> Arms 8.6 lb, legs 24.4 lb each, trunk 64.2 lb — every segment at or above standard. Skeletal muscle 84.0 lb, down 1.2 from Sep 1.</p>
           </div>
         </div>
-        <p class="note">Visceral fat 5 (was 7). Subcutaneous 13.8% (was 15.9). BMR 1,829 kcal. Metabolic age 34 against 35 actual. RENPHO's own composite: 84/100, the best of the four. Consumer BIA is noisy day to day — read the trend across scans, not any single one.</p>
+        <p class="note">Visceral fat 6 (5 on Sep 1, 7 in March). Subcutaneous 14.6% (13.8 on Sep 1). BMR 1,810 kcal. Metabolic age 34 against 35 actual. RENPHO's own composite: 82/100, down from 84. Consumer BIA is noisy day to day — read the trend across scans, not any single one.</p>
       </div>
     </div>
   </section>
@@ -263,9 +263,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
   </section>
 
   <footer class="foot">
-    <span>Chaos Console · Wellness Desk · Rev. Sep 30 2026 · feed live since Sep 23 · sleep through Sep 28, steps through Sep 24 (Aug 13 – Sep 22 not in the cache)</span>
+    <span>Chaos Console · Wellness Desk · Rev. Oct 17 2026 · steps through Oct 16, sleep through Oct 15 · gaps: Aug 13 – Sep 22, steps Sep 30 – Oct 2, sleep Sep 29 – Oct 6 · resting HR, HRV, SpO2 silent since June</span>
     <span id="footerMeta">Built from the shared health cache</span>
-    <span>refresh: <code>python3 data/health_loader.py --force</code></span>
+    <span>refresh: <code>python3 data/health_refresh.py</code></span>
   </footer>
 </div>
 
@@ -277,7 +277,8 @@ const SCANS = [
   { date:"2026-03-08", weight:187.8, fatMass:41.6, bf:22.2, muscle:136.2, smm:83.6, bone:9.8, protein:29.2, water:107.0, bmi:27.5, visceral:7, bmr:1801, ffm:146.0, subcut:15.9, smi:9.6, metAge:33, whr:0.91, score:80 },
   { date:"2026-04-16", weight:186.0, fatMass:37.0, bf:19.9, muscle:139.0, smm:85.4, bone:10.0, protein:29.8, water:109.2, bmi:27.2, visceral:5, bmr:1830, ffm:149.0, subcut:14.2, smi:9.8, metAge:33, whr:0.84, score:83 },
   { date:"2026-07-28", weight:181.8, fatMass:36.0, bf:19.8, muscle:136.0, smm:83.4, bone:9.8, protein:29.2, water:106.8, bmi:26.6, visceral:5, bmr:1797, ffm:145.8, subcut:14.2, smi:9.6, metAge:34, whr:0.88, score:82 },
-  { date:"2026-09-01", weight:184.2, fatMass:35.4, bf:19.2, muscle:138.8, smm:85.2, bone:10.0, protein:29.8, water:109.2, bmi:27.0, visceral:5, bmr:1829, ffm:148.8, subcut:13.8, smi:9.8, metAge:34, whr:0.86, score:84 }
+  { date:"2026-09-01", weight:184.2, fatMass:35.4, bf:19.2, muscle:138.8, smm:85.2, bone:10.0, protein:29.8, water:109.2, bmi:27.0, visceral:5, bmr:1829, ffm:148.8, subcut:13.8, smi:9.8, metAge:34, whr:0.86, score:84 },
+  { date:"2026-10-01", weight:184.8, fatMass:37.6, bf:20.4, muscle:137.2, smm:84.0, bone:10.0, protein:29.4, water:107.8, bmi:27.1, visceral:6, bmr:1810, ffm:147.0, subcut:14.6, smi:9.7, metAge:34, whr:0.81, score:82 }
 ];
 
 /* =====================================================================
@@ -335,7 +336,7 @@ function renderMeta(cache){
   document.getElementById("cacheAge").textContent=`cache built ${relTime(cache.generated)}`;
   const behind=Math.floor((Date.now()-new Date(s.date_range.max).getTime())/864e5);
   if(behind>14){const el=document.getElementById("staleBanner");el.style.display="block";
-    el.innerHTML=`<strong>Feed is ${behind} days behind.</strong> Newest reading in the cache: ${fmtDate(s.date_range.max)}. Health Auto Export's Daily automation and its AutoSync channel both stall when the app is not opened on the phone — open it, let the automations catch up (they write to iCloud), then run <code>python3 data/health_loader.py --force</code> and republish. The RENPHO scans below are independent of that feed.`}
+    el.innerHTML=`<strong>Feed is ${behind} days behind.</strong> Newest reading in the cache: ${fmtDate(s.date_range.max)}. Health Auto Export's Daily automation and its AutoSync channel both stall when the app is not opened on the phone — open it, let the automations catch up (they write to iCloud), then run <code>python3 data/health_refresh.py</code> and republish. The RENPHO scans below are independent of that feed.`}
 }
 function renderWeight(data,maxIso){
   const rows=dailyDedup(byMetric(data,"weight_body_mass")); if(!rows.length)return;
@@ -343,7 +344,7 @@ function renderWeight(data,maxIso){
   const old=rows.filter(r=>daysBetween(r.timestamp,latest.timestamp)>=14);
   if(old.length){const b=old[old.length-1], delta=latest.value-b.value, span=daysBetween(b.timestamp,latest.timestamp), el=document.getElementById("weightDelta");
     el.textContent=`${delta>0?"+":""}${delta.toFixed(1)} lb / ${span}d`; colorDelta(el,delta,"lower")}
-  document.getElementById("weightCtx").textContent=`Health feed · ${fmtDate(latest.timestamp)} · ${ageTxt(latest.timestamp)} — RENPHO says 184.2 on Sep 1`;
+  document.getElementById("weightCtx").textContent=`Health feed · ${fmtDate(latest.timestamp)} · ${ageTxt(latest.timestamp)} — RENPHO says ${SCANS[SCANS.length-1].weight.toFixed(1)} on ${fmtDate(SCANS[SCANS.length-1].date,{month:"short",day:"numeric"})}`;
   drawSpark("weightSpark",toSpark(rows,90),"--c-weight");
 }
 function renderRHR(data){
@@ -395,7 +396,7 @@ function renderSpO2(data){
 function renderBody(){
   const a=SCANS[0], p=SCANS[SCANS.length-2], z=SCANS[SCANS.length-1];
   const kpi=(k,v,unit,delta,inv,note)=>{const cls=!Number.isFinite(delta)?"":(inv?(delta<0?"pos":delta>0?"neg":""):(delta>0?"pos":delta<0?"neg":""));
-    return `<div class="kpi"><div class="k">${k}</div><div class="v">${v}<small>${unit}</small></div><div class="d ${cls}">${Number.isFinite(delta)?signed(delta,unit==="%"||unit===""?1:1)+" vs Jul 28":""}</div><div class="n">${note}</div></div>`};
+    return `<div class="kpi"><div class="k">${k}</div><div class="v">${v}<small>${unit}</small></div><div class="d ${cls}">${Number.isFinite(delta)?signed(delta,unit===""?2:1)+" vs "+fmtDate(p.date,{month:"short",day:"numeric"}):""}</div><div class="n">${note}</div></div>`};
   document.getElementById("bodyKpis").innerHTML=[
     kpi("Weight",z.weight.toFixed(1),"lb",z.weight-p.weight,true,`${signed(z.weight-a.weight)} lb since Mar 8`),
     kpi("Body fat",z.bf.toFixed(1),"%",z.bf-p.bf,true,`${signed(z.bf-a.bf)} pts since Mar · fat mass ${z.fatMass} lb`),
@@ -481,7 +482,7 @@ function renderOverview(daily,monthly,windows,stats){
     :`Across ${recent.count} tracked days ending ${fmtDate(recentRows[recentRows.length-1].date,{month:"short",day:"numeric"})}, the posture is driven by cardio and movement signals because no stage-resolved sleep landed in the window. Resting HR averaged ${fB(recent.rhr)} and HRV ${fMs(recent.hrv)}.${cardioNote}`;
   document.getElementById("scoreDelta").innerHTML=`<strong>${signed(delta,1)}</strong> points versus the full baseline. Resting HR ${signed(diff(recent.rhr,baseline.rhr),1)} bpm and HRV ${signed(diff(recent.hrv,baseline.hrv),1)} ms against baseline; sleep staging covers ${count(stats.sleepNights,"night")} in the archive.`;
   document.getElementById("summaryMeta").textContent=`${fmtDate(stats.minDate)} → ${fmtDate(stats.maxDate)} · ${count(stats.sleepNights,"stage-resolved night")}`;
-  document.getElementById("footerMeta").textContent=`Analysis through ${fmtDate(stats.maxDate)} · ${monthly.length} months · ${count(stats.sleepNights,"stage-resolved night")} · RENPHO through Sep 1 2026`;
+  document.getElementById("footerMeta").textContent=`Analysis through ${fmtDate(stats.maxDate)} · ${monthly.length} months · ${count(stats.sleepNights,"stage-resolved night")} · RENPHO through ${fmtDate(SCANS[SCANS.length-1].date)}`;
   const longer=recent.sleepCount>0&&baseline.sleepCount>0&&recent.sleepHours>baseline.sleepHours,worse=recent.rhr>baseline.rhr&&recent.hrv<baseline.hrv;
   const insight=longer&&worse?"Sleep volume is up lately, but the recovery markers have not caught up yet.":recent.score>=baseline.score?"The recent two-week block is holding ahead of baseline.":"The recent two-week block is running behind baseline on recovery quality.";
   document.getElementById("glanceGrid").innerHTML=`
