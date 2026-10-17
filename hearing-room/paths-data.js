@@ -1,11 +1,12 @@
 window.HearingPaths = {
   "intro": {
-    "text": "The protective-order hearing is recorded for October 28, twelve days out, now with a time on your own filing: 8:30 a.m. On October 14 counsel filed a witness list that names the husband. On October 16 the other side answered it with an emergency request: on Monday, October 19 at 8:30 a.m., they will ask Judge Davis for an order that no party may subpoena him. Counsel says he will appear and oppose. The same Monday carries the rental-case discovery deadline at 5 p.m. and the printed due date on invoice 39304. The civil reply letter is approved and renews the $35,000 proposal. No preparation meeting is booked; the October 7 questions are still unanswered; the number-transfer credential lapses Tuesday.",
+    "text": "The protective-order hearing is recorded for October 28, twelve days out, now with a time on your own filing: 8:30 a.m. On October 14 counsel filed a witness list that names the husband. On October 16 the other side answered it with an emergency request: on Monday, October 19 at 8:30 a.m., they will ask Judge Davis for an order that no party may subpoena him. By 5:07 p.m. counsel had a draft opposition in your inbox; you approved it at 5:57 p.m. with three suggestions, including asking the court to authorize service now if it will not decide outright. The declaration that goes with it has not reached you. The same Monday carries the rental-case discovery deadline at 5 p.m. and the printed due date on invoice 39304. The civil reply letter is approved; no preparation meeting is booked; the October 7 questions are still unanswered; the number-transfer credential lapses Tuesday.",
     "refs": [
       "C20",
       "C23",
+      "C24",
+      "C25",
       "C21",
-      "C22",
       "C15"
     ]
   },
@@ -13,7 +14,7 @@ window.HearingPaths = {
     {
       "track": "dv",
       "title": "Protective order · October 28, 8:30 a.m.",
-      "text": "Witness list filed October 14 (you, the petitioner, the husband). Monday, October 19, 8:30 a.m.: the petitioner’s emergency request to bar any subpoena of the husband; counsel will oppose. The proof of service needs an amended filing."
+      "text": "Witness list filed October 14 (you, the petitioner, the husband). Monday, October 19, 8:30 a.m.: the petitioner’s emergency request to bar any subpoena of the husband. Counsel’s draft opposition is approved; it asks for denial or, in the alternative, a hearing-only subpoena with neutral service. The declaration is still unseen."
     },
     {
       "track": "civil",
@@ -21,7 +22,7 @@ window.HearingPaths = {
       "text": "October 15 letter rejects their three defenses, demands a transaction-level accounting and renews the September 10 terms. You approved it October 16. Transmission unconfirmed; no court deadline exists."
     }
   ],
-  "cutoff": "Reviewed October 16, 2026, 11:00 a.m. Pacific. Latest items: the 9:57 a.m. ex parte notice and counsel’s 10:25 a.m. reply; counsel’s 9:51 a.m. message on the number transfer; the firm’s 9:18 a.m. promise of an amended proof of service. Your latest message: October 16, 8:04 a.m.",
+  "cutoff": "Reviewed October 16, 2026, 7:30 p.m. Pacific. Latest items: counsel’s 5:07 p.m. draft opposition to Monday’s ex parte request and your 5:57 p.m. reply approving it. Earlier today: the 9:57 a.m. ex parte notice, the 10:25 a.m. “appear and oppose” reply, counsel’s 9:51 a.m. message on the number transfer, and the firm’s promise of an amended proof of service.",
   "scope": "This page distinguishes the signed order, documented correspondence, party allegations, and assessments. Relevant Gmail since August 19 was reviewed through the evening of October 12; the October 9 invoice and the eight-page October 9 civil response were read in full; the TRO folder, selected earlier evidence and earlier billing records were reused from the October 7–9 reviews. No current docket, complete filed discovery application/declaration, oral-ruling transcript, complete original audio, issued subpoena/service proof, reconciled trust statement, or filed civil complaint was obtained. Missing from this review does not mean nonexistent. Private documents, personal identifiers, and detailed underlying allegations remain off-site. Legal references were checked October 9; some official pages were available only through indexed text, as noted in their source entries. Confirm case-specific procedure and legal choices with counsel.",
   "sources": {
     "C1": {
@@ -210,6 +211,16 @@ window.HearingPaths = {
       "kind": "case",
       "title": "October 16 ex parte notice: protective order for the husband",
       "body": "Email from the petitioner’s counsel to your counsel, October 16, 9:57 a.m. Pacific, copied to you by your counsel’s reply: notice that on October 19 at 8:30 a.m., Department 547, the petitioner will seek emergency orders for a protective order protecting the husband from being subpoenaed by any party to testify, and asks that the existing temporary orders remain in force. Your counsel replied 10:25 a.m. that he intends to appear and oppose. No moving papers, declaration or proposed order were attached to what reached you; the basis, the proposed scope, and whether you must attend are unconfirmed."
+    },
+    "C24": {
+      "kind": "case",
+      "title": "October 16 draft opposition to the ex parte request",
+      "body": "October 16, 5:07 p.m. Pacific: counsel forwards the 9:57 a.m. notice and attaches drafts of the opposition memorandum and a supporting declaration for review. Both attachments received were the memorandum; the declaration was not in what reached you. The draft (about twelve pages of text) argues the September 10 order expressly preserved presenting witnesses; that the husband’s knowledge is relevant because the petition names him as a protected person; Family Code section 217 and rule 5.113 on live testimony; that spousal testimonial privilege belongs to the witness and cannot be asserted in advance by the party (Evidence Code sections 970–971, 911(c), 973(b); Hand v. Superior Court); that confidential marital communications will not be sought; and that a trial subpoena served by a neutral process server with no direct contact is not a continuation of the alleged conduct. Conclusion: deny the blanket bar; in the alternative, permit a subpoena for attendance at the October 28 hearing only, neutral personal service, no deposition or documents, focused nonprivileged scope, privilege and section 352 objections reserved question by question. Drafted from the notice; the moving papers had not been received when it was written, and the memorandum describes the request as noticed, not as filed."
+    },
+    "C25": {
+      "kind": "case",
+      "title": "October 16 reply on the draft opposition",
+      "body": "October 16, 5:57 p.m. Pacific, copied to the litigation operations director: no objection to filing. Notes that both attachments were the memorandum and the declaration is unseen; suggests recording that the opposition was prepared without the moving papers; suggests making the husband’s testimony the central point (the only witness able to confirm whether any contact or disclosure occurred); and flags that if the court defers the question to the hearing, service cannot be completed in time, so asks that the court be invited to authorize service now with scope reserved for October 28. Availability offered all weekend. No reply located by the cutoff."
     }
   },
   "initialEvent": 10,
@@ -789,15 +800,16 @@ window.HearingPaths = {
     },
     {
       "date": "Oct 14–16",
-      "title": "Witness list; Monday ex parte",
-      "known": "Counsel filed the witness list October 14 naming you, the petitioner and the husband; its proof of service lists the wrong documents and an amended proof is promised. Counsel drafted a seven-page reply to the civil letter, which you approved October 16. On October 16 the petitioner noticed an emergency request for Monday, October 19, 8:30 a.m., for an order protecting the husband from any subpoena; counsel will appear and oppose.",
-      "unknown": "The moving papers and the order they will ask for; whether you should attend Monday; whether the amended proof and the civil letter have gone out; the meeting date, the October 7 answers, and the transfer account details, all still unanswered after October 14.",
+      "title": "Witness list; Monday ex parte; opposition drafted",
+      "known": "Counsel filed the witness list October 14 naming you, the petitioner and the husband; its proof of service lists the wrong documents and an amended proof is promised. Counsel drafted a seven-page reply to the civil letter, approved October 16. On October 16 the petitioner noticed an emergency request for Monday, October 19, 8:30 a.m., for an order protecting the husband from any subpoena; counsel said he would appear and oppose, and by 5:07 p.m. sent a draft opposition memorandum, which you approved at 5:57 p.m. with suggestions.",
+      "unknown": "The moving papers themselves (the opposition was written from the notice); the supporting declaration, which did not arrive; whether counsel adopts the request to authorize service now; whether you attend Monday; whether the amended proof and the civil letter have gone out; the meeting date, the October 7 answers and the transfer details.",
       "effect": "The witness question moves from a private decision to a court decision on Monday, nine days before the hearing. Whatever the judge does, the hearing itself is unaffected unless Monday’s order says otherwise. Monday also stacks the rental discovery deadline and the invoice due date on one calendar day.",
       "refs": [
         "C20",
         "C21",
         "C23",
-        "C19"
+        "C24",
+        "C25"
       ]
     }
   ],
@@ -958,12 +970,13 @@ window.HearingPaths = {
           ]
         },
         {
-          "title": "Witness list filed; civil reply drafted",
-          "text": "The witness list went in October 14, two days after counsel said it was the next step. A seven-page reply to the October 9 letter was drafted within six days and sent to you for consent. Counsel answered the Monday ex parte notice within half an hour.",
+          "title": "Witness list filed; civil reply and ex parte opposition drafted",
+          "text": "The witness list went in October 14. A seven-page reply to the October 9 letter was drafted within six days. The Monday ex parte notice was answered within half an hour and a twelve-page draft opposition was in your inbox seven hours later, with the alternative of a hearing-only subpoena already built in.",
           "refs": [
             "C20",
             "C21",
-            "C23"
+            "C23",
+            "C24"
           ]
         }
       ],
@@ -1028,7 +1041,7 @@ window.HearingPaths = {
         {
           "kind": "Open requests",
           "title": "Nine days of unanswered logistics",
-          "text": "Three meeting requests (October 7, 10, 14), the eleven questions, the billing estimate, the handset, and the billing-responsibility-transfer alternative have no answer in writing. The October 16 reply addresses only how a phone request should be framed.",
+          "text": "Three meeting requests (October 7, 10, 14), the eleven questions, the billing estimate, the handset, and the billing-responsibility-transfer alternative have no answer in writing. The October 16 messages address the phone-request framing and Monday’s opposition; the declaration meant to accompany the opposition did not arrive.",
           "refs": [
             "C4",
             "C16",
@@ -1122,11 +1135,12 @@ window.HearingPaths = {
   },
   "next": [
     {
-      "title": "Monday, 8:30 a.m.: know by Sunday what it is",
-      "text": "Ask counsel for the moving papers as soon as they arrive, whether you must attend, what he will argue, and what an order either way means for October 28. If the court bars the subpoena, the Jeffrey question closes without you deciding it.",
+      "title": "Monday, 8:30 a.m.: the three open pieces",
+      "text": "Ask for the declaration (both attachments were the memorandum), the moving papers once served, and whether you attend. Your 5:57 p.m. reply asked counsel to seek authorization to serve now if the court will not rule outright; confirm whether that goes into the filed version. Monday’s result decides the husband question before you do.",
       "refs": [
         "C23",
-        "C20"
+        "C24",
+        "C25"
       ]
     },
     {
@@ -1180,17 +1194,20 @@ window.HearingPaths = {
   ],
   "dates": [
     {
-      "title": "October 16 · ex parte notice served on counsel",
-      "text": "9:57 a.m. notice; counsel’s 10:25 a.m. reply that he will appear and oppose. One court day of notice before Monday.",
+      "title": "October 16 · ex parte noticed; opposition drafted",
+      "text": "9:57 a.m. notice; 10:25 a.m. “appear and oppose”; 5:07 p.m. draft opposition sent for review; 5:57 p.m. approved by you. One court day of notice before Monday.",
       "refs": [
-        "C23"
+        "C23",
+        "C24",
+        "C25"
       ]
     },
     {
       "title": "October 19, 8:30 a.m. · emergency request, Department 547",
-      "text": "Petitioner seeks an order protecting the husband from any subpoena and asks that the temporary orders stay in force. Not the hearing on the petition. Attendance requirement unconfirmed.",
+      "text": "Petitioner seeks an order protecting the husband from any subpoena and asks that the temporary orders stay in force. Counsel will oppose with the approved memorandum: deny, or in the alternative a hearing-only subpoena with neutral service. Not the hearing on the petition. Attendance requirement unconfirmed.",
       "refs": [
-        "C23"
+        "C23",
+        "C24"
       ]
     },
     {
@@ -1308,12 +1325,14 @@ window.HearingPaths = {
           "refs": [
             "C20",
             "C21",
-            "C23"
+            "C23",
+            "C24",
+            "C25"
           ],
           "items": [
             {
               "k": "s1",
-              "text": "Monday’s ex parte: the papers, whether you attend, the argument, and what each result means for the 28th"
+              "text": "Monday’s ex parte: the declaration (unseen), the moving papers once served, whether you attend, and whether the filed opposition asks the court to authorize service now"
             },
             {
               "k": "s2",
@@ -1527,10 +1546,12 @@ window.HearingPaths = {
         "date": "2026-10-16",
         "label": "16",
         "kind": "soft",
-        "title": "October 16 · ex parte notice",
-        "text": "Petitioner’s counsel gives notice of Monday’s emergency request; your counsel replies he will appear and oppose.",
+        "title": "October 16 · ex parte notice; opposition drafted",
+        "text": "Petitioner’s counsel gives notice of Monday’s emergency request; your counsel replies he will appear and oppose and sends a draft opposition the same evening, which you approve.",
         "refs": [
-          "C23"
+          "C23",
+          "C24",
+          "C25"
         ]
       },
       {
@@ -1596,12 +1617,13 @@ window.HearingPaths = {
         "state": "narrowing",
         "from": "2026-10-16",
         "to": "2026-10-19",
-        "what": "Counsel has said he will appear and oppose at 8:30 a.m. Monday. Between now and then: get the papers, decide whether you attend, and agree the position in writing.",
+        "what": "Draft opposition sent 5:07 p.m. and approved 5:57 p.m.: deny the blanket bar, or in the alternative a hearing-only subpoena with neutral service and no contact. Your reply asks counsel to seek authorization to serve now if the court defers to October 28.",
         "cost": "Fees for the appearance and any written opposition, not yet estimated. A loss closes the witness route; a win keeps it open but does not require you to use it.",
-        "answer": "Ask counsel what order he will propose instead — denial outright, or a narrowed scope that keeps a short, non-privileged examination available.",
+        "answer": "Whether the filed version includes the authorize-service-now request, and whether you attend.",
         "refs": [
           "C23",
-          "C20"
+          "C24",
+          "C25"
         ],
         "counters": [
           "t-quash"
@@ -2164,7 +2186,7 @@ window.HearingPaths = {
       "sub": "Department 547 · twelve days out",
       "note": "Everything on this map pulls on the hearing date. Branch colour is the state of the window: teal open, gold closing, rust a court date, grey closed."
     },
-    "caption": "What pulls on October 28, as of October 16. Select a node for the record behind it. Monday, October 19 is the hinge: a court date at 8:30 a.m., an invoice due, and the rental discovery deadline at 5 p.m.",
+    "caption": "What pulls on October 28, as of October 16, 7:30 p.m. Select a node for the record behind it. Monday, October 19 is the hinge: a court date at 8:30 a.m. with the opposition drafted and approved, an invoice due, and the rental discovery deadline at 5 p.m.",
     "branches": [
       {
         "label": "Monday, October 19",
@@ -2180,9 +2202,11 @@ window.HearingPaths = {
           {
             "label": "8:30 a.m. · ex parte on the husband’s subpoena, Dept 547",
             "tone": "court",
-            "note": "The petitioner asks for an order that no party may subpoena the husband and that the temporary orders stay in force. Counsel will appear and oppose. Papers and attendance unconfirmed.",
+            "note": "The petitioner asks for an order that no party may subpoena the husband and that the temporary orders stay in force. Counsel will appear with the approved opposition: deny the blanket bar, or allow a hearing-only subpoena with neutral service. Papers, declaration and attendance unconfirmed.",
             "refs": [
-              "C23"
+              "C23",
+              "C24",
+              "C25"
             ]
           },
           {
@@ -2208,7 +2232,8 @@ window.HearingPaths = {
         "note": "From a private hold to a court question in two days.",
         "refs": [
           "C20",
-          "C23"
+          "C23",
+          "C24"
         ],
         "href": "#witness",
         "hrefLabel": "Read the subpoena section",
@@ -2239,11 +2264,21 @@ window.HearingPaths = {
             ]
           },
           {
-            "label": "Counsel: “appear and oppose”",
+            "label": "Draft opposition approved 5:57 p.m. — deny, or hearing-only subpoena",
             "tone": "open",
-            "note": "Reply sent 10:25 a.m. The position he will take, and what order he would accept instead, are not in writing to you.",
+            "note": "Counsel’s memorandum: the September 10 order preserved witnesses; privilege belongs to the witness; neutral service, no contact, no documents. You approved it and asked that the court be invited to authorize service now. The declaration has not reached you.",
             "refs": [
-              "C23"
+              "C24",
+              "C25"
+            ]
+          },
+          {
+            "label": "Moving papers and declaration: not seen",
+            "tone": "risk",
+            "note": "The opposition was written from the notice alone. Nothing from the petitioner beyond the 9:57 a.m. email has reached you.",
+            "refs": [
+              "C23",
+              "C25"
             ]
           }
         ]
