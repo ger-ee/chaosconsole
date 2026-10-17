@@ -2,8 +2,8 @@
 
 The existing site is the app. `manifest.webmanifest` supplies one stable identity,
 root scope, home launch URL, name, icons and standalone display mode. Apple touch
-metadata is present on the landing page and every route. Icons are derived from
-the site's existing `favicon.svg`; no new brand mark was introduced.
+metadata is present on the landing page and every route. The active icons are the approved CC monogram (option 01, October 17, 2026).
+Versioned monogram-v2 PNGs preserve the previous icon files for recovery.
 
 `/install/` explains installation on Mac, iPhone and iPad. Browsers that expose an
 install prompt get a direct install button. Safari uses its native Add to Dock /
