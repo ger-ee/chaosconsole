@@ -9,6 +9,7 @@ let data=loadData();
   const coverFiles={"Monday's Mixtape":"mondays-mixtape-9eb942beec2c.jpg","Groove":"groove-6232257e6d6f.jpg","Guide to Indie":"guide-to-indie-e15bdbb083a7.jpg","Ancora":"ancora-8561b36a481c.jpg","Potpourri":"potpourri-2735f7b055be.jpg","Cloudbuster":"cloudbuster-b8b1d410b66d.jpg","Broken":"broken-b74f9e0cfda6.jpg","run":"run-6b615484f4eb.jpg","Oddities":"oddities-2f5461b0aaf2.jpg","Orpheus":"orpheus-5f274b4bb124.jpg","Afterglow":"afterglow-94890a649970.jpg","Thirst":"thirst-25eb4cd0e9db.jpg","Vertigo":"vertigo-03cca8e100e2.jpg","Masterpiece":"masterpiece-867e861f7ac3.jpg","Broadway":"broadway-35d4c6c972db.jpg"};
   const cover=name=>coverFiles[name]?'/playlist-tracker/covers/spotify/'+coverFiles[name]:'';
   const spotify=name=>SPOTIFY_URLS[name]||SPOTIFY_PROFILE;
+  let chartMode='years',gainRange=12;
   let featured=0,range=12,seriesName='all',historyChart,detailChart,detailName,toastTimer;
   function art(host,name,lazy=false){
     host.classList.add('pl-art');host.replaceChildren();
@@ -18,10 +19,14 @@ let data=loadData();
   function showFeatured(index,animate=false){
     const all=names();featured=(index+all.length)%all.length;const name=all[featured];
     $('#pl-feature-title').textContent=name;
-    $('#pl-feature-note').textContent=number(data.playlists[name][last()])+' followers in the '+data.months[last()]+' snapshot.';
+    $('#pl-feature-note').textContent='followers in the '+data.months[last()]+' snapshot';
+    const counts=data.playlists[name],yearIndex=data.months.findIndex(m=>monthLabelToValue(m)===monthLabelToValue(data.months[last()])-12);
+    $('#pl-feature-metrics').innerHTML='<strong>'+number(counts[last()])+'</strong><div>'+(yearIndex>=0?'<span>'+signed(counts[last()]-counts[yearIndex])+' vs '+esc(data.months[yearIndex])+'</span>':'')+'<span>'+signed(counts[last()]-counts[0])+' since '+esc(data.months[0])+'</span></div>';
+    $('.pl-feature-context').textContent='Featured · '+String(featured+1).padStart(2,'0')+' / '+all.length;
+    renderStrip();
     $('#pl-feature-position').textContent=String(featured+1).padStart(2,'0')+' / '+all.length;
     $('#pl-feature-listen').href=spotify(name);art($('#pl-feature-art'),name);
-    if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)$('#pl-feature-art').animate([{transform:'rotate(-4deg) translateX(20px)',opacity:.35},{transform:'rotate(-4deg)',opacity:1}],{duration:260,easing:'ease-out'});
+    if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)$('#pl-feature-art').animate([{transform:'translateX(12px)',opacity:.35},{transform:'translateX(0)',opacity:1}],{duration:260,easing:'ease-out'});
   }
   function drawCatalog(){
     const query=$('#pl-search').value.trim().toLowerCase(),sort=$('#pl-sort').value;
@@ -38,22 +43,22 @@ let data=loadData();
     $('#pl-collection-caption').textContent=names().length+' playlists. Collected by Gary.';
   }
   function values(name){return name==='all'?data.months.map((_,i)=>names().reduce((sum,n)=>sum+data.playlists[n][i],0)):data.playlists[name]}
-  function chart(canvas,labels,counts,compact=false){return new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'Followers',data:counts,borderColor:'#8c3647',backgroundColor:'#b8766b15',borderWidth:compact?2:2.5,fill:true,tension:.15,pointRadius:compact?1:2.5,pointHoverRadius:5,pointBackgroundColor:'#8c3647',pointBorderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,animation:false,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false},tooltip:{backgroundColor:'#3b1720',titleColor:'#fff1dd',bodyColor:'#fff1dd',padding:12,displayColors:false,callbacks:{label:item=>number(item.parsed.y)+' followers'}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{color:'#84666a',font:{family:'IBM Plex Sans',size:compact?9:11},maxRotation:0,maxTicksLimit:compact?4:8}},y:{beginAtZero:true,border:{display:false},grid:{color:'#3b172017'},ticks:{color:'#84666a',font:{family:'IBM Plex Sans',size:compact?9:11},maxTicksLimit:5,precision:0}}}}})}
+  function chart(canvas,labels,counts,compact=false){return new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'Followers',data:counts,borderColor:'#edbc42',backgroundColor:'transparent',borderWidth:compact?2:2.5,fill:false,tension:.15,pointRadius:compact?1:2.5,pointHoverRadius:5,pointBackgroundColor:'#edbc42',pointBorderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,animation:false,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false},tooltip:{backgroundColor:'#202020',titleColor:'#fff1dd',bodyColor:'#fff1dd',padding:12,displayColors:false,callbacks:{label:item=>number(item.parsed.y)+' followers'}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{color:'#aaa39a',font:{family:'IBM Plex Sans',size:compact?9:11},maxRotation:0,maxTicksLimit:compact?4:8}},y:{beginAtZero:true,border:{display:false},grid:{color:'#ffffff12'},ticks:{color:'#aaa39a',font:{family:'IBM Plex Sans',size:compact?9:11},maxTicksLimit:5,precision:0}}}}})}
   function renderHistory(){
-    const counts=values(seriesName),current=counts[last()],delta=current-(counts[last()-1]??current),first=counts.find(n=>n>0)||0,start=range==='all'?0:Math.max(0,data.months.length-range);
+    const counts=values(seriesName),current=counts[last()],yearIndex=data.months.findIndex(m=>monthLabelToValue(m)===monthLabelToValue(data.months[last()])-12),delta=yearIndex>=0?current-counts[yearIndex]:0,first=counts[0],start=range==='all'?0:Math.max(0,data.months.length-range);
     $('#pl-history-caption').textContent=data.months.length+' recorded snapshots. Source counts checked '+SNAPSHOT_UPDATED_AT+'.';
-    $('#pl-history-numbers').innerHTML=[['Followers',number(current)],['Since '+(data.months[last()-1]||data.months[0]),signed(delta)],['Since first recorded following',signed(current-first)]].map(([label,value])=>'<div><strong>'+value+'</strong><span>'+esc(label)+'</span></div>').join('');
-    historyChart?.destroy();historyChart=chart($('#pl-history-chart'),data.months.slice(start),counts.slice(start));
+    $('#pl-history-numbers').innerHTML=[['Followers',number(current)],[yearIndex>=0?'Since '+data.months[yearIndex]:'No year-earlier snapshot',yearIndex>=0?signed(delta):'—'],['Since '+data.months[0],signed(current-first)]].map(([label,value])=>'<div><strong>'+value+'</strong><span>'+esc(label)+'</span></div>').join('');
+    historyChart?.destroy();historyChart=chart($('#pl-history-chart'),data.months.slice(start),counts.slice(start));if(chartMode==='years')compareYears(counts);renderGainers();
     const rows=seriesName==='all'?names():[seriesName];
     $('#pl-table').innerHTML='<caption class="room-sr">Recorded follower counts for all available snapshots</caption><thead><tr><th scope="col">Playlist</th>'+data.months.map(m=>'<th scope="col">'+esc(m)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(name=>'<tr><th scope="row">'+esc(name)+'</th>'+data.playlists[name].map(n=>'<td>'+number(n)+'</td>').join('')+'</tr>').join('')+'</tbody>';
   }
   function switchView(view,focus=false){
-    $('#pl-collection').hidden=view!=='collection';$('#pl-history').hidden=view!=='history';
-    $$('.pl-tabs button').forEach(button=>{const active=button.dataset.view===view;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;if(focus&&active)button.focus()});
-    if(view==='history')renderHistory();
+    $('#pl-collection').hidden=false;$('#pl-history').hidden=false;
+    $$('.pl-tabs button').forEach(button=>{const active=button.dataset.view===view;button.setAttribute('aria-pressed',String(active));button.tabIndex=0;if(focus&&active)button.focus()});
+    if(view==='history')renderHistory();document.getElementById(view==='history'?'pl-history':'pl-collection').scrollIntoView({behavior:'instant',block:'start'});
     const url=new URL(location.href);if(view==='history')url.hash='history';else url.hash='';history.replaceState(null,'',url);
   }
-  function openHistory(name){seriesName=name;$('#pl-series').value=name;switchView('history');scrollTo({top:0,behavior:'instant'})}
+  function openHistory(name){seriesName=name;$('#pl-series').value=name;switchView('history')}
   function openDialog(dialog){dialog.showModal();document.body.style.overflow='hidden'}
   $$('.room-dialog').forEach(dialog=>{dialog.addEventListener('close',()=>{document.body.style.overflow=''});dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close()})});
   $$('[data-close]').forEach(button=>button.addEventListener('click',()=>document.getElementById(button.dataset.close).close()));
@@ -91,5 +96,26 @@ let data=loadData();
   $$('#pl-range button').forEach(button=>button.addEventListener('click',()=>{range=button.dataset.range==='all'?'all':Number(button.dataset.range);$$('#pl-range button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));renderHistory()}));
   $('#pl-detail-history').addEventListener('click',()=>{$('#pl-detail').close();openHistory(detailName)});
   $('#pl-add').addEventListener('click',openEntry);$('#pl-month').addEventListener('change',entryFields);$('#pl-export').addEventListener('click',exportCSV);
-  showFeatured(0);drawCatalog();if(location.hash==='#history')switchView('history');
+
+  function renderStrip(){
+    const host=$('#pl-strip');host.replaceChildren();names().forEach((name,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',String(i===featured));b.innerHTML='<small>'+String(i+1).padStart(2,'0')+'</small><span>'+esc(name)+'</span><b>'+number(data.playlists[name][last()])+'</b>';b.addEventListener('click',()=>showFeatured(i,true));host.append(b)});
+  }
+  function compareYears(counts){
+    const years=[...new Set(data.months.map(m=>Math.floor(monthLabelToValue(m)/12)))].sort((a,b)=>b-a),colors=['#edbc42','#eee7db','#716b62'];
+    historyChart.data.labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    historyChart.data.datasets=years.map((year,j)=>({label:String(year),data:Array.from({length:12},(_,month)=>{const i=data.months.findIndex(m=>monthLabelToValue(m)===year*12+month);return i<0?null:counts[i]}),borderColor:colors[j%3],borderWidth:j===0?2.5:1.5,pointRadius:j===0?3:0,pointBackgroundColor:'#121212',pointBorderColor:colors[j%3],pointBorderWidth:2,spanGaps:false,tension:0}));
+    historyChart.options.plugins.legend={display:true,position:'top',align:'end',labels:{color:'#eee7db',boxWidth:14,boxHeight:2,font:{size:11}}};historyChart.update();
+  }
+  function renderGainers(){
+    const target=monthLabelToValue(data.months[last()])-gainRange,idx=data.months.findIndex(m=>monthLabelToValue(m)===target),host=$('#pl-gain-grid');host.replaceChildren();
+    $('#pl-gain-note').textContent=idx<0?'No snapshot recorded for the comparison month.':('Compared with '+data.months[idx]+'.');if(idx<0)return;
+    const ranked=names().map(name=>({name,from:data.playlists[name][idx],to:data.playlists[name][last()]})).map(p=>({...p,delta:p.to-p.from})).sort((a,b)=>b.delta-a.delta).filter(p=>p.delta>0).slice(0,5);
+    if(!ranked.length){$('#pl-gain-note').textContent='No gains since '+data.months[idx]+'.';return}
+    ranked.forEach(p=>{const b=document.createElement('button');b.type='button';b.className='pl-gain-card';const image=document.createElement('div');art(image,p.name);const text=document.createElement('div');text.innerHTML='<strong>'+signed(p.delta)+'</strong><b>'+esc(p.name)+'</b><small>'+number(p.from)+' → '+number(p.to)+'</small>';b.append(image,text);b.addEventListener('click',()=>openDetail(p.name));host.append(b)});
+  }
+  $$('[data-mode]').forEach(b=>b.addEventListener('click',()=>{chartMode=b.dataset.mode;$$('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('#pl-range').hidden=chartMode==='years';renderHistory()}));
+  $$('[data-gain]').forEach(b=>b.addEventListener('click',()=>{gainRange=Number(b.dataset.gain);$$('[data-gain]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderGainers()}));
+  $('#pl-range').hidden=true;
+
+  showFeatured(0);drawCatalog();renderHistory();if(location.hash==='#history')switchView('history');
 })();
