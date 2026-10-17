@@ -1,0 +1,40 @@
+{
+  "id": "/",
+  "name": "ChaosConsole",
+  "short_name": "ChaosConsole",
+  "description": "A different space for each part of your world.",
+  "lang": "en-US",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#211018",
+  "theme_color": "#211018",
+  "icons": [
+    {
+      "src": "/shared/app/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/shared/app/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "The Ledger",
+      "url": "/the-ledger/"
+    },
+    {
+      "name": "Reading Atlas",
+      "url": "/readwise-highlights/"
+    },
+    {
+      "name": "Production Almanac",
+      "url": "/production-almanac/"
+    }
+  ]
+}
